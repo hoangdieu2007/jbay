@@ -19,9 +19,6 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    env:
-      MAVEN_OPTS: "-Xss4m"
-
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 25
@@ -29,7 +26,7 @@ jobs:
       with:
         java-version: '25'
         distribution: 'temurin'
-        cache: maven
+        #cache: maven
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
