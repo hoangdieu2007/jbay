@@ -19,6 +19,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      MAVEN_OPTS: "-Xss2m"
+
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 25
