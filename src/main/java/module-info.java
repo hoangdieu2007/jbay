@@ -10,6 +10,7 @@ module a88.jbay {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires annotations;
 
     opens a88.jbay to javafx.fxml;
     exports a88.jbay;
