@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class MainTUI {
     public static void main(String[] args) {
         System.out.println("ONLY FOR TESTING!!!");
-        System.out.println("-----------------JBAY_TUI------------------");
+        System.out.println("------------------JBAY_TUI-----------------");
         System.out.println("----------software infrastructure----------\n\n");
 
         Scanner sc = new Scanner(System.in);
@@ -20,7 +20,7 @@ public class MainTUI {
         opt = sc.nextInt();
         switch (opt) {
             case 1:
-                
+
                 break;
 
             case 2:

@@ -27,7 +27,7 @@ public abstract class User extends Entity {
         return this.password.equals(password);
     }
 
-    public void copyTo(User destination) {
+    public void copy(User destination) {
         this.username = destination.username;
         this.password = destination.password;
         this.type = destination.type;
@@ -45,8 +45,8 @@ public abstract class User extends Entity {
     public void login(String username, String password) {
         User user = UserSystem.getInstance().login(username, password);
         if (user != null) {
+            this.copy(user);
             System.out.println("Login successful");
-            user.copyTo(this);
         } else System.out.println("Login failed");
     }
 
