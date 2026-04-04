@@ -1,6 +1,6 @@
 package a88.jbay.model.entity.item;
 
-public class Item {
+public abstract class Item {
     protected String id;
     protected String name;
     protected String description;

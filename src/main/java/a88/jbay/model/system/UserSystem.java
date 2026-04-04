@@ -13,9 +13,12 @@ public class UserSystem {
         users = new HashMap<>();
     }
 
+    private static class  SingletonHolder {
+        private static final UserSystem INSTANCE = new UserSystem();
+    }
+
     public static UserSystem getInstance() {
-        if (instance == null) {instance = new UserSystem();}
-        return instance;
+        return UserSystem.SingletonHolder.INSTANCE;
     }
 
     public boolean addUser(User user) {
