@@ -15,11 +15,13 @@ public class AuctionSystem {
     private AuctionSystem() {
         auctions = new HashMap<>();
     }
+
+    public static class SingletonHolder {
+        private static final AuctionSystem INSTANCE = new AuctionSystem();
+    }
+
     public static AuctionSystem getInstance() {
-        if (instance == null) {
-            instance = new AuctionSystem();
-        }
-        return instance;
+        return SingletonHolder.INSTANCE;
     }
 
     public Auction createAuction(Item item, Seller seller, LocalDateTime start, LocalDateTime end) {
