@@ -14,7 +14,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         Stage loadingStage = new Stage();
-        Scene loadingScene = new FXMLLoader(Main.getResource("loading-view.fxml")).load();
+        Scene loadingScene = new FXMLLoader(getClass().getResource("loading-view.fxml")).load();
         loadingStage.setTitle("Loading...");
         loadingStage.setScene(loadingScene);
         loadingStage.show();
