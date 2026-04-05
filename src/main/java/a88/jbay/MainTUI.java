@@ -1,5 +1,7 @@
 package a88.jbay;
 
+import a88.jbay.model.entity.item.Item;
+
 import java.util.Scanner;
 
 public class MainTUI {
@@ -27,6 +29,20 @@ public class MainTUI {
                 break;
 
             case 3:
+                System.out.println("Choose operation: ");
+                System.out.println("1. Create Auction");
+                System.out.println("2. List Auctions");
+                System.out.println("3. Manage Auction");
+                opt = sc.nextInt();
+                if (opt == 1) {
+                    System.out.println("- Item Info -");
+                    System.out.print("Type: "); String type = sc.next();
+                    System.out.print("Name: "); String name = sc.next();
+                    System.out.print("Description: "); String description = sc.next();
+                    System.out.print("Init Price: "); double price = sc.nextDouble();
+                    Item item = Item.createItem(type, name, description, price);
+                }
+
                 break;
 
             case 4:
