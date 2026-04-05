@@ -1,4 +1,4 @@
-package a88.jbay;
+package a88.jbay.view;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
