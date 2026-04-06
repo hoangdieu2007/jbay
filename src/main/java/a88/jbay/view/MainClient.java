@@ -1,4 +1,4 @@
-package a88.jbay;
+package a88.jbay.view;
 
 import a88.jbay.model.system.AuctionSystem;
 import a88.jbay.model.system.UserSystem;
@@ -7,14 +7,18 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
-public class Main extends Application {
+public class MainClient extends Application {
     @Override
     public void start(Stage stage) throws IOException {
+
         Stage loadingStage = new Stage();
-        Scene loadingScene = new FXMLLoader(getClass().getResource("loading-view.fxml")).load();
+        loadingStage.initStyle(StageStyle.UNDECORATED);
+        FXMLLoader fxmlLoadingScreen = new FXMLLoader(MainClient.class.getResource("loading-view.fxml"));
+        Scene loadingScene = new Scene(fxmlLoadingScreen.load(), 289, 216);
         loadingStage.setTitle("Loading...");
         loadingStage.setScene(loadingScene);
         loadingStage.show();
@@ -37,9 +41,10 @@ public class Main extends Application {
             loadingStage.close();
 
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-                Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-                stage.setTitle("Hello!");
+                FXMLLoader fxmlLoader = new FXMLLoader(MainClient.class.getResource("client-ui/client-login-view.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+                stage.setResizable(false);
+                stage.setTitle("Login to jBay");
                 stage.setScene(scene);
                 stage.show();
             } catch (IOException exception) {
