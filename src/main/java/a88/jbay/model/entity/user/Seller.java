@@ -25,8 +25,8 @@ public class Seller extends User {
         this.items.remove(id);
     }
 
-    public void createAuction(Item item, LocalDateTime start, LocalDateTime end) {
-        Auction auction = AuctionSystem.getInstance().createAuction(item, this, start, end);
-        this.auctions.put(auction.getId(), auction);
+    public String createAuction(Item item, LocalDateTime start, LocalDateTime end) {
+        // sends message to server
+        return null;
     }
 }
