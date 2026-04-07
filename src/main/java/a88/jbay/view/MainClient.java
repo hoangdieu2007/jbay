@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -41,9 +42,10 @@ public class MainClient extends Application {
             loadingStage.close();
 
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(MainClient.class.getResource("client-ui/client-login-view.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(MainClient.class.getResource("client/client-login-register-view.fxml"));
                 Scene scene = new Scene(fxmlLoader.load(), 600, 400);
                 stage.setResizable(false);
+                stage.getIcons().add(new Image(MainClient.class.getResourceAsStream("/a88/jbay/image/logo-no-bg.png")));
                 stage.setTitle("Login to jBay");
                 stage.setScene(scene);
                 stage.show();

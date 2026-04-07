@@ -8,15 +8,17 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+// server app code
+// singleton auction system
+// containing logics for handling auction events
 public class AuctionSystem {
     private HashMap<String, Auction> auctions;
-    private static AuctionSystem instance;
 
     private AuctionSystem() {
         auctions = new HashMap<>();
     }
 
-    public static class SingletonHolder {
+    private static class SingletonHolder {
         private static final AuctionSystem INSTANCE = new AuctionSystem();
     }
 
@@ -24,16 +26,15 @@ public class AuctionSystem {
         return SingletonHolder.INSTANCE;
     }
 
-    public Auction createAuction(Item item, Seller seller, LocalDateTime start, LocalDateTime end) {
-        Auction auction = new Auction(item, seller, start, end);
-        this.auctions.put(auction.getId(), auction);
-        return auction;
+    public String createAuction(Item item, Seller seller, LocalDateTime start, LocalDateTime end) {
+        //auction dao connection
+
+        return null;
     }
 
-    public void endAuction(String id) {
-        Auction auction = auctions.get(id);
-        if (auction != null) {
-            auction.end();
-        }
+    public String endAuction(String id) {
+        //auctiondao connection
+
+        return null;
     }
 }

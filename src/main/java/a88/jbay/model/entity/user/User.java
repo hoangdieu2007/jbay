@@ -6,55 +6,41 @@ import a88.jbay.model.system.UserSystem;
 
 import java.util.Objects;
 
+// the user class, for CLIENT app
+// contain only username and session id, for security
+
 public abstract class User extends Entity {
     protected String type;
+    protected String sessionId;
     protected String username;
-    protected String password;
 
     public User() {
         super();
         this.id = UniqueID.genUID();
         this.type = "guest";
         this.username = "guest";
-        this.password = "guest";
+        this.sessionId = "guest";
     }
 
     public String getUsername() {
         return username;
     }
 
-    public boolean matchPassword(String password) {
-        return this.password.equals(password);
-    }
-
     public void copy(User destination) {
         this.username = destination.username;
-        this.password = destination.password;
+        this.sessionId = destination.sessionId;
         this.type = destination.type;
     }
 
-    public void register() {
-        if (!this.username.equals("guest")) {
-            boolean success = UserSystem.getInstance().addUser(this);
-            if (success) {
-                System.out.println("User registered successfully");
-            }
-        }
+    public void register(String username, String password) {
+        //client register
     }
 
     public void login(String username, String password) {
-        User user = UserSystem.getInstance().login(username, password);
-        if (user != null) {
-            this.copy(user);
-            System.out.println("Login successful");
-        } else System.out.println("Login failed");
+        //client login
     }
 
     public void logout() {
-        this.username = "guest";
-        this.password = "guest";
-        this.type = "guest";
-
-        System.out.println("Logout successful");
+        // client logout
     }
 }

@@ -8,7 +8,6 @@ public class Admin extends User {
         super();
         this.type = "admin";
         this.username = "admin";
-        this.password = "admin";
     }
 
     public void deleteUser(String id) {
