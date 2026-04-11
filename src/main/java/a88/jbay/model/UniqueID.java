@@ -1,5 +1,8 @@
 package a88.jbay.model;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class UniqueID {
     private static long curUID = 0;
     private static long curAID = 0;
@@ -23,5 +26,9 @@ public class UniqueID {
     public static String genBID() {
         curBID++;
         return "B" + Long.toString(curBID);
+    }
+
+    public static String genSID(int id, String username) {
+        return "S" + username + Integer.toString(id) + Integer.toString(LocalDateTime.now().toString().hashCode());
     }
 }

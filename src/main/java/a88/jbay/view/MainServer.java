@@ -12,10 +12,9 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
-public class MainClient extends Application {
+public class MainServer extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-
         Stage loadingStage = new Stage();
         loadingStage.initStyle(StageStyle.UNDECORATED);
         FXMLLoader fxmlLoadingScreen = new FXMLLoader(MainClient.class.getResource("loading-view.fxml"));

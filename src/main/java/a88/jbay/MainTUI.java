@@ -1,8 +1,7 @@
 package a88.jbay;
 
-import a88.jbay.controller.AuctionDAO;
-import a88.jbay.controller.UserDAO;
-import a88.jbay.model.entity.item.Item;
+import a88.jbay.controller.server.AuctionDAO;
+import a88.jbay.controller.server.UserDAO;
 
 import java.util.Scanner;
 
