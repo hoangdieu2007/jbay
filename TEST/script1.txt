@@ -1,6 +1,6 @@
 REG_ADMIN admin 123
-REQ a 1
-REQ b 2
+REG a 1
+REG b 2
 REG c 3
 
 LOGIN a 1
