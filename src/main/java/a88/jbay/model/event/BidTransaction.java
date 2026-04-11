@@ -1,5 +1,6 @@
 package a88.jbay.model.event;
 
+import a88.jbay.model.UniqueID;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
@@ -10,8 +11,8 @@ public class BidTransaction {
     private double amt;
     private LocalDateTime timestamp;
 
-    public BidTransaction(String id, String userID, double amt, LocalDateTime timestamp) {
-        this.id = id;
+    public BidTransaction(String userID, double amt, LocalDateTime timestamp) {
+        this.id = UniqueID.genBID();
         this.userID = userID;
         this.amt = amt;
         this.timestamp = timestamp;

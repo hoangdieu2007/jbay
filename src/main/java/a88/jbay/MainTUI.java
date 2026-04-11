@@ -1,5 +1,7 @@
 package a88.jbay;
 
+import a88.jbay.controller.AuctionDAO;
+import a88.jbay.controller.UserDAO;
 import a88.jbay.model.entity.item.Item;
 
 import java.util.Scanner;
@@ -13,44 +15,61 @@ public class MainTUI {
         Scanner sc = new Scanner(System.in);
         String inp; int opt;
 
-        System.out.println("Choose role :");
-        System.out.println("1. Admin");
-        System.out.println("2. Bidder");
-        System.out.println("3. Seller");
-        System.out.println("4. Exit");
+        UserDAO userDAO = new UserDAO();
+        AuctionDAO auctionDAO = new AuctionDAO();
 
-        opt = sc.nextInt();
-        switch (opt) {
-            case 1:
+        while (true) {
+            inp = sc.nextLine();
+            String[] inps = inp.split(" ");
 
-                break;
-
-            case 2:
-                break;
-
-            case 3:
-                System.out.println("Choose operation: ");
-                System.out.println("1. Create Auction");
-                System.out.println("2. List Auctions");
-                System.out.println("3. Manage Auction");
-                opt = sc.nextInt();
-                if (opt == 1) {
-                    System.out.println("- Item Info -");
-                    System.out.print("Type: "); String type = sc.next();
-                    System.out.print("Name: "); String name = sc.next();
-                    System.out.print("Description: "); String description = sc.next();
-                    System.out.print("Init Price: "); double price = sc.nextDouble();
-                    Item item = Item.createItem(type, name, description, price);
-                }
-
-                break;
-
-            case 4:
-                break;
-
-            default:
-                System.out.println("Invalid input");
-                break;
+            // defined commands, later will become the message form between server and client
+            switch (inps[0]) {
+                case "REG_ADMIN":
+                    //command: REG_ADMIN username password
+                    // expect: REG_ADMIN_SUCCESS [userid] / REG_ADMIN_FAIL
+                    break;
+                case "REG":
+                    userDAO.registerUser(inps[1], inps[2]);
+                    break;
+                case "LOGIN":
+                    userDAO.checkLogin(inps[1], inps[2]);
+                    break;
+                case "LOGOUT":
+                    //logout
+                    break;
+                case "BID":
+                    // bidding
+                    // command: BID userID auctionID amount
+                    // expect: BID_SUCCESS [new bid id] / BID_FAIL
+                    break;
+                case "SELL":
+                    // selling
+                    // command: SELL userID [item info] [start time] [end time]
+                    //expect: SELL_SUCCESS [new auction id] / SELL_FAIL
+                    // success means new auction on server database
+                    // item info: name, description, price
+                    break;
+                case "CLOSE":
+                    // only for admin or seller owning the auction
+                    // command: CLOSE userID auctionID
+                    // expect: CLOSE_SUCCESS / CLOSE_FAIL
+                    break;
+                case "UQ":
+                    //TESTING ONLY
+                    //user data query, returns server userid, username, password hash
+                    //command: UQ username [username] / UQ id [userid]
+                    //expect: UQ_RESPONSE [id] [username] [password hash]
+                    break;
+                case "AQ":
+                    //TESTING ONLY
+                    //auction data query, returns server auctionid, item info, starting price, seller username, bidder list, bid list
+                    // command: AQ auctionid
+                    // expect: AQ_RESPONSE [id] [massive load of data printing out]
+                    break;
+                default:
+                    System.out.println("Please enter a valid option");
+                    break;
+            }
         }
     }
 }

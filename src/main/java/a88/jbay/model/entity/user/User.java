@@ -2,6 +2,7 @@ package a88.jbay.model.entity.user;
 
 import a88.jbay.model.UniqueID;
 import a88.jbay.model.entity.Entity;
+import a88.jbay.model.event.Auction;
 import a88.jbay.model.system.UserSystem;
 
 import java.util.Objects;
@@ -22,25 +23,7 @@ public abstract class User extends Entity {
         this.sessionId = "guest";
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void copy(User destination) {
-        this.username = destination.username;
-        this.sessionId = destination.sessionId;
-        this.type = destination.type;
-    }
-
-    public void register(String username, String password) {
-        //client register
-    }
-
-    public void login(String username, String password) {
-        //client login
-    }
-
-    public void logout() {
-        // client logout
+    public void update(Auction auction) {
+        //update auction info
     }
 }
