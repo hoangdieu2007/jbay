@@ -7,8 +7,8 @@ import a88.jbay.model.event.auctionstate.AuctionState;
 import a88.jbay.model.event.auctionstate.OpeningState;
 
 import java.time.LocalDateTime;
-import java.util.Observer;
-import java.util.PriorityQueue;
+import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Auction implements Subject {
     private String id;
@@ -21,7 +21,8 @@ public class Auction implements Subject {
 
     //realtime
     private AuctionState auctionState;
-    private PriorityQueue<BidTransaction> bidPQ;
+    private List<BidTransaction> bidHistory;
+    private List<Observer> observers;
 
     public Auction(Item item, Seller seller, LocalDateTime startTime, LocalDateTime endTime) {
         this.id = UniqueID.genAID();
@@ -33,7 +34,8 @@ public class Auction implements Subject {
         this.endTime = endTime;
 
         this.auctionState = new OpeningState();
-        this.bidPQ = new PriorityQueue<>();
+        this.bidHistory = new CopyOnWriteArrayList<>();//sử dụng CopyOnWrite do danh sách này sẽ cho phép chỉnh sửa và xoá list cùng 1 lúc và không bị crash hệ thống
+        this.observers = new CopyOnWriteArrayList<>();
     }
 
     public String getId() {
@@ -47,22 +49,55 @@ public class Auction implements Subject {
     public void end() {
         this.auctionState.end();
     }
+    public void cancel() {this.auctionState.cancel();}
+
+    public AuctionState getAuctionState() {
+        return auctionState;
+    }
+
+    public void setAuctionState(AuctionState state) {
+        this.auctionState = state;
+    }
 
     public void registerObserver(Observer observer) {
-        //add observer
+        observers.add(observer);
+        System.out.println("Observer added successfully");
     }
 
     public void removeObserver(Observer observer) {
-        //remove observer
+        observers.remove(observer);
+        System.out.println("Observer removed successfully");
     }
 
     public void notifyObservers() {
-        //notify observers
+        for (Observer observer : observers) {
+            observer.update(this, currentPrice);
+        }
     }
 
-    public void placeBid(BidTransaction bidTransaction) {
-        // some logic stuff
-        this.auctionState.placeBid();
-        if (!this.bidPQ.isEmpty() && this.currentPrice < this.bidPQ.peek().getAmt()) this.currentPrice = this.bidPQ.poll().getAmt();
+    public synchronized void placeBid(BidTransaction bidTransaction) {
+        if (bidTransaction == null) {
+            System.out.println("ERROR: Please enter a bid!");
+            return;
+        }
+        boolean isuccess = false;
+        synchronized (this) {//Đảm bảo tính đa luồng khi muốn chạy qua đây cần có key của this
+            if (bidTransaction.getAmt() <= currentPrice) {
+                System.out.println("ERROR: Please enter a valid amount!");
+            }
+            else {
+                bidHistory.add(bidTransaction);
+                System.out.println("Bid updated successfully");
+                currentPrice = bidTransaction.getAmt();
+                isuccess = true;
+            }
+        }
+        if (isuccess == true) {//đảm bảo thoát vòng khoá rồi mới thực hiện code này nhằm tránh gây tắc nghẽn thời gian do lệnh notify có thể tốn thời gian
+            this.notifyObservers();
+        }
+    }
+
+    public BidTransaction getCurrentBestBid() {
+        return bidHistory.get(bidHistory.size() - 1);
     }
 }
