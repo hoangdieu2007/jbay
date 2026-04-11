@@ -38,4 +38,7 @@ public class BidTransaction {
         if (this.timestamp.isAfter(bidTransaction.timestamp)) return 1;
         return 1;
     }
+    public String toString() {
+        return "userID: "+userID+"/ Bid: "+amt+"/ Time place bid: "+timestamp;
+    }
 }

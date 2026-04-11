@@ -97,7 +97,7 @@ public class Auction implements Subject {
         }
     }
 
-    public BidTransaction getCurrentBestBid() {
-        return bidHistory.get(bidHistory.size() - 1);
+    public void getCurrentBestBid() {
+        System.out.println((bidHistory.get(bidHistory.size() - 1)).toString());
     }
 }
