@@ -29,4 +29,14 @@ public class Seller extends User {
         // sends message to server
         return null;
     }
+
+//    public void update(Auction auction) {
+//        auctions.put("??", auction);
+//        setChanged();
+//        notifyObservers(auction);
+//    }
+
+    public void setChanged() {}
+
+    public void notifyObservers() {}
 }

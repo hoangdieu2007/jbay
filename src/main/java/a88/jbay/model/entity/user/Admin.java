@@ -4,7 +4,7 @@ import a88.jbay.model.system.AuctionSystem;
 import a88.jbay.model.system.UserSystem;
 
 public class Admin extends User {
-    public Admin() {
+    public Admin()   {
         super();
         this.type = "admin";
         this.username = "admin";
@@ -16,5 +16,11 @@ public class Admin extends User {
 
     public void endAuction(String id) {
         AuctionSystem.getInstance().endAuction(id);
+    }
+
+    public void setChanged() {}
+
+    public void notifyObservers() {
+
     }
 }
