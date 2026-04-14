@@ -70,11 +70,10 @@ public class MainServerTUI {
                     client = server.accept();
                     System.out.println("Client connected...");
 
-                    executor.submit(new ClientHandler(client));
+                    executor.execute(new ClientHandler(client));
                 }
             });
 
-            executor.shutdown();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

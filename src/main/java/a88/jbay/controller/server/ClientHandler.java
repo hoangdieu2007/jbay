@@ -40,7 +40,7 @@ public class ClientHandler implements Runnable {
             case "REG":
                 //command: REG [username] [password]
                 //expect: REG_SUCCESS [userid] / REG_FAIL
-                response = userDAO.registerUser(args[0], args[1]);
+                response = userDAO.registerUser(args[1], args[2]);
 
                 //send to client
                 return response;
@@ -82,14 +82,15 @@ public class ClientHandler implements Runnable {
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true) //auto flush
         ) {
-            String cmd = in.readLine();
-            System.out.println("Received command: " + cmd);
+            String cmd;
+            while ((cmd = in.readLine()) != null) {
+                System.out.println("Received command: " + cmd);
 
-            System.out.println("Processing...");
-            String response = processCommand(cmd);
+                String response = processCommand(cmd);
 
-            System.out.println("Response: " + response);
-            out.println(cmd);
+                System.out.println("Response: " + response);
+                out.println(response);
+            }
         } catch (IOException e) {
             //replace with proper logging
             e.printStackTrace();
