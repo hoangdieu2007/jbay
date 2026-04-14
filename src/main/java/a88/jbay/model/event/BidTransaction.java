@@ -4,6 +4,7 @@ import a88.jbay.model.UniqueID;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class BidTransaction {
     private String id;
@@ -31,14 +32,14 @@ public class BidTransaction {
         return timestamp;
     }
 
-    public int compareTo(BidTransaction bidTransaction) {
-        if (this.amt < bidTransaction.amt) return -1;
-        if (this.amt > bidTransaction.amt) return 1;
-        if (this.timestamp.isBefore(bidTransaction.timestamp)) return -1;
-        if (this.timestamp.isAfter(bidTransaction.timestamp)) return 1;
-        return 1;
-    }
+    @Override
     public String toString() {
-        return "userID: "+userID+"/ Bid: "+amt+"/ Time place bid: "+timestamp;
+        // Tạo định dạng: Giờ:Phút:Giây Ngày/Tháng/Năm
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss dd/MM/yyyy");
+        String formattedTime = this.timestamp.format(formatter);
+
+        // Sử dụng String.format để căn lề:
+        return String.format("[ID: %-8s] | Người dùng: %-12s | Giá: %,12.2f $ | Thời gian: %s",
+                id, userID, amt, formattedTime);
     }
 }

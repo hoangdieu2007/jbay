@@ -45,9 +45,9 @@ public class Auction implements Subject {
         return item;
     }
 
-    public void start() {this.auctionState.start();}
+    public void start() {this.auctionState.start(this);}
     public void end() {
-        this.auctionState.end();
+        this.auctionState.end(this);
     }
     // public void cancel() {this.auctionState.cancel();}
 
@@ -79,6 +79,12 @@ public class Auction implements Subject {
         if (bidTransaction == null) {
             System.out.println("ERROR: Please enter a bid!");
             return;
+        }
+        try {
+            this.auctionState.placeBid(this, BidTransaction bidTransaction);
+        }
+        catch(IllegalStateException e) {
+            System.out.println(e.getMessage());
         }
         boolean isuccess = false;
         synchronized (this) {//Đảm bảo tính đa luồng khi muốn chạy qua đây cần có key của this
