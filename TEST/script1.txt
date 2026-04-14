@@ -1,0 +1,23 @@
+REG_ADMIN admin 123
+REG a 1
+REG b 2
+REG c 3
+
+LOGIN a 1
+SELL apple fruit 10 [start time] [end time]
+LOGOUT
+
+LOGIN b 1
+LOGIN b 2
+BID [userid] [auctionid] 15
+LOGOUT
+
+LOGIN c 3
+BID [userid] [auctionid] 12
+BID [userid] [auctionid] 17
+LOGOUT
+
+
+LOGIN admin 123
+CLOSE [userid] [auctionid]
+LOGOUT

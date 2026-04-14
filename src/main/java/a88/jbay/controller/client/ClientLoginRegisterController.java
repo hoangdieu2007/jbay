@@ -1,7 +1,6 @@
 package a88.jbay.controller.client;
 
-import a88.jbay.controller.DatabaseController;
-import a88.jbay.controller.UserDAO;
+import a88.jbay.controller.server.UserDAO;
 import a88.jbay.model.StringHash;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,14 +9,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 public class ClientLoginRegisterController {
     // the DAO that handles sql logic
-    private UserDAO userDAO = new UserDAO();
+    private UserDAO userDAO = UserDAO.getInstance();
 
     @FXML
     private Label loginLabel;
@@ -43,11 +37,7 @@ public class ClientLoginRegisterController {
         String password = StringHash.hash(passwordPasswordField.getText());
 
         if (!username.isBlank() && !password.isBlank()) {
-            if (userDAO.checkLogin(username, password)) {
-                // update the sessionid
-                loginLabel.setText("Login Successful");
-            }
-            else loginLabel.setText("Login Failed");
+            loginLabel.setText(userDAO.checkLogin(username, password));
         } else loginLabel.setText("Username or password is empty");
     }
 
@@ -57,11 +47,7 @@ public class ClientLoginRegisterController {
         String password = StringHash.hash(passwordPasswordFieldRegister.getText());
 
         if (!username.isBlank() && !password.isBlank()) {
-            if (userDAO.registerUser(username, password))
-                registerLabel.setText("Register Successful");
-            else {
-                registerLabel.setText("Register Failed");
-            }
+            registerLabel.setText(userDAO.registerUser(username, password));
         } else registerLabel.setText("Username or password is empty");
     }
 }

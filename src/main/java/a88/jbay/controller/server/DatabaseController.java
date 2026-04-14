@@ -1,4 +1,4 @@
-package a88.jbay.controller;
+package a88.jbay.controller.server;
 
 import java.sql.*;
 
