@@ -81,7 +81,7 @@ public class Auction implements Subject {
             return;
         }
         try {
-            this.auctionState.placeBid(this, BidTransaction bidTransaction);
+            this.auctionState.placeBid(this,bidTransaction);
         }
         catch(IllegalStateException e) {
             System.out.println(e.getMessage());
