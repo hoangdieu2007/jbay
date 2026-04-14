@@ -49,7 +49,7 @@ public class UserDAO {
 
         String checkQuery = "SELECT * FROM users WHERE username = '" + username + "'";
 
-        String query = "INSERT INTO users (username, password) VALUES ('" + username + "', '" + password + "')";
+        String query = "INSERT INTO users (username, password, role) VALUES ('" + username + "', '" + password + "', 'user')";
 
         try {
             Statement statement = connection.createStatement();

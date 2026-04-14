@@ -5,11 +5,11 @@ import a88.jbay.controller.server.UserDAO;
 
 import java.util.Scanner;
 
-public class MainTUI {
+public class MainClientTUI {
     public static void main(String[] args) {
         System.out.println("ONLY FOR TESTING!!!");
-        System.out.println("------------------JBAY_TUI-----------------");
-        System.out.println("----------software infrastructure----------\n\n");
+        System.out.println("------------------JBAY_CLIENT_TUI-----------------");
+        System.out.println("--------------software infrastructure-------------\n\n");
 
         Scanner sc = new Scanner(System.in);
         String inp; int opt;
@@ -23,14 +23,14 @@ public class MainTUI {
 
             // defined commands, later will become the message form between server and client
             switch (inps[0]) {
-                case "REG_ADMIN":
-                    //command: REG_ADMIN username password
-                    // expect: REG_ADMIN_SUCCESS [userid] / REG_ADMIN_FAIL
-                    break;
                 case "REG":
+                    //command: REG username password
+                    //expect: REG_SUCCESS [userid] / REG_FAIL
                     userDAO.registerUser(inps[1], inps[2]);
                     break;
                 case "LOGIN":
+                    //command: LOGIN username password
+                    //expect: LOGIN_SUCCESS [sessionid] / LOGIN_FAIL
                     userDAO.checkLogin(inps[1], inps[2]);
                     break;
                 case "LOGOUT":
@@ -52,18 +52,6 @@ public class MainTUI {
                     // only for admin or seller owning the auction
                     // command: CLOSE userID auctionID
                     // expect: CLOSE_SUCCESS / CLOSE_FAIL
-                    break;
-                case "UQ":
-                    //TESTING ONLY
-                    //user data query, returns server userid, username, password hash
-                    //command: UQ username [username] / UQ id [userid]
-                    //expect: UQ_RESPONSE [id] [username] [password hash]
-                    break;
-                case "AQ":
-                    //TESTING ONLY
-                    //auction data query, returns server auctionid, item info, starting price, seller username, bidder list, bid list
-                    // command: AQ auctionid
-                    // expect: AQ_RESPONSE [id] [massive load of data printing out]
                     break;
                 default:
                     System.out.println("Please enter a valid option");
