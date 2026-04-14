@@ -5,7 +5,10 @@ import java.util.Map;
 public class ElectronicFactory implements ItemFactory{
 
     @Override
-    public Item creatFromInput(Map<String, String> userInput) {
+    public Item creatFromInput(Map<String, String> userInput) throws FactoryMismatchException {
+        if(!userInput.containsKey("Brand")){
+            throw new FactoryMismatchException("Wrong factory - This is Electronic!");
+        } // catch() xu ly sau
         String name = userInput.get("Name");
         String initPrice = userInput.get("Price");
         String brand  = userInput.get("Brand");
