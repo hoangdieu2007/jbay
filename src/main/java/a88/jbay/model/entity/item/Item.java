@@ -15,19 +15,6 @@ public abstract class Item {
         this.initPrice = initPrice;
     }
 
-    public static Item createItem(String type, String name, String description, double initPrice) {
-        switch (type.toLowerCase()) {
-            case "electronic":
-                return new Electronic(name, description, initPrice);
-            case "art":
-                return new Art(name, description, initPrice);
-            case "vehicle":
-                return new Vehicle(name, description, initPrice);
-            default:
-                return new GenericItem(name, description, initPrice);
-        }
-    }
-
     public String getId() {
         return id;
     }
