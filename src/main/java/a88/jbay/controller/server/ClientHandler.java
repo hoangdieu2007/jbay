@@ -14,11 +14,14 @@ public class ClientHandler implements Runnable {
         this.socket = socket;
     }
 
-    private void processCommand(String command) {
+    private String processCommand(String command) {
         String[] args = command.split(" ");
         String response = "";
 
         switch (args[0]) {
+            case "CLIENT_TEST":
+                return "processing client request...";
+
             //userdao process
             case "LOGIN":
                 //command: LOGIN [username] [password]
@@ -26,25 +29,21 @@ public class ClientHandler implements Runnable {
                 response =  userDAO.checkLogin(args[1], args[2]);
 
                 //send to client
-                System.out.println(response);
-
-                break;
+                return response;
             case "LOGOUT":
                 //command: LOGOUT [sessionid]
                 //expect: LOGOUT_SUCCESS / LOGOUT_FAIL
                 response = userDAO.logOut(args[1]);
 
                 //send to client
-                System.out.println(response);
-                break;
+                return response;
             case "REG":
                 //command: REG [username] [password]
                 //expect: REG_SUCCESS [userid] / REG_FAIL
                 response = userDAO.registerUser(args[0], args[1]);
 
                 //send to client
-                System.out.println(response);
-                break;
+                return response;
             case "DEL":
                 //command: DEL [userid]
                 //expect: DEL_SUCCESS / DEL_FAIL
@@ -60,6 +59,7 @@ public class ClientHandler implements Runnable {
                 break;
             case "SELL":
                 //command: SELL [item info] [seller] [start_time] [end_time]
+                //expect: SELL_SUCCESS [auctionid] / SELL_FAIL
 
                 break;
             case "CLOSE":
@@ -73,6 +73,8 @@ public class ClientHandler implements Runnable {
                 System.out.println("Invalid command");
                 break;
         }
+
+        return "UNDEFINED";
     }
 
     private void handleClient(Socket socket) {
@@ -81,7 +83,13 @@ public class ClientHandler implements Runnable {
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true) //auto flush
         ) {
             String cmd = in.readLine();
-            this.processCommand(cmd);
+            System.out.println("Received command: " + cmd);
+
+            System.out.println("Processing...");
+            String response = processCommand(cmd);
+
+            System.out.println("Response: " + response);
+            out.println(cmd);
         } catch (IOException e) {
             //replace with proper logging
             e.printStackTrace();

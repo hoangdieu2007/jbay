@@ -49,7 +49,7 @@ public class Auction implements Subject {
     public void end() {
         this.auctionState.end();
     }
-    public void cancel() {this.auctionState.cancel();}
+    // public void cancel() {this.auctionState.cancel();}
 
     public AuctionState getAuctionState() {
         return auctionState;
@@ -70,9 +70,9 @@ public class Auction implements Subject {
     }
 
     public void notifyObservers() {
-        for (Observer observer : observers) {
-            observer.update(this, currentPrice);
-        }
+//        for (Observer observer : observers) {
+//            observer.update(this);
+//        }
     }
 
     public synchronized void placeBid(BidTransaction bidTransaction) {

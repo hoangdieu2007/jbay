@@ -19,14 +19,21 @@ public class MainServerTUI {
         try (ExecutorService executor = Executors.newFixedThreadPool(20);) {
             //for server interface
             executor.submit(() -> {
+                System.out.println("Server CLI starting...");
+
                 Scanner sc = new Scanner(System.in);
                 String inp; int opt;
 
                 while (true) {
                     inp = sc.nextLine();
+                    String[] inps = inp.split(" ");
 
-                    switch (inp) {
+                    switch (inps[0]) {
+                        case "CLI_TEST":
+                            System.out.println("Running");
+                            break;
                         case "REG_ADMIN":
+                            System.out.println("register admin...");
                             //command: REG_ADMIN username password
                             //expect: REG_ADMIN_SUCCESS / REG_ADMIN_FAIL
                             break;
@@ -55,10 +62,13 @@ public class MainServerTUI {
 
             //for client handling
             executor.submit(() -> {
+                System.out.println("Client handler starting...");
+
                 ServerSocket server = new ServerSocket(1234);
                 Socket client = null;
                 while (true) {
                     client = server.accept();
+                    System.out.println("Client connected...");
 
                     executor.submit(new ClientHandler(client));
                 }
@@ -68,7 +78,7 @@ public class MainServerTUI {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            System.out.println("SERVER TERMINATED");
+            System.out.println("\n\nSERVER TERMINATED");
         }
     }
 }

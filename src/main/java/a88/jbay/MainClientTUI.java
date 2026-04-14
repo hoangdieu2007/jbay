@@ -28,8 +28,12 @@ public class MainClientTUI {
             while(true){
                 inp = sc.nextLine();
 
+                System.out.println("Sending request to server: " + inp);
                 out.println(inp);
+
+                System.out.println("Waiting for server response...");
                 String response = in.readLine();
+
                 System.out.println(response);
             }
         } catch (IOException e) {
