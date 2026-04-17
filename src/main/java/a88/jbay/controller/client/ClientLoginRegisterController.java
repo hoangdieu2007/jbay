@@ -34,7 +34,7 @@ public class ClientLoginRegisterController {
     @FXML
     public void onClickLoginButton(ActionEvent event) {
         String username = usernameTextField.getText();
-        String password = StringHash.hash(passwordPasswordField.getText());
+        String password = passwordPasswordField.getText();
 
         if (!username.isBlank() && !password.isBlank()) {
             loginLabel.setText(userDAO.checkLogin(username, password));
@@ -44,7 +44,7 @@ public class ClientLoginRegisterController {
     @FXML
     public void onClickRegisterButton(ActionEvent event) {
         String username = usernameTextFieldRegister.getText();
-        String password = StringHash.hash(passwordPasswordFieldRegister.getText());
+        String password = passwordPasswordField.getText();
 
         if (!username.isBlank() && !password.isBlank()) {
             registerLabel.setText(userDAO.registerUser(username, password));
