@@ -17,7 +17,7 @@ public class MainServerTUI {
         System.out.println("------------------JBAY_SERVER_TUI-----------------");
         System.out.println("--------------software infrastructure-------------\n\n");
 
-        ExecutorService executor = Executors.newFixedThreadPool(20);
+        ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
         try {
 
             //for server interface
@@ -29,7 +29,7 @@ public class MainServerTUI {
 
                 while (true) {
                     inp = sc.nextLine();
-                    String[] inps = inp.split(" ");
+                    String[] inps = inp.split("\\|");
 
                     switch (inps[0]) {
                         case "CLI_TEST":
