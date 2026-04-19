@@ -4,7 +4,7 @@ import java.util.Map;
 
 public class VehicleFactory implements ItemFactory{
     @Override
-    public Item creatFromInput(Map<String, String> userInput) throws FactoryMismatchException {
+    public Item createFromInput(Map<String, String> userInput) throws FactoryMismatchException {
         if (!userInput.containsKey("Mileage")){
             throw new FactoryMismatchException("Wrong factory - This is Vehicle");
         } //catch() xu ly sau
