@@ -2,21 +2,26 @@ package a88.jbay.model.entity.user;
 
 import a88.jbay.model.entity.item.Item;
 import a88.jbay.model.event.Auction;
-import a88.jbay.model.event.BidTransaction;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 
 public class Bidder extends User {
     HashMap<String, Item> bids;
-    HashMap<String, Auction> auctions;
+    HashMap<String, Auction> activeAuctions;
 
-    public Bidder() {
-        bids = new HashMap<>();
-        auctions = new HashMap<>();
+    public void placeBid(Auction auction, double amount) {
+        //send placeBid request to Auction
     }
 
-    public void placeBid(Auction auction, double price) {
-        auction.placeBid(new BidTransaction(this.id, price, LocalDateTime.now()));
+    public void joinAuctionById(long id) {
+        //change auction participation state to True in activeAuctions
     }
+
+    public void leaveAuctionById(long id){
+        //change auction participation state to False in activeAuctions
+    }
+
+    public void setChanged() {}
+
+    public void notifyObservers() {}
 }

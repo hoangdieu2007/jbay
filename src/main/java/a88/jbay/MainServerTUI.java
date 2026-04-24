@@ -4,6 +4,7 @@ import a88.jbay.controller.server.ClientHandler;
 import com.almasb.fxgl.net.Server;
 import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
 
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
@@ -16,9 +17,11 @@ public class MainServerTUI {
         System.out.println("------------------JBAY_SERVER_TUI-----------------");
         System.out.println("--------------software infrastructure-------------\n\n");
 
-        try (ExecutorService executor = Executors.newFixedThreadPool(20);) {
+        ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
+        try {
+
             //for server interface
-            executor.submit(() -> {
+            Thread serverTUI = new Thread(() -> {
                 System.out.println("Server CLI starting...");
 
                 Scanner sc = new Scanner(System.in);
@@ -26,7 +29,7 @@ public class MainServerTUI {
 
                 while (true) {
                     inp = sc.nextLine();
-                    String[] inps = inp.split(" ");
+                    String[] inps = inp.split("\\|");
 
                     switch (inps[0]) {
                         case "CLI_TEST":
@@ -61,18 +64,27 @@ public class MainServerTUI {
             });
 
             //for client handling
-            executor.submit(() -> {
+            Thread clientHandler = new Thread(() -> {
                 System.out.println("Client handler starting...");
 
-                ServerSocket server = new ServerSocket(1234);
-                Socket client = null;
-                while (true) {
-                    client = server.accept();
-                    System.out.println("Client connected...");
+                try {
+                    ServerSocket server = new ServerSocket(1234);
+                    Socket client = null;
+                    while (true) {
+                        client = server.accept();
+                        System.out.println("Client connected...");
 
-                    executor.execute(new ClientHandler(client));
+                        executor.submit(new ClientHandler(client));
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             });
+
+            serverTUI.start();
+            clientHandler.start();
+            serverTUI.join();
+            clientHandler.join();
 
         } catch (Exception e) {
             e.printStackTrace();

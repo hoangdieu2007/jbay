@@ -5,12 +5,14 @@ import a88.jbay.model.entity.item.Item;
 import a88.jbay.model.entity.user.Seller;
 import a88.jbay.model.event.auctionstate.AuctionState;
 import a88.jbay.model.event.auctionstate.OpeningState;
+import a88.jbay.model.Subject;
+import a88.jbay.model.Observer;
 
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class Auction implements Subject {
+public class Auction {
     private String id;
     private Item item;
     private Seller seller;

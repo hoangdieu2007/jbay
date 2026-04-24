@@ -2,6 +2,7 @@ package a88.jbay;
 
 import a88.jbay.controller.server.AuctionDAO;
 import a88.jbay.controller.server.UserDAO;
+import a88.jbay.model.entity.user.User;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,11 +18,19 @@ public class MainClientTUI {
         System.out.println("------------------JBAY_CLIENT_TUI-----------------");
         System.out.println("--------------software infrastructure-------------\n\n");
 
+        //initialize
+
+
         Scanner sc = new Scanner(System.in);
         String inp; int opt;
 
+        System.out.println("Enter host:");
+        String host = sc.nextLine();
+        System.out.println("Enter port:");
+        int port = sc.nextInt();
+
         try (
-                Socket socket = new Socket("localhost", 1234);
+                Socket socket = new Socket(host, port);
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true)
                 ) {

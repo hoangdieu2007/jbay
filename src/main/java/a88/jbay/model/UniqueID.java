@@ -29,6 +29,6 @@ public class UniqueID {
     }
 
     public static String genSID(int id, String username) {
-        return "S" + username + Integer.toString(id) + Integer.toString(LocalDateTime.now().toString().hashCode());
+        return "S" + Integer.toString(LocalDateTime.now().toString().hashCode()) + Integer.toString(id) + username;
     }
 }

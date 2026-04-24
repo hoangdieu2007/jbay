@@ -56,10 +56,14 @@ public class ClientHandler implements Runnable {
                 //command: BID [userid] [auctionid] [amt]
                 //expect: BID_SUCCESS [bidid] / BID_FAIL
 
+
+
                 break;
             case "SELL":
-                //command: SELL [item info] [seller] [start_time] [end_time]
+                //command: SELL [item info] [seller sessionid] [start_time] [end_time]
                 //expect: SELL_SUCCESS [auctionid] / SELL_FAIL
+
+
 
                 break;
             case "CLOSE":

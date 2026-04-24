@@ -1,5 +1,6 @@
 package a88.jbay.controller.server;
 
+import a88.jbay.model.StringHash;
 import a88.jbay.model.UniqueID;
 
 import java.sql.Connection;
@@ -20,8 +21,9 @@ public class UserDAO {
     }
 
     public String checkLogin(String username, String password) {
-        DatabaseController databaseController = new DatabaseController();
+        DatabaseController databaseController = new  DatabaseController();
         Connection connection = databaseController.getConnection();
+        password = StringHash.hash(password);
 
         String query = "SELECT * FROM users WHERE username = '" + username +"' AND password = '" + password + "'";
 
@@ -46,6 +48,7 @@ public class UserDAO {
     public String registerUser(String username, String password) {
         DatabaseController databaseController = new DatabaseController();
         Connection connection = databaseController.getConnection();
+        password = StringHash.hash(password);
 
         String checkQuery = "SELECT * FROM users WHERE username = '" + username + "'";
 
