@@ -7,13 +7,13 @@ import a88.jbay.model.system.AuctionSystem;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
+//deprecated class
 public class Seller extends User {
     HashMap<String, Item> items;
     HashMap<String, Auction> auctions;
 
     public Seller() {
         super();
-        this.type = "seller";
         items = new HashMap<>();
     }
 

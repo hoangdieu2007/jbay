@@ -44,7 +44,7 @@ public class ClientLoginRegisterController {
     @FXML
     public void onClickRegisterButton(ActionEvent event) {
         String username = usernameTextFieldRegister.getText();
-        String password = passwordPasswordField.getText();
+        String password = passwordPasswordFieldRegister.getText();
 
         if (!username.isBlank() && !password.isBlank()) {
             registerLabel.setText(userDAO.registerUser(username, password));

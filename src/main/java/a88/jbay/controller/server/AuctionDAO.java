@@ -23,9 +23,10 @@ public class AuctionDAO {
         DatabaseController databaseController = new DatabaseController();
         Connection connection = databaseController.getConnection();
 
+
+
         return null;
     }
 
     // bid
-
 }

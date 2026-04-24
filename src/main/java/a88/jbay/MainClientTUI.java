@@ -19,7 +19,7 @@ public class MainClientTUI {
         System.out.println("--------------software infrastructure-------------\n\n");
 
         //initialize
-
+        User user = new User();
 
         Scanner sc = new Scanner(System.in);
         String inp; int opt;

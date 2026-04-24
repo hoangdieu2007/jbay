@@ -42,4 +42,17 @@ public class BidTransaction {
         return String.format("[ID: %-8s] | Người dùng: %-12s | Giá: %,12.2f $ | Thời gian: %s",
                 id, userID, amt, formattedTime);
     }
+
+    public int compareTo(BidTransaction other) {
+        if  (this.amt < other.amt) {
+            return -1;
+        }
+        else if (this.amt > other.amt) {
+            return 1;
+        }
+        else if (this.timestamp.isBefore(other.timestamp)) {
+            return 1;
+        }
+        return -1;
+    }
 }

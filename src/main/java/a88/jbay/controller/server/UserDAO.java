@@ -3,10 +3,7 @@ package a88.jbay.controller.server;
 import a88.jbay.model.StringHash;
 import a88.jbay.model.UniqueID;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 // server app code, for user sql data management
 public class UserDAO {
@@ -25,15 +22,33 @@ public class UserDAO {
         Connection connection = databaseController.getConnection();
         password = StringHash.hash(password);
 
-        String query = "SELECT * FROM users WHERE username = '" + username +"' AND password = '" + password + "'";
-
         try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
+            String query = "SELECT * FROM users WHERE username = ? AND password = ?";
+            PreparedStatement pstmt = connection.prepareStatement(query);
 
-            if  (resultSet.next()) {
-                return "LOGIN_SUCCESS " + UniqueID.genSID(resultSet.getInt("id"),  resultSet.getString("username"));
-            } else return "LOGIN_FAIL";
+            pstmt.setString(1, username);
+            pstmt.setString(2, password);
+
+            ResultSet resultSet = pstmt.executeQuery();
+
+            if (resultSet.next()) {
+                String sessionID = UniqueID.genSID(
+                        resultSet.getInt("id"),
+                        resultSet.getString("username")
+                );
+
+                String insertQuery = "INSERT INTO sessionids (id, userid) VALUES (?, ?)";
+                PreparedStatement insertStmt = connection.prepareStatement(insertQuery);
+
+                insertStmt.setString(1, sessionID);   // assuming sessionID is String
+                insertStmt.setInt(2, resultSet.getInt("id"));
+
+                insertStmt.executeUpdate();
+
+                return "LOGIN_SUCCESS " + sessionID;
+            } else {
+                return "LOGIN_FAIL";
+            }
         } catch (SQLException e) {
             //remember to change to logging
             e.printStackTrace();
@@ -50,18 +65,24 @@ public class UserDAO {
         Connection connection = databaseController.getConnection();
         password = StringHash.hash(password);
 
-        String checkQuery = "SELECT * FROM users WHERE username = '" + username + "'";
-
-        String query = "INSERT INTO users (username, password, role) VALUES ('" + username + "', '" + password + "', 'user')";
-
         try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(checkQuery);
+            String checkQuery = "SELECT 1 FROM users WHERE username = ?";
+            PreparedStatement checkStmt = connection.prepareStatement(checkQuery);
+            checkStmt.setString(1, username);
+
+            ResultSet resultSet = checkStmt.executeQuery();
 
             if (resultSet.next()) {
                 return "REG_FAIL";
             } else {
-                statement.execute(query);
+                String insertQuery = "INSERT INTO users (username, password, role) VALUES (?, ?, ?)";
+                PreparedStatement insertStmt = connection.prepareStatement(insertQuery);
+
+                insertStmt.setString(1, username);
+                insertStmt.setString(2, password);
+                insertStmt.setString(3, "user");
+
+                insertStmt.executeUpdate();
                 return "REG_SUCCESS";
             }
         } catch (SQLException e) {

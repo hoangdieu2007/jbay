@@ -1,6 +1,5 @@
 package a88.jbay.model.event.auctionstate;
 
-import a88.jbay.model.entity.user.Bidder;
 import a88.jbay.model.event.Auction;
 import a88.jbay.model.event.BidTransaction;
 
