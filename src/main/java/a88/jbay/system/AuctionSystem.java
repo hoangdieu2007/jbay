@@ -4,12 +4,17 @@ import a88.jbay.dao.AuctionDAO;
 import a88.jbay.model.entity.item.Item;
 import a88.jbay.model.event.Auction;
 import a88.jbay.model.event.BidTransaction;
+import a88.jbay.model.event.auctionstate.OpeningState;
+import a88.jbay.model.event.auctionstate.RunningState;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class AuctionSystem {
     private static AuctionSystem instance;
@@ -18,9 +23,14 @@ public class AuctionSystem {
     // Memory cache for active auctions to handle real-time bidding
     private final Map<Integer, Auction> activeAuctions;
 
+    private final ScheduledExecutorService scheduler;
+
     private AuctionSystem() {
         this.auctionDAO = AuctionDAO.getInstance();
         this.activeAuctions = new ConcurrentHashMap<>();
+        this.scheduler = Executors.newSingleThreadScheduledExecutor();
+
+        startHeartbeat();
     }
 
     public static synchronized AuctionSystem getInstance() {
@@ -84,5 +94,35 @@ public class AuctionSystem {
 
     public List<Auction> getActiveAuctions() {
         return new ArrayList<>(activeAuctions.values());
+    }
+
+    /*
+    code section for handling auction state transitions
+     */
+    private void startHeartbeat() {
+        scheduler.scheduleAtFixedRate(this::checkAuctionTransitions, 0, 1, TimeUnit.SECONDS);
+    }
+
+    private void checkAuctionTransitions() {
+        LocalDateTime now = LocalDateTime.now();
+
+        for (Auction auction : activeAuctions.values()) {
+            // Transition: Opening -> Running
+            if (auction.getAuctionState() instanceof OpeningState && now.isAfter(auction.getStartTime())) {
+                System.out.println("Heartbeat: Starting auction " + auction.getId());
+                auction.start();
+            }
+
+            // Transition: Running -> Closed/Finished
+            if (auction.getAuctionState() instanceof RunningState && now.isAfter(auction.getEndTime())) {
+                System.out.println("Heartbeat: Closing auction " + auction.getId());
+                auction.end();
+                // Optionally remove from active map after some time or immediate
+            }
+        }
+    }
+
+    public void stopSystem() {
+        scheduler.shutdown();
     }
 }

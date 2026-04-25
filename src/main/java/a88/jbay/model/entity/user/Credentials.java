@@ -8,7 +8,7 @@ public class Credentials implements Serializable {
     private String sessionId;
 
     public Credentials(String role, String username, String sessionId) {
-        this.role = role;
+        this.role = role != null ? role.toUpperCase() : "GUEST";
         this.username = username;
         this.sessionId = sessionId;
     }

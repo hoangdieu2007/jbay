@@ -46,6 +46,14 @@ public class Auction {
         return item;
     }
 
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
     public void start() {this.auctionState.start(this);}
     public void end() {
         this.auctionState.end(this);

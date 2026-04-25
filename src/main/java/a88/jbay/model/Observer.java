@@ -1,7 +1,7 @@
 package a88.jbay.model;
 
+import a88.jbay.model.event.Auction;
+
 public interface Observer {
-    void update (Object obj, double currentPrice);
-    void setChanged();
-    void notifyObservers();
+    void update (Auction auction);
 }
