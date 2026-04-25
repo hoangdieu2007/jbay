@@ -1,15 +1,13 @@
 package a88.jbay;
 
-import a88.jbay.controller.server.AuctionDAO;
-import a88.jbay.controller.server.UserDAO;
-import a88.jbay.model.entity.user.User;
+import a88.jbay.model.network.Request;
+import a88.jbay.model.network.RequestType;
+import a88.jbay.model.network.Response;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.Scanner;
 
 public class MainClientTUI {
@@ -18,37 +16,61 @@ public class MainClientTUI {
         System.out.println("------------------JBAY_CLIENT_TUI-----------------");
         System.out.println("--------------software infrastructure-------------\n\n");
 
-        //initialize
-        User user = new User();
 
         Scanner sc = new Scanner(System.in);
-        String inp; int opt;
 
         System.out.println("Enter host:");
         String host = sc.nextLine();
+
         System.out.println("Enter port:");
-        int port = sc.nextInt();
+        int port = Integer.parseInt(sc.nextLine());
 
         try (
                 Socket socket = new Socket(host, port);
-                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                PrintWriter out = new PrintWriter(socket.getOutputStream(), true)
-                ) {
-            while(true){
-                inp = sc.nextLine();
+                ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+                ObjectInputStream in = new ObjectInputStream(socket.getInputStream())
+        ) {
+            while (true) {
+                System.out.println("Command: login, register, bid, create, end");
+                String command = sc.nextLine();
 
-                System.out.println("Sending request to server: " + inp);
-                out.println(inp);
+                Request request = switch (command.toLowerCase()) {
+                    case "login" -> {
+                        System.out.println("Username:");
+                        String username = sc.nextLine();
+                        System.out.println("Password:");
+                        String password = sc.nextLine();
 
-                System.out.println("Waiting for server response...");
-                String response = in.readLine();
+                        yield new Request(RequestType.LOGIN)
+                                .put("username", username)
+                                .put("password", password);
+                    }
+                    case "register" -> {
+                        System.out.println("Username:");
+                        String username = sc.nextLine();
+                        System.out.println("Password:");
+                        String password = sc.nextLine();
 
-                System.out.println(response);
+                        yield new Request(RequestType.REGISTER)
+                                .put("username", username)
+                                .put("password", password);
+                    }
+                    default -> null;
+                };
+
+                if (request == null) {
+                    System.out.println("Unknown command");
+                    continue;
+                }
+
+                out.writeObject(request);
+                out.flush();
+
+                Response response = (Response) in.readObject();
+                System.out.println(response.getMessage());
             }
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
-        } finally {
-            System.out.println("\n\nPROGRAM FINISHED");
         }
     }
 }

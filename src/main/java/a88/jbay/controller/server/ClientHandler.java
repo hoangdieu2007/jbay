@@ -1,110 +1,59 @@
 package a88.jbay.controller.server;
 
-import a88.jbay.model.entity.user.User;
+import a88.jbay.model.network.Request;
+import a88.jbay.model.network.RequestType;
+import a88.jbay.model.network.Response;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class ClientHandler implements Runnable {
-    Socket socket;
-    UserDAO userDAO = UserDAO.getInstance();
-    AuctionDAO auctionDAO = AuctionDAO.getInstance();
+    private final Socket socket;
 
     public ClientHandler(Socket socket) {
         this.socket = socket;
     }
 
-    private String processCommand(String command) {
-        String[] args = command.split(" ");
-        String response = "";
-
-        switch (args[0]) {
-            case "CLIENT_TEST":
-                return "processing client request...";
-
-            //userdao process
-            case "LOGIN":
-                //command: LOGIN [username] [password]
-                //expect: LOGIN_SUCCESS [sessionid] / LOGIN_FAIL
-                response =  userDAO.checkLogin(args[1], args[2]);
-
-                //send to client
-                return response;
-            case "LOGOUT":
-                //command: LOGOUT [sessionid]
-                //expect: LOGOUT_SUCCESS / LOGOUT_FAIL
-                response = userDAO.logOut(args[1]);
-
-                //send to client
-                return response;
-            case "REG":
-                //command: REG [username] [password]
-                //expect: REG_SUCCESS [userid] / REG_FAIL
-                response = userDAO.registerUser(args[1], args[2]);
-
-                //send to client
-                return response;
-            case "DEL":
-                //command: DEL [userid]
-                //expect: DEL_SUCCESS / DEL_FAIL
-
-                //delete user by id / username
-                break;
-
-            //auctiondao process
-            case "BID":
-                //command: BID [userid] [auctionid] [amt]
-                //expect: BID_SUCCESS [bidid] / BID_FAIL
-
-
-
-                break;
-            case "SELL":
-                //command: SELL [item info] [seller sessionid] [start_time] [end_time]
-                //expect: SELL_SUCCESS [auctionid] / SELL_FAIL
-
-
-
-                break;
-            case "CLOSE":
-                //command: CLOSE [auctionid]
-                //expect: CLOSE_SUCCESS / CLOSE_FAIL
-
-                //close auction
-                break;
-
-            default:
-                System.out.println("Invalid command");
-                break;
-        }
-
-        return "UNDEFINED";
-    }
-
-    private void handleClient(Socket socket) {
-        try (
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter out = new PrintWriter(socket.getOutputStream(), true) //auto flush
-        ) {
-            String cmd;
-            while ((cmd = in.readLine()) != null) {
-                System.out.println("Received command: " + cmd);
-
-                String response = processCommand(cmd);
-
-                System.out.println("Response: " + response);
-                out.println(response);
-            }
-        } catch (IOException e) {
-            //replace with proper logging
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public void run() {
-        this.handleClient(socket);
+        try (
+                ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+                ObjectInputStream in = new ObjectInputStream(socket.getInputStream())
+        ) {
+            while (true) {
+                Request request = (Request) in.readObject();
+                Response response = handleRequest(request);
+                out.writeObject(response);
+                out.flush();
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Response handleRequest(Request request) {
+        return switch (request.getType()) {
+            case LOGIN -> handleLogin(request);
+            case REGISTER -> handleRegister(request);
+            default -> new Response(false, "Unsupported request", null);
+        };
+    }
+
+    private Response handleLogin(Request request) {
+        String username = (String) request.get("username");
+        String password = (String) request.get("password");
+
+        // call service here
+        return new Response(true, "LOGIN_SUCCESS", null);
+    }
+
+    private Response handleRegister(Request request) {
+        String username = (String) request.get("username");
+        String password = (String) request.get("password");
+
+        // call service here
+        return new Response(true, "REGISTER_SUCCESS", null);
     }
 }

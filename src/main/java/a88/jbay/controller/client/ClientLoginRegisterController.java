@@ -1,7 +1,6 @@
 package a88.jbay.controller.client;
 
-import a88.jbay.controller.server.UserDAO;
-import a88.jbay.model.StringHash;
+import a88.jbay.dao.UserDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
