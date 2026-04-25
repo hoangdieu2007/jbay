@@ -7,22 +7,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class BidTransaction {
-    private String id;
-    private String userID;
+    private int userID;
     private double amt;
     private LocalDateTime timestamp;
 
-    public BidTransaction(String userID, double amt, LocalDateTime timestamp) {
-        this.id = UniqueID.genBID();
+    public BidTransaction(int userID, double amt, LocalDateTime timestamp) {
         this.userID = userID;
         this.amt = amt;
         this.timestamp = timestamp;
     }
 
-    public String getId() {
-        return id;
-    }
-    public String getUserID() {
+    public int getUserID() {
         return userID;
     }
     public double getAmt() {
@@ -39,8 +34,8 @@ public class BidTransaction {
         String formattedTime = this.timestamp.format(formatter);
 
         // Sử dụng String.format để căn lề:
-        return String.format("[ID: %-8s] | Người dùng: %-12s | Giá: %,12.2f $ | Thời gian: %s",
-                id, userID, amt, formattedTime);
+        return String.format("Người dùng: %-12s | Giá: %,12.2f $ | Thời gian: %s",
+                userID, amt, formattedTime);
     }
 
     public int compareTo(BidTransaction other) {

@@ -69,4 +69,10 @@ public class ClientHandler implements Runnable {
         }
         return new Response(false, "USER_ALREADY_EXISTS", null);
     }
+
+    private Response handleLogout(Request request) {
+        String sessionId = (String) request.get("sessionId");
+        userService.logout(sessionId);
+        return new Response(true, "LOGOUT_SUCCESS", null);
+    }
 }

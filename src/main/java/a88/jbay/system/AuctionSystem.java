@@ -3,9 +3,8 @@ package a88.jbay.system;
 import a88.jbay.dao.AuctionDAO;
 import a88.jbay.model.entity.item.Item;
 import a88.jbay.model.event.Auction;
+import a88.jbay.model.event.AuctionState;
 import a88.jbay.model.event.BidTransaction;
-import a88.jbay.model.event.auctionstate.OpeningState;
-import a88.jbay.model.event.auctionstate.RunningState;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -55,37 +54,49 @@ public class AuctionSystem {
                 start,
                 end
         );
+        if (auctionId == -1) return false;
 
-        return auctionId != -1;
+        Auction auction = new Auction(
+                auctionId,
+                item,
+                sellerId,
+                start,
+                end
+        );
+        activeAuctions.put(auctionId, auction);
+        return true;
     }
 
     //place bid and validate bid
     public synchronized boolean placeBid(int userId, int auctionId, double amount) {
-        Double currentPrice = auctionDAO.findCurrentPrice(auctionId);
+        Auction auction = activeAuctions.get(auctionId);
+        if (auction == null) return false;
 
-        if (currentPrice == null || amount <= currentPrice) {
+        if (amount <= auction.getCurrentPrice()) {
             return false;
         }
 
-        // Check if the user is the seller (business rule: seller cannot bid on own item)
-        Integer sellerId = auctionDAO.findSellerId(auctionId);
-        if (sellerId != null && sellerId == userId) {
+        if (!(auction.getAuctionState() == AuctionState.RUNNING)) {
             return false;
         }
 
-        // Persist the bid transaction
-        boolean bidInserted = auctionDAO.insertBid(userId, auctionId, amount, LocalDateTime.now());
-        if (bidInserted) {
-            // Update the current price in the auction record
-            return auctionDAO.updateCurrentPrice(auctionId, amount);
+        LocalDateTime now = LocalDateTime.now();
+        boolean bidInserted = auctionDAO.insertBid(userId, auctionId, amount, now);
+
+        if (bidInserted && auctionDAO.updateCurrentPrice(auctionId, amount, userId)) {
+            // SYNC MEMORY: Update the object and trigger observers
+            BidTransaction tx = new BidTransaction(userId, amount, now);
+            auction.updatePrice(amount, tx);
+            return true;
         }
 
         return false;
     }
 
-    //close auction
-    public boolean finalizeAuction(int auctionId, Integer winnerId) {
-        boolean closed = auctionDAO.closeAuction(auctionId, winnerId);
+    //cancel auction
+    //ONLY ADMIN CAN CALL THIS
+    public boolean cancelAuction(int auctionId) {
+        boolean closed = auctionDAO.setAuctionState(auctionId, AuctionState.CANCELED);
         if (closed) {
             activeAuctions.remove(auctionId);
         }
@@ -108,20 +119,24 @@ public class AuctionSystem {
 
         for (Auction auction : activeAuctions.values()) {
             // Transition: Opening -> Running
-            if (auction.getAuctionState() instanceof OpeningState && now.isAfter(auction.getStartTime())) {
+            if (auction.getAuctionState() == AuctionState.OPENING && now.isAfter(auction.getStartTime())) {
                 System.out.println("Heartbeat: Starting auction " + auction.getId());
+                auctionDAO.setAuctionState(auction.getId(), AuctionState.RUNNING);
                 auction.start();
             }
 
             // Transition: Running -> Closed/Finished
-            if (auction.getAuctionState() instanceof RunningState && now.isAfter(auction.getEndTime())) {
+            if (auction.getAuctionState() == AuctionState.FINISHED && now.isAfter(auction.getEndTime())) {
                 System.out.println("Heartbeat: Closing auction " + auction.getId());
+                auctionDAO.setAuctionState(auction.getId(), AuctionState.FINISHED);
                 auction.end();
                 // Optionally remove from active map after some time or immediate
             }
         }
     }
 
+    //stopping the heartbeat, WARNING: no auctomatic auction lifecycle management after stopping
+    //do NOT call this method unless for testing purpose
     public void stopSystem() {
         scheduler.shutdown();
     }

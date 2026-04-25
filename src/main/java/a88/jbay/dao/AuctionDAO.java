@@ -2,6 +2,7 @@ package a88.jbay.dao;
 
 import a88.jbay.controller.server.DatabaseController;
 import a88.jbay.model.entity.item.Item;
+import a88.jbay.model.event.AuctionState;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,14 +26,15 @@ public class AuctionDAO {
 
     public int insertItem(Item item) {
 
-        String sql = "INSERT INTO items (name, `desc`, start_price) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO items (name, type, `desc`, start_price) VALUES (?, ?, ?, ?)";
 
         try (Connection connection = DatabaseController.getInstance().getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
             stmt.setString(1, item.getName());
-            stmt.setString(2, item.getDescription());
-            stmt.setDouble(3, item.getInitPrice());
+            stmt.setString(2, item.getType());
+            stmt.setString(3, item.getDescription());
+            stmt.setDouble(4, item.getInitPrice());
 
             int affectedRows = stmt.executeUpdate();
             if (affectedRows == 0) {
@@ -56,8 +58,8 @@ public class AuctionDAO {
                              LocalDateTime startTime, LocalDateTime endTime) {
 
         String sql = """
-                INSERT INTO auctions (item, seller, start_price, cur_price, winner, start_time, end_time)
-                VALUES (?, ?, ?, ?, NULL, ?, ?)
+                INSERT INTO auctions (item, seller, start_price, cur_price, winner, start_time, end_time, state)
+                VALUES (?, ?, ?, ?, NULL, ?, ?, 'OPENING')
                 """;
 
         try (Connection connection = DatabaseController.getInstance().getConnection();
@@ -88,15 +90,16 @@ public class AuctionDAO {
         }
     }
 
-    public boolean updateCurrentPrice(int auctionId, double newPrice) {
+    public boolean updateCurrentPrice(int auctionId, double newPrice, int winnerId) {
 
-        String sql = "UPDATE auctions SET cur_price = ? WHERE id = ?";
+        String sql = "UPDATE auctions SET cur_price = ?, winner = ? WHERE id = ?";
 
         try (Connection connection = DatabaseController.getInstance().getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setDouble(1, newPrice);
-            stmt.setInt(2, auctionId);
+            stmt.setInt(2, winnerId);
+            stmt.setInt(3, auctionId);
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -105,9 +108,9 @@ public class AuctionDAO {
         }
     }
 
-    public boolean closeAuction(int auctionId, Integer winnerId) {
+    public boolean finalizeAuction(int auctionId, Integer winnerId) {
 
-        String sql = "UPDATE auctions SET winner = ? WHERE id = ?";
+        String sql = "UPDATE auctions SET winner = ?, state = 'FINISHED' WHERE id = ?";
 
         try (Connection connection = DatabaseController.getInstance().getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -117,6 +120,23 @@ public class AuctionDAO {
             } else {
                 stmt.setInt(1, winnerId);
             }
+            stmt.setInt(2, auctionId);
+
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean setAuctionState(int auctionId, AuctionState newState) {
+
+        String sql = "UPDATE auctions SET state = ? WHERE id = ?";
+
+        try (Connection connection = DatabaseController.getInstance().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setString(1, newState.name());
             stmt.setInt(2, auctionId);
 
             return stmt.executeUpdate() > 0;
