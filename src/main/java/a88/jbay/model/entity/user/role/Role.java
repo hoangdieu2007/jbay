@@ -2,8 +2,7 @@ package a88.jbay.model.entity.user.role;
 
 public enum Role {
     GUEST,
-    BIDDER,
-    SELLER,
+    USER,
     ADMIN;
 
     public static Role fromString(String roleStr) {

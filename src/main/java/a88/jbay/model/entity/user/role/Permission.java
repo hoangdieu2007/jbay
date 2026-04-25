@@ -6,10 +6,6 @@ import java.util.Map;
 import java.util.Set;
 
 public class Permission {
-    public enum ActionType {
-        BID, SELL, BAN, VIEW_AUCTIONS
-    }
-
     private static final Map<Role, Set<ActionType>> rolePermissions = new HashMap<>();
 
     static {
@@ -18,14 +14,8 @@ public class Permission {
                 ActionType.VIEW_AUCTIONS
         ));
 
-        //bidder permissions
-        rolePermissions.put(Role.BIDDER, EnumSet.of(
-                ActionType.VIEW_AUCTIONS,
-                ActionType.BID
-        ));
-
-        //seller
-        rolePermissions.put(Role.SELLER, EnumSet.of(
+        //normal auction user
+        rolePermissions.put(Role.USER, EnumSet.of(
                 ActionType.VIEW_AUCTIONS,
                 ActionType.BID,
                 ActionType.SELL

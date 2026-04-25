@@ -1,5 +1,6 @@
 package a88.jbay;
 
+import a88.jbay.model.entity.user.User;
 import a88.jbay.model.network.Request;
 import a88.jbay.model.network.RequestType;
 import a88.jbay.model.network.Response;
@@ -24,6 +25,9 @@ public class MainClientTUI {
 
         System.out.println("Enter port:");
         int port = Integer.parseInt(sc.nextLine());
+
+        //current User
+        User user = new User();
 
         try (
                 Socket socket = new Socket(host, port);
@@ -53,7 +57,26 @@ public class MainClientTUI {
 
                         yield new Request(RequestType.REGISTER)
                                 .put("username", username)
-                                .put("password", password);
+                                .put("password", password)
+                                .put("role", "USER");
+                    }
+                    case "bid" -> {
+                        System.out.println("Auction ID:");
+                        int auctionId = Integer.parseInt(sc.nextLine());
+                        System.out.println("Bid amount:");
+                        double bidAmount = Double.parseDouble(sc.nextLine());
+
+                        yield new Request(RequestType.BID)
+                                .put("sessionId", user.getSessionId())
+                                .put("auctionId", auctionId)
+                                .put("bidAmount", bidAmount);
+                    }
+                    case "sell" -> {
+                        //add item
+
+                        //then sell it
+
+                        yield null;
                     }
                     default -> null;
                 };
@@ -67,7 +90,17 @@ public class MainClientTUI {
                 out.flush();
 
                 Response response = (Response) in.readObject();
-                System.out.println(response.getMessage());
+                String message = response.getMessage();
+                System.out.println(message);
+
+                //process response (if it provides any data)
+                switch (message) {
+                    case "LOGIN_SUCCESS":
+                        user = (User) response.getPayload();
+                        break;
+                    default:
+                        System.out.println("No action needed");
+                }
             }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

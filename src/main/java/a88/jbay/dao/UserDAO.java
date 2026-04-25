@@ -79,6 +79,27 @@ public class UserDAO {
         }
     }
 
+    public Map<String, String> findBySessionId(String sessionId) {
+
+        String sql = "SELECT userid FROM sessionids WHERE id = ?";
+
+        try (Connection connection = DatabaseController.getInstance().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setString(1, sessionId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (!rs.next()) {
+                    return null;
+                }
+                return findByUserId(rs.getInt("userid"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public boolean existsByUsername(String username) {
 
         String sql = "SELECT 1 FROM users WHERE username = ?";
@@ -155,27 +176,6 @@ public class UserDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
-        }
-    }
-
-    public Integer findUserIdBySessionId(String sessionId) {
-
-        String sql = "SELECT userid FROM sessionids WHERE id = ?";
-
-        try (Connection connection = DatabaseController.getInstance().getConnection();
-             PreparedStatement stmt = connection.prepareStatement(sql)) {
-
-            stmt.setString(1, sessionId);
-
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (!rs.next()) {
-                    return null;
-                }
-                return rs.getInt("userid");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
         }
     }
 }

@@ -3,7 +3,8 @@ package a88.jbay.model.network;
 public enum RequestType {
     LOGIN,
     REGISTER,
+    LOGOUT,
     BID,
-    CREATE_AUCTION,
-    END_AUCTION
+    SELL,
+    CANCEL;
 }

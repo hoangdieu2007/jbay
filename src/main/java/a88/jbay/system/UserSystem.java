@@ -5,6 +5,7 @@ import a88.jbay.model.StringHash;
 import a88.jbay.model.UniqueID;
 import a88.jbay.model.entity.user.Credentials;
 import a88.jbay.model.entity.user.User;
+import a88.jbay.model.network.Response;
 
 import java.util.Map;
 import java.util.UUID;
@@ -33,7 +34,7 @@ public class UserSystem {
 
         String sessionId = UUID.randomUUID().toString();
         if (userDAO.insertSession(sessionId, Integer.getInteger(userData.get("id")))) {
-            return new User(userData.get("role"), userData.get("username"), sessionId);
+            return new User(Integer.getInteger(userData.get("id")),userData.get("role"), userData.get("username"), sessionId);
         }
         return null;
     }
@@ -49,5 +50,11 @@ public class UserSystem {
 
     public void logout(String sessionId) {
         userDAO.deleteSession(sessionId);
+    }
+
+    public User getBySessionId(String sessionId) {
+        Map<String, String> userData = userDAO.findBySessionId(sessionId);
+        if (userData == null) return null;
+        return new User(Integer.getInteger(userData.get("id")),userData.get("role"), userData.get("username"), sessionId);
     }
 }

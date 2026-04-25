@@ -41,6 +41,7 @@ public class AuctionSystem {
 
     //create auction and store to database
     public boolean createAuction(Item item, int sellerId, LocalDateTime start, LocalDateTime end) {
+
         // 1. Insert the item first
         int itemId = auctionDAO.insertItem(item);
         if (itemId == -1) return false;
