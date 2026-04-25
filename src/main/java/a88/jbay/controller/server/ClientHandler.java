@@ -1,5 +1,6 @@
 package a88.jbay.controller.server;
 
+import a88.jbay.model.entity.user.Credentials;
 import a88.jbay.model.network.Request;
 import a88.jbay.model.network.RequestType;
 import a88.jbay.model.network.Response;
@@ -48,9 +49,9 @@ public class ClientHandler implements Runnable {
         String username = (String) request.get("username");
         String password = (String) request.get("password");
 
-        String sessionId = userService.login(username, password);
-        if (sessionId != null) {
-            return new Response(true, "LOGIN_SUCCESS", sessionId);
+        Credentials credentials = userService.login(username, password);
+        if (credentials != null) {
+            return new Response(true, "LOGIN_SUCCESS", credentials);
         }
         return new Response(false, "INVALID_CREDENTIALS", null);
     }

@@ -2,10 +2,9 @@ package a88.jbay.model.event;
 
 import a88.jbay.model.UniqueID;
 import a88.jbay.model.entity.item.Item;
-import a88.jbay.model.entity.user.Seller;
+import a88.jbay.model.entity.user.User;
 import a88.jbay.model.event.auctionstate.AuctionState;
 import a88.jbay.model.event.auctionstate.OpeningState;
-import a88.jbay.model.Subject;
 import a88.jbay.model.Observer;
 
 import java.time.LocalDateTime;
@@ -15,7 +14,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class Auction {
     private String id;
     private Item item;
-    private Seller seller;
+    private User seller;
     private double startPrice;
     private double currentPrice;
     private LocalDateTime startTime;
@@ -26,7 +25,7 @@ public class Auction {
     private List<BidTransaction> bidHistory;
     private List<Observer> observers;
 
-    public Auction(Item item, Seller seller, LocalDateTime startTime, LocalDateTime endTime) {
+    public Auction(Item item, User seller, LocalDateTime startTime, LocalDateTime endTime) {
         this.id = UniqueID.genAID();
         this.item = item;
         this.seller = seller;

@@ -1,4 +1,4 @@
-package a88.jbay.model.system;
+package a88.jbay.system;
 
 import a88.jbay.dao.AuctionDAO;
 import a88.jbay.model.entity.item.Item;
