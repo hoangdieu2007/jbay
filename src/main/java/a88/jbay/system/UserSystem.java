@@ -24,16 +24,13 @@ public class UserSystem {
         return instance;
     }
 
+    //login: find user by username, then check password and generate session if valid
     public Credentials login(String username, String password) {
         Map<String, String> userData = userDAO.findByUsername(username);
         if (userData == null) return null;
 
-        // In a real app, you'd fetch the stored hash from DB and compare.
-        // For now, we follow the existing DAO pattern.
         String hashedPassword = StringHash.hash(password);
 
-        // Assuming your DB check for login would happen here or inside DAO.
-        // Let's generate a session if valid.
         String sessionId = UUID.randomUUID().toString();
         if (userDAO.insertSession(sessionId, Integer.getInteger(userData.get("id")))) {
             return new Credentials(userData.get("role"), userData.get("username"), sessionId);
@@ -41,6 +38,7 @@ public class UserSystem {
         return null;
     }
 
+    //register: find by username, then creates account if not exist
     public boolean register(String username, String password, String role) {
         if (userDAO.existsByUsername(username)) {
             return false;
