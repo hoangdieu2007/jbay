@@ -16,32 +16,38 @@ import java.io.Serializable;
 
 public class User extends Entity implements Observer, Serializable {
     private static final long serialVersionUID = 1L;
-    private Credentials credentials;
+
+    //credentials
+    private final String role;
+    private final String username;
+    private final String sessionId;
+
+    public User(String role, String username, String sessionId) {
+        super();
+        this.role = role;
+        this.username = username;
+        this.sessionId = sessionId;
+    }
 
     public User() {
-        super();
-        this.credentials = new Credentials("GUEST", "guest", "none");
+        this("GUEST", "guest", "none");
     }
 
-    public void setCredentials(Credentials credentials) {
-        this.credentials = credentials;
-    }
-
-    public Credentials getCredentials() {
-        return credentials;
-    }
+    public String getUsername() { return username; }
+    public String getRole() { return role; }
+    public String getSessionId() { return sessionId; }
 
     /**
      * Checks if the user has permission to perform a specific action.
      */
     public boolean can(Permission.ActionType action) {
-        Role role = Role.fromString(credentials.getRole());
+        Role role = Role.fromString(this.role);
         return Permission.isAllowed(role, action);
     }
 
     @Override
     public void update(Auction auction) {
         // Notification logic
-        System.out.println("Update for user " + credentials.getUsername());
+        System.out.println("Update for user " + username);
     }
 }

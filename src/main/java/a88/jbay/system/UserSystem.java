@@ -25,7 +25,7 @@ public class UserSystem {
     }
 
     //login: find user by username, then check password and generate session if valid
-    public Credentials login(String username, String password) {
+    public User login(String username, String password) {
         Map<String, String> userData = userDAO.findByUsername(username);
         if (userData == null) return null;
 
@@ -33,7 +33,7 @@ public class UserSystem {
 
         String sessionId = UUID.randomUUID().toString();
         if (userDAO.insertSession(sessionId, Integer.getInteger(userData.get("id")))) {
-            return new Credentials(userData.get("role"), userData.get("username"), sessionId);
+            return new User(userData.get("role"), userData.get("username"), sessionId);
         }
         return null;
     }
