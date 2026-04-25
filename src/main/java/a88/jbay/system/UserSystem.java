@@ -3,6 +3,7 @@ package a88.jbay.system;
 import a88.jbay.dao.UserDAO;
 import a88.jbay.model.StringHash;
 import a88.jbay.model.UniqueID;
+import a88.jbay.model.entity.user.Credentials;
 import a88.jbay.model.entity.user.User;
 
 import java.util.Map;
@@ -23,7 +24,7 @@ public class UserSystem {
         return instance;
     }
 
-    public String login(String username, String password) {
+    public Credentials login(String username, String password) {
         Map<String, String> userData = userDAO.findByUsername(username);
         if (userData == null) return null;
 
@@ -35,7 +36,7 @@ public class UserSystem {
         // Let's generate a session if valid.
         String sessionId = UUID.randomUUID().toString();
         if (userDAO.insertSession(sessionId, Integer.getInteger(userData.get("id")))) {
-            return sessionId;
+            return new Credentials(userData.get("role"), userData.get("username"), sessionId);
         }
         return null;
     }

@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AuctionDAO {
     private static AuctionDAO instance;
@@ -178,6 +180,33 @@ public class AuctionDAO {
                     return null;
                 }
                 return rs.getInt("seller");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Map<String, String> findItemById(int itemId) {
+        String sql = "SELECT id, name, `desc`, start_price FROM items WHERE id = ?";
+
+        try (Connection connection = DatabaseController.getInstance().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setInt(1, itemId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (!rs.next()) {
+                    return null;
+                }
+
+                Map<String, String> itemData = new HashMap<>();
+                itemData.put("id", String.valueOf(rs.getInt("id")));
+                itemData.put("name", rs.getString("name"));
+                itemData.put("description", rs.getString("desc"));
+                itemData.put("start_price", String.valueOf(rs.getDouble("start_price")));
+
+                return itemData;
             }
         } catch (SQLException e) {
             e.printStackTrace();
