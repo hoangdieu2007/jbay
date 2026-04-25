@@ -22,11 +22,10 @@ public class AuctionDAO {
     }
 
     public int insertItem(Item item) {
-        DatabaseController databaseController = new DatabaseController();
 
         String sql = "INSERT INTO items (name, `desc`, start_price) VALUES (?, ?, ?)";
 
-        try (Connection connection = databaseController.getConnection();
+        try (Connection connection = DatabaseController.getInstance().getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
             stmt.setString(1, item.getName());
@@ -53,14 +52,13 @@ public class AuctionDAO {
 
     public int insertAuction(int itemId, int sellerId, double startPrice, double curPrice,
                              LocalDateTime startTime, LocalDateTime endTime) {
-        DatabaseController databaseController = new DatabaseController();
 
         String sql = """
                 INSERT INTO auctions (item, seller, start_price, cur_price, winner, start_time, end_time)
                 VALUES (?, ?, ?, ?, NULL, ?, ?)
                 """;
 
-        try (Connection connection = databaseController.getConnection();
+        try (Connection connection = DatabaseController.getInstance().getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
             stmt.setInt(1, itemId);
@@ -89,11 +87,10 @@ public class AuctionDAO {
     }
 
     public boolean updateCurrentPrice(int auctionId, double newPrice) {
-        DatabaseController databaseController = new DatabaseController();
 
         String sql = "UPDATE auctions SET cur_price = ? WHERE id = ?";
 
-        try (Connection connection = databaseController.getConnection();
+        try (Connection connection = DatabaseController.getInstance().getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setDouble(1, newPrice);
@@ -107,11 +104,10 @@ public class AuctionDAO {
     }
 
     public boolean closeAuction(int auctionId, Integer winnerId) {
-        DatabaseController databaseController = new DatabaseController();
 
         String sql = "UPDATE auctions SET winner = ? WHERE id = ?";
 
-        try (Connection connection = databaseController.getConnection();
+        try (Connection connection = DatabaseController.getInstance().getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             if (winnerId == null) {
@@ -129,11 +125,10 @@ public class AuctionDAO {
     }
 
     public boolean insertBid(int userId, int auctionId, double amount, LocalDateTime time) {
-        DatabaseController databaseController = new DatabaseController();
 
         String sql = "INSERT INTO bids (userid, auctionid, amt, time) VALUES (?, ?, ?, ?)";
 
-        try (Connection connection = databaseController.getConnection();
+        try (Connection connection = DatabaseController.getInstance().getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setInt(1, userId);
@@ -149,11 +144,10 @@ public class AuctionDAO {
     }
 
     public Double findCurrentPrice(int auctionId) {
-        DatabaseController databaseController = new DatabaseController();
 
         String sql = "SELECT cur_price FROM auctions WHERE id = ?";
 
-        try (Connection connection = databaseController.getConnection();
+        try (Connection connection = DatabaseController.getInstance().getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setInt(1, auctionId);
@@ -171,11 +165,10 @@ public class AuctionDAO {
     }
 
     public Integer findSellerId(int auctionId) {
-        DatabaseController databaseController = new DatabaseController();
 
         String sql = "SELECT seller FROM auctions WHERE id = ?";
 
-        try (Connection connection = databaseController.getConnection();
+        try (Connection connection = DatabaseController.getInstance().getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setInt(1, auctionId);
