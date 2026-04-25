@@ -42,7 +42,6 @@ public class UserDAO {
                 userData.put("username", rs.getString("username"));
                 userData.put("password", rs.getString("password"));
                 userData.put("role", rs.getString("role"));
-                userData.put("temp_session_id", UUID.randomUUID().toString());
 
                 return userData;
             }
@@ -71,7 +70,6 @@ public class UserDAO {
                 userData.put("username", rs.getString("username"));
                 userData.put("password", rs.getString("password"));
                 userData.put("role", rs.getString("role"));
-                userData.put("temp_session_id", UUID.randomUUID().toString());
 
                 return userData;
             }

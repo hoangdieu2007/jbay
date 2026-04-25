@@ -5,6 +5,7 @@ import a88.jbay.model.StringHash;
 import a88.jbay.model.UniqueID;
 import a88.jbay.model.entity.user.User;
 
+import java.util.Map;
 import java.util.UUID;
 
 public class UserSystem {
@@ -23,8 +24,8 @@ public class UserSystem {
     }
 
     public String login(String username, String password) {
-        User user = userDAO.findByUsername(username);
-        if (user == null) return null;
+        Map<String, String> userData = userDAO.findByUsername(username);
+        if (userData == null) return null;
 
         // In a real app, you'd fetch the stored hash from DB and compare.
         // For now, we follow the existing DAO pattern.
@@ -33,7 +34,7 @@ public class UserSystem {
         // Assuming your DB check for login would happen here or inside DAO.
         // Let's generate a session if valid.
         String sessionId = UUID.randomUUID().toString();
-        if (userDAO.insertSession(sessionId, user.getId())) {
+        if (userDAO.insertSession(sessionId, Integer.getInteger(userData.get("id")))) {
             return sessionId;
         }
         return null;
