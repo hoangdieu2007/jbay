@@ -7,6 +7,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class UserDAO {
     private static UserDAO instance;
@@ -20,12 +23,11 @@ public class UserDAO {
         return instance;
     }
 
-    public User findByUsername(String username) {
-        DatabaseController databaseController = new DatabaseController();
+    public Map<String, String> findByUsername(String username) {
 
         String sql = "SELECT id, username, password, role FROM users WHERE username = ?";
 
-        try (Connection connection = databaseController.getConnection();
+        try (Connection connection = DatabaseController.getInstance().getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setString(1, username);
@@ -35,12 +37,43 @@ public class UserDAO {
                     return null;
                 }
 
-                User user = new User();
-                user.setId(rs.getInt("id"));
-                user.getCredentials().setUsername(rs.getString("username"));
-                user.getCredentials().setRole(rs.getString("role"));
-                user.getCredentials().setSessionId(null);
-                return user;
+                Map<String, String> userData = new HashMap<>();
+                userData.put("id", String.valueOf(rs.getInt("id")));
+                userData.put("username", rs.getString("username"));
+                userData.put("password", rs.getString("password"));
+                userData.put("role", rs.getString("role"));
+                userData.put("temp_session_id", UUID.randomUUID().toString());
+
+                return userData;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Map<String, String> findByUserId(int userId) {
+
+        String sql = "SELECT id, username, password, role FROM users WHERE id = ?";
+
+        try (Connection connection = DatabaseController.getInstance().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setInt(1, userId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (!rs.next()) {
+                    return null;
+                }
+
+                Map<String, String> userData = new HashMap<>();
+                userData.put("id", String.valueOf(rs.getInt("id")));
+                userData.put("username", rs.getString("username"));
+                userData.put("password", rs.getString("password"));
+                userData.put("role", rs.getString("role"));
+                userData.put("temp_session_id", UUID.randomUUID().toString());
+
+                return userData;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -49,11 +82,10 @@ public class UserDAO {
     }
 
     public boolean existsByUsername(String username) {
-        DatabaseController databaseController = new DatabaseController();
 
         String sql = "SELECT 1 FROM users WHERE username = ?";
 
-        try (Connection connection = databaseController.getConnection();
+        try (Connection connection = DatabaseController.getInstance().getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setString(1, username);
@@ -68,11 +100,10 @@ public class UserDAO {
     }
 
     public int insertUser(String username, String hashedPassword, String role) {
-        DatabaseController databaseController = new DatabaseController();
 
         String sql = "INSERT INTO users (username, password, role) VALUES (?, ?, ?)";
 
-        try (Connection connection = databaseController.getConnection();
+        try (Connection connection = DatabaseController.getInstance().getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
             stmt.setString(1, username);
@@ -98,11 +129,10 @@ public class UserDAO {
     }
 
     public boolean insertSession(String sessionId, int userId) {
-        DatabaseController databaseController = new DatabaseController();
 
         String sql = "INSERT INTO sessionids (id, userid) VALUES (?, ?)";
 
-        try (Connection connection = databaseController.getConnection();
+        try (Connection connection = DatabaseController.getInstance().getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setString(1, sessionId);
@@ -116,11 +146,10 @@ public class UserDAO {
     }
 
     public boolean deleteSession(String sessionId) {
-        DatabaseController databaseController = new DatabaseController();
 
         String sql = "DELETE FROM sessionids WHERE id = ?";
 
-        try (Connection connection = databaseController.getConnection();
+        try (Connection connection = DatabaseController.getInstance().getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setString(1, sessionId);
@@ -132,11 +161,10 @@ public class UserDAO {
     }
 
     public Integer findUserIdBySessionId(String sessionId) {
-        DatabaseController databaseController = new DatabaseController();
 
         String sql = "SELECT userid FROM sessionids WHERE id = ?";
 
-        try (Connection connection = databaseController.getConnection();
+        try (Connection connection = DatabaseController.getInstance().getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setString(1, sessionId);

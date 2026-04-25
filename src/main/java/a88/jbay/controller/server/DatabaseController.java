@@ -1,23 +1,47 @@
 package a88.jbay.controller.server;
 
-import java.sql.*;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 
 // singleton class for database controlling
 // requirement: thread safe
 public class DatabaseController {
-    private Connection connection;
+    private static DatabaseController instance;
+    private final HikariDataSource dataSource;
 
-    public Connection getConnection() {
-        String url = "jdbc:mysql://localhost:3306/jbay_db";
-        String username = "root";
-        String password = "220407";
-        try {
-            connection = DriverManager.getConnection(url, username, password);
-        } catch (SQLException exception) {
-            //should be replaced with logging
-            exception.printStackTrace();
+    private DatabaseController() {
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl("jdbc:mysql://localhost:3306/jbay_db");
+        config.setUsername("root");
+        config.setPassword("220407");
+
+        // Pool configuration
+        config.setMaximumPoolSize(10);
+        config.setMinimumIdle(2);
+        config.setIdleTimeout(30000);
+        config.setConnectionTimeout(20000);
+        config.setMaxLifetime(1800000);
+
+        this.dataSource = new HikariDataSource(config);
+    }
+
+    public static synchronized DatabaseController getInstance() {
+        if (instance == null) {
+            instance = new DatabaseController();
         }
+        return instance;
+    }
 
-        return connection;
+    public Connection getConnection() throws SQLException {
+        return dataSource.getConnection();
+    }
+
+    public void close() {
+        if (dataSource != null) {
+            dataSource.close();
+        }
     }
 }

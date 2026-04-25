@@ -3,6 +3,7 @@ package a88.jbay.controller.server;
 import a88.jbay.model.network.Request;
 import a88.jbay.model.network.RequestType;
 import a88.jbay.model.network.Response;
+import a88.jbay.system.UserSystem;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -11,9 +12,11 @@ import java.net.Socket;
 
 public class ClientHandler implements Runnable {
     private final Socket socket;
+    private final UserSystem userService;
 
     public ClientHandler(Socket socket) {
         this.socket = socket;
+        this.userService = UserSystem.getInstance();
     }
 
     @Override
@@ -45,15 +48,23 @@ public class ClientHandler implements Runnable {
         String username = (String) request.get("username");
         String password = (String) request.get("password");
 
-        // call service here
-        return new Response(true, "LOGIN_SUCCESS", null);
+        String sessionId = userService.login(username, password);
+        if (sessionId != null) {
+            return new Response(true, "LOGIN_SUCCESS", sessionId);
+        }
+        return new Response(false, "INVALID_CREDENTIALS", null);
     }
 
     private Response handleRegister(Request request) {
         String username = (String) request.get("username");
         String password = (String) request.get("password");
+        String role = (String) request.get("role");
 
-        // call service here
-        return new Response(true, "REGISTER_SUCCESS", null);
+        if (role == null) role = "bidder"; // Default role
+
+        if (userService.register(username, password, role)) {
+            return new Response(true, "REGISTER_SUCCESS", null);
+        }
+        return new Response(false, "USER_ALREADY_EXISTS", null);
     }
 }

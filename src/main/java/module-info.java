@@ -12,6 +12,7 @@ module a88.jbay {
     requires com.almasb.fxgl.all;
     requires annotations;
     requires java.sql;
+    requires com.zaxxer.hikari;
 
     opens a88.jbay.view to javafx.fxml, javafx.graphics;
     exports a88.jbay.view;
