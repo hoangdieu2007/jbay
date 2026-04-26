@@ -1,15 +1,25 @@
 package a88.jbay.system;
 
+import a88.jbay.model.Observer;
+import a88.jbay.model.event.Auction;
 import a88.jbay.model.network.Response;
-import java.io.ObjectOutputStream;
+
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
-public class NotificationSystem {
+public class NotificationSystem implements Observer {
     private static NotificationSystem instance;
-    private final ConcurrentHashMap<Integer, ObjectOutputStream> activeSessions = new ConcurrentHashMap<>();
+    private final Map<Integer, List<ObjectOutputStream>> userSessions = new ConcurrentHashMap<>();
+    private final Map<Integer, Set<Integer>> auctionSubscribers = new ConcurrentHashMap<>();
 
-    public synchronized static NotificationSystem getInstance() {
+    private NotificationSystem() {}
+
+    public static synchronized NotificationSystem getInstance() {
         if (instance == null) {
             instance = new NotificationSystem();
         }
@@ -17,21 +27,69 @@ public class NotificationSystem {
     }
 
     public void register(int userId, ObjectOutputStream out) {
-        activeSessions.put(userId, out);
+        userSessions.computeIfAbsent(userId, k -> new CopyOnWriteArrayList<>()).add(out);
     }
 
-    public void unregister(int userId) {
-        activeSessions.remove(userId);
+    public void unregister(int userId, ObjectOutputStream out) {
+        List<ObjectOutputStream> streams = userSessions.get(userId);
+        if (streams != null) {
+            streams.remove(out);
+            if (streams.isEmpty()) {
+                userSessions.remove(userId);
+            }
+        }
     }
 
-    public void broadcast(Response response) {
-        activeSessions.forEach((userId, out) -> {
-            synchronized (out) {
-                try {
-                    out.writeObject(response);
-                    out.flush();
-                } catch (IOException e) {
-                    unregister(userId);
+    public void subscribe(int userId, int auctionId) {
+        auctionSubscribers.computeIfAbsent(auctionId, ignored -> ConcurrentHashMap.newKeySet()).add(userId);
+    }
+
+    public void unsubscribe(int userId, int auctionId) {
+        Set<Integer> subscribers = auctionSubscribers.get(auctionId);
+        if (subscribers == null) {
+            return;
+        }
+
+        subscribers.remove(userId);
+        if (subscribers.isEmpty()) {
+            auctionSubscribers.remove(auctionId);
+        }
+    }
+
+    public void unsubscribeUserFromAllAuctions(int userId) {
+        auctionSubscribers.forEach((auctionId, subscribers) -> {
+            subscribers.remove(userId);
+            if (subscribers.isEmpty()) {
+                auctionSubscribers.remove(auctionId);
+            }
+        });
+    }
+
+    public void clearAuctionSubscribers(int auctionId) {
+        auctionSubscribers.remove(auctionId);
+    }
+
+    @Override
+    public void update(Auction auction) {
+        Response response = new Response(true, "AUCTION_UPDATE", auction);
+        Set<Integer> subscribers = auctionSubscribers.get(auction.getId());
+        if (subscribers == null || subscribers.isEmpty()) {
+            return;
+        }
+
+        subscribers.forEach(userId -> {
+            List<ObjectOutputStream> streams = userSessions.get(userId);
+            if (streams == null) {
+                return;
+            }
+            for (ObjectOutputStream out : streams) {
+                synchronized (out) {
+                    try {
+                        out.writeObject(response);
+                        out.flush();
+                    } catch (IOException e) {
+                        unregister(userId, out);
+                    }
                 }
             }
         });

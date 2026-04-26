@@ -35,7 +35,7 @@ public class MainClientTUI {
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream())
         ) {
             while (true) {
-                System.out.println("Command: login, register, bid, create, end");
+                System.out.println("Command: login, register, bid, subscribe, unsubscribe, create, end");
                 String command = sc.nextLine();
 
                 Request request = switch (command.toLowerCase()) {
@@ -69,10 +69,27 @@ public class MainClientTUI {
                         yield new Request(RequestType.BID)
                                 .put("sessionId", user.getSessionId())
                                 .put("auctionId", auctionId)
-                                .put("bidAmount", bidAmount);
+                                .put("amount", bidAmount);
+                    }
+                    case "subscribe" -> {
+                        System.out.println("Auction ID:");
+                        int auctionId = Integer.parseInt(sc.nextLine());
+
+                        yield new Request(RequestType.SUBSCRIBE_AUCTION)
+                                .put("sessionId", user.getSessionId())
+                                .put("auctionId", auctionId);
+                    }
+                    case "unsubscribe" -> {
+                        System.out.println("Auction ID:");
+                        int auctionId = Integer.parseInt(sc.nextLine());
+
+                        yield new Request(RequestType.UNSUBSCRIBE_AUCTION)
+                                .put("sessionId", user.getSessionId())
+                                .put("auctionId", auctionId);
                     }
                     case "sell" -> {
                         //add item
+
 
                         //then sell it
 

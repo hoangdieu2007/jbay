@@ -6,5 +6,7 @@ public enum RequestType {
     LOGOUT,
     BID,
     SELL,
-    CANCEL;
+    CANCEL,
+    SUBSCRIBE_AUCTION,
+    UNSUBSCRIBE_AUCTION;
 }

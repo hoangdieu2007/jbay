@@ -7,8 +7,11 @@ import a88.jbay.model.entity.user.Credentials;
 import a88.jbay.model.entity.user.User;
 import a88.jbay.model.network.Response;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 /*
 the code for operations on the user data
@@ -17,6 +20,8 @@ the code for operations on the user data
 public class UserSystem {
     private static UserSystem instance;
     private final UserDAO userDAO;
+
+    private final Map<Integer, List<User>> activeUsers = new ConcurrentHashMap<>();
 
     private UserSystem() {
         this.userDAO = UserDAO.getInstance();
@@ -36,9 +41,11 @@ public class UserSystem {
 
         String hashedPassword = StringHash.hash(password);
 
+        if (!hashedPassword.equals(userData.get("password"))) return null;
+
         String sessionId = UUID.randomUUID().toString();
         if (userDAO.insertSession(sessionId, Integer.parseInt(userData.get("id")))) {
-            return new User(Integer.getInteger(userData.get("id")),userData.get("role"), userData.get("username"), sessionId);
+            return new User(Integer.parseInt(userData.get("id")),userData.get("role"), userData.get("username"), sessionId);
         }
         return null;
     }
@@ -59,6 +66,6 @@ public class UserSystem {
     public User getBySessionId(String sessionId) {
         Map<String, String> userData = userDAO.findBySessionId(sessionId);
         if (userData == null) return null;
-        return new User(Integer.getInteger(userData.get("id")),userData.get("role"), userData.get("username"), sessionId);
+        return new User(Integer.parseInt(userData.get("id")),userData.get("role"), userData.get("username"), sessionId);
     }
 }

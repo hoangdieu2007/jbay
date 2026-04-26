@@ -24,6 +24,7 @@ features: real-time bidding, auction lifecycle management
 public class AuctionSystem {
     private static AuctionSystem instance;
     private final AuctionDAO auctionDAO;
+    private final NotificationSystem notificationSystem;
 
     // Memory cache for active auctions to handle real-time bidding
     private final Map<Integer, Auction> activeAuctions;
@@ -32,6 +33,7 @@ public class AuctionSystem {
 
     private AuctionSystem() {
         this.auctionDAO = AuctionDAO.getInstance();
+        this.notificationSystem = NotificationSystem.getInstance();
         this.activeAuctions = new ConcurrentHashMap<>();
         this.scheduler = Executors.newSingleThreadScheduledExecutor();
 
@@ -70,6 +72,7 @@ public class AuctionSystem {
                 start,
                 end
         );
+        auction.registerObserver(notificationSystem);
         activeAuctions.put(auctionId, auction);
         return true;
     }
@@ -94,6 +97,7 @@ public class AuctionSystem {
             // SYNC MEMORY: Update the object and trigger observers
             BidTransaction tx = new BidTransaction(userId, amount, now);
             auction.updatePrice(amount, tx);
+            notificationSystem.subscribe(userId, auctionId);
             return true;
         }
 
@@ -103,11 +107,20 @@ public class AuctionSystem {
     //cancel auction
     //ONLY ADMIN CAN CALL THIS
     public boolean cancelAuction(int auctionId) {
+        Auction auction = activeAuctions.get(auctionId);
+        if (auction != null) {
+            auction.cancel();
+        }
         boolean closed = auctionDAO.setAuctionState(auctionId, AuctionState.CANCELED);
         if (closed) {
             activeAuctions.remove(auctionId);
+            notificationSystem.clearAuctionSubscribers(auctionId);
         }
         return closed;
+    }
+
+    public boolean isAuctionActive(int auctionId) {
+        return activeAuctions.containsKey(auctionId);
     }
 
     public List<Auction> getActiveAuctions() {
@@ -132,8 +145,6 @@ public class AuctionSystem {
                 auctionDAO.setAuctionState(auction.getId(), auction.getAuctionState());
             }
 
-            // Notify observers if the auction state changed
-
             // Add canceled/finsihed auctions to ended list to remove
             if (auction.getAuctionState() == AuctionState.CANCELED || auction.getAuctionState() == AuctionState.FINISHED) {
                 ended.add(auction.getId());
@@ -143,6 +154,7 @@ public class AuctionSystem {
         //remove ended auctions from memory
         for (int auctionId : ended) {
             activeAuctions.remove(auctionId);
+            notificationSystem.clearAuctionSubscribers(auctionId);
         }
     }
 

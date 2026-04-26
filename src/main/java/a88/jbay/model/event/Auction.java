@@ -1,13 +1,11 @@
 package a88.jbay.model.event;
 
 import a88.jbay.model.Subject;
-import a88.jbay.model.UniqueID;
 import a88.jbay.model.entity.item.Item;
-import a88.jbay.model.entity.user.User;
 import a88.jbay.model.Observer;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 //manage auction data and state, all business logic belong to auction system
@@ -24,7 +22,7 @@ public class Auction implements Subject {
     // realtime
     private AuctionState auctionState;
     private List<BidTransaction> bidHistory;
-    transient private List<Observer> observers;
+    private final List<Observer> observers;
 
     public Auction(int id, Item item, int sellerId, LocalDateTime startTime, LocalDateTime endTime) {
         this.id = id;
@@ -92,19 +90,23 @@ public class Auction implements Subject {
 
     //observer pattern
     public void registerObserver(Observer observer) {
-        observers.add(observer);
-        System.out.println("Observer added successfully");
+        if (observer != null && !observers.contains(observer)) {
+            observers.add(observer);
+        }
     }
 
     public void removeObserver(Observer observer) {
         observers.remove(observer);
-        System.out.println("Observer removed successfully");
     }
 
     public void notifyObservers() {
         for (Observer observer : observers) {
             observer.update(this);
         }
+    }
+
+    public List<Observer> getObservers() {
+        return observers;
     }
 
     //check and change state
