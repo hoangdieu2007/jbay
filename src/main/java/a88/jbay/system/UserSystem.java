@@ -10,6 +10,10 @@ import a88.jbay.model.network.Response;
 import java.util.Map;
 import java.util.UUID;
 
+/*
+the code for operations on the user data
+ */
+
 public class UserSystem {
     private static UserSystem instance;
     private final UserDAO userDAO;

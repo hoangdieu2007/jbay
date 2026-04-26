@@ -13,6 +13,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+/*
+the code for handling individual clients
+ */
+
 public class ClientHandler implements Runnable {
     private final Socket socket;
     private final UserSystem userSystem;

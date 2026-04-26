@@ -15,6 +15,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/*
+the code for operations on the auction data
+
+features: real-time bidding, auction lifecycle management
+ */
+
 public class AuctionSystem {
     private static AuctionSystem instance;
     private final AuctionDAO auctionDAO;
@@ -117,6 +123,7 @@ public class AuctionSystem {
 
     private void checkAuctionTransitions() {
         LocalDateTime now = LocalDateTime.now();
+        List<Integer> ended = new ArrayList<>();
 
         for (Auction auction : activeAuctions.values()) {
             // Transition: Opening -> Running
@@ -127,12 +134,21 @@ public class AuctionSystem {
             }
 
             // Transition: Running -> Closed/Finished
-            if (auction.getAuctionState() == AuctionState.FINISHED && now.isAfter(auction.getEndTime())) {
+            if (auction.getAuctionState() == AuctionState.RUNNING && now.isAfter(auction.getEndTime())) {
                 System.out.println("Heartbeat: Closing auction " + auction.getId());
                 auctionDAO.setAuctionState(auction.getId(), AuctionState.FINISHED);
                 auction.end();
-                // Optionally remove from active map after some time or immediate
             }
+
+            // Add canceled/finsihed auctions to ended list to remove
+            if (auction.getAuctionState() == AuctionState.CANCELED || auction.getAuctionState() == AuctionState.FINISHED) {
+                ended.add(auction.getId());
+            }
+        }
+
+        //remove ended auctions from memory
+        for (int auctionId : ended) {
+            activeAuctions.remove(auctionId);
         }
     }
 
