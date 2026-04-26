@@ -37,7 +37,7 @@ public class UserSystem {
         String hashedPassword = StringHash.hash(password);
 
         String sessionId = UUID.randomUUID().toString();
-        if (userDAO.insertSession(sessionId, Integer.getInteger(userData.get("id")))) {
+        if (userDAO.insertSession(sessionId, Integer.parseInt(userData.get("id")))) {
             return new User(Integer.getInteger(userData.get("id")),userData.get("role"), userData.get("username"), sessionId);
         }
         return null;

@@ -12,8 +12,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 //manage auction data and state, all business logic belong to auction system
 public class Auction implements Subject {
-
-
     private int id;
     private Item item;
     private int sellerId;
@@ -92,6 +90,7 @@ public class Auction implements Subject {
         this.notifyObservers();
     }
 
+    //observer pattern
     public void registerObserver(Observer observer) {
         observers.add(observer);
         System.out.println("Observer added successfully");
@@ -106,6 +105,19 @@ public class Auction implements Subject {
         for (Observer observer : observers) {
             observer.update(this);
         }
+    }
+
+    //check and change state
+    public boolean tick(LocalDateTime now) {
+        if (auctionState == AuctionState.OPENING && now.isAfter(startTime)) {
+            start();
+            return true;
+        }
+        if (auctionState == AuctionState.RUNNING && now.isAfter(endTime)) {
+            end();
+            return true;
+        }
+        return false;
     }
 
 
@@ -144,4 +156,5 @@ public class Auction implements Subject {
 //    public void getCurrentBestBid() {
 //        System.out.println((bidHistory.get(bidHistory.size() - 1)).toString());
 //    }
+
 }

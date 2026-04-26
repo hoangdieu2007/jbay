@@ -126,19 +126,13 @@ public class AuctionSystem {
         List<Integer> ended = new ArrayList<>();
 
         for (Auction auction : activeAuctions.values()) {
-            // Transition: Opening -> Running
-            if (auction.getAuctionState() == AuctionState.OPENING && now.isAfter(auction.getStartTime())) {
-                System.out.println("Heartbeat: Starting auction " + auction.getId());
-                auctionDAO.setAuctionState(auction.getId(), AuctionState.RUNNING);
-                auction.start();
+            // check and change state
+            if (auction.tick(now)) {
+                System.out.println("Heartbeat: State changed for auction " + auction.getId());
+                auctionDAO.setAuctionState(auction.getId(), auction.getAuctionState());
             }
 
-            // Transition: Running -> Closed/Finished
-            if (auction.getAuctionState() == AuctionState.RUNNING && now.isAfter(auction.getEndTime())) {
-                System.out.println("Heartbeat: Closing auction " + auction.getId());
-                auctionDAO.setAuctionState(auction.getId(), AuctionState.FINISHED);
-                auction.end();
-            }
+            // Notify observers if the auction state changed
 
             // Add canceled/finsihed auctions to ended list to remove
             if (auction.getAuctionState() == AuctionState.CANCELED || auction.getAuctionState() == AuctionState.FINISHED) {
@@ -152,7 +146,7 @@ public class AuctionSystem {
         }
     }
 
-    //stopping the heartbeat, WARNING: no auctomatic auction lifecycle management after stopping
+    //stopping the heartbeat, WARNING: no automatic auction lifecycle management after stopping
     //do NOT call this method unless for testing purpose
     public void stopSystem() {
         scheduler.shutdown();

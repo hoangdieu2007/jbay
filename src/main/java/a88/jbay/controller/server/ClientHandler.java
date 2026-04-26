@@ -1,5 +1,6 @@
 package a88.jbay.controller.server;
 
+import a88.jbay.model.Observer;
 import a88.jbay.model.entity.user.User;
 import a88.jbay.model.entity.user.role.ActionType;
 import a88.jbay.model.entity.user.role.Permission;
@@ -14,7 +15,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 /*
-the code for handling individual clients
+the code for handling individual clients request and talk back to the client
  */
 
 public class ClientHandler implements Runnable {
@@ -27,6 +28,8 @@ public class ClientHandler implements Runnable {
         this.userSystem = UserSystem.getInstance();
         this.auctionSystem = AuctionSystem.getInstance();
     }
+
+
 
     @Override
     public void run() {
