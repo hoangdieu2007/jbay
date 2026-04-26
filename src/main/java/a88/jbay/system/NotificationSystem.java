@@ -41,7 +41,12 @@ public class NotificationSystem implements Observer {
     }
 
     public void subscribe(int userId, int auctionId) {
-        auctionSubscribers.computeIfAbsent(auctionId, ignored -> ConcurrentHashMap.newKeySet()).add(userId);
+        Set<Integer> subscribersForAuction = auctionSubscribers.get(auctionId);
+        if (subscribersForAuction == null) {
+            auctionSubscribers.putIfAbsent(auctionId, ConcurrentHashMap.newKeySet());
+            subscribersForAuction = auctionSubscribers.get(auctionId);
+        }
+        subscribersForAuction.add(userId);
     }
 
     public void unsubscribe(int userId, int auctionId) {

@@ -74,6 +74,7 @@ public class AuctionSystem {
         );
         auction.registerObserver(notificationSystem);
         activeAuctions.put(auctionId, auction);
+        notificationSystem.subscribe(sellerId, auctionId);
         return true;
     }
 
