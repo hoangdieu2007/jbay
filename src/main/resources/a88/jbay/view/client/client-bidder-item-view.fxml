@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="425.0" prefWidth="632.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CONTROLLER_NAME">
+<AnchorPane prefHeight="425.0" prefWidth="632.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.ClientBidderItemController">
    <children>
       <ImageView fitHeight="222.0" fitWidth="247.0" layoutX="29.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" />
       <GridPane layoutX="334.0" layoutY="190.0" prefHeight="190.0" prefWidth="271.0">
