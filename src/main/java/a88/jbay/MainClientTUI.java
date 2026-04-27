@@ -32,18 +32,14 @@ public class MainClientTUI {
         System.out.println("Enter port:");
         int port = Integer.parseInt(sc.nextLine());
 
-        ServerConnection serverConnection = null;
+        ServerConnection serverConnection = new ServerConnection();
         try {
-            serverConnection = new ServerConnection(host, port);
+            serverConnection.connect(host, port);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        //current User
         User user = new User();
-
-        //current Auction
-        Auction auction = null;
 
         while (true) {
             System.out.println("Command: login, register, bid, subscribe, unsubscribe, sell");
@@ -156,25 +152,10 @@ public class MainClientTUI {
                 continue;
             }
 
-            Response response = serverConnection.send(request);
-
-            String message = response.getMessage();
-            System.out.println(message);
-
-            //process response (if it provides any data)
-            switch (message) {
-                //login response
-                case "LOGIN_SUCCESS":
-                    user = (User) response.getPayload();
-                    System.out.println("Local user updated");
-                    break;
-
-                //misc response
-                case "LIST_AUCTION_SUCCESS":
-                    System.out.println((String) response.getPayload());
-                    break;
-                default:
-                    System.out.println("No action needed");
+            try {
+                serverConnection.send(request);
+            } catch (IOException e) {
+                System.out.println("Failed to send request");
             }
         }
     }
