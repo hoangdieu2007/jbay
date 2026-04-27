@@ -155,7 +155,7 @@ public class AuctionSystem {
         //remove ended auctions from memory
         for (int auctionId : ended) {
             activeAuctions.remove(auctionId);
-            notificationSystem.clearAuctionSubscribers(auctionId);
+            notificationSystem.clearAuctionSubscribers(auctionId); //remove all subscribers from the notification system
         }
     }
 

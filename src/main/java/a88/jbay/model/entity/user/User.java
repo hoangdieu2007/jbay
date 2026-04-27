@@ -54,7 +54,7 @@ public class User extends Entity implements Observer, Serializable {
 
     @Override
     public void update(Auction auction) {
-        // Notification logic
-        System.out.println("Update for user " + username);
+        // updating data from the auction object received from the notification system
+        System.out.println("Update for user " + username + " with auction " + auction.getId());
     }
 }

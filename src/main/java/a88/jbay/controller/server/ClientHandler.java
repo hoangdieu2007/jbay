@@ -14,8 +14,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-/*
-the code for handling individual clients request and talk back to the client
+/**
+    the code for handling individual clients request by calling the systems
+    mainly responsible for processing requests and sending responses back immediately if needed
+    not responsible for notifying the clients about the changes, this is done by the notification system
  */
 
 public class ClientHandler implements Runnable {
@@ -29,8 +31,11 @@ public class ClientHandler implements Runnable {
         this.socket = socket;
         this.userSystem = UserSystem.getInstance();
         this.auctionSystem = AuctionSystem.getInstance();
+        this.currentUser = new User();
+        this.out = null;
     }
 
+    //the handle loop
     @Override
     public void run() {
         try (
@@ -51,6 +56,7 @@ public class ClientHandler implements Runnable {
         }
     }
 
+    // directing request to respective handler
     private Response handleRequest(Request request) {
         return switch (request.getType()) {
             case LOGIN -> handleLogin(request);
@@ -65,6 +71,7 @@ public class ClientHandler implements Runnable {
         };
     }
 
+    //handling login
     private Response handleLogin(Request request) {
         String username = (String) request.get("username");
         String password = (String) request.get("password");
@@ -78,6 +85,7 @@ public class ClientHandler implements Runnable {
         return new Response(false, "INVALID_CREDENTIALS", null);
     }
 
+    //handling register
     private Response handleRegister(Request request) {
         String username = (String) request.get("username");
         String password = (String) request.get("password");
@@ -91,6 +99,7 @@ public class ClientHandler implements Runnable {
         return new Response(false, "USER_ALREADY_EXISTS", null);
     }
 
+    //handling bidding
     private Response handleBid(Request request) {
         User user = this.currentUser;
         if (user == null) return new Response(false, "INVALID_SESSION", null);
@@ -101,6 +110,7 @@ public class ClientHandler implements Runnable {
         return new Response(false, "BID_FAIL", null);
     }
 
+    //handling selling and creating auction
     private Response handleSell(Request request) {
         User user = this.currentUser;
         if (user == null) return new Response(false, "INVALID_SESSION", null);
@@ -111,15 +121,22 @@ public class ClientHandler implements Runnable {
         return new Response(false, "SELL_FAIL", null);
     }
 
+    //canceling auctions
+    //ADMIN ONLY, REPORT IF CALLS FROM NORMAL USERS ALSO RETURN CANCEL_SUCCESS
     private Response handleCancel(Request request) {
         User user = this.currentUser;
         if (user == null) return new Response(false, "INVALID_SESSION", null);
-        if (user.can(ActionType.BID)) {
+        if (user.can(ActionType.CANCEL)) {
             //direct cancel to system
+            boolean success = auctionSystem.cancelAuction((Integer) request.get("auctionId"));
+            return new Response(success, success ? "CANCEL_SUCCESS" : "CANCEL_FAIL", null);
         }
-        return new Response(false, "BID_FAIL", null);
+        return new Response(false, "CANCEL_FAIL", null);
     }
 
+    //subscribing to auctions
+    //this is often automatically handled by the auction system upon bidding/selling a product
+    //but separating this makes everything clear
     private Response handleSubscribeAuction(Request request) {
         User user = this.currentUser;
         if (user == null) return new Response(false, "INVALID_SESSION", null);
@@ -133,6 +150,8 @@ public class ClientHandler implements Runnable {
         return new Response(true, "SUBSCRIBE_AUCTION_SUCCESS", null);
     }
 
+    //unsubscribing from auctions
+    //also automatically handled by the auction system when an auction finishes
     private Response handleUnsubscribeAuction(Request request) {
         User user = this.currentUser;
         if (user == null) return new Response(false, "INVALID_SESSION", null);
@@ -146,6 +165,8 @@ public class ClientHandler implements Runnable {
         return new Response(true, "UNSUBSCRIBE_AUCTION_SUCCESS", null);
     }
 
+    //handling logout
+    //deletes session and logs out user, also removes all subscriptions
     private Response handleLogout(Request request) {
         String sessionId = (String) request.get("sessionId");
         cleanupCurrentUserSession();
@@ -153,6 +174,8 @@ public class ClientHandler implements Runnable {
         return new Response(true, "LOGOUT_SUCCESS", null);
     }
 
+    //erase current user session
+    //remove all subscriptions, unregister from notification system
     private void cleanupCurrentUserSession() {
         if (currentUser == null) {
             return;

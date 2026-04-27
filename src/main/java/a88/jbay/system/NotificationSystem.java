@@ -12,6 +12,16 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+/**
+    the notification system for the server
+
+    this is the ONLY observer of all auctions, it manages the current subscribers of each auction
+
+    features:
+        + add user id to the auction subscribers list, remove user id from the auction subscribers list (subscribe/unsubscribe)
+        + manage each user session with an object output stream so the server can send response to the client (register/unregister)
+ */
+
 public class NotificationSystem implements Observer {
     private static NotificationSystem instance;
     private final Map<Integer, List<ObjectOutputStream>> userSessions = new ConcurrentHashMap<>();
@@ -27,7 +37,10 @@ public class NotificationSystem implements Observer {
     }
 
     public void register(int userId, ObjectOutputStream out) {
-        userSessions.computeIfAbsent(userId, k -> new CopyOnWriteArrayList<>()).add(out);
+        List<ObjectOutputStream> sessions =
+                userSessions.computeIfAbsent(userId, k -> new CopyOnWriteArrayList<>());
+
+        sessions.add(out);
     }
 
     public void unregister(int userId, ObjectOutputStream out) {
