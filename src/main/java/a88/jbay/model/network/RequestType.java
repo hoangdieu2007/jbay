@@ -8,5 +8,6 @@ public enum RequestType {
     SELL,
     CANCEL,
     SUBSCRIBE_AUCTION,
-    UNSUBSCRIBE_AUCTION;
+    UNSUBSCRIBE_AUCTION,
+    MISC;
 }

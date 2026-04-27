@@ -2,6 +2,7 @@ package a88.jbay;
 
 import a88.jbay.model.entity.item.Item;
 import a88.jbay.model.entity.user.User;
+import a88.jbay.model.event.Auction;
 import a88.jbay.model.network.Request;
 import a88.jbay.model.network.RequestType;
 import a88.jbay.model.network.Response;
@@ -11,6 +12,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class MainClientTUI {
@@ -30,6 +33,9 @@ public class MainClientTUI {
 
         //current User
         User user = new User();
+
+        //current Auction
+        Auction auction = null;
 
         try (
                 Socket socket = new Socket(host, port);
@@ -127,6 +133,18 @@ public class MainClientTUI {
                                 .put("sessionId", user.getSessionId())
                                 .put("auctionId", auctionId);
                     }
+                    case "misc" -> {
+                        System.out.println("Command:");
+                        String misc = sc.nextLine();
+
+                        switch (misc) {
+                            case "ls-auction":
+                                yield new Request(RequestType.MISC)
+                                        .put("command", "ls-auction");
+                            default:
+                                yield new Request(RequestType.MISC);
+                        }
+                    }
                     default -> null;
                 };
 
@@ -144,8 +162,15 @@ public class MainClientTUI {
 
                 //process response (if it provides any data)
                 switch (message) {
+                    //login response
                     case "LOGIN_SUCCESS":
                         user = (User) response.getPayload();
+                        System.out.println("Local user updated");
+                        break;
+
+                    //misc response
+                    case "LIST_AUCTION_SUCCESS":
+                        System.out.println((String) response.getPayload());
                         break;
                     default:
                         System.out.println("No action needed");

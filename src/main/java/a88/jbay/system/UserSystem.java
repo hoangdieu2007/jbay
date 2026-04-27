@@ -66,4 +66,8 @@ public class UserSystem {
         if (userData == null) return null;
         return new User(Integer.parseInt(userData.get("id")),userData.get("role"), userData.get("username"), sessionId);
     }
+
+    public boolean banUser(int userId) {
+        return userDAO.changeUserRole(userId, "BAN");
+    }
 }

@@ -1,6 +1,10 @@
 package a88.jbay;
 
 import a88.jbay.controller.server.ClientHandler;
+import a88.jbay.model.entity.user.User;
+import a88.jbay.model.event.Auction;
+import a88.jbay.system.AuctionSystem;
+import a88.jbay.system.UserSystem;
 import com.almasb.fxgl.net.Server;
 import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
 
@@ -25,32 +29,41 @@ public class MainServerTUI {
                 System.out.println("Server CLI starting...");
 
                 Scanner sc = new Scanner(System.in);
-                String inp; int opt;
+                String command; int opt;
 
                 while (true) {
-                    inp = sc.nextLine();
-                    String[] inps = inp.split("\\|");
+                    command = sc.nextLine();
 
-                    switch (inps[0]) {
+                    switch (command) {
                         case "CLI_TEST":
                             System.out.println("Running");
                             break;
                         case "REG_ADMIN":
                             System.out.println("register admin...");
-                            //command: REG_ADMIN username password
-                            //expect: REG_ADMIN_SUCCESS / REG_ADMIN_FAIL
+                            System.out.println("Username:");
+                            String username = sc.nextLine();
+                            System.out.println("Password:");
+                            String password = sc.nextLine();
+
+                            UserSystem.getInstance().register(username, password, "ADMIN");
+
                             break;
-                        case "CLOSE":
-                            //command: CLOSE auctionid
-                            //expect: CLOSE_SUCCESS / CLOSE_FAIL
+                        case "CANCEL":
+                            System.out.println("Auction ID:");
+                            int auctionId = sc.nextInt();
+
+                            AuctionSystem.getInstance().cancelAuction(auctionId);
+
                             break;
-                        case "DEL":
-                            //command: DEL userid
-                            //expect: DEL_SUCCESS / DEL_FAIL
+                        case "BAN":
+                            System.out.println("User ID:");
+                            int userId = sc.nextInt();
+
+                            UserSystem.getInstance().banUser(userId);
+
                             break;
                         case "UQ":
-                            //command: UQ userid [id] / UQ username [username]
-                            //expect: UQ_SUCCESS [massive data from server]
+                            System.out.println();
                             break;
                         case "AQ":
                             //command: AQ auctionid [id]

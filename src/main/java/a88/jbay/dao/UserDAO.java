@@ -16,6 +16,58 @@ public class UserDAO {
 
     private UserDAO() {}
 
+    private Map<String, String> extractUserFromResultSet(ResultSet rs) throws SQLException {
+        Map<String, String> userData = new HashMap<>();
+        userData.put("id", String.valueOf(rs.getInt("id")));
+        userData.put("username", rs.getString("username"));
+        userData.put("password", rs.getString("password"));
+        userData.put("role", rs.getString("role"));
+        return userData;
+    }
+
+    private Map<String, String> executeUserQuery(String sql, Object... params) {
+        try (Connection connection = DatabaseController.getInstance().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            for (int i = 0; i < params.length; i++) {
+                if (params[i] instanceof String) {
+                    stmt.setString(i + 1, (String) params[i]);
+                } else if (params[i] instanceof Integer) {
+                    stmt.setInt(i + 1, (Integer) params[i]);
+                }
+            }
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (!rs.next()) {
+                    return null;
+                }
+                return extractUserFromResultSet(rs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private boolean executeUpdate(String sql, Object... params) {
+        try (Connection connection = DatabaseController.getInstance().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            for (int i = 0; i < params.length; i++) {
+                if (params[i] instanceof String) {
+                    stmt.setString(i + 1, (String) params[i]);
+                } else if (params[i] instanceof Integer) {
+                    stmt.setInt(i + 1, (Integer) params[i]);
+                }
+            }
+
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public static synchronized UserDAO getInstance() {
         if (instance == null) {
             instance = new UserDAO();
@@ -24,59 +76,13 @@ public class UserDAO {
     }
 
     public Map<String, String> findByUsername(String username) {
-
         String sql = "SELECT id, username, password, role FROM users WHERE username = ?";
-
-        try (Connection connection = DatabaseController.getInstance().getConnection();
-             PreparedStatement stmt = connection.prepareStatement(sql)) {
-
-            stmt.setString(1, username);
-
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (!rs.next()) {
-                    return null;
-                }
-
-                Map<String, String> userData = new HashMap<>();
-                userData.put("id", String.valueOf(rs.getInt("id")));
-                userData.put("username", rs.getString("username"));
-                userData.put("password", rs.getString("password"));
-                userData.put("role", rs.getString("role"));
-
-                return userData;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
+        return executeUserQuery(sql, username);
     }
 
     public Map<String, String> findByUserId(int userId) {
-
         String sql = "SELECT id, username, password, role FROM users WHERE id = ?";
-
-        try (Connection connection = DatabaseController.getInstance().getConnection();
-             PreparedStatement stmt = connection.prepareStatement(sql)) {
-
-            stmt.setInt(1, userId);
-
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (!rs.next()) {
-                    return null;
-                }
-
-                Map<String, String> userData = new HashMap<>();
-                userData.put("id", String.valueOf(rs.getInt("id")));
-                userData.put("username", rs.getString("username"));
-                userData.put("password", rs.getString("password"));
-                userData.put("role", rs.getString("role"));
-
-                return userData;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
+        return executeUserQuery(sql, userId);
     }
 
     public Map<String, String> findBySessionId(String sessionId) {
@@ -101,9 +107,7 @@ public class UserDAO {
     }
 
     public boolean existsByUsername(String username) {
-
         String sql = "SELECT 1 FROM users WHERE username = ?";
-
         try (Connection connection = DatabaseController.getInstance().getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
@@ -148,34 +152,17 @@ public class UserDAO {
     }
 
     public boolean insertSession(String sessionId, int userId) {
-
         String sql = "INSERT INTO sessionids (id, userid) VALUES (?, ?)";
-
-        try (Connection connection = DatabaseController.getInstance().getConnection();
-             PreparedStatement stmt = connection.prepareStatement(sql)) {
-
-            stmt.setString(1, sessionId);
-            stmt.setInt(2, userId);
-
-            return stmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
+        return executeUpdate(sql, sessionId, userId);
     }
 
     public boolean deleteSession(String sessionId) {
-
         String sql = "DELETE FROM sessionids WHERE id = ?";
+        return executeUpdate(sql, sessionId);
+    }
 
-        try (Connection connection = DatabaseController.getInstance().getConnection();
-             PreparedStatement stmt = connection.prepareStatement(sql)) {
-
-            stmt.setString(1, sessionId);
-            return stmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
+    public boolean changeUserRole(int userId, String role) {
+        String sql = "UPDATE users SET role = ? WHERE id = ?";
+        return executeUpdate(sql, role, userId);
     }
 }

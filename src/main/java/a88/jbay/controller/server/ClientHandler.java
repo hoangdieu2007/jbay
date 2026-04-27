@@ -68,6 +68,7 @@ public class ClientHandler implements Runnable {
             case CANCEL -> handleCancel(request);
             case SUBSCRIBE_AUCTION -> handleSubscribeAuction(request);
             case UNSUBSCRIBE_AUCTION -> handleUnsubscribeAuction(request);
+            case MISC -> handleMisc(request);
             default -> new Response(false, "Unsupported request", null);
         };
     }
@@ -175,6 +176,16 @@ public class ClientHandler implements Runnable {
         cleanupCurrentUserSession();
         userSystem.logout(sessionId);
         return new Response(true, "LOGOUT_SUCCESS", null);
+    }
+
+    //misc commands
+    private Response handleMisc(Request request) {
+        switch ((String) request.get("command")) {
+            case "ls-auction":
+                return new Response(true, "LIST_AUCTION_SUCCESS", auctionSystem.listActiveAuctions());
+            default:
+                return new Response(false, "INVALID_MISC_COMMAND", null);
+        }
     }
 
     //erase current user session
