@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="425.0" prefWidth="632.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CONTROLLER_NAME">
+   <children>
+      <ImageView fitHeight="222.0" fitWidth="247.0" layoutX="24.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="82.0" layoutY="292.0" mnemonicParsing="false" text="Upload Item Picture" />
+      <GridPane layoutX="316.0" layoutY="84.0" maxWidth="1.7976931348623157E308" prefHeight="209.0" prefWidth="270.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="44.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="212.0" minWidth="0.0" prefWidth="188.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="126.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="109.0" minHeight="9.0" prefHeight="36.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="109.0" minHeight="9.0" prefHeight="35.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="109.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="109.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="TYPE" GridPane.rowIndex="4">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="10.0" layoutY="15.0" text="Name">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="10.0" layoutY="45.0" text="Price" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="10.0" layoutY="78.0" text="Start" GridPane.rowIndex="2">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="10.0" layoutY="14.0" text="End" GridPane.rowIndex="3">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField promptText="Item Name" GridPane.columnIndex="1" />
+            <TextField layoutX="48.0" layoutY="40.0" promptText="Starting Price(USD)" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField layoutX="48.0" layoutY="74.0" promptText="Start Time(DD/MM/YYYY)" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField layoutX="48.0" layoutY="109.0" promptText="End Time(DD/MM/YYYY)" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <ComboBox prefHeight="26.0" prefWidth="189.0" promptText="Item Type" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+         </children>
+      </GridPane>
+      <Button layoutX="397.0" layoutY="387.0" mnemonicParsing="false" text="Submit/Create Auction" />
+      <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="632.0" style="-fx-background-color: #2196F3;">
+         <children>
+            <Button mnemonicParsing="false" style="-fx-background-color: white; -fx-text-fill: #007bff; -fx-background-radius: 15; -fx-font-weight: bold; -fx-text-fill: #007bff; -fx-background-radius: 15;" text="BACK" />
+         </children>
+         <padding>
+            <Insets left="5.0" />
+         </padding>
+      </HBox>
+      <Label layoutX="368.0" layoutY="57.0" text=" ITEM INFORMATION">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <TextArea layoutX="316.0" layoutY="288.0" prefHeight="90.0" prefWidth="279.0" promptText="Item Description" wrapText="true" />
+   </children>
+</AnchorPane>
