@@ -9,6 +9,13 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 //manage auction data and state, all business logic belong to auction system
+
+/**
+ * the auction class, hold all auction data and state
+ * implements subject interface to be observed by notification system
+ * it will be sent to clients via network
+ * when the notifyObservers method is called, it will send the auction data to all clients subscribed to this auction
+ */
 public class Auction implements Subject {
     private int id;
     private Item item;

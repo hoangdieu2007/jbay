@@ -15,6 +15,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /*
 the code for operations on the user data
+features: login, register, logout
+subscrition are handled by the notification system and client handler, the only responsibility of this class is to manage the user data
  */
 
 public class UserSystem {

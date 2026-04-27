@@ -17,6 +17,8 @@ import java.io.Serializable;
 
 /**
 this class is sent over network for authorization processes
+ it implements observer interface to receive auction updates
+ updates are sent from notification system, the update method of this object is only for local update after receiving auction updates
  */
 public class User extends Entity implements Observer, Serializable {
     private static final long serialVersionUID = 1L;

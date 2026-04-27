@@ -36,6 +36,7 @@ public class NotificationSystem implements Observer {
         return instance;
     }
 
+    //register user session, coupled with the user output stream
     public void register(int userId, ObjectOutputStream out) {
         List<ObjectOutputStream> sessions =
                 userSessions.computeIfAbsent(userId, k -> new CopyOnWriteArrayList<>());
@@ -43,6 +44,7 @@ public class NotificationSystem implements Observer {
         sessions.add(out);
     }
 
+    //unregister user session, remove the user output stream from the list
     public void unregister(int userId, ObjectOutputStream out) {
         List<ObjectOutputStream> streams = userSessions.get(userId);
         if (streams != null) {
@@ -53,6 +55,7 @@ public class NotificationSystem implements Observer {
         }
     }
 
+    //subscribe user to an auction
     public void subscribe(int userId, int auctionId) {
         Set<Integer> subscribersForAuction = auctionSubscribers.get(auctionId);
         if (subscribersForAuction == null) {
@@ -62,6 +65,7 @@ public class NotificationSystem implements Observer {
         subscribersForAuction.add(userId);
     }
 
+    //unsubscribe user from an auction
     public void unsubscribe(int userId, int auctionId) {
         Set<Integer> subscribers = auctionSubscribers.get(auctionId);
         if (subscribers == null) {
@@ -74,6 +78,7 @@ public class NotificationSystem implements Observer {
         }
     }
 
+    //unsubscribe user from all auctions he subscribed to
     public void unsubscribeUserFromAllAuctions(int userId) {
         auctionSubscribers.forEach((auctionId, subscribers) -> {
             subscribers.remove(userId);
@@ -83,10 +88,12 @@ public class NotificationSystem implements Observer {
         });
     }
 
+    //clear all subscribers of an auction
     public void clearAuctionSubscribers(int auctionId) {
         auctionSubscribers.remove(auctionId);
     }
 
+    //the update method, sends update to all subscribers of the auction through output streams
     @Override
     public void update(Auction auction) {
         Response response = new Response(true, "AUCTION_UPDATE", auction);
@@ -101,6 +108,7 @@ public class NotificationSystem implements Observer {
                 return;
             }
             for (ObjectOutputStream out : streams) {
+                //synchronized to prevent concurrent modification exception
                 synchronized (out) {
                     try {
                         out.writeObject(response);
