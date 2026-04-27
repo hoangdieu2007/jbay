@@ -72,9 +72,8 @@ public class AuctionSystem {
                 start,
                 end
         );
-        auction.registerObserver(notificationSystem);
         activeAuctions.put(auctionId, auction);
-        notificationSystem.subscribe(sellerId, auctionId);
+        auction.subscribe(sellerId); // Seller is automatically subscribed
         return true;
     }
 
@@ -98,7 +97,7 @@ public class AuctionSystem {
             // SYNC MEMORY: Update the object and trigger observers
             BidTransaction tx = new BidTransaction(userId, amount, now);
             auction.updatePrice(amount, tx);
-            notificationSystem.subscribe(userId, auctionId);
+            auction.subscribe(userId); // Bidder is automatically subscribed
             return true;
         }
 
@@ -115,7 +114,7 @@ public class AuctionSystem {
         boolean closed = auctionDAO.setAuctionState(auctionId, AuctionState.CANCELED);
         if (closed) {
             activeAuctions.remove(auctionId);
-            notificationSystem.clearAuctionSubscribers(auctionId);
+            // Subscribers are automatically cleared when auction is removed from memory
         }
         return closed;
     }
@@ -126,6 +125,18 @@ public class AuctionSystem {
 
     public List<Auction> getActiveAuctions() {
         return new ArrayList<>(activeAuctions.values());
+    }
+
+    public Auction getAuctionById(int auctionId) {
+        return activeAuctions.get(auctionId);
+    }
+
+    public String listActiveAuctions() {
+        String result = "";
+        for (Auction auction : activeAuctions.values()) {
+            result += auction.toString() + "\n\n";
+        }
+        return result;
     }
 
     /*
@@ -155,7 +166,7 @@ public class AuctionSystem {
         //remove ended auctions from memory
         for (int auctionId : ended) {
             activeAuctions.remove(auctionId);
-            notificationSystem.clearAuctionSubscribers(auctionId); //remove all subscribers from the notification system
+            // Subscribers are automatically cleared when auction is removed from memory
         }
     }
 

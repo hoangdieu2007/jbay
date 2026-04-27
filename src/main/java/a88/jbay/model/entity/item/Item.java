@@ -9,7 +9,7 @@ public class Item {
     protected String description;
     protected double initPrice;
 
-    protected Item(String name, String type, String description, double initPrice) {
+    public Item(String name, String type, String description, double initPrice) {
         this.id = UniqueID.genIID();
         this.name = name;
         this.type = type;
@@ -29,5 +29,9 @@ public class Item {
     }
     public double getInitPrice() {
         return initPrice;
+    }
+
+    public String toString() {
+        return name + " - " + type + " - " + description + " - " + initPrice;
     }
 }

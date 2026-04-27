@@ -1,6 +1,9 @@
 package a88.jbay.controller.client;
 
 import a88.jbay.dao.UserDAO;
+import a88.jbay.model.entity.user.User;
+import a88.jbay.model.network.Response;
+import a88.jbay.system.UserSystem;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,7 +13,10 @@ import javafx.scene.control.TextField;
 
 public class ClientLoginRegisterController {
     // the DAO that handles sql logic
-    private UserDAO userDAO = UserDAO.getInstance();
+    private final UserSystem userSystem = UserSystem.getInstance();
+
+    //the objects required for each client session
+    private User user = new User();
 
     @FXML
     private Label loginLabel;
@@ -36,7 +42,7 @@ public class ClientLoginRegisterController {
         String password = passwordPasswordField.getText();
 
         if (!username.isBlank() && !password.isBlank()) {
-            loginLabel.setText(userDAO.checkLogin(username, password));
+            //loginLabel.setText(userSystem.checkLogin(username, password));
         } else loginLabel.setText("Username or password is empty");
     }
 
@@ -46,7 +52,7 @@ public class ClientLoginRegisterController {
         String password = passwordPasswordFieldRegister.getText();
 
         if (!username.isBlank() && !password.isBlank()) {
-            registerLabel.setText(userDAO.registerUser(username, password));
+            //registerLabel.setText(userSystem.registerUser(username, password));
         } else registerLabel.setText("Username or password is empty");
     }
 }

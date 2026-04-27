@@ -54,6 +54,10 @@ public class User extends Entity implements Observer, Serializable {
         return Permission.isAllowed(role, action);
     }
 
+    public String toString() {
+        return Integer.toString(id) + " " + username + " " + role;
+    }
+
     @Override
     public void update(Auction auction) {
         // updating data from the auction object received from the notification system

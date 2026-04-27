@@ -1,5 +1,6 @@
 package a88.jbay;
 
+import a88.jbay.model.entity.item.Item;
 import a88.jbay.model.entity.user.User;
 import a88.jbay.model.network.Request;
 import a88.jbay.model.network.RequestType;
@@ -9,6 +10,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class MainClientTUI {
@@ -35,7 +37,7 @@ public class MainClientTUI {
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream())
         ) {
             while (true) {
-                System.out.println("Command: login, register, bid, subscribe, unsubscribe, create, end");
+                System.out.println("Command: login, register, bid, subscribe, unsubscribe, sell");
                 String command = sc.nextLine();
 
                 Request request = switch (command.toLowerCase()) {
@@ -59,6 +61,10 @@ public class MainClientTUI {
                                 .put("username", username)
                                 .put("password", password)
                                 .put("role", "USER");
+                    }
+                    case "logout" -> {
+                        yield new Request(RequestType.LOGOUT)
+                                .put("sessionId", user.getSessionId());
                     }
                     case "bid" -> {
                         System.out.println("Auction ID:");
@@ -89,11 +95,37 @@ public class MainClientTUI {
                     }
                     case "sell" -> {
                         //add item
+                        System.out.println("Item name:");
+                        String itemName = sc.nextLine();
+                        System.out.println("Item type:");
+                        String itemType = sc.nextLine();
+                        System.out.println("Item description:");
+                        String itemDescription = sc.nextLine();
+                        System.out.println("Item price:");
+                        double itemPrice = Double.parseDouble(sc.nextLine());
 
+                        //later change this to a builder
+                        Item item = new Item(itemName, itemType, itemDescription, itemPrice);
 
-                        //then sell it
+                        //then create auction
+                        System.out.println("Start time (yyyy-MM-dd HH:mm):");
+                        String startTime = sc.nextLine();
+                        System.out.println("End time (yyyy-MM-dd HH:mm):");
+                        String endTime = sc.nextLine();
 
-                        yield null;
+                        yield new Request(RequestType.SELL)
+                                .put("sessionId", user.getSessionId())
+                                .put("item", item)
+                                .put("start", LocalDateTime.parse(startTime))
+                                .put("end", LocalDateTime.parse(endTime));
+                    }
+                    case "cancel" -> {
+                        System.out.println("Auction ID:");
+                        int auctionId = Integer.parseInt(sc.nextLine());
+
+                        yield new Request(RequestType.CANCEL)
+                                .put("sessionId", user.getSessionId())
+                                .put("auctionId", auctionId);
                     }
                     default -> null;
                 };

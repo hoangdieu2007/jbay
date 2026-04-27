@@ -2,21 +2,27 @@ package a88.jbay.model.event;
 
 import a88.jbay.model.Subject;
 import a88.jbay.model.entity.item.Item;
-import a88.jbay.model.Observer;
+import a88.jbay.system.NotificationSystem;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
+import java.util.Collections;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CopyOnWriteArraySet;
 
-//manage auction data and state, all business logic belong to auction system
+//manage auction data, state and subscribers, all business logic belong to auction system
 
 /**
  * the auction class, hold all auction data and state
- * implements subject interface to be observed by notification system
+ * manages its own subscribers and notifies them through NotificationSystem
  * it will be sent to clients via network
  * when the notifyObservers method is called, it will send the auction data to all clients subscribed to this auction
  */
-public class Auction implements Subject {
+public class Auction implements Subject, Serializable {
+    private static final long serialVersionUID = 1L;
+
     private int id;
     private Item item;
     private int sellerId;
@@ -29,7 +35,7 @@ public class Auction implements Subject {
     // realtime
     private AuctionState auctionState;
     private List<BidTransaction> bidHistory;
-    private final List<Observer> observers;
+    private final Set<Integer> observers;
 
     public Auction(int id, Item item, int sellerId, LocalDateTime startTime, LocalDateTime endTime) {
         this.id = id;
@@ -42,8 +48,8 @@ public class Auction implements Subject {
         this.endTime = endTime;
 
         this.auctionState = AuctionState.OPENING;
-        this.bidHistory = new CopyOnWriteArrayList<>();//sử dụng CopyOnWrite do danh sách này sẽ cho phép chỉnh sửa và xoá list cùng 1 lúc và không bị crash hệ thống
-        this.observers = new CopyOnWriteArrayList<>();
+        this.bidHistory = new CopyOnWriteArrayList<>();
+        this.observers = new CopyOnWriteArraySet<>();
     }
 
     public int getId() {
@@ -59,6 +65,10 @@ public class Auction implements Subject {
 
     public LocalDateTime getEndTime() {
         return endTime;
+    }
+
+    public String toString() {
+        return Integer.toString(id) + " - " + item.toString() + Integer.toString(sellerId) + " - " + startPrice + " - " + currentPrice + " - " + Integer.toString(winnerId) + startTime.toString() + endTime.toString() + auctionState.name();
     }
 
     public void start() {
@@ -95,25 +105,25 @@ public class Auction implements Subject {
         this.notifyObservers();
     }
 
-    //observer pattern
-    public void registerObserver(Observer observer) {
-        if (observer != null && !observers.contains(observer)) {
-            observers.add(observer);
-        }
+    //subscriber management
+    public void subscribe(int userId) {
+        observers.add(userId);
     }
 
-    public void removeObserver(Observer observer) {
-        observers.remove(observer);
+    public void unsubscribe(int userId) {
+        observers.remove(userId);
+    }
+
+    public Set<Integer> getSubscribers() {
+        return Collections.unmodifiableSet(observers);
+    }
+
+    public boolean hasSubscribers() {
+        return !observers.isEmpty();
     }
 
     public void notifyObservers() {
-        for (Observer observer : observers) {
-            observer.update(this);
-        }
-    }
-
-    public List<Observer> getObservers() {
-        return observers;
+        NotificationSystem.getInstance().notifySubscribers(this, observers);
     }
 
     //check and change state
@@ -128,42 +138,5 @@ public class Auction implements Subject {
         }
         return false;
     }
-
-
-    /*
-    this is going to be dead code, all business logic will be handled by the auction system
-     */
-
-//    public synchronized void placeBid(BidTransaction bidTransaction) {
-//        if (bidTransaction == null) {
-//            System.out.println("ERROR: Please enter a bid!");
-//            return;
-//        }
-//        try {
-//            this.auctionState.placeBid(this,bidTransaction);
-//        }
-//        catch(IllegalStateException e) {
-//            System.out.println(e.getMessage());
-//        }
-//        boolean isuccess = false;
-//        synchronized (this) {//Đảm bảo tính đa luồng khi muốn chạy qua đây cần có key của this
-//            if (bidTransaction.getAmt() <= currentPrice) {
-//                System.out.println("ERROR: Please enter a valid amount!");
-//            }
-//            else {
-//                bidHistory.add(bidTransaction);
-//                System.out.println("Bid updated successfully");
-//                currentPrice = bidTransaction.getAmt();
-//                isuccess = true;
-//            }
-//        }
-//        if (isuccess == true) {//đảm bảo thoát vòng khoá rồi mới thực hiện code này nhằm tránh gây tắc nghẽn thời gian do lệnh notify có thể tốn thời gian
-//            this.notifyObservers();
-//        }
-//    }
-//
-//    public void getCurrentBestBid() {
-//        System.out.println((bidHistory.get(bidHistory.size() - 1)).toString());
-//    }
 
 }

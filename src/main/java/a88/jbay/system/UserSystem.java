@@ -2,12 +2,8 @@ package a88.jbay.system;
 
 import a88.jbay.dao.UserDAO;
 import a88.jbay.model.StringHash;
-import a88.jbay.model.UniqueID;
-import a88.jbay.model.entity.user.Credentials;
 import a88.jbay.model.entity.user.User;
-import a88.jbay.model.network.Response;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;

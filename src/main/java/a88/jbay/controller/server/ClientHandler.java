@@ -3,6 +3,7 @@ package a88.jbay.controller.server;
 import a88.jbay.model.entity.item.Item;
 import a88.jbay.model.entity.user.User;
 import a88.jbay.model.entity.user.role.ActionType;
+import a88.jbay.model.event.Auction;
 import a88.jbay.model.network.Request;
 import a88.jbay.model.network.Response;
 import a88.jbay.system.AuctionSystem;
@@ -146,7 +147,8 @@ public class ClientHandler implements Runnable {
             return new Response(false, "AUCTION_NOT_FOUND", null);
         }
 
-        NotificationSystem.getInstance().subscribe(user.getId(), auctionId);
+        Auction auction = auctionSystem.getAuctionById(auctionId);
+        auction.subscribe(user.getId());
         return new Response(true, "SUBSCRIBE_AUCTION_SUCCESS", null);
     }
 
@@ -161,7 +163,8 @@ public class ClientHandler implements Runnable {
             return new Response(false, "INVALID_AUCTION", null);
         }
 
-        NotificationSystem.getInstance().unsubscribe(user.getId(), auctionId);
+        Auction auction = auctionSystem.getAuctionById(auctionId);
+        auction.unsubscribe(user.getId());
         return new Response(true, "UNSUBSCRIBE_AUCTION_SUCCESS", null);
     }
 
