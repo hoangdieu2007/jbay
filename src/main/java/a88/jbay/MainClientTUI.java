@@ -1,5 +1,6 @@
 package a88.jbay;
 
+import a88.jbay.controller.client.ServerConnection;
 import a88.jbay.model.entity.item.Item;
 import a88.jbay.model.entity.user.User;
 import a88.jbay.model.event.Auction;
@@ -31,153 +32,150 @@ public class MainClientTUI {
         System.out.println("Enter port:");
         int port = Integer.parseInt(sc.nextLine());
 
+        ServerConnection serverConnection = null;
+        try {
+            serverConnection = new ServerConnection(host, port);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         //current User
         User user = new User();
 
         //current Auction
         Auction auction = null;
 
-        try (
-                Socket socket = new Socket(host, port);
-                ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
-                ObjectInputStream in = new ObjectInputStream(socket.getInputStream())
-        ) {
-            while (true) {
-                System.out.println("Command: login, register, bid, subscribe, unsubscribe, sell");
-                String command = sc.nextLine();
+        while (true) {
+            System.out.println("Command: login, register, bid, subscribe, unsubscribe, sell");
+            String command = sc.nextLine();
 
-                Request request = switch (command.toLowerCase()) {
-                    case "login" -> {
-                        System.out.println("Username:");
-                        String username = sc.nextLine();
-                        System.out.println("Password:");
-                        String password = sc.nextLine();
+            Request request = switch (command.toLowerCase()) {
+                case "login" -> {
+                    System.out.println("Username:");
+                    String username = sc.nextLine();
+                    System.out.println("Password:");
+                    String password = sc.nextLine();
 
-                        yield new Request(RequestType.LOGIN)
-                                .put("username", username)
-                                .put("password", password);
-                    }
-                    case "register" -> {
-                        System.out.println("Username:");
-                        String username = sc.nextLine();
-                        System.out.println("Password:");
-                        String password = sc.nextLine();
-
-                        yield new Request(RequestType.REGISTER)
-                                .put("username", username)
-                                .put("password", password)
-                                .put("role", "USER");
-                    }
-                    case "logout" -> {
-                        yield new Request(RequestType.LOGOUT)
-                                .put("sessionId", user.getSessionId());
-                    }
-                    case "bid" -> {
-                        System.out.println("Auction ID:");
-                        int auctionId = Integer.parseInt(sc.nextLine());
-                        System.out.println("Bid amount:");
-                        double bidAmount = Double.parseDouble(sc.nextLine());
-
-                        yield new Request(RequestType.BID)
-                                .put("sessionId", user.getSessionId())
-                                .put("auctionId", auctionId)
-                                .put("amount", bidAmount);
-                    }
-                    case "subscribe" -> {
-                        System.out.println("Auction ID:");
-                        int auctionId = Integer.parseInt(sc.nextLine());
-
-                        yield new Request(RequestType.SUBSCRIBE_AUCTION)
-                                .put("sessionId", user.getSessionId())
-                                .put("auctionId", auctionId);
-                    }
-                    case "unsubscribe" -> {
-                        System.out.println("Auction ID:");
-                        int auctionId = Integer.parseInt(sc.nextLine());
-
-                        yield new Request(RequestType.UNSUBSCRIBE_AUCTION)
-                                .put("sessionId", user.getSessionId())
-                                .put("auctionId", auctionId);
-                    }
-                    case "sell" -> {
-                        //add item
-                        System.out.println("Item name:");
-                        String itemName = sc.nextLine();
-                        System.out.println("Item type:");
-                        String itemType = sc.nextLine();
-                        System.out.println("Item description:");
-                        String itemDescription = sc.nextLine();
-                        System.out.println("Item price:");
-                        double itemPrice = Double.parseDouble(sc.nextLine());
-
-                        //later change this to a builder
-                        Item item = new Item(itemName, itemType, itemDescription, itemPrice);
-
-                        //then create auction
-                        System.out.println("Start time (yyyy-MM-dd HH:mm):");
-                        String startTime = sc.nextLine();
-                        System.out.println("End time (yyyy-MM-dd HH:mm):");
-                        String endTime = sc.nextLine();
-
-                        yield new Request(RequestType.SELL)
-                                .put("sessionId", user.getSessionId())
-                                .put("item", item)
-                                .put("start", LocalDateTime.parse(startTime))
-                                .put("end", LocalDateTime.parse(endTime));
-                    }
-                    case "cancel" -> {
-                        System.out.println("Auction ID:");
-                        int auctionId = Integer.parseInt(sc.nextLine());
-
-                        yield new Request(RequestType.CANCEL)
-                                .put("sessionId", user.getSessionId())
-                                .put("auctionId", auctionId);
-                    }
-                    case "misc" -> {
-                        System.out.println("Command:");
-                        String misc = sc.nextLine();
-
-                        switch (misc) {
-                            case "ls-auction":
-                                yield new Request(RequestType.MISC)
-                                        .put("command", "ls-auction");
-                            default:
-                                yield new Request(RequestType.MISC);
-                        }
-                    }
-                    default -> null;
-                };
-
-                if (request == null) {
-                    System.out.println("Unknown command");
-                    continue;
+                    yield new Request(RequestType.LOGIN)
+                            .put("username", username)
+                            .put("password", password);
                 }
+                case "register" -> {
+                    System.out.println("Username:");
+                    String username = sc.nextLine();
+                    System.out.println("Password:");
+                    String password = sc.nextLine();
 
-                out.writeObject(request);
-                out.flush();
-
-                Response response = (Response) in.readObject();
-                String message = response.getMessage();
-                System.out.println(message);
-
-                //process response (if it provides any data)
-                switch (message) {
-                    //login response
-                    case "LOGIN_SUCCESS":
-                        user = (User) response.getPayload();
-                        System.out.println("Local user updated");
-                        break;
-
-                    //misc response
-                    case "LIST_AUCTION_SUCCESS":
-                        System.out.println((String) response.getPayload());
-                        break;
-                    default:
-                        System.out.println("No action needed");
+                    yield new Request(RequestType.REGISTER)
+                            .put("username", username)
+                            .put("password", password)
+                            .put("role", "USER");
                 }
+                case "logout" -> {
+                    yield new Request(RequestType.LOGOUT)
+                            .put("sessionId", user.getSessionId());
+                }
+                case "bid" -> {
+                    System.out.println("Auction ID:");
+                    int auctionId = Integer.parseInt(sc.nextLine());
+                    System.out.println("Bid amount:");
+                    double bidAmount = Double.parseDouble(sc.nextLine());
+
+                    yield new Request(RequestType.BID)
+                            .put("sessionId", user.getSessionId())
+                            .put("auctionId", auctionId)
+                            .put("amount", bidAmount);
+                }
+                case "subscribe" -> {
+                    System.out.println("Auction ID:");
+                    int auctionId = Integer.parseInt(sc.nextLine());
+
+                    yield new Request(RequestType.SUBSCRIBE_AUCTION)
+                            .put("sessionId", user.getSessionId())
+                            .put("auctionId", auctionId);
+                }
+                case "unsubscribe" -> {
+                    System.out.println("Auction ID:");
+                    int auctionId = Integer.parseInt(sc.nextLine());
+
+                    yield new Request(RequestType.UNSUBSCRIBE_AUCTION)
+                            .put("sessionId", user.getSessionId())
+                            .put("auctionId", auctionId);
+                }
+                case "sell" -> {
+                    //add item
+                    System.out.println("Item name:");
+                    String itemName = sc.nextLine();
+                    System.out.println("Item type:");
+                    String itemType = sc.nextLine();
+                    System.out.println("Item description:");
+                    String itemDescription = sc.nextLine();
+                    System.out.println("Item price:");
+                    double itemPrice = Double.parseDouble(sc.nextLine());
+
+                    //later change this to a builder
+                    Item item = new Item(itemName, itemType, itemDescription, itemPrice);
+
+                    //then create auction
+                    System.out.println("Start time (yyyy-MM-dd HH:mm):");
+                    String startTime = sc.nextLine();
+                    System.out.println("End time (yyyy-MM-dd HH:mm):");
+                    String endTime = sc.nextLine();
+
+                    yield new Request(RequestType.SELL)
+                            .put("sessionId", user.getSessionId())
+                            .put("item", item)
+                            .put("start", LocalDateTime.parse(startTime))
+                            .put("end", LocalDateTime.parse(endTime));
+                }
+                case "cancel" -> {
+                    System.out.println("Auction ID:");
+                    int auctionId = Integer.parseInt(sc.nextLine());
+
+                    yield new Request(RequestType.CANCEL)
+                            .put("sessionId", user.getSessionId())
+                            .put("auctionId", auctionId);
+                }
+                case "misc" -> {
+                    System.out.println("Command:");
+                    String misc = sc.nextLine();
+
+                    switch (misc) {
+                        case "ls-auction":
+                            yield new Request(RequestType.MISC)
+                                    .put("command", "ls-auction");
+                        default:
+                            yield new Request(RequestType.MISC);
+                    }
+                }
+                default -> null;
+            };
+
+            if (request == null) {
+                System.out.println("Unknown command");
+                continue;
             }
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+
+            Response response = serverConnection.send(request);
+
+            String message = response.getMessage();
+            System.out.println(message);
+
+            //process response (if it provides any data)
+            switch (message) {
+                //login response
+                case "LOGIN_SUCCESS":
+                    user = (User) response.getPayload();
+                    System.out.println("Local user updated");
+                    break;
+
+                //misc response
+                case "LIST_AUCTION_SUCCESS":
+                    System.out.println((String) response.getPayload());
+                    break;
+                default:
+                    System.out.println("No action needed");
+            }
         }
     }
 }
