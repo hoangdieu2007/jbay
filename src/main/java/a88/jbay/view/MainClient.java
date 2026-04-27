@@ -26,12 +26,6 @@ public class MainClient extends Application {
         loadingStage.setScene(loadingScene);
         loadingStage.show();
 
-        //User
-        User user = new User();
-
-        //Server connection
-        ServerConnection serverConnection = new ServerConnection("localhost", 1234);
-
         Task<Void> loadingTask = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
