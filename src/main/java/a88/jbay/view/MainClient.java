@@ -1,5 +1,6 @@
 package a88.jbay.view;
 
+import a88.jbay.controller.client.ServerConnection;
 import a88.jbay.model.entity.user.User;
 import a88.jbay.system.AuctionSystem;
 import a88.jbay.system.UserSystem;
@@ -24,6 +25,12 @@ public class MainClient extends Application {
         loadingStage.setTitle("Loading...");
         loadingStage.setScene(loadingScene);
         loadingStage.show();
+
+        //User
+        User user = new User();
+
+        //Server connection
+        ServerConnection serverConnection = new ServerConnection("localhost", 1234);
 
         Task<Void> loadingTask = new Task<Void>() {
             @Override

@@ -96,8 +96,8 @@ public class AuctionSystem {
         if (bidInserted && auctionDAO.updateCurrentPrice(auctionId, amount, userId)) {
             // SYNC MEMORY: Update the object and trigger observers
             BidTransaction tx = new BidTransaction(userId, amount, now);
-            auction.updatePrice(amount, tx);
             auction.subscribe(userId); // Bidder is automatically subscribed
+            auction.updatePrice(amount, tx);
             return true;
         }
 
