@@ -1,7 +1,5 @@
 package a88.jbay.view;
 
-import a88.jbay.controller.client.ServerConnection;
-import a88.jbay.model.entity.user.User;
 import a88.jbay.system.AuctionSystem;
 import a88.jbay.system.UserSystem;
 import javafx.application.Application;

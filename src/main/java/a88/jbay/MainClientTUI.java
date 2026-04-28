@@ -1,20 +1,13 @@
 package a88.jbay;
 
-import a88.jbay.controller.client.ServerConnection;
+import a88.jbay.client.ServerConnection;
 import a88.jbay.model.entity.item.Item;
 import a88.jbay.model.entity.user.User;
-import a88.jbay.model.event.Auction;
 import a88.jbay.model.network.Request;
 import a88.jbay.model.network.RequestType;
-import a88.jbay.model.network.Response;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class MainClientTUI {

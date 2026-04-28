@@ -1,4 +1,4 @@
-package a88.jbay.controller.client;
+package a88.jbay.client;
 
 import a88.jbay.model.network.Request;
 import a88.jbay.model.network.Response;
