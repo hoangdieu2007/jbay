@@ -11,8 +11,13 @@ public class ResponseHandler {
             case "LOGIN_SUCCESS" -> handleLoginSuccess(response);
             case "REGISTER_SUCCESS" -> handleRegisterSuccess(response);
             case "LOGOUT_SUCCESS" -> handleLogoutSuccess(response);
-            default -> false;
+            default -> handleDefault(response);
         };
+    }
+
+    public boolean handleDefault(Response response) {
+        System.out.println((String) response.getMessage());
+        return false;
     }
 
     public boolean handleLoginSuccess(Response response) {

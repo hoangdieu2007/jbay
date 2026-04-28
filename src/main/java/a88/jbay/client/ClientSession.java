@@ -2,6 +2,7 @@ package a88.jbay.client;
 
 import a88.jbay.model.entity.user.User;
 import a88.jbay.model.event.Auction;
+import javafx.collections.FXCollections;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,12 +12,12 @@ public class ClientSession {
 
     User user;
     List<Auction> sellerAuctions;
-    List<Auction> buyerAuctions;
+    List<Auction> bidderAuctions;
 
     private ClientSession() {
         user = new User();
-        sellerAuctions = new ArrayList<>();
-        buyerAuctions = new ArrayList<>();
+        sellerAuctions = FXCollections.observableArrayList();
+        bidderAuctions = FXCollections.observableArrayList();
     }
 
     public static ClientSession getInstance() {
@@ -34,11 +35,26 @@ public class ClientSession {
         return user;
     }
 
+    public List getSellerAuctions() {
+        return sellerAuctions;
+    }
+
+    public List getBidderAuctions() {
+        return bidderAuctions;
+    }
+
     public void addSellerAuction(Auction auction) {
         sellerAuctions.add(auction);
     }
 
     public void addBuyerAuction(Auction auction) {
-        buyerAuctions.add(auction);
+        bidderAuctions.add(auction);
+    }
+
+    // after each logout, call this to erase session
+    public void resetSession() {
+        this.user = new User();
+        this.bidderAuctions = FXCollections.observableArrayList();
+        this.sellerAuctions = FXCollections.observableArrayList();
     }
 }
