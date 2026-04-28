@@ -12,12 +12,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class ClientLoginRegisterController {
-    // the DAO that handles sql logic
-    private final UserSystem userSystem = UserSystem.getInstance();
-
-    //the objects required for each client session
-    private User user = new User();
-
     @FXML
     private Label loginLabel;
     @FXML

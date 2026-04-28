@@ -1,5 +1,6 @@
 package a88.jbay;
 
+import a88.jbay.client.ClientSession;
 import a88.jbay.client.ServerConnection;
 import a88.jbay.model.entity.item.Item;
 import a88.jbay.model.entity.user.User;
@@ -19,20 +20,27 @@ public class MainClientTUI {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Enter host:");
-        String host = sc.nextLine();
+        //user type host and port until successful connection
+        ServerConnection serverConnection = ServerConnection.getInstance();
 
-        System.out.println("Enter port:");
-        int port = Integer.parseInt(sc.nextLine());
+        while (true) {
+            System.out.println("Enter host:");
+            String host = sc.nextLine();
 
-        ServerConnection serverConnection = new ServerConnection();
-        try {
-            serverConnection.connect(host, port);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("Enter port:");
+            int port = Integer.parseInt(sc.nextLine());
+
+            try {
+                serverConnection.connect(host, port);
+                break;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
 
-        User user = new User();
+        serverConnection.startListener();
+
+        ClientSession clientSession = ClientSession.getInstance();
 
         while (true) {
             System.out.println("Command: login, register, bid, subscribe, unsubscribe, sell");
@@ -62,7 +70,7 @@ public class MainClientTUI {
                 }
                 case "logout" -> {
                     yield new Request(RequestType.LOGOUT)
-                            .put("sessionId", user.getSessionId());
+                            .put("sessionId", clientSession.getUser().getSessionId());
                 }
                 case "bid" -> {
                     System.out.println("Auction ID:");
@@ -71,7 +79,7 @@ public class MainClientTUI {
                     double bidAmount = Double.parseDouble(sc.nextLine());
 
                     yield new Request(RequestType.BID)
-                            .put("sessionId", user.getSessionId())
+                            .put("sessionId", clientSession.getUser().getSessionId())
                             .put("auctionId", auctionId)
                             .put("amount", bidAmount);
                 }
@@ -80,7 +88,7 @@ public class MainClientTUI {
                     int auctionId = Integer.parseInt(sc.nextLine());
 
                     yield new Request(RequestType.SUBSCRIBE_AUCTION)
-                            .put("sessionId", user.getSessionId())
+                            .put("sessionId", clientSession.getUser().getSessionId())
                             .put("auctionId", auctionId);
                 }
                 case "unsubscribe" -> {
@@ -88,7 +96,7 @@ public class MainClientTUI {
                     int auctionId = Integer.parseInt(sc.nextLine());
 
                     yield new Request(RequestType.UNSUBSCRIBE_AUCTION)
-                            .put("sessionId", user.getSessionId())
+                            .put("sessionId", clientSession.getUser().getSessionId())
                             .put("auctionId", auctionId);
                 }
                 case "sell" -> {
@@ -112,7 +120,7 @@ public class MainClientTUI {
                     String endTime = sc.nextLine();
 
                     yield new Request(RequestType.SELL)
-                            .put("sessionId", user.getSessionId())
+                            .put("sessionId", clientSession.getUser().getSessionId())
                             .put("item", item)
                             .put("start", LocalDateTime.parse(startTime))
                             .put("end", LocalDateTime.parse(endTime));
@@ -122,7 +130,7 @@ public class MainClientTUI {
                     int auctionId = Integer.parseInt(sc.nextLine());
 
                     yield new Request(RequestType.CANCEL)
-                            .put("sessionId", user.getSessionId())
+                            .put("sessionId", clientSession.getUser().getSessionId())
                             .put("auctionId", auctionId);
                 }
                 case "misc" -> {

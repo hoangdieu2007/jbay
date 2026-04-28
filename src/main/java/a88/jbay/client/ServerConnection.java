@@ -10,6 +10,20 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class ServerConnection {
+    private static ServerConnection instance;
+    private ResponseHandler responseHandler;
+
+    private ServerConnection() {
+        responseHandler = new ResponseHandler();
+    }
+
+    public static ServerConnection getInstance() {
+        if (instance == null) {
+            instance = new ServerConnection();
+        }
+        return instance;
+    }
+
     private Socket socket;
     private ObjectOutputStream out;
     private ObjectInputStream in;
@@ -33,7 +47,7 @@ public class ServerConnection {
                 while (!socket.isClosed()) {
                     Response response = (Response) in.readObject();
                     System.out.println((String) response.getMessage());
-                    // pass to UI
+                    responseHandler.handle(response);
                 }
             } catch (Exception e) {
                 System.out.println("Disconnected from server");
