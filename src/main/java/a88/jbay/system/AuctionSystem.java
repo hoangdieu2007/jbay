@@ -15,6 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 
 /*
 the code for operations on the auction data
@@ -105,6 +106,48 @@ public class AuctionSystem {
         }
 
         return false;
+    }
+
+    public synchronized void placeBidAutomated(int userId, int auctionId, double amount, double increment, double max_amount, int intervalSeconds) {
+        /*
+        Phương thức dùng để tự động hoá quá trình placeBid
+        Cứ cách mỗi "increment" giây, sẽ tự gọi phương thức placeBid(userId, auctionId, amount += increment) một lần
+        Khi amount vượt qua max_amount, phương thức dừng
+        */
+
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
+        AtomicReference<Double> amountRef = new AtomicReference<>(amount);
+
+        Runnable bidTask = new Runnable() {
+            @Override
+            public void run() {
+                double currentAmount = amountRef.get();
+                if (currentAmount > max_amount) {
+                    System.out.println("Amount (" + currentAmount + ") has exceeded max_amount (" + max_amount + "). Stopping automated bidding.");
+                    scheduler.shutdown();
+                    return;
+                }
+
+                placeBid(userId, auctionId, currentAmount);
+
+                amountRef.updateAndGet(current -> current + increment);
+                double nextAmount = amountRef.get();
+                if (nextAmount > max_amount) {
+                    System.out.println("Next bid amount (" + nextAmount + ") would exceed max_amount (" + max_amount + "). This is the last bid.");
+                }
+            }
+        };
+
+        scheduler.scheduleAtFixedRate(bidTask, 0, intervalSeconds, TimeUnit.SECONDS);
+
+        try {
+            Thread.sleep(30000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        scheduler.shutdown();
     }
 
     //cancel auction
