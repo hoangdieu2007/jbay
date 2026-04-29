@@ -30,7 +30,7 @@ public class MainClientTUI {
             String host = sc.nextLine();
 
             System.out.println("Enter port:");
-            int port = Integer.parseInt(sc.nextLine());
+            int port = sc.nextInt();
 
             try {
                 serverConnection.connect(host, port);
