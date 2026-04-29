@@ -1,10 +1,25 @@
 package a88.jbay.client;
 
+import a88.jbay.controller.ControllerProvider;
 import a88.jbay.model.entity.user.User;
 import a88.jbay.model.network.Response;
 
 public class ResponseHandler {
-    private ClientSession clientSession = ClientSession.getInstance();
+    private static ResponseHandler instance;
+    private ClientSession clientSession;
+    private ControllerProvider controllerProvider;
+
+    private ResponseHandler() {
+        clientSession = ClientSession.getInstance();
+        controllerProvider = ControllerProvider.getInstance();
+    }
+
+    public synchronized static ResponseHandler getInstance() {
+        if (instance == null) {
+            instance = new ResponseHandler();
+        }
+        return instance;
+    }
 
     public void handle(Response response) {
         switch (response.getMessage()) {
@@ -21,10 +36,12 @@ public class ResponseHandler {
 
     public void handleLoginSuccess(Response response) {
         clientSession.setUser((User) response.getPayload());
+
     }
 
     public void handleRegisterSuccess(Response response) {
         System.out.println((String) response.getMessage());
+
     }
 
     public void handleLogoutSuccess(Response response) {

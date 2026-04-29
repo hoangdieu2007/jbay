@@ -14,10 +14,10 @@ public class ServerConnection {
     private ResponseHandler responseHandler;
 
     private ServerConnection() {
-        responseHandler = new ResponseHandler();
+        responseHandler = ResponseHandler.getInstance();
     }
 
-    public static ServerConnection getInstance() {
+    public synchronized static ServerConnection getInstance() {
         if (instance == null) {
             instance = new ServerConnection();
         }

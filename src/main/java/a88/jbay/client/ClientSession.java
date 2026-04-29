@@ -4,15 +4,14 @@ import a88.jbay.model.entity.user.User;
 import a88.jbay.model.event.Auction;
 import javafx.collections.FXCollections;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ClientSession {
     private static ClientSession instance;
 
-    User user;
-    List<Auction> sellerAuctions;
-    List<Auction> bidderAuctions;
+    private User user;
+    private List<Auction> sellerAuctions;
+    private List<Auction> bidderAuctions;
 
     private ClientSession() {
         user = new User();
@@ -20,7 +19,7 @@ public class ClientSession {
         bidderAuctions = FXCollections.observableArrayList();
     }
 
-    public static ClientSession getInstance() {
+    public synchronized static ClientSession getInstance() {
         if (instance == null) {
             instance = new ClientSession();
         }
@@ -35,11 +34,11 @@ public class ClientSession {
         return user;
     }
 
-    public List getSellerAuctions() {
+    public List<Auction> getSellerAuctions() {
         return sellerAuctions;
     }
 
-    public List getBidderAuctions() {
+    public List<Auction> getBidderAuctions() {
         return bidderAuctions;
     }
 
@@ -47,7 +46,7 @@ public class ClientSession {
         sellerAuctions.add(auction);
     }
 
-    public void addBuyerAuction(Auction auction) {
+    public void addBidderAuction(Auction auction) {
         bidderAuctions.add(auction);
     }
 

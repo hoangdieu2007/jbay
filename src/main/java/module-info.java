@@ -25,4 +25,6 @@ module a88.jbay {
     opens a88.jbay.dao to javafx.fxml, javafx.graphics;
     exports a88.jbay.client;
     opens a88.jbay.client to javafx.fxml, javafx.graphics;
+    exports a88.jbay.controller;
+    opens a88.jbay.controller to javafx.fxml, javafx.graphics;
 }
