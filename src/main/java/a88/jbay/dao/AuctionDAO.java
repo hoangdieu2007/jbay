@@ -26,7 +26,7 @@ public class AuctionDAO {
 
     public int insertItem(Item item) {
 
-        String sql = "INSERT INTO items (name, type, `desc`, start_price) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO items (name, type, `desc`, start_price, image) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection connection = DatabaseController.getInstance().getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -35,6 +35,7 @@ public class AuctionDAO {
             stmt.setString(2, item.getType());
             stmt.setString(3, item.getDescription());
             stmt.setDouble(4, item.getInitPrice());
+            stmt.setBytes(5, item.getImage());
 
             int affectedRows = stmt.executeUpdate();
             if (affectedRows == 0) {
