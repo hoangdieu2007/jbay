@@ -33,6 +33,7 @@ public class ServerConnection {
         socket = new Socket(host, port);
         out = new ObjectOutputStream(socket.getOutputStream());
         in = new ObjectInputStream(socket.getInputStream());
+        System.out.println("Connection successful");
     }
 
     //methods for sending requests
