@@ -1,6 +1,7 @@
 package a88.jbay.system;
 
 import a88.jbay.dao.AuctionDAO;
+import a88.jbay.dao.UserDAO;
 import a88.jbay.model.entity.item.Item;
 import a88.jbay.model.event.Auction;
 import a88.jbay.model.event.AuctionState;
@@ -24,6 +25,7 @@ features: real-time bidding, auction lifecycle management
 public class AuctionSystem {
     private static AuctionSystem instance;
     private final AuctionDAO auctionDAO;
+    private final UserDAO userDAO;
     private final NotificationSystem notificationSystem;
 
     // Memory cache for active auctions to handle real-time bidding
@@ -33,6 +35,7 @@ public class AuctionSystem {
 
     private AuctionSystem() {
         this.auctionDAO = AuctionDAO.getInstance();
+        this.userDAO = UserDAO.getInstance();
         this.notificationSystem = NotificationSystem.getInstance();
         this.activeAuctions = new ConcurrentHashMap<>();
         this.scheduler = Executors.newSingleThreadScheduledExecutor();
@@ -68,7 +71,7 @@ public class AuctionSystem {
         Auction auction = new Auction(
                 auctionId,
                 item,
-                sellerId,
+                userDAO.findByUserId(sellerId).get("username"),
                 start,
                 end
         );

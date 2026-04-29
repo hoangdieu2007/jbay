@@ -2,6 +2,7 @@ package a88.jbay.model.event;
 
 import a88.jbay.model.Subject;
 import a88.jbay.model.entity.item.Item;
+import a88.jbay.model.entity.user.User;
 import a88.jbay.system.NotificationSystem;
 
 import java.io.Serializable;
@@ -25,8 +26,8 @@ public class Auction implements Subject, Serializable {
 
     private int id;
     private Item item;
-    private int sellerId;
-    private int winnerId;
+    private String seller;
+    private String winner;
     private double startPrice;
     private double currentPrice;
     private LocalDateTime startTime;
@@ -37,11 +38,11 @@ public class Auction implements Subject, Serializable {
     private List<BidTransaction> bidHistory;
     private final Set<Integer> observers;
 
-    public Auction(int id, Item item, int sellerId, LocalDateTime startTime, LocalDateTime endTime) {
+    public Auction(int id, Item item, String seller, LocalDateTime startTime, LocalDateTime endTime) {
         this.id = id;
         this.item = item;
-        this.sellerId = sellerId;
-        this.winnerId = -1;
+        this.seller = seller;
+        this.winner = "";
         this.startPrice = item.getInitPrice();
         this.currentPrice = item.getInitPrice();
         this.startTime = startTime;
@@ -68,7 +69,7 @@ public class Auction implements Subject, Serializable {
     }
 
     public String toString() {
-        return Integer.toString(id) + " - " + item.toString() + Integer.toString(sellerId) + " - " + startPrice + " - " + currentPrice + " - " + Integer.toString(winnerId) + startTime.toString() + endTime.toString() + auctionState.name();
+        return Integer.toString(id) + " - " + item.toString() + seller + " - " + startPrice + " - " + currentPrice + " - " + winner + " - " + startTime.toString() + endTime.toString() + auctionState.name();
     }
 
     public void start() {
@@ -100,7 +101,7 @@ public class Auction implements Subject, Serializable {
 
     public void updatePrice(double newPrice, BidTransaction tx) {
         this.currentPrice = newPrice;
-        this.winnerId = tx.getUserID();
+        this.winner = tx.getUsername();
         this.bidHistory.add(tx);
         this.notifyObservers();
     }

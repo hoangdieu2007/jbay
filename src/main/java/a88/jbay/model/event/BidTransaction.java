@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 
 public class BidTransaction {
     private int userID;
+    private String username;
     private double amt;
     private LocalDateTime timestamp;
 
@@ -19,6 +20,9 @@ public class BidTransaction {
 
     public int getUserID() {
         return userID;
+    }
+    public String getUsername() {
+        return username;
     }
     public double getAmt() {
         return amt;

@@ -208,24 +208,31 @@ public class AuctionDAO {
         }
     }
 
-    public Map<String, String> findItemById(int itemId) {
-        String sql = "SELECT id, name, `desc`, start_price FROM items WHERE id = ?";
+    public Map<String, Object> findItemById(int itemId) {
+        String sql = "SELECT id, name, type, `desc`, start_price FROM items WHERE id = ?";
+
+        String img_sql = "SELECT image FROM items WHERE id = ?";
 
         try (Connection connection = DatabaseController.getInstance().getConnection();
-             PreparedStatement stmt = connection.prepareStatement(sql)) {
+             PreparedStatement stmt = connection.prepareStatement(sql);
+             PreparedStatement img_stmt = connection.prepareStatement(img_sql)) {
 
             stmt.setInt(1, itemId);
+            img_stmt.setInt(1, itemId);
 
-            try (ResultSet rs = stmt.executeQuery()) {
+            try (ResultSet rs = stmt.executeQuery();
+                 ResultSet img_rs = img_stmt.executeQuery()) {
                 if (!rs.next()) {
                     return null;
                 }
 
-                Map<String, String> itemData = new HashMap<>();
+                Map<String, Object> itemData = new HashMap<>();
                 itemData.put("id", String.valueOf(rs.getInt("id")));
                 itemData.put("name", rs.getString("name"));
+                itemData.put("type", rs.getString("type"));
                 itemData.put("description", rs.getString("desc"));
-                itemData.put("start_price", String.valueOf(rs.getDouble("start_price")));
+                itemData.put("start_price", rs.getDouble("start_price"));
+                itemData.put("image", img_rs.getBytes("image"));
 
                 return itemData;
             }
