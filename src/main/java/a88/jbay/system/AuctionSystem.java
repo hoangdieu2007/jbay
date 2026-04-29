@@ -132,10 +132,6 @@ public class AuctionSystem {
                 placeBid(userId, auctionId, currentAmount);
 
                 amountRef.updateAndGet(current -> current + increment);
-                double nextAmount = amountRef.get();
-                if (nextAmount > max_amount) {
-                    System.out.println("Next bid amount (" + nextAmount + ") would exceed max_amount (" + max_amount + "). This is the last bid.");
-                }
             }
         };
 
