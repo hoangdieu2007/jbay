@@ -1,4 +1,4 @@
-package a88.jbay.controller.server;
+package a88.jbay.server;
 
 import a88.jbay.model.entity.item.Item;
 import a88.jbay.model.entity.user.User;

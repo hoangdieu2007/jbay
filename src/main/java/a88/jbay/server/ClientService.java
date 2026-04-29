@@ -1,0 +1,54 @@
+package a88.jbay.server;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class ClientService {
+    private static ClientService instance;
+    private ServerSocket serverSocket;
+    private ExecutorService executor;
+
+    private ClientService() {
+        serverSocket = null;
+        executor = Executors.newVirtualThreadPerTaskExecutor();
+    }
+
+    public static synchronized ClientService getInstance() {
+        if (instance == null) {
+            instance = new ClientService();
+        }
+        return instance;
+    }
+
+    public void setupServerSocket(int port) throws IOException {
+        serverSocket = new ServerSocket(port);
+    }
+
+    public void startService() {
+        Thread clientHandler = new Thread(() -> {
+            System.out.println("Client handler starting...");
+
+            try {
+                ServerSocket server = new ServerSocket(1234);
+                Socket client = null;
+                while (true) {
+                    client = server.accept();
+                    System.out.println("Client connected...");
+
+                    executor.submit(new ClientHandler(client));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        clientHandler.start();
+    }
+
+    public void stopService() {
+        executor.shutdown();
+    }
+}

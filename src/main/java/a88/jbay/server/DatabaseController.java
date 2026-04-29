@@ -1,4 +1,4 @@
-package a88.jbay.controller.server;
+package a88.jbay.server;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;

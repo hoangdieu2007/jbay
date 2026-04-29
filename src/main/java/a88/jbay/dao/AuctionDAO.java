@@ -1,6 +1,6 @@
 package a88.jbay.dao;
 
-import a88.jbay.controller.server.DatabaseController;
+import a88.jbay.server.DatabaseController;
 import a88.jbay.model.entity.item.Item;
 import a88.jbay.model.event.AuctionState;
 

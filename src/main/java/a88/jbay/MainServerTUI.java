@@ -1,12 +1,9 @@
 package a88.jbay;
 
-import a88.jbay.controller.server.ClientHandler;
-import a88.jbay.model.entity.user.User;
-import a88.jbay.model.event.Auction;
+import a88.jbay.server.ClientHandler;
+import a88.jbay.server.ClientService;
 import a88.jbay.system.AuctionSystem;
 import a88.jbay.system.UserSystem;
-import com.almasb.fxgl.net.Server;
-import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -21,7 +18,8 @@ public class MainServerTUI {
         System.out.println("------------------JBAY_SERVER_TUI-----------------");
         System.out.println("--------------software infrastructure-------------\n\n");
 
-        ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
+        ClientService clientService = ClientService.getInstance();
+
         try {
 
             //for server interface
@@ -77,28 +75,14 @@ public class MainServerTUI {
             });
 
             //for client handling
-            Thread clientHandler = new Thread(() -> {
-                System.out.println("Client handler starting...");
-
-                try {
-                    ServerSocket server = new ServerSocket(1234);
-                    Socket client = null;
-                    while (true) {
-                        client = server.accept();
-                        System.out.println("Client connected...");
-
-                        executor.submit(new ClientHandler(client));
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
+            clientService.setupServerSocket(1234);
 
             serverTUI.start();
-            clientHandler.start();
-            serverTUI.join();
-            clientHandler.join();
+            clientService.startService();
 
+            //service runs as long as TUI is up and running
+            serverTUI.join();
+            clientService.stopService();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

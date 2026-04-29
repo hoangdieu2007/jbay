@@ -1,7 +1,6 @@
 package a88.jbay.dao;
 
-import a88.jbay.controller.server.DatabaseController;
-import a88.jbay.model.entity.user.User;
+import a88.jbay.server.DatabaseController;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 public class UserDAO {
     private static UserDAO instance;

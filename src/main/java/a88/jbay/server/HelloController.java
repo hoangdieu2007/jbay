@@ -1,4 +1,4 @@
-package a88.jbay.controller.server;
+package a88.jbay.server;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
