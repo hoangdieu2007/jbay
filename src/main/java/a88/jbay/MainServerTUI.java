@@ -94,7 +94,7 @@ public class MainServerTUI {
             });
 
             //for client handling
-            clientService.setupServerSocket(6969);
+            clientService.setupServerSocket(1234);
 
             serverTUI.start();
             clientService.startService();

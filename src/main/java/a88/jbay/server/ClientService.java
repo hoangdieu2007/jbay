@@ -11,6 +11,8 @@ public class ClientService {
     private ServerSocket serverSocket;
     private ExecutorService executor;
 
+    private int port;
+
     private ClientService() {
         serverSocket = null;
         executor = Executors.newVirtualThreadPerTaskExecutor();
@@ -24,6 +26,7 @@ public class ClientService {
     }
 
     public void setupServerSocket(int port) throws IOException {
+        this.port = port;
         serverSocket = new ServerSocket(port);
     }
 
@@ -32,10 +35,9 @@ public class ClientService {
             System.out.println("Client handler starting...");
 
             try {
-                ServerSocket server = new ServerSocket(1234);
                 Socket client = null;
                 while (true) {
-                    client = server.accept();
+                    client = serverSocket.accept();
                     System.out.println("Client connected...");
 
                     executor.submit(new ClientHandler(client));

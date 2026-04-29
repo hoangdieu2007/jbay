@@ -39,11 +39,10 @@ public class ClientHandler implements Runnable {
     //the handle loop
     @Override
     public void run() {
-        try (
-                ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
-                ObjectInputStream in = new ObjectInputStream(socket.getInputStream())
-        ) {
+        try {
+            ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             out.flush();
+            ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
             this.out = out;
             while (true) {
                 Request request = (Request) in.readObject();
