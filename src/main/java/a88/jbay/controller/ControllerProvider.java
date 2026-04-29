@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class ControllerProvider {
     private static ControllerProvider instance;
-    private Map<String, Object> controllers = new HashMap<>();
+    private Map<Class<?>, Object> controllers = new HashMap<>();
     
     private ControllerProvider() {}
     
@@ -18,42 +18,13 @@ public class ControllerProvider {
         return instance;
     }
     
-    public void registerController(String name, Object controller) {
-        controllers.put(name, controller);
-    }
-    
-    // client controllers
-    public ClientLoginRegisterController getLoginRegisterController() {
-        return (ClientLoginRegisterController) controllers.get("loginRegister");
+    public void registerController(Object controller) {
+        controllers.put(controller.getClass(), controller);
     }
 
-    public MainClientController getMainClientController() {
-        return (MainClientController) controllers.get("mainClient");
-    }
-
-    public ClientBidderItemController getBidderItemController() {
-        return (ClientBidderItemController) controllers.get("bidderItem");
-    }
-
-    public ClientSellerItemController getSellerItemController() {
-        return (ClientSellerItemController) controllers.get("sellerItem");
-    }
-
-    public SellerBidderHomeScreenController getHomeScreenController() {
-        return (SellerBidderHomeScreenController) controllers.get("homeScreen");
-    }
-
-    public BidderItemCardController getBidderItemCardController() {
-        return (BidderItemCardController) controllers.get("bidderItemCard");
-    }
-
-    public SellerItemCardController getSellerItemCardController() {
-        return (SellerItemCardController) controllers.get("sellerItemCard");
-    }
-
-    // get general controller, caller need to type cast
-    public Object getController(String name) {
-        return controllers.get(name);
+    // generic getter
+    public <T> T getController(Class<T> clazz) {
+        return clazz.cast(controllers.get(clazz));
     }
     
     public void removeController(String name) {
