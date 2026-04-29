@@ -1,5 +1,7 @@
 package a88.jbay.view;
 
+import a88.jbay.client.ClientSession;
+import a88.jbay.client.ServerConnection;
 import a88.jbay.system.AuctionSystem;
 import a88.jbay.system.UserSystem;
 import javafx.application.Application;
@@ -29,9 +31,17 @@ public class MainClient extends Application {
             protected Void call() throws Exception {
                 //loading
 
-                UserSystem userSystem = UserSystem.getInstance();
-                AuctionSystem auctionSystem = AuctionSystem.getInstance();
+                //serverconnection setup
+                try {
+                    ServerConnection.getInstance().connect("localhost", 1234);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
 
+                //client session setup
+                ClientSession clientSession = ClientSession.getInstance();
+
+                //just to display the logo longer
                 Thread.sleep(1500);
 
                 return null;
