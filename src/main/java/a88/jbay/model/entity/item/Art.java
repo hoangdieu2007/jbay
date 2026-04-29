@@ -6,7 +6,7 @@ public class Art extends Item {
     private int creationYear;
 
     public Art(ArtBuilder builder) {
-        super(builder.name, builder.description, builder.initPrice);
+        super(builder.name, "ART",builder.description, builder.initPrice);
         this.artist = builder.artist;
         this.medium = builder.medium;
         this.creationYear = builder.creationYear;

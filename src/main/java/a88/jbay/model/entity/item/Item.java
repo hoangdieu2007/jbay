@@ -9,6 +9,14 @@ public class Item {
     protected double initPrice;
     protected byte[] image;
 
+    public Item(String name, String type, String description, double initPrice) {
+        this.name = name;
+        this.type = type;
+        this.description = description;
+        this.initPrice = initPrice;
+        this.image = null;
+    }
+
     public Item(String name, String type, String description, double initPrice, byte[] image) {
         this.name = name;
         this.type = type;

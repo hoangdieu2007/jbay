@@ -241,4 +241,35 @@ public class AuctionDAO {
             return null;
         }
     }
+
+    public Map<String, Object> findAuctionById(int auctionId) {
+        String sql = "SELECT * FROM auctions WHERE id = ?";
+
+        try (Connection connection = DatabaseController.getInstance().getConnection();
+            PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, auctionId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (!rs.next()) {
+                    return null;
+                }
+
+                Map<String, Object> auctionData = new HashMap<>();
+                auctionData.put("id", String.valueOf(rs.getInt("id")));
+                auctionData.put("item", findItemById(rs.getInt("item")));
+                auctionData.put("seller", findSellerId(rs.getInt("id")));
+                auctionData.put("start_price", rs.getDouble("start_price"));
+                auctionData.put("cur_price", rs.getDouble("cur_price"));
+                auctionData.put("winner", rs.getInt("winner"));
+                auctionData.put("start_time", rs.getTimestamp("start_time"));
+                auctionData.put("end_time", rs.getTimestamp("end_time"));
+                auctionData.put("state", rs.getString("state"));
+                return auctionData;
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

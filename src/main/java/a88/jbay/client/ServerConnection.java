@@ -2,6 +2,7 @@ package a88.jbay.client;
 
 import a88.jbay.model.network.Request;
 import a88.jbay.model.network.Response;
+import javafx.application.Platform;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -47,7 +48,7 @@ public class ServerConnection {
                 while (!socket.isClosed()) {
                     Response response = (Response) in.readObject();
                     System.out.println((String) response.getMessage());
-                    responseHandler.handle(response);
+                    Platform.runLater(() -> responseHandler.handle(response));
                 }
             } catch (Exception e) {
                 System.out.println("Disconnected from server");

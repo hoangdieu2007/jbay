@@ -1,5 +1,7 @@
 package a88.jbay;
 
+import a88.jbay.dao.AuctionDAO;
+import a88.jbay.dao.UserDAO;
 import a88.jbay.server.ClientHandler;
 import a88.jbay.server.ClientService;
 import a88.jbay.system.AuctionSystem;
@@ -8,6 +10,7 @@ import a88.jbay.system.UserSystem;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -61,11 +64,27 @@ public class MainServerTUI {
 
                             break;
                         case "UQ":
-                            System.out.println();
+                            //user query
+                            System.out.println("User ID:");
+                            userId = sc.nextInt();
+
+                            Map<String, String> userdata = UserDAO.getInstance().findByUserId(userId);
+
+                            System.out.println("User ID: " + userdata.get("userId"));
+                            System.out.println("Username: " + userdata.get("username"));
+                            System.out.println("Password: " + userdata.get("password"));
+                            System.out.println("Role: " + userdata.get("role"));
+
                             break;
                         case "AQ":
                             //command: AQ auctionid [id]
                             //expect: AQ_SUCCESS [massive data from server]
+
+                            System.out.println("Auction ID:");
+                            auctionId = sc.nextInt();
+
+                            AuctionDAO.getInstance().findAuctionById(auctionId);
+
                             break;
                         default:
                             System.out.println("Invalid input");

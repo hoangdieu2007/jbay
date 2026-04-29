@@ -37,9 +37,9 @@ public class UserSystem {
         Map<String, String> userData = userDAO.findByUsername(username);
         if (userData == null) return null;
 
-        String hashedPassword = StringHash.hash(password);
+        password = StringHash.hash(password);
 
-        if (!hashedPassword.equals(userData.get("password"))) return null;
+        if (!password.equals(userData.get("password"))) return null;
 
         String sessionId = UUID.randomUUID().toString();
         if (userDAO.insertSession(sessionId, Integer.parseInt(userData.get("id")))) {
@@ -53,8 +53,10 @@ public class UserSystem {
         if (userDAO.existsByUsername(username)) {
             return false;
         }
-        String hashedPassword = StringHash.hash(password);
-        return userDAO.insertUser(username, hashedPassword, role) != -1;
+
+        password = StringHash.hash(password);
+        
+        return userDAO.insertUser(username, password, role) != -1;
     }
 
     public void logout(String sessionId) {

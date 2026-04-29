@@ -84,7 +84,7 @@ public class ClientHandler implements Runnable {
             NotificationSystem.getInstance().register(user.getId(), out);
             return new Response(true, "LOGIN_SUCCESS", user);
         }
-        return new Response(false, "INVALID_CREDENTIALS", null);
+        return new Response(false, "LOGIN_FAIL", null);
     }
 
     //handling register
@@ -96,7 +96,7 @@ public class ClientHandler implements Runnable {
         if (userSystem.register(username, password, role)) {
             return new Response(true, "REGISTER_SUCCESS", null);
         }
-        return new Response(false, "USER_ALREADY_EXISTS", null);
+        return new Response(false, "REGISTER_FAIL", null);
     }
 
     //handling bidding

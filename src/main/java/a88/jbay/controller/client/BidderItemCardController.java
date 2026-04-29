@@ -37,7 +37,7 @@ public class BidderItemCardController {
     public void setItemData(Auction auction){
         titleLabel.setText(auction.getItem().getName());
         descriptionLabel.setText(auction.getItem().getDescription());
-        sellerIDLabel.setText(Integer.toString(auction.getSellerId()));
+        sellerIDLabel.setText(auction.getSellerName());
         currentBidLabel.setText(String.valueOf(auction.getCurrentPrice()) + "USD");
         bidsIDLabel.setText(String.valueOf(auction.getId()));
         remainingSeconds = java.time.Duration.between(java.time.LocalDateTime.now(), auction.getEndTime()).getSeconds();

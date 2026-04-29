@@ -2,6 +2,7 @@ package a88.jbay.controller.client;
 
 import a88.jbay.client.ServerConnection;
 import a88.jbay.dao.UserDAO;
+import a88.jbay.model.StringHash;
 import a88.jbay.model.entity.user.User;
 import a88.jbay.model.network.Request;
 import a88.jbay.model.network.RequestType;
@@ -34,6 +35,14 @@ public class ClientLoginRegisterController {
     @FXML
     private PasswordField passwordPasswordFieldRegister;
 
+    public void updateLoginLabel(String text) {
+        loginLabel.setText(text);
+    }
+
+    public void updateRegisterLabel(String text) {
+        registerLabel.setText(text);
+    }
+
     // what happens when i click login
     @FXML
     public void onClickLoginButton(ActionEvent event) {
@@ -44,7 +53,7 @@ public class ClientLoginRegisterController {
             //loginLabel.setText(userSystem.checkLogin(username, password));
             Request request = new Request(RequestType.LOGIN)
                     .put("username", username)
-                    .put("password", password);
+                    .put("password", StringHash.hash(password));
             try {
                 ServerConnection.getInstance().send(request);
             } catch (IOException e) {
@@ -62,7 +71,7 @@ public class ClientLoginRegisterController {
             //registerLabel.setText(userSystem.registerUser(username, password));
             Request request = new Request(RequestType.REGISTER)
                     .put("username", username)
-                    .put("password", password);
+                    .put("password", StringHash.hash(password));
             try {
                 ServerConnection.getInstance().send(request);
             } catch (IOException e) {
