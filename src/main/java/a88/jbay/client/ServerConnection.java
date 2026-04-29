@@ -32,6 +32,7 @@ public class ServerConnection {
     public void connect(String host, int port) throws UnknownHostException, IOException {
         socket = new Socket(host, port);
         out = new ObjectOutputStream(socket.getOutputStream());
+        out.flush();
         in = new ObjectInputStream(socket.getInputStream());
         System.out.println("Connection successful");
     }

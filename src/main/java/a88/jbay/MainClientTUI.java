@@ -30,13 +30,13 @@ public class MainClientTUI {
             String host = sc.nextLine();
 
             System.out.println("Enter port:");
-            int port = sc.nextInt();
+            int port = Integer.parseInt(sc.nextLine());
 
             try {
                 serverConnection.connect(host, port);
                 break;
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                System.out.println("Connection failed, please try again.");
             }
         }
 
