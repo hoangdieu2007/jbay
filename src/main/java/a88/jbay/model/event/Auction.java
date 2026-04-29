@@ -59,6 +59,7 @@ public class Auction implements Subject, Serializable {
     public Item getItem() {
         return item;
     }
+    public String getSellerName(){return seller;}
 
     public LocalDateTime getStartTime() {
         return startTime;

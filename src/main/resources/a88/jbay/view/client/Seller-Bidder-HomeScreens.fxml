@@ -18,7 +18,7 @@
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: white;">
                     <children>
-                        <Button alignment="CENTER" layoutX="428.0" layoutY="34.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="158.0" style="-fx-background-color: #2196F3; -fx-background-radius: 45;" text="+ Create Listing" textFill="#fffcfc" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="34.0">
+                        <Button fx:id="btnCreateListing" alignment="CENTER" layoutX="428.0" layoutY="34.0" mnemonicParsing="false" onAction="#handleCreateListing" prefHeight="36.0" prefWidth="158.0" style="-fx-background-color: #2196F3; -fx-background-radius: 45;" text="+ Create Listing" textFill="#fffcfc" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="34.0">
                             <font>
                                 <Font name="Arial Bold" size="17.0" />
                             </font>

@@ -13,6 +13,7 @@ module a88.jbay {
     requires annotations;
     requires java.sql;
     requires com.zaxxer.hikari;
+    requires java.desktop;
 
     opens a88.jbay.view to javafx.fxml, javafx.graphics;
     exports a88.jbay.view;
