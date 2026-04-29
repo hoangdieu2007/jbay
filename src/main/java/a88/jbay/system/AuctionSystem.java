@@ -107,7 +107,7 @@ public class AuctionSystem {
         return false;
     }
 
-    public synchronized void placeBidAutomated(int userId, int auctionId, double amount, double increment, double max_amount, int intervalSeconds) {
+    public synchronized void placeBidAutomated(int userId, int auctionId, double amount, double max_amount, double increment, int intervalSeconds) {
         /*
         Phương thức dùng để tự động hoá quá trình placeBid
         Cứ cách mỗi "increment" giây, sẽ tự gọi phương thức placeBid(userId, auctionId, amount += increment) một lần
