@@ -2,8 +2,6 @@ package a88.jbay.view;
 
 import a88.jbay.client.ClientSession;
 import a88.jbay.client.ServerConnection;
-import a88.jbay.system.AuctionSystem;
-import a88.jbay.system.UserSystem;
 import javafx.application.Application;
 import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
@@ -18,13 +16,14 @@ public class MainClient extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
+        ViewManager viewManager = ViewManager.getInstance();
+
         Stage loadingStage = new Stage();
         loadingStage.initStyle(StageStyle.UNDECORATED);
-        FXMLLoader fxmlLoadingScreen = new FXMLLoader(MainClient.class.getResource("loading-view.fxml"));
-        Scene loadingScene = new Scene(fxmlLoadingScreen.load(), 289, 216);
         loadingStage.setTitle("Loading...");
-        loadingStage.setScene(loadingScene);
-        loadingStage.show();
+
+        viewManager.setPrimaryStage(loadingStage);
+        viewManager.displayScene("loading-view.fxml", 289, 216);
 
         Task<Void> loadingTask = new Task<Void>() {
             @Override
@@ -34,6 +33,7 @@ public class MainClient extends Application {
                 //serverconnection setup
                 try {
                     ServerConnection.getInstance().connect("localhost", 1234);
+                    ServerConnection.getInstance().startListener();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -49,16 +49,15 @@ public class MainClient extends Application {
         };
 
         loadingTask.setOnSucceeded(e -> {
-            loadingStage.close();
+            viewManager.closePrimaryStage();
 
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(MainClient.class.getResource("client/client-login-register-view.fxml"));
-                Scene scene = new Scene(fxmlLoader.load(), 600, 400);
                 stage.setResizable(false);
                 stage.getIcons().add(new Image(MainClient.class.getResourceAsStream("/a88/jbay/image/logo-no-bg.png")));
                 stage.setTitle("Login to jBay");
-                stage.setScene(scene);
-                stage.show();
+
+                viewManager.setPrimaryStage(stage);
+                viewManager.displayScene("client/client-login-register-view.fxml", 600, 400);
             } catch (IOException exception) {
                 exception.printStackTrace();
             }
