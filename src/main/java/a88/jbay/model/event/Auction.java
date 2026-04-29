@@ -107,6 +107,10 @@ public class Auction implements Subject, Serializable {
         this.notifyObservers();
     }
 
+    public void setEndTime(LocalDateTime newEndTime) {
+        this.endTime = newEndTime;
+    }
+
     //subscriber management
     public void subscribe(int userId) {
         observers.add(userId);

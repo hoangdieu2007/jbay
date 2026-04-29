@@ -11,10 +11,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicReference;
 
 /*
@@ -102,6 +99,8 @@ public class AuctionSystem {
             BidTransaction tx = new BidTransaction(userId, amount, now);
             auction.subscribe(userId); // Bidder is automatically subscribed
             auction.updatePrice(amount, tx);
+
+            extendEndTime(now, auction);
             return true;
         }
 
@@ -116,26 +115,36 @@ public class AuctionSystem {
         */
 
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-
         AtomicReference<Double> amountRef = new AtomicReference<>(amount);
+        AtomicReference<String> resultMessage = new AtomicReference<>();
 
-        Runnable bidTask = new Runnable() {
+        Callable<String> bidTask = new Callable<String>() {
             @Override
-            public void run() {
+            public String call() {
                 double currentAmount = amountRef.get();
                 if (currentAmount > max_amount) {
-                    System.out.println("Amount (" + currentAmount + ") has exceeded max_amount (" + max_amount + "). Stopping automated bidding.");
+                    String message = "Current placeBid (" + currentAmount + ") has exceeded max_amount (" + max_amount + "). Stop automated bidding.";
+                    resultMessage.set(message);
                     scheduler.shutdown();
-                    return;
+                    return message;
                 }
 
                 placeBid(userId, auctionId, currentAmount);
-
                 amountRef.updateAndGet(current -> current + increment);
+                return "Bid placed successfully for: " + currentAmount;
             }
         };
 
-        scheduler.scheduleAtFixedRate(bidTask, 0, intervalSeconds, TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(() -> {
+            try {
+                String message = bidTask.call();
+                if (message.contains("exceeded")) {
+                    System.out.println("Automated bidding stopped: " + message);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }, 0, intervalSeconds, TimeUnit.SECONDS);
 
         try {
             Thread.sleep(30000);
@@ -143,7 +152,33 @@ public class AuctionSystem {
             e.printStackTrace();
         }
 
-        scheduler.shutdown();
+        if (!scheduler.isShutdown()) {
+            scheduler.shutdown();
+        }
+    }
+
+    public void extendEndTime(LocalDateTime now, Auction auction) {
+        //use anti-sniping: automatically extend the duration of an auction
+        //when it receives a placeBid request close to its end
+
+        int ANTI_SNIPING_EXTENSION_SECONDS = 300;
+        int ANTI_SNIPING_THRESHOLD_SECONDS = 30;
+
+        long secondsUntilEnd = java.time.Duration.between(now, auction.getEndTime()).getSeconds();
+
+        if (secondsUntilEnd <= ANTI_SNIPING_THRESHOLD_SECONDS && secondsUntilEnd > 0) {
+            LocalDateTime newEndTime = auction.getEndTime().plusSeconds(ANTI_SNIPING_EXTENSION_SECONDS);
+            auction.setEndTime(newEndTime);
+
+            boolean updated = auctionDAO.updateEndTime(auction.getId(), newEndTime);
+
+            if (updated) {
+                // Notify all subscribers about the extension
+                auction.notifyObservers();
+                System.out.println("Auction " + auction.getId() + " extended due to anti-sniping. " +
+                        "New end time: " + newEndTime);
+            }
+        }
     }
 
     //cancel auction
