@@ -33,8 +33,8 @@ public class BidTransaction {
 
     @Override
     public String toString() {
-        // Tạo định dạng: Giờ:Phút:Giây Ngày/Tháng/Năm
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss dd/MM/yyyy");
+        // Tạo định dạng: Giờ Ngày/Tháng/Năm
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         String formattedTime = this.timestamp.format(formatter);
 
         // Sử dụng String.format để căn lề:

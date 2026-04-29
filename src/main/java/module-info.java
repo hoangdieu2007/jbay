@@ -13,18 +13,15 @@ module a88.jbay {
     requires annotations;
     requires java.sql;
     requires com.zaxxer.hikari;
-    requires java.desktop;
 
     opens a88.jbay.view to javafx.fxml, javafx.graphics;
     exports a88.jbay.view;
     exports a88.jbay.controller.client;
     opens a88.jbay.controller.client to javafx.fxml, javafx.graphics;
-    exports a88.jbay.server;
-    opens a88.jbay.server to javafx.fxml, javafx.graphics;
+    exports a88.jbay.controller.server;
+    opens a88.jbay.controller.server to javafx.fxml, javafx.graphics;
     exports a88.jbay.dao;
     opens a88.jbay.dao to javafx.fxml, javafx.graphics;
     exports a88.jbay.client;
     opens a88.jbay.client to javafx.fxml, javafx.graphics;
-    exports a88.jbay.controller;
-    opens a88.jbay.controller to javafx.fxml, javafx.graphics;
 }
