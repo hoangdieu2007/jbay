@@ -4,11 +4,13 @@ import a88.jbay.client.ClientSession;
 import a88.jbay.client.ServerConnection;
 import a88.jbay.model.entity.item.Item;
 import a88.jbay.model.entity.user.User;
+import a88.jbay.model.event.Auction;
 import a88.jbay.model.network.Request;
 import a88.jbay.model.network.RequestType;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Scanner;
 
 public class MainClientTUI {
@@ -47,6 +49,17 @@ public class MainClientTUI {
             String command = sc.nextLine();
 
             Request request = switch (command.toLowerCase()) {
+                case "status" -> {
+                    System.out.println(ClientSession.getInstance().getUser().toString());
+                    System.out.println("---Bidder Auctions---");
+                    List<Auction> bidderAuctions = ClientSession.getInstance().getBidderAuctions();
+                    bidderAuctions.forEach(a -> System.out.println(a.toString()));
+                    System.out.println("---Seller Auctions---");
+                    List<Auction> sellerAuctions = ClientSession.getInstance().getSellerAuctions();
+                    sellerAuctions.forEach(a -> System.out.println(a.toString()));
+
+                    yield null;
+                }
                 case "login" -> {
                     System.out.println("Username:");
                     String username = sc.nextLine();
