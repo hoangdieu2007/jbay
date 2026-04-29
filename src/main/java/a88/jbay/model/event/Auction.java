@@ -61,6 +61,10 @@ public class Auction implements Subject, Serializable {
     }
     public String getSellerName(){return seller;}
 
+    public String getWinner() {
+        return winner;
+    }
+
     public LocalDateTime getStartTime() {
         return startTime;
     }

@@ -10,58 +10,58 @@
 
 <VBox fillWidth="false" prefHeight="263.0" prefWidth="245.0" spacing="10.0" style="-fx-border-color: #ccc; -fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: white;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.SellerItemCardController">
     <children>
-      <ImageView fx:id="sellerImage" fitHeight="150.0" fitWidth="245.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="sellerImage" fitHeight="150.0" fitWidth="245.0" pickOnBounds="true" preserveRatio="true" />
 
         <HBox alignment="CENTER_LEFT" prefHeight="23.0" prefWidth="250.0" spacing="10.0">
             <children>
                 <Label fx:id="lblName" prefHeight="23.0" prefWidth="96.0" text="ItemName" HBox.hgrow="ALWAYS">
                     <font><Font name="System Bold" size="18.0" /></font>
                 </Label>
-            <Region prefHeight="23.0" prefWidth="41.0" />
+                <Region prefHeight="23.0" prefWidth="41.0" />
                 <Label fx:id="lblStatus" style="-fx-background-color: #D1FAE5; -fx-text-fill: #065F46; -fx-padding: 3 8; -fx-background-radius: 5;" text="Status" />
             </children>
-         <padding>
-            <Insets left="15.0" />
-         </padding>
+            <padding>
+                <Insets left="15.0" />
+            </padding>
         </HBox>
-      <HBox prefHeight="31.0" prefWidth="258.0">
-         <children>
-            <Label prefHeight="35.0" prefWidth="108.0" text="Highest Bid" textFill="#dd2121">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </Label>
-            <Region prefHeight="28.0" prefWidth="40.0" />
-            <Label fx:id="lblPrice" prefHeight="32.0" prefWidth="67.0" text="Price" textAlignment="CENTER">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-         </children>
-         <padding>
-            <Insets left="15.0" />
-         </padding>
-      </HBox>
-      <HBox prefHeight="31.0" prefWidth="250.0">
-         <children>
-            <Label prefHeight="31.0" prefWidth="97.0" text="Top Bidder">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Region prefHeight="31.0" prefWidth="50.0" />
-            <Label fx:id="lblHighestBidderName" prefHeight="29.0" prefWidth="120.0" text="BidderName">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-         </children>
-         <padding>
-            <Insets left="15.0" />
-         </padding>
-      </HBox>
+        <HBox prefHeight="31.0" prefWidth="258.0">
+            <children>
+                <Label prefHeight="35.0" prefWidth="108.0" text="Highest Bid" textFill="#dd2121">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                </Label>
+                <Region prefHeight="28.0" prefWidth="40.0" />
+                <Label fx:id="lblPrice" prefHeight="32.0" prefWidth="67.0" text="Price" textAlignment="CENTER">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+            </children>
+            <padding>
+                <Insets left="15.0" />
+            </padding>
+        </HBox>
+        <HBox prefHeight="31.0" prefWidth="250.0">
+            <children>
+                <Label prefHeight="31.0" prefWidth="97.0" text="Top Bidder">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <Region prefHeight="31.0" prefWidth="50.0" />
+                <Label fx:id="lblHighestBidderName" prefHeight="29.0" prefWidth="120.0" text="BidderName">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+            </children>
+            <padding>
+                <Insets left="15.0" />
+            </padding>
+        </HBox>
     </children>
 </VBox>
