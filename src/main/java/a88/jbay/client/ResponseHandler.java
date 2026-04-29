@@ -6,8 +6,8 @@ import a88.jbay.model.network.Response;
 public class ResponseHandler {
     private ClientSession clientSession = ClientSession.getInstance();
 
-    public boolean handle(Response response) {
-        return switch (response.getMessage()) {
+    public void handle(Response response) {
+        switch (response.getMessage()) {
             case "LOGIN_SUCCESS" -> handleLoginSuccess(response);
             case "REGISTER_SUCCESS" -> handleRegisterSuccess(response);
             case "LOGOUT_SUCCESS" -> handleLogoutSuccess(response);
@@ -15,22 +15,19 @@ public class ResponseHandler {
         };
     }
 
-    public boolean handleDefault(Response response) {
+    public void handleDefault(Response response) {
         System.out.println((String) response.getMessage());
-        return false;
     }
 
-    public boolean handleLoginSuccess(Response response) {
+    public void handleLoginSuccess(Response response) {
         clientSession.setUser((User) response.getPayload());
-        return true;
     }
 
-    public boolean handleRegisterSuccess(Response response) {
-        return true;
+    public void handleRegisterSuccess(Response response) {
+        System.out.println((String) response.getMessage());
     }
 
-    public boolean handleLogoutSuccess(Response response) {
+    public void handleLogoutSuccess(Response response) {
         clientSession.setUser(new User());
-        return true;
     }
 }

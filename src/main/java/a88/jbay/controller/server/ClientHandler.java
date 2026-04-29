@@ -91,9 +91,7 @@ public class ClientHandler implements Runnable {
     private Response handleRegister(Request request) {
         String username = (String) request.get("username");
         String password = (String) request.get("password");
-        String role = (String) request.get("role");
-
-        if (role == null) role = "USER"; // Default role
+        String role = "USER";
 
         if (userSystem.register(username, password, role)) {
             return new Response(true, "REGISTER_SUCCESS", null);
