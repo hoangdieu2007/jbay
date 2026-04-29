@@ -1,12 +1,20 @@
 package a88.jbay.controller.client;
 
 import a88.jbay.client.ServerConnection;
+import a88.jbay.model.ImageProcessor;
 import a88.jbay.model.entity.item.Item;
 import a88.jbay.model.network.Request;
 import a88.jbay.model.network.RequestType;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -29,6 +37,8 @@ public class ClientSellerItemController {
     private TextField runStr;
     @FXML
     private TextArea descriptionArea;
+    @FXML
+    private ImageView itemImageView;
 
     @FXML
     private Label nameErrorLabel;
@@ -41,6 +51,7 @@ public class ClientSellerItemController {
     @FXML
     private Label typeErrorLabel;
 
+    private File selectedImageFile;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     private boolean validateInputs() {
@@ -173,37 +184,75 @@ public class ClientSellerItemController {
     }
 
     //Hàm khởi tạo đối tượng item
-    private Item createItemFromFields() {
+    private Item createItemFromFields(byte[] imageData) {
         String name = nameField.getText().trim();
         String type = typeComboBox.getValue();
         String desc = descriptionArea.getText().trim();
         double price = Double.parseDouble(priceField.getText().trim());
 
         if (desc.isEmpty()) desc = "No description provided.";
-        return new Item(name, type, desc, price);
+        return new Item(name, type, desc, price, imageData);
+    }
+
+    @FXML
+    public void initialize() {
+        // 1. Nạp các loại mặt hàng
+        typeComboBox.getItems().addAll("Electronics", "Fashion", "Home", "Collectibles", "Others");
+
+        // 2. Nạp lựa chọn thời gian bắt đầu
+        startChoiceCombo.getItems().addAll("Now", "Custom time");
+        startChoiceCombo.getSelectionModel().selectFirst(); // Mặc định chọn "Now"
+
+        // 3. Nạp lựa chọn thời gian chạy
+        runChoiceCombo.getItems().addAll("1 day", "3 days", "7 days", "Custom time");
+        runChoiceCombo.getSelectionModel().select(1); // Mặc định chọn "3 days"
+    }
+
+    @FXML
+    private void handleUploadImage() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Product Image");
+
+        // Chỉ lọc các định dạng ảnh mà JavaFX hỗ trợ
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
+        );
+
+        // Mở cửa sổ chọn file
+        File file = fileChooser.showOpenDialog(null);
+
+        if (file != null) {
+            // 1. Lưu file vào biến toàn cục để dùng khi Submit
+            this.selectedImageFile = file;
+
+            // 2. Hiển thị ảnh lên giao diện (Real-time preview)
+            Image image = new Image(file.toURI().toString());
+            itemImageView.setImage(image);
+
+            System.out.println("File: " + file.getName());
+        }
     }
 
     @FXML
     private void handleSubmit() {
-        // BƯỚC 1: SOI LỖI
         if (!validateInputs()) return;
 
         try {
-            // BƯỚC 2: CHUẨN BỊ "HÀNG"
-            Item newItem = createItemFromFields();
-            LocalDateTime startTime = calculateStartTime();
-            LocalDateTime endTime = calculateEndTime(startTime);
+            byte[] imageData = ImageProcessor.compressToBytes(selectedImageFile);
 
-            // BƯỚC 3: GỬI LÊN SERVER (Cách Singleton của bạn bạn)
+            Item newItem = createItemFromFields(imageData);
+
             Request request = new Request(RequestType.SELL)
                     .put("item", newItem)
-                    .put("start", startTime)
-                    .put("end", endTime);
+                    .put("start", calculateStartTime())
+                    .put("end", calculateEndTime(calculateStartTime()));
 
             ServerConnection.getInstance().send(request);
-        }
-        catch (IOException e) {
-            System.err.println("Error while sending request to server: " + e.getMessage());
+
+            new Alert(Alert.AlertType.INFORMATION, "Auction created successfully!").show();
+
+        } catch (IOException e) {
+            new Alert(Alert.AlertType.ERROR, "Error: " + e.getMessage()).show();
         }
     }
 }
