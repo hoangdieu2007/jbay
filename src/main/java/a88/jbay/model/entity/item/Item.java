@@ -1,7 +1,5 @@
 package a88.jbay.model.entity.item;
 
-import a88.jbay.model.UniqueID;
-
 import java.io.Serializable;
 
 public class Item implements Serializable {
