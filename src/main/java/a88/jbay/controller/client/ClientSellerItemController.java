@@ -5,6 +5,7 @@ import a88.jbay.model.ImageProcessor;
 import a88.jbay.model.entity.item.Item;
 import a88.jbay.model.network.Request;
 import a88.jbay.model.network.RequestType;
+import a88.jbay.view.ViewManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
@@ -248,6 +249,8 @@ public class ClientSellerItemController {
                     .put("end", calculateEndTime(calculateStartTime()));
 
             ServerConnection.getInstance().send(request);
+
+            ViewManager.getInstance().displayScene("client/Seller-Bidder-HomeScreens.fxml");
 
             new Alert(Alert.AlertType.INFORMATION, "Auction created successfully!").show();
 
