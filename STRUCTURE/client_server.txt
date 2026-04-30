@@ -1,0 +1,136 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+
+title UML Diagram - a88.jbay.client and a88.jbay.server Packages
+
+' ==================== CLIENT PACKAGE ====================
+package "a88.jbay.client" {
+    class ClientSession {
+        -instance: ClientSession {static}
+        -user: User
+        -sellerAuctions: List<Auction>
+        -bidderAuctions: List<Auction>
+        -ClientSession()
+        +getInstance(): ClientSession {static}
+        +setUser(user: User): void
+        +getUser(): User
+        +getSellerAuctions(): List<Auction>
+        +getBidderAuctions(): List<Auction>
+        +addSellerAuction(auction: Auction): void
+        +addBidderAuction(auction: Auction): void
+        +resetSession(): void
+    }
+
+    class ResponseHandler {
+        -instance: ResponseHandler {static}
+        -clientSession: ClientSession
+        -controllerProvider: ControllerProvider
+        -ResponseHandler()
+        +getInstance(): ResponseHandler {static}
+        +handle(response: Response): void
+        +handleDefault(response: Response): void
+        +handleLoginSuccess(response: Response): void
+        +handleLoginFail(response: Response): void
+        +handleRegisterSuccess(response: Response): void
+        +handleRegisterFail(response: Response): void
+        +handleLogoutSuccess(response: Response): void
+    }
+
+    class ServerConnection {
+        -instance: ServerConnection {static}
+        -responseHandler: ResponseHandler
+        -socket: Socket
+        -out: ObjectOutputStream
+        -in: ObjectInputStream
+        -ServerConnection()
+        +getInstance(): ServerConnection {static}
+        +connect(host: String, port: int): void
+        +send(request: Request): void
+        +startListener(): void
+    }
+}
+
+' ==================== SERVER PACKAGE ====================
+package "a88.jbay.server" {
+    class ClientHandler implements Runnable {
+        -socket: Socket
+        -userSystem: UserSystem
+        -auctionSystem: AuctionSystem
+        -currentUser: User
+        -out: ObjectOutputStream
+        +ClientHandler(socket: Socket)
+        +run(): void
+        -handleRequest(request: Request): Response
+        -handleLogin(request: Request): Response
+        -handleRegister(request: Request): Response
+        -handleBid(request: Request): Response
+        -handleSell(request: Request): Response
+        -handleCancel(request: Request): Response
+        -handleSubscribeAuction(request: Request): Response
+        -handleUnsubscribeAuction(request: Request): Response
+        -handleLogout(request: Request): Response
+        -handleMisc(request: Request): Response
+        -cleanupCurrentUserSession(): void
+    }
+
+    class ClientService {
+        -instance: ClientService {static}
+        -serverSocket: ServerSocket
+        -executor: ExecutorService
+        -port: int
+        -ClientService()
+        +getInstance(): ClientService {static}
+        +setupServerSocket(port: int): void
+        +startService(): void
+        +stopService(): void
+    }
+
+    class DatabaseController {
+        -instance: DatabaseController {static}
+        -dataSource: HikariDataSource
+        -DatabaseController()
+        +getInstance(): DatabaseController {static}
+        +getConnection(): Connection
+        +close(): void
+    }
+
+}
+
+' ==================== RELATIONSHIPS ====================
+
+' Client package dependencies
+ClientSession --> User : manages
+ClientSession --> Auction : manages
+
+ResponseHandler --> ClientSession : uses
+ResponseHandler --> Response : handles
+ResponseHandler --> User : updates
+ResponseHandler --> ControllerProvider : uses
+
+ServerConnection --> ResponseHandler : uses
+ServerConnection --> Request : sends
+ServerConnection --> Response : receives
+ServerConnection --> Socket : uses
+
+' Server package dependencies
+ClientHandler --> UserSystem : uses
+ClientHandler --> AuctionSystem : uses
+ClientHandler --> NotificationSystem : uses
+ClientHandler --> User : tracks
+ClientHandler --> Request : processes
+ClientHandler --> Response : creates
+ClientHandler --> Socket : uses
+ClientHandler --> Auction : subscribes/unsubscribes
+
+ClientService --> ClientHandler : creates
+ClientService --> ServerSocket : uses
+ClientService --> ExecutorService : uses
+
+DatabaseController --> HikariDataSource : uses
+
+' Cross-package dependencies
+ClientHandler ..> NotificationSystem : registers/unregisters
+ClientHandler ..> Auction : subscribes/unsubscribes
+
+@enduml

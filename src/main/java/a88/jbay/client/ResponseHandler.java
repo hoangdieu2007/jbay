@@ -4,15 +4,20 @@ import a88.jbay.controller.ControllerProvider;
 import a88.jbay.controller.client.ClientLoginRegisterController;
 import a88.jbay.model.entity.user.User;
 import a88.jbay.model.network.Response;
+import a88.jbay.view.ViewManager;
+
+import java.io.IOException;
 
 public class ResponseHandler {
     private static ResponseHandler instance;
     private ClientSession clientSession;
     private ControllerProvider controllerProvider;
+    private ViewManager viewManager;
 
     private ResponseHandler() {
         clientSession = ClientSession.getInstance();
         controllerProvider = ControllerProvider.getInstance();
+        viewManager = ViewManager.getInstance();
     }
 
     public synchronized static ResponseHandler getInstance() {
@@ -46,6 +51,12 @@ public class ResponseHandler {
     public void handleLoginSuccess(Response response) {
         clientSession.setUser((User) response.getPayload());
         controllerProvider.getController(ClientLoginRegisterController.class).updateLoginLabel("Login successful");
+        try {
+            viewManager.displayScene("client/Seller-Bidder-HomeScreens.fxml");
+        } catch (IOException e) {
+            controllerProvider.getController(ClientLoginRegisterController.class).updateLoginLabel("Failed to display home screen");
+            e.printStackTrace();
+        }
     }
 
     public void handleLoginFail(Response response) {

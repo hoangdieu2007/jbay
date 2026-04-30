@@ -1,6 +1,7 @@
 package a88.jbay.controller.client;
 
 import a88.jbay.model.event.Auction;
+import a88.jbay.view.ViewManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -61,6 +62,13 @@ public class SellerBidderHomeScreenController {
     // =====SELLER=====
 
 
+    public void handleCreateListing(ActionEvent actionEvent) {
+        try {
+            ViewManager.displayScene("client/client-seller-item-view.fxml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
     // =====BIDDER=====
