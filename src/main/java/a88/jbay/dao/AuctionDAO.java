@@ -181,24 +181,7 @@ public class AuctionDAO {
     }
 
     public Item findItemById(int itemId) {
-        String sql = "SELECT id, name, type, `desc`, start_price, image FROM items WHERE id = ?";
-
-        try (Connection connection = DatabaseController.getInstance().getConnection();
-             PreparedStatement stmt = connection.prepareStatement(sql)) {
-
-            stmt.setInt(1, itemId);
-
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (!rs.next()) {
-                    return null;
-                }
-
-                return itemDAO.findItemById(rs.getInt("item"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
+        return itemDAO.findItemById(itemId);
     }
 
     public AuctionData findAuctionById(int auctionId) {

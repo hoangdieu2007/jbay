@@ -117,33 +117,19 @@ public class AuctionSystem {
         return true;
     }
 
-    //place bid and validate bid
+    //place bid and validate bid - delegate to BidSystem
     public synchronized boolean placeBid(int userId, int auctionId, double amount) {
-        Auction auction = activeAuctions.get(auctionId);
-        if (auction == null) return false;
-
-        if (amount <= auction.getCurrentPrice()) {
-            return false;
+        boolean bidPlaced = BidSystem.getInstance().placeBid(userId, auctionId, amount);
+        
+        if (bidPlaced) {
+            // anti-sniping check upon successful bid
+            Auction auction = activeAuctions.get(auctionId);
+            if (auction != null) {
+                extendEndTime(LocalDateTime.now(), auction);
+            }
         }
-
-        if (!(auction.getAuctionState() == AuctionState.RUNNING)) {
-            return false;
-        }
-
-        LocalDateTime now = LocalDateTime.now();
-        boolean bidInserted = auctionDAO.insertBid(userId, auctionId, amount, now);
-
-        if (bidInserted && auctionDAO.updateCurrentPrice(auctionId, amount, userId)) {
-            // SYNC MEMORY: Update the object and trigger observers
-            BidTransaction tx = new BidTransaction(userId, amount, now);
-            auction.subscribe(userId); // Bidder is automatically subscribed
-            auction.updatePrice(amount, tx);
-
-            extendEndTime(now, auction);
-            return true;
-        }
-
-        return false;
+        
+        return bidPlaced;
     }
 
     public synchronized void placeBidAutomated(int userId, int auctionId, double amount, double max_amount, double increment, int intervalSeconds) {
@@ -290,5 +276,9 @@ public class AuctionSystem {
     //do NOT call this method unless for testing purpose
     public void stopSystem() {
         scheduler.shutdown();
+    }
+
+    public Auction getActiveAuction(int auctionId) {
+        return activeAuctions.get(auctionId);
     }
 }
