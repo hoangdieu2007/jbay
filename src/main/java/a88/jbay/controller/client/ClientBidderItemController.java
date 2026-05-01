@@ -42,9 +42,9 @@ public class ClientBidderItemController {
         this.currentAuctionId = id;
 
         // Truyền auction vào setup
-        Auction a = ClientSession.getInstance().getBidderAuctions().get(id);
-        if (a != null) {
-            updateBidderUI(a);
+        Auction auction = ClientSession.getInstance().getBidderAuctions().get(id);
+        if (auction != null) {
+            updateBidderUI(auction);
         }
     }
 
