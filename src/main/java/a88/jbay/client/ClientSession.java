@@ -59,8 +59,18 @@ public class ClientSession {
 
     // after each logout, call this to erase session
     public void resetSession() {
+        //Reset ttin user
         this.user = new User();
-        this.bidderAuctions = FXCollections.observableHashMap();
-        this.sellerAuctions = FXCollections.observableHashMap();
+
+        //Làm sac Map nhưng giữ nguyên thực thể và không làm đứt kết nối với Listener
+        if (this.bidderAuctions != null) {
+            this.bidderAuctions.clear();
+        }
+
+        if (this.sellerAuctions != null) {
+            this.sellerAuctions.clear();
+        }
+
+        System.out.println("Session has been cleared");
     }
 }
