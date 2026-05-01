@@ -64,6 +64,7 @@ public class ItemDAO {
                 }
 
                 return new Item(
+                    rs.getInt("id"),
                     rs.getString("name"),
                     rs.getString("type"),
                     rs.getString("desc"),
