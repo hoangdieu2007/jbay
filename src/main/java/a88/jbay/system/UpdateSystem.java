@@ -22,15 +22,15 @@ import java.util.concurrent.CopyOnWriteArrayList;
         + send notifications to specific users based on auction subscriber lists
  */
 
-public class NotificationSystem {
-    private static NotificationSystem instance;
+public class UpdateSystem {
+    private static UpdateSystem instance;
     private final Map<Integer, List<ObjectOutputStream>> userSessions = new ConcurrentHashMap<>();
 
-    private NotificationSystem() {}
+    private UpdateSystem() {}
 
-    public static synchronized NotificationSystem getInstance() {
+    public static synchronized UpdateSystem getInstance() {
         if (instance == null) {
-            instance = new NotificationSystem();
+            instance = new UpdateSystem();
         }
         return instance;
     }
@@ -52,6 +52,11 @@ public class NotificationSystem {
                 userSessions.remove(userId);
             }
         }
+    }
+
+    //unregister user session, remove all output streams from the list by user id
+    public void unregister(int userId) {
+        userSessions.remove(userId);
     }
 
     //unsub from all auctions
@@ -84,5 +89,43 @@ public class NotificationSystem {
                 }
             }
         });
+    }
+
+    //update seller auction list to user by id
+    public void updateSellerAuctions(int userId) {
+        Response response = new Response(true, "SELLER_AUCTION_LIST", AuctionSystem.getInstance().getAuctionsBySellerId(userId));
+
+        updateByUserId(userId, response);
+    }
+
+    //update won auction list to user by id
+    public void updateBidderAuctions(int userId) {
+        Response response = new Response(true, "BIDDER_AUCTION_LIST", AuctionSystem.getInstance().getAuctionsByWinnerId(userId));
+
+        updateByUserId(userId, response);
+    }
+
+    //update active auction list to user by id
+    public void updateActiveAuctions(int userId) {
+        Response response = new Response(true, "ACTIVE_AUCTION_LIST", AuctionSystem.getInstance().getActiveAuctionListExceptForSeller(userId));
+
+        updateByUserId(userId, response);
+    }
+
+    public void updateByUserId(int userId, Response response) {
+        List<ObjectOutputStream> sessions = userSessions.get(userId);
+
+        if (sessions == null || sessions.isEmpty()) return;
+
+        for (ObjectOutputStream out : sessions) {
+            synchronized (out) {
+                try {
+                    out.writeObject(response);
+                    out.flush();
+                } catch (IOException e) {
+                    unregister(userId, out);
+                }
+            }
+        }
     }
 }

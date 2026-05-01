@@ -3,10 +3,12 @@ package a88.jbay.client;
 import a88.jbay.controller.ControllerProvider;
 import a88.jbay.controller.client.ClientLoginRegisterController;
 import a88.jbay.model.entity.user.User;
+import a88.jbay.model.event.Auction;
 import a88.jbay.model.network.Response;
 import a88.jbay.view.ViewManager;
 
 import java.io.IOException;
+import java.util.List;
 
 public class ResponseHandler {
     private static ResponseHandler instance;
@@ -33,6 +35,9 @@ public class ResponseHandler {
                 case "LOGIN_SUCCESS" -> handleLoginSuccess(response);
                 case "REGISTER_SUCCESS" -> handleRegisterSuccess(response);
                 case "LOGOUT_SUCCESS" -> handleLogoutSuccess(response);
+                case "ACTIVE_AUCTION_LIST" -> handleActiveAuctionList(response);
+                case "SELLER_AUCTION_LIST" -> handleSellerAuctionList(response);
+                case "BIDDER_AUCTION_LIST" -> handleBidderAuctionList(response);
                 default -> handleDefault(response);
             };
         } else {
@@ -74,5 +79,17 @@ public class ResponseHandler {
 
     public void handleLogoutSuccess(Response response) {
         clientSession.setUser(new User());
+    }
+
+    private void handleActiveAuctionList(Response response) {
+        List<Auction> activeAuctions = (List<Auction>) response.getPayload();
+    }
+
+    private void handleSellerAuctionList(Response response) {
+        List<Auction> sellerAuctions = (List<Auction>) response.getPayload();
+    }
+
+    private void handleBidderAuctionList(Response response) {
+        List<Auction> bidderAuctions = (List<Auction>) response.getPayload();
     }
 }

@@ -9,12 +9,14 @@ import a88.jbay.model.event.Auction;
 import a88.jbay.model.event.AuctionState;
 import a88.jbay.model.event.BidTransaction;
 
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 /*
 the code for operations on the auction data
@@ -27,7 +29,7 @@ public class AuctionSystem {
     private final AuctionDAO auctionDAO;
     private final UserDAO userDAO;
     private final BidDAO bidDAO;
-    private final NotificationSystem notificationSystem;
+    private final UpdateSystem updateSystem;
 
     // Memory cache for active auctions to handle real-time bidding
     private final Map<Integer, Auction> activeAuctions;
@@ -38,7 +40,7 @@ public class AuctionSystem {
         this.auctionDAO = AuctionDAO.getInstance();
         this.userDAO = UserDAO.getInstance();
         this.bidDAO = BidDAO.getInstance();
-        this.notificationSystem = NotificationSystem.getInstance();
+        this.updateSystem = UpdateSystem.getInstance();
         this.activeAuctions = new ConcurrentHashMap<>();
         this.scheduler = Executors.newSingleThreadScheduledExecutor();
 
@@ -229,6 +231,19 @@ public class AuctionSystem {
 
     public List<Auction> getActiveAuctionList() {
         return new ArrayList<>(activeAuctions.values());
+    }
+
+    public List<Auction> getActiveAuctionListExceptForSeller(int userId) {
+        String sellerName = userDAO.findByUserId(userId).username();
+
+        ArrayList<Auction> activeAuctionsExceptForSeller = new ArrayList<>();
+        for (Auction auction : activeAuctions.values()) {
+            if (!auction.getSellerName().equals(sellerName)) {
+                activeAuctionsExceptForSeller.add(auction);
+            }
+        }
+
+        return activeAuctionsExceptForSeller;
     }
 
     public Auction getActiveAuctionById(int auctionId) {

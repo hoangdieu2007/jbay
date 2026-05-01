@@ -4,6 +4,7 @@ import a88.jbay.dao.UserDAO;
 import a88.jbay.dao.UserDAO.UserData;
 import a88.jbay.model.StringHash;
 import a88.jbay.model.entity.user.User;
+import a88.jbay.model.network.Response;
 
 import java.util.List;
 import java.util.Map;
@@ -70,7 +71,29 @@ public class UserSystem {
         return new User(userData.id(), userData.role(), userData.username(), sessionId);
     }
 
+    public void addActiveUser(int userId, User user) {
+        activeUsers.computeIfAbsent(userId, k -> List.of()).add(user);
+    }
+
     public boolean banUser(int userId) {
-        return userDAO.changeUserRole(userId, "BAN");
+        if (userDAO.findByUserId(userId) == null) return false;
+
+        if (userDAO.changeUserRole(userId, "BAN")) {
+            UpdateSystem.getInstance().unsubscribeUserFromAllAuctions(userId);
+            // when client receives this it will switch to login scene
+            UpdateSystem.getInstance().updateByUserId(userId, new Response(true, "BAN_USER", null));
+            UpdateSystem.getInstance().unregister(userId);
+            activeUsers.remove(userId);
+
+            List<User> sessions = activeUsers.get(userId);
+            if (sessions != null && !sessions.isEmpty()) {
+                for (User user : sessions) {
+                    logout(user.getSessionId());
+                }
+            }
+            return true;
+        }
+
+        return false;
     }
 }
