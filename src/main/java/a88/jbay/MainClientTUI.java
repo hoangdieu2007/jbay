@@ -124,7 +124,7 @@ public class MainClientTUI {
                     double itemPrice = Double.parseDouble(sc.nextLine());
 
                     //later change this to a builder
-                    Item item = new Item(itemName, itemType, itemDescription, itemPrice);
+                    Item item = new Item(itemName, itemType, itemDescription, itemPrice, null);
 
                     //then create auction
                     System.out.println("Start time (yyyy-MM-dd HH:mm):");

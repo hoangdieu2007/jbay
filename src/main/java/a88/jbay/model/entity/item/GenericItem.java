@@ -2,7 +2,7 @@ package a88.jbay.model.entity.item;
 
 public class GenericItem extends Item {
     public GenericItem(GenericBuilder builder) {
-        super(builder.name, "GENERIC",builder.description, builder.initPrice);
+        super(0, builder.name, "GENERIC",builder.description, builder.initPrice);
     }
 
     public static class GenericBuilder{
