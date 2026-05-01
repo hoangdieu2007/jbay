@@ -1,6 +1,8 @@
 package a88.jbay.system;
 
 import a88.jbay.dao.AuctionDAO;
+import a88.jbay.dao.AuctionDAO.AuctionData;
+import a88.jbay.dao.BidDAO;
 import a88.jbay.dao.UserDAO;
 import a88.jbay.model.entity.item.Item;
 import a88.jbay.model.event.Auction;
@@ -38,6 +40,7 @@ public class AuctionSystem {
         this.activeAuctions = new ConcurrentHashMap<>();
         this.scheduler = Executors.newSingleThreadScheduledExecutor();
 
+        loadActiveAuctions();
         startHeartbeat();
     }
 
@@ -46,6 +49,42 @@ public class AuctionSystem {
             instance = new AuctionSystem();
         }
         return instance;
+    }
+
+    private void loadActiveAuctions() {
+        java.util.List<AuctionData> activeAuctionData = auctionDAO.findAllActiveAuctions();
+
+        for (AuctionData auctionData : activeAuctionData) {
+            Auction auction = new Auction(
+                auctionData.id(),
+                auctionData.item(),
+                userDAO.findByUserId(auctionData.sellerId()).username(),
+                auctionData.startTime(),
+                auctionData.endTime()
+            );
+
+            auction.setAuctionState(AuctionState.valueOf(auctionData.state()));
+
+            // reconstruct bid history and observers
+            java.util.List<BidDAO.BidData> bidHistory = auctionDAO.findBidHistoryByAuctionId(auctionData.id());
+            java.util.Set<Integer> bidders = new java.util.HashSet<>();
+            
+            for (BidDAO.BidData bidData : bidHistory) {
+                BidTransaction tx = new BidTransaction(bidData.userId(), bidData.amount(), bidData.time());
+                auction.updatePrice(bidData.amount(), tx);
+                bidders.add(bidData.userId());
+            }
+
+            // subscribe all bidders as observers
+            for (Integer bidderId : bidders) {
+                auction.subscribe(bidderId);
+            }
+
+            // always subscribe seller
+            auction.subscribe(auctionData.sellerId());
+
+            activeAuctions.put(auctionData.id(), auction);
+        }
     }
 
     //create auction and store to database
@@ -69,7 +108,7 @@ public class AuctionSystem {
         Auction auction = new Auction(
                 auctionId,
                 item,
-                userDAO.findByUserId(sellerId).get("username"),
+                userDAO.findByUserId(sellerId).username(),
                 start,
                 end
         );

@@ -1,6 +1,7 @@
 package a88.jbay.system;
 
 import a88.jbay.dao.UserDAO;
+import a88.jbay.dao.UserDAO.UserData;
 import a88.jbay.model.StringHash;
 import a88.jbay.model.entity.user.User;
 
@@ -34,16 +35,16 @@ public class UserSystem {
 
     //login: find user by username, then check password and generate session if valid
     public User login(String username, String password) {
-        Map<String, String> userData = userDAO.findByUsername(username);
+        UserData userData = userDAO.findByUsername(username);
         if (userData == null) return null;
 
-        password = StringHash.hash(password);
+        String hashedPassword = StringHash.hash(password);
 
-        if (!password.equals(userData.get("password"))) return null;
+        if (!hashedPassword.equals(userData.password())) return null;
 
         String sessionId = UUID.randomUUID().toString();
-        if (userDAO.insertSession(sessionId, Integer.parseInt(userData.get("id")))) {
-            return new User(Integer.parseInt(userData.get("id")),userData.get("role"), userData.get("username"), sessionId);
+        if (userDAO.insertSession(sessionId, userData.id())) {
+            return new User(userData.id(), userData.role(), userData.username(), sessionId);
         }
         return null;
     }
@@ -64,9 +65,9 @@ public class UserSystem {
     }
 
     public User getBySessionId(String sessionId) {
-        Map<String, String> userData = userDAO.findBySessionId(sessionId);
+        UserData userData = userDAO.findBySessionId(sessionId);
         if (userData == null) return null;
-        return new User(Integer.parseInt(userData.get("id")),userData.get("role"), userData.get("username"), sessionId);
+        return new User(userData.id(), userData.role(), userData.username(), sessionId);
     }
 
     public boolean banUser(int userId) {

@@ -1,256 +1,178 @@
-        package a88.jbay.dao;
+package a88.jbay.dao;
 
-        import a88.jbay.server.DatabaseController;
-        import a88.jbay.model.entity.item.Item;
-        import a88.jbay.model.event.AuctionState;
+import a88.jbay.model.entity.item.Item;
+import a88.jbay.model.event.AuctionState;
+import a88.jbay.server.DatabaseController;
 
-        import java.sql.Connection;
-        import java.sql.PreparedStatement;
-        import java.sql.ResultSet;
-        import java.sql.SQLException;
-        import java.time.LocalDateTime;
-        import java.util.HashMap;
-        import java.util.Map;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
-        public class AuctionDAO {
-            private static AuctionDAO instance;
+public class AuctionDAO {
+    private static AuctionDAO instance;
 
-            private AuctionDAO() {}
+    public record AuctionData(
+        int id,
+        Item item,
+        int sellerId,
+        double startPrice,
+        double curPrice,
+        Integer winnerId,
+        LocalDateTime startTime,
+        LocalDateTime endTime,
+        String state
+    ) {}
 
-            public static synchronized AuctionDAO getInstance() {
-                if (instance == null) {
-                    instance = new AuctionDAO();
-                }
-                return instance;
+    private final ItemDAO itemDAO = ItemDAO.getInstance();
+    private final BidDAO bidDAO = BidDAO.getInstance();
+
+    private AuctionDAO() {}
+
+    public static synchronized AuctionDAO getInstance() {
+        if (instance == null) {
+            instance = new AuctionDAO();
+        }
+        return instance;
+    }
+
+    public int insertItem(Item item) {
+        return itemDAO.insertItem(item);
+    }
+
+    public int insertAuction(int itemId, int sellerId, double startPrice, double curPrice,
+                             LocalDateTime startTime, LocalDateTime endTime) {
+
+        String sql = """
+                INSERT INTO auctions (item, seller, start_price, cur_price, winner, start_time, end_time, state)
+                VALUES (?, ?, ?, ?, NULL, ?, ?, 'OPENING')
+                """;
+
+        try (Connection connection = DatabaseController.getInstance().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+
+            stmt.setInt(1, itemId);
+            stmt.setInt(2, sellerId);
+            stmt.setDouble(3, startPrice);
+            stmt.setDouble(4, curPrice);
+            stmt.setObject(5, startTime);
+            stmt.setObject(6, endTime);
+
+            int affectedRows = stmt.executeUpdate();
+            if (affectedRows == 0) {
+                return -1;
             }
 
-            public int insertItem(Item item) {
-
-                String sql = "INSERT INTO items (name, type, `desc`, start_price, image) VALUES (?, ?, ?, ?, ?)";
-
-                try (Connection connection = DatabaseController.getInstance().getConnection();
-                     PreparedStatement stmt = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
-
-                    stmt.setString(1, item.getName());
-                    stmt.setString(2, item.getType());
-                    stmt.setString(3, item.getDescription());
-                    stmt.setDouble(4, item.getInitPrice());
-                    stmt.setBytes(5, item.getImage());
-
-                    int affectedRows = stmt.executeUpdate();
-                    if (affectedRows == 0) {
-                        return -1;
-                    }
-
-                    try (ResultSet keys = stmt.getGeneratedKeys()) {
-                        if (keys.next()) {
-                            return keys.getInt(1);
-                        }
-                    }
-
-                    return -1;
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    return -1;
-                }
-            }
-
-            public int insertAuction(int itemId, int sellerId, double startPrice, double curPrice,
-                                     LocalDateTime startTime, LocalDateTime endTime) {
-
-                String sql = """
-                        INSERT INTO auctions (item, seller, start_price, cur_price, winner, start_time, end_time, state)
-                        VALUES (?, ?, ?, ?, NULL, ?, ?, 'OPENING')
-                        """;
-
-                try (Connection connection = DatabaseController.getInstance().getConnection();
-                     PreparedStatement stmt = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
-
-                    stmt.setInt(1, itemId);
-                    stmt.setInt(2, sellerId);
-                    stmt.setDouble(3, startPrice);
-                    stmt.setDouble(4, curPrice);
-                    stmt.setObject(5, startTime);
-                    stmt.setObject(6, endTime);
-
-                    int affectedRows = stmt.executeUpdate();
-                    if (affectedRows == 0) {
-                        return -1;
-                    }
-
-                    try (ResultSet keys = stmt.getGeneratedKeys()) {
-                        if (keys.next()) {
-                            return keys.getInt(1);
-                        }
-                    }
-
-                    return -1;
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    return -1;
+            try (ResultSet keys = stmt.getGeneratedKeys()) {
+                if (keys.next()) {
+                    return keys.getInt(1);
                 }
             }
 
-            public boolean updateCurrentPrice(int auctionId, double newPrice, int winnerId) {
+            return -1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
 
-                String sql = "UPDATE auctions SET cur_price = ?, winner = ? WHERE id = ?";
+    public boolean updateCurrentPrice(int auctionId, double newPrice, int winnerId) {
 
-                try (Connection connection = DatabaseController.getInstance().getConnection();
-                     PreparedStatement stmt = connection.prepareStatement(sql)) {
+        String sql = "UPDATE auctions SET cur_price = ?, winner = ? WHERE id = ?";
 
-                    stmt.setDouble(1, newPrice);
-                    stmt.setInt(2, winnerId);
-                    stmt.setInt(3, auctionId);
+        try (Connection connection = DatabaseController.getInstance().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-                    return stmt.executeUpdate() > 0;
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    return false;
-                }
+            stmt.setDouble(1, newPrice);
+            stmt.setInt(2, winnerId);
+            stmt.setInt(3, auctionId);
+
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean updateEndTime(int auctionId, LocalDateTime newEndTime) {
+        String sql = "UPDATE auctions SET end_time = ? WHERE id = ?";
+
+        try (Connection connection = DatabaseController.getInstance().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setObject(1, newEndTime);
+            stmt.setInt(2, auctionId);
+
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean finalizeAuction(int auctionId, Integer winnerId) {
+
+        String sql = "UPDATE auctions SET winner = ?, state = 'FINISHED' WHERE id = ?";
+
+        try (Connection connection = DatabaseController.getInstance().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            if (winnerId == null) {
+                stmt.setNull(1, java.sql.Types.INTEGER);
+            } else {
+                stmt.setInt(1, winnerId);
             }
+            stmt.setInt(2, auctionId);
 
-            public boolean updateEndTime(int auctionId, LocalDateTime newEndTime) {
-                String sql = "UPDATE auctions SET end_time = ? WHERE id = ?";
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
-                try (Connection connection = DatabaseController.getInstance().getConnection();
-                     PreparedStatement stmt = connection.prepareStatement(sql)) {
+    public boolean setAuctionState(int auctionId, AuctionState newState) {
 
-                    stmt.setObject(1, newEndTime);
-                    stmt.setInt(2, auctionId);
+        String sql = "UPDATE auctions SET state = ? WHERE id = ?";
 
-                    return stmt.executeUpdate() > 0;
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    return false;
-                }
-            }
+        try (Connection connection = DatabaseController.getInstance().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-            public boolean finalizeAuction(int auctionId, Integer winnerId) {
+            stmt.setString(1, newState.name());
+            stmt.setInt(2, auctionId);
 
-                String sql = "UPDATE auctions SET winner = ?, state = 'FINISHED' WHERE id = ?";
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
-                try (Connection connection = DatabaseController.getInstance().getConnection();
-                     PreparedStatement stmt = connection.prepareStatement(sql)) {
+    public boolean insertBid(int userId, int auctionId, double amount, LocalDateTime time) {
+        return bidDAO.insertBid(userId, auctionId, amount, time);
+    }
 
-                    if (winnerId == null) {
-                        stmt.setNull(1, java.sql.Types.INTEGER);
-                    } else {
-                        stmt.setInt(1, winnerId);
-                    }
-                    stmt.setInt(2, auctionId);
+    public Double findCurrentPrice(int auctionId) {
+        return bidDAO.findCurrentPrice(auctionId);
+    }
 
-                    return stmt.executeUpdate() > 0;
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    return false;
-                }
-            }
+    public Integer findSellerId(int auctionId) {
 
-            public boolean setAuctionState(int auctionId, AuctionState newState) {
+        String sql = "SELECT seller FROM auctions WHERE id = ?";
 
-                String sql = "UPDATE auctions SET state = ? WHERE id = ?";
+        try (Connection connection = DatabaseController.getInstance().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-                try (Connection connection = DatabaseController.getInstance().getConnection();
-                     PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, auctionId);
 
-                    stmt.setString(1, newState.name());
-                    stmt.setInt(2, auctionId);
-
-                    return stmt.executeUpdate() > 0;
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    return false;
-                }
-            }
-
-            public boolean insertBid(int userId, int auctionId, double amount, LocalDateTime time) {
-
-                String sql = "INSERT INTO bids (userid, auctionid, amt, time) VALUES (?, ?, ?, ?)";
-
-                try (Connection connection = DatabaseController.getInstance().getConnection();
-                     PreparedStatement stmt = connection.prepareStatement(sql)) {
-
-                    stmt.setInt(1, userId);
-                    stmt.setInt(2, auctionId);
-                    stmt.setDouble(3, amount);
-                    stmt.setObject(4, time);
-
-                    return stmt.executeUpdate() > 0;
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    return false;
-                }
-            }
-
-            public Double findCurrentPrice(int auctionId) {
-
-                String sql = "SELECT cur_price FROM auctions WHERE id = ?";
-
-                try (Connection connection = DatabaseController.getInstance().getConnection();
-                     PreparedStatement stmt = connection.prepareStatement(sql)) {
-
-                    stmt.setInt(1, auctionId);
-
-                    try (ResultSet rs = stmt.executeQuery()) {
-                        if (!rs.next()) {
-                            return null;
-                        }
-                        return rs.getDouble("cur_price");
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (!rs.next()) {
                     return null;
                 }
-            }
-
-            public Integer findSellerId(int auctionId) {
-
-                String sql = "SELECT seller FROM auctions WHERE id = ?";
-
-                try (Connection connection = DatabaseController.getInstance().getConnection();
-                     PreparedStatement stmt = connection.prepareStatement(sql)) {
-
-                    stmt.setInt(1, auctionId);
-
-                    try (ResultSet rs = stmt.executeQuery()) {
-                        if (!rs.next()) {
-                            return null;
-                        }
-                        return rs.getInt("seller");
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    return null;
-                }
-            }
-
-            public Map<String, Object> findItemById(int itemId) {
-                String sql = "SELECT id, name, type, `desc`, start_price FROM items WHERE id = ?";
-
-                String img_sql = "SELECT image FROM items WHERE id = ?";
-
-                try (Connection connection = DatabaseController.getInstance().getConnection();
-                     PreparedStatement stmt = connection.prepareStatement(sql);
-                     PreparedStatement img_stmt = connection.prepareStatement(img_sql)) {
-
-                    stmt.setInt(1, itemId);
-                    img_stmt.setInt(1, itemId);
-
-                    try (ResultSet rs = stmt.executeQuery();
-                         ResultSet img_rs = img_stmt.executeQuery()) {
-                        if (!rs.next()) {
-                            return null;
-                        }
-
-                        Map<String, Object> itemData = new HashMap<>();
-                        itemData.put("id", String.valueOf(rs.getInt("id")));
-                        itemData.put("name", rs.getString("name"));
-                        itemData.put("type", rs.getString("type"));
-                        itemData.put("description", rs.getString("desc"));
-                        itemData.put("start_price", rs.getDouble("start_price"));
-                        itemData.put("image", img_rs.getBytes("image"));
-
-                return itemData;
+                return rs.getInt("seller");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -258,7 +180,28 @@
         }
     }
 
-    public Map<String, Object> findAuctionById(int auctionId) {
+    public Item findItemById(int itemId) {
+        String sql = "SELECT id, name, type, `desc`, start_price, image FROM items WHERE id = ?";
+
+        try (Connection connection = DatabaseController.getInstance().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setInt(1, itemId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (!rs.next()) {
+                    return null;
+                }
+
+                return itemDAO.findItemById(rs.getInt("item"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public AuctionData findAuctionById(int auctionId) {
         String sql = "SELECT * FROM auctions WHERE id = ?";
 
         try (Connection connection = DatabaseController.getInstance().getConnection();
@@ -270,17 +213,22 @@
                     return null;
                 }
 
-                Map<String, Object> auctionData = new HashMap<>();
-                auctionData.put("id", String.valueOf(rs.getInt("id")));
-                auctionData.put("item", findItemById(rs.getInt("item")));
-                auctionData.put("seller", findSellerId(rs.getInt("id")));
-                auctionData.put("start_price", rs.getDouble("start_price"));
-                auctionData.put("cur_price", rs.getDouble("cur_price"));
-                auctionData.put("winner", rs.getInt("winner"));
-                auctionData.put("start_time", rs.getTimestamp("start_time"));
-                auctionData.put("end_time", rs.getTimestamp("end_time"));
-                auctionData.put("state", rs.getString("state"));
-                return auctionData;
+                Item item = findItemById(rs.getInt("item"));
+                if (item == null) {
+                    return null;
+                }
+
+                return new AuctionData(
+                    rs.getInt("id"),
+                    item,
+                    rs.getInt("seller"),
+                    rs.getDouble("start_price"),
+                    rs.getDouble("cur_price"),
+                    rs.getInt("winner"),
+                    rs.getTimestamp("start_time").toLocalDateTime(),
+                    rs.getTimestamp("end_time").toLocalDateTime(),
+                    rs.getString("state")
+                );
             }
         }
         catch (SQLException e) {
@@ -288,4 +236,42 @@
             return null;
         }
     }
+
+    public java.util.List<BidDAO.BidData> findBidHistoryByAuctionId(int auctionId) {
+        return bidDAO.findBidHistoryByAuctionId(auctionId);
+    }
+
+    public java.util.List<AuctionData> findAllActiveAuctions() {
+        String sql = "SELECT * FROM auctions WHERE state IN ('OPENING', 'RUNNING')";
+        java.util.List<AuctionData> activeAuctions = new java.util.ArrayList<>();
+
+        try (Connection connection = DatabaseController.getInstance().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Item item = findItemById(rs.getInt("item"));
+                    if (item != null) {
+                        AuctionData auctionData = new AuctionData(
+                            rs.getInt("id"),
+                            item,
+                            rs.getInt("seller"),
+                            rs.getDouble("start_price"),
+                            rs.getDouble("cur_price"),
+                            rs.getInt("winner"),
+                            rs.getTimestamp("start_time").toLocalDateTime(),
+                            rs.getTimestamp("end_time").toLocalDateTime(),
+                            rs.getString("state")
+                        );
+                        activeAuctions.add(auctionData);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return activeAuctions;
+    }
+
+
 }

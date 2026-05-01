@@ -1,29 +1,34 @@
 package a88.jbay.dao;
 
+import a88.jbay.model.entity.user.User;
 import a88.jbay.server.DatabaseController;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class UserDAO {
     private static UserDAO instance;
 
+    public record UserData(
+        int id,
+        String username,
+        String role,
+        String password
+    ) {}
+
     private UserDAO() {}
 
-    private Map<String, String> extractUserFromResultSet(ResultSet rs) throws SQLException {
-        Map<String, String> userData = new HashMap<>();
-        userData.put("id", String.valueOf(rs.getInt("id")));
-        userData.put("username", rs.getString("username"));
-        userData.put("password", rs.getString("password"));
-        userData.put("role", rs.getString("role"));
-        return userData;
+    private UserData extractUserDataFromResultSet(ResultSet rs) throws SQLException {
+        int id = rs.getInt("id");
+        String username = rs.getString("username");
+        String role = rs.getString("role");
+        String password = rs.getString("password");
+        return new UserData(id, username, role, password);
     }
 
-    private Map<String, String> executeUserQuery(String sql, Object... params) {
+    private UserData executeUserQuery(String sql, Object... params) {
         try (Connection connection = DatabaseController.getInstance().getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
@@ -39,7 +44,7 @@ public class UserDAO {
                 if (!rs.next()) {
                     return null;
                 }
-                return extractUserFromResultSet(rs);
+                return extractUserDataFromResultSet(rs);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -73,18 +78,18 @@ public class UserDAO {
         return instance;
     }
 
-    public Map<String, String> findByUsername(String username) {
+    public UserData findByUsername(String username) {
         String sql = "SELECT id, username, password, role FROM users WHERE username = ?";
         return executeUserQuery(sql, username);
     }
 
-    public Map<String, String> findByUserId(int userId) {
+    
+    public UserData findByUserId(int userId) {
         String sql = "SELECT id, username, password, role FROM users WHERE id = ?";
         return executeUserQuery(sql, userId);
     }
 
-    public Map<String, String> findBySessionId(String sessionId) {
-
+    public UserData findBySessionId(String sessionId) {
         String sql = "SELECT userid FROM sessionids WHERE id = ?";
 
         try (Connection connection = DatabaseController.getInstance().getConnection();
@@ -96,7 +101,9 @@ public class UserDAO {
                 if (!rs.next()) {
                     return null;
                 }
-                return findByUserId(rs.getInt("userid"));
+                int userId = rs.getInt("userid");
+                String userSql = "SELECT id, username, password, role FROM users WHERE id = ?";
+                return executeUserQuery(userSql, userId);
             }
         } catch (SQLException e) {
             e.printStackTrace();

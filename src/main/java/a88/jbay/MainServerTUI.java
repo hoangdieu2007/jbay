@@ -68,13 +68,6 @@ public class MainServerTUI {
                             System.out.println("User ID:");
                             userId = sc.nextInt();
 
-                            Map<String, String> userdata = UserDAO.getInstance().findByUserId(userId);
-
-                            System.out.println("User ID: " + userdata.get("userId"));
-                            System.out.println("Username: " + userdata.get("username"));
-                            System.out.println("Password: " + userdata.get("password"));
-                            System.out.println("Role: " + userdata.get("role"));
-
                             break;
                         case "AQ":
                             //command: AQ auctionid [id]
@@ -82,8 +75,6 @@ public class MainServerTUI {
 
                             System.out.println("Auction ID:");
                             auctionId = sc.nextInt();
-
-                            AuctionDAO.getInstance().findAuctionById(auctionId);
 
                             break;
                         default:

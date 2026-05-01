@@ -37,6 +37,14 @@ public class User extends Entity implements Observer, Serializable {
         this.sessionId = sessionId;
     }
 
+    public User(int id, String role, String username) {
+        super();
+        this.id = id;
+        this.role = role;
+        this.username = username;
+        this.sessionId = "none";
+    }
+
     public User() {
         this(-1, "GUEST", "guest", "none");
     }
