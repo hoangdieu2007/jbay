@@ -1,18 +1,22 @@
 package a88.jbay.system;
 
 import a88.jbay.dao.AuctionDAO;
+import a88.jbay.dao.AuctionDAO.AuctionData;
+import a88.jbay.dao.BidDAO;
 import a88.jbay.dao.UserDAO;
 import a88.jbay.model.entity.item.Item;
 import a88.jbay.model.event.Auction;
 import a88.jbay.model.event.AuctionState;
 import a88.jbay.model.event.BidTransaction;
 
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 /*
 the code for operations on the auction data
@@ -24,7 +28,8 @@ public class AuctionSystem {
     private static AuctionSystem instance;
     private final AuctionDAO auctionDAO;
     private final UserDAO userDAO;
-    private final NotificationSystem notificationSystem;
+    private final BidDAO bidDAO;
+    private final UpdateSystem updateSystem;
 
     // Memory cache for active auctions to handle real-time bidding
     private final Map<Integer, Auction> activeAuctions;
@@ -34,10 +39,12 @@ public class AuctionSystem {
     private AuctionSystem() {
         this.auctionDAO = AuctionDAO.getInstance();
         this.userDAO = UserDAO.getInstance();
-        this.notificationSystem = NotificationSystem.getInstance();
+        this.bidDAO = BidDAO.getInstance();
+        this.updateSystem = UpdateSystem.getInstance();
         this.activeAuctions = new ConcurrentHashMap<>();
         this.scheduler = Executors.newSingleThreadScheduledExecutor();
 
+        loadActiveAuctions();
         startHeartbeat();
     }
 
@@ -46,6 +53,42 @@ public class AuctionSystem {
             instance = new AuctionSystem();
         }
         return instance;
+    }
+
+    private void loadActiveAuctions() {
+        java.util.List<AuctionData> activeAuctionData = auctionDAO.findAllActiveAuctions();
+
+        for (AuctionData auctionData : activeAuctionData) {
+            Auction auction = new Auction(
+                auctionData.id(),
+                auctionData.item(),
+                userDAO.findByUserId(auctionData.sellerId()).username(),
+                auctionData.startTime(),
+                auctionData.endTime()
+            );
+
+            auction.setAuctionState(AuctionState.valueOf(auctionData.state()));
+
+            // reconstruct bid history and observers
+            java.util.List<BidDAO.BidData> bidHistory = auctionDAO.findBidHistoryByAuctionId(auctionData.id());
+            java.util.Set<Integer> bidders = new java.util.HashSet<>();
+            
+            for (BidDAO.BidData bidData : bidHistory) {
+                BidTransaction tx = new BidTransaction(bidData.userId(), bidData.amount(), bidData.time());
+                auction.updatePrice(bidData.amount(), tx);
+                bidders.add(bidData.userId());
+            }
+
+            // subscribe all bidders as observers
+            for (Integer bidderId : bidders) {
+                auction.subscribe(bidderId);
+            }
+
+            // always subscribe seller
+            auction.subscribe(auctionData.sellerId());
+
+            activeAuctions.put(auctionData.id(), auction);
+        }
     }
 
     //create auction and store to database
@@ -69,7 +112,7 @@ public class AuctionSystem {
         Auction auction = new Auction(
                 auctionId,
                 item,
-                userDAO.findByUserId(sellerId).get("username"),
+                userDAO.findByUserId(sellerId).username(),
                 start,
                 end
         );
@@ -78,33 +121,19 @@ public class AuctionSystem {
         return true;
     }
 
-    //place bid and validate bid
+    //place bid and validate bid - delegate to BidSystem
     public synchronized boolean placeBid(int userId, int auctionId, double amount) {
-        Auction auction = activeAuctions.get(auctionId);
-        if (auction == null) return false;
-
-        if (amount <= auction.getCurrentPrice()) {
-            return false;
+        boolean bidPlaced = BidSystem.getInstance().placeBid(userId, auctionId, amount);
+        
+        if (bidPlaced) {
+            // anti-sniping check upon successful bid
+            Auction auction = activeAuctions.get(auctionId);
+            if (auction != null) {
+                extendEndTime(LocalDateTime.now(), auction);
+            }
         }
-
-        if (!(auction.getAuctionState() == AuctionState.RUNNING)) {
-            return false;
-        }
-
-        LocalDateTime now = LocalDateTime.now();
-        boolean bidInserted = auctionDAO.insertBid(userId, auctionId, amount, now);
-
-        if (bidInserted && auctionDAO.updateCurrentPrice(auctionId, amount, userId)) {
-            // SYNC MEMORY: Update the object and trigger observers
-            BidTransaction tx = new BidTransaction(userId, amount, now);
-            auction.subscribe(userId); // Bidder is automatically subscribed
-            auction.updatePrice(amount, tx);
-
-            extendEndTime(now, auction);
-            return true;
-        }
-
-        return false;
+        
+        return bidPlaced;
     }
 
     public synchronized void placeBidAutomated(int userId, int auctionId, double amount, double max_amount, double increment, int intervalSeconds) {
@@ -200,12 +229,97 @@ public class AuctionSystem {
         return activeAuctions.containsKey(auctionId);
     }
 
-    public List<Auction> getActiveAuctions() {
+    public List<Auction> getActiveAuctionList() {
         return new ArrayList<>(activeAuctions.values());
     }
 
-    public Auction getAuctionById(int auctionId) {
+    public List<Auction> getActiveAuctionListExceptForSeller(int userId) {
+        String sellerName = userDAO.findByUserId(userId).username();
+
+        ArrayList<Auction> activeAuctionsExceptForSeller = new ArrayList<>();
+        for (Auction auction : activeAuctions.values()) {
+            if (!auction.getSellerName().equals(sellerName)) {
+                activeAuctionsExceptForSeller.add(auction);
+            }
+        }
+
+        return activeAuctionsExceptForSeller;
+    }
+
+    public Auction getActiveAuctionById(int auctionId) {
         return activeAuctions.get(auctionId);
+    }
+
+    public Auction getAuctionById(int auctionId) {
+        Auction auction = activeAuctions.get(auctionId);
+        if (auction != null) {
+            return auction;
+        }
+
+        AuctionData auctionData = auctionDAO.findAuctionById(auctionId);
+        if (auctionData == null) {
+            return null;
+        }
+
+        auction = new Auction(
+            auctionData.id(),
+            auctionData.item(),
+            userDAO.findByUserId(auctionData.sellerId()).username(),
+            auctionData.startTime(),
+            auctionData.endTime()
+        );
+
+        auction.setAuctionState(AuctionState.valueOf(auctionData.state()));
+
+        // reconstruct bid history and observers
+        java.util.List<BidDAO.BidData> bidHistory = bidDAO.findBidHistoryByAuctionId(auctionData.id());
+        java.util.Set<Integer> bidders = new java.util.HashSet<>();
+        
+        for (BidDAO.BidData bidData : bidHistory) {
+            BidTransaction tx = new BidTransaction(bidData.userId(), bidData.amount(), bidData.time());
+            auction.updatePrice(bidData.amount(), tx);
+            bidders.add(bidData.userId());
+        }
+
+        // subscribe all bidders as observers
+        for (Integer bidderId : bidders) {
+            auction.subscribe(bidderId);
+        }
+
+        // always subscribe seller
+        auction.subscribe(auctionData.sellerId());
+
+        activeAuctions.put(auctionData.id(), auction);
+
+        return auction;
+    }
+
+    public List<Auction> getAuctionsBySellerId(int sellerId) {
+        java.util.List<AuctionData> auctionDataList = auctionDAO.findAuctionsBySellerId(sellerId);
+        java.util.List<Auction> auctions = new java.util.ArrayList<>();
+        
+        for (AuctionData auctionData : auctionDataList) {
+            Auction auction = getAuctionById(auctionData.id());
+            if (auction != null) {
+                auctions.add(auction);
+            }
+        }
+        
+        return auctions;
+    }
+
+    public List<Auction> getAuctionsByWinnerId(int winnerId) {
+        java.util.List<AuctionData> auctionDataList = auctionDAO.findAuctionsByWinnerId(winnerId);
+        java.util.List<Auction> auctions = new java.util.ArrayList<>();
+        
+        for (AuctionData auctionData : auctionDataList) {
+            Auction auction = getAuctionById(auctionData.id());
+            if (auction != null) {
+                auctions.add(auction);
+            }
+        }
+        
+        return auctions;
     }
 
     public String listActiveAuctions() {

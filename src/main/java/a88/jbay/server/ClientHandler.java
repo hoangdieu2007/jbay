@@ -7,7 +7,7 @@ import a88.jbay.model.event.Auction;
 import a88.jbay.model.network.Request;
 import a88.jbay.model.network.Response;
 import a88.jbay.system.AuctionSystem;
-import a88.jbay.system.NotificationSystem;
+import a88.jbay.system.UpdateSystem;
 import a88.jbay.system.UserSystem;
 
 import java.io.IOException;
@@ -47,8 +47,16 @@ public class ClientHandler implements Runnable {
             while (true) {
                 Request request = (Request) in.readObject();
                 Response response = handleRequest(request);
-                out.writeObject(response);
-                out.flush();
+
+                //prevent crash when update and response sends at the same time
+                synchronized (out) {
+                    try {
+                        out.writeObject(response);
+                        out.flush();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -81,7 +89,14 @@ public class ClientHandler implements Runnable {
         User user = userSystem.login(username, password);
         if (user != null) {
             this.currentUser = user;
-            NotificationSystem.getInstance().register(user.getId(), out);
+
+            //check if user is banned
+            if (user.getRole().equals("BAN")) {
+                return new Response(false, "LOGIN_BAN", null);
+            }
+
+            UserSystem.getInstance().addActiveUser(user.getId(), user);
+            UpdateSystem.getInstance().register(user.getId(), out);
             return new Response(true, "LOGIN_SUCCESS", user);
         }
         return new Response(false, "LOGIN_FAIL", null);
@@ -192,8 +207,8 @@ public class ClientHandler implements Runnable {
         if (currentUser == null) {
             return;
         }
-        NotificationSystem.getInstance().unregister(currentUser.getId(), out);
-        NotificationSystem.getInstance().unsubscribeUserFromAllAuctions(currentUser.getId());
+        UpdateSystem.getInstance().unregister(currentUser.getId(), out);
+        UpdateSystem.getInstance().unsubscribeUserFromAllAuctions(currentUser.getId());
         currentUser = null;
     }
 }

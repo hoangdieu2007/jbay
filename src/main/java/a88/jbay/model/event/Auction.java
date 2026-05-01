@@ -2,8 +2,7 @@ package a88.jbay.model.event;
 
 import a88.jbay.model.Subject;
 import a88.jbay.model.entity.item.Item;
-import a88.jbay.model.entity.user.User;
-import a88.jbay.system.NotificationSystem;
+import a88.jbay.system.UpdateSystem;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -133,7 +132,7 @@ public class Auction implements Subject, Serializable {
     }
 
     public void notifyObservers() {
-        NotificationSystem.getInstance().notifySubscribers(this, observers);
+        UpdateSystem.getInstance().notifySubscribers(this, observers);
     }
 
     //check and change state

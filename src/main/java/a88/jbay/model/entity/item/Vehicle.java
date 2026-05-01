@@ -5,7 +5,7 @@ public class Vehicle extends Item {
     private int year;
     private String mileage;
     public Vehicle(VehicleBuilder builder) {
-        super(builder.name, "VEHICLE", builder.description, builder.initPrice);
+        super(0, builder.name, "VEHICLE", builder.description, builder.initPrice);
         this.make = builder.make;
         this.year = builder.year;
         this.mileage = builder.mileage;

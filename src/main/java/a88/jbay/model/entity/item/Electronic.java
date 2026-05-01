@@ -4,7 +4,7 @@ public class Electronic extends Item {
     private String brand, model;
 
     protected Electronic(ElectronicBuilder builder) {
-        super(builder.name, "ELECTRONIC",builder.description, builder.initPrice);
+        super(0, builder.name, "ELECTRONIC",builder.description, builder.initPrice);
         this.brand = builder.brand;
         this.model = builder.model;
 

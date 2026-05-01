@@ -52,11 +52,11 @@ public class MainClientTUI {
                 case "status" -> {
                     System.out.println(ClientSession.getInstance().getUser().toString());
                     System.out.println("---Bidder Auctions---");
-                    List<Auction> bidderAuctions = ClientSession.getInstance().getBidderAuctions();
-                    bidderAuctions.forEach(a -> System.out.println(a.toString()));
-                    System.out.println("---Seller Auctions---");
-                    List<Auction> sellerAuctions = ClientSession.getInstance().getSellerAuctions();
-                    sellerAuctions.forEach(a -> System.out.println(a.toString()));
+                    //List<Auction> bidderAuctions = ClientSession.getInstance().getBidderAuctions();
+//                    bidderAuctions.forEach(a -> System.out.println(a.toString()));
+//                    System.out.println("---Seller Auctions---");
+//                    List<Auction> sellerAuctions = ClientSession.getInstance().getSellerAuctions();
+//                    //sellerAuctions.forEach(a -> System.out.println(a.toString()));
 
                     yield null;
                 }
@@ -124,7 +124,7 @@ public class MainClientTUI {
                     double itemPrice = Double.parseDouble(sc.nextLine());
 
                     //later change this to a builder
-                    Item item = new Item(itemName, itemType, itemDescription, itemPrice);
+                    Item item = new Item(itemName, itemType, itemDescription, itemPrice, null);
 
                     //then create auction
                     System.out.println("Start time (yyyy-MM-dd HH:mm):");

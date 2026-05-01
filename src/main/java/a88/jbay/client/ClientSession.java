@@ -1,22 +1,35 @@
 package a88.jbay.client;
 
+import a88.jbay.controller.client.BidderItemCardController;
+import a88.jbay.controller.client.SellerItemCardController;
 import a88.jbay.model.entity.user.User;
 import a88.jbay.model.event.Auction;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.TreeMap;
 
 public class ClientSession {
     private static ClientSession instance;
+    private SellerItemCardController controller;
 
     private User user;
-    private List<Auction> sellerAuctions;
-    private List<Auction> bidderAuctions;
+    private ObservableMap<Integer, Auction> sellerAuctions;
+    private ObservableMap<Integer, Auction> bidderAuctions;
 
     private ClientSession() {
         user = new User();
-        sellerAuctions = FXCollections.observableArrayList();
-        bidderAuctions = FXCollections.observableArrayList();
+        sellerAuctions = FXCollections.observableMap(new TreeMap<>());
+        bidderAuctions = FXCollections.observableMap(new TreeMap<>());
+
     }
 
     public synchronized static ClientSession getInstance() {
@@ -26,6 +39,8 @@ public class ClientSession {
         return instance;
     }
 
+
+
     public void setUser(User user) {
         this.user = user;
     }
@@ -34,26 +49,18 @@ public class ClientSession {
         return user;
     }
 
-    public List<Auction> getSellerAuctions() {
+    public ObservableMap<Integer ,Auction> getSellerAuctions() {
         return sellerAuctions;
     }
 
-    public List<Auction> getBidderAuctions() {
+    public ObservableMap<Integer, Auction> getBidderAuctions() {
         return bidderAuctions;
-    }
-
-    public void addSellerAuction(Auction auction) {
-        sellerAuctions.add(auction);
-    }
-
-    public void addBidderAuction(Auction auction) {
-        bidderAuctions.add(auction);
     }
 
     // after each logout, call this to erase session
     public void resetSession() {
         this.user = new User();
-        this.bidderAuctions = FXCollections.observableArrayList();
-        this.sellerAuctions = FXCollections.observableArrayList();
+        this.bidderAuctions = FXCollections.observableHashMap();
+        this.sellerAuctions = FXCollections.observableHashMap();
     }
 }

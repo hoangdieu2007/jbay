@@ -1,8 +1,10 @@
 package a88.jbay.system;
 
 import a88.jbay.dao.UserDAO;
+import a88.jbay.dao.UserDAO.UserData;
 import a88.jbay.model.StringHash;
 import a88.jbay.model.entity.user.User;
+import a88.jbay.model.network.Response;
 
 import java.util.List;
 import java.util.Map;
@@ -34,16 +36,16 @@ public class UserSystem {
 
     //login: find user by username, then check password and generate session if valid
     public User login(String username, String password) {
-        Map<String, String> userData = userDAO.findByUsername(username);
+        UserData userData = userDAO.findByUsername(username);
         if (userData == null) return null;
 
-        password = StringHash.hash(password);
+        String hashedPassword = StringHash.hash(password);
 
-        if (!password.equals(userData.get("password"))) return null;
+        if (!hashedPassword.equals(userData.password())) return null;
 
         String sessionId = UUID.randomUUID().toString();
-        if (userDAO.insertSession(sessionId, Integer.parseInt(userData.get("id")))) {
-            return new User(Integer.parseInt(userData.get("id")),userData.get("role"), userData.get("username"), sessionId);
+        if (userDAO.insertSession(sessionId, userData.id())) {
+            return new User(userData.id(), userData.role(), userData.username(), sessionId);
         }
         return null;
     }
@@ -64,12 +66,34 @@ public class UserSystem {
     }
 
     public User getBySessionId(String sessionId) {
-        Map<String, String> userData = userDAO.findBySessionId(sessionId);
+        UserData userData = userDAO.findBySessionId(sessionId);
         if (userData == null) return null;
-        return new User(Integer.parseInt(userData.get("id")),userData.get("role"), userData.get("username"), sessionId);
+        return new User(userData.id(), userData.role(), userData.username(), sessionId);
+    }
+
+    public void addActiveUser(int userId, User user) {
+        activeUsers.computeIfAbsent(userId, k -> List.of()).add(user);
     }
 
     public boolean banUser(int userId) {
-        return userDAO.changeUserRole(userId, "BAN");
+        if (userDAO.findByUserId(userId) == null) return false;
+
+        if (userDAO.changeUserRole(userId, "BAN")) {
+            UpdateSystem.getInstance().unsubscribeUserFromAllAuctions(userId);
+            // when client receives this it will switch to login scene
+            UpdateSystem.getInstance().updateByUserId(userId, new Response(true, "BAN_USER", null));
+            UpdateSystem.getInstance().unregister(userId);
+            activeUsers.remove(userId);
+
+            List<User> sessions = activeUsers.get(userId);
+            if (sessions != null && !sessions.isEmpty()) {
+                for (User user : sessions) {
+                    logout(user.getSessionId());
+                }
+            }
+            return true;
+        }
+
+        return false;
     }
 }

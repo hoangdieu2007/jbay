@@ -1,10 +1,10 @@
 package a88.jbay.controller.client;
 
+import a88.jbay.client.ClientSession;
 import a88.jbay.model.event.Auction;
 import a88.jbay.view.ViewManager;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
+import com.almasb.fxgl.cutscene.CutsceneScene;
+import javafx.collections.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,12 +16,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
 
 public class SellerBidderHomeScreenController {
-
     // khởi tạo dsach động
     private ObservableList<Auction> auctionObservableList = FXCollections.observableArrayList();
+    private ObservableList<Auction> sellerAuctionObservableList = FXCollections.observableArrayList();
 
     // ==== Xử lý thông tin từ Server qua Socket===
     // 1. Nạp toàn bộ dữ liệu lần đầu (Chạy lúc vừa mở form)
@@ -59,30 +59,98 @@ public class SellerBidderHomeScreenController {
         });
     }
 
-    // =====SELLER=====
+    /** ====SELLER==== **/
 
+    @FXML
+    private FlowPane sellerFlowPane;
+
+    private Map<Integer, VBox> sellerCardBox = new HashMap<>();
 
     public void handleCreateListing(ActionEvent actionEvent) {
         try {
-            ViewManager.displayScene("client/client-seller-item-view.fxml");
+            ViewManager.displayScene("/a88/jbay/view/client/client-seller-item-view.fxml");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
+    private VBox createCardSeller(Auction auction) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/a88/jbay/view/client/seller-item-card.fxml"));
+            // load root node
+            VBox cardBox = loader.load();
 
-    // =====BIDDER=====
+            SellerItemCardController controller = loader.getController();
+            controller.setData(auction);
+
+            return cardBox;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     @FXML
-    private FlowPane bidderFlowPane;
+    public void initializeSellerUI() {
+        sellerFlowPane.getChildren().clear();
+        ObservableMap<Integer, Auction> sellerMap = ClientSession.getInstance().getSellerAuctions();
+        // cài Listener cho ObservableList
+        //Tránh gọi nhầm hàm addListener
+        ClientSession.getInstance().getSellerAuctions().addListener((MapChangeListener<Integer, Auction>) change -> {
+            // nếu còn phần tử, trả về true --> chạy tiếp
+
+            Integer id = change.getKey();
+
+                if (change.wasAdded() && !change.wasRemoved()) {
+                        Auction newAuction = change.getValueAdded();
+                        VBox newCard = createCardSeller(newAuction);
+                        if (newCard != null) {
+                            sellerCardBox.put(id, newCard);
+                            int targetIdx = new ArrayList<>(sellerMap.keySet()).indexOf(id); // find the exact idx to display card
+                            sellerFlowPane.getChildren().add(targetIdx, newCard);
+                        }
+
+                } else if (change.wasAdded() && change.wasRemoved()) { //ObservableMap doesnt have wasReplaced()
+                    Auction updateAuction = change.getValueAdded();
+                    VBox oldCard = sellerCardBox.get(id);
+                    if (oldCard != null) {
+                        int index = sellerFlowPane.getChildren().indexOf(oldCard);
+                        VBox updatedCard = createCardSeller(updateAuction);
+                        if (updatedCard != null) {
+                            sellerFlowPane.getChildren().set(index, updatedCard);
+                        }
+                    }
+
+                }else if (change.wasRemoved() && !change.wasAdded()){
+                    VBox oldCard = sellerCardBox.get(id);
+                    if (oldCard != null) {
+                        sellerFlowPane.getChildren().remove(oldCard); // delete from UI
+                        sellerCardBox.remove(id);
+                    }
+                }
+
+        });
+
+    }
 
 
 
-    // khi tạo 1 Auction mới phải gọi hàm này để cập nhật len UI
-    private VBox createCard(Auction auction){
+    /** ====BIDDER==== **/
+    @FXML private FlowPane bidderFlowPane;
+
+    public void handlePlaceBid(ActionEvent event){
+        try {
+            ViewManager.displayScene("/a88/jbay/view/client/client-bidder-item-view.fxml");
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    private VBox createCardBidder(Auction auction){
         try{
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/a88/jbay/view/ItemCard.fxml"));
+            loader.setLocation(getClass().getResource("/a88/jbay/view/client/bidder-item-card.fxml"));
             // load root node
             VBox cardBox = loader.load();
 
@@ -96,36 +164,46 @@ public class SellerBidderHomeScreenController {
         }
     }
 
+    private Map<Integer, VBox> bidderCardBox = new HashMap<>();
+
     @FXML
-    public void initialize(){
+    public void  initializeBidderUI(){
         bidderFlowPane.getChildren().clear();
 
-        // cài Listener cho ObservableList
-        //Tránh gọi nhầm hàm addListener
-        auctionObservableList.addListener((ListChangeListener<Auction>) change -> {
+        ClientSession.getInstance().getBidderAuctions().addListener((MapChangeListener< Integer, Auction>) change -> {
             // nếu còn phần tử, trả về true --> chạy tiếp
-            while (change.next()){
-                if(change.wasAdded()){
-                    for(Auction auction : change.getAddedSubList()){ // chỉ xét dsach các Auction mới dc thêm
-                        VBox newCard =  createCard(auction);
-                        if (newCard != null){
-                            bidderFlowPane.getChildren().add(newCard);
-                        }
+            Integer id = change.getKey();
+
+            if(change.wasAdded() && !change.wasRemoved()){
+                    Auction newAuction = change.getValueAdded();
+                    VBox newCard =  createCardBidder(newAuction);
+
+                    if (newCard != null){
+                        bidderCardBox.put(id, newCard);
+                        int targetIndex = new ArrayList<>(ClientSession.getInstance().getBidderAuctions().keySet()).indexOf(id); // find index of the ID in the List of keys
+                        bidderFlowPane.getChildren().add(targetIndex, newCard);
                     }
 
-                } else if(change.wasReplaced()){
-                    for(int i = 0; i < change.getAddedSize(); i++){
-                        int index = change.getFrom() + i;
-                        Auction updateAuction = change.getAddedSubList().get(i);
-                        VBox updatedCard =  createCard(updateAuction);
 
-                        if(updatedCard != null){
+                } else if(change.wasAdded() && change.wasRemoved()){
+                    VBox oldCard = bidderCardBox.get(id);
+                    if (oldCard != null) {
+                        int index = bidderFlowPane.getChildren().indexOf(oldCard);
+                        Auction updateAuction = change.getValueAdded();
+                        VBox updatedCard = createCardBidder(updateAuction);
+
+                        if (updatedCard != null) {
                             bidderFlowPane.getChildren().set(index, updatedCard);
                         }
                     }
                 }
-            }
+
         });
 
+
     }
+
+
+
+
 }
