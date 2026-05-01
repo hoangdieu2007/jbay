@@ -197,16 +197,58 @@ public class ClientSellerItemController {
 
     @FXML
     public void initialize() {
-        // 1. Nạp các loại mặt hàng
+        // Nạp dữ liệu vào ComboBox
         typeComboBox.getItems().addAll("Electronics", "Fashion", "Home", "Collectibles", "Others");
-
-        // 2. Nạp lựa chọn thời gian bắt đầu
         startChoiceCombo.getItems().addAll("Now", "Custom time");
-        startChoiceCombo.getSelectionModel().selectFirst(); // Mặc định chọn "Now"
-
-        // 3. Nạp lựa chọn thời gian chạy
         runChoiceCombo.getItems().addAll("1 day", "3 days", "7 days", "Custom time");
-        runChoiceCombo.getSelectionModel().select(1); // Mặc định chọn "3 days"
+
+        // Thiết lập ButtonCell để ẨN CHỮ khi đã chọn (Compact Mode)
+        setupCompactComboBox(startChoiceCombo);
+        setupCompactComboBox(runChoiceCombo);
+
+        // Khi chọn ở ComboBox, tự điền giá trị vào TextField kế bên
+        startChoiceCombo.setOnAction(e -> {
+            String selected = startChoiceCombo.getValue();
+            if (!"Custom time".equals(selected)) {
+                startStr.setText(selected);
+            } else {
+                startStr.clear();
+                startStr.requestFocus(); // Nhảy con trỏ vào để người dùng nhập
+            }
+        });
+
+        runChoiceCombo.setOnAction(e -> {
+            String selected = runChoiceCombo.getValue();
+            if (!"Custom time".equals(selected)) {
+                // Tách lấy số
+                runStr.setText(selected.split(" ")[0]);
+            } else {
+                runStr.clear();
+                runStr.requestFocus();
+            }
+        });
+
+        // Mặc định chọn các giá trị ban đầu
+        startChoiceCombo.getSelectionModel().selectFirst();
+        runChoiceCombo.getSelectionModel().select(1); // Mặc định "3 days"
+    }
+
+    /**
+     * Hàm hỗ trợ biến ComboBox thành dạng thu gọn:
+     * Hiện chữ trong danh sách xổ xuống, nhưng ẩn chữ ở cái nút bấm.
+     */
+    private void setupCompactComboBox(ComboBox<String> comboBox) {
+        comboBox.setButtonCell(new ListCell<String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(""); // Xóa sạch chữ trên giao diện chính của ComboBox
+                }
+            }
+        });
     }
 
     @FXML
