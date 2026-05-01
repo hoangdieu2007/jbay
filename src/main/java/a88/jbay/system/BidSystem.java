@@ -59,6 +59,6 @@ public class BidSystem {
     }
 
     private Auction getAuctionById(int auctionId) {
-        return AuctionSystem.getInstance().getActiveAuction(auctionId);
+        return AuctionSystem.getInstance().getActiveAuctionById(auctionId);
     }
 }

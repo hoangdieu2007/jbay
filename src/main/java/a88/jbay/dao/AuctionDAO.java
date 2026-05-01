@@ -224,6 +224,74 @@ public class AuctionDAO {
         return bidDAO.findBidHistoryByAuctionId(auctionId);
     }
 
+    public java.util.List<AuctionData> findAuctionsBySellerId(int sellerId) {
+        String sql = "SELECT * FROM auctions WHERE seller = ?";
+        java.util.List<AuctionData> sellerAuctions = new java.util.ArrayList<>();
+
+        try (Connection connection = DatabaseController.getInstance().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setInt(1, sellerId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Item item = findItemById(rs.getInt("item"));
+                    if (item != null) {
+                        AuctionData auctionData = new AuctionData(
+                            rs.getInt("id"),
+                            item,
+                            rs.getInt("seller"),
+                            rs.getDouble("start_price"),
+                            rs.getDouble("cur_price"),
+                            rs.getInt("winner"),
+                            rs.getTimestamp("start_time").toLocalDateTime(),
+                            rs.getTimestamp("end_time").toLocalDateTime(),
+                            rs.getString("state")
+                        );
+                        sellerAuctions.add(auctionData);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return sellerAuctions;
+    }
+
+    public java.util.List<AuctionData> findAuctionsByWinnerId(int winnerId) {
+        String sql = "SELECT * FROM auctions WHERE winner = ?";
+        java.util.List<AuctionData> winnerAuctions = new java.util.ArrayList<>();
+
+        try (Connection connection = DatabaseController.getInstance().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setInt(1, winnerId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Item item = findItemById(rs.getInt("item"));
+                    if (item != null) {
+                        AuctionData auctionData = new AuctionData(
+                            rs.getInt("id"),
+                            item,
+                            rs.getInt("seller"),
+                            rs.getDouble("start_price"),
+                            rs.getDouble("cur_price"),
+                            rs.getInt("winner"),
+                            rs.getTimestamp("start_time").toLocalDateTime(),
+                            rs.getTimestamp("end_time").toLocalDateTime(),
+                            rs.getString("state")
+                        );
+                        winnerAuctions.add(auctionData);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return winnerAuctions;
+    }
+
     public java.util.List<AuctionData> findAllActiveAuctions() {
         String sql = "SELECT * FROM auctions WHERE state IN ('OPENING', 'RUNNING')";
         java.util.List<AuctionData> activeAuctions = new java.util.ArrayList<>();

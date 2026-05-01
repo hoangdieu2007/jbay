@@ -56,7 +56,7 @@ public class NotificationSystem {
 
     //unsub from all auctions
     public void unsubscribeUserFromAllAuctions(int userId) {
-        AuctionSystem.getInstance().getActiveAuctions().forEach(auction -> auction.unsubscribe(userId));
+        AuctionSystem.getInstance().getActiveAuctionList().forEach(auction -> auction.unsubscribe(userId));
     }
 
     //new notification method - receives subscriber list from Auction
