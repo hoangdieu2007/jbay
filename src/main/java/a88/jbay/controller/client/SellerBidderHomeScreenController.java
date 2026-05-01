@@ -139,13 +139,6 @@ public class SellerBidderHomeScreenController {
     /** ====BIDDER==== **/
     @FXML private FlowPane bidderFlowPane;
 
-    public void handlePlaceBid(ActionEvent event){
-        try {
-            ViewManager.displayScene("/a88/jbay/view/client/client-bidder-item-view.fxml");
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-    }
 
     private VBox createCardBidder(Auction auction){
         try{
@@ -187,6 +180,7 @@ public class SellerBidderHomeScreenController {
 
                 } else if(change.wasAdded() && change.wasRemoved()){
                     VBox oldCard = bidderCardBox.get(id);
+
                     if (oldCard != null) {
                         int index = bidderFlowPane.getChildren().indexOf(oldCard);
                         Auction updateAuction = change.getValueAdded();

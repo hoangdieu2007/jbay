@@ -90,7 +90,7 @@
 
                 <Region VBox.vgrow="ALWAYS" />
 
-                <Button fx:id="bidButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #2b5fe8; -fx-text-fill: white; -fx-background-radius: 8; -fx-padding: 10;" text="Place Bid">
+                <Button fx:id="bidButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handlePlaceBid" style="-fx-background-color: #2b5fe8; -fx-text-fill: white; -fx-background-radius: 8; -fx-padding: 10;" text="Place Bid">
                     <font>
                         <Font name="System Bold" size="18.0" />
                     </font>
