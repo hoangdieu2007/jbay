@@ -1,7 +1,7 @@
 package a88.jbay.dao;
 
 import a88.jbay.model.entity.user.User;
-import a88.jbay.server.DatabaseController;
+import a88.jbay.server.DatabaseConnectionProvider;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,6 +10,7 @@ import java.sql.SQLException;
 
 public class UserDAO {
     private static UserDAO instance;
+    private final DatabaseConnectionProvider dbProvider;
 
     public record UserData(
         int id,
@@ -18,7 +19,14 @@ public class UserDAO {
         String password
     ) {}
 
-    private UserDAO() {}
+    private UserDAO() {
+        this.dbProvider = a88.jbay.server.DatabaseController.getInstance();
+    }
+
+    // dependency injection
+    public UserDAO(DatabaseConnectionProvider dbProvider) {
+        this.dbProvider = dbProvider;
+    }
 
     private UserData extractUserDataFromResultSet(ResultSet rs) throws SQLException {
         int id = rs.getInt("id");
@@ -29,7 +37,7 @@ public class UserDAO {
     }
 
     private UserData executeUserQuery(String sql, Object... params) {
-        try (Connection connection = DatabaseController.getInstance().getConnection();
+        try (Connection connection = dbProvider.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             for (int i = 0; i < params.length; i++) {
@@ -53,7 +61,7 @@ public class UserDAO {
     }
 
     private boolean executeUpdate(String sql, Object... params) {
-        try (Connection connection = DatabaseController.getInstance().getConnection();
+        try (Connection connection = dbProvider.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             for (int i = 0; i < params.length; i++) {
@@ -92,7 +100,7 @@ public class UserDAO {
     public UserData findBySessionId(String sessionId) {
         String sql = "SELECT userid FROM sessionids WHERE id = ?";
 
-        try (Connection connection = DatabaseController.getInstance().getConnection();
+        try (Connection connection = dbProvider.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setString(1, sessionId);
@@ -113,7 +121,7 @@ public class UserDAO {
 
     public boolean existsByUsername(String username) {
         String sql = "SELECT 1 FROM users WHERE username = ?";
-        try (Connection connection = DatabaseController.getInstance().getConnection();
+        try (Connection connection = dbProvider.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setString(1, username);
@@ -131,7 +139,7 @@ public class UserDAO {
 
         String sql = "INSERT INTO users (username, password, role) VALUES (?, ?, ?)";
 
-        try (Connection connection = DatabaseController.getInstance().getConnection();
+        try (Connection connection = dbProvider.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
             stmt.setString(1, username);

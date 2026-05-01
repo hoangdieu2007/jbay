@@ -2,6 +2,7 @@ package a88.jbay.dao;
 
 import a88.jbay.model.entity.item.Item;
 import a88.jbay.model.event.AuctionState;
+import a88.jbay.server.DatabaseConnectionProvider;
 import a88.jbay.server.DatabaseController;
 
 import java.sql.Connection;
@@ -14,6 +15,9 @@ import java.util.Map;
 
 public class AuctionDAO {
     private static AuctionDAO instance;
+    private final DatabaseConnectionProvider dbProvider;
+    private final ItemDAO itemDAO;
+    private final BidDAO bidDAO;
 
     public record AuctionData(
         int id,
@@ -27,10 +31,18 @@ public class AuctionDAO {
         String state
     ) {}
 
-    private final ItemDAO itemDAO = ItemDAO.getInstance();
-    private final BidDAO bidDAO = BidDAO.getInstance();
+    private AuctionDAO() {
+        this.dbProvider = DatabaseController.getInstance();
+        this.itemDAO = ItemDAO.getInstance();
+        this.bidDAO = BidDAO.getInstance();
+    }
 
-    private AuctionDAO() {}
+    // dependency injection
+    public AuctionDAO(DatabaseConnectionProvider dbProvider, ItemDAO itemDAO, BidDAO bidDAO) {
+        this.dbProvider = dbProvider;
+        this.itemDAO = itemDAO;
+        this.bidDAO = bidDAO;
+    }
 
     public static synchronized AuctionDAO getInstance() {
         if (instance == null) {
@@ -51,7 +63,7 @@ public class AuctionDAO {
                 VALUES (?, ?, ?, ?, NULL, ?, ?, 'OPENING')
                 """;
 
-        try (Connection connection = DatabaseController.getInstance().getConnection();
+        try (Connection connection = dbProvider.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
             stmt.setInt(1, itemId);
@@ -83,7 +95,7 @@ public class AuctionDAO {
 
         String sql = "UPDATE auctions SET cur_price = ?, winner = ? WHERE id = ?";
 
-        try (Connection connection = DatabaseController.getInstance().getConnection();
+        try (Connection connection = dbProvider.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setDouble(1, newPrice);
@@ -100,7 +112,7 @@ public class AuctionDAO {
     public boolean updateEndTime(int auctionId, LocalDateTime newEndTime) {
         String sql = "UPDATE auctions SET end_time = ? WHERE id = ?";
 
-        try (Connection connection = DatabaseController.getInstance().getConnection();
+        try (Connection connection = dbProvider.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setObject(1, newEndTime);
@@ -117,7 +129,7 @@ public class AuctionDAO {
 
         String sql = "UPDATE auctions SET winner = ?, state = 'FINISHED' WHERE id = ?";
 
-        try (Connection connection = DatabaseController.getInstance().getConnection();
+        try (Connection connection = dbProvider.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             if (winnerId == null) {
@@ -138,7 +150,7 @@ public class AuctionDAO {
 
         String sql = "UPDATE auctions SET state = ? WHERE id = ?";
 
-        try (Connection connection = DatabaseController.getInstance().getConnection();
+        try (Connection connection = dbProvider.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setString(1, newState.name());
@@ -163,7 +175,7 @@ public class AuctionDAO {
 
         String sql = "SELECT seller FROM auctions WHERE id = ?";
 
-        try (Connection connection = DatabaseController.getInstance().getConnection();
+        try (Connection connection = dbProvider.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setInt(1, auctionId);
@@ -187,7 +199,7 @@ public class AuctionDAO {
     public AuctionData findAuctionById(int auctionId) {
         String sql = "SELECT * FROM auctions WHERE id = ?";
 
-        try (Connection connection = DatabaseController.getInstance().getConnection();
+        try (Connection connection = dbProvider.getConnection();
             PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, auctionId);
 
@@ -228,7 +240,7 @@ public class AuctionDAO {
         String sql = "SELECT * FROM auctions WHERE seller = ?";
         java.util.List<AuctionData> sellerAuctions = new java.util.ArrayList<>();
 
-        try (Connection connection = DatabaseController.getInstance().getConnection();
+        try (Connection connection = dbProvider.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setInt(1, sellerId);
@@ -262,7 +274,7 @@ public class AuctionDAO {
         String sql = "SELECT * FROM auctions WHERE winner = ?";
         java.util.List<AuctionData> winnerAuctions = new java.util.ArrayList<>();
 
-        try (Connection connection = DatabaseController.getInstance().getConnection();
+        try (Connection connection = dbProvider.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setInt(1, winnerId);
@@ -296,7 +308,7 @@ public class AuctionDAO {
         String sql = "SELECT * FROM auctions WHERE state IN ('OPENING', 'RUNNING')";
         java.util.List<AuctionData> activeAuctions = new java.util.ArrayList<>();
 
-        try (Connection connection = DatabaseController.getInstance().getConnection();
+        try (Connection connection = dbProvider.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             try (ResultSet rs = stmt.executeQuery()) {

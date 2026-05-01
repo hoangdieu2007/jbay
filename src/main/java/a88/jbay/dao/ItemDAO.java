@@ -1,6 +1,7 @@
 package a88.jbay.dao;
 
 import a88.jbay.model.entity.item.Item;
+import a88.jbay.server.DatabaseConnectionProvider;
 import a88.jbay.server.DatabaseController;
 
 import java.sql.Connection;
@@ -10,8 +11,17 @@ import java.sql.SQLException;
 
 public class ItemDAO {
     private static ItemDAO instance;
+    private final DatabaseConnectionProvider dbProvider;
 
-    private ItemDAO() {}
+    // Default constructor for singleton pattern (backward compatibility)
+    private ItemDAO() {
+        this.dbProvider = DatabaseController.getInstance();
+    }
+
+    // Constructor for dependency injection
+    public ItemDAO(DatabaseConnectionProvider dbProvider) {
+        this.dbProvider = dbProvider;
+    }
 
     public static synchronized ItemDAO getInstance() {
         if (instance == null) {
@@ -23,7 +33,7 @@ public class ItemDAO {
     public int insertItem(Item item) {
         String sql = "INSERT INTO items (name, type, `desc`, start_price, image) VALUES (?, ?, ?, ?, ?)";
 
-        try (Connection connection = DatabaseController.getInstance().getConnection();
+        try (Connection connection = dbProvider.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
             stmt.setString(1, item.getName());
@@ -53,7 +63,7 @@ public class ItemDAO {
     public Item findItemById(int itemId) {
         String sql = "SELECT id, name, type, `desc`, start_price, image FROM items WHERE id = ?";
 
-        try (Connection connection = DatabaseController.getInstance().getConnection();
+        try (Connection connection = dbProvider.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setInt(1, itemId);

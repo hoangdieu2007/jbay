@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 // singleton class for database controlling
 // requirement: thread safe
-public class DatabaseController {
+public class DatabaseController implements DatabaseConnectionProvider {
     private static DatabaseController instance;
     private final HikariDataSource dataSource;
 
