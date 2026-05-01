@@ -21,6 +21,7 @@ public class TestDatabaseSetup {
      */
     public static void initializeTestDatabase() throws SQLException {
         try (Connection conn = getTestConnection()) {
+            dropTables(conn);
             createTables(conn);
         }
     }
@@ -44,6 +45,18 @@ public class TestDatabaseSetup {
      */
     public static Connection getTestConnection() throws SQLException {
         return java.sql.DriverManager.getConnection(TEST_DB_URL, TEST_DB_USER, TEST_DB_PASSWORD);
+    }
+    
+    /**
+     * Drop existing tables
+     */
+    private static void dropTables(Connection conn) throws SQLException {
+        // Drop in reverse order of dependencies
+        executeUpdate(conn, "DROP TABLE IF EXISTS sessionids");
+        executeUpdate(conn, "DROP TABLE IF EXISTS bids");
+        executeUpdate(conn, "DROP TABLE IF EXISTS auctions");
+        executeUpdate(conn, "DROP TABLE IF EXISTS items");
+        executeUpdate(conn, "DROP TABLE IF EXISTS users");
     }
     
     /**

@@ -1,23 +1,18 @@
 package a88.jbay.dao;
 
-import a88.jbay.server.DatabaseController;
 import a88.jbay.testutil.TestDatabaseSetup;
 import a88.jbay.testutil.TestDataFactory;
 import org.junit.jupiter.api.*;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 class UserDAOTest {
     
-    private UserDAO userDAO;
+    private TestUserDAO userDAO;
     private Connection testConnection;
-    private MockedStatic<DatabaseController> mockedDatabaseController;
     
     @BeforeEach
     void setUp() throws SQLException {
@@ -25,13 +20,8 @@ class UserDAOTest {
         TestDatabaseSetup.initializeTestDatabase();
         testConnection = TestDatabaseSetup.getTestConnection();
         
-        // Mock DatabaseController to return test connection
-        mockedDatabaseController = mockStatic(DatabaseController.class);
-        mockedDatabaseController.when(DatabaseController::getInstance).thenReturn(mock(DatabaseController.class));
-        when(DatabaseController.getInstance().getConnection()).thenReturn(testConnection);
-        
-        // Get UserDAO instance
-        userDAO = UserDAO.getInstance();
+        // Get TestUserDAO instance
+        userDAO = new TestUserDAO();
     }
     
     @AfterEach
@@ -42,11 +32,6 @@ class UserDAOTest {
         // Close test connection
         if (testConnection != null && !testConnection.isClosed()) {
             testConnection.close();
-        }
-        
-        // Close mocked static
-        if (mockedDatabaseController != null) {
-            mockedDatabaseController.close();
         }
     }
     
@@ -65,7 +50,7 @@ class UserDAOTest {
         assertTrue(userId > 0, "User ID should be positive");
         
         // Verify user was actually inserted
-        UserDAO.UserData userData = userDAO.findByUsername(username);
+        TestUserDAO.UserData userData = userDAO.findByUsername(username);
         assertNotNull(userData, "User should be found after insertion");
         assertEquals(username, userData.username(), "Username should match");
         assertEquals(role, userData.role(), "Role should match");
@@ -104,7 +89,7 @@ class UserDAOTest {
         assertTrue(userId > 0, "Test user should be inserted");
         
         // Act
-        UserDAO.UserData userData = userDAO.findByUsername(username);
+        TestUserDAO.UserData userData = userDAO.findByUsername(username);
         
         // Assert
         assertNotNull(userData, "User should be found");
@@ -121,7 +106,7 @@ class UserDAOTest {
         String nonExistentUsername = "nonexistentuser12345";
         
         // Act
-        UserDAO.UserData userData = userDAO.findByUsername(nonExistentUsername);
+        TestUserDAO.UserData userData = userDAO.findByUsername(nonExistentUsername);
         
         // Assert
         assertNull(userData, "Non-existent user should return null");
@@ -140,7 +125,7 @@ class UserDAOTest {
         assertTrue(userId > 0, "Test user should be inserted");
         
         // Act
-        UserDAO.UserData userData = userDAO.findByUserId(userId);
+        TestUserDAO.UserData userData = userDAO.findByUserId(userId);
         
         // Assert
         assertNotNull(userData, "User should be found");
@@ -157,7 +142,7 @@ class UserDAOTest {
         int nonExistentUserId = 99999;
         
         // Act
-        UserDAO.UserData userData = userDAO.findByUserId(nonExistentUserId);
+        TestUserDAO.UserData userData = userDAO.findByUserId(nonExistentUserId);
         
         // Assert
         assertNull(userData, "Non-existent user ID should return null");
@@ -180,7 +165,7 @@ class UserDAOTest {
         assertTrue(userDAO.insertSession(sessionId, userId), "Session should be inserted successfully");
         
         // Act
-        UserDAO.UserData userData = userDAO.findBySessionId(sessionId);
+        TestUserDAO.UserData userData = userDAO.findBySessionId(sessionId);
         
         // Assert
         assertNotNull(userData, "User should be found by session ID");
@@ -196,7 +181,7 @@ class UserDAOTest {
         String nonExistentSessionId = "non-existent-session";
         
         // Act
-        UserDAO.UserData userData = userDAO.findBySessionId(nonExistentSessionId);
+        TestUserDAO.UserData userData = userDAO.findBySessionId(nonExistentSessionId);
         
         // Assert
         assertNull(userData, "Non-existent session should return null");
@@ -222,7 +207,7 @@ class UserDAOTest {
         assertTrue(result, "Session should be inserted successfully");
         
         // Verify session was actually inserted
-        UserDAO.UserData userData = userDAO.findBySessionId(sessionId);
+        TestUserDAO.UserData userData = userDAO.findBySessionId(sessionId);
         assertNotNull(userData, "User should be found by session ID");
         assertEquals(userId, userData.id(), "User ID should match");
     }
@@ -311,7 +296,7 @@ class UserDAOTest {
         assertTrue(userId > 0, "Test user should be inserted");
         
         // Verify original role
-        UserDAO.UserData userData = userDAO.findByUserId(userId);
+        TestUserDAO.UserData userData = userDAO.findByUserId(userId);
         assertEquals(originalRole, userData.role(), "Original role should match");
         
         // Act

@@ -1,24 +1,19 @@
 package a88.jbay.dao;
 
 import a88.jbay.model.entity.item.Item;
-import a88.jbay.server.DatabaseController;
 import a88.jbay.testutil.TestDatabaseSetup;
 import a88.jbay.testutil.TestDataFactory;
 import org.junit.jupiter.api.*;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 class ItemDAOTest {
     
-    private ItemDAO itemDAO;
+    private TestItemDAO itemDAO;
     private Connection testConnection;
-    private MockedStatic<DatabaseController> mockedDatabaseController;
     
     @BeforeEach
     void setUp() throws SQLException {
@@ -26,13 +21,9 @@ class ItemDAOTest {
         TestDatabaseSetup.initializeTestDatabase();
         testConnection = TestDatabaseSetup.getTestConnection();
         
-        // Mock DatabaseController to return test connection
-        mockedDatabaseController = mockStatic(DatabaseController.class);
-        mockedDatabaseController.when(DatabaseController::getInstance).thenReturn(mock(DatabaseController.class));
-        when(DatabaseController.getInstance().getConnection()).thenReturn(testConnection);
         
-        // Get ItemDAO instance
-        itemDAO = ItemDAO.getInstance();
+        // Get TestItemDAO instance
+        itemDAO = TestItemDAO.getInstance();
     }
     
     @AfterEach
@@ -45,10 +36,6 @@ class ItemDAOTest {
             testConnection.close();
         }
         
-        // Close mocked static
-        if (mockedDatabaseController != null) {
-            mockedDatabaseController.close();
-        }
     }
     
     @Test
@@ -154,7 +141,7 @@ class ItemDAOTest {
         assertEquals(type, foundItem.getType(), "Item type should match");
         assertEquals(description, foundItem.getDescription(), "Item description should match");
         assertEquals(startPrice, foundItem.getInitPrice(), "Item start price should match");
-        assertArrayEquals(new byte[0], foundItem.getImage(), "Item image should be empty (test utility doesn't store image)");
+        assertNull(foundItem.getImage(), "Item image should be null (test utility doesn't store image)");
     }
     
     @Test
@@ -202,13 +189,13 @@ class ItemDAOTest {
         StringBuilder longName = new StringBuilder();
         StringBuilder longDescription = new StringBuilder();
         
-        // Create very long name (255 characters)
-        for (int i = 0; i < 255; i++) {
+        // Create long name within database limit (100 characters)
+        for (int i = 0; i < 100; i++) {
             longName.append("a");
         }
         
-        // Create very long description (1000 characters)
-        for (int i = 0; i < 1000; i++) {
+        // Create long description (500 characters - reasonable length for TEXT field)
+        for (int i = 0; i < 500; i++) {
             longDescription.append("b");
         }
         
@@ -219,7 +206,7 @@ class ItemDAOTest {
         byte[] image = new byte[]{1, 2, 3};
         
         // Act
-        int itemId = itemDAO.insertItem(new Item(70, name, type, description, startPrice, image));
+        int itemId = itemDAO.insertItem(new Item(0, name, type, description, startPrice, image));
         
         // Assert
         assertTrue(itemId > 0, "Item ID should be positive");

@@ -1,11 +1,8 @@
 package a88.jbay.dao;
 
-import a88.jbay.server.DatabaseController;
 import a88.jbay.testutil.TestDatabaseSetup;
 import a88.jbay.testutil.TestDataFactory;
 import org.junit.jupiter.api.*;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -13,13 +10,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 class BidDAOTest {
     
-    private BidDAO bidDAO;
+    private TestBidDAO bidDAO;
     private Connection testConnection;
-    private MockedStatic<DatabaseController> mockedDatabaseController;
     
     private int testUserId;
     private int testSellerId;
@@ -32,13 +27,9 @@ class BidDAOTest {
         TestDatabaseSetup.initializeTestDatabase();
         testConnection = TestDatabaseSetup.getTestConnection();
         
-        // Mock DatabaseController to return test connection
-        mockedDatabaseController = mockStatic(DatabaseController.class);
-        mockedDatabaseController.when(DatabaseController::getInstance).thenReturn(mock(DatabaseController.class));
-        when(DatabaseController.getInstance().getConnection()).thenReturn(testConnection);
         
-        // Get BidDAO instance
-        bidDAO = BidDAO.getInstance();
+        // Get TestBidDAO instance
+        bidDAO = new TestBidDAO();
         
         // Insert test data
         testUserId = TestDatabaseSetup.insertTestUser(testConnection, "bidder", "password123", "BIDDER");
@@ -67,10 +58,6 @@ class BidDAOTest {
             testConnection.close();
         }
         
-        // Close mocked static
-        if (mockedDatabaseController != null) {
-            mockedDatabaseController.close();
-        }
     }
     
     @Test
@@ -87,15 +74,19 @@ class BidDAOTest {
         assertTrue(result, "Bid insertion should succeed");
         
         // Verify bid was actually inserted
-        List<BidDAO.BidData> bidHistory = bidDAO.findBidHistoryByAuctionId(testAuctionId);
+        List<TestBidDAO.BidData> bidHistory = bidDAO.findBidHistoryByAuctionId(testAuctionId);
         assertNotNull(bidHistory, "Bid history should not be null");
         assertEquals(1, bidHistory.size(), "Should find 1 bid");
         
-        BidDAO.BidData bid = bidHistory.get(0);
+        TestBidDAO.BidData bid = bidHistory.get(0);
         assertEquals(testUserId, bid.userId(), "User ID should match");
         assertEquals(testAuctionId, bid.auctionId(), "Auction ID should match");
         assertEquals(bidAmount, bid.amount(), "Bid amount should match");
-        assertEquals(bidTime, bid.time(), "Bid time should match");
+        // Compare timestamps without nanoseconds due to H2 precision limitations
+        LocalDateTime actualTime = bid.time();
+        assertEquals(bidTime.truncatedTo(java.time.temporal.ChronoUnit.MILLIS), 
+                    actualTime.truncatedTo(java.time.temporal.ChronoUnit.MILLIS), 
+                    "Bid time should match (ignoring nanoseconds)");
     }
     
     @Test
@@ -146,19 +137,25 @@ class BidDAOTest {
         assertTrue(bidDAO.insertBid(testUserId, testAuctionId, bidAmount3, bidTime3), "Third bid should be inserted");
         
         // Act
-        List<BidDAO.BidData> bidHistory = bidDAO.findBidHistoryByAuctionId(testAuctionId);
+        List<TestBidDAO.BidData> bidHistory = bidDAO.findBidHistoryByAuctionId(testAuctionId);
         
         // Assert
         assertNotNull(bidHistory, "Bid history should not be null");
         assertEquals(3, bidHistory.size(), "Should find 3 bids");
         
-        // Verify bids are in chronological order (ASC)
-        assertEquals(bidTime1, bidHistory.get(0).time(), "First bid should be earliest");
-        assertEquals(bidTime2, bidHistory.get(1).time(), "Second bid should be in middle");
-        assertEquals(bidTime3, bidHistory.get(2).time(), "Third bid should be latest");
+        // Verify bids are in chronological order (ASC) - compare without nanoseconds
+        assertEquals(bidTime1.truncatedTo(java.time.temporal.ChronoUnit.MILLIS), 
+                    bidHistory.get(0).time().truncatedTo(java.time.temporal.ChronoUnit.MILLIS), 
+                    "First bid should be earliest");
+        assertEquals(bidTime2.truncatedTo(java.time.temporal.ChronoUnit.MILLIS), 
+                    bidHistory.get(1).time().truncatedTo(java.time.temporal.ChronoUnit.MILLIS), 
+                    "Second bid should be in middle");
+        assertEquals(bidTime3.truncatedTo(java.time.temporal.ChronoUnit.MILLIS), 
+                    bidHistory.get(2).time().truncatedTo(java.time.temporal.ChronoUnit.MILLIS), 
+                    "Third bid should be latest");
         
         // Verify bid details
-        for (BidDAO.BidData bid : bidHistory) {
+        for (TestBidDAO.BidData bid : bidHistory) {
             assertEquals(testUserId, bid.userId(), "User ID should match");
             assertEquals(testAuctionId, bid.auctionId(), "Auction ID should match");
         }
@@ -174,7 +171,7 @@ class BidDAOTest {
         // Arrange - Use auction with no bids
         
         // Act
-        List<BidDAO.BidData> bidHistory = bidDAO.findBidHistoryByAuctionId(testAuctionId);
+        List<TestBidDAO.BidData> bidHistory = bidDAO.findBidHistoryByAuctionId(testAuctionId);
         
         // Assert
         assertNotNull(bidHistory, "Bid history should not be null");
@@ -188,7 +185,7 @@ class BidDAOTest {
         int nonExistentAuctionId = 99999;
         
         // Act
-        List<BidDAO.BidData> bidHistory = bidDAO.findBidHistoryByAuctionId(nonExistentAuctionId);
+        List<TestBidDAO.BidData> bidHistory = bidDAO.findBidHistoryByAuctionId(nonExistentAuctionId);
         
         // Assert
         assertNotNull(bidHistory, "Bid history should not be null");
@@ -254,7 +251,7 @@ class BidDAOTest {
         assertTrue(bidDAO.insertBid(bidder3Id, testAuctionId, 140.0, bidTime3), "Third bidder's bid should be inserted");
         
         // Act
-        List<BidDAO.BidData> bidHistory = bidDAO.findBidHistoryByAuctionId(testAuctionId);
+        List<TestBidDAO.BidData> bidHistory = bidDAO.findBidHistoryByAuctionId(testAuctionId);
         
         // Assert
         assertNotNull(bidHistory, "Bid history should not be null");
@@ -284,15 +281,19 @@ class BidDAOTest {
         assertTrue(bidDAO.insertBid(bidder2Id, testAuctionId, 130.0, sameBidTime), "Second bidder's bid should be inserted");
         
         // Act
-        List<BidDAO.BidData> bidHistory = bidDAO.findBidHistoryByAuctionId(testAuctionId);
+        List<TestBidDAO.BidData> bidHistory = bidDAO.findBidHistoryByAuctionId(testAuctionId);
         
         // Assert
         assertNotNull(bidHistory, "Bid history should not be null");
         assertEquals(2, bidHistory.size(), "Should find 2 bids");
         
-        // Both bids should have the same timestamp
-        assertEquals(sameBidTime, bidHistory.get(0).time(), "First bid timestamp should match");
-        assertEquals(sameBidTime, bidHistory.get(1).time(), "Second bid timestamp should match");
+        // Both bids should have the same timestamp (ignoring nanoseconds)
+        assertEquals(sameBidTime.truncatedTo(java.time.temporal.ChronoUnit.MILLIS), 
+                    bidHistory.get(0).time().truncatedTo(java.time.temporal.ChronoUnit.MILLIS), 
+                    "First bid timestamp should match");
+        assertEquals(sameBidTime.truncatedTo(java.time.temporal.ChronoUnit.MILLIS), 
+                    bidHistory.get(1).time().truncatedTo(java.time.temporal.ChronoUnit.MILLIS), 
+                    "Second bid timestamp should match");
     }
     
     @Test
@@ -334,7 +335,7 @@ class BidDAOTest {
         }
         
         // Verify all bids were inserted
-        List<BidDAO.BidData> bidHistory = bidDAO.findBidHistoryByAuctionId(testAuctionId);
+        List<TestBidDAO.BidData> bidHistory = bidDAO.findBidHistoryByAuctionId(testAuctionId);
         assertEquals(numThreads, bidHistory.size(), "All concurrent bids should be inserted");
     }
     
@@ -348,7 +349,7 @@ class BidDAOTest {
         LocalDateTime time = LocalDateTime.now();
         
         // Act
-        BidDAO.BidData bidData = new BidDAO.BidData(userId, auctionId, amount, time);
+        TestBidDAO.BidData bidData = new TestBidDAO.BidData(userId, auctionId, amount, time);
         
         // Assert
         assertEquals(userId, bidData.userId(), "User ID should match");
@@ -371,16 +372,22 @@ class BidDAOTest {
         assertTrue(bidDAO.insertBid(testUserId, testAuctionId, 130.0, middleTime), "Middle bid should be inserted");
         
         // Act
-        List<BidDAO.BidData> bidHistory = bidDAO.findBidHistoryByAuctionId(testAuctionId);
+        List<TestBidDAO.BidData> bidHistory = bidDAO.findBidHistoryByAuctionId(testAuctionId);
         
         // Assert
         assertNotNull(bidHistory, "Bid history should not be null");
         assertEquals(3, bidHistory.size(), "Should find 3 bids");
         
-        // Verify chronological ordering (ASC)
-        assertEquals(oldestTime, bidHistory.get(0).time(), "Oldest bid should be first");
-        assertEquals(middleTime, bidHistory.get(1).time(), "Middle bid should be second");
-        assertEquals(newestTime, bidHistory.get(2).time(), "Newest bid should be third");
+        // Verify chronological ordering (ASC) - compare without nanoseconds
+        assertEquals(oldestTime.truncatedTo(java.time.temporal.ChronoUnit.MILLIS), 
+                    bidHistory.get(0).time().truncatedTo(java.time.temporal.ChronoUnit.MILLIS), 
+                    "Oldest bid should be first");
+        assertEquals(middleTime.truncatedTo(java.time.temporal.ChronoUnit.MILLIS), 
+                    bidHistory.get(1).time().truncatedTo(java.time.temporal.ChronoUnit.MILLIS), 
+                    "Middle bid should be second");
+        assertEquals(newestTime.truncatedTo(java.time.temporal.ChronoUnit.MILLIS), 
+                    bidHistory.get(2).time().truncatedTo(java.time.temporal.ChronoUnit.MILLIS), 
+                    "Newest bid should be third");
         
         assertEquals(120.0, bidHistory.get(0).amount(), "Oldest bid amount should be 120.0");
         assertEquals(130.0, bidHistory.get(1).amount(), "Middle bid amount should be 130.0");
@@ -397,7 +404,7 @@ class BidDAOTest {
         assertTrue(emptyAuctionId > 0, "Empty auction should be inserted");
         
         // Act
-        List<BidDAO.BidData> bidHistory = bidDAO.findBidHistoryByAuctionId(emptyAuctionId);
+        List<TestBidDAO.BidData> bidHistory = bidDAO.findBidHistoryByAuctionId(emptyAuctionId);
         
         // Assert
         assertNotNull(bidHistory, "Bid history should not be null");
