@@ -1,5 +1,6 @@
 package a88.jbay.controller.client;
 
+import a88.jbay.controller.ControllerProvider;
 import a88.jbay.model.event.Auction;
 import a88.jbay.model.event.AuctionState;
 import a88.jbay.view.ViewManager;
@@ -35,17 +36,9 @@ public class BidderItemCardController {
     //Bắt đầu load UI --> chạy luôn sk
     // Cho vào initialize() để đảm bảo bidButton khác null
     public void handlePlaceBid() {
-        // cho code chuyển trang hoặc popup vào đây
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("a88/jbay/controller/client/ClientBidderItemController.java"));
         try {
-            Parent root = loader.load();
-            ClientBidderItemController controller = loader.getController();
-            controller.setCurrentAuctionId(currentAuctionID);
-
-            Scene scene = new Scene(root);
-            Stage stage = (Stage) bidButton.getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
+            ViewManager.displayScene("a88/jbay/controller/client/ClientBidderItemController.java");
+            ControllerProvider.getInstance().getController(ClientBidderItemController.class).setCurrentAuctionId(currentAuctionID);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
