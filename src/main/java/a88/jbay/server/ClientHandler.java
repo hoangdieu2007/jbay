@@ -39,34 +39,67 @@ public class ClientHandler implements Runnable {
     //the handle loop
     @Override
     public void run() {
+        ObjectOutputStream out = null;
+        ObjectInputStream in = null;
+        
         try {
-            ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+            out = new ObjectOutputStream(socket.getOutputStream());
             out.flush();
-            ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+            in = new ObjectInputStream(socket.getInputStream());
             this.out = out;
-            while (true) {
-                Request request = (Request) in.readObject();
-                Response response = handleRequest(request);
+            
+            while (!socket.isClosed() && !Thread.currentThread().isInterrupted()) {
+                try {
+                    Request request = (Request) in.readObject();
+                    if (request == null) break;
+                    
+                    Response response = handleRequest(request);
 
-                //prevent crash when update and response sends at the same time
-                synchronized (out) {
-                    try {
+                    //prevent crash when update and response sends at the same time
+                    synchronized (out) {
                         out.writeObject(response);
                         out.flush();
-                    } catch (IOException e) {
-                        e.printStackTrace();
                     }
+                } catch (ClassNotFoundException e) {
+                    System.err.println("Invalid request object received: " + e.getMessage());
+                    break;
+                } catch (IOException e) {
+                    if (!socket.isClosed()) {
+                        System.err.println("Client connection error: " + e.getMessage());
+                    }
+                    break;
                 }
             }
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            System.err.println("Failed to establish client connection: " + e.getMessage());
         } finally {
             cleanupCurrentUserSession();
+            closeResources(out, in, socket);
+        }
+    }
+    
+    private void closeResources(ObjectOutputStream out, ObjectInputStream in, Socket socket) {
+        try {
+            if (out != null) out.close();
+        } catch (IOException e) {
+            System.err.println("Error closing output stream: " + e.getMessage());
+        }
+        try {
+            if (in != null) in.close();
+        } catch (IOException e) {
+            System.err.println("Error closing input stream: " + e.getMessage());
+        }
+        try {
+            if (socket != null && !socket.isClosed()) socket.close();
+        } catch (IOException e) {
+            System.err.println("Error closing socket: " + e.getMessage());
         }
     }
 
     // directing request to respective handler
     private Response handleRequest(Request request) {
+        System.out.println("Received request: " + request.getType().name());
+
         return switch (request.getType()) {
             case LOGIN -> handleLogin(request);
             case REGISTER -> handleRegister(request);
@@ -95,8 +128,11 @@ public class ClientHandler implements Runnable {
                 return new Response(false, "LOGIN_BAN", null);
             }
 
+            //register user session to the systems and update their auctions
             UserSystem.getInstance().addActiveUser(user.getId(), user);
             UpdateSystem.getInstance().register(user.getId(), out);
+            UpdateSystem.getInstance().updateAllAuctions(user.getId());
+
             return new Response(true, "LOGIN_SUCCESS", user);
         }
         return new Response(false, "LOGIN_FAIL", null);

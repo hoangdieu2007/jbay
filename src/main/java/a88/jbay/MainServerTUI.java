@@ -23,6 +23,10 @@ public class MainServerTUI {
 
         ClientService clientService = ClientService.getInstance();
 
+        //init systems
+        AuctionSystem auctionSystem = AuctionSystem.getInstance();
+        UserSystem userSystem = UserSystem.getInstance();
+
         try {
 
             //for server interface

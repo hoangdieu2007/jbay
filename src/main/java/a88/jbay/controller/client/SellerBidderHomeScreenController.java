@@ -95,6 +95,17 @@ public class SellerBidderHomeScreenController {
     public void initializeSellerUI() {
         sellerFlowPane.getChildren().clear();
         ObservableMap<Integer, Auction> sellerMap = ClientSession.getInstance().getSellerAuctions();
+        System.out.println("Seller UI initialized with " + sellerMap.size() + " auctions");
+
+        int initIndex = 0;
+        for (Auction auction : sellerMap.values()) {
+            VBox newCard = createCardBidder(auction);
+            if (newCard != null) {
+                bidderCardBox.put(auction.getId(), newCard);
+                bidderFlowPane.getChildren().add(initIndex++, newCard);
+            }
+        }
+
         // cài Listener cho ObservableList
         //Tránh gọi nhầm hàm addListener
         ClientSession.getInstance().getSellerAuctions().addListener((MapChangeListener<Integer, Auction>) change -> {
@@ -162,6 +173,17 @@ public class SellerBidderHomeScreenController {
     @FXML
     public void  initializeBidderUI(){
         bidderFlowPane.getChildren().clear();
+        ObservableMap<Integer, Auction> bidderMap = ClientSession.getInstance().getBidderAuctions();
+        System.out.println("Bidder UI initialized with " + bidderMap.size() + " auctions");
+
+        int initIndex = 0;
+        for (Auction auction : bidderMap.values()) {
+            VBox newCard = createCardBidder(auction);
+            if (newCard != null) {
+                bidderCardBox.put(auction.getId(), newCard);
+                bidderFlowPane.getChildren().add(initIndex++, newCard);
+            }
+        }
 
         ClientSession.getInstance().getBidderAuctions().addListener((MapChangeListener< Integer, Auction>) change -> {
             // nếu còn phần tử, trả về true --> chạy tiếp
@@ -196,8 +218,4 @@ public class SellerBidderHomeScreenController {
 
 
     }
-
-
-
-
 }

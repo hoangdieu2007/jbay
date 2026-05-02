@@ -49,7 +49,7 @@ public class ServerConnection {
             try {
                 while (!socket.isClosed()) {
                     Response response = (Response) in.readObject();
-                    System.out.println((String) response.getMessage());
+                    System.out.println("Received response: " + (String) response.getMessage());
                     Platform.runLater(() -> responseHandler.handle(response));
                 }
             } catch (Exception e) {

@@ -2,6 +2,7 @@ package a88.jbay.client;
 
 import a88.jbay.controller.ControllerProvider;
 import a88.jbay.controller.client.ClientLoginRegisterController;
+import a88.jbay.controller.client.SellerBidderHomeScreenController;
 import a88.jbay.model.entity.user.User;
 import a88.jbay.model.event.Auction;
 import a88.jbay.model.network.Response;
@@ -38,6 +39,7 @@ public class ResponseHandler {
                 case "ACTIVE_AUCTION_LIST" -> handleActiveAuctionList(response);
                 case "SELLER_AUCTION_LIST" -> handleSellerAuctionList(response);
                 case "BIDDER_AUCTION_LIST" -> handleBidderAuctionList(response);
+                case "AUCTION_UPDATE" -> handleAuctionUpdate(response);
                 default -> handleDefault(response);
             };
         } else {
@@ -57,7 +59,9 @@ public class ResponseHandler {
         clientSession.setUser((User) response.getPayload());
         controllerProvider.getController(ClientLoginRegisterController.class).updateLoginLabel("Login successful");
         try {
-            viewManager.displayScene("client/Seller-Bidder-HomeScreens.fxml");
+            ViewManager.displayScene("client/Seller-Bidder-HomeScreens.fxml");
+            controllerProvider.getController(SellerBidderHomeScreenController.class).initializeSellerUI();
+            controllerProvider.getController(SellerBidderHomeScreenController.class).initializeBidderUI();
         } catch (IOException e) {
             controllerProvider.getController(ClientLoginRegisterController.class).updateLoginLabel("Failed to display home screen");
             e.printStackTrace();
@@ -83,13 +87,28 @@ public class ResponseHandler {
 
     private void handleActiveAuctionList(Response response) {
         List<Auction> activeAuctions = (List<Auction>) response.getPayload();
+        for (Auction auction : activeAuctions) {
+            clientSession.getBidderAuctions().put(auction.getId(), auction);
+        }
     }
 
     private void handleSellerAuctionList(Response response) {
         List<Auction> sellerAuctions = (List<Auction>) response.getPayload();
+        for (Auction auction : sellerAuctions) {
+            clientSession.getSellerAuctions().put(auction.getId(), auction);
+        }
     }
 
     private void handleBidderAuctionList(Response response) {
         List<Auction> bidderAuctions = (List<Auction>) response.getPayload();
+        for (Auction auction : bidderAuctions) {
+            clientSession.getBidderAuctions().put(auction.getId(), auction);
+        }
+    }
+
+    private void handleAuctionUpdate(Response response) {
+        Auction auction = (Auction) response.getPayload();
+        clientSession.getBidderAuctions().put(auction.getId(), auction);
+        clientSession.getSellerAuctions().put(auction.getId(), auction);
     }
 }

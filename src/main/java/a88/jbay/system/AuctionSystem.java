@@ -8,6 +8,7 @@ import a88.jbay.model.entity.item.Item;
 import a88.jbay.model.event.Auction;
 import a88.jbay.model.event.AuctionState;
 import a88.jbay.model.event.BidTransaction;
+import a88.jbay.model.network.Response;
 
 import java.lang.reflect.Array;
 import java.time.LocalDateTime;
@@ -57,9 +58,12 @@ public class AuctionSystem {
 
     private void loadActiveAuctions() {
         java.util.List<AuctionData> activeAuctionData = auctionDAO.findAllActiveAuctions();
+        System.out.println("Loading " + activeAuctionData.size() + " active auctions from database");
 
         for (AuctionData auctionData : activeAuctionData) {
-            Auction auction = new Auction(
+            System.out.println("Loading auction: " + auctionData.id() + " - " + auctionData.item().getName() + " - State: " + auctionData.state());
+            try {
+                Auction auction = new Auction(
                 auctionData.id(),
                 auctionData.item(),
                 userDAO.findByUserId(auctionData.sellerId()).username(),
@@ -88,6 +92,11 @@ public class AuctionSystem {
             auction.subscribe(auctionData.sellerId());
 
             activeAuctions.put(auctionData.id(), auction);
+            
+            } catch (Exception e) {
+                System.err.println("Failed to load auction " + auctionData.id() + ": " + e.getMessage());
+                e.printStackTrace();
+            }
         }
     }
 
@@ -118,6 +127,12 @@ public class AuctionSystem {
         );
         activeAuctions.put(auctionId, auction);
         auction.subscribe(sellerId); // Seller is automatically subscribed
+
+        //update everyone about this auction
+        UpdateSystem.getInstance().updateAllUsers(
+                new Response(true, "AUCTION_UPDATE", auction)
+        );
+
         return true;
     }
 

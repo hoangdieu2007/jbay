@@ -112,6 +112,14 @@ public class UpdateSystem {
         updateByUserId(userId, response);
     }
 
+    //update all auctions for an userid
+    public void updateAllAuctions(int userId) {
+        updateActiveAuctions(userId);
+        updateBidderAuctions(userId);
+        updateSellerAuctions(userId);
+    }
+
+    //update for a specific user
     public void updateByUserId(int userId, Response response) {
         List<ObjectOutputStream> sessions = userSessions.get(userId);
 
@@ -126,6 +134,13 @@ public class UpdateSystem {
                     unregister(userId, out);
                 }
             }
+        }
+    }
+
+    //update all users
+    public void updateAllUsers(Response response) {
+        for (int userId : userSessions.keySet()) {
+            updateByUserId(userId, response);
         }
     }
 }
