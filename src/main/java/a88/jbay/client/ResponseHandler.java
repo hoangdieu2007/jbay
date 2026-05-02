@@ -82,7 +82,12 @@ public class ResponseHandler {
     }
 
     public void handleLogoutSuccess(Response response) {
-        clientSession.setUser(new User());
+        try {
+            ViewManager.displayScene("client/client-login-register-view.fxml");
+            ClientSession.getInstance().resetSession();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void handleActiveAuctionList(Response response) {
