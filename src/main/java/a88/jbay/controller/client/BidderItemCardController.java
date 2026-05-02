@@ -1,6 +1,7 @@
 package a88.jbay.controller.client;
 
 import a88.jbay.controller.ControllerProvider;
+import a88.jbay.model.ImageProcessor;
 import a88.jbay.model.event.Auction;
 import a88.jbay.model.event.AuctionState;
 import a88.jbay.view.ViewManager;
@@ -37,7 +38,7 @@ public class BidderItemCardController {
     // Cho vào initialize() để đảm bảo bidButton khác null
     public void handlePlaceBid() {
         try {
-            ViewManager.displayScene("a88/jbay/controller/client/ClientBidderItemController.java");
+            ViewManager.displayScene("client/ClientBidderItemController.java");
             ControllerProvider.getInstance().getController(ClientBidderItemController.class).setCurrentAuctionId(currentAuctionID);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -57,15 +58,9 @@ public class BidderItemCardController {
         remainingSeconds = java.time.Duration.between(java.time.LocalDateTime.now(), auction.getEndTime()).getSeconds();
         updateStatusUI(auction.getAuctionState());
 
-        // Xử lý ảnh (Bọc trong try-catch phòng trường hợp link ảnh lỗi do database truyền bậy)
-       /* try {
-            if (imageUrl != null && !imageUrl.isEmpty()) {
-                Image image = new Image(imageUrl);
-                itemImage.setImage(image);
-            }
-        } catch (Exception e) {
-            System.out.println("Lỗi load ảnh cho item: " + title);
-        }*/
+        byte[] imageData = auction.getItem().getImage();
+        itemImage.setImage(ImageProcessor.bytesToImage(imageData));
+
     }
 
     // Hàm phụ trợ xử lý UI linh hoạt

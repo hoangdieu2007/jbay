@@ -12,11 +12,11 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #C9F7F6;" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.SellerBidderHomeScreenController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="461.0" prefWidth="699.0" style="-fx-background-color: #C9F7F6;" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.SellerBidderHomeScreenController">
     <tabs>
         <Tab text="Seller">
             <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: white;">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="318.0" prefWidth="572.0" style="-fx-background-color: white;">
                     <children>
                         <Button fx:id="btnCreateListing" alignment="CENTER" layoutX="428.0" layoutY="34.0" mnemonicParsing="false" onAction="#handleCreateListing" prefHeight="36.0" prefWidth="158.0" style="-fx-background-color: #2196F3; -fx-background-radius: 45;" text="+ Create Listing" textFill="#fffcfc" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="34.0">
                             <font>
@@ -30,7 +30,7 @@
                         </Label>
                         <Label layoutX="29.0" layoutY="60.0" text="Manage your auction items" />
 
-                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutY="100.0" prefHeight="271.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutY="100.0" prefHeight="272.0" prefWidth="601.0" AnchorPane.bottomAnchor="-8.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
                             <content>
                                 <FlowPane fx:id="sellerFlowPane" hgap="15.0" vgap="15.0">
                                     <padding>
@@ -51,7 +51,7 @@
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: white;">
                     <children>
-                  <TextField layoutX="376.0" layoutY="30.0" prefHeight="37.0" prefWidth="189.0" promptText="Search Auction" style="-fx-background-radius: 45;" />
+                  <TextField layoutX="376.0" layoutY="30.0" prefHeight="37.0" prefWidth="260.0" promptText="Search Auction" style="-fx-background-radius: 45;" />
                         <Label layoutX="37.0" layoutY="60.0" text="Place bids on items you are interested in" />
                         <Label layoutX="37.0" layoutY="30.0" text="Browse Auctions">
                             <font>

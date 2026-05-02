@@ -68,7 +68,7 @@ public class SellerBidderHomeScreenController {
 
     public void handleCreateListing(ActionEvent actionEvent) {
         try {
-            ViewManager.displayScene("/a88/jbay/view/client/client-seller-item-view.fxml");
+            ViewManager.displayScene("client/client-seller-item-view.fxml");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -77,7 +77,7 @@ public class SellerBidderHomeScreenController {
     private VBox createCardSeller(Auction auction) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/a88/jbay/view/client/seller-item-card.fxml"));
+            loader.setLocation(getClass().getResource("client/seller-item-card.fxml"));
             // load root node
             VBox cardBox = loader.load();
 
@@ -101,13 +101,11 @@ public class SellerBidderHomeScreenController {
         for (Auction auction : sellerMap.values()) {
             VBox newCard = createCardBidder(auction);
             if (newCard != null) {
-                bidderCardBox.put(auction.getId(), newCard);
-                bidderFlowPane.getChildren().add(initIndex++, newCard);
+                sellerCardBox.put(auction.getId(), newCard);
+                sellerFlowPane.getChildren().add(initIndex++, newCard);
             }
         }
 
-        // cài Listener cho ObservableList
-        //Tránh gọi nhầm hàm addListener
         ClientSession.getInstance().getSellerAuctions().addListener((MapChangeListener<Integer, Auction>) change -> {
             // nếu còn phần tử, trả về true --> chạy tiếp
 
@@ -154,7 +152,7 @@ public class SellerBidderHomeScreenController {
     private VBox createCardBidder(Auction auction){
         try{
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/a88/jbay/view/client/bidder-item-card.fxml"));
+            loader.setLocation(getClass().getResource("client/bidder-item-card.fxml"));
             // load root node
             VBox cardBox = loader.load();
 
