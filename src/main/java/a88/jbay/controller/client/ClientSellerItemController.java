@@ -1,6 +1,7 @@
 package a88.jbay.controller.client;
 
 import a88.jbay.client.ServerConnection;
+import a88.jbay.controller.ControllerProvider;
 import a88.jbay.model.ImageProcessor;
 import a88.jbay.model.entity.item.Item;
 import a88.jbay.model.network.Request;
@@ -299,5 +300,20 @@ public class ClientSellerItemController {
         } catch (IOException e) {
             new Alert(Alert.AlertType.ERROR, "Error: " + e.getMessage()).show();
         }
+    }
+
+    @FXML
+    private void handleBack() {
+        // Lấy Home Controller từ Cache
+        SellerBidderHomeScreenController home = ControllerProvider.getInstance()
+                .getController(SellerBidderHomeScreenController.class);
+
+        // Ra lệnh mở Tab Seller (Index 0)[cite: 1, 2]
+        if (home != null) home.selectTab(0);
+
+        // Quay về màn hình Home
+        try {
+            ViewManager.getInstance().displayScene("/a88/jbay/view/client/Seller-Bidder-HomeScreens.fxml");
+        } catch (IOException e) { e.printStackTrace(); }
     }
 }

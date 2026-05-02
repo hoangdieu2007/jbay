@@ -2,10 +2,12 @@ package a88.jbay.controller.client;
 
 import a88.jbay.client.ClientSession;
 import a88.jbay.client.ServerConnection;
+import a88.jbay.controller.ControllerProvider;
 import a88.jbay.model.ImageProcessor;
 import a88.jbay.model.event.Auction;
 import a88.jbay.model.network.Request;
 import a88.jbay.model.network.RequestType;
+import a88.jbay.view.ViewManager;
 import javafx.application.Platform;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
@@ -163,5 +165,20 @@ public class ClientBidderItemController {
                 alert.setHeaderText("Could not send bid to server");
             });
         }
+    }
+
+    @FXML
+    private void handleBack() {
+        // Lấy Home Controller từ Cache
+        SellerBidderHomeScreenController home = ControllerProvider.getInstance()
+                .getController(SellerBidderHomeScreenController.class);
+
+        // Ra lệnh mở Tab Bidder (Index 1)
+        if (home != null) home.selectTab(1);
+
+        // Quay về màn hình Home
+        try {
+            ViewManager.getInstance().displayScene("/a88/jbay/view/client/Seller-Bidder-HomeScreens.fxml");
+        } catch (IOException e) { e.printStackTrace(); }
     }
 }

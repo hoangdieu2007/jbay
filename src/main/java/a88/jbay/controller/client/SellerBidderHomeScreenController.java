@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -57,6 +58,19 @@ public class SellerBidderHomeScreenController {
                 }
             }
         });
+    }
+
+    //Xử lí phần quay trở lại vào màn hình
+    @FXML private TabPane mainTabPane;
+
+    /*
+     * index = 0: Tab Seller
+     * index = 1: Tab Bidder
+     */
+    public void selectTab(int index) {
+        if (mainTabPane != null) {
+            mainTabPane.getSelectionModel().select(index);
+        }
     }
 
     /** ====SELLER==== **/
