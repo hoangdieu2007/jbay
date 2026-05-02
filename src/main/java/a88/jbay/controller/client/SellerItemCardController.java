@@ -16,6 +16,7 @@ public class SellerItemCardController {
     @FXML private Label lblPrice;
     @FXML private Label lblHighestBidderName;
 
+
     // Chờ Backend truyền vào Auction
     public void setData(Auction auction) {
         currentAuction = auction;

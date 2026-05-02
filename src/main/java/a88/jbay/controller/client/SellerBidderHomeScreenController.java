@@ -2,6 +2,8 @@ package a88.jbay.controller.client;
 
 import a88.jbay.client.ClientSession;
 import a88.jbay.model.event.Auction;
+import a88.jbay.server.ClientHandler;
+import a88.jbay.system.UserSystem;
 import a88.jbay.view.ViewManager;
 import com.almasb.fxgl.cutscene.CutsceneScene;
 import javafx.collections.*;
@@ -58,6 +60,19 @@ public class SellerBidderHomeScreenController {
                 }
             }
         });
+    }
+
+    // LOG OUT
+    @FXML private Button btnLogOut;
+
+    @FXML
+    private void handleLogOut(){
+        try {
+            ViewManager.displayScene("client/client-login-register-view.fxml");
+            ClientSession.getInstance().resetSession();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     //Xử lí phần quay trở lại vào màn hình

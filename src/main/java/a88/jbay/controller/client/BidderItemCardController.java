@@ -35,8 +35,9 @@ public class BidderItemCardController {
     private int currentAuctionID;
 
     //Bắt đầu load UI --> chạy luôn sk
-    // Cho vào initialize() để đảm bảo bidButton khác null
-    public void handlePlaceBid() {
+
+    @FXML
+    private void handlePlaceBid() {
         try {
             ViewManager.displayScene("client/ClientBidderItemController.java");
             ControllerProvider.getInstance().getController(ClientBidderItemController.class).setCurrentAuctionId(currentAuctionID);
