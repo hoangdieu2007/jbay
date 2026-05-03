@@ -132,7 +132,7 @@ public class Auction implements Subject, Serializable {
     }
 
     public void notifyObservers() {
-        UpdateSystem.getInstance().notifySubscribers(this, observers);
+        UpdateSystem.getInstance().broadcastAuctionUpdate(this, observers);
     }
 
     //check and change state

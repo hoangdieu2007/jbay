@@ -1,10 +1,8 @@
 package a88.jbay.system;
 
+import a88.jbay.server.ClientConnection;
 import a88.jbay.model.event.Auction;
-import a88.jbay.model.network.Response;
 
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -12,19 +10,14 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
-    the notification system for the server
-
-    simplified version - manages user sessions and sends notifications
-    auction subscriber management is now handled by individual Auction objects
-
-    features:
-        + manage each user session with an object output stream so the server can send response to the client (register/unregister)
-        + send notifications to specific users based on auction subscriber lists
+    simplified notification system for the server
+    manages client connections and broadcasts notifications
+    delegates actual networking to ClientConnection
  */
 
 public class UpdateSystem {
     private static UpdateSystem instance;
-    private final Map<Integer, List<ObjectOutputStream>> userSessions = new ConcurrentHashMap<>();
+    private final Map<Integer, List<ClientConnection>> userConnections = new ConcurrentHashMap<>();
 
     private UpdateSystem() {}
 
@@ -35,112 +28,99 @@ public class UpdateSystem {
         return instance;
     }
 
-    //register user session, coupled with the user output stream
-    public void register(int userId, ObjectOutputStream out) {
-        List<ObjectOutputStream> sessions =
-                userSessions.computeIfAbsent(userId, k -> new CopyOnWriteArrayList<>());
-
-        sessions.add(out);
+    /**
+     * registers a client connection for notifications
+     * @param userId the user id
+     * @param connection the client connection
+     */
+    public synchronized void registerConnection(int userId, ClientConnection connection) {
+        userConnections.computeIfAbsent(userId, k -> new CopyOnWriteArrayList<>())
+                      .add(connection);
     }
 
-    //unregister user session, remove the user output stream from the list
-    public void unregister(int userId, ObjectOutputStream out) {
-        List<ObjectOutputStream> streams = userSessions.get(userId);
-        if (streams != null) {
-            streams.remove(out);
-            if (streams.isEmpty()) {
-                userSessions.remove(userId);
+    /**
+     * unregisters a client connection from notifications
+     * @param userId the user id
+     * @param connection the client connection
+     */
+    public synchronized void unregisterConnection(int userId, ClientConnection connection) {
+        List<ClientConnection> connections = userConnections.get(userId);
+        if (connections != null) {
+            connections.remove(connection);
+            if (connections.isEmpty()) {
+                userConnections.remove(userId);
             }
         }
     }
 
-    //unregister user session, remove all output streams from the list by user id
-    public void unregister(int userId) {
-        userSessions.remove(userId);
-    }
-
-    //unsub from all auctions
-    public void unsubscribeUserFromAllAuctions(int userId) {
-        AuctionSystem.getInstance().getActiveAuctionList().forEach(auction -> auction.unsubscribe(userId));
-    }
-
-    //new notification method - receives subscriber list from Auction
-    public void notifySubscribers(Auction auction, Set<Integer> subscriberIds) {
-        Response response = new Response(true, "AUCTION_UPDATE", auction);
-        
+    /**
+     * broadcasts an auction update to all subscribed users
+     * @param auction the auction to broadcast
+     * @param subscriberIds the user ids to notify
+     */
+    public void broadcastAuctionUpdate(Auction auction, Set<Integer> subscriberIds) {
         if (subscriberIds == null || subscriberIds.isEmpty()) {
             return;
         }
 
         subscriberIds.forEach(userId -> {
-            List<ObjectOutputStream> streams = userSessions.get(userId);
-            if (streams == null) {
-                return;
-            }
-            for (ObjectOutputStream out : streams) {
-                //synchronized to prevent concurrent modification exception
-                synchronized (out) {
-                    try {
-                        out.writeObject(response);
-                        out.flush();
-                    } catch (IOException e) {
-                        unregister(userId, out);
+            List<ClientConnection> connections = userConnections.get(userId);
+            if (connections != null) {
+                connections.forEach(connection -> {
+                    if (connection.isConnected()) {
+                        connection.sendAuctionUpdate(auction);
                     }
-                }
+                });
             }
         });
     }
 
-    //update seller auction list to user by id
-    public void updateSellerAuctions(int userId) {
-        Response response = new Response(true, "SELLER_AUCTION_LIST", AuctionSystem.getInstance().getAuctionsBySellerId(userId));
+    /**
+     * sends auction list updates to a specific user
+     * @param userId the user id
+     * @param auctionType type of auction list (ACTIVE, SELLER, BIDDER)
+     */
+    public void sendAuctionListUpdate(int userId, String auctionType) {
+        List<ClientConnection> connections = userConnections.get(userId);
+        if (connections == null) {
+            return;
+        }
 
-        updateByUserId(userId, response);
-    }
-
-    //update won auction list to user by id
-    public void updateBidderAuctions(int userId) {
-        Response response = new Response(true, "BIDDER_AUCTION_LIST", AuctionSystem.getInstance().getAuctionsByWinnerId(userId));
-
-        updateByUserId(userId, response);
-    }
-
-    //update active auction list to user by id
-    public void updateActiveAuctions(int userId) {
-        Response response = new Response(true, "ACTIVE_AUCTION_LIST", AuctionSystem.getInstance().getActiveAuctionListExceptForSeller(userId));
-
-        updateByUserId(userId, response);
-    }
-
-    //update all auctions for an userid
-    public void updateAllAuctions(int userId) {
-        updateActiveAuctions(userId);
-        updateBidderAuctions(userId);
-        updateSellerAuctions(userId);
-    }
-
-    //update for a specific user
-    public void updateByUserId(int userId, Response response) {
-        List<ObjectOutputStream> sessions = userSessions.get(userId);
-
-        if (sessions == null || sessions.isEmpty()) return;
-
-        for (ObjectOutputStream out : sessions) {
-            synchronized (out) {
-                try {
-                    out.writeObject(response);
-                    out.flush();
-                } catch (IOException e) {
-                    unregister(userId, out);
-                }
-            }
+        switch (auctionType) {
+            case "ACTIVE" -> connections.forEach(conn -> 
+                conn.sendAuctionList("ACTIVE", AuctionSystem.getInstance().getActiveAuctionListExceptForSeller(userId)));
+            case "SELLER" -> connections.forEach(conn -> 
+                conn.sendAuctionList("SELLER", AuctionSystem.getInstance().getAuctionsBySellerId(userId)));
+            case "BIDDER" -> connections.forEach(conn -> 
+                conn.sendAuctionList("BIDDER", AuctionSystem.getInstance().getAuctionsByWinnerId(userId)));
         }
     }
 
-    //update all users
-    public void updateAllUsers(Response response) {
-        for (int userId : userSessions.keySet()) {
-            updateByUserId(userId, response);
-        }
+    /**
+     * sends all auction list updates to a user (for initial login)
+     * @param userId the user id
+     */
+    public void sendAllAuctionUpdates(int userId) {
+        sendAuctionListUpdate(userId, "ACTIVE");
+        sendAuctionListUpdate(userId, "SELLER");
+        sendAuctionListUpdate(userId, "BIDDER");
+    }
+
+    /**
+     * unsubscribes a specific connection from all auction notifications
+     * @param userId the user id
+     * @param connection the specific connection to unsubscribe
+     */
+    public void unsubscribeConnectionFromAllAuctions(int userId, ClientConnection connection) {
+        // Only remove this specific connection, not all connections for the user
+        unregisterConnection(userId, connection);
+    }
+
+    /**
+     * cleans up all connections during graceful shutdown
+     */
+    public synchronized void cleanupAllConnections() {
+        userConnections.clear();
+        System.out.println("All client connections cleaned up");
     }
 }

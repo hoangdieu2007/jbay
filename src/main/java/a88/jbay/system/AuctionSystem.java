@@ -8,7 +8,7 @@ import a88.jbay.model.entity.item.Item;
 import a88.jbay.model.event.Auction;
 import a88.jbay.model.event.AuctionState;
 import a88.jbay.model.event.BidTransaction;
-import a88.jbay.model.network.Response;
+import a88.jbay.system.UpdateSystem;
 
 import java.lang.reflect.Array;
 import java.time.LocalDateTime;
@@ -128,10 +128,8 @@ public class AuctionSystem {
         activeAuctions.put(auctionId, auction);
         auction.subscribe(sellerId); // Seller is automatically subscribed
 
-        //update everyone about this auction
-        UpdateSystem.getInstance().updateAllUsers(
-                new Response(true, "AUCTION_UPDATE", auction)
-        );
+        //broadcast new auction to all relevant users
+        UpdateSystem.getInstance().broadcastAuctionUpdate(auction, auction.getSubscribers());
 
         return true;
     }

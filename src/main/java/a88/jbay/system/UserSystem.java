@@ -5,24 +5,24 @@ import a88.jbay.dao.UserDAO.UserData;
 import a88.jbay.model.StringHash;
 import a88.jbay.model.entity.user.User;
 import a88.jbay.model.network.Response;
+import a88.jbay.server.ClientConnection;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-/*
-the code for operations on the user data
-features: login, register, logout
-subscrition are handled by the notification system and client handler, the only responsibility of this class is to manage the user data
+/**
+ * manages user data and sessions
+ * handles authentication, user operations, and active session tracking
+ * consolidated session management from separate SessionManager
  */
-
 public class UserSystem {
     private static UserSystem instance;
     private final UserDAO userDAO;
-
-    private final Map<Integer, List<User>> activeUsers = new ConcurrentHashMap<>();
+    private final Map<Integer, ClientConnection> userSessions = new ConcurrentHashMap<>();
 
     private UserSystem() {
         this.userDAO = UserDAO.getInstance();
@@ -72,27 +72,26 @@ public class UserSystem {
         return new User(userData.id(), userData.role(), userData.username(), sessionId);
     }
 
-    public void addActiveUser(int userId, User user) {
-        activeUsers.computeIfAbsent(userId, k -> new ArrayList<>()).add(user);
-    }
-
-    //ban and cleanup current user cache
+    
+    /**
+     * bans a user and cleans up their sessions
+     * @param userId the user id to ban
+     * @return true if successful
+     */
     public boolean banUser(int userId) {
         if (userDAO.findByUserId(userId) == null) return false;
 
         if (userDAO.changeUserRole(userId, "BAN")) {
-            UpdateSystem.getInstance().unsubscribeUserFromAllAuctions(userId);
-            // when client receives this it will switch to login scene
-            UpdateSystem.getInstance().updateByUserId(userId, new Response(true, "BAN_USER", null));
-            UpdateSystem.getInstance().unregister(userId);
-            activeUsers.remove(userId);
-
-            List<User> sessions = activeUsers.get(userId);
-            if (sessions != null && !sessions.isEmpty()) {
-                for (User user : sessions) {
-                    logout(user.getSessionId());
-                }
+            // Remove user session
+            removeUserSession(userId);
+            
+            // Notify user about ban
+            ClientConnection connection = userSessions.get(userId);
+            if (connection != null && connection.isConnected()) {
+                Response banResponse = new Response(true, "BAN_USER", null);
+                connection.sendResponse(banResponse);
             }
+            
             return true;
         }
 
@@ -104,5 +103,54 @@ public class UserSystem {
         if (userDAO.findByUserId(userId) == null) return false;
 
         return userDAO.changeUserRole(userId, "USER");
+    }
+
+    /**
+     * registers a user session with their client connection
+     * @param userId the user id
+     * @param connection the client connection
+     */
+    public synchronized void registerUserSession(int userId, ClientConnection connection) {
+        userSessions.put(userId, connection);
+        System.out.println("User session registered for user " + userId);
+    }
+
+    /**
+     * removes a user session
+     * @param userId the user id
+     */
+    public synchronized void removeUserSession(int userId) {
+        ClientConnection connection = userSessions.remove(userId);
+        if (connection != null) {
+            connection.close();
+            System.out.println("User session removed for user " + userId);
+        }
+    }
+
+    /**
+     * checks if a user has an active session
+     * @param userId the user id
+     * @return true if active session exists
+     */
+    public synchronized boolean hasActiveSession(int userId) {
+        ClientConnection connection = userSessions.get(userId);
+        return connection != null && connection.isConnected();
+    }
+
+    /**
+     * gets the number of active user sessions
+     * @return active session count
+     */
+    public synchronized int getActiveSessionCount() {
+        return userSessions.size();
+    }
+
+    /**
+     * shuts down all user sessions
+     */
+    public synchronized void shutdownAllSessions() {
+        userSessions.values().forEach(ClientConnection::close);
+        userSessions.clear();
+        System.out.println("All user sessions shutdown complete");
     }
 }
