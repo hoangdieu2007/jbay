@@ -33,7 +33,7 @@ public class ViewManager {
     }
     
     public static void displayScene(String fxmlPath) throws IOException {
-        FXMLLoader loader = new FXMLLoader(ViewManager.class.getResource(fxmlPath));
+        FXMLLoader loader = new FXMLLoader(ViewManager.class.getResource("/a88/jbay/view/" + fxmlPath));
         Parent root = loader.load();
         
         // Register controller
@@ -48,7 +48,7 @@ public class ViewManager {
     }
     
     public static void displayScene(String fxmlPath, int width, int height) throws IOException {
-        FXMLLoader loader = new FXMLLoader(ViewManager.class.getResource(fxmlPath));
+        FXMLLoader loader = new FXMLLoader(ViewManager.class.getResource("/a88/jbay/view/" + fxmlPath));
         Parent root = loader.load();
         
         // Register controller

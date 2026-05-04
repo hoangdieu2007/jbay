@@ -60,8 +60,6 @@ public class ResponseHandler {
         controllerProvider.getController(ClientLoginRegisterController.class).updateLoginLabel("Login successful");
         try {
             ViewManager.displayScene("client/Seller-Bidder-HomeScreens.fxml");
-            controllerProvider.getController(SellerBidderHomeScreenController.class).initializeSellerUI();
-            controllerProvider.getController(SellerBidderHomeScreenController.class).initializeBidderUI();
         } catch (IOException e) {
             controllerProvider.getController(ClientLoginRegisterController.class).updateLoginLabel("Failed to display home screen");
             e.printStackTrace();
