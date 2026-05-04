@@ -32,10 +32,10 @@ public class SellerItemCardController {
     private void updateStatusUI(AuctionState status) {
         if (status == AuctionState.OPENING || status == AuctionState.RUNNING) {
             lblStatus.setText("Active");
-            lblStatus.setStyle("-fx-background-color: #fee2e2; -fx-text-fill: #ef4444; -fx-background-radius: 5; -fx-padding: 5 10 5 10;");
+            lblStatus.setStyle("-fx-background-color: #e0e7ff; -fx-text-fill: #2b5fe8; -fx-background-radius: 5; -fx-padding: 5 10 5 10;");
         } else {
             lblStatus.setText("Ended");
-            lblStatus.setStyle("-fx-background-color: #e0e7ff; -fx-text-fill: #2b5fe8; -fx-background-radius: 5; -fx-padding: 5 10 5 10;");
+            lblStatus.setStyle("-fx-background-color: #fee2e2; -fx-text-fill: #ef4444; -fx-background-radius: 5; -fx-padding: 5 10 5 10;");
         }
     }
 
