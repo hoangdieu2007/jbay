@@ -66,6 +66,10 @@ public class SellerBidderHomeScreenController {
         });
     }
 
+
+
+
+
     // LOG OUT
     @FXML private Button btnLogOut;
 
@@ -106,6 +110,7 @@ public class SellerBidderHomeScreenController {
         }
     }
 
+    @FXML
     private VBox createCardSeller(Auction auction) {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -180,7 +185,7 @@ public class SellerBidderHomeScreenController {
     /** ====BIDDER==== **/
     @FXML private FlowPane bidderFlowPane;
 
-
+    @FXML
     private VBox createCardBidder(Auction auction){
         try{
             FXMLLoader loader = new FXMLLoader();
