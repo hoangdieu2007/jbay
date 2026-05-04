@@ -29,7 +29,7 @@ public class ClientServerConnectController {
         try {
             ServerConnection.getInstance().connect(host, Integer.parseInt(port));
             connectLabel.setText("Connected to server");
-            ViewManager.displayScene("client/client-home-screen-view.fxml");
+            ViewManager.displayScene("client/client-login-register-view.fxml");
         } catch (IOException e) {
             connectLabel.setText("Failed to connect to server");
         }
