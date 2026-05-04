@@ -169,16 +169,15 @@ public class ClientBidderItemController {
 
     @FXML
     private void handleBack() {
-        // Lấy Home Controller từ Cache
-        SellerBidderHomeScreenController home = ControllerProvider.getInstance()
-                .getController(SellerBidderHomeScreenController.class);
-
-        // Ra lệnh mở Tab Bidder (Index 1)
-        if (home != null) home.selectTab(1);
-
         // Quay về màn hình Home
         try {
             ViewManager.getInstance().displayScene("client/Seller-Bidder-HomeScreens.fxml");
+            // Lấy Home Controller từ Cache
+            SellerBidderHomeScreenController home = ControllerProvider.getInstance()
+                    .getController(SellerBidderHomeScreenController.class);
+
+            // Ra lệnh mở Tab Bidder (Index 1)
+            if (home != null) home.selectTab(1);
         } catch (IOException e) { e.printStackTrace(); }
     }
 }
