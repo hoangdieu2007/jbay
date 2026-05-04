@@ -62,7 +62,7 @@ public class ClientSession {
         //Reset ttin user
         this.user = new User();
 
-        //Làm sac Map nhưng giữ nguyên thực thể và không làm đứt kết nối với Listener
+        //Làm sạch Map nhưng giữ nguyên thực thể và không làm đứt kết nối với Listener
         if (this.bidderAuctions != null) {
             this.bidderAuctions.clear();
         }

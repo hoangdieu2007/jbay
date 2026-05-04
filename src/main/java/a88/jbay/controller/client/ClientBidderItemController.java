@@ -39,6 +39,7 @@ public class ClientBidderItemController {
 
     private int currentAuctionId;
     private XYChart.Series<String, Number> priceSeries;
+    private final DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
 
     //Xử lí mục ID cho auction đang hoạt động
     public void setCurrentAuctionId(int id) {
@@ -67,8 +68,10 @@ public class ClientBidderItemController {
             // Cập nhật thông tin theo realtime
             itemNameLabel.setText(auction.getItem().getName());
             sellerLabel.setText(auction.getSellerName());
-            auctionTimeLabel.setText(auction.getStartTime() + " - " + auction.getEndTime());
-            itemDescription.setText(auction.getItem().getDescription()); // Cập nhật Description
+            String startTime = auction.getStartTime().format(displayFormatter);
+            String endTime = auction.getEndTime().format(displayFormatter);
+            auctionTimeLabel.setText(startTime + " - " + endTime);
+            itemDescription.setText(auction.getItem().getDescription());
 
             // Cập nhật giá
             currentPriceLabel.setText(String.format("%.2f USD", auction.getCurrentPrice()));

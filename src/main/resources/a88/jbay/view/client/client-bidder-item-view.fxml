@@ -39,55 +39,62 @@
                 <RowConstraints maxHeight="61.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Label text="Item Name:" GridPane.rowIndex="2">
-                    <font>
-                        <Font name="System Bold" size="14.0" />
-                    </font></Label>
                 <Label text="Current Price:" GridPane.rowIndex="3">
                     <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font name="System Bold" size="16.0" />
                     </font>
                 </Label>
                 <Label text="Your Bid:" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                     <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font name="System Bold" size="16.0" />
                     </font>
                     <GridPane.margin>
                         <Insets bottom="15.0" />
                     </GridPane.margin>
                 </Label>
-                <Label fx:id="itemNameLabel" prefHeight="15.0" prefWidth="125.0" text="Item name" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                <Label fx:id="currentPriceLabel" prefHeight="25.0" prefWidth="206.0" text="current price(USD)" GridPane.columnIndex="1" GridPane.rowIndex="3">
                     <font>
-                        <Font size="14.0" />
-                    </font>
-                </Label>
-                <Label fx:id="currentPriceLabel" prefHeight="20.0" prefWidth="125.0" text="current price(USD)" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                    <font>
-                        <Font size="14.0" />
+                        <Font name="System Bold" size="16.0" />
                     </font>
                 </Label>
                 <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                     <children>
-                        <Label fx:id="errorLabel" managed="false" prefHeight="18.0" prefWidth="160.0" style="-fx-text-fill: red;" text="Invalid Bid" textFill="#ed0c0c">
+                        <TextField fx:id="bidInput" prefHeight="35.0" prefWidth="179.0" promptText="Enter Your Bid(USD)" />
+                        <Label fx:id="errorLabel" prefHeight="18.0" prefWidth="160.0" style="-fx-text-fill: red;" text="Invalid Bid" visible="false">
                             <font>
                                 <Font name="System Bold" size="12.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="bidInput" prefHeight="35.0" prefWidth="179.0" promptText="Enter Your Bid(USD)" />
                     </children>
                 </VBox>
-                <Label text="Seller:">
+                <Label text="Seller:" GridPane.rowIndex="2">
                     <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font name="System Bold" size="16.0" />
                     </font>
                 </Label>
-                <Label fx:id="sellerLabel" text="Seller Name/Id" GridPane.columnIndex="1" />
+                <Label fx:id="sellerLabel" prefHeight="25.0" prefWidth="207.0" text="Seller Name/Id" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font></Label>
                 <Label text="Auction Time:" GridPane.rowIndex="1">
                     <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font name="System Bold" size="16.0" />
                     </font>
                 </Label>
-                <Label fx:id="auctionTimeLabel" text="StartTime-EndTime" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label fx:id="auctionTimeLabel" prefHeight="25.0" prefWidth="205.0" text="StartTime-EndTime" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font></Label>
+                <Label text="Item Name:">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font>
+                </Label>
+                <Label fx:id="itemNameLabel" prefHeight="25.0" prefWidth="204.0" text="Item name" GridPane.columnIndex="1">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font>
+                </Label>
             </children>
         </GridPane>
 
@@ -102,7 +109,7 @@
 
         <TextArea fx:id="itemDescription" editable="false" layoutX="30.0" layoutY="295.0" prefHeight="132.0" prefWidth="281.0" promptText="Item description" wrapText="true" />
 
-        <Button fx:id="placeBidButton" layoutX="485.0" layoutY="402.0" mnemonicParsing="false" onAction="#handlePlaceBid" prefHeight="31.0" prefWidth="79.0" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="Place Bid">
+        <Button fx:id="placeBidButton" layoutX="481.0" layoutY="412.0" mnemonicParsing="false" onAction="#handlePlaceBid" prefHeight="31.0" prefWidth="79.0" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="Place Bid">
             <font>
                 <Font size="14.0" />
             </font></Button>
@@ -110,9 +117,9 @@
         <HBox alignment="CENTER_LEFT" layoutY="-1.0" prefHeight="42.0" prefWidth="699.0" style="-fx-background-color: #2196F3;">
             <children>
                 <Button mnemonicParsing="false" onAction="#handleBack" prefHeight="34.0" prefWidth="59.0" style="-fx-background-color: white; -fx-text-fill: #007bff; -fx-background-radius: 15; -fx-font-weight: bold;" text="BACK">
-               <font>
-                  <Font size="14.0" />
-               </font></Button>
+                    <font>
+                        <Font size="14.0" />
+                    </font></Button>
             </children>
             <padding>
                 <Insets left="5.0" />
