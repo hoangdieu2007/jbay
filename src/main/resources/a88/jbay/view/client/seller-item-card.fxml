@@ -17,10 +17,10 @@
 
         <HBox alignment="CENTER_LEFT" prefHeight="22.0" prefWidth="298.0" spacing="10.0">
             <children>
-                <Label fx:id="lblName" prefHeight="23.0" prefWidth="96.0" text="ItemName" HBox.hgrow="ALWAYS">
+                <Label fx:id="lblName" prefHeight="26.0" text="ItemName" HBox.hgrow="ALWAYS">
                     <font><Font name="System Bold" size="20.0" /></font>
                 </Label>
-                <Region prefHeight="23.0" prefWidth="84.0" />
+                <Region prefHeight="26.0" prefWidth="96.0" />
                 <Label fx:id="lblStatus" style="-fx-background-color: #D1FAE5; -fx-text-fill: #065F46; -fx-padding: 3 8; -fx-background-radius: 5;" text="Status" />
             </children>
             <padding>
@@ -29,7 +29,7 @@
         </HBox>
         <HBox prefHeight="56.0" prefWidth="298.0">
             <children>
-                <Label prefHeight="56.0" prefWidth="99.0" text="Highest Bid" textFill="#dd2121">
+                <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="56.0" text="Highest Bid" textFill="#dd2121">
                     <font>
                         <Font name="System Bold" size="20.0" />
                     </font>
@@ -37,7 +37,7 @@
                         <Insets />
                     </HBox.margin>
                 </Label>
-                <Region prefHeight="49.0" prefWidth="74.0" />
+                <Region prefHeight="56.0" prefWidth="91.0" />
                 <Label fx:id="lblPrice" alignment="CENTER" prefHeight="76.0" prefWidth="98.0" text="Price" textAlignment="CENTER">
                     <font>
                         <Font size="20.0" />
@@ -50,13 +50,13 @@
         </HBox>
         <HBox prefHeight="50.0" prefWidth="298.0">
             <children>
-                <Label prefHeight="66.0" prefWidth="97.0" text="Top Bidder">
+                <Label minWidth="-Infinity" prefHeight="66.0" text="Top Bidder">
                     <font>
                         <Font name="System Bold" size="20.0" />
                     </font>
                 </Label>
-                <Region prefHeight="31.0" prefWidth="49.0" />
-                <Label fx:id="lblHighestBidderName" alignment="CENTER" prefHeight="60.0" prefWidth="136.0" text="BidderName" textAlignment="CENTER">
+                <Region prefHeight="50.0" prefWidth="71.0" />
+                <Label fx:id="lblHighestBidderName" alignment="CENTER" prefHeight="50.0" prefWidth="148.0" text="BidderName" textAlignment="CENTER">
                     <font>
                         <Font size="20.0" />
                     </font>
