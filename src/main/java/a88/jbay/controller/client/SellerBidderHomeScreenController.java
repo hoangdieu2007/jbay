@@ -46,8 +46,11 @@ public class SellerBidderHomeScreenController {
      * index = 1: Tab Bidder
      */
     public void selectTab(int index) {
+        System.out.println("selectTab called with index: " + index);
+        System.out.println("mainTabPane is null: " + (mainTabPane == null));
         if (mainTabPane != null) {
             mainTabPane.getSelectionModel().select(index);
+            System.out.println("Tab selection completed");
         }
     }
 

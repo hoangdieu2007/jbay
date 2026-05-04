@@ -172,12 +172,19 @@ public class ClientBidderItemController {
         // Quay về màn hình Home
         try {
             ViewManager.getInstance().displayScene("client/Seller-Bidder-HomeScreens.fxml");
-            // Lấy Home Controller từ Cache
-            SellerBidderHomeScreenController home = ControllerProvider.getInstance()
-                    .getController(SellerBidderHomeScreenController.class);
 
-            // Ra lệnh mở Tab Bidder (Index 1)
-            if (home != null) home.selectTab(1);
+            Platform.runLater(() -> {
+                System.out.println("Looking for SellerBidderHomeScreenController...");
+                SellerBidderHomeScreenController home = ControllerProvider.getInstance()
+                        .getController(SellerBidderHomeScreenController.class);
+
+                if (home != null) {
+                    System.out.println("Found controller, selecting tab 1...");
+                    home.selectTab(1);
+                } else {
+                    System.out.println("Controller not found!");
+                }
+            });
         } catch (IOException e) { e.printStackTrace(); }
     }
 }

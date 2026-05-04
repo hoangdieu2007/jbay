@@ -17,7 +17,7 @@
 
 <BorderPane prefHeight="472.0" prefWidth="699.0" style="-fx-border-radius: 60;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.SellerBidderHomeScreenController">
    <center>
-      <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="461.0" prefWidth="699.0" style="-fx-background-color: #C9F7F6;" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="mainTabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="461.0" prefWidth="699.0" style="-fx-background-color: #C9F7F6;" tabClosingPolicy="UNAVAILABLE">
           <tabs>
               <Tab text="Seller">
                   <content>
