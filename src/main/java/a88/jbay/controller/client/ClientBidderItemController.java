@@ -146,7 +146,8 @@ public class ClientBidderItemController {
 
             // GỬI REQUEST
             Request req = new Request(RequestType.BID);
-            req.put("auctionID", currentAuctionId);
+            req.put("userId", ClientSession.getInstance().getUser().getId());
+            req.put("auctionId", currentAuctionId);
             req.put("amount", bidAmount);
 
             ServerConnection.getInstance().send(req);
