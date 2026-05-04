@@ -26,50 +26,6 @@ import java.io.IOException;
 import java.util.*;
 
 public class SellerBidderHomeScreenController {
-    // khởi tạo dsach động
-    private ObservableList<Auction> auctionObservableList = FXCollections.observableArrayList();
-    private ObservableList<Auction> sellerAuctionObservableList = FXCollections.observableArrayList();
-
-    // ==== Xử lý thông tin từ Server qua Socket===
-    // 1. Nạp toàn bộ dữ liệu lần đầu (Chạy lúc vừa mở form)
-    // Thằng Socket sau khi query Database lấy List<Auction> sẽ gọi hàm này
-    public void loadInitialData(List<Auction> initialList) {
-        javafx.application.Platform.runLater(() -> {
-            auctionObservableList.clear(); // Xóa rác cũ nếu có
-            auctionObservableList.addAll(initialList); // Kích nổ wasAdded() hàng loạt
-        });
-    }
-
-    // 2. Hứng 1 phiên đấu giá mới toanh (Real-time)
-    // Thằng Socket nhận tin báo có Seller vừa đăng bài sẽ ném Object vào đây
-    public void onNewAuctionReceived(Auction newAuction) {
-        javafx.application.Platform.runLater(() -> {
-            auctionObservableList.add(newAuction); // Kích nổ wasAdded() tạo 1 thẻ nối đuôi
-        });
-    }
-
-    // 3. Hứng dữ liệu cập nhật: Lên giá hoặc Hết giờ (Real-time)
-    // Thằng Socket nhận tin báo có người Bid, hoặc Server báo Ended sẽ ném Object đã update vào đây
-    public void onAuctionUpdated(Auction updatedAuction) {
-        javafx.application.Platform.runLater(() -> {
-            // Quét tìm cái thẻ cũ đang nằm ở vị trí nào
-            for (int i = 0; i < auctionObservableList.size(); i++) {
-                if (auctionObservableList.get(i).getId() == updatedAuction.getId()) {
-
-                    // Ghi đè Object mới vào vị trí cũ -> Kích nổ wasReplaced()
-                    auctionObservableList.set(i, updatedAuction);
-
-                    // Tìm thấy và đè xong rồi thì thoát vòng lặp luôn cho tối ưu
-                    break;
-                }
-            }
-        });
-    }
-
-
-
-
-
     // LOG OUT
     @FXML private Button btnLogOut;
 
