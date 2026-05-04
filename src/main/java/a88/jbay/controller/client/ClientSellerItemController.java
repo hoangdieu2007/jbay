@@ -304,16 +304,13 @@ public class ClientSellerItemController {
 
     @FXML
     private void handleBack() {
-        // Lấy Home Controller từ Cache
-        SellerBidderHomeScreenController home = ControllerProvider.getInstance()
-                .getController(SellerBidderHomeScreenController.class);
+        // Chỉ định tab cần mở khi quay về là Seller
+        SellerBidderHomeScreenController.targetTabIndex = 0;
 
-        // Ra lệnh mở Tab Seller (Index 0)[cite: 1, 2]
-        if (home != null) home.selectTab(0);
-
-        // Quay về màn hình Home
         try {
-            ViewManager.getInstance().displayScene("/a88/jbay/view/client/Seller-Bidder-HomeScreens.fxml");
-        } catch (IOException e) { e.printStackTrace(); }
+            ViewManager.displayScene("client/Seller-Bidder-HomeScreens.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -2,6 +2,7 @@ package a88.jbay.controller.client;
 
 import a88.jbay.client.ClientSession;
 import a88.jbay.client.ServerConnection;
+import a88.jbay.controller.ControllerProvider;
 import a88.jbay.model.event.Auction;
 import a88.jbay.model.network.Request;
 import a88.jbay.model.network.RequestType;
@@ -41,18 +42,23 @@ public class SellerBidderHomeScreenController {
 
     //Xử lí phần quay trở lại vào màn hình
     @FXML private TabPane mainTabPane;
-
+    public static int targetTabIndex = 0;
     /*
      * index = 0: Tab Seller
      * index = 1: Tab Bidder
      */
-    public void selectTab(int index) {
-        System.out.println("selectTab called with index: " + index);
-        System.out.println("mainTabPane is null: " + (mainTabPane == null));
+    @FXML
+    public void initialize() {
+        // Đăng ký chính nó vào Provider
+        ControllerProvider.getInstance().registerController(this);
+
+        // Tự động chọn tab dựa trên biến targetTabIndex ngay khi vừa load xong
         if (mainTabPane != null) {
-            mainTabPane.getSelectionModel().select(index);
-            System.out.println("Tab selection completed");
+            mainTabPane.getSelectionModel().select(targetTabIndex);
         }
+
+        initializeSellerUI();
+        initializeBidderUI();
     }
 
     /** ====SELLER==== **/
@@ -210,11 +216,5 @@ public class SellerBidderHomeScreenController {
                 }
 
         });
-    }
-
-    @FXML
-    public void initialize() {
-        initializeSellerUI();
-        initializeBidderUI();
     }
 }

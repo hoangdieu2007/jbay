@@ -107,7 +107,10 @@
             </yAxis>
         </LineChart>
 
-        <TextArea fx:id="itemDescription" editable="false" layoutX="30.0" layoutY="295.0" prefHeight="132.0" prefWidth="281.0" promptText="Item description" wrapText="true" />
+        <TextArea fx:id="itemDescription" editable="false" layoutX="30.0" layoutY="295.0" prefHeight="132.0" prefWidth="281.0" promptText="Item description" wrapText="true">
+         <font>
+            <Font size="16.0" />
+         </font></TextArea>
 
         <Button fx:id="placeBidButton" layoutX="481.0" layoutY="412.0" mnemonicParsing="false" onAction="#handlePlaceBid" prefHeight="31.0" prefWidth="79.0" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="Place Bid">
             <font>

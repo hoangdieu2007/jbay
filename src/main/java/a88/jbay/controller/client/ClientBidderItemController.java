@@ -176,22 +176,13 @@ public class ClientBidderItemController {
 
     @FXML
     private void handleBack() {
-        // Quay về màn hình Home
+        // Chỉ định tab cần mở khi quay về là Bidder
+        SellerBidderHomeScreenController.targetTabIndex = 1;
+
         try {
-            ViewManager.getInstance().displayScene("client/Seller-Bidder-HomeScreens.fxml");
-
-            Platform.runLater(() -> {
-                System.out.println("Looking for SellerBidderHomeScreenController...");
-                SellerBidderHomeScreenController home = ControllerProvider.getInstance()
-                        .getController(SellerBidderHomeScreenController.class);
-
-                if (home != null) {
-                    System.out.println("Found controller, selecting tab 1...");
-                    home.selectTab(1);
-                } else {
-                    System.out.println("Controller not found!");
-                }
-            });
-        } catch (IOException e) { e.printStackTrace(); }
+            ViewManager.displayScene("client/Seller-Bidder-HomeScreens.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
