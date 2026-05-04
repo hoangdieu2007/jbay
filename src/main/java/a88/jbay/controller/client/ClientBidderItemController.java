@@ -178,7 +178,7 @@ public class ClientBidderItemController {
 
         // Quay về màn hình Home
         try {
-            ViewManager.getInstance().displayScene("/a88/jbay/view/client/Seller-Bidder-HomeScreens.fxml");
+            ViewManager.getInstance().displayScene("client/Seller-Bidder-HomeScreens.fxml");
         } catch (IOException e) { e.printStackTrace(); }
     }
 }
