@@ -131,7 +131,7 @@ public class SellerBidderHomeScreenController {
 
         int initIndex = 0;
         for (Auction auction : sellerMap.values()) {
-            VBox newCard = createCardBidder(auction);
+            VBox newCard = createCardSeller(auction);
             if (newCard != null) {
                 sellerCardBox.put(auction.getId(), newCard);
                 sellerFlowPane.getChildren().add(initIndex++, newCard);
