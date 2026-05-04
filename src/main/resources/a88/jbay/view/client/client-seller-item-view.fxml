@@ -69,7 +69,7 @@
                   <HBox spacing="5">
                      <children>
                         <ComboBox fx:id="startChoiceCombo" prefHeight="25.0" prefWidth="40.0" />
-                        <TextField fx:id="startStr" prefHeight="27.0" prefWidth="159.0" promptText="dd/MM/yyyy HH:mm" />
+                        <TextField fx:id="startStr" prefHeight="27.0" prefWidth="159.0" promptText="dd/MM HH:mm" />
                      </children>
                   </HBox>
                   <Label fx:id="startErrorLabel" style="-fx-text-fill: red;" text="Invalid Time" visible="false"><font><Font name="System Bold" size="11.0" /></font></Label>

@@ -1,7 +1,6 @@
 package a88.jbay.controller.client;
 
 import a88.jbay.client.ServerConnection;
-import a88.jbay.controller.ControllerProvider;
 import a88.jbay.model.ImageProcessor;
 import a88.jbay.model.entity.item.Item;
 import a88.jbay.model.network.Request;
@@ -54,7 +53,7 @@ public class ClientSellerItemController {
     private Label typeErrorLabel;
 
     private File selectedImageFile;
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
 
     private boolean validateInputs() {
         //Reset lại các lỗi
@@ -114,7 +113,7 @@ public class ClientSellerItemController {
                     return false;
                 }
             } catch (DateTimeParseException e) {
-                startErrorLabel.setText("Wrong format! Use dd/MM/yyyy HH:mm");
+                startErrorLabel.setText("Wrong format! Use dd/MM HH:mm");
                 startErrorLabel.setVisible(true);
                 return false;
             }
@@ -162,27 +161,23 @@ public class ClientSellerItemController {
 
     //Hàm tính toán startTime
     private LocalDateTime calculateStartTime() {
-        String choice = startChoiceCombo.getValue();
-        if ("Now".equals(choice)) {
+        try {
+            // Luôn ưu tiên parse từ TextField vì nó đã được đồng bộ với ComboBox
+            return LocalDateTime.parse(startStr.getText().trim(), formatter);
+        } catch (DateTimeParseException e) {
             return LocalDateTime.now();
         }
-        // Vì đã validate ở bước trước, nên parse ở đây chắc chắn an toàn
-        return LocalDateTime.parse(startStr.getText().trim(), formatter);
     }
 
     //Hàm tính toán endTime
     private LocalDateTime calculateEndTime(LocalDateTime start) {
-        int days = 0;
-        String choice = runChoiceCombo.getValue();
-
-        if ("Custom time".equals(choice)) {
-            days = Integer.parseInt(runStr.getText().trim());
-        } else {
-            // Tách lấy số từ chuỗi "3 days" -> "3"
-            days = Integer.parseInt(choice.split(" ")[0]);
+        try {
+            int days = Integer.parseInt(runStr.getText().trim());
+            // Java tự động xử lý cộng ngày và nhảy tháng/năm thông minh
+            return start.plusDays(days);
+        } catch (NumberFormatException e) {
+            return start.plusDays(1);
         }
-
-        return start.plusDays(days);
     }
 
     //Hàm khởi tạo đối tượng item
@@ -207,24 +202,30 @@ public class ClientSellerItemController {
         setupCompactComboBox(startChoiceCombo);
         setupCompactComboBox(runChoiceCombo);
 
-        // Khi chọn ở ComboBox, tự điền giá trị vào TextField kế bên
+        // CẬP NHẬT TEXTFIELD KHI CHỌN COMBOBOX START
         startChoiceCombo.setOnAction(e -> {
             String selected = startChoiceCombo.getValue();
-            if (!"Custom time".equals(selected)) {
-                startStr.setText(selected);
+            if ("Now".equals(selected)) {
+                // Tự động điền thời gian hiện tại và khóa ô nhập
+                startStr.setText(LocalDateTime.now().format(formatter));
+                startStr.setEditable(false);
             } else {
                 startStr.clear();
-                startStr.requestFocus(); // Nhảy con trỏ vào để người dùng nhập
+                startStr.setEditable(true);
+                startStr.requestFocus();
             }
         });
 
+        // CẬP NHẬT TEXTFIELD KHI CHỌN COMBOBOX RUN TIME
         runChoiceCombo.setOnAction(e -> {
             String selected = runChoiceCombo.getValue();
             if (!"Custom time".equals(selected)) {
-                // Tách lấy số
+                // Tách lấy số (ví dụ "3 days" -> "3")
                 runStr.setText(selected.split(" ")[0]);
+                runStr.setEditable(false);
             } else {
                 runStr.clear();
+                runStr.setEditable(true);
                 runStr.requestFocus();
             }
         });
