@@ -72,7 +72,7 @@ public class SellerBidderHomeScreenController {
     @FXML
     private void handleLogOut(){
         try {
-            Response response = ServerConnection.getInstance().send(new Request(RequestType.LOGOUT));
+            ServerConnection.getInstance().send(new Request(RequestType.LOGOUT));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
