@@ -1,6 +1,7 @@
 package a88.jbay.client;
 
 import a88.jbay.model.network.Request;
+import a88.jbay.model.network.RequestType;
 import a88.jbay.model.network.Response;
 import javafx.application.Platform;
 
@@ -60,5 +61,15 @@ public class ServerConnection {
         });
 
         listener.start();
+    }
+
+    public void disconnect() {
+        try {
+            send(new Request(RequestType.MISC)
+                    .put("disconnect", true));
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

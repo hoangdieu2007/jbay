@@ -67,6 +67,8 @@ public class ClientHandler implements Runnable {
                 } catch (IOException e) {
                     if (!socket.isClosed()) {
                         System.err.println("Client connection error: " + e.getMessage());
+                    } else {
+                        System.err.println("Client disconnected");
                     }
                     break;
                 }
@@ -241,6 +243,9 @@ public class ClientHandler implements Runnable {
         switch ((String) request.get("command")) {
             case "ls-auction":
                 return new Response(true, "LIST_AUCTION_SUCCESS", auctionSystem.listActiveAuctions());
+            case "disconnect":
+                Thread.currentThread().interrupt();
+                return null;
             default:
                 return new Response(false, "INVALID_MISC_COMMAND", null);
         }

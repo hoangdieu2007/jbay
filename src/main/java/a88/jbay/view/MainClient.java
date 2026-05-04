@@ -3,6 +3,7 @@ package a88.jbay.view;
 import a88.jbay.client.ClientSession;
 import a88.jbay.client.ServerConnection;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,6 +14,12 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 
 public class MainClient extends Application {
+    @Override
+    public void stop() {
+        ServerConnection.getInstance().close();
+    }
+
+
     @Override
     public void start(Stage stage) throws IOException {
 
@@ -47,6 +54,8 @@ public class MainClient extends Application {
                 stage.setResizable(false);
                 stage.getIcons().add(new Image(MainClient.class.getResourceAsStream("/a88/jbay/image/logo-no-bg.png")));
                 stage.setTitle("Auction88's jBay");
+                stage.setOnCloseRequest(event -> Platform.exit());
+
 
                 viewManager.setPrimaryStage(stage);
                 viewManager.displayScene("client/client-server-connect-view.fxml", 600, 400);
@@ -61,6 +70,7 @@ public class MainClient extends Application {
         });
 
         Thread loadingThread = new Thread(loadingTask);
+        loadingThread.setDaemon(true);
         loadingThread.start();
     }
 }
