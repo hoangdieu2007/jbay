@@ -16,7 +16,7 @@ import java.io.IOException;
 public class MainClient extends Application {
     @Override
     public void stop() {
-        ServerConnection.getInstance().close();
+        ServerConnection.getInstance().disconnect();
     }
 
 
