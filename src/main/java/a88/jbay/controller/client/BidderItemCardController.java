@@ -71,6 +71,7 @@ public class BidderItemCardController {
             statusLabel.setStyle("-fx-background-color: #fee2e2; -fx-text-fill: #ef4444; -fx-background-radius: 5; -fx-padding: 5 10 5 10;");
             bidButton.setDisable(true); // Nếu kết thúc rồi thì khóa nút Bid lại, logic cơ bản.
         } else {
+            statusLabel.setText("Active");
             statusLabel.setStyle("-fx-background-color: #e0e7ff; -fx-text-fill: #2b5fe8; -fx-background-radius: 5; -fx-padding: 5 10 5 10;");
             bidButton.setDisable(false);
         }
