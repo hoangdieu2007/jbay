@@ -30,14 +30,6 @@ public class MainClient extends Application {
             protected Void call() throws Exception {
                 //loading
 
-                //serverconnection setup
-                try {
-                    ServerConnection.getInstance().connect("localhost", 1234);
-                    ServerConnection.getInstance().startListener();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-
                 //client session setup
                 ClientSession clientSession = ClientSession.getInstance();
 
@@ -54,10 +46,10 @@ public class MainClient extends Application {
             try {
                 stage.setResizable(false);
                 stage.getIcons().add(new Image(MainClient.class.getResourceAsStream("/a88/jbay/image/logo-no-bg.png")));
-                stage.setTitle("Login to jBay");
+                stage.setTitle("Auction88's jBay");
 
                 viewManager.setPrimaryStage(stage);
-                viewManager.displayScene("client/client-login-register-view.fxml", 600, 400);
+                viewManager.displayScene("client/client-server-connect-view.fxml", 600, 400);
             } catch (IOException exception) {
                 exception.printStackTrace();
             }
