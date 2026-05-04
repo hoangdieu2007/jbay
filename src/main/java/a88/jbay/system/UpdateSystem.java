@@ -81,6 +81,7 @@ public class UpdateSystem {
                 //synchronized to prevent concurrent modification exception
                 synchronized (out) {
                     try {
+                        out.reset();
                         out.writeObject(response);
                         out.flush();
                     } catch (IOException e) {
@@ -128,6 +129,7 @@ public class UpdateSystem {
         for (ObjectOutputStream out : sessions) {
             synchronized (out) {
                 try {
+                    out.reset();
                     out.writeObject(response);
                     out.flush();
                 } catch (IOException e) {

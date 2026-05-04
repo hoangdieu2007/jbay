@@ -72,6 +72,10 @@ public class Auction implements Subject, Serializable {
         return endTime;
     }
 
+    public List<BidTransaction> getBidHistory() {
+        return bidHistory;
+    }
+
     public String toString() {
         return Integer.toString(id) + " - " + item.toString() + seller + " - " + startPrice + " - " + currentPrice + " - " + winner + " - " + startTime.toString() + endTime.toString() + auctionState.name();
     }
@@ -132,6 +136,7 @@ public class Auction implements Subject, Serializable {
     }
 
     public void notifyObservers() {
+        System.out.println("Update: " + this);
         UpdateSystem.getInstance().notifySubscribers(this, observers);
     }
 

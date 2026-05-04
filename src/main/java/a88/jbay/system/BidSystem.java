@@ -2,6 +2,7 @@ package a88.jbay.system;
 
 import a88.jbay.dao.AuctionDAO;
 import a88.jbay.dao.BidDAO;
+import a88.jbay.dao.UserDAO;
 import a88.jbay.model.event.Auction;
 import a88.jbay.model.event.AuctionState;
 import a88.jbay.model.event.BidTransaction;
@@ -40,7 +41,7 @@ public class BidSystem {
             return false;
         }
 
-        BidTransaction tx = new BidTransaction(userId, amount, LocalDateTime.now());
+        BidTransaction tx = new BidTransaction(userId, UserDAO.getInstance().findByUserId(userId).username(), amount, LocalDateTime.now());
         auction.subscribe(userId); // bidder is automatically subscribed
         auction.updatePrice(amount, tx);
 

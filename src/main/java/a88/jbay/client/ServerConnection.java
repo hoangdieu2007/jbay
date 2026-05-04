@@ -39,6 +39,7 @@ public class ServerConnection {
 
     //methods for sending requests
     public synchronized void send(Request request) throws IOException {
+        out.reset();
         out.writeObject(request);
         out.flush();
     }
@@ -54,6 +55,7 @@ public class ServerConnection {
                 }
             } catch (Exception e) {
                 System.out.println("Disconnected from server");
+                e.printStackTrace();
             }
         });
 

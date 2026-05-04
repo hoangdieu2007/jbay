@@ -78,7 +78,7 @@ public class AuctionSystem {
             java.util.Set<Integer> bidders = new java.util.HashSet<>();
             
             for (BidDAO.BidData bidData : bidHistory) {
-                BidTransaction tx = new BidTransaction(bidData.userId(), bidData.amount(), bidData.time());
+                BidTransaction tx = new BidTransaction(bidData.userId(), userDAO.findByUserId(bidData.userId()).username(), bidData.amount(), bidData.time());
                 auction.updatePrice(bidData.amount(), tx);
                 bidders.add(bidData.userId());
             }
@@ -291,7 +291,7 @@ public class AuctionSystem {
         java.util.Set<Integer> bidders = new java.util.HashSet<>();
         
         for (BidDAO.BidData bidData : bidHistory) {
-            BidTransaction tx = new BidTransaction(bidData.userId(), bidData.amount(), bidData.time());
+            BidTransaction tx = new BidTransaction(bidData.userId(), userDAO.findByUserId(bidData.userId()).username(), bidData.amount(), bidData.time());
             auction.updatePrice(bidData.amount(), tx);
             bidders.add(bidData.userId());
         }

@@ -32,7 +32,8 @@ public class SellerBidderHomeScreenController {
     @FXML
     private void handleLogOut(){
         try {
-            ServerConnection.getInstance().send(new Request(RequestType.LOGOUT));
+            ServerConnection.getInstance().send(new Request(RequestType.LOGOUT)
+                    .put("sessionId", ClientSession.getInstance().getUser().getSessionId()));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

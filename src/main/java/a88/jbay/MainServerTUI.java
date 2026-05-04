@@ -2,6 +2,7 @@ package a88.jbay;
 
 import a88.jbay.dao.AuctionDAO;
 import a88.jbay.dao.UserDAO;
+import a88.jbay.model.event.Auction;
 import a88.jbay.server.ClientHandler;
 import a88.jbay.server.ClientService;
 import a88.jbay.system.AuctionSystem;
@@ -79,6 +80,12 @@ public class MainServerTUI {
 
                             System.out.println("Auction ID:");
                             auctionId = sc.nextInt();
+
+                            if (auctionId == -1) {
+                                for (Auction auction : AuctionSystem.getInstance().getActiveAuctionList()) {
+                                    System.out.println(auction);
+                                }
+                            }
 
                             break;
                         default:

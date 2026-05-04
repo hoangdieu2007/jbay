@@ -5,6 +5,9 @@ import a88.jbay.controller.client.ClientLoginRegisterController;
 import a88.jbay.controller.client.SellerBidderHomeScreenController;
 import a88.jbay.model.entity.user.User;
 import a88.jbay.model.event.Auction;
+import a88.jbay.model.event.BidTransaction;
+import a88.jbay.model.network.Request;
+import a88.jbay.model.network.RequestType;
 import a88.jbay.model.network.Response;
 import a88.jbay.view.ViewManager;
 
@@ -58,8 +61,12 @@ public class ResponseHandler {
     public void handleLoginSuccess(Response response) {
         clientSession.setUser((User) response.getPayload());
         controllerProvider.getController(ClientLoginRegisterController.class).updateLoginLabel("Login successful");
+
         try {
             ViewManager.displayScene("client/Seller-Bidder-HomeScreens.fxml");
+
+            ServerConnection.getInstance().send(new Request(RequestType.GET_AUCTIONS)
+                    .put("userId", clientSession.getUser().getId()));
         } catch (IOException e) {
             controllerProvider.getController(ClientLoginRegisterController.class).updateLoginLabel("Failed to display home screen");
             e.printStackTrace();
@@ -111,7 +118,17 @@ public class ResponseHandler {
 
     private void handleAuctionUpdate(Response response) {
         Auction auction = (Auction) response.getPayload();
-        clientSession.getBidderAuctions().put(auction.getId(), auction);
-        clientSession.getSellerAuctions().put(auction.getId(), auction);
+
+        System.out.println(auction);
+        System.out.println("Bid List:");
+        for (BidTransaction bid : auction.getBidHistory()) {
+            System.out.println(bid);
+        }
+
+        if (clientSession.getUser().getUsername().equals(auction.getSellerName())) {
+            clientSession.getSellerAuctions().put(auction.getId(), auction);
+        } else {
+            clientSession.getBidderAuctions().put(auction.getId(), auction);
+        }
     }
 }

@@ -5,6 +5,7 @@ import a88.jbay.client.ServerConnection;
 import a88.jbay.controller.ControllerProvider;
 import a88.jbay.model.ImageProcessor;
 import a88.jbay.model.event.Auction;
+import a88.jbay.model.event.BidTransaction;
 import a88.jbay.model.network.Request;
 import a88.jbay.model.network.RequestType;
 import a88.jbay.view.ViewManager;
@@ -73,9 +74,11 @@ public class ClientBidderItemController {
             currentPriceLabel.setText(String.format("%.2f USD", auction.getCurrentPrice()));
 
             // Vẽ biểu đồ
-            String time = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-            priceSeries.getData().add(new XYChart.Data<>(time, auction.getCurrentPrice()));
-            if (priceSeries.getData().size() > 15) priceSeries.getData().remove(0);
+            for (BidTransaction bid : auction.getBidHistory()) {
+                String time = bid.getTimestamp().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+                priceSeries.getData().add(new XYChart.Data<>(time, bid.getAmt()));
+                if (priceSeries.getData().size() > 15) priceSeries.getData().remove(0);
+            }
 
             // Cập nhật ảnh
             if (auction.getItem().getImage() != null) {

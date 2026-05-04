@@ -57,6 +57,7 @@ public class ClientHandler implements Runnable {
 
                     //prevent crash when update and response sends at the same time
                     synchronized (out) {
+                        out.reset();
                         out.writeObject(response);
                         out.flush();
                     }
@@ -109,6 +110,7 @@ public class ClientHandler implements Runnable {
             case CANCEL -> handleCancel(request);
             case SUBSCRIBE_AUCTION -> handleSubscribeAuction(request);
             case UNSUBSCRIBE_AUCTION -> handleUnsubscribeAuction(request);
+            case GET_AUCTIONS -> handleGetAuctions(request);
             case MISC -> handleMisc(request);
             default -> new Response(false, "Unsupported request", null);
         };
@@ -131,10 +133,12 @@ public class ClientHandler implements Runnable {
             //register user session to the systems and update their auctions
             UserSystem.getInstance().addActiveUser(user.getId(), user);
             UpdateSystem.getInstance().register(user.getId(), out);
-            UpdateSystem.getInstance().updateAllAuctions(user.getId());
 
+            System.out.println("Login successful");
+            System.out.println(user + " " + user.getSessionId());
             return new Response(true, "LOGIN_SUCCESS", user);
         }
+        System.out.println("Login failed");
         return new Response(false, "LOGIN_FAIL", null);
     }
 
@@ -225,6 +229,11 @@ public class ClientHandler implements Runnable {
         cleanupCurrentUserSession();
         userSystem.logout(sessionId);
         return new Response(true, "LOGOUT_SUCCESS", null);
+    }
+
+    private Response handleGetAuctions(Request request) {
+        UpdateSystem.getInstance().updateAllAuctions((int) request.get("userId"));
+        return new Response(true, "GET_AUCTIONS_SUCCESS", null);
     }
 
     //misc commands
