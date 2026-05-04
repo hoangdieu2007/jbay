@@ -28,6 +28,7 @@ public class ClientServerConnectController {
         String port = portTextField.getText();
         try {
             ServerConnection.getInstance().connect(host, Integer.parseInt(port));
+            ServerConnection.getInstance().startListener();
             connectLabel.setText("Connected to server");
             ViewManager.displayScene("client/client-login-register-view.fxml");
         } catch (IOException e) {
