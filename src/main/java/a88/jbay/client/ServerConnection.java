@@ -32,7 +32,7 @@ public class ServerConnection {
 
     public void connect(String host, int port) throws UnknownHostException, IOException {
         socket = new Socket(host, port);
-        socket.setSoTimeout(60000); // 60 second read timeout
+        socket.setSoTimeout(120000); // 60 second read timeout
         socket.setKeepAlive(true);  // Enable TCP keep-alive
         out = new ObjectOutputStream(socket.getOutputStream());
         out.flush();

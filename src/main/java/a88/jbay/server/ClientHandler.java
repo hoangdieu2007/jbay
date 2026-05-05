@@ -43,6 +43,8 @@ public class ClientHandler implements Runnable {
         ObjectInputStream in = null;
         
         try {
+            socket.setSoTimeout(120000); // 2 minute read timeout on server side
+            socket.setKeepAlive(true);  // Enable TCP keep-alive
             out = new ObjectOutputStream(socket.getOutputStream());
             out.flush();
             in = new ObjectInputStream(socket.getInputStream());
