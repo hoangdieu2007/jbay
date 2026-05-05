@@ -66,9 +66,14 @@ public class ClientHandler implements Runnable {
                     break;
                 } catch (IOException e) {
                     if (!socket.isClosed()) {
-                        System.err.println("Client connection error: " + e.getMessage());
+                        System.err.println("Client connection error: " + e.getClass().getSimpleName() + " - " + e.getMessage());
+                        if (e instanceof java.net.SocketTimeoutException) {
+                            System.err.println("Client socket timeout - connection may be idle");
+                        } else if (e instanceof java.io.EOFException) {
+                            System.err.println("Client disconnected unexpectedly (EOF)");
+                        }
                     } else {
-                        System.err.println("Client disconnected");
+                        System.err.println("Client disconnected normally");
                     }
                     break;
                 }
