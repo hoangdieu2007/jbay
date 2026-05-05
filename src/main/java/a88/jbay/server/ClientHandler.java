@@ -77,7 +77,6 @@ public class ClientHandler implements Runnable {
                     } else {
                         System.err.println("Client disconnected normally");
                     }
-                    break;
                 }
             }
         } catch (IOException e) {
