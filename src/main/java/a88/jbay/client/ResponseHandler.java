@@ -99,21 +99,21 @@ public class ResponseHandler {
     private void handleActiveAuctionList(Response response) {
         List<Auction> activeAuctions = (List<Auction>) response.getPayload();
         for (Auction auction : activeAuctions) {
-            clientSession.getBidderAuctions().put(auction.getId(), auction);
+            clientSession.getBidderAuctions().put(-auction.getId(), auction);
         }
     }
 
     private void handleSellerAuctionList(Response response) {
         List<Auction> sellerAuctions = (List<Auction>) response.getPayload();
         for (Auction auction : sellerAuctions) {
-            clientSession.getSellerAuctions().put(auction.getId(), auction);
+            clientSession.getSellerAuctions().put(-auction.getId(), auction);
         }
     }
 
     private void handleBidderAuctionList(Response response) {
         List<Auction> bidderAuctions = (List<Auction>) response.getPayload();
         for (Auction auction : bidderAuctions) {
-            clientSession.getBidderAuctions().put(auction.getId(), auction);
+            clientSession.getBidderAuctions().put(-auction.getId(), auction);
         }
     }
 
