@@ -14,10 +14,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane prefHeight="472.0" prefWidth="699.0" style="-fx-border-radius: 60;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.SellerBidderHomeScreenController">
    <center>
-      <TabPane fx:id="mainTabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="461.0" prefWidth="699.0" style="-fx-background-color: #C9F7F6;" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="mainTabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="861.0" prefWidth="1260.0" style="-fx-background-color: #C9F7F6;" tabClosingPolicy="UNAVAILABLE">
           <tabs>
               <Tab text="Seller">
                   <content>
@@ -80,7 +79,7 @@
       </TabPane>
    </center>
    <top>
-      <HBox alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="699.0" BorderPane.alignment="TOP_LEFT">
+      <HBox alignment="CENTER_RIGHT" prefHeight="31.0" prefWidth="692.0" BorderPane.alignment="TOP_LEFT">
          <children>
             <Button fx:id="btnLogOut" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleLogOut" prefHeight="23.0" prefWidth="94.0" style="-fx-background-radius: 8; -fx-background-color: #69D3FF; -fx-text-fill: white;" text="LOG OUT" textAlignment="CENTER">
                <font>
