@@ -14,7 +14,7 @@
 
 <VBox alignment="CENTER" prefHeight="450.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0); -fx-border-radius: 10; -fx-border-color: #e0e0e0;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.BidderItemCardController">
     <children>
-        <ImageView fx:id="itemImage" fitHeight="200.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="itemImage" fitHeight="200.0" pickOnBounds="true" preserveRatio="true" />
 
         <VBox spacing="15.0" VBox.vgrow="ALWAYS">
             <padding>
@@ -24,7 +24,7 @@
 
                 <HBox alignment="CENTER_LEFT" prefWidth="200.0">
                     <children>
-                        <Label fx:id="titleLabel" prefHeight="28.0" prefWidth="109.0" text="ItemName">
+                        <Label fx:id="titleLabel" prefHeight="28.0" prefWidth="167.0" text="ItemName">
                             <font>
                                 <Font name="System Bold" size="22.0" />
                             </font>
@@ -75,7 +75,7 @@
                                 <Font size="16.0" />
                             </font>
                         </Label>
-                        <Label text="SellerID:" textFill="#555555" GridPane.rowIndex="2">
+                        <Label text="Seller's Name:" textFill="#555555" GridPane.rowIndex="2">
                             <font>
                                 <Font size="16.0" />
                             </font>
