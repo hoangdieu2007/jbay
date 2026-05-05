@@ -16,18 +16,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="461.0" prefWidth="699.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.ClientSellerItemController">
+<AnchorPane prefHeight="861.0" prefWidth="1327.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.ClientSellerItemController">
    <children>
-      <StackPane layoutX="24.0" layoutY="50.0" prefHeight="222.0" prefWidth="247.0" style="-fx-border-color: #2196F3; -fx-border-style: dashed; -fx-border-width: 2; -fx-background-color: #f9f9f9;">
+      <StackPane layoutX="26.0" layoutY="135.0" prefHeight="222.0" prefWidth="247.0" style="-fx-border-color: #2196F3; -fx-border-style: dashed; -fx-border-width: 2; -fx-background-color: #f9f9f9;">
          <children>
-            <ImageView fx:id="itemImageView" fitHeight="223.0" fitWidth="248.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="itemImageView" fitHeight="511.0" fitWidth="493.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </StackPane>
 
-      <GridPane layoutX="366.0" layoutY="87.0" prefHeight="227.0" prefWidth="287.0">
+      <GridPane layoutX="696.0" layoutY="147.0" prefHeight="420.0" prefWidth="563.0">
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="44.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="212.0" minWidth="0.0" prefWidth="188.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="149.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="474.0" minWidth="0.0" prefWidth="420.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints maxHeight="126.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
@@ -37,30 +37,36 @@
             <RowConstraints maxHeight="109.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label contentDisplay="CENTER" text="TYPE" GridPane.rowIndex="4" GridPane.valignment="TOP"><font><Font name="System Bold" size="14.0" /></font></Label>
-            <Label text="Name" GridPane.valignment="TOP"><font><Font name="System Bold" size="14.0" /></font></Label>
-            <Label text="Price" GridPane.rowIndex="1" GridPane.valignment="TOP"><font><Font name="System Bold" size="14.0" /></font></Label>
-            <Label text="Start" GridPane.rowIndex="2" GridPane.valignment="TOP"><font><Font name="System Bold" size="14.0" /></font></Label>
-            <Label text="Run Time" GridPane.rowIndex="3" GridPane.valignment="TOP"><font><Font name="System Bold" size="14.0" /></font></Label>
+            <Label contentDisplay="CENTER" text="TYPE" GridPane.rowIndex="4" GridPane.valignment="TOP"><font><Font name="System Bold" size="32.0" /></font></Label>
+            <Label text="Name" GridPane.valignment="TOP"><font><Font name="System Bold" size="32.0" /></font></Label>
+            <Label text="Price" GridPane.rowIndex="1" GridPane.valignment="TOP"><font><Font name="System Bold" size="32.0" /></font></Label>
+            <Label text="Start" GridPane.rowIndex="2" GridPane.valignment="TOP"><font><Font name="System Bold" size="32.0" /></font></Label>
+            <Label text="Run Time" GridPane.rowIndex="3" GridPane.valignment="TOP"><font><Font name="System Bold" size="32.0" /></font></Label>
 
             <VBox GridPane.columnIndex="1" GridPane.rowIndex="4">
                <children>
-                  <ComboBox fx:id="typeComboBox" prefHeight="26.0" prefWidth="211.0" promptText="Item Type" />
-                  <Label fx:id="typeErrorLabel" style="-fx-text-fill: red;" text="Invalid Type" visible="false"><font><Font name="System Bold" size="11.0" /></font></Label>
+                  <ComboBox fx:id="typeComboBox" prefHeight="44.0" prefWidth="420.0" promptText="Item Type" style="-fx-font-size: 16px;" />
+                  <Label fx:id="typeErrorLabel" style="-fx-text-fill: red;" text="Invalid Type" visible="false"><font><Font name="System Bold" size="16.0" /></font></Label>
                </children>
             </VBox>
 
             <VBox GridPane.columnIndex="1">
                <children>
-                  <TextField fx:id="nameField" promptText="Item Name" />
-                  <Label fx:id="nameErrorLabel" style="-fx-text-fill: red;" text="Invalid Name" visible="false"><font><Font name="System Bold" size="11.0" /></font></Label>
+                  <TextField fx:id="nameField" prefHeight="44.0" prefWidth="420.0" promptText="Item Name">
+                     <font>
+                        <Font size="16.0" />
+                     </font></TextField>
+                  <Label fx:id="nameErrorLabel" prefHeight="26.0" prefWidth="145.0" style="-fx-text-fill: red;" text="Invalid Name" visible="false"><font><Font name="System Bold" size="16.0" /></font></Label>
                </children>
             </VBox>
 
-            <VBox GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="87.0" prefWidth="405.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <TextField fx:id="priceField" promptText="Starting Price(USD)" />
-                  <Label fx:id="priceErrorLabel" style="-fx-text-fill: red;" text="Invalid Price" visible="false"><font><Font name="System Bold" size="11.0" /></font></Label>
+                  <TextField fx:id="priceField" prefHeight="44.0" prefWidth="420.0" promptText="Starting Price(USD)">
+                     <font>
+                        <Font size="16.0" />
+                     </font></TextField>
+                  <Label fx:id="priceErrorLabel" style="-fx-text-fill: red;" text="Invalid Price" visible="false"><font><Font name="System Bold" size="16.0" /></font></Label>
                </children>
             </VBox>
 
@@ -68,11 +74,14 @@
                <children>
                   <HBox spacing="5">
                      <children>
-                        <ComboBox fx:id="startChoiceCombo" prefHeight="25.0" prefWidth="40.0" />
-                        <TextField fx:id="startStr" prefHeight="27.0" prefWidth="159.0" promptText="dd/MM HH:mm" />
+                        <ComboBox fx:id="startChoiceCombo" prefHeight="44.0" prefWidth="80.0" />
+                        <TextField fx:id="startStr" prefHeight="44.0" prefWidth="352.0" promptText="dd/MM HH:mm">
+                           <font>
+                              <Font size="16.0" />
+                           </font></TextField>
                      </children>
                   </HBox>
-                  <Label fx:id="startErrorLabel" style="-fx-text-fill: red;" text="Invalid Time" visible="false"><font><Font name="System Bold" size="11.0" /></font></Label>
+                  <Label fx:id="startErrorLabel" style="-fx-text-fill: red;" text="Invalid Time" visible="false"><font><Font name="System Bold" size="16.0" /></font></Label>
                </children>
             </VBox>
 
@@ -80,33 +89,39 @@
                <children>
                   <HBox spacing="5">
                      <children>
-                        <ComboBox fx:id="runChoiceCombo" prefHeight="26.0" prefWidth="40.0" />
-                        <TextField fx:id="runStr" prefHeight="27.0" prefWidth="164.0" promptText="value" />
+                        <ComboBox fx:id="runChoiceCombo" prefHeight="44.0" prefWidth="80.0" />
+                        <TextField fx:id="runStr" prefHeight="44.0" prefWidth="352.0" promptText="Days">
+                           <font>
+                              <Font size="16.0" />
+                           </font></TextField>
                      </children>
                   </HBox>
-                  <Label fx:id="endErrorLabel" style="-fx-text-fill: red;" text="Invalid Duration" visible="false"><font><Font name="System Bold" size="11.0" /></font></Label>
+                  <Label fx:id="endErrorLabel" style="-fx-text-fill: red;" text="Invalid Duration" visible="false"><font><Font name="System Bold" size="16.0" /></font></Label>
                </children>
             </VBox>
          </children>
       </GridPane>
 
-      <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="699.0" style="-fx-background-color: #2196F3;">
+      <HBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="1327.0" style="-fx-background-color: #2196F3;">
          <children>
-            <Button mnemonicParsing="false" onAction="#handleBack" prefHeight="34.0" prefWidth="59.0" style="-fx-background-color: white; -fx-text-fill: #007bff; -fx-background-radius: 15; -fx-font-weight: bold;" text="BACK">
+            <Button mnemonicParsing="false" onAction="#handleBack" prefHeight="45.0" prefWidth="96.0" style="-fx-background-color: white; -fx-text-fill: #007bff; -fx-background-radius: 15; -fx-font-weight: bold;" text="BACK">
                <font>
-                  <Font size="14.0" />
+                  <Font size="18.0" />
                </font></Button>
          </children>
          <padding><Insets left="5.0" /></padding>
       </HBox>
 
-      <Label layoutX="420.0" layoutY="50.0" text=" ITEM INFORMATION">
-         <font><Font name="System Bold Italic" size="18.0" /></font>
+      <Label layoutX="789.0" layoutY="70.0" text=" ITEM INFORMATION">
+         <font><Font name="System Bold Italic" size="36.0" /></font>
       </Label>
 
-      <TextArea fx:id="descriptionArea" layoutX="366.0" layoutY="317.0" prefHeight="88.0" prefWidth="287.0" promptText="Item Description" wrapText="true" />
+      <TextArea fx:id="descriptionArea" layoutX="690.0" layoutY="561.0" prefHeight="184.0" prefWidth="569.0" promptText="Item Description" wrapText="true">
+         <font>
+            <Font size="16.0" />
+         </font></TextArea>
 
-      <Button layoutX="82.0" layoutY="314.0" mnemonicParsing="false" onAction="#handleUploadImage" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="Upload Item Image"><font><Font size="14.0" /></font></Button>
-      <Button layoutX="430.0" layoutY="417.0" mnemonicParsing="false" onAction="#handleSubmit" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="Submit/Create Auction"><font><Font size="14.0" /></font></Button>
+      <Button layoutX="186.0" layoutY="672.0" mnemonicParsing="false" onAction="#handleUploadImage" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="Upload Item Image"><font><Font size="18.0" /></font></Button>
+      <Button layoutX="875.0" layoutY="771.0" mnemonicParsing="false" onAction="#handleSubmit" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="Submit/Create Auction"><font><Font size="18.0" /></font></Button>
    </children>
 </AnchorPane>
