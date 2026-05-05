@@ -14,6 +14,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -27,8 +28,8 @@ public class ClientSession {
 
     private ClientSession() {
         user = new User();
-        sellerAuctions = FXCollections.observableMap(new TreeMap<>());
-        bidderAuctions = FXCollections.observableMap(new TreeMap<>());
+        sellerAuctions = FXCollections.observableMap(new TreeMap<>(Collections.reverseOrder()));
+        bidderAuctions = FXCollections.observableMap(new TreeMap<>(Collections.reverseOrder()));
 
     }
 

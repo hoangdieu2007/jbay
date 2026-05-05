@@ -100,7 +100,7 @@ public class ResponseHandler {
         System.out.println("handleActiveAuctionList");
         List<Auction> activeAuctions = (List<Auction>) response.getPayload();
         for (Auction auction : activeAuctions) {
-            clientSession.getBidderAuctions().put(-auction.getId(), auction);
+            clientSession.getBidderAuctions().put(auction.getId(), auction);
             System.out.println(auction);
         }
     }
@@ -109,7 +109,7 @@ public class ResponseHandler {
         System.out.println("handleSellerAuctionList");
         List<Auction> sellerAuctions = (List<Auction>) response.getPayload();
         for (Auction auction : sellerAuctions) {
-            clientSession.getSellerAuctions().put(-auction.getId(), auction);
+            clientSession.getSellerAuctions().put(auction.getId(), auction);
             System.out.println(auction);
         }
     }
@@ -118,7 +118,7 @@ public class ResponseHandler {
         System.out.println("handleBidderAuctionList");
         List<Auction> bidderAuctions = (List<Auction>) response.getPayload();
         for (Auction auction : bidderAuctions) {
-            clientSession.getBidderAuctions().put(-auction.getId(), auction);
+            clientSession.getBidderAuctions().put(auction.getId(), auction);
             System.out.println(auction);
         }
     }
