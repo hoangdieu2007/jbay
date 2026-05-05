@@ -11,7 +11,7 @@
 
 <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="455.0" prefWidth="302.0" spacing="10.0" style="-fx-border-color: #ccc; -fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: white;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.SellerItemCardController">
     <children>
-        <ImageView fx:id="sellerImage" fitHeight="205.0" fitWidth="282.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="sellerImage" fitHeight="205.0" fitWidth="302.0" pickOnBounds="true" preserveRatio="true">
          <VBox.margin>
             <Insets />
          </VBox.margin></ImageView>

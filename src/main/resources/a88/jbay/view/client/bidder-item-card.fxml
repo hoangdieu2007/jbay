@@ -22,9 +22,9 @@
             </padding>
             <children>
 
-                <HBox alignment="CENTER_LEFT" prefWidth="200.0">
+                <HBox alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="255.0">
                     <children>
-                        <Label fx:id="titleLabel" prefHeight="28.0" prefWidth="167.0" text="ItemName">
+                        <Label fx:id="titleLabel" prefHeight="28.0" text="ItemName">
                             <font>
                                 <Font name="System Bold" size="22.0" />
                             </font>
