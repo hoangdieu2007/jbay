@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="482.0" prefWidth="300.0" spacing="10.0" style="-fx-border-color: #ccc; -fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: white;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.SellerItemCardController">
+<VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="455.0" prefWidth="302.0" spacing="10.0" style="-fx-border-color: #ccc; -fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: white;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.SellerItemCardController">
     <children>
-        <ImageView fx:id="sellerImage" fitHeight="230.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="sellerImage" fitHeight="205.0" fitWidth="282.0" pickOnBounds="true" preserveRatio="true">
          <VBox.margin>
             <Insets />
          </VBox.margin></ImageView>
@@ -67,20 +67,26 @@
                 <Insets left="15.0" />
             </padding>
         </HBox>
-      <HBox alignment="CENTER" prefHeight="59.0" prefWidth="298.0">
+      <HBox alignment="CENTER" prefHeight="44.0" prefWidth="298.0">
          <children>
             <Button alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="108.0" style="-fx-background-color: Red; -fx-text-fill: White; -fx-background-radius: 120;" text="Cancel">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <Region prefHeight="59.0" prefWidth="44.0" />
+            <Region prefHeight="48.0" prefWidth="44.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></Region>
             <Button alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="108.0" style="-fx-background-color: #2b5fe8; -fx-text-fill: white; -fx-background-radius: 120;" text="View" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
          </children>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
       </HBox>
     </children>
 </VBox>
