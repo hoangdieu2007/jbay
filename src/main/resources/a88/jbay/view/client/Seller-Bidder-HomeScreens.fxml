@@ -34,7 +34,7 @@
                               </Label>
                               <Label layoutX="29.0" layoutY="60.0" text="Manage your auction items" />
                   
-                                    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutY="100.0" prefHeight="272.0" prefWidth="601.0" AnchorPane.bottomAnchor="-8.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+                                    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutY="100.0" prefHeight="272.0" prefWidth="601.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
                                   <content>
                                       <FlowPane fx:id="sellerFlowPane" hgap="15.0" vgap="15.0">
                                           <padding>
