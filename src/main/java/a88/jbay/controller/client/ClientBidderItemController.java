@@ -42,11 +42,7 @@ public class ClientBidderItemController {
     private final DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
 
     //Xử lí mục ID cho auction đang hoạt động
-    public void setCurrentAuctionId(int id) {
-        this.currentAuctionId = id;
-
-        // Truyền auction vào setup
-        Auction auction = ClientSession.getInstance().getBidderAuctions().get(id);
+    public void setCurrentAuction(Auction auction) {
         if (auction != null) {
             updateBidderUI(auction);
         }

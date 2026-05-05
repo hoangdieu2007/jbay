@@ -32,7 +32,7 @@ public class BidderItemCardController {
     @FXML private Label sellerIDLabel;
     @FXML private Button bidButton;
     private long remainingSeconds;
-    private int currentAuctionID;
+    private Auction currentAuction;
 
     //Bắt đầu load UI --> chạy luôn sk
 
@@ -40,7 +40,7 @@ public class BidderItemCardController {
     private void handlePlaceBid() {
         try {
             ViewManager.displayScene("client/client-bidder-item-view.fxml");
-            ControllerProvider.getInstance().getController(ClientBidderItemController.class).setCurrentAuctionId(currentAuctionID);
+            ControllerProvider.getInstance().getController(ClientBidderItemController.class).setCurrentAuction(currentAuction);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -50,7 +50,7 @@ public class BidderItemCardController {
 
     // Hàm chờ back-end/ database truyền data vàoa
     public void setItemData(Auction auction){
-        currentAuctionID = auction.getId();
+        currentAuction = auction;
         titleLabel.setText(auction.getItem().getName());
         descriptionLabel.setText(auction.getItem().getDescription());
         sellerIDLabel.setText(auction.getSellerName());
