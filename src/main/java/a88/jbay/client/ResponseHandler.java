@@ -43,6 +43,7 @@ public class ResponseHandler {
                 case "SELLER_AUCTION_LIST" -> handleSellerAuctionList(response);
                 case "BIDDER_AUCTION_LIST" -> handleBidderAuctionList(response);
                 case "AUCTION_UPDATE" -> handleAuctionUpdate(response);
+                case "BAN_USER" -> handleBanUser(response);
                 default -> handleDefault(response);
             };
         } else {
@@ -129,6 +130,16 @@ public class ResponseHandler {
             clientSession.getSellerAuctions().put(auction.getId(), auction);
         } else {
             clientSession.getBidderAuctions().put(auction.getId(), auction);
+        }
+    }
+
+    private void handleBanUser(Response response) {
+        clientSession.resetSession();
+        try {
+            ViewManager.displayScene("client/client-login-register-view.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 }
