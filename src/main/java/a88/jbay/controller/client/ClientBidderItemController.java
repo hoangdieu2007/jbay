@@ -43,6 +43,7 @@ public class ClientBidderItemController {
 
     //Xử lí mục ID cho auction đang hoạt động
     public void setCurrentAuction(Auction auction) {
+        currentAuctionId = auction.getId();
         if (auction != null) {
             updateBidderUI(auction);
         }

@@ -19,7 +19,9 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoField;
 
 public class ClientSellerItemController {
     @FXML
@@ -53,7 +55,11 @@ public class ClientSellerItemController {
     private Label typeErrorLabel;
 
     private File selectedImageFile;
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
+
+    private final DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+            .appendPattern("dd/MM HH:mm")
+            .parseDefaulting(ChronoField.YEAR, LocalDateTime.now().getYear()) // Tự động lấy năm 2026
+            .toFormatter();
 
     private boolean validateInputs() {
         //Reset lại các lỗi
