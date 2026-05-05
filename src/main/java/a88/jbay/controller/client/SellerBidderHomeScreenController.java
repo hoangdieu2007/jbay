@@ -18,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
@@ -40,6 +41,11 @@ public class SellerBidderHomeScreenController {
         }
     }
 
+    //UserName
+    @FXML private Label lblUserName;
+
+
+
     //Xử lí phần quay trở lại vào màn hình
     @FXML private TabPane mainTabPane;
     public static int targetTabIndex = 0;
@@ -56,6 +62,8 @@ public class SellerBidderHomeScreenController {
         if (mainTabPane != null) {
             mainTabPane.getSelectionModel().select(targetTabIndex);
         }
+
+        lblUserName.setText(ClientSession.getInstance().getUser().getUsername());
 
         initializeSellerUI();
         initializeBidderUI();
