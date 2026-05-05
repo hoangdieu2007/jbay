@@ -61,7 +61,7 @@
                                       <Font name="Arial Bold" size="20.0" />
                                   </font>
                               </Label>
-                              <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutY="100.0" prefHeight="352.0" prefWidth="699.0" AnchorPane.bottomAnchor="-22.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+                              <ScrollPane fitToWidth="true" layoutY="100.0" prefHeight="352.0" prefWidth="699.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
                                   <content>
                                       <FlowPane fx:id="bidderFlowPane" hgap="15.0" vgap="15.0">
                                           <padding>
