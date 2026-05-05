@@ -14,9 +14,9 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="472.0" prefWidth="699.0" style="-fx-border-radius: 60;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.SellerBidderHomeScreenController">
+<BorderPane prefHeight="892.0" prefWidth="1300.0" style="-fx-border-radius: 60;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.SellerBidderHomeScreenController">
    <center>
-      <TabPane fx:id="mainTabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="861.0" prefWidth="1327.0" style="-fx-background-color: #C9F7F6;" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="mainTabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="861.0" prefWidth="1300.0" style="-fx-background-color: #C9F7F6;" tabClosingPolicy="UNAVAILABLE">
           <tabs>
               <Tab text="        Seller        ">
                   <content>
@@ -34,7 +34,7 @@
                               </Label>
                               <Label layoutX="29.0" layoutY="60.0" text="Manage your auction items" />
                   
-                                    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutY="100.0" prefHeight="272.0" prefWidth="601.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+                                    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutY="100.0" prefHeight="272.0" prefWidth="1300.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
                                   <content>
                                       <FlowPane fx:id="sellerFlowPane" hgap="15.0" vgap="15.0">
                                           <padding>
@@ -78,12 +78,16 @@
       </TabPane>
    </center>
    <top>
-      <HBox alignment="CENTER_RIGHT" prefHeight="31.0" prefWidth="692.0" BorderPane.alignment="TOP_LEFT">
+      <HBox alignment="CENTER_RIGHT" prefHeight="31.0" BorderPane.alignment="TOP_LEFT">
          <children>
-            <Label fx:id="lblUserName" prefHeight="31.0" prefWidth="716.0" text="UserName">
+            <Region prefHeight="31.0" prefWidth="0.0" />
+            <Label fx:id="lblUserName" prefHeight="31.0" prefWidth="572.0" text="UserName" textAlignment="CENTER">
                <font>
-                  <Font size="18.0" />
+                  <Font name="System Bold" size="18.0" />
                </font>
+               <HBox.margin>
+                  <Insets left="15.0" />
+               </HBox.margin>
             </Label>
             <Region prefHeight="31.0" prefWidth="987.0" />
             <Button fx:id="btnLogOut" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleLogOut" prefHeight="23.0" prefWidth="357.0" style="-fx-background-radius: 8; -fx-background-color: #69D3FF; -fx-text-fill: white;" text="LOG OUT" textAlignment="CENTER">
