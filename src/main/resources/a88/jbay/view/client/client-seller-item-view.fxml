@@ -46,7 +46,7 @@
             <VBox GridPane.columnIndex="1" GridPane.rowIndex="4">
                <children>
                   <ComboBox fx:id="typeComboBox" prefHeight="44.0" prefWidth="420.0" promptText="Item Type" style="-fx-font-size: 16px;" />
-                  <Label fx:id="typeErrorLabel" style="-fx-text-fill: red;" text="Invalid Type" visible="false"><font><Font name="System Bold" size="16.0" /></font></Label>
+                  <Label fx:id="typeErrorLabel" prefHeight="25.0" prefWidth="428.0" style="-fx-text-fill: red;" text="Invalid Type" visible="false"><font><Font name="System Bold" size="16.0" /></font></Label>
                </children>
             </VBox>
 
@@ -56,7 +56,7 @@
                      <font>
                         <Font size="16.0" />
                      </font></TextField>
-                  <Label fx:id="nameErrorLabel" prefHeight="26.0" prefWidth="145.0" style="-fx-text-fill: red;" text="Invalid Name" visible="false"><font><Font name="System Bold" size="16.0" /></font></Label>
+                  <Label fx:id="nameErrorLabel" prefHeight="26.0" prefWidth="451.0" style="-fx-text-fill: red;" text="Invalid Name" visible="false"><font><Font name="System Bold" size="16.0" /></font></Label>
                </children>
             </VBox>
 
@@ -66,7 +66,7 @@
                      <font>
                         <Font size="16.0" />
                      </font></TextField>
-                  <Label fx:id="priceErrorLabel" style="-fx-text-fill: red;" text="Invalid Price" visible="false"><font><Font name="System Bold" size="16.0" /></font></Label>
+                  <Label fx:id="priceErrorLabel" prefHeight="25.0" prefWidth="421.0" style="-fx-text-fill: red;" text="Invalid Price" visible="false"><font><Font name="System Bold" size="16.0" /></font></Label>
                </children>
             </VBox>
 
@@ -81,7 +81,7 @@
                            </font></TextField>
                      </children>
                   </HBox>
-                  <Label fx:id="startErrorLabel" style="-fx-text-fill: red;" text="Invalid Time" visible="false"><font><Font name="System Bold" size="16.0" /></font></Label>
+                  <Label fx:id="startErrorLabel" prefHeight="25.0" prefWidth="423.0" style="-fx-text-fill: red;" text="Invalid Time" visible="false"><font><Font name="System Bold" size="16.0" /></font></Label>
                </children>
             </VBox>
 
@@ -96,7 +96,7 @@
                            </font></TextField>
                      </children>
                   </HBox>
-                  <Label fx:id="endErrorLabel" style="-fx-text-fill: red;" text="Invalid Duration" visible="false"><font><Font name="System Bold" size="16.0" /></font></Label>
+                  <Label fx:id="endErrorLabel" prefHeight="25.0" prefWidth="516.0" style="-fx-text-fill: red;" text="Invalid Duration" visible="false"><font><Font name="System Bold" size="16.0" /></font></Label>
                </children>
             </VBox>
          </children>

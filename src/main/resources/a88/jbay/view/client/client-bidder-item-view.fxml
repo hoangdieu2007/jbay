@@ -63,7 +63,7 @@
                      <font>
                         <Font size="24.0" />
                      </font></TextField>
-                        <Label fx:id="errorLabel" prefHeight="18.0" prefWidth="160.0" style="-fx-text-fill: red;" text="Invalid Bid" visible="false">
+                        <Label fx:id="errorLabel" prefHeight="25.0" prefWidth="395.0" style="-fx-text-fill: red;" text="Invalid Bid" visible="false">
                             <font>
                                 <Font name="System Bold" size="16.0" />
                             </font>
