@@ -21,8 +21,9 @@
                 <Label fx:id="lblName" prefHeight="26.0" text="ItemName" HBox.hgrow="ALWAYS">
                     <font><Font name="System Bold" size="20.0" /></font>
                 </Label>
-                <Region prefHeight="26.0" prefWidth="96.0" />
+                <Region prefHeight="26.0" prefWidth="99.0" HBox.hgrow="ALWAYS" />
                 <Label fx:id="lblStatus" style="-fx-background-color: #D1FAE5; -fx-text-fill: #065F46; -fx-padding: 3 8; -fx-background-radius: 5;" text="Status" />
+            <Region prefHeight="26.0" prefWidth="14.0" HBox.hgrow="ALWAYS" />
             </children>
             <padding>
                 <Insets left="15.0" />
