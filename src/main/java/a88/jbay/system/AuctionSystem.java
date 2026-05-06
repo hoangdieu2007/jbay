@@ -179,8 +179,8 @@ public class AuctionSystem {
         //use anti-sniping: automatically extend the duration of an auction
         //when it receives a placeBid request close to its end
 
-        int ANTI_SNIPING_EXTENSION_SECONDS = 300;
-        int ANTI_SNIPING_THRESHOLD_SECONDS = 30;
+        int ANTI_SNIPING_EXTENSION_SECONDS = 3600;
+        int ANTI_SNIPING_THRESHOLD_SECONDS = 300;
 
         long secondsUntilEnd = java.time.Duration.between(now, auction.getEndTime()).getSeconds();
 
