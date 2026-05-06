@@ -114,7 +114,7 @@ public class ClientHandler implements Runnable {
             case REGISTER -> handleRegister(request);
             case LOGOUT -> handleLogout(request);
             case BID -> handleBid(request);
-//            case AUTO_BID -> handleAutoBid(request);
+            case AUTO_BID -> handleAutoBid(request);
             case SELL -> handleSell(request);
             case CANCEL -> handleCancel(request);
             case SUBSCRIBE_AUCTION -> handleSubscribeAuction(request);

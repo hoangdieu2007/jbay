@@ -41,6 +41,7 @@ public class Auction implements Subject, Serializable {
     private Integer autoBidUserId;
     private Double autoBidMaxAmount;
     private Double autoBidIncrement;
+    private boolean isAutoBidding = false;
 
     public Auction(int id, Item item, String seller, LocalDateTime startTime, LocalDateTime endTime) {
         this.id = id;
@@ -179,6 +180,11 @@ public class Auction implements Subject, Serializable {
             return;
         }
 
+        // Prevent recursive auto-bid calls
+        if (isAutoBidding) {
+            return;
+        }
+
         // Calculate the auto-bid amount: current price + increment
         double autoBidAmount = currentPrice + autoBidIncrement;
 
@@ -190,8 +196,14 @@ public class Auction implements Subject, Serializable {
             return;
         }
 
+        // Set flag to prevent recursive calls
+        isAutoBidding = true;
+
         // Place the auto-bid through AuctionSystem
         a88.jbay.system.AuctionSystem.getInstance().placeBid(autoBidUserId, id, autoBidAmount);
+
+        // Reset flag after bid is placed
+        isAutoBidding = false;
     }
 
 }
