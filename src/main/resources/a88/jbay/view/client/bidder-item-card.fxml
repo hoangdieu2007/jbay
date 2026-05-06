@@ -30,7 +30,7 @@
                             </font>
                         </Label>
                         <Region HBox.hgrow="ALWAYS" />
-                        <Label fx:id="statusLabel" style="-fx-background-color: #e0e7ff; -fx-text-fill: #2b5fe8; -fx-background-radius: 5; -fx-padding: 5 10 5 10;" text="State">
+                        <Label fx:id="statusLabel" alignment="CENTER" minWidth="60.0" style="-fx-background-color: #e0e7ff; -fx-text-fill: #2b5fe8; -fx-background-radius: 5; -fx-padding: 5 10 5 10;" text="State">
                             <font>
                                 <Font size="14.0" />
                             </font>
