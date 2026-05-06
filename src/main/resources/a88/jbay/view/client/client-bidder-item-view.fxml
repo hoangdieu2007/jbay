@@ -120,6 +120,21 @@
                 <Font size="24.0" />
             </font></Button>
 
+        <Button fx:id="autoBidButton" layoutX="1064.0" layoutY="737.0" mnemonicParsing="false" onAction="#handleAutoBid" prefHeight="51.0" prefWidth="160.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Auto Bid">
+            <font>
+                <Font size="24.0" />
+            </font></Button>
+
+        <TextField fx:id="autoBidIncrement" layoutX="884.0" layoutY="800.0" prefHeight="35.0" prefWidth="160.0" promptText="Increment">
+            <font>
+                <Font size="16.0" />
+            </font></TextField>
+
+        <TextField fx:id="autoBidMaxAmount" layoutX="1064.0" layoutY="800.0" prefHeight="35.0" prefWidth="160.0" promptText="Max Amount">
+            <font>
+                <Font size="16.0" />
+            </font></TextField>
+
         <HBox alignment="CENTER_LEFT" layoutY="-1.0" prefHeight="66.0" prefWidth="1327.0" style="-fx-background-color: #2196F3;">
             <children>
                 <Button mnemonicParsing="false" onAction="#handleBack" prefHeight="45.0" prefWidth="96.0" style="-fx-background-color: white; -fx-text-fill: #007bff; -fx-background-radius: 15; -fx-font-weight: bold;" text="BACK">

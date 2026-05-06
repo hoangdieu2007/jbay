@@ -114,6 +114,7 @@ public class ClientHandler implements Runnable {
             case REGISTER -> handleRegister(request);
             case LOGOUT -> handleLogout(request);
             case BID -> handleBid(request);
+//            case AUTO_BID -> handleAutoBid(request);
             case SELL -> handleSell(request);
             case CANCEL -> handleCancel(request);
             case SUBSCRIBE_AUCTION -> handleSubscribeAuction(request);
@@ -171,6 +172,17 @@ public class ClientHandler implements Runnable {
             return new Response(success, success ? "BID_SUCCESS" : "BID_FAIL", null);
         }
         return new Response(false, "BID_FAIL", null);
+    }
+
+    //handling auto-bidding
+    private Response handleAutoBid(Request request) {
+        User user = this.currentUser;
+        if (user == null) return new Response(false, "INVALID_SESSION", null);
+        if (user.can(ActionType.BID)) {
+            auctionSystem.placeBidAutomated(user.getId(), (Integer) request.get("auctionId"), (Double) request.get("max_amount"), (Double) request.get("increment"));
+            return new Response(true, "AUTO_BID_SUCCESS", null);
+        }
+        return new Response(false, "AUTO_BID_FAIL", null);
     }
 
     //handling selling and creating auction

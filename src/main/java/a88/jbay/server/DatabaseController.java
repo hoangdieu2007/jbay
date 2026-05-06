@@ -16,7 +16,7 @@ public class DatabaseController implements DatabaseConnectionProvider {
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl("jdbc:mysql://localhost:3306/jbay_db");
         config.setUsername("root");
-        config.setPassword("220407");
+        config.setPassword("050607");
 
         // Pool configuration
         config.setMaximumPoolSize(10);

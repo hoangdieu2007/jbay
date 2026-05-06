@@ -31,6 +31,10 @@ public class ClientBidderItemController {
     @FXML
     private TextField bidInput;
     @FXML
+    private TextField autoBidIncrement;
+    @FXML
+    private TextField autoBidMaxAmount;
+    @FXML
     private LineChart<String, Number> priceChart;
     @FXML
     private ImageView itemImageView;
@@ -180,6 +184,80 @@ public class ClientBidderItemController {
             ViewManager.displayScene("client/Seller-Bidder-HomeScreens.fxml");
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleAutoBid() {
+        errorLabel.setVisible(false);
+
+        String rawIncrement = autoBidIncrement.getText();
+        String rawMaxAmount = autoBidMaxAmount.getText();
+
+        if (rawIncrement == null || rawIncrement.trim().isEmpty()) {
+            errorLabel.setText("Please enter increment!");
+            errorLabel.setVisible(true);
+            return;
+        }
+
+        if (rawMaxAmount == null || rawMaxAmount.trim().isEmpty()) {
+            errorLabel.setText("Please enter max amount!");
+            errorLabel.setVisible(true);
+            return;
+        }
+
+        try {
+            double increment = Double.parseDouble(rawIncrement);
+            double maxAmount = Double.parseDouble(rawMaxAmount);
+
+            if (increment <= 0) {
+                errorLabel.setText("Increment must be positive!");
+                errorLabel.setVisible(true);
+                return;
+            }
+
+            if (maxAmount <= 0) {
+                errorLabel.setText("Max amount must be positive!");
+                errorLabel.setVisible(true);
+                return;
+            }
+
+            Auction currentAuction = ClientSession.getInstance().getBidderAuctions().get(currentAuctionId);
+
+            if (currentAuction == null) {
+                errorLabel.setText("Auction no longer exists!");
+                errorLabel.setVisible(true);
+                return;
+            }
+
+            double currentPrice = currentAuction.getCurrentPrice();
+
+            if (maxAmount <= currentPrice) {
+                errorLabel.setText("Max amount must be higher than current price!");
+                errorLabel.setVisible(true);
+                return;
+            }
+
+            Request req = new Request(RequestType.AUTO_BID);
+            req.put("userId", ClientSession.getInstance().getUser().getId());
+            req.put("auctionId", currentAuctionId);
+            req.put("max_amount", maxAmount);
+            req.put("increment", increment);
+
+            ServerConnection.getInstance().send(req);
+
+            autoBidIncrement.clear();
+            autoBidMaxAmount.clear();
+
+        } catch (NumberFormatException e) {
+            errorLabel.setText("Please enter valid numbers!");
+            errorLabel.setVisible(true);
+        } catch (IOException e) {
+            Platform.runLater(() -> {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Connection Error");
+                alert.setHeaderText("Could not send auto-bid request to server");
+            });
         }
     }
 }

@@ -151,54 +151,28 @@ public class AuctionSystem {
         return bidPlaced;
     }
 
-    public synchronized void placeBidAutomated(int userId, int auctionId, double amount, double max_amount, double increment, int intervalSeconds) {
+    public synchronized void placeBidAutomated(int userId, int auctionId, double max_amount, double increment) {
         /*
         Phương thức dùng để tự động hoá quá trình placeBid
-        Cứ cách mỗi "increment" giây, sẽ tự gọi phương thức placeBid(userId, auctionId, amount += increment) một lần
-        Khi amount vượt qua max_amount, phương thức dừng
+        Tự động placeBid khi một giá mới được đăng ký (current price trong auction)
+        Giá auto placeBid sẽ cao hơn giá mới nhất một lượng bằng "increment"
+        Nếu giá auto placeBid cao hơn max_amount thì dừng auto bid
         */
 
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-        AtomicReference<Double> amountRef = new AtomicReference<>(amount);
-        AtomicReference<String> resultMessage = new AtomicReference<>();
-
-        Callable<String> bidTask = new Callable<String>() {
-            @Override
-            public String call() {
-                double currentAmount = amountRef.get();
-                if (currentAmount > max_amount) {
-                    String message = "Current placeBid (" + currentAmount + ") has exceeded max_amount (" + max_amount + "). Stop automated bidding.";
-                    resultMessage.set(message);
-                    scheduler.shutdown();
-                    return message;
-                }
-
-                placeBid(userId, auctionId, currentAmount);
-                amountRef.updateAndGet(current -> current + increment);
-                return "Bid placed successfully for: " + currentAmount;
-            }
-        };
-
-        scheduler.scheduleAtFixedRate(() -> {
-            try {
-                String message = bidTask.call();
-                if (message.contains("exceeded")) {
-                    System.out.println("Automated bidding stopped: " + message);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }, 0, intervalSeconds, TimeUnit.SECONDS);
-
-        try {
-            Thread.sleep(30000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        Auction auction = activeAuctions.get(auctionId);
+        if (auction == null) {
+            System.out.println("Auction " + auctionId + " not found or not active.");
+            return;
         }
 
-        if (!scheduler.isShutdown()) {
-            scheduler.shutdown();
-        }
+        // Store auto-bid configuration for this user and auction
+        auction.setAutoBidConfig(userId, max_amount, increment);
+
+        // Subscribe user to auction to receive price change notifications
+        auction.subscribe(userId);
+
+        System.out.println("Auto-bid enabled for user " + userId + " on auction " + auctionId + 
+                          " with max_amount=" + max_amount + ", increment=" + increment);
     }
 
     public void extendEndTime(LocalDateTime now, Auction auction) {
