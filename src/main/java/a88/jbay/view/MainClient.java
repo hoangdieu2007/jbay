@@ -30,7 +30,7 @@ public class MainClient extends Application {
         loadingStage.setTitle("Loading...");
 
         viewManager.setPrimaryStage(loadingStage);
-        viewManager.displayScene("loading-view.fxml", 289, 216);
+        viewManager.displayScene("loading-view.fxml");
 
         Task<Void> loadingTask = new Task<Void>() {
             @Override
@@ -51,14 +51,13 @@ public class MainClient extends Application {
             viewManager.closePrimaryStage();
 
             try {
-                stage.setResizable(false);
+                stage.setResizable(true);
                 stage.getIcons().add(new Image(MainClient.class.getResourceAsStream("/a88/jbay/image/logo-no-bg.png")));
                 stage.setTitle("Auction88's jBay");
                 stage.setOnCloseRequest(event -> Platform.exit());
 
-
                 viewManager.setPrimaryStage(stage);
-                viewManager.displayScene("client/client-server-connect-view.fxml", 600, 400);
+                viewManager.displayScene("client/client-server-connect-view.fxml");
             } catch (IOException exception) {
                 exception.printStackTrace();
             }

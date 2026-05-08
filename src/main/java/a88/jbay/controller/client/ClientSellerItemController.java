@@ -300,7 +300,7 @@ public class ClientSellerItemController {
 
             ServerConnection.getInstance().send(request);
 
-            ViewManager.getInstance().displayScene("client/Seller-Bidder-HomeScreens.fxml");
+            ViewManager.displayScene("client/Seller-Bidder-HomeScreens.fxml");
 
             new Alert(Alert.AlertType.INFORMATION, "Auction created successfully!").show();
 

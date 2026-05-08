@@ -132,6 +132,13 @@
             <artifactId>HikariCP</artifactId>
             <version>6.2.1</version>
         </dependency>
+
+        <!-- MariaDB for Fedora -->
+        <dependency>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
+            <version>3.5.7</version>
+        </dependency>
     </dependencies>
 
     <build>
