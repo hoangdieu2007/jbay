@@ -135,6 +135,11 @@
                 <Font size="16.0" />
             </font></TextField>
 
+        <Button fx:id="cancelAutoBidButton" layoutX="1244.0" layoutY="800.0" mnemonicParsing="false" onAction="#handleCancelAutoBid" prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 20px;" text="X">
+            <font>
+                <Font size="20.0" />
+            </font></Button>
+
         <HBox alignment="CENTER_LEFT" layoutY="-1.0" prefHeight="66.0" prefWidth="1327.0" style="-fx-background-color: #2196F3;">
             <children>
                 <Button mnemonicParsing="false" onAction="#handleBack" prefHeight="45.0" prefWidth="96.0" style="-fx-background-color: white; -fx-text-fill: #007bff; -fx-background-radius: 15; -fx-font-weight: bold;" text="BACK">

@@ -45,6 +45,7 @@ public class RequestHandler {
             case LOGOUT -> handleLogout(request);
             case BID -> handleBid(request);
             case AUTO_BID -> handleAutoBid(request);
+            case CANCEL_AUTO_BID -> handleCancelAutoBid(request);
             case SELL -> handleSell(request);
             case CANCEL -> handleCancel(request);
             case SUBSCRIBE_AUCTION -> handleSubscribeAuction(request);
@@ -117,6 +118,17 @@ public class RequestHandler {
             return new Response(true, "AUTO_BID_SUCCESS", null);
         }
         return new Response(false, "AUTO_BID_FAIL", null);
+    }
+
+    //handling cancel auto-bid
+    private static Response handleCancelAutoBid(Request request) {
+        User user = userSystem.findBySessionId((String) request.get("sessionId"));
+        if (user == null) return new Response(false, "INVALID_SESSION", null);
+        if (user.can(ActionType.BID)) {
+            auctionSystem.cancelAutoBid(user.getId(), (Integer) request.get("auctionId"));
+            return new Response(true, "CANCEL_AUTO_BID_SUCCESS", null);
+        }
+        return new Response(false, "CANCEL_AUTO_BID_FAIL", null);
     }
 
     //handling selling and creating auction

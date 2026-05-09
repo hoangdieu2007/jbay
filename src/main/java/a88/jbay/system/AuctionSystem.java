@@ -12,14 +12,14 @@ import a88.jbay.model.event.AuctionState;
 import a88.jbay.model.event.BidTransaction;
 import a88.jbay.model.network.Response;
 
-//import java.lang.reflect.Array;
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.*;
-//import java.util.concurrent.atomic.AtomicReference;
-//import java.util.stream.Collectors;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 /*
 the code for operations on the auction data
@@ -180,29 +180,88 @@ public class AuctionSystem {
             return;
         }
 
+        // Check if this auction already has auto-bids (excluding the current user if they already have one)
+        boolean existingAutoBid = auction.hasAutoBidConfig(userId);
+        int autoBidCount = auction.getAutoBidConfigs().size();
+        
         // Store auto-bid configuration for this user and auction
         auction.setAutoBidConfig(userId, max_amount, increment);
 
         // Subscribe user to auction to receive price change notifications
         auction.subscribe(userId);
 
-        logger.info("Auto-bid enabled for user " + userId + " on auction " + auctionId + 
+        logger.info("Auto-bid enabled for user " + userId + " on auction " + auctionId +
                           " with max_amount=" + max_amount + ", increment=" + increment);
 
-        // Immediately place the first auto-bid
-        double currentPrice = auction.getCurrentPrice();
-        double autoBidAmount = currentPrice + increment;
-
-        // Check if auto-bid amount exceeds max_amount
-        if (autoBidAmount > max_amount) {
-            logger.info("Auto-bid stopped for user " + userId + " on auction " + auctionId + 
-                              ": auto-bid amount (" + autoBidAmount + ") exceeds max_amount (" + max_amount + ")");
-            auction.clearAutoBidConfig();
+        // If there are now 2 or more auto-bids, apply the new logic
+        if (autoBidCount >= 1 || (!existingAutoBid && auction.getAutoBidConfigs().size() >= 2)) {
+            logger.info("Multiple auto-bids detected on auction " + auctionId + ", applying competitive bidding logic");
+            handleMultipleAutoBids(auction);
             return;
         }
 
-        // Place the auto-bid immediately
-        placeBid(userId, auctionId, autoBidAmount);
+        // Immediately place a bid after enabling auto-bid (single auto-bid case)
+        // Check if current winner is the user making the auto-bid request
+        if (auction.getWinnerId() != null && auction.getWinnerId().equals(userId)) {
+            logger.info("Skipping initial auto-bid for user " + userId + " on auction " + auctionId +
+                              ": user is already the current winner");
+            return;
+        }
+
+        double currentPrice = auction.getCurrentPrice();
+        double initialBidAmount = currentPrice + increment;
+
+        // Check if the initial bid amount exceeds max_amount
+        if (initialBidAmount <= max_amount) {
+            placeBid(userId, auctionId, initialBidAmount);
+        }
+    }
+
+    private void handleMultipleAutoBids(Auction auction) {
+        // Get all auto-bid configs and sort by max_amount descending
+        java.util.List<java.util.Map.Entry<Integer, Auction.AutoBidConfig>> sortedConfigs = auction.getAutoBidConfigs().entrySet().stream()
+                .sorted(java.util.Comparator.comparingDouble((java.util.Map.Entry<Integer, Auction.AutoBidConfig> e) -> e.getValue().getMaxAmount()).reversed())
+                .collect(java.util.stream.Collectors.toList());
+
+        if (sortedConfigs.size() < 2) {
+            logger.warn("handleMultipleAutoBids called with less than 2 auto-bids");
+            return;
+        }
+
+        // Get top 2 bidders by max_amount
+        java.util.Map.Entry<Integer, Auction.AutoBidConfig> topBidder = sortedConfigs.get(0);
+        java.util.Map.Entry<Integer, Auction.AutoBidConfig> secondBidder = sortedConfigs.get(1);
+
+        int topUserId = topBidder.getKey();
+        double topMaxAmount = topBidder.getValue().getMaxAmount();
+        double topIncrement = topBidder.getValue().getIncrement();
+
+        double secondMaxAmount = secondBidder.getValue().getMaxAmount();
+        double secondIncrement = secondBidder.getValue().getIncrement();
+
+        // Calculate final price: min(max_amount of top bidder, max_amount of second bidder + increment of top bidder)
+        double finalPrice = Math.min(topMaxAmount, secondMaxAmount + topIncrement);
+
+        logger.info("Competitive auto-bid resolution: User " + topUserId + " wins with price " + finalPrice +
+                          " (max=" + topMaxAmount + ", second_max=" + secondMaxAmount + ", increment=" + topIncrement + ")");
+
+        // Place the final bid
+        placeBid(topUserId, auction.getId(), finalPrice);
+
+        // Cancel all auto-bids in this auction
+        auction.clearAllAutoBidConfigs();
+        logger.info("All auto-bids canceled for auction " + auction.getId());
+    }
+
+    public synchronized void cancelAutoBid(int userId, int auctionId) {
+        Auction auction = activeAuctions.get(auctionId);
+        if (auction == null) {
+            logger.warn("Cancel auto-bid failed - auction not found or not active: " + auctionId);
+            return;
+        }
+
+        auction.clearAutoBidConfig(userId);
+        logger.info("Auto-bid canceled for user " + userId + " on auction " + auctionId);
     }
 
     public void extendEndTime(LocalDateTime now, Auction auction) {
