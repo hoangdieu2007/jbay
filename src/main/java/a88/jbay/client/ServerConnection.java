@@ -36,7 +36,7 @@ public class ServerConnection {
     public void connect(String host, int port) throws UnknownHostException, IOException {
         logger.info("Connecting to server: " + host + ":" + port);
         socket = new Socket(host, port);
-        socket.setSoTimeout(120000); // 60 second read timeout
+        socket.setSoTimeout(0); // No read timeout - connection lives forever
         socket.setKeepAlive(true);  // Enable TCP keep-alive
         out = new ObjectOutputStream(socket.getOutputStream());
         out.flush();
@@ -62,10 +62,6 @@ public class ServerConnection {
                         Response response = (Response) in.readObject();
                         logger.debug("Received response: " + (String) response.getMessage());
                         Platform.runLater(() -> responseHandler.handle(response));
-                    } catch (java.net.SocketTimeoutException e) {
-                        // Socket timeout is normal, continue the loop
-                        logger.debug("Connection timeout, checking connection...");
-                        continue;
                     } catch (java.io.EOFException e) {
                         logger.info("Server closed the connection");
                         break;

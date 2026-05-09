@@ -138,7 +138,7 @@ public class RequestHandler {
 
         Auction auction = auctionSystem.getAuctionById((Integer) request.get("auctionId"));
 
-        if (!user.getUsername().equals(auction.getSellerName()) || !user.getRole().equals("ADMIN")) {
+        if (!user.getUsername().equals(auction.getSellerName()) && !user.getRole().equals("ADMIN")) {
             return new Response(false, "CANCEL_FAIL", null);
         }
 
