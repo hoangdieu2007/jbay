@@ -1,0 +1,83 @@
+2026-05-09 18:23:27.376 [main] INFO  a88.jbay.util.JBayLogger - JBAY Server TUI starting
+2026-05-09 18:23:27.377 [main] INFO  a88.jbay.util.JBayLogger - ------------------JBAY_SERVER_TUI-----------------
+2026-05-09 18:23:27.377 [main] INFO  a88.jbay.util.JBayLogger - --------------software infrastructure-------------
+2026-05-09 18:23:27.379 [main] INFO  a88.jbay.util.JBayLogger - Connect to database:
+2026-05-09 18:23:27.379 [main] INFO  a88.jbay.util.JBayLogger - Enter URL:
+2026-05-09 18:26:24.347 [main] INFO  a88.jbay.util.JBayLogger - Enter username:
+2026-05-09 18:26:26.754 [main] INFO  a88.jbay.util.JBayLogger - Enter password:
+2026-05-09 18:26:33.555 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-05-09 18:26:33.820 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@b978d10
+2026-05-09 18:26:33.822 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-05-09 18:26:33.822 [main] INFO  a88.jbay.util.JBayLogger - Database connection pool initialized with URL: jdbc:mysql://localhost:3306/jbay_db
+2026-05-09 18:26:33.822 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 18:26:33.823 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 18:26:33.854 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 18:26:33.868 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 18:26:33.884 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 18:26:33.911 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 18:26:33.921 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 18:26:33.921 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 18:26:33.933 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 18:26:33.933 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 18:26:33.935 [main] INFO  a88.jbay.util.JBayLogger - Loading 3 active auctions from database
+2026-05-09 18:26:33.937 [main] DEBUG a88.jbay.util.JBayLogger - Loading auction: 4 - Nhà trọ NASA - State: RUNNING
+2026-05-09 18:26:33.938 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 18:26:33.938 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 18:26:33.940 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 18:26:33.940 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 18:26:33.942 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 18:26:33.943 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 18:26:33.948 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 18:26:33.948 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 18:26:33.950 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 18:26:33.950 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 18:26:33.951 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 18:26:33.951 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 18:26:33.952 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 18:26:33.952 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 18:26:33.954 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 18:26:33.954 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 18:26:33.954 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 18:26:33.954 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 18:26:33.955 [main] DEBUG a88.jbay.util.JBayLogger - Loading auction: 6 - one piece - State: RUNNING
+2026-05-09 18:26:33.955 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 18:26:33.955 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 18:26:33.955 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 18:26:33.956 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 18:26:33.957 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 18:26:33.957 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 18:26:33.958 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 18:26:33.958 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 18:26:33.959 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 18:26:33.959 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 18:26:33.959 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 18:26:33.959 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 18:26:33.960 [main] DEBUG a88.jbay.util.JBayLogger - Loading auction: 9 - My Life - State: RUNNING
+2026-05-09 18:26:33.960 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 18:26:33.960 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 18:26:33.961 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 18:26:33.961 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 18:26:33.962 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 18:26:33.962 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 18:26:33.963 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 18:26:33.963 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 18:26:33.963 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 18:26:33.963 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 18:26:33.964 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 18:26:33.964 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 18:26:33.965 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 18:26:33.965 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 18:26:33.966 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 18:26:33.966 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 18:26:33.967 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 18:26:33.967 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 18:26:33.967 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 18:26:33.967 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 18:26:33.968 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 18:26:33.968 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 18:28:22.580 [main] ERROR com.zaxxer.hikari.HikariConfig - HikariPool-1 - dataSource or dataSourceClassName or jdbcUrl is required.
+2026-05-09 18:28:22.698 [main] ERROR com.zaxxer.hikari.HikariConfig - HikariPool-2 - dataSource or dataSourceClassName or jdbcUrl is required.
+2026-05-09 18:28:55.426 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-05-09 18:28:55.683 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=TESTUSER
+2026-05-09 18:28:55.685 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-05-09 18:28:55.685 [main] INFO  a88.jbay.util.JBayLogger - Database connection pool initialized with URL: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1

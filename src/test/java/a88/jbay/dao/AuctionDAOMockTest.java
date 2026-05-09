@@ -23,6 +23,13 @@ class AuctionDAOMockTest {
     
     @BeforeEach
     void setUp() {
+        // Set up test database credentials
+        a88.jbay.server.DatabaseController.setCredentials(
+            "jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1", 
+            "testuser", 
+            "testpass"
+        );
+        
         testDbProvider = new TestDatabaseConnectionProvider();
         mockItemDAO = new TestItemDAO();
         mockBidDAO = new TestBidDAO();
