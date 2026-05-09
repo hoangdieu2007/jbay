@@ -39,8 +39,6 @@ public class SellerViewAuctionController {
         lblAuctionTime.setText(auction.getStartTime().format(displayFormatter) + " - " + auction.getEndTime().format(displayFormatter));
         lblBidderName.setText(auction.getWinner());
         lblCurrentPrice.setText(String.format("%.2f USD", auction.getCurrentPrice()));
-        byte[] data = auction.getItem().getImage();
-        itemImageView.setImage(ImageProcessor.bytesToImage(data));
 
         // Vẽ biểu đồ
         for (BidTransaction bid : auction.getBidHistory()) {

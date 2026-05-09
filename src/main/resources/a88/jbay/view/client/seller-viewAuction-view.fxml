@@ -16,15 +16,15 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="861.0" prefWidth="1327.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.SellerViewAuctionController">
+<AnchorPane prefHeight="867.0" prefWidth="1305.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.SellerViewAuctionController">
     <children>
-        <StackPane layoutX="26.0" layoutY="87.0" prefHeight="231.0" prefWidth="281.0" style="-fx-border-color: #ddd; -fx-border-style: dashed;">
+        <StackPane layoutX="26.0" layoutY="87.0" prefHeight="231.0" prefWidth="281.0" style="-fx-border-color: #ddd; -fx-border-style: dashed;" AnchorPane.bottomAnchor="333.0" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="804.0" AnchorPane.topAnchor="87.0">
             <children>
                 <ImageView fx:id="itemImageView" fitHeight="439.0" fitWidth="495.0" pickOnBounds="true" preserveRatio="true" />
             </children>
         </StackPane>
 
-        <GridPane layoutX="673.0" layoutY="354.0" prefHeight="369.0" prefWidth="613.0">
+        <GridPane layoutX="674.0" layoutY="357.0" prefHeight="369.0" prefWidth="613.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="354.0" minWidth="0.0" prefWidth="287.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="419.0" minWidth="10.0" prefWidth="326.0" />
