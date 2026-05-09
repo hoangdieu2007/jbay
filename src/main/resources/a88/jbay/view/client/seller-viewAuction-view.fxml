@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="867.0" prefWidth="1305.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.SellerViewAuctionController">
+<AnchorPane prefHeight="867.0" prefWidth="1320.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.SellerViewAuctionController">
     <children>
         <StackPane layoutX="26.0" layoutY="87.0" prefHeight="231.0" prefWidth="281.0" style="-fx-border-color: #ddd; -fx-border-style: dashed;" AnchorPane.bottomAnchor="333.0" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="804.0" AnchorPane.topAnchor="87.0">
             <children>
@@ -96,11 +96,14 @@
                 <Button mnemonicParsing="false" onAction="#handleBack" prefHeight="45.0" prefWidth="96.0" style="-fx-background-color: white; -fx-text-fill: #007bff; -fx-background-radius: 15; -fx-font-weight: bold;" text="BACK">
                     <font>
                         <Font size="18.0" />
-                    </font></Button>
+                    </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin></Button>
             </children>
-            <padding>
-                <Insets left="5.0" />
-            </padding>
+         <padding>
+            <Insets left="5.0" />
+         </padding>
         </HBox>
       <Button alignment="CENTER" layoutX="910.0" layoutY="746.0" minHeight="66.0" minWidth="140.0" mnemonicParsing="false" onAction="#handleCancel" style="-fx-background-color: Red; -fx-text-fill: white; -fx-background-radius: 45;" text="Cancel">
          <font>
