@@ -93,6 +93,9 @@ public class ClientConnection implements Runnable {
     }
 
     public void send(Response response) {
+        if (!isActive()) {
+            return;
+        }
         logger.info("Sending response: " + response.getMessage());
 
         try {
