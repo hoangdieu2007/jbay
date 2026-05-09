@@ -18,7 +18,8 @@ public class Permission {
         rolePermissions.put(Role.USER, EnumSet.of(
                 ActionType.VIEW_AUCTIONS,
                 ActionType.BID,
-                ActionType.SELL
+                ActionType.SELL,
+                ActionType.CANCEL
         ));
 
         //admin

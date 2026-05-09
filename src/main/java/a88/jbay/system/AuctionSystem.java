@@ -4,6 +4,7 @@ import a88.jbay.dao.AuctionDAO;
 import a88.jbay.dao.AuctionDAO.AuctionData;
 import a88.jbay.dao.BidDAO;
 import a88.jbay.dao.UserDAO;
+import a88.jbay.model.entity.user.User;
 import a88.jbay.util.JBayLogger;
 import a88.jbay.model.entity.item.Item;
 import a88.jbay.model.event.Auction;
@@ -221,6 +222,7 @@ public class AuctionSystem {
         if (auction != null) {
             auction.cancel();
         }
+
         boolean closed = auctionDAO.setAuctionState(auctionId, AuctionState.CANCELED);
         if (closed) {
             activeAuctions.remove(auctionId);

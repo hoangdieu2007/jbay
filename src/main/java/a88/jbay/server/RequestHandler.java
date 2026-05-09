@@ -135,6 +135,13 @@ public class RequestHandler {
     private static Response handleCancel(Request request) {
         User user = userSystem.findBySessionId((String) request.get("sessionId"));
         if (user == null) return new Response(false, "INVALID_SESSION", null);
+
+        Auction auction = auctionSystem.getAuctionById((Integer) request.get("auctionId"));
+
+        if (!user.getUsername().equals(auction.getSellerName()) || !user.getRole().equals("ADMIN")) {
+            return new Response(false, "CANCEL_FAIL", null);
+        }
+
         if (user.can(ActionType.CANCEL)) {
             //direct cancel to system
             boolean success = auctionSystem.cancelAuction((Integer) request.get("auctionId"));

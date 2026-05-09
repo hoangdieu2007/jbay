@@ -26,9 +26,12 @@ public class UserSystem {
     private final UserDAO userDAO;
     private final JBayLogger logger;
 
+    private final Map<String, User> userCache;
+
     private UserSystem() {
         this.userDAO = UserDAO.getInstance();
         this.logger = JBayLogger.getInstance();
+        this.userCache = new ConcurrentHashMap<>();
     }
 
     public static synchronized UserSystem getInstance() {
@@ -57,7 +60,9 @@ public class UserSystem {
         String sessionId = UUID.randomUUID().toString();
         if (userDAO.insertSession(sessionId, userData.id())) {
             logger.info("User logged in successfully: " + username);
-            return new User(userData.id(), userData.role(), userData.username(), sessionId);
+            User user = new User(userData.id(), userData.role(), userData.username(), sessionId);
+            userCache.put(sessionId, user);
+            return user;
         }
         logger.error("Login failed - session creation failed for user: " + username);
         return null;
@@ -84,19 +89,24 @@ public class UserSystem {
 
     public void logout(String sessionId) {
         logger.debug("User logging out with session: " + sessionId);
+        userCache.remove(sessionId);
         userDAO.deleteSession(sessionId);
         logger.info("User logged out successfully");
     }
 
     public User findBySessionId(String sessionId) {
+        if (userCache.containsKey(sessionId)) {
+            return userCache.get(sessionId);
+        }
+
         UserData userData = userDAO.findBySessionId(sessionId);
         if (userData == null) return null;
         return new User(userData.id(), userData.role(), userData.username(), sessionId);
     }
 
-//    public void addActiveUser(int userId, User user) {
-//        activeUsers.computeIfAbsent(userId, k -> new ArrayList<>()).add(user);
-//    }
+    public void addToCache(String sessionId, User user) {
+        userCache.computeIfAbsent(sessionId, k -> user);
+    }
 
     //ban and cleanup current user cache
     public boolean banUser(int userId) {
