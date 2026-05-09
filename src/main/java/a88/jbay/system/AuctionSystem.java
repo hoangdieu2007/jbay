@@ -12,14 +12,14 @@ import a88.jbay.model.event.AuctionState;
 import a88.jbay.model.event.BidTransaction;
 import a88.jbay.model.network.Response;
 
-import java.lang.reflect.Array;
+//import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
+//import java.util.concurrent.atomic.AtomicReference;
+//import java.util.stream.Collectors;
 
 /*
 the code for operations on the auction data
@@ -188,6 +188,21 @@ public class AuctionSystem {
 
         logger.info("Auto-bid enabled for user " + userId + " on auction " + auctionId + 
                           " with max_amount=" + max_amount + ", increment=" + increment);
+
+        // Immediately place the first auto-bid
+        double currentPrice = auction.getCurrentPrice();
+        double autoBidAmount = currentPrice + increment;
+
+        // Check if auto-bid amount exceeds max_amount
+        if (autoBidAmount > max_amount) {
+            logger.info("Auto-bid stopped for user " + userId + " on auction " + auctionId + 
+                              ": auto-bid amount (" + autoBidAmount + ") exceeds max_amount (" + max_amount + ")");
+            auction.clearAutoBidConfig();
+            return;
+        }
+
+        // Place the auto-bid immediately
+        placeBid(userId, auctionId, autoBidAmount);
     }
 
     public void extendEndTime(LocalDateTime now, Auction auction) {

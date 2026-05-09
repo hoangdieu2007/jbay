@@ -2093,6 +2093,171 @@ java.net.SocketException: Socket closed
 2026-05-09 22:59:11.164 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: LOGOUT
 2026-05-09 22:59:11.330 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: LOGOUT
 2026-05-09 22:59:13.288 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: MISC
+2026-05-09 23:23:50.440 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - Connecting to server: 0.tcp.ap.ngrok.io:16453
+2026-05-09 23:26:18.986 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: MISC
+2026-05-09 23:26:48.921 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - Connecting to server: 0.tcp.ap.ngrok.io:22013
+2026-05-09 23:26:49.095 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - Connection successful to server: 0.tcp.ap.ngrok.io:22013
+2026-05-09 23:26:51.614 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:51.617 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:51.659 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:51.662 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:51.664 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:51.666 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:51.704 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:51.705 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:51.708 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:51.709 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:51.711 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:51.712 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:51.714 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:51.750 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:51.751 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:51.754 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:51.838 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:51.982 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:52.119 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:52.260 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:52.399 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:52.537 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:52.655 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:52.790 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:52.927 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:53.058 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:53.195 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:53.219 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:53.264 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:53.331 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:53.377 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:53.421 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:53.466 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:53.511 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:53.558 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:53.602 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:26:53.648 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:10.757 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:43.639 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: LOGIN
+2026-05-09 23:27:43.783 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: LOGIN_SUCCESS
+2026-05-09 23:27:43.816 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 23:27:43.819 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 4 auctions
+2026-05-09 23:27:44.138 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: GET_AUCTIONS
+2026-05-09 23:27:44.526 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: ACTIVE_AUCTION_LIST
+2026-05-09 23:27:44.526 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:44.528 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:44.585 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:44.586 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:44.586 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:44.586 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:44.588 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:44.650 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:44.652 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:44.655 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:44.690 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:44.699 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:44.738 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:44.768 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:44.790 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:44.825 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:44.837 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:44.877 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:44.907 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:44.928 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:44.965 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:44.975 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:45.025 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:45.047 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:45.066 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:45.096 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:45.122 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:45.156 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:45.186 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:45.215 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:45.249 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: BIDDER_AUCTION_LIST
+2026-05-09 23:27:45.250 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:45.269 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:45.276 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:45.297 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:27:45.298 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: SELLER_AUCTION_LIST
+2026-05-09 23:27:45.298 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: GET_AUCTIONS_SUCCESS
+2026-05-09 23:27:45.379 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - GET_AUCTIONS_SUCCESS
+2026-05-09 23:28:26.686 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: AUTO_BID
+2026-05-09 23:28:26.825 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUTO_BID_SUCCESS
+2026-05-09 23:28:26.826 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - AUTO_BID_SUCCESS
+2026-05-09 23:29:39.153 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:29:39.153 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:29:39.198 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:29:39.198 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:29:39.199 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:29:39.199 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:29:39.245 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:29:39.246 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:29:39.249 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:29:39.251 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:29:39.251 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:29:39.252 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:29:39.252 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:29:39.292 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:29:39.293 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:29:39.294 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:29:39.294 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:29:39.295 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:29:39.296 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:29:39.296 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:29:39.297 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:29:39.297 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:29:39.301 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:29:39.302 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:29:39.302 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:29:39.303 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:29:39.303 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:29:39.304 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:29:39.339 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:29:39.340 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:29:39.342 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:29:39.343 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 23:29:41.624 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: BID
+2026-05-09 23:29:54.653 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: BID
+2026-05-09 23:29:56.332 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: BID
+2026-05-09 23:29:57.653 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: BID
+2026-05-09 23:29:59.579 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: BID
+2026-05-09 23:30:00.615 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: BID
+2026-05-09 23:30:01.583 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: BID
+2026-05-09 23:30:02.602 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: BID
+2026-05-09 23:30:03.698 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: BID
+2026-05-09 23:30:05.655 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: BID
+2026-05-09 23:30:16.801 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: BID
+2026-05-09 23:30:39.869 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 1 auctions
+2026-05-09 23:30:39.881 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 9 auctions
+2026-05-09 23:31:25.682 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: MISC
+2026-05-09 23:31:25.684 [Thread-4] ERROR a88.jbay.util.JBayLogger - Disconnected from server: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.endRead(NioSocketImpl.java:242)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:321)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:354)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:798)
+	at java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:974)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:964)
+	at java.base/java.io.ObjectInputStream$PeekInputStream.read(ObjectInputStream.java:2762)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.read(ObjectInputStream.java:3195)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.readFully(ObjectInputStream.java:3225)
+	at java.base/java.io.ObjectInputStream.readArray(ObjectInputStream.java:2016)
+	at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1608)
+	at java.base/java.io.ObjectInputStream$FieldValues.<init>(ObjectInputStream.java:2480)
+	at java.base/java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2327)
+	at java.base/java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2133)
+	at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1620)
+	at java.base/java.io.ObjectInputStream$FieldValues.<init>(ObjectInputStream.java:2480)
+	at java.base/java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2327)
+	at java.base/java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2133)
+	at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1620)
+	at java.base/java.io.ObjectInputStream$FieldValues.<init>(ObjectInputStream.java:2480)
+	at java.base/java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2327)
+	at java.base/java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2133)
+	at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1620)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:487)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:445)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startListener$0(ServerConnection.java:62)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-09 23:31:25.686 [Thread-4] INFO  a88.jbay.util.JBayLogger - Listener thread ended
 2026-05-09 23:17:40.211 [main] INFO  a88.jbay.util.JBayLogger - JBAY Server TUI starting
 2026-05-09 23:17:40.212 [main] INFO  a88.jbay.util.JBayLogger - ------------------JBAY_SERVER_TUI-----------------
 2026-05-09 23:17:40.212 [main] INFO  a88.jbay.util.JBayLogger - --------------software infrastructure-------------
