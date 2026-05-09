@@ -56,7 +56,6 @@ public class MainServerTUI {
         //init systems
         AuctionSystem auctionSystem = AuctionSystem.getInstance();
         UserSystem userSystem = UserSystem.getInstance();
-        RequestHandler.initialize(userSystem, auctionSystem);
 
         try {
 

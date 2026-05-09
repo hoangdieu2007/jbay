@@ -1,8 +1,10 @@
 package a88.jbay.server;
 
+import a88.jbay.model.entity.user.User;
 import a88.jbay.model.network.Request;
 import a88.jbay.model.network.Response;
 import a88.jbay.system.AuctionSystem;
+import a88.jbay.system.UpdateSystem;
 import a88.jbay.system.UserSystem;
 
 import java.io.IOException;
@@ -19,14 +21,33 @@ public class ClientConnection implements Runnable {
     private final Socket socket;
     private final ObjectInputStream in;
     private final ObjectOutputStream out;
+    private final int connectionId;
+
+    // user cache, this helps reduce the number of database queries
+    private User userCache;
 
     public ClientConnection(Socket socket) throws IOException {
+        this.connectionId = socket.hashCode(); // Use socket hash as connection ID
         this.socket = socket;
         socket.setSoTimeout(120000); // 2 minute read timeout on server side
         socket.setKeepAlive(true);  // enable TCP keep-alive
         this.out = new ObjectOutputStream(socket.getOutputStream());
         out.flush();
         this.in = new ObjectInputStream(socket.getInputStream());
+
+        this.userCache = new User();
+    }
+
+    public int getConnectionId() {
+        return connectionId;
+    }
+
+    public boolean isActive() {
+        return socket != null && !socket.isClosed() && !Thread.currentThread().isInterrupted();
+    }
+
+    public User getUserCache() {
+        return userCache;
     }
 
     //the handle loop
@@ -39,6 +60,15 @@ public class ClientConnection implements Runnable {
                     if (request == null) break;
 
                     Response response = RequestHandler.handleRequest(request);
+
+                    // update cache if login success
+                    if (response.getMessage().equals("LOGIN_SUCCESS")) {
+                        this.userCache = (User) response.getPayload();
+                        UpdateSystem.getInstance().updateByUserId(userCache.getId(), response);
+                    } else if (response.getMessage().equals("LOGOUT_SUCCESS")) {
+                        this.userCache = new User();
+                        UpdateSystem.getInstance().unregister(this);
+                    }
 
                     //prevent crash when update and response sends at the same time
                     send(response);
@@ -53,7 +83,7 @@ public class ClientConnection implements Runnable {
             }
         } finally {
             // later add clean up codes here!
-
+            UpdateSystem.getInstance().unregister(this);
             closeResources(out, in, socket);
         }
     }
@@ -87,6 +117,10 @@ public class ClientConnection implements Runnable {
         } catch (IOException e) {
             System.err.println("Error closing socket: " + e.getMessage());
         }
+    }
+
+    public void close() {
+        closeResources(out, in, socket);
     }
 }
 

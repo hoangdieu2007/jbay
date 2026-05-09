@@ -1,5 +1,7 @@
 package a88.jbay.server;
 
+import a88.jbay.system.UpdateSystem;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -40,7 +42,9 @@ public class ClientService {
                     client = serverSocket.accept();
                     System.out.println("Client connected...");
 
-                    executor.submit(new ClientConnection(client));
+                    ClientConnection connection = new ClientConnection(client);
+                    UpdateSystem.getInstance().register(connection);
+                    executor.submit(connection);
                 }
             } catch (IOException e) {
                 e.printStackTrace();

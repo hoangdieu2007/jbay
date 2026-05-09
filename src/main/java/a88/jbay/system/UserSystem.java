@@ -2,11 +2,13 @@ package a88.jbay.system;
 
 import a88.jbay.dao.UserDAO;
 import a88.jbay.dao.UserDAO.UserData;
+import a88.jbay.server.ClientConnection;
 import a88.jbay.util.StringHash;
 import a88.jbay.util.JBayLogger;
 import a88.jbay.model.entity.user.User;
 import a88.jbay.model.network.Response;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -23,8 +25,6 @@ public class UserSystem {
     private static UserSystem instance;
     private final UserDAO userDAO;
     private final JBayLogger logger;
-
-    private final Map<Integer, List<User>> activeUsers = new ConcurrentHashMap<>();
 
     private UserSystem() {
         this.userDAO = UserDAO.getInstance();
@@ -94,9 +94,9 @@ public class UserSystem {
         return new User(userData.id(), userData.role(), userData.username(), sessionId);
     }
 
-    public void addActiveUser(int userId, User user) {
-        activeUsers.computeIfAbsent(userId, k -> new ArrayList<>()).add(user);
-    }
+//    public void addActiveUser(int userId, User user) {
+//        activeUsers.computeIfAbsent(userId, k -> new ArrayList<>()).add(user);
+//    }
 
     //ban and cleanup current user cache
     public boolean banUser(int userId) {
@@ -111,15 +111,20 @@ public class UserSystem {
             UpdateSystem.getInstance().unsubscribeUserFromAllAuctions(userId);
             // when client receives this it will switch to login scene
             UpdateSystem.getInstance().updateByUserId(userId, new Response(true, "BAN_USER", null));
-            UpdateSystem.getInstance().unregister(userId);
-            activeUsers.remove(userId);
 
-            List<User> sessions = activeUsers.get(userId);
-            if (sessions != null && !sessions.isEmpty()) {
-                for (User user : sessions) {
-                    logout(user.getSessionId());
-                }
+            for (ClientConnection clientConnection : UpdateSystem.getInstance().getConnections().get(userId)) {
+                logout(clientConnection.getUserCache().getSessionId());
             }
+
+            UpdateSystem.getInstance().unregister(userId);
+//            activeUsers.remove(userId);
+//
+//            List<User> sessions = activeUsers.get(userId);
+//            if (sessions != null && !sessions.isEmpty()) {
+//                for (User user : sessions) {
+//                    logout(user.getSessionId());
+//                }
+//            }
             return true;
         }
 

@@ -23,7 +23,8 @@ public class RequestHandler {
 //    private static ObjectOutputStream out;
 
     // this method is mostly for testing
-    public static void initialize(UserSystem userSystemParam, AuctionSystem auctionSystemParam) {
+    // DO NOT CALL UNLESS FOR TESTING
+    public static void inject(UserSystem userSystemParam, AuctionSystem auctionSystemParam) {
         RequestHandler.userSystem = userSystemParam;
         RequestHandler.auctionSystem = auctionSystemParam;
 //        RequestHandler.currentUser = new User();
@@ -64,9 +65,6 @@ public class RequestHandler {
             if (user.getRole().equals("BAN")) {
                 return new Response(false, "LOGIN_BAN", null);
             }
-
-            //register user session to the systems and update their auctions
-            UserSystem.getInstance().addActiveUser(user.getId(), user);
 
             // UpdateSystem.getInstance().register(user.getId(), RequestHandler.out);
 
