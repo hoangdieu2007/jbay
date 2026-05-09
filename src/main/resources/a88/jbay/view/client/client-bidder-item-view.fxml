@@ -14,97 +14,137 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="425.0" prefWidth="632.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.ClientBidderItemController">
-   <children>
-      <ImageView fitHeight="222.0" fitWidth="247.0" layoutX="29.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" />
-      <GridPane layoutX="334.0" layoutY="190.0" prefHeight="190.0" prefWidth="271.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="166.0" minWidth="0.0" prefWidth="94.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="238.0" minWidth="10.0" prefWidth="177.0" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="52.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="61.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="61.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+<AnchorPane prefHeight="861.0" prefWidth="1327.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.ClientBidderItemController">
+    <children>
+        <StackPane alignment="CENTER" layoutX="26.0" layoutY="87.0" prefHeight="439.0" prefWidth="495.0" style="-fx-border-color: #ddd; -fx-border-style: dashed;">
          <children>
-            <Label text="Item Name:" GridPane.rowIndex="2">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font></Label>
-            <Label text="Current Price:" GridPane.rowIndex="3">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-            <Label text="Your Bid:" GridPane.rowIndex="4" GridPane.valignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets bottom="15.0" />
-               </GridPane.margin>
-            </Label>
-            <Label prefHeight="15.0" prefWidth="125.0" text="Item name" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label prefHeight="20.0" prefWidth="125.0" text="current price(USD)" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
-               <children>
-                  <TextField prefHeight="31.0" prefWidth="155.0" promptText="Enter Your Bid(USD)" />
-                  <Label prefHeight="18.0" prefWidth="160.0" style="-fx-text-fill: red;" text="Invalid Bid" textFill="#ed0c0c" visible="false">
+                <ImageView fx:id="itemImageView" fitHeight="439.0" fitWidth="495.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+        </StackPane>
+
+        <GridPane layoutX="673.0" layoutY="354.0" prefHeight="369.0" prefWidth="613.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="354.0" minWidth="0.0" prefWidth="211.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="419.0" minWidth="10.0" prefWidth="375.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="95.0" minHeight="10.0" prefHeight="68.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="209.0" minHeight="10.0" prefHeight="68.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="163.0" minHeight="0.0" prefHeight="68.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="68.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="91.0" minHeight="0.0" prefHeight="68.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label text="Current Price:" GridPane.rowIndex="3">
+                    <font>
+                        <Font name="System Bold" size="32.0" />
+                    </font>
+                </Label>
+                <Label text="Your Bid:" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                    <font>
+                        <Font name="System Bold" size="32.0" />
+                    </font>
+                    <GridPane.margin>
+                        <Insets bottom="15.0" />
+                    </GridPane.margin>
+                </Label>
+                <Label fx:id="currentPriceLabel" prefHeight="86.0" prefWidth="402.0" text="current price(USD)" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                    <font>
+                        <Font name="System Bold" size="28.0" />
+                    </font>
+                </Label>
+                <VBox prefHeight="103.0" prefWidth="366.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                    <children>
+                        <TextField fx:id="bidInput" prefHeight="49.0" prefWidth="380.0" promptText="Enter Your Bid(USD)">
                      <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
-               </children>
-            </VBox>
-            <Label text="Seller:">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-            <Label text="Seller Name/Id" GridPane.columnIndex="1" />
-            <Label text="Auction Time:" GridPane.rowIndex="1">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-            <Label text="StartTime-EndTime" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-         </children>
-      </GridPane>
-      <LineChart layoutX="320.0" layoutY="40.0" prefHeight="150.0" prefWidth="271.0">
-        <xAxis>
-          <CategoryAxis side="BOTTOM" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis side="LEFT" />
-        </yAxis>
-      </LineChart>
-      <TextArea layoutX="30.0" layoutY="295.0" prefHeight="116.0" prefWidth="247.0" promptText="Item description" wrapText="true" />
-      <Button layoutX="6.0" layoutY="5.0" mnemonicParsing="false" style="-fx-background-color: white; -fx-text-fill: #007bff; -fx-background-radius: 15; -fx-font-weight: bold; -fx-text-fill: #007bff; -fx-background-radius: 15;" text="BACK" />
-      <Button layoutX="419.0" layoutY="380.0" mnemonicParsing="false" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="Place Bid">
+                        <Font size="24.0" />
+                     </font></TextField>
+                        <Label fx:id="errorLabel" prefHeight="25.0" prefWidth="395.0" style="-fx-text-fill: red;" text="Invalid Bid" visible="false">
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+                <Label text="Seller:" GridPane.rowIndex="2">
+                    <font>
+                        <Font name="System Bold" size="32.0" />
+                    </font>
+                </Label>
+                <Label fx:id="sellerLabel" prefHeight="87.0" prefWidth="408.0" text="Seller Name/Id" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <font>
+                        <Font name="System Bold" size="28.0" />
+                    </font></Label>
+                <Label text="Auction Time:" GridPane.rowIndex="1">
+                    <font>
+                        <Font name="System Bold" size="32.0" />
+                    </font>
+                </Label>
+                <Label fx:id="auctionTimeLabel" prefHeight="96.0" prefWidth="385.0" text="StartTime-EndTime" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <font>
+                        <Font name="System Bold" size="28.0" />
+                    </font></Label>
+                <Label text="Item Name:">
+                    <font>
+                        <Font name="System Bold" size="32.0" />
+                    </font>
+                </Label>
+                <Label fx:id="itemNameLabel" prefHeight="80.0" prefWidth="391.0" text="Item name" GridPane.columnIndex="1">
+                    <font>
+                        <Font name="System Bold" size="28.0" />
+                    </font>
+                </Label>
+            </children>
+        </GridPane>
+
+        <LineChart fx:id="priceChart" layoutX="674.0" layoutY="75.0" prefHeight="282.0" prefWidth="613.0">
+            <xAxis>
+                <CategoryAxis side="BOTTOM" />
+            </xAxis>
+            <yAxis>
+                <NumberAxis side="LEFT" />
+            </yAxis>
+        </LineChart>
+
+        <TextArea fx:id="itemDescription" editable="false" layoutX="26.0" layoutY="555.0" prefHeight="207.0" prefWidth="497.0" promptText="Item description" wrapText="true">
          <font>
-            <Font size="14.0" />
-         </font></Button>
-      <HBox alignment="CENTER_LEFT" layoutY="-1.0" prefHeight="42.0" prefWidth="637.0" style="-fx-background-color: #2196F3;">
-         <children>
-            <Button mnemonicParsing="false" style="-fx-background-color: white; -fx-text-fill: #007bff; -fx-background-radius: 15; -fx-font-weight: bold; -fx-text-fill: #007bff; -fx-background-radius: 15;" text="BACK" />
-         </children>
-         <padding>
-            <Insets left="5.0" />
-         </padding>
-      </HBox>
-   </children>
+            <Font size="16.0" />
+         </font></TextArea>
+
+        <Button fx:id="placeBidButton" layoutX="884.0" layoutY="737.0" mnemonicParsing="false" onAction="#handlePlaceBid" prefHeight="51.0" prefWidth="160.0" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="Place Bid">
+            <font>
+                <Font size="24.0" />
+            </font></Button>
+
+        <Button fx:id="autoBidButton" layoutX="1064.0" layoutY="737.0" mnemonicParsing="false" onAction="#handleAutoBid" prefHeight="51.0" prefWidth="160.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Auto Bid">
+            <font>
+                <Font size="24.0" />
+            </font></Button>
+
+        <TextField fx:id="autoBidIncrement" layoutX="884.0" layoutY="800.0" prefHeight="35.0" prefWidth="160.0" promptText="Increment">
+            <font>
+                <Font size="16.0" />
+            </font></TextField>
+
+        <TextField fx:id="autoBidMaxAmount" layoutX="1064.0" layoutY="800.0" prefHeight="35.0" prefWidth="160.0" promptText="Max Amount">
+            <font>
+                <Font size="16.0" />
+            </font></TextField>
+
+        <HBox alignment="CENTER_LEFT" layoutY="-1.0" prefHeight="66.0" prefWidth="1327.0" style="-fx-background-color: #2196F3;">
+            <children>
+                <Button mnemonicParsing="false" onAction="#handleBack" prefHeight="45.0" prefWidth="96.0" style="-fx-background-color: white; -fx-text-fill: #007bff; -fx-background-radius: 15; -fx-font-weight: bold;" text="BACK">
+                    <font>
+                        <Font size="18.0" />
+                    </font></Button>
+            </children>
+            <padding>
+                <Insets left="5.0" />
+            </padding>
+        </HBox>
+    </children>
 </AnchorPane>

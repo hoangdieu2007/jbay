@@ -37,6 +37,12 @@ public class Auction implements Subject, Serializable {
     private List<BidTransaction> bidHistory;
     private final Set<Integer> observers;
 
+    // auto-bid configuration
+    private Integer autoBidUserId;
+    private Double autoBidMaxAmount;
+    private Double autoBidIncrement;
+    private boolean isAutoBidding = false;
+
     public Auction(int id, Item item, String seller, LocalDateTime startTime, LocalDateTime endTime) {
         this.id = id;
         this.item = item;
@@ -70,6 +76,10 @@ public class Auction implements Subject, Serializable {
 
     public LocalDateTime getEndTime() {
         return endTime;
+    }
+
+    public List<BidTransaction> getBidHistory() {
+        return bidHistory;
     }
 
     public String toString() {
@@ -108,6 +118,9 @@ public class Auction implements Subject, Serializable {
         this.winner = tx.getUsername();
         this.bidHistory.add(tx);
         this.notifyObservers();
+        
+        // Trigger auto-bid if configured
+        triggerAutoBid();
     }
 
     public void setEndTime(LocalDateTime newEndTime) {
@@ -132,6 +145,7 @@ public class Auction implements Subject, Serializable {
     }
 
     public void notifyObservers() {
+        System.out.println("Update: " + this);
         UpdateSystem.getInstance().notifySubscribers(this, observers);
     }
 
@@ -146,6 +160,50 @@ public class Auction implements Subject, Serializable {
             return true;
         }
         return false;
+    }
+
+    // auto-bid methods
+    public void setAutoBidConfig(int userId, double maxAmount, double increment) {
+        this.autoBidUserId = userId;
+        this.autoBidMaxAmount = maxAmount;
+        this.autoBidIncrement = increment;
+    }
+
+    public void clearAutoBidConfig() {
+        this.autoBidUserId = null;
+        this.autoBidMaxAmount = null;
+        this.autoBidIncrement = null;
+    }
+
+    private void triggerAutoBid() {
+        if (autoBidUserId == null || autoBidMaxAmount == null || autoBidIncrement == null) {
+            return;
+        }
+
+        // Prevent recursive auto-bid calls
+        if (isAutoBidding) {
+            return;
+        }
+
+        // Calculate the auto-bid amount: current price + increment
+        double autoBidAmount = currentPrice + autoBidIncrement;
+
+        // Check if auto-bid amount exceeds max_amount
+        if (autoBidAmount > autoBidMaxAmount) {
+            System.out.println("Auto-bid stopped for user " + autoBidUserId + " on auction " + id + 
+                              ": auto-bid amount (" + autoBidAmount + ") exceeds max_amount (" + autoBidMaxAmount + ")");
+            clearAutoBidConfig();
+            return;
+        }
+
+        // Set flag to prevent recursive calls
+        isAutoBidding = true;
+
+        // Place the auto-bid through AuctionSystem
+        a88.jbay.system.AuctionSystem.getInstance().placeBid(autoBidUserId, id, autoBidAmount);
+
+        // Reset flag after bid is placed
+        isAutoBidding = false;
     }
 
 }

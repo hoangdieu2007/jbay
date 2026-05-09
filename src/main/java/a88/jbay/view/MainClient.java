@@ -3,6 +3,7 @@ package a88.jbay.view;
 import a88.jbay.client.ClientSession;
 import a88.jbay.client.ServerConnection;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,6 +15,12 @@ import java.io.IOException;
 
 public class MainClient extends Application {
     @Override
+    public void stop() {
+        ServerConnection.getInstance().disconnect();
+    }
+
+
+    @Override
     public void start(Stage stage) throws IOException {
 
         ViewManager viewManager = ViewManager.getInstance();
@@ -23,20 +30,12 @@ public class MainClient extends Application {
         loadingStage.setTitle("Loading...");
 
         viewManager.setPrimaryStage(loadingStage);
-        viewManager.displayScene("loading-view.fxml", 289, 216);
+        viewManager.displayScene("loading-view.fxml");
 
         Task<Void> loadingTask = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
                 //loading
-
-                //serverconnection setup
-                try {
-                    ServerConnection.getInstance().connect("localhost", 1234);
-                    ServerConnection.getInstance().startListener();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
 
                 //client session setup
                 ClientSession clientSession = ClientSession.getInstance();
@@ -52,12 +51,13 @@ public class MainClient extends Application {
             viewManager.closePrimaryStage();
 
             try {
-                stage.setResizable(false);
+                stage.setResizable(true);
                 stage.getIcons().add(new Image(MainClient.class.getResourceAsStream("/a88/jbay/image/logo-no-bg.png")));
-                stage.setTitle("Login to jBay");
+                stage.setTitle("Auction88's jBay");
+                stage.setOnCloseRequest(event -> Platform.exit());
 
                 viewManager.setPrimaryStage(stage);
-                viewManager.displayScene("client/client-login-register-view.fxml", 600, 400);
+                viewManager.displayScene("client/client-server-connect-view.fxml");
             } catch (IOException exception) {
                 exception.printStackTrace();
             }
@@ -69,6 +69,7 @@ public class MainClient extends Application {
         });
 
         Thread loadingThread = new Thread(loadingTask);
+        loadingThread.setDaemon(true);
         loadingThread.start();
     }
 }

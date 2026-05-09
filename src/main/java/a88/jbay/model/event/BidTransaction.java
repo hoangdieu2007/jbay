@@ -2,17 +2,19 @@ package a88.jbay.model.event;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class BidTransaction {
+public class BidTransaction implements Serializable {
     private int userID;
     private String username;
     private double amt;
     private LocalDateTime timestamp;
 
-    public BidTransaction(int userID, double amt, LocalDateTime timestamp) {
+    public BidTransaction(int userID, String username, double amt, LocalDateTime timestamp) {
         this.userID = userID;
+        this.username = username;
         this.amt = amt;
         this.timestamp = timestamp;
     }

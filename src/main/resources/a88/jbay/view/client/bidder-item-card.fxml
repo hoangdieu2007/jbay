@@ -12,9 +12,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="450.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0); -fx-border-radius: 10; -fx-border-color: #e0e0e0;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.BidderItemCardController">
+<VBox alignment="CENTER" prefHeight="450.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0); -fx-border-radius: 10; -fx-border-color: #e0e0e0;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.BidderItemCardController">
     <children>
-        <ImageView fx:id="itemImage" fitHeight="200.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="itemImage" fitHeight="178.0" fitWidth="283.0" pickOnBounds="true" preserveRatio="true">
+         <VBox.margin>
+            <Insets top="6.0" />
+         </VBox.margin></ImageView>
 
         <VBox spacing="15.0" VBox.vgrow="ALWAYS">
             <padding>
@@ -22,15 +25,15 @@
             </padding>
             <children>
 
-                <HBox alignment="CENTER_LEFT" prefWidth="200.0">
+                <HBox alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="255.0">
                     <children>
-                        <Label fx:id="titleLabel" prefHeight="28.0" prefWidth="109.0" text="ItemName">
+                        <Label fx:id="titleLabel" prefHeight="28.0" text="ItemName">
                             <font>
                                 <Font name="System Bold" size="22.0" />
                             </font>
                         </Label>
                         <Region HBox.hgrow="ALWAYS" />
-                        <Label fx:id="statusLabel" style="-fx-background-color: #e0e7ff; -fx-text-fill: #2b5fe8; -fx-background-radius: 5; -fx-padding: 5 10 5 10;" text="State">
+                        <Label fx:id="statusLabel" alignment="CENTER" minWidth="60.0" style="-fx-background-color: #e0e7ff; -fx-text-fill: #2b5fe8; -fx-background-radius: 5; -fx-padding: 5 10 5 10;" text="State">
                             <font>
                                 <Font size="14.0" />
                             </font>
@@ -75,7 +78,7 @@
                                 <Font size="16.0" />
                             </font>
                         </Label>
-                        <Label text="SellerID:" textFill="#555555" GridPane.rowIndex="2">
+                        <Label text="Seller's Name:" textFill="#555555" GridPane.rowIndex="2">
                             <font>
                                 <Font size="16.0" />
                             </font>
@@ -90,7 +93,7 @@
 
                 <Region VBox.vgrow="ALWAYS" />
 
-                <Button fx:id="bidButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #2b5fe8; -fx-text-fill: white; -fx-background-radius: 8; -fx-padding: 10;" text="Place Bid">
+                <Button fx:id="bidButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handlePlaceBid" style="-fx-background-color: #2b5fe8; -fx-text-fill: white; -fx-background-radius: 8; -fx-padding: 10;" text="Place Bid">
                     <font>
                         <Font name="System Bold" size="18.0" />
                     </font>

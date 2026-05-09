@@ -67,8 +67,8 @@ public class TestDataFactory {
         Auction auction = createRunningAuction();
         LocalDateTime now = LocalDateTime.now();
         
-        BidTransaction bid1 = new BidTransaction(2, 1100.0, now.minusMinutes(30));
-        BidTransaction bid2 = new BidTransaction(3, 1200.0, now.minusMinutes(15));
+        BidTransaction bid1 = new BidTransaction(2, "u1", 1100.0, now.minusMinutes(30));
+        BidTransaction bid2 = new BidTransaction(3, "u2", 1200.0, now.minusMinutes(15));
         
         auction.updatePrice(1100.0, bid1);
         auction.updatePrice(1200.0, bid2);
@@ -78,16 +78,16 @@ public class TestDataFactory {
     
     // Test bid transactions
     public static BidTransaction createTestBid() {
-        return new BidTransaction(2, 1500.0, LocalDateTime.now());
+        return new BidTransaction(2, "u99", 1500.0, LocalDateTime.now());
     }
     
     public static List<BidTransaction> createTestBidHistory() {
         LocalDateTime now = LocalDateTime.now();
         return Arrays.asList(
-            new BidTransaction(2, 1100.0, now.minusHours(2)),
-            new BidTransaction(3, 1200.0, now.minusHours(1)),
-            new BidTransaction(2, 1300.0, now.minusMinutes(30)),
-            new BidTransaction(4, 1400.0, now.minusMinutes(15))
+            new BidTransaction(2, "u6", 1100.0, now.minusHours(2)),
+            new BidTransaction(3, "u7", 1200.0, now.minusHours(1)),
+            new BidTransaction(2, "u8", 1300.0, now.minusMinutes(30)),
+            new BidTransaction(4, "u9", 1400.0, now.minusMinutes(15))
         );
     }
     

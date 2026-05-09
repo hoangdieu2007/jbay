@@ -14,6 +14,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -27,8 +28,8 @@ public class ClientSession {
 
     private ClientSession() {
         user = new User();
-        sellerAuctions = FXCollections.observableMap(new TreeMap<>());
-        bidderAuctions = FXCollections.observableMap(new TreeMap<>());
+        sellerAuctions = FXCollections.observableMap(new TreeMap<>(Collections.reverseOrder()));
+        bidderAuctions = FXCollections.observableMap(new TreeMap<>(Collections.reverseOrder()));
 
     }
 
@@ -59,8 +60,18 @@ public class ClientSession {
 
     // after each logout, call this to erase session
     public void resetSession() {
+        //Reset ttin user
         this.user = new User();
-        this.bidderAuctions = FXCollections.observableHashMap();
-        this.sellerAuctions = FXCollections.observableHashMap();
+
+        //Làm sạch Map nhưng giữ nguyên thực thể và không làm đứt kết nối với Listener
+        if (this.bidderAuctions != null) {
+            this.bidderAuctions.clear();
+        }
+
+        if (this.sellerAuctions != null) {
+            this.sellerAuctions.clear();
+        }
+
+        System.out.println("Session has been cleared");
     }
 }

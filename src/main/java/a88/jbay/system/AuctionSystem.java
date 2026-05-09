@@ -8,6 +8,7 @@ import a88.jbay.model.entity.item.Item;
 import a88.jbay.model.event.Auction;
 import a88.jbay.model.event.AuctionState;
 import a88.jbay.model.event.BidTransaction;
+import a88.jbay.model.network.Response;
 
 import java.lang.reflect.Array;
 import java.time.LocalDateTime;
@@ -57,9 +58,12 @@ public class AuctionSystem {
 
     private void loadActiveAuctions() {
         java.util.List<AuctionData> activeAuctionData = auctionDAO.findAllActiveAuctions();
+        System.out.println("Loading " + activeAuctionData.size() + " active auctions from database");
 
         for (AuctionData auctionData : activeAuctionData) {
-            Auction auction = new Auction(
+            System.out.println("Loading auction: " + auctionData.id() + " - " + auctionData.item().getName() + " - State: " + auctionData.state());
+            try {
+                Auction auction = new Auction(
                 auctionData.id(),
                 auctionData.item(),
                 userDAO.findByUserId(auctionData.sellerId()).username(),
@@ -74,7 +78,7 @@ public class AuctionSystem {
             java.util.Set<Integer> bidders = new java.util.HashSet<>();
             
             for (BidDAO.BidData bidData : bidHistory) {
-                BidTransaction tx = new BidTransaction(bidData.userId(), bidData.amount(), bidData.time());
+                BidTransaction tx = new BidTransaction(bidData.userId(), userDAO.findByUserId(bidData.userId()).username(), bidData.amount(), bidData.time());
                 auction.updatePrice(bidData.amount(), tx);
                 bidders.add(bidData.userId());
             }
@@ -88,6 +92,11 @@ public class AuctionSystem {
             auction.subscribe(auctionData.sellerId());
 
             activeAuctions.put(auctionData.id(), auction);
+            
+            } catch (Exception e) {
+                System.err.println("Failed to load auction " + auctionData.id() + ": " + e.getMessage());
+                e.printStackTrace();
+            }
         }
     }
 
@@ -118,6 +127,12 @@ public class AuctionSystem {
         );
         activeAuctions.put(auctionId, auction);
         auction.subscribe(sellerId); // Seller is automatically subscribed
+
+        //update everyone about this auction
+        UpdateSystem.getInstance().updateAllUsers(
+                new Response(true, "AUCTION_UPDATE", auction)
+        );
+
         return true;
     }
 
@@ -136,62 +151,36 @@ public class AuctionSystem {
         return bidPlaced;
     }
 
-    public synchronized void placeBidAutomated(int userId, int auctionId, double amount, double max_amount, double increment, int intervalSeconds) {
+    public synchronized void placeBidAutomated(int userId, int auctionId, double max_amount, double increment) {
         /*
         Phương thức dùng để tự động hoá quá trình placeBid
-        Cứ cách mỗi "increment" giây, sẽ tự gọi phương thức placeBid(userId, auctionId, amount += increment) một lần
-        Khi amount vượt qua max_amount, phương thức dừng
+        Tự động placeBid khi một giá mới được đăng ký (current price trong auction)
+        Giá auto placeBid sẽ cao hơn giá mới nhất một lượng bằng "increment"
+        Nếu giá auto placeBid cao hơn max_amount thì dừng auto bid
         */
 
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-        AtomicReference<Double> amountRef = new AtomicReference<>(amount);
-        AtomicReference<String> resultMessage = new AtomicReference<>();
-
-        Callable<String> bidTask = new Callable<String>() {
-            @Override
-            public String call() {
-                double currentAmount = amountRef.get();
-                if (currentAmount > max_amount) {
-                    String message = "Current placeBid (" + currentAmount + ") has exceeded max_amount (" + max_amount + "). Stop automated bidding.";
-                    resultMessage.set(message);
-                    scheduler.shutdown();
-                    return message;
-                }
-
-                placeBid(userId, auctionId, currentAmount);
-                amountRef.updateAndGet(current -> current + increment);
-                return "Bid placed successfully for: " + currentAmount;
-            }
-        };
-
-        scheduler.scheduleAtFixedRate(() -> {
-            try {
-                String message = bidTask.call();
-                if (message.contains("exceeded")) {
-                    System.out.println("Automated bidding stopped: " + message);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }, 0, intervalSeconds, TimeUnit.SECONDS);
-
-        try {
-            Thread.sleep(30000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        Auction auction = activeAuctions.get(auctionId);
+        if (auction == null) {
+            System.out.println("Auction " + auctionId + " not found or not active.");
+            return;
         }
 
-        if (!scheduler.isShutdown()) {
-            scheduler.shutdown();
-        }
+        // Store auto-bid configuration for this user and auction
+        auction.setAutoBidConfig(userId, max_amount, increment);
+
+        // Subscribe user to auction to receive price change notifications
+        auction.subscribe(userId);
+
+        System.out.println("Auto-bid enabled for user " + userId + " on auction " + auctionId + 
+                          " with max_amount=" + max_amount + ", increment=" + increment);
     }
 
     public void extendEndTime(LocalDateTime now, Auction auction) {
         //use anti-sniping: automatically extend the duration of an auction
         //when it receives a placeBid request close to its end
 
-        int ANTI_SNIPING_EXTENSION_SECONDS = 300;
-        int ANTI_SNIPING_THRESHOLD_SECONDS = 30;
+        int ANTI_SNIPING_EXTENSION_SECONDS = 3600;
+        int ANTI_SNIPING_THRESHOLD_SECONDS = 300;
 
         long secondsUntilEnd = java.time.Duration.between(now, auction.getEndTime()).getSeconds();
 
@@ -276,7 +265,7 @@ public class AuctionSystem {
         java.util.Set<Integer> bidders = new java.util.HashSet<>();
         
         for (BidDAO.BidData bidData : bidHistory) {
-            BidTransaction tx = new BidTransaction(bidData.userId(), bidData.amount(), bidData.time());
+            BidTransaction tx = new BidTransaction(bidData.userId(), userDAO.findByUserId(bidData.userId()).username(), bidData.amount(), bidData.time());
             auction.updatePrice(bidData.amount(), tx);
             bidders.add(bidData.userId());
         }

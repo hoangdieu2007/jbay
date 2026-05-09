@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
@@ -8,54 +9,58 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fillWidth="false" prefHeight="263.0" prefWidth="245.0" spacing="10.0" style="-fx-border-color: #ccc; -fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: white;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.SellerItemCardController">
+<VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="455.0" prefWidth="302.0" spacing="10.0" style="-fx-border-color: #ccc; -fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: white;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.SellerItemCardController">
     <children>
-        <ImageView fx:id="sellerImage" fitHeight="150.0" fitWidth="245.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="sellerImage" fitHeight="195.0" fitWidth="281.0" pickOnBounds="true" preserveRatio="true">
+         <VBox.margin>
+            <Insets left="8.0" right="8.0" top="8.0" />
+         </VBox.margin></ImageView>
 
-        <HBox alignment="CENTER_LEFT" prefHeight="23.0" prefWidth="250.0" spacing="10.0">
+        <HBox alignment="CENTER_LEFT" prefHeight="22.0" prefWidth="298.0" spacing="10.0">
             <children>
-                <Label fx:id="lblName" prefHeight="23.0" prefWidth="96.0" text="ItemName" HBox.hgrow="ALWAYS">
-                    <font><Font name="System Bold" size="18.0" /></font>
+                <Label fx:id="lblName" prefHeight="26.0" text="ItemName" HBox.hgrow="ALWAYS">
+                    <font><Font name="System Bold" size="20.0" /></font>
                 </Label>
-                <Region prefHeight="23.0" prefWidth="41.0" />
-                <Label fx:id="lblStatus" style="-fx-background-color: #D1FAE5; -fx-text-fill: #065F46; -fx-padding: 3 8; -fx-background-radius: 5;" text="Status" />
+                <Region prefHeight="26.0" prefWidth="99.0" HBox.hgrow="ALWAYS" />
+                <Label fx:id="lblStatus" alignment="CENTER" minWidth="60.0" style="-fx-background-color: #D1FAE5; -fx-text-fill: #065F46; -fx-padding: 3 8; -fx-background-radius: 5;" text="Status" />
+            <Region prefHeight="26.0" prefWidth="14.0" HBox.hgrow="ALWAYS" />
             </children>
             <padding>
                 <Insets left="15.0" />
             </padding>
         </HBox>
-        <HBox prefHeight="31.0" prefWidth="258.0">
+        <HBox prefHeight="56.0" prefWidth="298.0">
             <children>
-                <Label prefHeight="35.0" prefWidth="108.0" text="Highest Bid" textFill="#dd2121">
+                <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="56.0" text="Highest Bid" textFill="#dd2121">
                     <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font name="System Bold" size="20.0" />
                     </font>
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
                 </Label>
-                <Region prefHeight="28.0" prefWidth="40.0" />
-                <Label fx:id="lblPrice" prefHeight="32.0" prefWidth="67.0" text="Price" textAlignment="CENTER">
+                <Region prefHeight="56.0" prefWidth="91.0" />
+                <Label fx:id="lblPrice" alignment="CENTER" prefHeight="76.0" prefWidth="98.0" text="Price" textAlignment="CENTER">
                     <font>
-                        <Font size="18.0" />
+                        <Font size="20.0" />
                     </font>
                 </Label>
             </children>
-            <padding>
-                <Insets left="15.0" />
-            </padding>
+         <padding>
+            <Insets left="15.0" />
+         </padding>
         </HBox>
-        <HBox prefHeight="31.0" prefWidth="250.0">
+        <HBox prefHeight="50.0" prefWidth="298.0">
             <children>
-                <Label prefHeight="31.0" prefWidth="97.0" text="Top Bidder">
+                <Label minWidth="-Infinity" prefHeight="66.0" text="Top Bidder">
                     <font>
-                        <Font size="18.0" />
+                        <Font name="System Bold" size="20.0" />
                     </font>
                 </Label>
-                <Region prefHeight="31.0" prefWidth="50.0" />
-                <Label fx:id="lblHighestBidderName" prefHeight="29.0" prefWidth="120.0" text="BidderName">
+                <Region prefHeight="50.0" prefWidth="71.0" />
+                <Label fx:id="lblHighestBidderName" alignment="CENTER" prefHeight="50.0" prefWidth="148.0" text="BidderName" textAlignment="CENTER">
                     <font>
-                        <Font size="18.0" />
+                        <Font size="20.0" />
                     </font>
                 </Label>
             </children>
@@ -63,5 +68,26 @@
                 <Insets left="15.0" />
             </padding>
         </HBox>
+      <HBox alignment="CENTER" prefHeight="44.0" prefWidth="298.0">
+         <children>
+            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="108.0" style="-fx-background-color: Red; -fx-text-fill: White; -fx-background-radius: 120;" text="Cancel">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
+            <Region prefHeight="48.0" prefWidth="44.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></Region>
+            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="108.0" style="-fx-background-color: #2b5fe8; -fx-text-fill: white; -fx-background-radius: 120;" text="View" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      </HBox>
     </children>
 </VBox>

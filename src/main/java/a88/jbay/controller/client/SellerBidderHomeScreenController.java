@@ -1,7 +1,14 @@
 package a88.jbay.controller.client;
 
 import a88.jbay.client.ClientSession;
+import a88.jbay.client.ServerConnection;
+import a88.jbay.controller.ControllerProvider;
 import a88.jbay.model.event.Auction;
+import a88.jbay.model.network.Request;
+import a88.jbay.model.network.RequestType;
+import a88.jbay.model.network.Response;
+import a88.jbay.server.ClientHandler;
+import a88.jbay.system.UserSystem;
 import a88.jbay.view.ViewManager;
 import com.almasb.fxgl.cutscene.CutsceneScene;
 import javafx.collections.*;
@@ -11,6 +18,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -19,44 +28,45 @@ import java.io.IOException;
 import java.util.*;
 
 public class SellerBidderHomeScreenController {
-    // khởi tạo dsach động
-    private ObservableList<Auction> auctionObservableList = FXCollections.observableArrayList();
-    private ObservableList<Auction> sellerAuctionObservableList = FXCollections.observableArrayList();
+    // LOG OUT
+    @FXML private Button btnLogOut;
 
-    // ==== Xử lý thông tin từ Server qua Socket===
-    // 1. Nạp toàn bộ dữ liệu lần đầu (Chạy lúc vừa mở form)
-    // Thằng Socket sau khi query Database lấy List<Auction> sẽ gọi hàm này
-    public void loadInitialData(List<Auction> initialList) {
-        javafx.application.Platform.runLater(() -> {
-            auctionObservableList.clear(); // Xóa rác cũ nếu có
-            auctionObservableList.addAll(initialList); // Kích nổ wasAdded() hàng loạt
-        });
+    @FXML
+    private void handleLogOut(){
+        try {
+            ServerConnection.getInstance().send(new Request(RequestType.LOGOUT)
+                    .put("sessionId", ClientSession.getInstance().getUser().getSessionId()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    // 2. Hứng 1 phiên đấu giá mới toanh (Real-time)
-    // Thằng Socket nhận tin báo có Seller vừa đăng bài sẽ ném Object vào đây
-    public void onNewAuctionReceived(Auction newAuction) {
-        javafx.application.Platform.runLater(() -> {
-            auctionObservableList.add(newAuction); // Kích nổ wasAdded() tạo 1 thẻ nối đuôi
-        });
-    }
+    //UserName
+    @FXML private Label lblUserName;
 
-    // 3. Hứng dữ liệu cập nhật: Lên giá hoặc Hết giờ (Real-time)
-    // Thằng Socket nhận tin báo có người Bid, hoặc Server báo Ended sẽ ném Object đã update vào đây
-    public void onAuctionUpdated(Auction updatedAuction) {
-        javafx.application.Platform.runLater(() -> {
-            // Quét tìm cái thẻ cũ đang nằm ở vị trí nào
-            for (int i = 0; i < auctionObservableList.size(); i++) {
-                if (auctionObservableList.get(i).getId() == updatedAuction.getId()) {
 
-                    // Ghi đè Object mới vào vị trí cũ -> Kích nổ wasReplaced()
-                    auctionObservableList.set(i, updatedAuction);
 
-                    // Tìm thấy và đè xong rồi thì thoát vòng lặp luôn cho tối ưu
-                    break;
-                }
-            }
-        });
+    //Xử lí phần quay trở lại vào màn hình
+    @FXML private TabPane mainTabPane;
+    public static int targetTabIndex = 0;
+    /*
+     * index = 0: Tab Seller
+     * index = 1: Tab Bidder
+     */
+    @FXML
+    public void initialize() {
+        // Đăng ký chính nó vào Provider
+        ControllerProvider.getInstance().registerController(this);
+
+        // Tự động chọn tab dựa trên biến targetTabIndex ngay khi vừa load xong
+        if (mainTabPane != null) {
+            mainTabPane.getSelectionModel().select(targetTabIndex);
+        }
+
+        lblUserName.setText(ClientSession.getInstance().getUser().getUsername());
+
+        initializeSellerUI();
+        initializeBidderUI();
     }
 
     /** ====SELLER==== **/
@@ -68,12 +78,13 @@ public class SellerBidderHomeScreenController {
 
     public void handleCreateListing(ActionEvent actionEvent) {
         try {
-            ViewManager.displayScene("/a88/jbay/view/client/client-seller-item-view.fxml");
+            ViewManager.displayScene("client/client-seller-item-view.fxml");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
+    @FXML
     private VBox createCardSeller(Auction auction) {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -95,8 +106,17 @@ public class SellerBidderHomeScreenController {
     public void initializeSellerUI() {
         sellerFlowPane.getChildren().clear();
         ObservableMap<Integer, Auction> sellerMap = ClientSession.getInstance().getSellerAuctions();
-        // cài Listener cho ObservableList
-        //Tránh gọi nhầm hàm addListener
+        System.out.println("Seller UI initialized with " + sellerMap.size() + " auctions");
+
+        int initIndex = 0;
+        for (Auction auction : sellerMap.values()) {
+            VBox newCard = createCardSeller(auction);
+            if (newCard != null) {
+                sellerCardBox.put(auction.getId(), newCard);
+                sellerFlowPane.getChildren().add(initIndex++, newCard);
+            }
+        }
+
         ClientSession.getInstance().getSellerAuctions().addListener((MapChangeListener<Integer, Auction>) change -> {
             // nếu còn phần tử, trả về true --> chạy tiếp
 
@@ -139,14 +159,7 @@ public class SellerBidderHomeScreenController {
     /** ====BIDDER==== **/
     @FXML private FlowPane bidderFlowPane;
 
-    public void handlePlaceBid(ActionEvent event){
-        try {
-            ViewManager.displayScene("/a88/jbay/view/client/client-bidder-item-view.fxml");
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-
+    @FXML
     private VBox createCardBidder(Auction auction){
         try{
             FXMLLoader loader = new FXMLLoader();
@@ -169,6 +182,17 @@ public class SellerBidderHomeScreenController {
     @FXML
     public void  initializeBidderUI(){
         bidderFlowPane.getChildren().clear();
+        ObservableMap<Integer, Auction> bidderMap = ClientSession.getInstance().getBidderAuctions();
+        System.out.println("Bidder UI initialized with " + bidderMap.size() + " auctions");
+
+        int initIndex = 0;
+        for (Auction auction : bidderMap.values()) {
+            VBox newCard = createCardBidder(auction);
+            if (newCard != null) {
+                bidderCardBox.put(auction.getId(), newCard);
+                bidderFlowPane.getChildren().add(initIndex++, newCard);
+            }
+        }
 
         ClientSession.getInstance().getBidderAuctions().addListener((MapChangeListener< Integer, Auction>) change -> {
             // nếu còn phần tử, trả về true --> chạy tiếp
@@ -187,6 +211,7 @@ public class SellerBidderHomeScreenController {
 
                 } else if(change.wasAdded() && change.wasRemoved()){
                     VBox oldCard = bidderCardBox.get(id);
+
                     if (oldCard != null) {
                         int index = bidderFlowPane.getChildren().indexOf(oldCard);
                         Auction updateAuction = change.getValueAdded();
@@ -199,11 +224,5 @@ public class SellerBidderHomeScreenController {
                 }
 
         });
-
-
     }
-
-
-
-
 }

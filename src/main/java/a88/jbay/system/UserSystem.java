@@ -6,6 +6,7 @@ import a88.jbay.model.StringHash;
 import a88.jbay.model.entity.user.User;
 import a88.jbay.model.network.Response;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -72,9 +73,10 @@ public class UserSystem {
     }
 
     public void addActiveUser(int userId, User user) {
-        activeUsers.computeIfAbsent(userId, k -> List.of()).add(user);
+        activeUsers.computeIfAbsent(userId, k -> new ArrayList<>()).add(user);
     }
 
+    //ban and cleanup current user cache
     public boolean banUser(int userId) {
         if (userDAO.findByUserId(userId) == null) return false;
 
@@ -95,5 +97,12 @@ public class UserSystem {
         }
 
         return false;
+    }
+
+    //unban user
+    public boolean unbanUser(int userId) {
+        if (userDAO.findByUserId(userId) == null) return false;
+
+        return userDAO.changeUserRole(userId, "USER");
     }
 }

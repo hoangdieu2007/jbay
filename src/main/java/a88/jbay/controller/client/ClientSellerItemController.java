@@ -19,7 +19,9 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoField;
 
 public class ClientSellerItemController {
     @FXML
@@ -53,7 +55,11 @@ public class ClientSellerItemController {
     private Label typeErrorLabel;
 
     private File selectedImageFile;
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+    private final DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+            .appendPattern("dd/MM HH:mm")
+            .parseDefaulting(ChronoField.YEAR, LocalDateTime.now().getYear()) // Tự động lấy năm 2026
+            .toFormatter();
 
     private boolean validateInputs() {
         //Reset lại các lỗi
@@ -113,7 +119,7 @@ public class ClientSellerItemController {
                     return false;
                 }
             } catch (DateTimeParseException e) {
-                startErrorLabel.setText("Wrong format! Use dd/MM/yyyy HH:mm");
+                startErrorLabel.setText("Wrong format! Use dd/MM HH:mm");
                 startErrorLabel.setVisible(true);
                 return false;
             }
@@ -161,27 +167,23 @@ public class ClientSellerItemController {
 
     //Hàm tính toán startTime
     private LocalDateTime calculateStartTime() {
-        String choice = startChoiceCombo.getValue();
-        if ("Now".equals(choice)) {
+        try {
+            // Luôn ưu tiên parse từ TextField vì nó đã được đồng bộ với ComboBox
+            return LocalDateTime.parse(startStr.getText().trim(), formatter);
+        } catch (DateTimeParseException e) {
             return LocalDateTime.now();
         }
-        // Vì đã validate ở bước trước, nên parse ở đây chắc chắn an toàn
-        return LocalDateTime.parse(startStr.getText().trim(), formatter);
     }
 
     //Hàm tính toán endTime
     private LocalDateTime calculateEndTime(LocalDateTime start) {
-        int days = 0;
-        String choice = runChoiceCombo.getValue();
-
-        if ("Custom time".equals(choice)) {
-            days = Integer.parseInt(runStr.getText().trim());
-        } else {
-            // Tách lấy số từ chuỗi "3 days" -> "3"
-            days = Integer.parseInt(choice.split(" ")[0]);
+        try {
+            int days = Integer.parseInt(runStr.getText().trim());
+            // Java tự động xử lý cộng ngày và nhảy tháng/năm thông minh
+            return start.plusDays(days);
+        } catch (NumberFormatException e) {
+            return start.plusDays(1);
         }
-
-        return start.plusDays(days);
     }
 
     //Hàm khởi tạo đối tượng item
@@ -197,16 +199,64 @@ public class ClientSellerItemController {
 
     @FXML
     public void initialize() {
-        // 1. Nạp các loại mặt hàng
+        // Nạp dữ liệu vào ComboBox
         typeComboBox.getItems().addAll("Electronics", "Fashion", "Home", "Collectibles", "Others");
-
-        // 2. Nạp lựa chọn thời gian bắt đầu
         startChoiceCombo.getItems().addAll("Now", "Custom time");
-        startChoiceCombo.getSelectionModel().selectFirst(); // Mặc định chọn "Now"
-
-        // 3. Nạp lựa chọn thời gian chạy
         runChoiceCombo.getItems().addAll("1 day", "3 days", "7 days", "Custom time");
-        runChoiceCombo.getSelectionModel().select(1); // Mặc định chọn "3 days"
+
+        // Thiết lập ButtonCell để ẨN CHỮ khi đã chọn (Compact Mode)
+        setupCompactComboBox(startChoiceCombo);
+        setupCompactComboBox(runChoiceCombo);
+
+        // CẬP NHẬT TEXTFIELD KHI CHỌN COMBOBOX START
+        startChoiceCombo.setOnAction(e -> {
+            String selected = startChoiceCombo.getValue();
+            if ("Now".equals(selected)) {
+                // Tự động điền thời gian hiện tại và khóa ô nhập
+                startStr.setText(LocalDateTime.now().format(formatter));
+                startStr.setEditable(false);
+            } else {
+                startStr.clear();
+                startStr.setEditable(true);
+                startStr.requestFocus();
+            }
+        });
+
+        // CẬP NHẬT TEXTFIELD KHI CHỌN COMBOBOX RUN TIME
+        runChoiceCombo.setOnAction(e -> {
+            String selected = runChoiceCombo.getValue();
+            if (!"Custom time".equals(selected)) {
+                // Tách lấy số (ví dụ "3 days" -> "3")
+                runStr.setText(selected.split(" ")[0]);
+                runStr.setEditable(false);
+            } else {
+                runStr.clear();
+                runStr.setEditable(true);
+                runStr.requestFocus();
+            }
+        });
+
+        // Mặc định chọn các giá trị ban đầu
+        startChoiceCombo.getSelectionModel().selectFirst();
+        runChoiceCombo.getSelectionModel().select(1); // Mặc định "3 days"
+    }
+
+    /**
+     * Hàm hỗ trợ biến ComboBox thành dạng thu gọn:
+     * Hiện chữ trong danh sách xổ xuống, nhưng ẩn chữ ở cái nút bấm.
+     */
+    private void setupCompactComboBox(ComboBox<String> comboBox) {
+        comboBox.setButtonCell(new ListCell<String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(""); // Xóa sạch chữ trên giao diện chính của ComboBox
+                }
+            }
+        });
     }
 
     @FXML
@@ -250,12 +300,24 @@ public class ClientSellerItemController {
 
             ServerConnection.getInstance().send(request);
 
-            ViewManager.getInstance().displayScene("client/Seller-Bidder-HomeScreens.fxml");
+            ViewManager.displayScene("client/Seller-Bidder-HomeScreens.fxml");
 
             new Alert(Alert.AlertType.INFORMATION, "Auction created successfully!").show();
 
         } catch (IOException e) {
             new Alert(Alert.AlertType.ERROR, "Error: " + e.getMessage()).show();
+        }
+    }
+
+    @FXML
+    private void handleBack() {
+        // Chỉ định tab cần mở khi quay về là Seller
+        SellerBidderHomeScreenController.targetTabIndex = 0;
+
+        try {
+            ViewManager.displayScene("client/Seller-Bidder-HomeScreens.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

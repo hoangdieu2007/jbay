@@ -5,6 +5,7 @@ import com.zaxxer.hikari.HikariDataSource;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 // singleton class for database controlling
 // requirement: thread safe
@@ -12,11 +13,15 @@ public class DatabaseController implements DatabaseConnectionProvider {
     private static DatabaseController instance;
     private final HikariDataSource dataSource;
 
+    public static String url;
+    public static String username;
+    public static String password;
+
     private DatabaseController() {
         HikariConfig config = new HikariConfig();
-        config.setJdbcUrl("jdbc:mysql://localhost:3306/jbay_db");
-        config.setUsername("root");
-        config.setPassword("220407");
+        config.setJdbcUrl(url);
+        config.setUsername(username);
+        config.setPassword(password);
 
         // Pool configuration
         config.setMaximumPoolSize(10);
@@ -33,6 +38,12 @@ public class DatabaseController implements DatabaseConnectionProvider {
             instance = new DatabaseController();
         }
         return instance;
+    }
+
+    public static void setCredentials(String inputUrl, String inputUsername, String inputPassword) {
+        url = inputUrl;
+        username = inputUsername;
+        password = inputPassword;
     }
 
     public Connection getConnection() throws SQLException {

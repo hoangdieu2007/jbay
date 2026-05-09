@@ -5,9 +5,11 @@ public enum RequestType {
     REGISTER,
     LOGOUT,
     BID,
+    AUTO_BID,
     SELL,
     CANCEL,
     SUBSCRIBE_AUCTION,
     UNSUBSCRIBE_AUCTION,
+    GET_AUCTIONS,
     MISC;
 }

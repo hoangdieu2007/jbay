@@ -2,14 +2,17 @@ package a88.jbay;
 
 import a88.jbay.dao.AuctionDAO;
 import a88.jbay.dao.UserDAO;
+import a88.jbay.model.event.Auction;
 import a88.jbay.server.ClientHandler;
 import a88.jbay.server.ClientService;
+import a88.jbay.server.DatabaseController;
 import a88.jbay.system.AuctionSystem;
 import a88.jbay.system.UserSystem;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
@@ -21,7 +24,30 @@ public class MainServerTUI {
         System.out.println("------------------JBAY_SERVER_TUI-----------------");
         System.out.println("--------------software infrastructure-------------\n\n");
 
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Connect to database:");
+        while (true) {
+            try {
+                System.out.println("Enter URL:");
+                String url = sc.nextLine();
+                System.out.println("Enter username:");
+                String username = sc.nextLine();
+                System.out.println("Enter password:");
+                String password = sc.nextLine();
+                DatabaseController.setCredentials(url, username, password);
+                DatabaseController.getInstance().getConnection();
+                break;
+            } catch (SQLException e) {
+                System.err.println("Please try again.");
+            }
+        }
+
         ClientService clientService = ClientService.getInstance();
+
+        //init systems
+        AuctionSystem auctionSystem = AuctionSystem.getInstance();
+        UserSystem userSystem = UserSystem.getInstance();
 
         try {
 
@@ -29,7 +55,6 @@ public class MainServerTUI {
             Thread serverTUI = new Thread(() -> {
                 System.out.println("Server CLI starting...");
 
-                Scanner sc = new Scanner(System.in);
                 String command; int opt;
 
                 while (true) {
@@ -75,6 +100,12 @@ public class MainServerTUI {
 
                             System.out.println("Auction ID:");
                             auctionId = sc.nextInt();
+
+                            if (auctionId == -1) {
+                                for (Auction auction : AuctionSystem.getInstance().getActiveAuctionList()) {
+                                    System.out.println(auction);
+                                }
+                            }
 
                             break;
                         default:
