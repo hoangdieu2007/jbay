@@ -21,7 +21,7 @@ public class SellerItemCardController {
     public void setData(Auction auction) {
         currentAuction = auction;
         lblName.setText(auction.getItem().getName());
-        lblPrice.setText(String.valueOf(auction.getCurrentPrice()));
+        lblPrice.setText(String.valueOf(auction.getCurrentPrice()) + "USD");
         lblHighestBidderName.setText(auction.getWinner());
         updateStatusUI(auction.getAuctionState());
 
