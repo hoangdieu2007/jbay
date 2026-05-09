@@ -21,11 +21,12 @@
                 <Label fx:id="lblName" prefHeight="26.0" text="ItemName" HBox.hgrow="ALWAYS">
                     <font><Font name="System Bold" size="20.0" /></font>
                 </Label>
-            <Region minWidth="108.0" prefHeight="26.0" HBox.hgrow="ALWAYS" />
+            <Region minWidth="50.0" prefHeight="26.0" HBox.hgrow="ALWAYS" />
                 <Label fx:id="lblStatus" alignment="CENTER" contentDisplay="CENTER" minWidth="59.0" prefHeight="23.0" style="-fx-background-color: #D1FAE5; -fx-text-fill: #065F46; -fx-padding: 3 8; -fx-background-radius: 5;" text="Status">
                <HBox.margin>
-                  <Insets />
+                  <Insets right="1.0" />
                </HBox.margin></Label>
+            <Region prefHeight="26.0" />
             </children>
             <padding>
                 <Insets left="15.0" />
