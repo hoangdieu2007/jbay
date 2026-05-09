@@ -1,12 +1,16 @@
 package a88.jbay.controller.client;
 
+import a88.jbay.controller.ControllerProvider;
 import a88.jbay.util.ImageProcessor;
 import a88.jbay.model.event.Auction;
 import a88.jbay.model.event.AuctionState;
+import a88.jbay.view.ViewManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 import javafx.scene.image.ImageView;
+
+import java.io.IOException;
 
 public class SellerItemCardController {
     private Auction currentAuction;
@@ -36,6 +40,17 @@ public class SellerItemCardController {
         } else {
             lblStatus.setText("Ended");
             lblStatus.setStyle("-fx-background-color: #fee2e2; -fx-text-fill: #ef4444; -fx-background-radius: 5; -fx-padding: 5 10 5 10;");
+        }
+    }
+
+
+    @FXML
+    private void handleView(){
+        try {
+            ViewManager.displayScene("client/seller-viewAuction-view.fxml");
+            ControllerProvider.getInstance().getController(SellerViewAuctionController.class).setSellerViewData(currentAuction);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
