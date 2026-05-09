@@ -64,7 +64,7 @@ public class ClientConnection implements Runnable {
                     // update cache if login success
                     if (response.getMessage().equals("LOGIN_SUCCESS")) {
                         this.userCache = (User) response.getPayload();
-                        UpdateSystem.getInstance().updateByUserId(userCache.getId(), response);
+                        UpdateSystem.getInstance().register(this);
                     } else if (response.getMessage().equals("LOGOUT_SUCCESS")) {
                         this.userCache = new User();
                         UpdateSystem.getInstance().unregister(this);
