@@ -2,6 +2,8 @@ package a88.jbay.controller.client;
 
 import a88.jbay.client.ClientSession;
 import a88.jbay.client.ServerConnection;
+import a88.jbay.model.network.Request;
+import a88.jbay.model.network.RequestType;
 import a88.jbay.util.ImageProcessor;
 import a88.jbay.model.event.Auction;
 import a88.jbay.model.event.BidTransaction;
@@ -87,8 +89,20 @@ public class SellerViewAuctionController {
     }
 
     @FXML
-    private void handleCancel() {
+    private void handleCancel() throws IOException {
+        String userId = ClientSession.getInstance().getUser().getSessionId();
+
         currAuction.cancel();
+        ServerConnection.getInstance().send(new Request(RequestType.CANCEL).put("sessionId", userId ).put("auctionId", currAuction.getId()));
+
+        // Chỉ định tab cần mở khi quay về là seller
+        SellerBidderHomeScreenController.targetTabIndex = 0;
+
+        try {
+            ViewManager.displayScene("client/Seller-Bidder-HomeScreens.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

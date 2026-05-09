@@ -107,6 +107,119 @@ java.net.SocketException: Socket closed
 	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startListener$0(ServerConnection.java:60)
 	at java.base/java.lang.Thread.run(Thread.java:1474)
 2026-05-09 21:59:47.242 [Thread-4] INFO  a88.jbay.util.JBayLogger - Listener thread ended
+2026-05-09 22:15:22.416 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - Connecting to server: 0.tcp.ap.ngrok.io:22013
+2026-05-09 22:15:22.626 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - Connection successful to server: 0.tcp.ap.ngrok.io:22013
+2026-05-09 22:15:33.235 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: LOGIN_SUCCESS
+2026-05-09 22:15:33.257 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:15:33.258 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 0 auctions
+2026-05-09 22:15:38.257 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: ACTIVE_AUCTION_LIST
+2026-05-09 22:15:38.257 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: BIDDER_AUCTION_LIST
+2026-05-09 22:15:38.258 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: SELLER_AUCTION_LIST
+2026-05-09 22:15:38.258 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: GET_AUCTIONS_SUCCESS
+2026-05-09 22:15:38.265 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - GET_AUCTIONS_SUCCESS
+2026-05-09 22:15:48.256 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - File selected: 7 phe la.png
+2026-05-09 22:15:51.221 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:16:07.355 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:16:07.355 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 4 auctions
+2026-05-09 22:16:17.182 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:16:17.182 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 4 auctions
+2026-05-09 22:16:24.216 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:16:24.216 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 4 auctions
+2026-05-09 22:17:06.832 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:17:06.833 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 4 auctions
+2026-05-09 22:17:07.782 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:17:07.782 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 4 auctions
+2026-05-09 22:17:08.699 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:17:08.699 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 4 auctions
+2026-05-09 22:17:08.714 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:17:08.714 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 4 auctions
+2026-05-09 22:17:09.277 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:17:09.278 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 4 auctions
+2026-05-09 22:17:09.292 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:17:09.292 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 4 auctions
+2026-05-09 22:17:09.463 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:17:09.463 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 4 auctions
+2026-05-09 22:17:09.644 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:17:09.644 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 4 auctions
+2026-05-09 22:17:09.809 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:17:09.809 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 4 auctions
+2026-05-09 22:17:09.958 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:17:09.959 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 4 auctions
+2026-05-09 22:17:10.126 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:17:10.127 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 4 auctions
+2026-05-09 22:17:10.314 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:17:10.314 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 4 auctions
+2026-05-09 22:17:10.475 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:17:10.475 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 4 auctions
+2026-05-09 22:17:10.643 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:17:10.643 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 4 auctions
+2026-05-09 22:17:10.830 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:17:10.830 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 4 auctions
+2026-05-09 22:17:12.099 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:17:12.099 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 4 auctions
+2026-05-09 22:17:14.336 [Thread-4] ERROR a88.jbay.util.JBayLogger - Disconnected from server: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.endRead(NioSocketImpl.java:242)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:321)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:354)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:798)
+	at java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:974)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:964)
+	at java.base/java.io.ObjectInputStream$PeekInputStream.read(ObjectInputStream.java:2762)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.read(ObjectInputStream.java:3195)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.readFully(ObjectInputStream.java:3225)
+	at java.base/java.io.ObjectInputStream.readArray(ObjectInputStream.java:2016)
+	at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1608)
+	at java.base/java.io.ObjectInputStream$FieldValues.<init>(ObjectInputStream.java:2480)
+	at java.base/java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2327)
+	at java.base/java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2133)
+	at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1620)
+	at java.base/java.io.ObjectInputStream$FieldValues.<init>(ObjectInputStream.java:2480)
+	at java.base/java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2327)
+	at java.base/java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2133)
+	at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1620)
+	at java.base/java.io.ObjectInputStream$FieldValues.<init>(ObjectInputStream.java:2480)
+	at java.base/java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2327)
+	at java.base/java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2133)
+	at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1620)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:487)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:445)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startListener$0(ServerConnection.java:60)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-09 22:17:14.339 [Thread-4] INFO  a88.jbay.util.JBayLogger - Listener thread ended
+2026-05-09 22:25:16.252 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - Connecting to server: 0.tcp.ap.ngrok.io:22013
+2026-05-09 22:25:17.482 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - Connection successful to server: 0.tcp.ap.ngrok.io:22013
+2026-05-09 22:25:28.689 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: LOGIN_FAIL
+2026-05-09 22:25:38.524 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: LOGIN_SUCCESS
+2026-05-09 22:25:38.550 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:25:38.550 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 0 auctions
+2026-05-09 22:25:48.692 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - File selected: 7 phe la.png
+2026-05-09 22:26:02.753 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:26:02.753 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 0 auctions
+2026-05-09 22:26:10.823 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:26:10.823 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 0 auctions
+2026-05-09 22:27:38.525 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Connection timeout, checking connection...
+2026-05-09 22:27:46.466 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - File selected: 981.jpg
+2026-05-09 22:28:01.619 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:28:01.619 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 0 auctions
+2026-05-09 22:28:07.337 [Thread-4] ERROR a88.jbay.util.JBayLogger - Disconnected from server: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.endRead(NioSocketImpl.java:242)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:321)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:354)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:798)
+	at java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:974)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:964)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:958)
+	at java.base/java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2740)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:3069)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:3079)
+	at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1571)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:487)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:445)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startListener$0(ServerConnection.java:60)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-09 22:28:07.340 [Thread-4] INFO  a88.jbay.util.JBayLogger - Listener thread ended
 2026-05-09 22:13:58.591 [main] INFO  a88.jbay.util.JBayLogger - JBAY Server TUI starting
 2026-05-09 22:13:58.593 [main] INFO  a88.jbay.util.JBayLogger - ------------------JBAY_SERVER_TUI-----------------
 2026-05-09 22:13:58.593 [main] INFO  a88.jbay.util.JBayLogger - --------------software infrastructure-------------
@@ -1925,3 +2038,58 @@ java.net.SocketException: Socket closed
 	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startListener$0(ServerConnection.java:62)
 	at java.base/java.lang.Thread.run(Thread.java:1474)
 2026-05-09 22:36:10.812 [Thread-4] INFO  a88.jbay.util.JBayLogger - Listener thread ended
+2026-05-09 22:45:29.259 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - Connecting to server: 0.tcp.ap.ngrok.io:22013
+2026-05-09 22:45:29.493 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - Connection successful to server: 0.tcp.ap.ngrok.io:22013
+2026-05-09 22:45:43.411 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: LOGIN
+2026-05-09 22:45:43.549 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: LOGIN_SUCCESS
+2026-05-09 22:45:43.562 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:45:43.563 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 0 auctions
+2026-05-09 22:45:43.619 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: GET_AUCTIONS
+2026-05-09 22:45:44.143 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: ACTIVE_AUCTION_LIST
+2026-05-09 22:45:44.145 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: BIDDER_AUCTION_LIST
+2026-05-09 22:45:44.146 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: SELLER_AUCTION_LIST
+2026-05-09 22:45:44.147 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: GET_AUCTIONS_SUCCESS
+2026-05-09 22:45:44.216 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - GET_AUCTIONS_SUCCESS
+2026-05-09 22:46:41.216 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-09 22:46:41.220 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:46:41.221 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:46:56.352 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 1 auctions
+2026-05-09 22:46:56.357 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 4 auctions
+2026-05-09 22:47:30.129 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 1 auctions
+2026-05-09 22:47:30.133 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 4 auctions
+2026-05-09 22:47:37.377 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 1 auctions
+2026-05-09 22:47:37.382 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 4 auctions
+2026-05-09 22:47:43.883 [Thread-4] INFO  a88.jbay.util.JBayLogger - Server closed the connection
+2026-05-09 22:47:43.884 [Thread-4] INFO  a88.jbay.util.JBayLogger - Listener thread ended
+2026-05-09 22:54:02.504 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - Connecting to server: 0.tcp.ap.ngrok.io:22013
+2026-05-09 22:56:00.898 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - Connecting to server: 0.tcp.ap.ngrok.io:22013
+2026-05-09 22:56:01.080 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - Connection successful to server: 0.tcp.ap.ngrok.io:22013
+2026-05-09 22:56:15.837 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: LOGIN
+2026-05-09 22:56:15.982 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: LOGIN_SUCCESS
+2026-05-09 22:56:16.003 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:56:16.003 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 0 auctions
+2026-05-09 22:56:16.058 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: GET_AUCTIONS
+2026-05-09 22:56:16.493 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: ACTIVE_AUCTION_LIST
+2026-05-09 22:56:16.494 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: BIDDER_AUCTION_LIST
+2026-05-09 22:56:16.496 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: SELLER_AUCTION_LIST
+2026-05-09 22:56:16.497 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: GET_AUCTIONS_SUCCESS
+2026-05-09 22:56:16.568 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - GET_AUCTIONS_SUCCESS
+2026-05-09 22:56:21.643 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 1 auctions
+2026-05-09 22:56:21.647 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 4 auctions
+2026-05-09 22:56:29.398 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: BID
+2026-05-09 22:56:29.536 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-09 22:56:29.574 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:56:29.576 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:56:29.576 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: BID_SUCCESS
+2026-05-09 22:56:29.601 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - BID_SUCCESS
+2026-05-09 22:57:12.625 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 1 auctions
+2026-05-09 22:57:12.629 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 4 auctions
+2026-05-09 22:57:21.476 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 1 auctions
+2026-05-09 22:57:21.481 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 4 auctions
+2026-05-09 22:58:29.543 [Thread-4] INFO  a88.jbay.util.JBayLogger - Server closed the connection
+2026-05-09 22:58:29.546 [Thread-4] INFO  a88.jbay.util.JBayLogger - Listener thread ended
+2026-05-09 22:59:09.647 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: LOGOUT
+2026-05-09 22:59:11.153 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: LOGOUT
+2026-05-09 22:59:11.164 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: LOGOUT
+2026-05-09 22:59:11.330 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: LOGOUT
+2026-05-09 22:59:13.288 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: MISC
