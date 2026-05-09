@@ -20,7 +20,7 @@
 
 <AnchorPane prefHeight="861.0" prefWidth="1327.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.ClientBidderItemController">
     <children>
-        <StackPane layoutX="26.0" layoutY="87.0" prefHeight="231.0" prefWidth="281.0" style="-fx-border-color: #ddd; -fx-border-style: dashed;">
+        <StackPane alignment="CENTER" layoutX="26.0" layoutY="87.0" prefHeight="439.0" prefWidth="495.0" style="-fx-border-color: #ddd; -fx-border-style: dashed;">
          <children>
                 <ImageView fx:id="itemImageView" fitHeight="439.0" fitWidth="495.0" pickOnBounds="true" preserveRatio="true" />
          </children>

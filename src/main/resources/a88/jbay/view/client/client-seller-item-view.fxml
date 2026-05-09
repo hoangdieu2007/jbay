@@ -18,7 +18,7 @@
 
 <AnchorPane prefHeight="861.0" prefWidth="1327.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.ClientSellerItemController">
    <children>
-      <StackPane layoutX="26.0" layoutY="135.0" prefHeight="222.0" prefWidth="247.0" style="-fx-border-color: #2196F3; -fx-border-style: dashed; -fx-border-width: 2; -fx-background-color: #f9f9f9;">
+      <StackPane alignment="CENTER" layoutX="26.0" layoutY="135.0" prefHeight="511.0" prefWidth="493.0" style="-fx-border-color: #2196F3; -fx-border-style: dashed; -fx-border-width: 2; -fx-background-color: #f9f9f9;">
          <children>
             <ImageView fx:id="itemImageView" fitHeight="511.0" fitWidth="493.0" pickOnBounds="true" preserveRatio="true" />
          </children>
