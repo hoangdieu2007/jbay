@@ -29,13 +29,14 @@ public class SellerViewAuctionController {
 
     private XYChart.Series<String, Number> priceSeries;
     private Auction currAuction;
+    private final DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
 
 
     public void setSellerViewData(Auction auction){
         currAuction = auction;
         itemDescription.setText(auction.getItem().getDescription());
         lblItemName.setText(auction.getItem().getName());
-        lblAuctionTime.setText(auction.getStartTime() + " - " + auction.getEndTime());
+        lblAuctionTime.setText(auction.getStartTime().format(displayFormatter) + " - " + auction.getEndTime().format(displayFormatter));
         lblBidderName.setText(auction.getWinner());
         lblCurrentPrice.setText(String.format("%.2f USD", auction.getCurrentPrice()));
 
