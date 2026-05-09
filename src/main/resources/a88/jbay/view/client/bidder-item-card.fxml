@@ -25,20 +25,26 @@
             </padding>
             <children>
 
-                <HBox alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="255.0">
+                <HBox alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="255.0" VBox.vgrow="NEVER">
                     <children>
                         <Label fx:id="titleLabel" prefHeight="28.0" text="ItemName">
                             <font>
                                 <Font name="System Bold" size="22.0" />
                             </font>
                         </Label>
-                        <Region HBox.hgrow="ALWAYS" />
+                        <Region prefHeight="40.0" prefWidth="112.0" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin></Region>
                         <Label fx:id="statusLabel" alignment="CENTER" minWidth="60.0" style="-fx-background-color: #e0e7ff; -fx-text-fill: #2b5fe8; -fx-background-radius: 5; -fx-padding: 5 10 5 10;" text="State">
                             <font>
                                 <Font size="14.0" />
                             </font>
                         </Label>
                     </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
                 </HBox>
 
                 <Label fx:id="descriptionLabel" text="description" textFill="#555555">
@@ -100,6 +106,9 @@
                 </Button>
 
             </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
         </VBox>
     </children>
 </VBox>
