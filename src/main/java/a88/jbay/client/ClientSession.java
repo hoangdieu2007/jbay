@@ -4,6 +4,7 @@ import a88.jbay.controller.client.BidderItemCardController;
 import a88.jbay.controller.client.SellerItemCardController;
 import a88.jbay.model.entity.user.User;
 import a88.jbay.model.event.Auction;
+import a88.jbay.util.JBayLogger;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -21,12 +22,14 @@ import java.util.TreeMap;
 public class ClientSession {
     private static ClientSession instance;
     private SellerItemCardController controller;
+    private final JBayLogger logger;
 
     private User user;
     private ObservableMap<Integer, Auction> sellerAuctions;
     private ObservableMap<Integer, Auction> bidderAuctions;
 
     private ClientSession() {
+        this.logger = JBayLogger.getInstance();
         user = new User();
         sellerAuctions = FXCollections.observableMap(new TreeMap<>(Collections.reverseOrder()));
         bidderAuctions = FXCollections.observableMap(new TreeMap<>(Collections.reverseOrder()));
@@ -72,6 +75,6 @@ public class ClientSession {
             this.sellerAuctions.clear();
         }
 
-        System.out.println("Session has been cleared");
+        logger.info("Session has been cleared");
     }
 }

@@ -6,28 +6,24 @@ import a88.jbay.controller.ControllerProvider;
 import a88.jbay.model.event.Auction;
 import a88.jbay.model.network.Request;
 import a88.jbay.model.network.RequestType;
-import a88.jbay.model.network.Response;
-import a88.jbay.server.ClientHandler;
-import a88.jbay.system.UserSystem;
+import a88.jbay.util.JBayLogger;
 import a88.jbay.view.ViewManager;
-import com.almasb.fxgl.cutscene.CutsceneScene;
 import javafx.collections.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.*;
 
 public class SellerBidderHomeScreenController {
+    private final JBayLogger logger = JBayLogger.getInstance();
+
     // LOG OUT
     @FXML private Button btnLogOut;
 
@@ -97,8 +93,7 @@ public class SellerBidderHomeScreenController {
 
             return cardBox;
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+                        return null;
         }
     }
 
@@ -106,7 +101,7 @@ public class SellerBidderHomeScreenController {
     public void initializeSellerUI() {
         sellerFlowPane.getChildren().clear();
         ObservableMap<Integer, Auction> sellerMap = ClientSession.getInstance().getSellerAuctions();
-        System.out.println("Seller UI initialized with " + sellerMap.size() + " auctions");
+        logger.debug("Seller UI initialized with " + sellerMap.size() + " auctions");
 
         int initIndex = 0;
         for (Auction auction : sellerMap.values()) {
@@ -172,8 +167,7 @@ public class SellerBidderHomeScreenController {
 
             return cardBox;
         }catch (IOException e){
-            e.printStackTrace();
-            return null;
+                        return null;
         }
     }
 
@@ -183,7 +177,7 @@ public class SellerBidderHomeScreenController {
     public void  initializeBidderUI(){
         bidderFlowPane.getChildren().clear();
         ObservableMap<Integer, Auction> bidderMap = ClientSession.getInstance().getBidderAuctions();
-        System.out.println("Bidder UI initialized with " + bidderMap.size() + " auctions");
+        logger.debug("Bidder UI initialized with " + bidderMap.size() + " auctions");
 
         int initIndex = 0;
         for (Auction auction : bidderMap.values()) {

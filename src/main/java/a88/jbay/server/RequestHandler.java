@@ -17,25 +17,25 @@ import java.io.ObjectOutputStream;
  * Responsible for request routing and business logic delegation.
  */
 public class RequestHandler {
-    private final UserSystem userSystem;
-    private final AuctionSystem auctionSystem;
-    private User currentUser;
-    private ObjectOutputStream out;
+    private static UserSystem userSystem = UserSystem.getInstance();
+    private static AuctionSystem auctionSystem = AuctionSystem.getInstance();
+//    private static User currentUser;
+//    private static ObjectOutputStream out;
 
-    public RequestHandler(UserSystem userSystem, AuctionSystem auctionSystem) {
-        this.userSystem = userSystem;
-        this.auctionSystem = auctionSystem;
-        this.currentUser = new User();
-        this.out = null;
+    // this method is mostly for testing
+    public static void initialize(UserSystem userSystemParam, AuctionSystem auctionSystemParam) {
+        RequestHandler.userSystem = userSystemParam;
+        RequestHandler.auctionSystem = auctionSystemParam;
+//        RequestHandler.currentUser = new User();
+//        RequestHandler.out = null;
     }
 
-
-    public void setObjectOutputStream(ObjectOutputStream out) {
-        this.out = out;
-    }
+//    public static void setObjectOutputStream(ObjectOutputStream outParam) {
+//        RequestHandler.out = outParam;
+//    }
 
     // directing request to respective handler
-    public Response handleRequest(Request request) {
+    public static Response handleRequest(Request request) {
         System.out.println("Received request: " + request.getType().name());
 
         return switch (request.getType()) {
@@ -54,14 +54,12 @@ public class RequestHandler {
     }
 
     //handling login
-    private Response handleLogin(Request request) {
+    private static Response handleLogin(Request request) {
         String username = (String) request.get("username");
         String password = (String) request.get("password");
 
         User user = userSystem.login(username, password);
         if (user != null) {
-            this.currentUser = user;
-
             //check if user is banned
             if (user.getRole().equals("BAN")) {
                 return new Response(false, "LOGIN_BAN", null);
@@ -69,7 +67,8 @@ public class RequestHandler {
 
             //register user session to the systems and update their auctions
             UserSystem.getInstance().addActiveUser(user.getId(), user);
-            UpdateSystem.getInstance().register(user.getId(), out);
+
+            // UpdateSystem.getInstance().register(user.getId(), RequestHandler.out);
 
             System.out.println("Login successful");
             System.out.println(user + " " + user.getSessionId());
@@ -80,7 +79,7 @@ public class RequestHandler {
     }
 
     //handling register
-    private Response handleRegister(Request request) {
+    private static Response handleRegister(Request request) {
         String username = (String) request.get("username");
         String password = (String) request.get("password");
         String role = "USER";
@@ -91,9 +90,18 @@ public class RequestHandler {
         return new Response(false, "REGISTER_FAIL", null);
     }
 
+    //handling logout
+    //deletes session and logs out user, also removes all subscriptions
+    private static Response handleLogout(Request request) {
+        String sessionId = (String) request.get("sessionId");
+        // cleanupCurrentUserSession();
+        userSystem.logout(sessionId);
+        return new Response(true, "LOGOUT_SUCCESS", null);
+    }
+
     //handling bidding
-    private Response handleBid(Request request) {
-        User user = this.currentUser;
+    private static Response handleBid(Request request) {
+        User user = userSystem.findBySessionId((String) request.get("sessionId"));
         if (user == null) return new Response(false, "INVALID_SESSION", null);
         if (user.can(ActionType.BID)) {
             boolean success = auctionSystem.placeBid(user.getId(), (Integer) request.get("auctionId"), (Double) request.get("amount"));
@@ -103,8 +111,8 @@ public class RequestHandler {
     }
 
     //handling auto-bidding
-    private Response handleAutoBid(Request request) {
-        User user = this.currentUser;
+    private static Response handleAutoBid(Request request) {
+        User user = userSystem.findBySessionId((String) request.get("sessionId"));
         if (user == null) return new Response(false, "INVALID_SESSION", null);
         if (user.can(ActionType.BID)) {
             auctionSystem.placeBidAutomated(user.getId(), (Integer) request.get("auctionId"), (Double) request.get("max_amount"), (Double) request.get("increment"));
@@ -114,8 +122,8 @@ public class RequestHandler {
     }
 
     //handling selling and creating auction
-    private Response handleSell(Request request) {
-        User user = this.currentUser;
+    private static Response handleSell(Request request) {
+        User user = userSystem.findBySessionId((String) request.get("sessionId"));
         if (user == null) return new Response(false, "INVALID_SESSION", null);
         if (user.can(ActionType.SELL)) {
             boolean success = auctionSystem.createAuction((Item)request.get("item"), user.getId(), (java.time.LocalDateTime) request.get("start"), (java.time.LocalDateTime) request.get("end"));
@@ -126,8 +134,8 @@ public class RequestHandler {
 
     //canceling auctions
     //ADMIN ONLY, REPORT IF CALLS FROM NORMAL USERS ALSO RETURN CANCEL_SUCCESS
-    private Response handleCancel(Request request) {
-        User user = this.currentUser;
+    private static Response handleCancel(Request request) {
+        User user = userSystem.findBySessionId((String) request.get("sessionId"));
         if (user == null) return new Response(false, "INVALID_SESSION", null);
         if (user.can(ActionType.CANCEL)) {
             //direct cancel to system
@@ -140,8 +148,8 @@ public class RequestHandler {
     //subscribing to auctions
     //this is often automatically handled by the auction system upon bidding/selling a product
     //but separating this makes everything clear
-    private Response handleSubscribeAuction(Request request) {
-        User user = this.currentUser;
+    private static Response handleSubscribeAuction(Request request) {
+        User user = userSystem.findBySessionId((String) request.get("sessionId"));
         if (user == null) return new Response(false, "INVALID_SESSION", null);
 
         Integer auctionId = (Integer) request.get("auctionId");
@@ -156,8 +164,8 @@ public class RequestHandler {
 
     //unsubscribing from auctions
     //also automatically handled by the auction system when an auction finishes
-    private Response handleUnsubscribeAuction(Request request) {
-        User user = this.currentUser;
+    private static Response handleUnsubscribeAuction(Request request) {
+        User user = userSystem.findBySessionId((String) request.get("sessionId"));
         if (user == null) return new Response(false, "INVALID_SESSION", null);
 
         Integer auctionId = (Integer) request.get("auctionId");
@@ -170,22 +178,13 @@ public class RequestHandler {
         return new Response(true, "UNSUBSCRIBE_AUCTION_SUCCESS", null);
     }
 
-    //handling logout
-    //deletes session and logs out user, also removes all subscriptions
-    private Response handleLogout(Request request) {
-        String sessionId = (String) request.get("sessionId");
-        cleanupCurrentUserSession();
-        userSystem.logout(sessionId);
-        return new Response(true, "LOGOUT_SUCCESS", null);
-    }
-
-    private Response handleGetAuctions(Request request) {
+    private static Response handleGetAuctions(Request request) {
         UpdateSystem.getInstance().updateAllAuctions((int) request.get("userId"));
         return new Response(true, "GET_AUCTIONS_SUCCESS", null);
     }
 
     //misc commands
-    private Response handleMisc(Request request) {
+    private static Response handleMisc(Request request) {
         return switch ((String) request.get("command")) {
             case "ls-auction" -> new Response(true, "LIST_AUCTION_SUCCESS", auctionSystem.listActiveAuctions());
             case "disconnect" -> {
@@ -198,12 +197,12 @@ public class RequestHandler {
 
     //erase current user session
     //remove all subscriptions, unregister from notification system
-    public void cleanupCurrentUserSession() {
-        if (currentUser == null) {
-            return;
-        }
-        UpdateSystem.getInstance().unregister(currentUser.getId(), out);
-        UpdateSystem.getInstance().unsubscribeUserFromAllAuctions(currentUser.getId());
-        currentUser = null;
-    }
+//    public static void cleanupCurrentUserSession() {
+//        if (RequestHandler.currentUser == null) {
+//            return;
+//        }
+//        UpdateSystem.getInstance().unregister(RequestHandler.currentUser.getId(), RequestHandler.out);
+//        UpdateSystem.getInstance().unsubscribeUserFromAllAuctions(RequestHandler.currentUser.getId());
+//        RequestHandler.currentUser = null;
+//    }
 }

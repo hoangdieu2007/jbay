@@ -9,6 +9,7 @@ import a88.jbay.model.event.BidTransaction;
 import a88.jbay.model.network.Request;
 import a88.jbay.model.network.RequestType;
 import a88.jbay.model.network.Response;
+import a88.jbay.util.JBayLogger;
 import a88.jbay.view.ViewManager;
 
 import java.io.IOException;
@@ -19,8 +20,10 @@ public class ResponseHandler {
     private ClientSession clientSession;
     private ControllerProvider controllerProvider;
     private ViewManager viewManager;
+    private final JBayLogger logger;
 
     private ResponseHandler() {
+        this.logger = JBayLogger.getInstance();
         clientSession = ClientSession.getInstance();
         controllerProvider = ControllerProvider.getInstance();
         viewManager = ViewManager.getInstance();
@@ -56,7 +59,7 @@ public class ResponseHandler {
     }
 
     public void handleDefault(Response response) {
-        System.out.println((String) response.getMessage());
+        logger.info((String) response.getMessage());
     }
 
     public void handleLoginSuccess(Response response) {
@@ -70,8 +73,7 @@ public class ResponseHandler {
                     .put("userId", clientSession.getUser().getId()));
         } catch (IOException e) {
             controllerProvider.getController(ClientLoginRegisterController.class).updateLoginLabel("Failed to display home screen");
-            e.printStackTrace();
-        }
+                    }
     }
 
     public void handleLoginFail(Response response) {
@@ -79,7 +81,7 @@ public class ResponseHandler {
     }
 
     public void handleRegisterSuccess(Response response) {
-        System.out.println((String) response.getMessage());
+        logger.info((String) response.getMessage());
         controllerProvider.getController(ClientLoginRegisterController.class).updateRegisterLabel("Register successful");
     }
 
@@ -144,8 +146,7 @@ public class ResponseHandler {
         try {
             ViewManager.displayScene("client/client-login-register-view.fxml");
         } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
+                        throw new RuntimeException(e);
         }
     }
 }

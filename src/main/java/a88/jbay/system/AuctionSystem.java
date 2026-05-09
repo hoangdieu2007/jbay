@@ -4,6 +4,7 @@ import a88.jbay.dao.AuctionDAO;
 import a88.jbay.dao.AuctionDAO.AuctionData;
 import a88.jbay.dao.BidDAO;
 import a88.jbay.dao.UserDAO;
+import a88.jbay.util.JBayLogger;
 import a88.jbay.model.entity.item.Item;
 import a88.jbay.model.event.Auction;
 import a88.jbay.model.event.AuctionState;
@@ -31,6 +32,7 @@ public class AuctionSystem {
     private final UserDAO userDAO;
     private final BidDAO bidDAO;
     private final UpdateSystem updateSystem;
+    private final JBayLogger logger;
 
     // Memory cache for active auctions to handle real-time bidding
     private final Map<Integer, Auction> activeAuctions;
@@ -42,6 +44,7 @@ public class AuctionSystem {
         this.userDAO = UserDAO.getInstance();
         this.bidDAO = BidDAO.getInstance();
         this.updateSystem = UpdateSystem.getInstance();
+        this.logger = JBayLogger.getInstance();
         this.activeAuctions = new ConcurrentHashMap<>();
         this.scheduler = Executors.newSingleThreadScheduledExecutor();
 
@@ -56,12 +59,12 @@ public class AuctionSystem {
         return instance;
     }
 
-    private void loadActiveAuctions() {
+    public void loadActiveAuctions() {
         java.util.List<AuctionData> activeAuctionData = auctionDAO.findAllActiveAuctions();
-        System.out.println("Loading " + activeAuctionData.size() + " active auctions from database");
+        logger.info("Loading " + activeAuctionData.size() + " active auctions from database");
 
         for (AuctionData auctionData : activeAuctionData) {
-            System.out.println("Loading auction: " + auctionData.id() + " - " + auctionData.item().getName() + " - State: " + auctionData.state());
+            logger.debug("Loading auction: " + auctionData.id() + " - " + auctionData.item().getName() + " - State: " + auctionData.state());
             try {
                 Auction auction = new Auction(
                 auctionData.id(),
@@ -94,18 +97,21 @@ public class AuctionSystem {
             activeAuctions.put(auctionData.id(), auction);
             
             } catch (Exception e) {
-                System.err.println("Failed to load auction " + auctionData.id() + ": " + e.getMessage());
-                e.printStackTrace();
+                logger.error("Failed to load auction " + auctionData.id() + ": " + e.getMessage(), e);
             }
         }
     }
 
     //create auction and store to database
     public boolean createAuction(Item item, int sellerId, LocalDateTime start, LocalDateTime end) {
+        logger.info("Creating auction for item: " + item.getName() + " by seller: " + sellerId);
 
         // 1. Insert the item first
         int itemId = auctionDAO.insertItem(item);
-        if (itemId == -1) return false;
+        if (itemId == -1) {
+            logger.error("Failed to insert item: " + item.getName());
+            return false;
+        }
 
         // 2. Create the auction record
         int auctionId = auctionDAO.insertAuction(
@@ -116,7 +122,10 @@ public class AuctionSystem {
                 start,
                 end
         );
-        if (auctionId == -1) return false;
+        if (auctionId == -1) {
+            logger.error("Failed to create auction for item: " + item.getName());
+            return false;
+        }
 
         Auction auction = new Auction(
                 auctionId,
@@ -133,19 +142,24 @@ public class AuctionSystem {
                 new Response(true, "AUCTION_UPDATE", auction)
         );
 
+        logger.info("Auction created successfully: ID=" + auctionId + ", Item=" + item.getName());
         return true;
     }
 
     //place bid and validate bid - delegate to BidSystem
     public synchronized boolean placeBid(int userId, int auctionId, double amount) {
+        logger.debug("Bid attempt: User=" + userId + ", Auction=" + auctionId + ", Amount=" + amount);
         boolean bidPlaced = BidSystem.getInstance().placeBid(userId, auctionId, amount);
         
         if (bidPlaced) {
+            logger.info("Bid placed successfully: User=" + userId + ", Auction=" + auctionId + ", Amount=" + amount);
             // anti-sniping check upon successful bid
             Auction auction = activeAuctions.get(auctionId);
             if (auction != null) {
                 extendEndTime(LocalDateTime.now(), auction);
             }
+        } else {
+            logger.warn("Bid failed: User=" + userId + ", Auction=" + auctionId + ", Amount=" + amount);
         }
         
         return bidPlaced;
@@ -161,7 +175,7 @@ public class AuctionSystem {
 
         Auction auction = activeAuctions.get(auctionId);
         if (auction == null) {
-            System.out.println("Auction " + auctionId + " not found or not active.");
+            logger.warn("Auto-bid failed - auction not found or not active: " + auctionId);
             return;
         }
 
@@ -171,7 +185,7 @@ public class AuctionSystem {
         // Subscribe user to auction to receive price change notifications
         auction.subscribe(userId);
 
-        System.out.println("Auto-bid enabled for user " + userId + " on auction " + auctionId + 
+        logger.info("Auto-bid enabled for user " + userId + " on auction " + auctionId + 
                           " with max_amount=" + max_amount + ", increment=" + increment);
     }
 
@@ -193,7 +207,7 @@ public class AuctionSystem {
             if (updated) {
                 // Notify all subscribers about the extension
                 auction.notifyObservers();
-                System.out.println("Auction " + auction.getId() + " extended due to anti-sniping. " +
+                logger.info("Auction " + auction.getId() + " extended due to anti-sniping. " +
                         "New end time: " + newEndTime);
             }
         }
@@ -202,6 +216,7 @@ public class AuctionSystem {
     //cancel auction
     //ONLY ADMIN CAN CALL THIS
     public boolean cancelAuction(int auctionId) {
+        logger.info("Attempting to cancel auction: " + auctionId);
         Auction auction = activeAuctions.get(auctionId);
         if (auction != null) {
             auction.cancel();
@@ -209,7 +224,10 @@ public class AuctionSystem {
         boolean closed = auctionDAO.setAuctionState(auctionId, AuctionState.CANCELED);
         if (closed) {
             activeAuctions.remove(auctionId);
+            logger.info("Auction canceled successfully: " + auctionId);
             // Subscribers are automatically cleared when auction is removed from memory
+        } else {
+            logger.error("Failed to cancel auction: " + auctionId);
         }
         return closed;
     }
@@ -333,13 +351,14 @@ public class AuctionSystem {
         for (Auction auction : activeAuctions.values()) {
             // check and change state
             if (auction.tick(now)) {
-                System.out.println("Heartbeat: State changed for auction " + auction.getId());
+                logger.debug("Heartbeat: State changed for auction " + auction.getId() + " to " + auction.getAuctionState());
                 auctionDAO.setAuctionState(auction.getId(), auction.getAuctionState());
             }
 
             // Add canceled/finsihed auctions to ended list to remove
             if (auction.getAuctionState() == AuctionState.CANCELED || auction.getAuctionState() == AuctionState.FINISHED) {
                 ended.add(auction.getId());
+                logger.info("Auction ended: " + auction.getId() + " - " + auction.getAuctionState());
             }
         }
 

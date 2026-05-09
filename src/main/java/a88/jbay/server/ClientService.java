@@ -40,7 +40,7 @@ public class ClientService {
                     client = serverSocket.accept();
                     System.out.println("Client connected...");
 
-                    executor.submit(new ClientHandler(client));
+                    executor.submit(new ClientConnection(client));
                 }
             } catch (IOException e) {
                 e.printStackTrace();

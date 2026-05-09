@@ -2,6 +2,7 @@ package a88.jbay.system;
 
 import a88.jbay.model.event.Auction;
 import a88.jbay.model.network.Response;
+import a88.jbay.util.JBayLogger;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -25,8 +26,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class UpdateSystem {
     private static UpdateSystem instance;
     private final Map<Integer, List<ObjectOutputStream>> userSessions = new ConcurrentHashMap<>();
+    private final JBayLogger logger;
 
-    private UpdateSystem() {}
+    private UpdateSystem() {
+        this.logger = JBayLogger.getInstance();
+    }
 
     public static synchronized UpdateSystem getInstance() {
         if (instance == null) {
@@ -37,30 +41,39 @@ public class UpdateSystem {
 
     //register user session, coupled with the user output stream
     public void register(int userId, ObjectOutputStream out) {
+        logger.debug("Registering session for user: " + userId);
         List<ObjectOutputStream> sessions =
                 userSessions.computeIfAbsent(userId, k -> new CopyOnWriteArrayList<>());
 
         sessions.add(out);
+        logger.debug("Session registered for user: " + userId + ", total sessions: " + sessions.size());
     }
 
     //unregister user session, remove the user output stream from the list
     public void unregister(int userId, ObjectOutputStream out) {
+        logger.debug("Unregistering session for user: " + userId);
         List<ObjectOutputStream> streams = userSessions.get(userId);
         if (streams != null) {
             streams.remove(out);
             if (streams.isEmpty()) {
                 userSessions.remove(userId);
+                logger.debug("All sessions removed for user: " + userId);
+            } else {
+                logger.debug("Session unregistered for user: " + userId + ", remaining sessions: " + streams.size());
             }
         }
     }
 
     //unregister user session, remove all output streams from the list by user id
     public void unregister(int userId) {
+        logger.debug("Unregistering all sessions for user: " + userId);
         userSessions.remove(userId);
+        logger.info("All sessions removed for user: " + userId);
     }
 
     //unsub from all auctions
     public void unsubscribeUserFromAllAuctions(int userId) {
+        logger.info("Unsubscribing user from all auctions: " + userId);
         AuctionSystem.getInstance().getActiveAuctionList().forEach(auction -> auction.unsubscribe(userId));
     }
 

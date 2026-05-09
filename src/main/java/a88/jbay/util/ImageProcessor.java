@@ -1,4 +1,4 @@
-package a88.jbay.model;
+package a88.jbay.util;
 
 import javafx.scene.image.Image;
 import javax.imageio.ImageIO;

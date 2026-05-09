@@ -1,22 +1,14 @@
 package a88.jbay.controller.client;
 
 import a88.jbay.controller.ControllerProvider;
-import a88.jbay.model.ImageProcessor;
+import a88.jbay.util.ImageProcessor;
 import a88.jbay.model.event.Auction;
 import a88.jbay.model.event.AuctionState;
 import a88.jbay.view.ViewManager;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.IOException;
 

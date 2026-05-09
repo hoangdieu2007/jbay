@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AuctionDAO {
-    private static AuctionDAO instance;
+    private static final AuctionDAO instance = new AuctionDAO();
     private final DatabaseConnectionProvider dbProvider;
     private final ItemDAO itemDAO;
     private final BidDAO bidDAO;
@@ -44,11 +44,25 @@ public class AuctionDAO {
         this.bidDAO = bidDAO;
     }
 
-    public static synchronized AuctionDAO getInstance() {
-        if (instance == null) {
-            instance = new AuctionDAO();
-        }
+    public static AuctionDAO getInstance() {
         return instance;
+    }
+
+    private AuctionData mapAuction(ResultSet rs) throws SQLException {
+        Item item = itemDAO.findItemById(rs.getInt("item"));
+        if (item == null) return null;
+
+        return new AuctionData(
+                rs.getInt("id"),
+                item,
+                rs.getInt("seller"),
+                rs.getDouble("start_price"),
+                rs.getDouble("cur_price"),
+                rs.getInt("winner"),
+                rs.getTimestamp("start_time").toLocalDateTime(),
+                rs.getTimestamp("end_time").toLocalDateTime(),
+                rs.getString("state")
+        );
     }
 
     public int insertItem(Item item) {
@@ -192,10 +206,6 @@ public class AuctionDAO {
         }
     }
 
-    public Item findItemById(int itemId) {
-        return itemDAO.findItemById(itemId);
-    }
-
     public AuctionData findAuctionById(int auctionId) {
         String sql = "SELECT * FROM auctions WHERE id = ?";
 
@@ -208,22 +218,7 @@ public class AuctionDAO {
                     return null;
                 }
 
-                Item item = findItemById(rs.getInt("item"));
-                if (item == null) {
-                    return null;
-                }
-
-                return new AuctionData(
-                    rs.getInt("id"),
-                    item,
-                    rs.getInt("seller"),
-                    rs.getDouble("start_price"),
-                    rs.getDouble("cur_price"),
-                    rs.getInt("winner"),
-                    rs.getTimestamp("start_time").toLocalDateTime(),
-                    rs.getTimestamp("end_time").toLocalDateTime(),
-                    rs.getString("state")
-                );
+                return mapAuction(rs);
             }
         }
         catch (SQLException e) {
@@ -247,21 +242,8 @@ public class AuctionDAO {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    Item item = findItemById(rs.getInt("item"));
-                    if (item != null) {
-                        AuctionData auctionData = new AuctionData(
-                            rs.getInt("id"),
-                            item,
-                            rs.getInt("seller"),
-                            rs.getDouble("start_price"),
-                            rs.getDouble("cur_price"),
-                            rs.getInt("winner"),
-                            rs.getTimestamp("start_time").toLocalDateTime(),
-                            rs.getTimestamp("end_time").toLocalDateTime(),
-                            rs.getString("state")
-                        );
+                        AuctionData auctionData = mapAuction(rs);
                         sellerAuctions.add(auctionData);
-                    }
                 }
             }
         } catch (SQLException e) {
@@ -281,21 +263,8 @@ public class AuctionDAO {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    Item item = findItemById(rs.getInt("item"));
-                    if (item != null) {
-                        AuctionData auctionData = new AuctionData(
-                            rs.getInt("id"),
-                            item,
-                            rs.getInt("seller"),
-                            rs.getDouble("start_price"),
-                            rs.getDouble("cur_price"),
-                            rs.getInt("winner"),
-                            rs.getTimestamp("start_time").toLocalDateTime(),
-                            rs.getTimestamp("end_time").toLocalDateTime(),
-                            rs.getString("state")
-                        );
+                        AuctionData auctionData = mapAuction(rs);
                         winnerAuctions.add(auctionData);
-                    }
                 }
             }
         } catch (SQLException e) {
@@ -313,21 +282,8 @@ public class AuctionDAO {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    Item item = findItemById(rs.getInt("item"));
-                    if (item != null) {
-                        AuctionData auctionData = new AuctionData(
-                            rs.getInt("id"),
-                            item,
-                            rs.getInt("seller"),
-                            rs.getDouble("start_price"),
-                            rs.getDouble("cur_price"),
-                            rs.getInt("winner"),
-                            rs.getTimestamp("start_time").toLocalDateTime(),
-                            rs.getTimestamp("end_time").toLocalDateTime(),
-                            rs.getString("state")
-                        );
-                        activeAuctions.add(auctionData);
-                    }
+                    AuctionData auctionData = mapAuction(rs);
+                    activeAuctions.add(auctionData);
                 }
             }
         } catch (SQLException e) {
