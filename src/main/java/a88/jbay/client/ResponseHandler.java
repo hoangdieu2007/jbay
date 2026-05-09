@@ -11,6 +11,7 @@ import a88.jbay.model.network.RequestType;
 import a88.jbay.model.network.Response;
 import a88.jbay.util.JBayLogger;
 import a88.jbay.view.ViewManager;
+import javafx.scene.control.Alert;
 
 import java.io.IOException;
 import java.util.List;
@@ -46,6 +47,7 @@ public class ResponseHandler {
                 case "SELLER_AUCTION_LIST" -> handleSellerAuctionList(response);
                 case "BIDDER_AUCTION_LIST" -> handleBidderAuctionList(response);
                 case "AUCTION_UPDATE" -> handleAuctionUpdate(response);
+                case "AUCTION_UPDATE_NOTIFY" -> handleAuctionUpdateNotify(response);
                 case "BAN_USER" -> handleBanUser(response);
                 default -> handleDefault(response);
             };
@@ -145,8 +147,15 @@ public class ResponseHandler {
         clientSession.resetSession();
         try {
             ViewManager.displayScene("client/client-login-register-view.fxml");
+            new Alert(Alert.AlertType.WARNING, "You have been banned").show();
         } catch (IOException e) {
-                        throw new RuntimeException(e);
+            logger.error("Failed to display login scene");
         }
+    }
+
+    private void handleAuctionUpdateNotify(Response response) {
+        Auction auction = (Auction) response.getPayload();
+
+        new Alert(Alert.AlertType.INFORMATION, "Auction update: " + auction.getWinner() + " is the current winner, current price is " + auction.getCurrentPrice() + " USD").show();
     }
 }
