@@ -1,10 +1,11 @@
 package a88.jbay.controller.client;
 
 import a88.jbay.client.ServerConnection;
-import a88.jbay.model.ImageProcessor;
+import a88.jbay.util.ImageProcessor;
 import a88.jbay.model.entity.item.Item;
 import a88.jbay.model.network.Request;
 import a88.jbay.model.network.RequestType;
+import a88.jbay.util.JBayLogger;
 import a88.jbay.view.ViewManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -24,6 +25,8 @@ import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
 
 public class ClientSellerItemController {
+    private final JBayLogger logger = JBayLogger.getInstance();
+
     @FXML
     private TextField nameField;
     @FXML
@@ -280,7 +283,7 @@ public class ClientSellerItemController {
             Image image = new Image(file.toURI().toString());
             itemImageView.setImage(image);
 
-            System.out.println("File: " + file.getName());
+            logger.debug("File selected: " + file.getName());
         }
     }
 

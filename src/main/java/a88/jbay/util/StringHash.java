@@ -1,4 +1,4 @@
-package a88.jbay.model;
+package a88.jbay.util;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

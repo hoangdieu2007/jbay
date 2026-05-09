@@ -3,6 +3,7 @@ package a88.jbay.client;
 import a88.jbay.model.network.Request;
 import a88.jbay.model.network.RequestType;
 import a88.jbay.model.network.Response;
+import a88.jbay.util.JBayLogger;
 import javafx.application.Platform;
 
 import java.io.IOException;
@@ -14,8 +15,10 @@ import java.net.UnknownHostException;
 public class ServerConnection {
     private static ServerConnection instance;
     private ResponseHandler responseHandler;
+    private final JBayLogger logger;
 
     private ServerConnection() {
+        this.logger = JBayLogger.getInstance();
         responseHandler = ResponseHandler.getInstance();
     }
 
@@ -31,17 +34,20 @@ public class ServerConnection {
     private ObjectInputStream in;
 
     public void connect(String host, int port) throws UnknownHostException, IOException {
+        logger.info("Connecting to server: " + host + ":" + port);
         socket = new Socket(host, port);
-        socket.setSoTimeout(120000); // 60 second read timeout
+        socket.setSoTimeout(0); // No read timeout - connection lives forever
         socket.setKeepAlive(true);  // Enable TCP keep-alive
         out = new ObjectOutputStream(socket.getOutputStream());
         out.flush();
         in = new ObjectInputStream(socket.getInputStream());
-        System.out.println("Connection successful");
+        logger.info("Connection successful to server: " + host + ":" + port);
     }
 
     //methods for sending requests
     public synchronized void send(Request request) throws IOException {
+        logger.debug("Sending request: " + request.getType().name());
+
         out.reset();
         out.writeObject(request);
         out.flush();
@@ -54,22 +60,17 @@ public class ServerConnection {
                 while (!socket.isClosed()) {
                     try {
                         Response response = (Response) in.readObject();
-                        System.out.println("Received response: " + (String) response.getMessage());
+                        logger.debug("Received response: " + (String) response.getMessage());
                         Platform.runLater(() -> responseHandler.handle(response));
-                    } catch (java.net.SocketTimeoutException e) {
-                        // Socket timeout is normal, continue the loop
-                        System.out.println("Connection timeout, checking connection...");
-                        continue;
                     } catch (java.io.EOFException e) {
-                        System.out.println("Server closed the connection");
+                        logger.info("Server closed the connection");
                         break;
                     }
                 }
             } catch (Exception e) {
-                System.out.println("Disconnected from server: " + e.getMessage());
-                e.printStackTrace();
-            } finally {
-                System.out.println("Listener thread ended");
+                logger.error("Disconnected from server: " + e.getMessage(), e);
+                            } finally {
+                logger.info("Listener thread ended");
             }
         });
 
@@ -82,7 +83,6 @@ public class ServerConnection {
                     .put("disconnect", true));
             socket.close();
         } catch (IOException e) {
-            e.printStackTrace();
-        }
+                    }
     }
 }

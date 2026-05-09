@@ -4,6 +4,8 @@ import a88.jbay.dao.AuctionDAO;
 import a88.jbay.dao.AuctionDAO.AuctionData;
 import a88.jbay.dao.BidDAO;
 import a88.jbay.dao.UserDAO;
+import a88.jbay.model.entity.user.User;
+import a88.jbay.util.JBayLogger;
 import a88.jbay.model.entity.item.Item;
 import a88.jbay.model.event.Auction;
 import a88.jbay.model.event.AuctionState;
@@ -31,6 +33,7 @@ public class AuctionSystem {
     private final UserDAO userDAO;
     private final BidDAO bidDAO;
     private final UpdateSystem updateSystem;
+    private final JBayLogger logger;
 
     // Memory cache for active auctions to handle real-time bidding
     private final Map<Integer, Auction> activeAuctions;
@@ -42,6 +45,7 @@ public class AuctionSystem {
         this.userDAO = UserDAO.getInstance();
         this.bidDAO = BidDAO.getInstance();
         this.updateSystem = UpdateSystem.getInstance();
+        this.logger = JBayLogger.getInstance();
         this.activeAuctions = new ConcurrentHashMap<>();
         this.scheduler = Executors.newSingleThreadScheduledExecutor();
 
@@ -56,12 +60,12 @@ public class AuctionSystem {
         return instance;
     }
 
-    private void loadActiveAuctions() {
+    public void loadActiveAuctions() {
         java.util.List<AuctionData> activeAuctionData = auctionDAO.findAllActiveAuctions();
-        System.out.println("Loading " + activeAuctionData.size() + " active auctions from database");
+        logger.info("Loading " + activeAuctionData.size() + " active auctions from database");
 
         for (AuctionData auctionData : activeAuctionData) {
-            System.out.println("Loading auction: " + auctionData.id() + " - " + auctionData.item().getName() + " - State: " + auctionData.state());
+            logger.debug("Loading auction: " + auctionData.id() + " - " + auctionData.item().getName() + " - State: " + auctionData.state());
             try {
                 Auction auction = new Auction(
                 auctionData.id(),
@@ -94,18 +98,21 @@ public class AuctionSystem {
             activeAuctions.put(auctionData.id(), auction);
             
             } catch (Exception e) {
-                System.err.println("Failed to load auction " + auctionData.id() + ": " + e.getMessage());
-                e.printStackTrace();
+                logger.error("Failed to load auction " + auctionData.id() + ": " + e.getMessage(), e);
             }
         }
     }
 
     //create auction and store to database
     public boolean createAuction(Item item, int sellerId, LocalDateTime start, LocalDateTime end) {
+        logger.info("Creating auction for item: " + item.getName() + " by seller: " + sellerId);
 
         // 1. Insert the item first
         int itemId = auctionDAO.insertItem(item);
-        if (itemId == -1) return false;
+        if (itemId == -1) {
+            logger.error("Failed to insert item: " + item.getName());
+            return false;
+        }
 
         // 2. Create the auction record
         int auctionId = auctionDAO.insertAuction(
@@ -116,7 +123,10 @@ public class AuctionSystem {
                 start,
                 end
         );
-        if (auctionId == -1) return false;
+        if (auctionId == -1) {
+            logger.error("Failed to create auction for item: " + item.getName());
+            return false;
+        }
 
         Auction auction = new Auction(
                 auctionId,
@@ -133,19 +143,24 @@ public class AuctionSystem {
                 new Response(true, "AUCTION_UPDATE", auction)
         );
 
+        logger.info("Auction created successfully: ID=" + auctionId + ", Item=" + item.getName());
         return true;
     }
 
     //place bid and validate bid - delegate to BidSystem
     public synchronized boolean placeBid(int userId, int auctionId, double amount) {
+        logger.debug("Bid attempt: User=" + userId + ", Auction=" + auctionId + ", Amount=" + amount);
         boolean bidPlaced = BidSystem.getInstance().placeBid(userId, auctionId, amount);
         
         if (bidPlaced) {
+            logger.info("Bid placed successfully: User=" + userId + ", Auction=" + auctionId + ", Amount=" + amount);
             // anti-sniping check upon successful bid
             Auction auction = activeAuctions.get(auctionId);
             if (auction != null) {
                 extendEndTime(LocalDateTime.now(), auction);
             }
+        } else {
+            logger.warn("Bid failed: User=" + userId + ", Auction=" + auctionId + ", Amount=" + amount);
         }
         
         return bidPlaced;
@@ -161,18 +176,92 @@ public class AuctionSystem {
 
         Auction auction = activeAuctions.get(auctionId);
         if (auction == null) {
-            System.out.println("Auction " + auctionId + " not found or not active.");
+            logger.warn("Auto-bid failed - auction not found or not active: " + auctionId);
             return;
         }
 
+        // Check if this auction already has auto-bids (excluding the current user if they already have one)
+        boolean existingAutoBid = auction.hasAutoBidConfig(userId);
+        int autoBidCount = auction.getAutoBidConfigs().size();
+        
         // Store auto-bid configuration for this user and auction
         auction.setAutoBidConfig(userId, max_amount, increment);
 
         // Subscribe user to auction to receive price change notifications
         auction.subscribe(userId);
 
-        System.out.println("Auto-bid enabled for user " + userId + " on auction " + auctionId + 
+        logger.info("Auto-bid enabled for user " + userId + " on auction " + auctionId +
                           " with max_amount=" + max_amount + ", increment=" + increment);
+
+        // If there are now 2 or more auto-bids, apply the new logic
+        if (autoBidCount >= 1 || (!existingAutoBid && auction.getAutoBidConfigs().size() >= 2)) {
+            logger.info("Multiple auto-bids detected on auction " + auctionId + ", applying competitive bidding logic");
+            handleMultipleAutoBids(auction);
+            return;
+        }
+
+        // Immediately place a bid after enabling auto-bid (single auto-bid case)
+        // Check if current winner is the user making the auto-bid request
+        if (auction.getWinnerId() != null && auction.getWinnerId().equals(userId)) {
+            logger.info("Skipping initial auto-bid for user " + userId + " on auction " + auctionId +
+                              ": user is already the current winner");
+            return;
+        }
+
+        double currentPrice = auction.getCurrentPrice();
+        double initialBidAmount = currentPrice + increment;
+
+        // Check if the initial bid amount exceeds max_amount
+        if (initialBidAmount <= max_amount) {
+            placeBid(userId, auctionId, initialBidAmount);
+        }
+    }
+
+    private void handleMultipleAutoBids(Auction auction) {
+        // Get all auto-bid configs and sort by max_amount descending
+        java.util.List<java.util.Map.Entry<Integer, Auction.AutoBidConfig>> sortedConfigs = auction.getAutoBidConfigs().entrySet().stream()
+                .sorted(java.util.Comparator.comparingDouble((java.util.Map.Entry<Integer, Auction.AutoBidConfig> e) -> e.getValue().getMaxAmount()).reversed())
+                .collect(java.util.stream.Collectors.toList());
+
+        if (sortedConfigs.size() < 2) {
+            logger.warn("handleMultipleAutoBids called with less than 2 auto-bids");
+            return;
+        }
+
+        // Get top 2 bidders by max_amount
+        java.util.Map.Entry<Integer, Auction.AutoBidConfig> topBidder = sortedConfigs.get(0);
+        java.util.Map.Entry<Integer, Auction.AutoBidConfig> secondBidder = sortedConfigs.get(1);
+
+        int topUserId = topBidder.getKey();
+        double topMaxAmount = topBidder.getValue().getMaxAmount();
+        double topIncrement = topBidder.getValue().getIncrement();
+
+        double secondMaxAmount = secondBidder.getValue().getMaxAmount();
+        double secondIncrement = secondBidder.getValue().getIncrement();
+
+        // Calculate final price: min(max_amount of top bidder, max_amount of second bidder + increment of top bidder)
+        double finalPrice = Math.min(topMaxAmount, secondMaxAmount + topIncrement);
+
+        logger.info("Competitive auto-bid resolution: User " + topUserId + " wins with price " + finalPrice +
+                          " (max=" + topMaxAmount + ", second_max=" + secondMaxAmount + ", increment=" + topIncrement + ")");
+
+        // Place the final bid
+        placeBid(topUserId, auction.getId(), finalPrice);
+
+        // Cancel all auto-bids in this auction
+        auction.clearAllAutoBidConfigs();
+        logger.info("All auto-bids canceled for auction " + auction.getId());
+    }
+
+    public synchronized void cancelAutoBid(int userId, int auctionId) {
+        Auction auction = activeAuctions.get(auctionId);
+        if (auction == null) {
+            logger.warn("Cancel auto-bid failed - auction not found or not active: " + auctionId);
+            return;
+        }
+
+        auction.clearAutoBidConfig(userId);
+        logger.info("Auto-bid canceled for user " + userId + " on auction " + auctionId);
     }
 
     public void extendEndTime(LocalDateTime now, Auction auction) {
@@ -193,7 +282,7 @@ public class AuctionSystem {
             if (updated) {
                 // Notify all subscribers about the extension
                 auction.notifyObservers();
-                System.out.println("Auction " + auction.getId() + " extended due to anti-sniping. " +
+                logger.info("Auction " + auction.getId() + " extended due to anti-sniping. " +
                         "New end time: " + newEndTime);
             }
         }
@@ -202,14 +291,19 @@ public class AuctionSystem {
     //cancel auction
     //ONLY ADMIN CAN CALL THIS
     public boolean cancelAuction(int auctionId) {
+        logger.info("Attempting to cancel auction: " + auctionId);
         Auction auction = activeAuctions.get(auctionId);
         if (auction != null) {
             auction.cancel();
         }
+
         boolean closed = auctionDAO.setAuctionState(auctionId, AuctionState.CANCELED);
         if (closed) {
             activeAuctions.remove(auctionId);
+            logger.info("Auction canceled successfully: " + auctionId);
             // Subscribers are automatically cleared when auction is removed from memory
+        } else {
+            logger.error("Failed to cancel auction: " + auctionId);
         }
         return closed;
     }
@@ -333,13 +427,14 @@ public class AuctionSystem {
         for (Auction auction : activeAuctions.values()) {
             // check and change state
             if (auction.tick(now)) {
-                System.out.println("Heartbeat: State changed for auction " + auction.getId());
+                logger.debug("Heartbeat: State changed for auction " + auction.getId() + " to " + auction.getAuctionState());
                 auctionDAO.setAuctionState(auction.getId(), auction.getAuctionState());
             }
 
             // Add canceled/finsihed auctions to ended list to remove
             if (auction.getAuctionState() == AuctionState.CANCELED || auction.getAuctionState() == AuctionState.FINISHED) {
                 ended.add(auction.getId());
+                logger.info("Auction ended: " + auction.getId() + " - " + auction.getAuctionState());
             }
         }
 

@@ -1,14 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="CONTROLLER_NAME"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.SellerViewAuctionController">
+    <children>
+        <StackPane layoutX="26.0" layoutY="87.0" prefHeight="231.0" prefWidth="281.0" style="-fx-border-color: #ddd; -fx-border-style: dashed;" AnchorPane.bottomAnchor="333.0" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="804.0" AnchorPane.topAnchor="87.0">
+            <children>
+                <ImageView fx:id="itemImageView" fitHeight="439.0" fitWidth="495.0" pickOnBounds="true" preserveRatio="true" />
+            </children>
+        </StackPane>
 
+        <GridPane layoutX="674.0" layoutY="357.0" prefHeight="369.0" prefWidth="613.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="354.0" minWidth="0.0" prefWidth="287.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="419.0" minWidth="10.0" prefWidth="326.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="95.0" minHeight="10.0" prefHeight="68.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="209.0" minHeight="10.0" prefHeight="68.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="163.0" minHeight="0.0" prefHeight="68.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="68.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label text="Current Price:" GridPane.rowIndex="3">
+                    <font>
+                        <Font name="System Bold" size="32.0" />
+                    </font>
+                </Label>
+                <Label fx:id="lblCurrentPrice" prefHeight="86.0" prefWidth="402.0" text="current price(USD)" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                    <font>
+                        <Font name="System Bold" size="28.0" />
+                    </font>
+                </Label>
+                <Label minWidth="250.0" text="Current Bidder:" GridPane.rowIndex="2">
+                    <font>
+                        <Font name="System Bold" size="32.0" />
+                    </font>
+                </Label>
+                <Label fx:id="lblBidderName" minHeight="87.0" minWidth="408.0" text="Bidder Name/Id" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <font>
+                        <Font name="System Bold" size="28.0" />
+                    </font></Label>
+                <Label text="Auction Time:" GridPane.rowIndex="1">
+                    <font>
+                        <Font name="System Bold" size="32.0" />
+                    </font>
+                </Label>
+                <Label fx:id="lblAuctionTime" prefHeight="96.0" prefWidth="385.0" text="StartTime-EndTime" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <font>
+                        <Font name="System Bold" size="28.0" />
+                    </font></Label>
+                <Label text="Item Name:">
+                    <font>
+                        <Font name="System Bold" size="32.0" />
+                    </font>
+                </Label>
+                <Label fx:id="lblItemName" prefHeight="80.0" prefWidth="391.0" text="Item name" GridPane.columnIndex="1">
+                    <font>
+                        <Font name="System Bold" size="28.0" />
+                    </font>
+                </Label>
+            </children>
+        </GridPane>
+
+        <LineChart fx:id="priceChart" layoutX="674.0" layoutY="75.0" prefHeight="282.0" prefWidth="613.0">
+            <xAxis>
+                <CategoryAxis side="BOTTOM" />
+            </xAxis>
+            <yAxis>
+                <NumberAxis side="LEFT" />
+            </yAxis>
+        </LineChart>
+
+        <TextArea fx:id="itemDescription" editable="false" layoutX="26.0" layoutY="555.0" prefHeight="207.0" prefWidth="497.0" promptText="Item description" wrapText="true">
+            <font>
+                <Font size="16.0" />
+            </font></TextArea>
+
+        <HBox alignment="CENTER_LEFT" layoutY="-1.0" prefHeight="66.0" prefWidth="1327.0" style="-fx-background-color: #2196F3;">
+            <children>
+                <Button mnemonicParsing="false" onAction="#handleBack" prefHeight="45.0" prefWidth="96.0" style="-fx-background-color: white; -fx-text-fill: #007bff; -fx-background-radius: 15; -fx-font-weight: bold;" text="BACK">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin></Button>
+            </children>
+         <padding>
+            <Insets left="5.0" />
+         </padding>
+        </HBox>
+      <Button alignment="CENTER" layoutX="910.0" layoutY="746.0" minHeight="66.0" minWidth="140.0" mnemonicParsing="false" onAction="#handleCancel" style="-fx-background-color: Red; -fx-text-fill: white; -fx-background-radius: 45;" text="Cancel">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font>
+      </Button>
+    </children>
 </AnchorPane>

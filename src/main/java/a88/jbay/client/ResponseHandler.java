@@ -9,7 +9,9 @@ import a88.jbay.model.event.BidTransaction;
 import a88.jbay.model.network.Request;
 import a88.jbay.model.network.RequestType;
 import a88.jbay.model.network.Response;
+import a88.jbay.util.JBayLogger;
 import a88.jbay.view.ViewManager;
+import javafx.scene.control.Alert;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,8 +21,10 @@ public class ResponseHandler {
     private ClientSession clientSession;
     private ControllerProvider controllerProvider;
     private ViewManager viewManager;
+    private final JBayLogger logger;
 
     private ResponseHandler() {
+        this.logger = JBayLogger.getInstance();
         clientSession = ClientSession.getInstance();
         controllerProvider = ControllerProvider.getInstance();
         viewManager = ViewManager.getInstance();
@@ -43,6 +47,7 @@ public class ResponseHandler {
                 case "SELLER_AUCTION_LIST" -> handleSellerAuctionList(response);
                 case "BIDDER_AUCTION_LIST" -> handleBidderAuctionList(response);
                 case "AUCTION_UPDATE" -> handleAuctionUpdate(response);
+                case "AUCTION_UPDATE_NOTIFY" -> handleAuctionUpdateNotify(response);
                 case "BAN_USER" -> handleBanUser(response);
                 default -> handleDefault(response);
             };
@@ -56,7 +61,7 @@ public class ResponseHandler {
     }
 
     public void handleDefault(Response response) {
-        System.out.println((String) response.getMessage());
+        logger.info((String) response.getMessage());
     }
 
     public void handleLoginSuccess(Response response) {
@@ -70,8 +75,7 @@ public class ResponseHandler {
                     .put("userId", clientSession.getUser().getId()));
         } catch (IOException e) {
             controllerProvider.getController(ClientLoginRegisterController.class).updateLoginLabel("Failed to display home screen");
-            e.printStackTrace();
-        }
+                    }
     }
 
     public void handleLoginFail(Response response) {
@@ -79,7 +83,7 @@ public class ResponseHandler {
     }
 
     public void handleRegisterSuccess(Response response) {
-        System.out.println((String) response.getMessage());
+        logger.info((String) response.getMessage());
         controllerProvider.getController(ClientLoginRegisterController.class).updateRegisterLabel("Register successful");
     }
 
@@ -143,9 +147,15 @@ public class ResponseHandler {
         clientSession.resetSession();
         try {
             ViewManager.displayScene("client/client-login-register-view.fxml");
+            new Alert(Alert.AlertType.WARNING, "You have been banned").show();
         } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
+            logger.error("Failed to display login scene");
         }
+    }
+
+    private void handleAuctionUpdateNotify(Response response) {
+        Auction auction = (Auction) response.getPayload();
+
+        new Alert(Alert.AlertType.INFORMATION, "Auction update: " + auction.getWinner() + " is the current winner, current price is " + auction.getCurrentPrice() + " USD").show();
     }
 }

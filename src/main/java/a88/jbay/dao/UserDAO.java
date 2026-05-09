@@ -9,8 +9,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDAO {
-    private static UserDAO instance;
+    private static final UserDAO instance = new UserDAO();
     private final DatabaseConnectionProvider dbProvider;
+
+    public static synchronized UserDAO getInstance() {
+        return instance;
+    }
 
     public record UserData(
         int id,
@@ -77,13 +81,6 @@ public class UserDAO {
             e.printStackTrace();
             return false;
         }
-    }
-
-    public static synchronized UserDAO getInstance() {
-        if (instance == null) {
-            instance = new UserDAO();
-        }
-        return instance;
     }
 
     public UserData findByUsername(String username) {

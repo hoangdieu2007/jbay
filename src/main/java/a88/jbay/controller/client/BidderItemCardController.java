@@ -1,7 +1,7 @@
 package a88.jbay.controller.client;
 
 import a88.jbay.controller.ControllerProvider;
-import a88.jbay.model.ImageProcessor;
+import a88.jbay.util.ImageProcessor;
 import a88.jbay.model.event.Auction;
 import a88.jbay.model.event.AuctionState;
 import a88.jbay.view.ViewManager;

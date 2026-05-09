@@ -2,8 +2,7 @@ package a88.jbay.controller.client;
 
 import a88.jbay.client.ClientSession;
 import a88.jbay.client.ServerConnection;
-import a88.jbay.controller.ControllerProvider;
-import a88.jbay.model.ImageProcessor;
+import a88.jbay.util.ImageProcessor;
 import a88.jbay.model.event.Auction;
 import a88.jbay.model.event.BidTransaction;
 import a88.jbay.model.network.Request;
@@ -22,7 +21,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
 import java.io.IOException;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class ClientBidderItemController {
@@ -44,6 +42,7 @@ public class ClientBidderItemController {
     private int currentAuctionId;
     private XYChart.Series<String, Number> priceSeries;
     private final DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
+    private boolean autoBidActive = false;
 
     //Xử lí mục ID cho auction đang hoạt động
     public void setCurrentAuction(Auction auction) {
@@ -246,8 +245,10 @@ public class ClientBidderItemController {
 
             ServerConnection.getInstance().send(req);
 
-            autoBidIncrement.clear();
-            autoBidMaxAmount.clear();
+            // Keep values in text boxes and disable them
+            autoBidIncrement.setDisable(true);
+            autoBidMaxAmount.setDisable(true);
+            autoBidActive = true;
 
         } catch (NumberFormatException e) {
             errorLabel.setText("Please enter valid numbers!");
@@ -257,6 +258,41 @@ public class ClientBidderItemController {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Connection Error");
                 alert.setHeaderText("Could not send auto-bid request to server");
+            });
+        }
+    }
+
+    @FXML
+    private void handleCancelAutoBid() {
+        errorLabel.setVisible(false);
+
+        Auction currentAuction = ClientSession.getInstance().getBidderAuctions().get(currentAuctionId);
+
+        if (currentAuction == null) {
+            errorLabel.setText("Auction no longer exists!");
+            errorLabel.setVisible(true);
+            return;
+        }
+
+        try {
+            Request req = new Request(RequestType.CANCEL_AUTO_BID);
+            req.put("userId", ClientSession.getInstance().getUser().getId());
+            req.put("auctionId", currentAuctionId);
+
+            ServerConnection.getInstance().send(req);
+
+            // Re-enable text fields and clear values
+            autoBidIncrement.setDisable(false);
+            autoBidMaxAmount.setDisable(false);
+            autoBidIncrement.clear();
+            autoBidMaxAmount.clear();
+            autoBidActive = false;
+
+        } catch (IOException e) {
+            Platform.runLater(() -> {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Connection Error");
+                alert.setHeaderText("Could not send cancel auto-bid request to server");
             });
         }
     }

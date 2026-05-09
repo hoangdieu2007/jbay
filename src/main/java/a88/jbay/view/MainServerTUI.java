@@ -1,49 +1,57 @@
-package a88.jbay;
+package a88.jbay.view;
 
 import a88.jbay.dao.AuctionDAO;
+import a88.jbay.dao.BidDAO;
+import a88.jbay.dao.ItemDAO;
 import a88.jbay.dao.UserDAO;
 import a88.jbay.model.event.Auction;
-import a88.jbay.server.ClientHandler;
 import a88.jbay.server.ClientService;
 import a88.jbay.server.DatabaseController;
+import a88.jbay.server.RequestHandler;
 import a88.jbay.system.AuctionSystem;
 import a88.jbay.system.UserSystem;
+import a88.jbay.util.JBayLogger;
 
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.sql.SQLException;
-import java.util.Map;
 import java.util.Scanner;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class MainServerTUI {
+    private static JBayLogger logger;
+    
     public static void main(String[] args) {
-        System.out.println("ONLY FOR TESTING!!!");
-        System.out.println("------------------JBAY_SERVER_TUI-----------------");
-        System.out.println("--------------software infrastructure-------------\n\n");
+        logger = JBayLogger.getInstance();
+        logger.info("JBAY Server TUI starting");
+        logger.info("------------------JBAY_SERVER_TUI-----------------");
+        logger.info("--------------software infrastructure-------------");
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Connect to database:");
+        logger.info("Connect to database:");
         while (true) {
             try {
-                System.out.println("Enter URL:");
+                logger.info("Enter URL:");
                 String url = sc.nextLine();
-                System.out.println("Enter username:");
+                logger.info("Enter username:");
                 String username = sc.nextLine();
-                System.out.println("Enter password:");
+                logger.info("Enter password:");
                 String password = sc.nextLine();
                 DatabaseController.setCredentials(url, username, password);
                 DatabaseController.getInstance().getConnection();
                 break;
             } catch (SQLException e) {
-                System.err.println("Please try again.");
+                logger.error("Database connection failed, please try again.");
             }
         }
 
         ClientService clientService = ClientService.getInstance();
+
+        /**
+         * init DAOs
+         */
+        AuctionDAO auctionDAO = AuctionDAO.getInstance();
+        UserDAO userDAO = UserDAO.getInstance();
+        BidDAO bidDAO = BidDAO.getInstance();
+        ItemDAO itemDAO = ItemDAO.getInstance();
 
         //init systems
         AuctionSystem auctionSystem = AuctionSystem.getInstance();
@@ -107,6 +115,14 @@ public class MainServerTUI {
                                 }
                             }
 
+                            break;
+                        case "NUKE":
+
+                            break;
+                        case "RELOAD":
+                            auctionSystem.loadActiveAuctions();
+                            break;
+                        case "UPDATE":
                             break;
                         default:
                             System.out.println("Invalid input");

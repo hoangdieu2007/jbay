@@ -6,6 +6,7 @@ public enum RequestType {
     LOGOUT,
     BID,
     AUTO_BID,
+    CANCEL_AUTO_BID,
     SELL,
     CANCEL,
     SUBSCRIBE_AUCTION,
