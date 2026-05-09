@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -32,6 +33,8 @@ public class ClientBidderItemController {
     private TextField autoBidIncrement;
     @FXML
     private TextField autoBidMaxAmount;
+    @FXML
+    private Button placeBidButton;
     @FXML
     private LineChart<String, Number> priceChart;
     @FXML
@@ -248,6 +251,9 @@ public class ClientBidderItemController {
             // Keep values in text boxes and disable them
             autoBidIncrement.setDisable(true);
             autoBidMaxAmount.setDisable(true);
+            // Also disable bid input and place bid button
+            bidInput.setDisable(true);
+            bidInput.setPromptText("Currently in auto-bidding mode");
             autoBidActive = true;
 
         } catch (NumberFormatException e) {
@@ -286,6 +292,9 @@ public class ClientBidderItemController {
             autoBidMaxAmount.setDisable(false);
             autoBidIncrement.clear();
             autoBidMaxAmount.clear();
+            // Also re-enable bid input and place bid button
+            bidInput.setDisable(false);
+            bidInput.setPromptText("Enter Your Bid(USD)");
             autoBidActive = false;
 
         } catch (IOException e) {
