@@ -81,3 +81,29 @@
 2026-05-09 18:28:55.683 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=TESTUSER
 2026-05-09 18:28:55.685 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
 2026-05-09 18:28:55.685 [main] INFO  a88.jbay.util.JBayLogger - Database connection pool initialized with URL: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
+2026-05-09 21:55:38.218 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - Connecting to server: 0.tcp.ap.ngrok.io:22013
+2026-05-09 21:56:52.385 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - Connecting to server: 0.tcp.ap.ngrok.io:22013
+2026-05-09 21:56:52.531 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - Connection successful to server: 0.tcp.ap.ngrok.io:22013
+2026-05-09 21:57:13.669 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: LOGIN_FAIL
+2026-05-09 21:57:45.219 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: LOGIN_FAIL
+2026-05-09 21:58:00.713 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: REGISTER_FAIL
+2026-05-09 21:58:13.259 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: REGISTER_SUCCESS
+2026-05-09 21:58:13.260 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - REGISTER_SUCCESS
+2026-05-09 21:59:47.238 [Thread-4] ERROR a88.jbay.util.JBayLogger - Disconnected from server: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.endRead(NioSocketImpl.java:242)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:321)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:354)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:798)
+	at java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:974)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:964)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:958)
+	at java.base/java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2740)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:3069)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:3079)
+	at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1571)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:487)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:445)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startListener$0(ServerConnection.java:60)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-09 21:59:47.242 [Thread-4] INFO  a88.jbay.util.JBayLogger - Listener thread ended
