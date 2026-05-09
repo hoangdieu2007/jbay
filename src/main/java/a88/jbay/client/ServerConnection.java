@@ -46,6 +46,8 @@ public class ServerConnection {
 
     //methods for sending requests
     public synchronized void send(Request request) throws IOException {
+        logger.debug("Sending request: " + request.getType().name());
+
         out.reset();
         out.writeObject(request);
         out.flush();

@@ -6,6 +6,7 @@ import a88.jbay.model.network.Response;
 import a88.jbay.system.AuctionSystem;
 import a88.jbay.system.UpdateSystem;
 import a88.jbay.system.UserSystem;
+import a88.jbay.util.JBayLogger;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -22,6 +23,7 @@ public class ClientConnection implements Runnable {
     private final ObjectInputStream in;
     private final ObjectOutputStream out;
     private final int connectionId;
+    private final JBayLogger logger;
 
     // user cache, this helps reduce the number of database queries
     private User userCache;
@@ -36,6 +38,8 @@ public class ClientConnection implements Runnable {
         this.in = new ObjectInputStream(socket.getInputStream());
 
         this.userCache = new User();
+
+        this.logger = JBayLogger.getInstance();
     }
 
     public int getConnectionId() {
@@ -89,6 +93,8 @@ public class ClientConnection implements Runnable {
     }
 
     public void send(Response response) {
+        logger.info("Sending response: " + response.getMessage());
+
         try {
             //prevent crash when update and response send at the same time
             synchronized (this) {
@@ -97,7 +103,7 @@ public class ClientConnection implements Runnable {
                 out.flush();
             }
         } catch (IOException e) {
-
+            logger.error("Error sending response: " + e.getMessage(), e);
         }
     }
 

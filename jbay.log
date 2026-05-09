@@ -107,3 +107,1821 @@ java.net.SocketException: Socket closed
 	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startListener$0(ServerConnection.java:60)
 	at java.base/java.lang.Thread.run(Thread.java:1474)
 2026-05-09 21:59:47.242 [Thread-4] INFO  a88.jbay.util.JBayLogger - Listener thread ended
+2026-05-09 22:13:58.591 [main] INFO  a88.jbay.util.JBayLogger - JBAY Server TUI starting
+2026-05-09 22:13:58.593 [main] INFO  a88.jbay.util.JBayLogger - ------------------JBAY_SERVER_TUI-----------------
+2026-05-09 22:13:58.593 [main] INFO  a88.jbay.util.JBayLogger - --------------software infrastructure-------------
+2026-05-09 22:13:58.595 [main] INFO  a88.jbay.util.JBayLogger - Connect to database:
+2026-05-09 22:13:58.595 [main] INFO  a88.jbay.util.JBayLogger - Enter URL:
+2026-05-09 22:14:17.462 [main] INFO  a88.jbay.util.JBayLogger - Enter username:
+2026-05-09 22:14:19.084 [main] INFO  a88.jbay.util.JBayLogger - Enter password:
+2026-05-09 22:14:20.926 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-05-09 22:14:21.190 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4e423aa2
+2026-05-09 22:14:21.191 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-05-09 22:14:21.192 [main] INFO  a88.jbay.util.JBayLogger - Database connection pool initialized with URL: jdbc:mysql://localhost:3306/jbay_db
+2026-05-09 22:14:21.192 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:21.193 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:21.196 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:21.212 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:21.228 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:21.255 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:21.266 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:21.267 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:21.280 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:21.280 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:21.281 [main] INFO  a88.jbay.util.JBayLogger - Loading 3 active auctions from database
+2026-05-09 22:14:21.282 [main] DEBUG a88.jbay.util.JBayLogger - Loading auction: 4 - Nhà trọ NASA - State: RUNNING
+2026-05-09 22:14:21.283 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:21.283 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:21.286 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:21.286 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:21.289 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:21.289 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:21.294 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:21.295 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:21.296 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:21.296 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:21.296 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:21.296 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:21.296 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:21.296 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:21.298 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:21.298 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:21.299 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:21.299 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:21.300 [main] DEBUG a88.jbay.util.JBayLogger - Loading auction: 6 - one piece - State: RUNNING
+2026-05-09 22:14:21.300 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:21.300 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:21.300 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:21.300 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:21.301 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:21.301 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:21.302 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:21.302 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:21.303 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:21.303 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:21.304 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:21.304 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:21.304 [main] DEBUG a88.jbay.util.JBayLogger - Loading auction: 9 - My Life - State: RUNNING
+2026-05-09 22:14:21.304 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:21.304 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:21.305 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:21.305 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:21.306 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:21.306 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:21.306 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:21.306 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:21.307 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:21.307 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:21.307 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:21.307 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:21.308 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:21.308 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:21.309 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:21.309 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:21.310 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:21.310 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:21.310 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:21.310 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:21.310 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:21.310 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:48.515 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - Connecting to server: localhost:1234
+2026-05-09 22:14:48.518 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - Connection successful to server: localhost:1234
+2026-05-09 22:14:48.519 [Thread-1] DEBUG a88.jbay.util.JBayLogger - Registering connection: 1652249683
+2026-05-09 22:14:48.519 [Thread-1] DEBUG a88.jbay.util.JBayLogger - Total registered connections: 1
+2026-05-09 22:14:52.759 [] DEBUG a88.jbay.util.JBayLogger - Attempting login for user: hxd
+2026-05-09 22:14:52.760 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:52.760 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:52.762 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:52.762 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:52.770 [] INFO  a88.jbay.util.JBayLogger - User logged in successfully: hxd
+2026-05-09 22:14:52.771 [] DEBUG a88.jbay.util.JBayLogger - Registering connection: 1652249683
+2026-05-09 22:14:52.771 [] DEBUG a88.jbay.util.JBayLogger - Total registered connections: 2
+2026-05-09 22:14:52.774 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: LOGIN_SUCCESS
+2026-05-09 22:14:52.807 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:14:52.808 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 0 auctions
+2026-05-09 22:14:52.897 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:52.897 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:52.914 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:52.914 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: ACTIVE_AUCTION_LIST
+2026-05-09 22:14:52.915 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:52.916 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:52.916 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:52.924 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:52.925 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:52.934 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:52.934 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:52.942 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:52.942 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:52.943 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:52.943 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:52.950 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:52.951 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:52.952 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:52.952 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:52.953 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:52.953 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:52.959 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:52.963 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:52.963 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:52.963 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:52.970 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:52.975 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:52.975 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:52.975 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:52.987 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:52.989 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:52.989 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:52.990 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:52.991 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:52.991 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.000 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.000 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.001 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.001 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.002 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.002 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.008 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.016 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.016 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.017 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.025 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.032 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.032 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.032 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.041 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.046 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.048 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.048 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.055 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.062 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.062 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.062 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.071 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.077 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.077 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.077 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.086 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.094 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.094 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.094 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.102 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.110 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.110 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.110 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.116 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.121 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.121 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.121 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.130 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.136 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.136 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.136 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.141 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.146 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.146 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.146 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.154 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.161 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.175 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: BIDDER_AUCTION_LIST
+2026-05-09 22:14:53.175 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.175 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.176 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.176 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.182 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.182 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.183 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.183 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.186 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.186 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.188 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.188 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.192 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.192 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.193 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.193 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.195 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.196 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.198 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.202 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.202 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.203 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.208 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.209 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.209 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.210 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.215 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.218 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.218 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.218 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.224 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.228 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.228 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.228 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.234 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.239 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.239 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.239 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.242 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.245 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.245 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.245 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.251 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.255 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.255 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.255 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.260 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.264 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.264 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.265 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.270 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.274 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.272 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.274 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.280 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.283 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.283 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.284 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.289 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.291 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.291 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.291 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.298 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.300 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.300 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.302 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.308 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.312 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.312 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.312 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.313 [pool-1-thread-1] INFO  a88.jbay.util.JBayLogger - Auction ended: 5 - FINISHED
+2026-05-09 22:14:53.313 [pool-1-thread-1] INFO  a88.jbay.util.JBayLogger - Auction ended: 7 - FINISHED
+2026-05-09 22:14:53.318 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.321 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.321 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.322 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.326 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.330 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.330 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.330 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.335 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.339 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.339 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.339 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.343 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.347 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.347 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.348 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.352 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.354 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.354 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.355 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.360 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.362 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.362 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.362 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.367 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.370 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.370 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.370 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.371 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.371 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.372 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.372 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.372 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.374 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.374 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.374 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.376 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.376 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.376 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.376 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.378 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.378 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.378 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.378 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.381 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.382 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.382 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.382 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.384 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.385 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.385 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.385 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.387 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.388 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.388 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.388 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.390 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.390 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.390 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.391 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.393 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.393 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.395 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.395 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.397 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.397 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.398 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.398 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.400 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.403 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.403 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.403 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.406 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.408 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.408 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.408 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.411 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.413 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.413 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:14:53.413 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:14:53.416 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.419 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:14:53.427 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: SELLER_AUCTION_LIST
+2026-05-09 22:14:53.427 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: GET_AUCTIONS_SUCCESS
+2026-05-09 22:14:53.428 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - GET_AUCTIONS_SUCCESS
+2026-05-09 22:14:54.313 [pool-1-thread-1] INFO  a88.jbay.util.JBayLogger - Auction ended: 1 - FINISHED
+2026-05-09 22:14:54.313 [pool-1-thread-1] INFO  a88.jbay.util.JBayLogger - Auction ended: 3 - FINISHED
+2026-05-09 22:14:54.313 [pool-1-thread-1] INFO  a88.jbay.util.JBayLogger - Auction ended: 10 - FINISHED
+2026-05-09 22:15:22.119 [Thread-1] DEBUG a88.jbay.util.JBayLogger - Registering connection: 1391965191
+2026-05-09 22:15:22.119 [Thread-1] DEBUG a88.jbay.util.JBayLogger - Total registered connections: 2
+2026-05-09 22:15:32.708 [] DEBUG a88.jbay.util.JBayLogger - Attempting login for user: khangg
+2026-05-09 22:15:32.708 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:15:32.708 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:15:32.709 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:15:32.709 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:15:32.713 [] INFO  a88.jbay.util.JBayLogger - User logged in successfully: khangg
+2026-05-09 22:15:32.713 [] DEBUG a88.jbay.util.JBayLogger - Registering connection: 1391965191
+2026-05-09 22:15:32.713 [] DEBUG a88.jbay.util.JBayLogger - Total registered connections: 3
+2026-05-09 22:15:32.969 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:15:32.969 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:15:33.068 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:15:33.069 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:15:33.070 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:15:33.070 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:15:43.329 [] DEBUG a88.jbay.util.JBayLogger - User logging out with session: 49e6e7e9-b5af-4723-9a6a-3302e1b750f8
+2026-05-09 22:15:43.329 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:15:43.330 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:15:43.335 [] INFO  a88.jbay.util.JBayLogger - User logged out successfully
+2026-05-09 22:15:43.335 [] DEBUG a88.jbay.util.JBayLogger - Unregistering connection: 1652249683
+2026-05-09 22:15:43.335 [] DEBUG a88.jbay.util.JBayLogger - Remaining connections: 3
+2026-05-09 22:15:43.335 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: LOGOUT_SUCCESS
+2026-05-09 22:15:43.398 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - Session has been cleared
+2026-05-09 22:15:47.921 [] DEBUG a88.jbay.util.JBayLogger - Attempting login for user: hxd
+2026-05-09 22:15:47.921 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:15:47.922 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:15:47.923 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:15:47.923 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:15:47.927 [] INFO  a88.jbay.util.JBayLogger - User logged in successfully: hxd
+2026-05-09 22:15:47.927 [] DEBUG a88.jbay.util.JBayLogger - Registering connection: 1652249683
+2026-05-09 22:15:47.927 [] DEBUG a88.jbay.util.JBayLogger - Total registered connections: 3
+2026-05-09 22:15:47.927 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: LOGIN_SUCCESS
+2026-05-09 22:15:47.934 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:15:47.934 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 0 auctions
+2026-05-09 22:15:47.982 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:15:47.982 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:15:47.993 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: ACTIVE_AUCTION_LIST
+2026-05-09 22:15:48.003 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:15:48.003 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: ACTIVE_AUCTION_LIST
+2026-05-09 22:15:48.003 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:15:48.004 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:15:48.004 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:15:48.011 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:15:48.011 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:15:48.019 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:15:48.019 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:15:48.027 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:15:48.027 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:15:48.027 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:15:48.027 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:15:48.033 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:15:48.033 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:15:48.034 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:15:48.034 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:15:48.035 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:15:48.035 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:16:06.996 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:16:06.997 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:16:06.997 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:16:06.998 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:16:07.020 [] INFO  a88.jbay.util.JBayLogger - Creating auction for item: 7 pha le by seller: 17
+2026-05-09 22:16:07.020 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:16:07.020 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:16:07.025 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:16:07.025 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:16:07.031 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:16:07.031 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:16:41.058 [Thread-4] ERROR a88.jbay.util.JBayLogger - Disconnected from server: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.endRead(NioSocketImpl.java:242)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:321)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:354)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:798)
+	at java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:974)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:964)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:958)
+	at java.base/java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2740)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:3069)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:3079)
+	at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1571)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:487)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:445)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startListener$0(ServerConnection.java:60)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-09 22:16:41.060 [Thread-4] INFO  a88.jbay.util.JBayLogger - Listener thread ended
+2026-05-09 22:17:17.819 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - Connecting to server: localhost:1234
+2026-05-09 22:17:17.820 [Thread-1] DEBUG a88.jbay.util.JBayLogger - Registering connection: 707937425
+2026-05-09 22:17:17.820 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - Connection successful to server: localhost:1234
+2026-05-09 22:17:17.820 [Thread-1] DEBUG a88.jbay.util.JBayLogger - Total registered connections: 3
+2026-05-09 22:17:23.260 [] DEBUG a88.jbay.util.JBayLogger - Attempting login for user: brate
+2026-05-09 22:17:23.260 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:17:23.261 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:17:23.262 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:17:23.262 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:17:23.266 [] INFO  a88.jbay.util.JBayLogger - User logged in successfully: brate
+2026-05-09 22:17:23.267 [] DEBUG a88.jbay.util.JBayLogger - Registering connection: 707937425
+2026-05-09 22:17:23.267 [] DEBUG a88.jbay.util.JBayLogger - Total registered connections: 4
+2026-05-09 22:17:23.269 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: LOGIN_SUCCESS
+2026-05-09 22:17:23.292 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:17:23.292 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 0 auctions
+2026-05-09 22:17:23.382 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:17:23.382 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:17:23.393 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:17:23.393 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:17:23.394 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:17:23.394 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:17:23.394 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: ACTIVE_AUCTION_LIST
+2026-05-09 22:17:23.395 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: BIDDER_AUCTION_LIST
+2026-05-09 22:17:23.395 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:17:23.395 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:17:23.398 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:17:23.398 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:17:23.402 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:17:23.402 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:17:23.402 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:17:23.402 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:17:23.404 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:17:23.405 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:17:23.405 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:17:23.405 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:17:23.406 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:17:23.406 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:17:36.136 [Thread-4] ERROR a88.jbay.util.JBayLogger - Disconnected from server: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.endRead(NioSocketImpl.java:242)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:321)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:354)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:798)
+	at java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:974)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:964)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:958)
+	at java.base/java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2740)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:3069)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:3079)
+	at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1571)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:487)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:445)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startListener$0(ServerConnection.java:60)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-09 22:17:36.137 [Thread-4] INFO  a88.jbay.util.JBayLogger - Listener thread ended
+2026-05-09 22:23:07.900 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - Connecting to server: localhost:1234
+2026-05-09 22:23:07.901 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - Connection successful to server: localhost:1234
+2026-05-09 22:23:07.901 [Thread-1] DEBUG a88.jbay.util.JBayLogger - Registering connection: 326416614
+2026-05-09 22:23:07.901 [Thread-1] DEBUG a88.jbay.util.JBayLogger - Total registered connections: 4
+2026-05-09 22:23:12.276 [] DEBUG a88.jbay.util.JBayLogger - Attempting login for user: hxd
+2026-05-09 22:23:12.276 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:23:12.277 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:23:12.278 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:23:12.278 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:23:12.555 [] INFO  a88.jbay.util.JBayLogger - User logged in successfully: hxd
+2026-05-09 22:23:12.555 [] DEBUG a88.jbay.util.JBayLogger - Registering connection: 326416614
+2026-05-09 22:23:12.555 [] DEBUG a88.jbay.util.JBayLogger - Total registered connections: 4
+2026-05-09 22:23:12.558 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: LOGIN_SUCCESS
+2026-05-09 22:23:12.593 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:23:12.594 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 0 auctions
+2026-05-09 22:23:12.684 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:23:12.684 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:23:12.696 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:23:12.696 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:23:12.696 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: ACTIVE_AUCTION_LIST
+2026-05-09 22:23:12.698 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:23:12.698 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:23:12.704 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:23:12.704 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:23:12.714 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:23:12.714 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:23:12.721 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:23:12.721 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:23:12.722 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:23:12.722 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:23:12.727 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:23:12.728 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:23:12.728 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:23:12.728 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:23:12.729 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:23:12.729 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:25:12.697 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Connection timeout, checking connection...
+2026-05-09 22:25:16.968 [Thread-1] DEBUG a88.jbay.util.JBayLogger - Registering connection: 702040626
+2026-05-09 22:25:16.969 [Thread-1] DEBUG a88.jbay.util.JBayLogger - Total registered connections: 4
+2026-05-09 22:25:28.132 [] DEBUG a88.jbay.util.JBayLogger - Attempting login for user: khangtran
+2026-05-09 22:25:28.132 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:25:28.133 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:25:28.133 [] WARN  a88.jbay.util.JBayLogger - Login failed - user not found: khangtran
+2026-05-09 22:25:37.918 [] DEBUG a88.jbay.util.JBayLogger - Attempting login for user: khangg
+2026-05-09 22:25:37.918 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:25:37.918 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:25:37.920 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:25:37.920 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:25:37.925 [] INFO  a88.jbay.util.JBayLogger - User logged in successfully: khangg
+2026-05-09 22:25:37.925 [] DEBUG a88.jbay.util.JBayLogger - Registering connection: 702040626
+2026-05-09 22:25:37.925 [] DEBUG a88.jbay.util.JBayLogger - Total registered connections: 4
+2026-05-09 22:25:38.231 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:25:38.231 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:27:12.703 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Connection timeout, checking connection...
+2026-05-09 22:27:25.202 [Thread-4] ERROR a88.jbay.util.JBayLogger - Disconnected from server: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.endRead(NioSocketImpl.java:242)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:321)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:354)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:798)
+	at java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:974)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:964)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:958)
+	at java.base/java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2740)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:3069)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:3079)
+	at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1571)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:487)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:445)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startListener$0(ServerConnection.java:60)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-09 22:27:25.202 [Thread-4] INFO  a88.jbay.util.JBayLogger - Listener thread ended
+2026-05-09 22:27:48.387 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - Connecting to server: localhost:1234
+2026-05-09 22:27:48.389 [Thread-1] DEBUG a88.jbay.util.JBayLogger - Registering connection: 1180730498
+2026-05-09 22:27:48.389 [Thread-1] DEBUG a88.jbay.util.JBayLogger - Total registered connections: 4
+2026-05-09 22:27:48.389 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - Connection successful to server: localhost:1234
+2026-05-09 22:27:53.244 [] DEBUG a88.jbay.util.JBayLogger - Attempting login for user: hxd
+2026-05-09 22:27:53.245 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:27:53.245 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:27:53.245 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:27:53.245 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:27:53.248 [] INFO  a88.jbay.util.JBayLogger - User logged in successfully: hxd
+2026-05-09 22:27:53.248 [] DEBUG a88.jbay.util.JBayLogger - Registering connection: 1180730498
+2026-05-09 22:27:53.250 [] DEBUG a88.jbay.util.JBayLogger - Total registered connections: 4
+2026-05-09 22:27:53.252 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: LOGIN_SUCCESS
+2026-05-09 22:27:53.287 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:27:53.288 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 0 auctions
+2026-05-09 22:27:53.389 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:27:53.389 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:27:53.405 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:27:53.405 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:27:53.405 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: ACTIVE_AUCTION_LIST
+2026-05-09 22:27:53.407 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:27:53.407 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:27:53.413 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:27:53.413 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:27:53.422 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:27:53.422 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:27:53.430 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:27:53.430 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:27:53.431 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:27:53.431 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:27:53.437 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:27:53.437 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:27:53.438 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:27:53.438 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:27:53.439 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:27:53.439 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:29:53.412 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Connection timeout, checking connection...
+2026-05-09 22:29:59.443 [Thread-4] ERROR a88.jbay.util.JBayLogger - Disconnected from server: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.endRead(NioSocketImpl.java:242)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:321)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:354)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:798)
+	at java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:974)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:964)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:958)
+	at java.base/java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2740)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:3069)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:3079)
+	at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1571)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:487)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:445)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startListener$0(ServerConnection.java:60)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-09 22:29:59.445 [Thread-4] INFO  a88.jbay.util.JBayLogger - Listener thread ended
+2026-05-09 22:30:47.764 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - Connecting to server: localhost:1234
+2026-05-09 22:30:47.765 [Thread-1] DEBUG a88.jbay.util.JBayLogger - Registering connection: 2127451667
+2026-05-09 22:30:47.765 [Thread-1] DEBUG a88.jbay.util.JBayLogger - Total registered connections: 4
+2026-05-09 22:30:47.765 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - Connection successful to server: localhost:1234
+2026-05-09 22:30:55.531 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: a88.jbay.model.network.Request@4f55478c
+2026-05-09 22:30:55.532 [] DEBUG a88.jbay.util.JBayLogger - Attempting login for user: hxd
+2026-05-09 22:30:55.532 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:30:55.533 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:30:55.534 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:30:55.534 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:30:55.538 [] INFO  a88.jbay.util.JBayLogger - User logged in successfully: hxd
+2026-05-09 22:30:55.538 [] DEBUG a88.jbay.util.JBayLogger - Registering connection: 2127451667
+2026-05-09 22:30:55.538 [] DEBUG a88.jbay.util.JBayLogger - Total registered connections: 4
+2026-05-09 22:30:55.541 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: LOGIN_SUCCESS
+2026-05-09 22:30:55.563 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:30:55.564 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 0 auctions
+2026-05-09 22:30:55.640 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: a88.jbay.model.network.Request@3c7b622f
+2026-05-09 22:30:55.641 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:30:55.643 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:30:55.658 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:30:55.658 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:30:55.660 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:30:55.660 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:30:55.665 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:30:55.665 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:30:55.672 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:30:55.672 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:30:55.678 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:30:55.678 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:30:55.679 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:30:55.679 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:30:55.685 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:30:55.685 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:30:55.686 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:30:55.686 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:30:55.686 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:30:55.686 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:30:55.970 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: ACTIVE_AUCTION_LIST
+2026-05-09 22:30:59.513 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: a88.jbay.model.network.Request@3c07439b
+2026-05-09 22:31:01.770 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: a88.jbay.model.network.Request@43be784c
+2026-05-09 22:31:03.065 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: a88.jbay.model.network.Request@649776e6
+2026-05-09 22:31:04.065 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: a88.jbay.model.network.Request@e250db5
+2026-05-09 22:31:05.312 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: a88.jbay.model.network.Request@3b0c65bb
+2026-05-09 22:31:05.313 [Thread-4] ERROR a88.jbay.util.JBayLogger - Disconnected from server: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.endRead(NioSocketImpl.java:242)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:321)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:354)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:798)
+	at java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:974)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:964)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:958)
+	at java.base/java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2740)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:3069)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:3079)
+	at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1571)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:487)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:445)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startListener$0(ServerConnection.java:62)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-09 22:31:05.315 [Thread-4] INFO  a88.jbay.util.JBayLogger - Listener thread ended
+2026-05-09 22:33:26.014 [main] INFO  a88.jbay.util.JBayLogger - JBAY Server TUI starting
+2026-05-09 22:33:26.015 [main] INFO  a88.jbay.util.JBayLogger - ------------------JBAY_SERVER_TUI-----------------
+2026-05-09 22:33:26.016 [main] INFO  a88.jbay.util.JBayLogger - --------------software infrastructure-------------
+2026-05-09 22:33:26.018 [main] INFO  a88.jbay.util.JBayLogger - Connect to database:
+2026-05-09 22:33:26.018 [main] INFO  a88.jbay.util.JBayLogger - Enter URL:
+2026-05-09 22:33:42.133 [main] INFO  a88.jbay.util.JBayLogger - Enter username:
+2026-05-09 22:33:43.933 [main] INFO  a88.jbay.util.JBayLogger - Enter password:
+2026-05-09 22:33:45.357 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-05-09 22:33:45.614 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2ce6c6ec
+2026-05-09 22:33:45.615 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-05-09 22:33:45.616 [main] INFO  a88.jbay.util.JBayLogger - Database connection pool initialized with URL: jdbc:mysql://localhost:3306/jbay_db
+2026-05-09 22:33:45.616 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.616 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.621 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.636 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.652 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.680 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.692 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.692 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.703 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.704 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.706 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.706 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.707 [main] INFO  a88.jbay.util.JBayLogger - Loading 4 active auctions from database
+2026-05-09 22:33:45.709 [main] DEBUG a88.jbay.util.JBayLogger - Loading auction: 4 - Nhà trọ NASA - State: RUNNING
+2026-05-09 22:33:45.710 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.710 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.712 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.712 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.715 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.715 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.719 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.719 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.721 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.721 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.721 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.721 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.722 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.722 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.723 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.723 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.724 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.724 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.725 [main] DEBUG a88.jbay.util.JBayLogger - Loading auction: 6 - one piece - State: RUNNING
+2026-05-09 22:33:45.725 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.725 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.725 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.725 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.726 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.726 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.727 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.727 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.727 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.728 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.728 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.728 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.729 [main] DEBUG a88.jbay.util.JBayLogger - Loading auction: 9 - My Life - State: RUNNING
+2026-05-09 22:33:45.729 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.729 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.729 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.729 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.731 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.731 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.731 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.732 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.732 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.732 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.732 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.732 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.733 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.733 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.733 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.733 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.734 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.734 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.734 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.734 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.734 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.736 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.736 [main] DEBUG a88.jbay.util.JBayLogger - Loading auction: 15 - 7 pha le - State: OPENING
+2026-05-09 22:33:45.736 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.736 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.737 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.737 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:33:45.738 [pool-1-thread-1] DEBUG a88.jbay.util.JBayLogger - Heartbeat: State changed for auction 15 to RUNNING
+2026-05-09 22:33:45.738 [pool-1-thread-1] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:33:45.738 [pool-1-thread-1] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:08.902 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - Connecting to server: localhost:1234
+2026-05-09 22:34:08.911 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - Connection successful to server: localhost:1234
+2026-05-09 22:34:08.912 [Thread-1] DEBUG a88.jbay.util.JBayLogger - Registering connection: 1511941272
+2026-05-09 22:34:08.912 [Thread-1] DEBUG a88.jbay.util.JBayLogger - Total registered connections: 1
+2026-05-09 22:34:13.588 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: LOGIN
+2026-05-09 22:34:13.592 [] DEBUG a88.jbay.util.JBayLogger - Attempting login for user: hxd
+2026-05-09 22:34:13.592 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:13.593 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:13.594 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:13.595 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:13.600 [] INFO  a88.jbay.util.JBayLogger - User logged in successfully: hxd
+2026-05-09 22:34:13.601 [] DEBUG a88.jbay.util.JBayLogger - Registering connection: 1511941272
+2026-05-09 22:34:13.601 [] DEBUG a88.jbay.util.JBayLogger - Total registered connections: 2
+2026-05-09 22:34:13.601 [] INFO  a88.jbay.util.JBayLogger - Sending response: LOGIN_SUCCESS
+2026-05-09 22:34:13.604 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: LOGIN_SUCCESS
+2026-05-09 22:34:13.627 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:34:13.628 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 0 auctions
+2026-05-09 22:34:13.705 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: GET_AUCTIONS
+2026-05-09 22:34:13.708 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:13.709 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:13.711 [] INFO  a88.jbay.util.JBayLogger - Sending response: ACTIVE_AUCTION_LIST
+2026-05-09 22:34:13.724 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:13.724 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: ACTIVE_AUCTION_LIST
+2026-05-09 22:34:13.724 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:13.725 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:13.726 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:13.736 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:13.736 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:13.749 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:13.749 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:13.760 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:13.760 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:13.761 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:13.762 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:13.769 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:13.770 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:13.770 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:13.770 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:13.772 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:13.772 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:13.774 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:13.777 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:13.777 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:13.782 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:13.782 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:13.782 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:13.784 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:13.788 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:13.788 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:13.792 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:13.792 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:13.793 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:13.794 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:13.801 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:13.801 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:13.806 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:13.806 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:13.808 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:13.808 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:13.809 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:13.818 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:13.818 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:13.820 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:13.821 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:13.822 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:13.824 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:13.825 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:13.830 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:13.830 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:13.836 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:13.836 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:13.836 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:13.839 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:13.846 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:13.846 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:13.851 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:13.852 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:13.852 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:13.853 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:13.862 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:13.862 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:13.868 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:13.868 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:13.868 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:13.870 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:13.876 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:13.876 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:13.883 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:13.883 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:13.883 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:13.885 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:13.892 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:13.893 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:13.898 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:13.898 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:13.898 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:13.901 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:13.909 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:13.909 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:13.916 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:13.916 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:13.916 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:13.918 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:13.928 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:13.928 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:13.937 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:13.937 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:13.937 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:13.939 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:13.946 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:13.946 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:13.952 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:13.952 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:13.952 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:13.953 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:13.958 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:13.958 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:13.963 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:13.964 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:13.964 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:13.965 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:13.969 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:13.969 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:13.975 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:13.975 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:13.975 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:13.976 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:13.986 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:13.987 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:13.991 [] INFO  a88.jbay.util.JBayLogger - Sending response: BIDDER_AUCTION_LIST
+2026-05-09 22:34:13.991 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.009 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.009 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: BIDDER_AUCTION_LIST
+2026-05-09 22:34:14.009 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.011 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.012 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.016 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.016 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.018 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.018 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.024 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.024 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.025 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.025 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.032 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.032 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.034 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.034 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.037 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.038 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.039 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.043 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.043 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.047 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.047 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.047 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.048 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.053 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.054 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.056 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.056 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.057 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.058 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.062 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.062 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.065 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.065 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.065 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.066 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.071 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.071 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.074 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.074 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.075 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.076 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.079 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.079 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.085 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.085 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.085 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.086 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.090 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.090 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.094 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.094 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.095 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.096 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.101 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.101 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.105 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.105 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.105 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.106 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.110 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.110 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.113 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.113 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.114 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.115 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.118 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.118 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.121 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.121 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.121 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.122 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.128 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.128 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.132 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.132 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.132 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.133 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.136 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.136 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.138 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.138 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.138 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.139 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.143 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.143 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.145 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.145 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.145 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.147 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.148 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.148 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.152 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.152 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.152 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.153 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.157 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.157 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.162 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.162 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.162 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.164 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.166 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.166 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.170 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.170 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.170 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.171 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.176 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.176 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.179 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.179 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.179 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.180 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.183 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.183 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.186 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.186 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.186 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.187 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.190 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.190 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.193 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.193 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.193 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.194 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.197 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.197 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.200 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.200 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.200 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.200 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.203 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.203 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.206 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.206 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.206 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.206 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.206 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.208 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.208 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.209 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.209 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.210 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.210 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.211 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.211 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.212 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.212 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.212 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.212 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.212 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.213 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.213 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.214 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.214 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.214 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.215 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.216 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.216 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.216 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.216 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.216 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.218 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.218 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.218 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.220 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.220 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.220 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.220 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.221 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.221 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.222 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.222 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.222 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.224 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.225 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.225 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.226 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.226 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.226 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.229 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.229 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.232 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.232 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.232 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.233 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.234 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.234 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.235 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.237 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.237 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.239 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.239 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.239 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.240 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.241 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.242 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.243 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.243 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.243 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.244 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.246 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.246 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.248 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:34:14.248 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:34:14.248 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.249 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.251 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:34:14.251 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.252 [] INFO  a88.jbay.util.JBayLogger - Sending response: SELLER_AUCTION_LIST
+2026-05-09 22:34:14.252 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:34:14.259 [] INFO  a88.jbay.util.JBayLogger - Sending response: GET_AUCTIONS_SUCCESS
+2026-05-09 22:34:14.259 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: SELLER_AUCTION_LIST
+2026-05-09 22:34:14.259 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: GET_AUCTIONS_SUCCESS
+2026-05-09 22:34:14.738 [pool-1-thread-1] INFO  a88.jbay.util.JBayLogger - Auction ended: 1 - FINISHED
+2026-05-09 22:34:14.738 [pool-1-thread-1] INFO  a88.jbay.util.JBayLogger - Auction ended: 3 - FINISHED
+2026-05-09 22:34:14.738 [pool-1-thread-1] INFO  a88.jbay.util.JBayLogger - Auction ended: 5 - FINISHED
+2026-05-09 22:34:14.738 [pool-1-thread-1] INFO  a88.jbay.util.JBayLogger - Auction ended: 7 - FINISHED
+2026-05-09 22:34:14.738 [pool-1-thread-1] INFO  a88.jbay.util.JBayLogger - Auction ended: 10 - FINISHED
+2026-05-09 22:34:15.045 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - GET_AUCTIONS_SUCCESS
+2026-05-09 22:35:14.653 [] DEBUG a88.jbay.util.JBayLogger - Unregistering connection: 1511941272
+2026-05-09 22:35:14.653 [] DEBUG a88.jbay.util.JBayLogger - Remaining connections: 2
+2026-05-09 22:35:53.372 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - Connecting to server: localhost:1234
+2026-05-09 22:35:53.374 [Thread-1] DEBUG a88.jbay.util.JBayLogger - Registering connection: 1870666881
+2026-05-09 22:35:53.374 [Thread-1] DEBUG a88.jbay.util.JBayLogger - Total registered connections: 2
+2026-05-09 22:35:53.374 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - Connection successful to server: localhost:1234
+2026-05-09 22:35:58.483 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: LOGIN
+2026-05-09 22:35:58.485 [] DEBUG a88.jbay.util.JBayLogger - Attempting login for user: brate
+2026-05-09 22:35:58.485 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:35:58.485 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:35:58.486 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:35:58.486 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:35:58.491 [] INFO  a88.jbay.util.JBayLogger - User logged in successfully: brate
+2026-05-09 22:35:58.492 [] DEBUG a88.jbay.util.JBayLogger - Registering connection: 1870666881
+2026-05-09 22:35:58.492 [] DEBUG a88.jbay.util.JBayLogger - Total registered connections: 3
+2026-05-09 22:35:58.492 [] INFO  a88.jbay.util.JBayLogger - Sending response: LOGIN_SUCCESS
+2026-05-09 22:35:58.494 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: LOGIN_SUCCESS
+2026-05-09 22:35:58.516 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Seller UI initialized with 0 auctions
+2026-05-09 22:35:58.516 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Bidder UI initialized with 0 auctions
+2026-05-09 22:35:58.584 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: GET_AUCTIONS
+2026-05-09 22:35:58.586 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:35:58.586 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:35:58.588 [] INFO  a88.jbay.util.JBayLogger - Sending response: ACTIVE_AUCTION_LIST
+2026-05-09 22:35:58.597 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:35:58.597 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:35:58.597 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: ACTIVE_AUCTION_LIST
+2026-05-09 22:35:58.598 [] INFO  a88.jbay.util.JBayLogger - Sending response: BIDDER_AUCTION_LIST
+2026-05-09 22:35:58.598 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:35:58.598 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:35:58.599 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: BIDDER_AUCTION_LIST
+2026-05-09 22:35:58.599 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:35:58.600 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:35:58.601 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:35:58.601 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:35:58.602 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:35:58.602 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:35:58.603 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:35:58.603 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:35:58.604 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:35:58.604 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:35:58.605 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:35:58.605 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:35:58.607 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:35:58.607 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:35:58.608 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.608 [] ERROR a88.jbay.util.JBayLogger - Error sending response: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.ensureOpenAndConnected(NioSocketImpl.java:162)
+	at java.base/sun.nio.ch.NioSocketImpl.beginWrite(NioSocketImpl.java:370)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:415)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.server.ClientConnection.send(ClientConnection.java:101)
+	at a88.jbay/a88.jbay.system.UpdateSystem.lambda$updateAllUsers$1(UpdateSystem.java:135)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at a88.jbay/a88.jbay.system.UpdateSystem.lambda$updateAllUsers$0(UpdateSystem.java:135)
+	at java.base/java.util.concurrent.ConcurrentHashMap.forEach(ConcurrentHashMap.java:1619)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAllUsers(UpdateSystem.java:133)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAuctionToAllUsers(UpdateSystem.java:89)
+	at a88.jbay/a88.jbay.model.event.Auction.notifyObservers(Auction.java:150)
+	at a88.jbay/a88.jbay.model.event.Auction.updatePrice(Auction.java:120)
+	at a88.jbay/a88.jbay.system.AuctionSystem.getAuctionById(AuctionSystem.java:287)
+	at a88.jbay/a88.jbay.system.AuctionSystem.getAuctionsBySellerId(AuctionSystem.java:309)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateSellerAuctions(UpdateSystem.java:94)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAllAuctions(UpdateSystem.java:117)
+	at a88.jbay/a88.jbay.server.RequestHandler.handleGetAuctions(RequestHandler.java:180)
+	at a88.jbay/a88.jbay.server.RequestHandler.handleRequest(RequestHandler.java:52)
+	at a88.jbay/a88.jbay.server.ClientConnection.run(ClientConnection.java:66)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at java.base/java.util.concurrent.ThreadPerTaskExecutor$ThreadBoundFuture.run(ThreadPerTaskExecutor.java:323)
+	at java.base/java.lang.VirtualThread.run(VirtualThread.java:460)
+2026-05-09 22:35:58.611 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.612 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.612 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:35:58.612 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:35:58.612 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:35:58.613 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:35:58.614 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.614 [] ERROR a88.jbay.util.JBayLogger - Error sending response: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.ensureOpenAndConnected(NioSocketImpl.java:162)
+	at java.base/sun.nio.ch.NioSocketImpl.beginWrite(NioSocketImpl.java:370)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:415)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.server.ClientConnection.send(ClientConnection.java:101)
+	at a88.jbay/a88.jbay.system.UpdateSystem.lambda$updateAllUsers$1(UpdateSystem.java:135)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at a88.jbay/a88.jbay.system.UpdateSystem.lambda$updateAllUsers$0(UpdateSystem.java:135)
+	at java.base/java.util.concurrent.ConcurrentHashMap.forEach(ConcurrentHashMap.java:1619)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAllUsers(UpdateSystem.java:133)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAuctionToAllUsers(UpdateSystem.java:89)
+	at a88.jbay/a88.jbay.model.event.Auction.notifyObservers(Auction.java:150)
+	at a88.jbay/a88.jbay.model.event.Auction.updatePrice(Auction.java:120)
+	at a88.jbay/a88.jbay.system.AuctionSystem.getAuctionById(AuctionSystem.java:287)
+	at a88.jbay/a88.jbay.system.AuctionSystem.getAuctionsBySellerId(AuctionSystem.java:309)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateSellerAuctions(UpdateSystem.java:94)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAllAuctions(UpdateSystem.java:117)
+	at a88.jbay/a88.jbay.server.RequestHandler.handleGetAuctions(RequestHandler.java:180)
+	at a88.jbay/a88.jbay.server.RequestHandler.handleRequest(RequestHandler.java:52)
+	at a88.jbay/a88.jbay.server.ClientConnection.run(ClientConnection.java:66)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at java.base/java.util.concurrent.ThreadPerTaskExecutor$ThreadBoundFuture.run(ThreadPerTaskExecutor.java:323)
+	at java.base/java.lang.VirtualThread.run(VirtualThread.java:460)
+2026-05-09 22:35:58.614 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.615 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.615 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:35:58.615 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:35:58.615 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:35:58.616 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:35:58.616 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.618 [] ERROR a88.jbay.util.JBayLogger - Error sending response: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.ensureOpenAndConnected(NioSocketImpl.java:162)
+	at java.base/sun.nio.ch.NioSocketImpl.beginWrite(NioSocketImpl.java:370)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:415)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.server.ClientConnection.send(ClientConnection.java:101)
+	at a88.jbay/a88.jbay.system.UpdateSystem.lambda$updateAllUsers$1(UpdateSystem.java:135)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at a88.jbay/a88.jbay.system.UpdateSystem.lambda$updateAllUsers$0(UpdateSystem.java:135)
+	at java.base/java.util.concurrent.ConcurrentHashMap.forEach(ConcurrentHashMap.java:1619)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAllUsers(UpdateSystem.java:133)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAuctionToAllUsers(UpdateSystem.java:89)
+	at a88.jbay/a88.jbay.model.event.Auction.notifyObservers(Auction.java:150)
+	at a88.jbay/a88.jbay.model.event.Auction.updatePrice(Auction.java:120)
+	at a88.jbay/a88.jbay.system.AuctionSystem.getAuctionById(AuctionSystem.java:287)
+	at a88.jbay/a88.jbay.system.AuctionSystem.getAuctionsBySellerId(AuctionSystem.java:309)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateSellerAuctions(UpdateSystem.java:94)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAllAuctions(UpdateSystem.java:117)
+	at a88.jbay/a88.jbay.server.RequestHandler.handleGetAuctions(RequestHandler.java:180)
+	at a88.jbay/a88.jbay.server.RequestHandler.handleRequest(RequestHandler.java:52)
+	at a88.jbay/a88.jbay.server.ClientConnection.run(ClientConnection.java:66)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at java.base/java.util.concurrent.ThreadPerTaskExecutor$ThreadBoundFuture.run(ThreadPerTaskExecutor.java:323)
+	at java.base/java.lang.VirtualThread.run(VirtualThread.java:460)
+2026-05-09 22:35:58.618 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.618 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.619 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:35:58.620 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:35:58.620 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:35:58.620 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:35:58.621 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.621 [] ERROR a88.jbay.util.JBayLogger - Error sending response: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.ensureOpenAndConnected(NioSocketImpl.java:162)
+	at java.base/sun.nio.ch.NioSocketImpl.beginWrite(NioSocketImpl.java:370)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:415)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.server.ClientConnection.send(ClientConnection.java:101)
+	at a88.jbay/a88.jbay.system.UpdateSystem.lambda$updateAllUsers$1(UpdateSystem.java:135)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at a88.jbay/a88.jbay.system.UpdateSystem.lambda$updateAllUsers$0(UpdateSystem.java:135)
+	at java.base/java.util.concurrent.ConcurrentHashMap.forEach(ConcurrentHashMap.java:1619)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAllUsers(UpdateSystem.java:133)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAuctionToAllUsers(UpdateSystem.java:89)
+	at a88.jbay/a88.jbay.model.event.Auction.notifyObservers(Auction.java:150)
+	at a88.jbay/a88.jbay.model.event.Auction.updatePrice(Auction.java:120)
+	at a88.jbay/a88.jbay.system.AuctionSystem.getAuctionById(AuctionSystem.java:287)
+	at a88.jbay/a88.jbay.system.AuctionSystem.getAuctionsBySellerId(AuctionSystem.java:309)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateSellerAuctions(UpdateSystem.java:94)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAllAuctions(UpdateSystem.java:117)
+	at a88.jbay/a88.jbay.server.RequestHandler.handleGetAuctions(RequestHandler.java:180)
+	at a88.jbay/a88.jbay.server.RequestHandler.handleRequest(RequestHandler.java:52)
+	at a88.jbay/a88.jbay.server.ClientConnection.run(ClientConnection.java:66)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at java.base/java.util.concurrent.ThreadPerTaskExecutor$ThreadBoundFuture.run(ThreadPerTaskExecutor.java:323)
+	at java.base/java.lang.VirtualThread.run(VirtualThread.java:460)
+2026-05-09 22:35:58.621 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.622 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.622 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:35:58.622 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:35:58.622 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:35:58.624 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:35:58.625 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.625 [] ERROR a88.jbay.util.JBayLogger - Error sending response: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.ensureOpenAndConnected(NioSocketImpl.java:162)
+	at java.base/sun.nio.ch.NioSocketImpl.beginWrite(NioSocketImpl.java:370)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:415)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.server.ClientConnection.send(ClientConnection.java:101)
+	at a88.jbay/a88.jbay.system.UpdateSystem.lambda$updateAllUsers$1(UpdateSystem.java:135)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at a88.jbay/a88.jbay.system.UpdateSystem.lambda$updateAllUsers$0(UpdateSystem.java:135)
+	at java.base/java.util.concurrent.ConcurrentHashMap.forEach(ConcurrentHashMap.java:1619)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAllUsers(UpdateSystem.java:133)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAuctionToAllUsers(UpdateSystem.java:89)
+	at a88.jbay/a88.jbay.model.event.Auction.notifyObservers(Auction.java:150)
+	at a88.jbay/a88.jbay.model.event.Auction.updatePrice(Auction.java:120)
+	at a88.jbay/a88.jbay.system.AuctionSystem.getAuctionById(AuctionSystem.java:287)
+	at a88.jbay/a88.jbay.system.AuctionSystem.getAuctionsBySellerId(AuctionSystem.java:309)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateSellerAuctions(UpdateSystem.java:94)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAllAuctions(UpdateSystem.java:117)
+	at a88.jbay/a88.jbay.server.RequestHandler.handleGetAuctions(RequestHandler.java:180)
+	at a88.jbay/a88.jbay.server.RequestHandler.handleRequest(RequestHandler.java:52)
+	at a88.jbay/a88.jbay.server.ClientConnection.run(ClientConnection.java:66)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at java.base/java.util.concurrent.ThreadPerTaskExecutor$ThreadBoundFuture.run(ThreadPerTaskExecutor.java:323)
+	at java.base/java.lang.VirtualThread.run(VirtualThread.java:460)
+2026-05-09 22:35:58.625 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.626 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.627 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:35:58.627 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:35:58.627 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:35:58.627 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.629 [] ERROR a88.jbay.util.JBayLogger - Error sending response: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.ensureOpenAndConnected(NioSocketImpl.java:162)
+	at java.base/sun.nio.ch.NioSocketImpl.beginWrite(NioSocketImpl.java:370)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:415)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.server.ClientConnection.send(ClientConnection.java:101)
+	at a88.jbay/a88.jbay.system.UpdateSystem.lambda$updateAllUsers$1(UpdateSystem.java:135)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at a88.jbay/a88.jbay.system.UpdateSystem.lambda$updateAllUsers$0(UpdateSystem.java:135)
+	at java.base/java.util.concurrent.ConcurrentHashMap.forEach(ConcurrentHashMap.java:1619)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAllUsers(UpdateSystem.java:133)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAuctionToAllUsers(UpdateSystem.java:89)
+	at a88.jbay/a88.jbay.model.event.Auction.notifyObservers(Auction.java:150)
+	at a88.jbay/a88.jbay.model.event.Auction.updatePrice(Auction.java:120)
+	at a88.jbay/a88.jbay.system.AuctionSystem.getAuctionById(AuctionSystem.java:287)
+	at a88.jbay/a88.jbay.system.AuctionSystem.getAuctionsBySellerId(AuctionSystem.java:309)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateSellerAuctions(UpdateSystem.java:94)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAllAuctions(UpdateSystem.java:117)
+	at a88.jbay/a88.jbay.server.RequestHandler.handleGetAuctions(RequestHandler.java:180)
+	at a88.jbay/a88.jbay.server.RequestHandler.handleRequest(RequestHandler.java:52)
+	at a88.jbay/a88.jbay.server.ClientConnection.run(ClientConnection.java:66)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at java.base/java.util.concurrent.ThreadPerTaskExecutor$ThreadBoundFuture.run(ThreadPerTaskExecutor.java:323)
+	at java.base/java.lang.VirtualThread.run(VirtualThread.java:460)
+2026-05-09 22:35:58.629 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.629 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:35:58.629 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.629 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:35:58.631 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:35:58.631 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:35:58.631 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:35:58.631 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.632 [] ERROR a88.jbay.util.JBayLogger - Error sending response: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.ensureOpenAndConnected(NioSocketImpl.java:162)
+	at java.base/sun.nio.ch.NioSocketImpl.beginWrite(NioSocketImpl.java:370)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:415)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.server.ClientConnection.send(ClientConnection.java:101)
+	at a88.jbay/a88.jbay.system.UpdateSystem.lambda$updateAllUsers$1(UpdateSystem.java:135)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at a88.jbay/a88.jbay.system.UpdateSystem.lambda$updateAllUsers$0(UpdateSystem.java:135)
+	at java.base/java.util.concurrent.ConcurrentHashMap.forEach(ConcurrentHashMap.java:1619)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAllUsers(UpdateSystem.java:133)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAuctionToAllUsers(UpdateSystem.java:89)
+	at a88.jbay/a88.jbay.model.event.Auction.notifyObservers(Auction.java:150)
+	at a88.jbay/a88.jbay.model.event.Auction.updatePrice(Auction.java:120)
+	at a88.jbay/a88.jbay.system.AuctionSystem.getAuctionById(AuctionSystem.java:287)
+	at a88.jbay/a88.jbay.system.AuctionSystem.getAuctionsBySellerId(AuctionSystem.java:309)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateSellerAuctions(UpdateSystem.java:94)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAllAuctions(UpdateSystem.java:117)
+	at a88.jbay/a88.jbay.server.RequestHandler.handleGetAuctions(RequestHandler.java:180)
+	at a88.jbay/a88.jbay.server.RequestHandler.handleRequest(RequestHandler.java:52)
+	at a88.jbay/a88.jbay.server.ClientConnection.run(ClientConnection.java:66)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at java.base/java.util.concurrent.ThreadPerTaskExecutor$ThreadBoundFuture.run(ThreadPerTaskExecutor.java:323)
+	at java.base/java.lang.VirtualThread.run(VirtualThread.java:460)
+2026-05-09 22:35:58.632 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.634 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.634 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:35:58.635 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:35:58.635 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:35:58.635 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:35:58.637 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.637 [] ERROR a88.jbay.util.JBayLogger - Error sending response: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.ensureOpenAndConnected(NioSocketImpl.java:162)
+	at java.base/sun.nio.ch.NioSocketImpl.beginWrite(NioSocketImpl.java:370)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:415)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.server.ClientConnection.send(ClientConnection.java:101)
+	at a88.jbay/a88.jbay.system.UpdateSystem.lambda$updateAllUsers$1(UpdateSystem.java:135)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at a88.jbay/a88.jbay.system.UpdateSystem.lambda$updateAllUsers$0(UpdateSystem.java:135)
+	at java.base/java.util.concurrent.ConcurrentHashMap.forEach(ConcurrentHashMap.java:1619)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAllUsers(UpdateSystem.java:133)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAuctionToAllUsers(UpdateSystem.java:89)
+	at a88.jbay/a88.jbay.model.event.Auction.notifyObservers(Auction.java:150)
+	at a88.jbay/a88.jbay.model.event.Auction.updatePrice(Auction.java:120)
+	at a88.jbay/a88.jbay.system.AuctionSystem.getAuctionById(AuctionSystem.java:287)
+	at a88.jbay/a88.jbay.system.AuctionSystem.getAuctionsBySellerId(AuctionSystem.java:309)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateSellerAuctions(UpdateSystem.java:94)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAllAuctions(UpdateSystem.java:117)
+	at a88.jbay/a88.jbay.server.RequestHandler.handleGetAuctions(RequestHandler.java:180)
+	at a88.jbay/a88.jbay.server.RequestHandler.handleRequest(RequestHandler.java:52)
+	at a88.jbay/a88.jbay.server.ClientConnection.run(ClientConnection.java:66)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at java.base/java.util.concurrent.ThreadPerTaskExecutor$ThreadBoundFuture.run(ThreadPerTaskExecutor.java:323)
+	at java.base/java.lang.VirtualThread.run(VirtualThread.java:460)
+2026-05-09 22:35:58.637 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.639 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.639 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:35:58.640 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:35:58.640 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:35:58.641 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:35:58.641 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.641 [] ERROR a88.jbay.util.JBayLogger - Error sending response: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.ensureOpenAndConnected(NioSocketImpl.java:162)
+	at java.base/sun.nio.ch.NioSocketImpl.beginWrite(NioSocketImpl.java:370)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:415)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.server.ClientConnection.send(ClientConnection.java:101)
+	at a88.jbay/a88.jbay.system.UpdateSystem.lambda$updateAllUsers$1(UpdateSystem.java:135)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at a88.jbay/a88.jbay.system.UpdateSystem.lambda$updateAllUsers$0(UpdateSystem.java:135)
+	at java.base/java.util.concurrent.ConcurrentHashMap.forEach(ConcurrentHashMap.java:1619)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAllUsers(UpdateSystem.java:133)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAuctionToAllUsers(UpdateSystem.java:89)
+	at a88.jbay/a88.jbay.model.event.Auction.notifyObservers(Auction.java:150)
+	at a88.jbay/a88.jbay.model.event.Auction.updatePrice(Auction.java:120)
+	at a88.jbay/a88.jbay.system.AuctionSystem.getAuctionById(AuctionSystem.java:287)
+	at a88.jbay/a88.jbay.system.AuctionSystem.getAuctionsBySellerId(AuctionSystem.java:309)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateSellerAuctions(UpdateSystem.java:94)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAllAuctions(UpdateSystem.java:117)
+	at a88.jbay/a88.jbay.server.RequestHandler.handleGetAuctions(RequestHandler.java:180)
+	at a88.jbay/a88.jbay.server.RequestHandler.handleRequest(RequestHandler.java:52)
+	at a88.jbay/a88.jbay.server.ClientConnection.run(ClientConnection.java:66)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at java.base/java.util.concurrent.ThreadPerTaskExecutor$ThreadBoundFuture.run(ThreadPerTaskExecutor.java:323)
+	at java.base/java.lang.VirtualThread.run(VirtualThread.java:460)
+2026-05-09 22:35:58.642 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.644 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.644 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:35:58.645 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:35:58.645 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:35:58.645 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:35:58.646 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.647 [] ERROR a88.jbay.util.JBayLogger - Error sending response: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.ensureOpenAndConnected(NioSocketImpl.java:162)
+	at java.base/sun.nio.ch.NioSocketImpl.beginWrite(NioSocketImpl.java:370)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:415)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.server.ClientConnection.send(ClientConnection.java:101)
+	at a88.jbay/a88.jbay.system.UpdateSystem.lambda$updateAllUsers$1(UpdateSystem.java:135)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at a88.jbay/a88.jbay.system.UpdateSystem.lambda$updateAllUsers$0(UpdateSystem.java:135)
+	at java.base/java.util.concurrent.ConcurrentHashMap.forEach(ConcurrentHashMap.java:1619)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAllUsers(UpdateSystem.java:133)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAuctionToAllUsers(UpdateSystem.java:89)
+	at a88.jbay/a88.jbay.model.event.Auction.notifyObservers(Auction.java:150)
+	at a88.jbay/a88.jbay.model.event.Auction.updatePrice(Auction.java:120)
+	at a88.jbay/a88.jbay.system.AuctionSystem.getAuctionById(AuctionSystem.java:287)
+	at a88.jbay/a88.jbay.system.AuctionSystem.getAuctionsBySellerId(AuctionSystem.java:309)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateSellerAuctions(UpdateSystem.java:94)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAllAuctions(UpdateSystem.java:117)
+	at a88.jbay/a88.jbay.server.RequestHandler.handleGetAuctions(RequestHandler.java:180)
+	at a88.jbay/a88.jbay.server.RequestHandler.handleRequest(RequestHandler.java:52)
+	at a88.jbay/a88.jbay.server.ClientConnection.run(ClientConnection.java:66)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at java.base/java.util.concurrent.ThreadPerTaskExecutor$ThreadBoundFuture.run(ThreadPerTaskExecutor.java:323)
+	at java.base/java.lang.VirtualThread.run(VirtualThread.java:460)
+2026-05-09 22:35:58.647 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.649 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.649 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:35:58.650 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:35:58.650 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:35:58.650 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:35:58.652 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.652 [] ERROR a88.jbay.util.JBayLogger - Error sending response: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.ensureOpenAndConnected(NioSocketImpl.java:162)
+	at java.base/sun.nio.ch.NioSocketImpl.beginWrite(NioSocketImpl.java:370)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:415)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.server.ClientConnection.send(ClientConnection.java:101)
+	at a88.jbay/a88.jbay.system.UpdateSystem.lambda$updateAllUsers$1(UpdateSystem.java:135)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at a88.jbay/a88.jbay.system.UpdateSystem.lambda$updateAllUsers$0(UpdateSystem.java:135)
+	at java.base/java.util.concurrent.ConcurrentHashMap.forEach(ConcurrentHashMap.java:1619)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAllUsers(UpdateSystem.java:133)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAuctionToAllUsers(UpdateSystem.java:89)
+	at a88.jbay/a88.jbay.model.event.Auction.notifyObservers(Auction.java:150)
+	at a88.jbay/a88.jbay.model.event.Auction.updatePrice(Auction.java:120)
+	at a88.jbay/a88.jbay.system.AuctionSystem.getAuctionById(AuctionSystem.java:287)
+	at a88.jbay/a88.jbay.system.AuctionSystem.getAuctionsBySellerId(AuctionSystem.java:309)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateSellerAuctions(UpdateSystem.java:94)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAllAuctions(UpdateSystem.java:117)
+	at a88.jbay/a88.jbay.server.RequestHandler.handleGetAuctions(RequestHandler.java:180)
+	at a88.jbay/a88.jbay.server.RequestHandler.handleRequest(RequestHandler.java:52)
+	at a88.jbay/a88.jbay.server.ClientConnection.run(ClientConnection.java:66)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at java.base/java.util.concurrent.ThreadPerTaskExecutor$ThreadBoundFuture.run(ThreadPerTaskExecutor.java:323)
+	at java.base/java.lang.VirtualThread.run(VirtualThread.java:460)
+2026-05-09 22:35:58.652 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.654 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.654 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:35:58.655 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:35:58.655 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:35:58.655 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:35:58.657 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.657 [] ERROR a88.jbay.util.JBayLogger - Error sending response: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.ensureOpenAndConnected(NioSocketImpl.java:162)
+	at java.base/sun.nio.ch.NioSocketImpl.beginWrite(NioSocketImpl.java:370)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:415)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.server.ClientConnection.send(ClientConnection.java:101)
+	at a88.jbay/a88.jbay.system.UpdateSystem.lambda$updateAllUsers$1(UpdateSystem.java:135)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at a88.jbay/a88.jbay.system.UpdateSystem.lambda$updateAllUsers$0(UpdateSystem.java:135)
+	at java.base/java.util.concurrent.ConcurrentHashMap.forEach(ConcurrentHashMap.java:1619)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAllUsers(UpdateSystem.java:133)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAuctionToAllUsers(UpdateSystem.java:89)
+	at a88.jbay/a88.jbay.model.event.Auction.notifyObservers(Auction.java:150)
+	at a88.jbay/a88.jbay.model.event.Auction.updatePrice(Auction.java:120)
+	at a88.jbay/a88.jbay.system.AuctionSystem.getAuctionById(AuctionSystem.java:287)
+	at a88.jbay/a88.jbay.system.AuctionSystem.getAuctionsBySellerId(AuctionSystem.java:309)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateSellerAuctions(UpdateSystem.java:94)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAllAuctions(UpdateSystem.java:117)
+	at a88.jbay/a88.jbay.server.RequestHandler.handleGetAuctions(RequestHandler.java:180)
+	at a88.jbay/a88.jbay.server.RequestHandler.handleRequest(RequestHandler.java:52)
+	at a88.jbay/a88.jbay.server.ClientConnection.run(ClientConnection.java:66)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at java.base/java.util.concurrent.ThreadPerTaskExecutor$ThreadBoundFuture.run(ThreadPerTaskExecutor.java:323)
+	at java.base/java.lang.VirtualThread.run(VirtualThread.java:460)
+2026-05-09 22:35:58.657 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.659 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.659 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:35:58.661 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:35:58.661 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:35:58.661 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:35:58.662 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.662 [] ERROR a88.jbay.util.JBayLogger - Error sending response: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.ensureOpenAndConnected(NioSocketImpl.java:162)
+	at java.base/sun.nio.ch.NioSocketImpl.beginWrite(NioSocketImpl.java:370)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:415)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.server.ClientConnection.send(ClientConnection.java:101)
+	at a88.jbay/a88.jbay.system.UpdateSystem.lambda$updateAllUsers$1(UpdateSystem.java:135)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at a88.jbay/a88.jbay.system.UpdateSystem.lambda$updateAllUsers$0(UpdateSystem.java:135)
+	at java.base/java.util.concurrent.ConcurrentHashMap.forEach(ConcurrentHashMap.java:1619)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAllUsers(UpdateSystem.java:133)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAuctionToAllUsers(UpdateSystem.java:89)
+	at a88.jbay/a88.jbay.model.event.Auction.notifyObservers(Auction.java:150)
+	at a88.jbay/a88.jbay.model.event.Auction.updatePrice(Auction.java:120)
+	at a88.jbay/a88.jbay.system.AuctionSystem.getAuctionById(AuctionSystem.java:287)
+	at a88.jbay/a88.jbay.system.AuctionSystem.getAuctionsBySellerId(AuctionSystem.java:309)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateSellerAuctions(UpdateSystem.java:94)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAllAuctions(UpdateSystem.java:117)
+	at a88.jbay/a88.jbay.server.RequestHandler.handleGetAuctions(RequestHandler.java:180)
+	at a88.jbay/a88.jbay.server.RequestHandler.handleRequest(RequestHandler.java:52)
+	at a88.jbay/a88.jbay.server.ClientConnection.run(ClientConnection.java:66)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at java.base/java.util.concurrent.ThreadPerTaskExecutor$ThreadBoundFuture.run(ThreadPerTaskExecutor.java:323)
+	at java.base/java.lang.VirtualThread.run(VirtualThread.java:460)
+2026-05-09 22:35:58.662 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.663 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.663 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:35:58.665 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:35:58.665 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:35:58.665 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:35:58.667 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.667 [] ERROR a88.jbay.util.JBayLogger - Error sending response: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.ensureOpenAndConnected(NioSocketImpl.java:162)
+	at java.base/sun.nio.ch.NioSocketImpl.beginWrite(NioSocketImpl.java:370)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:415)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.server.ClientConnection.send(ClientConnection.java:101)
+	at a88.jbay/a88.jbay.system.UpdateSystem.lambda$updateAllUsers$1(UpdateSystem.java:135)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at a88.jbay/a88.jbay.system.UpdateSystem.lambda$updateAllUsers$0(UpdateSystem.java:135)
+	at java.base/java.util.concurrent.ConcurrentHashMap.forEach(ConcurrentHashMap.java:1619)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAllUsers(UpdateSystem.java:133)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAuctionToAllUsers(UpdateSystem.java:89)
+	at a88.jbay/a88.jbay.model.event.Auction.notifyObservers(Auction.java:150)
+	at a88.jbay/a88.jbay.model.event.Auction.updatePrice(Auction.java:120)
+	at a88.jbay/a88.jbay.system.AuctionSystem.getAuctionById(AuctionSystem.java:287)
+	at a88.jbay/a88.jbay.system.AuctionSystem.getAuctionsBySellerId(AuctionSystem.java:309)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateSellerAuctions(UpdateSystem.java:94)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAllAuctions(UpdateSystem.java:117)
+	at a88.jbay/a88.jbay.server.RequestHandler.handleGetAuctions(RequestHandler.java:180)
+	at a88.jbay/a88.jbay.server.RequestHandler.handleRequest(RequestHandler.java:52)
+	at a88.jbay/a88.jbay.server.ClientConnection.run(ClientConnection.java:66)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at java.base/java.util.concurrent.ThreadPerTaskExecutor$ThreadBoundFuture.run(ThreadPerTaskExecutor.java:323)
+	at java.base/java.lang.VirtualThread.run(VirtualThread.java:460)
+2026-05-09 22:35:58.667 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.668 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.670 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:35:58.671 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:35:58.672 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.672 [] ERROR a88.jbay.util.JBayLogger - Error sending response: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.ensureOpenAndConnected(NioSocketImpl.java:162)
+	at java.base/sun.nio.ch.NioSocketImpl.beginWrite(NioSocketImpl.java:370)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:415)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.server.ClientConnection.send(ClientConnection.java:101)
+	at a88.jbay/a88.jbay.system.UpdateSystem.lambda$updateAllUsers$1(UpdateSystem.java:135)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at a88.jbay/a88.jbay.system.UpdateSystem.lambda$updateAllUsers$0(UpdateSystem.java:135)
+	at java.base/java.util.concurrent.ConcurrentHashMap.forEach(ConcurrentHashMap.java:1619)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAllUsers(UpdateSystem.java:133)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAuctionToAllUsers(UpdateSystem.java:89)
+	at a88.jbay/a88.jbay.model.event.Auction.notifyObservers(Auction.java:150)
+	at a88.jbay/a88.jbay.model.event.Auction.updatePrice(Auction.java:120)
+	at a88.jbay/a88.jbay.system.AuctionSystem.getAuctionById(AuctionSystem.java:287)
+	at a88.jbay/a88.jbay.system.AuctionSystem.getAuctionsBySellerId(AuctionSystem.java:309)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateSellerAuctions(UpdateSystem.java:94)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAllAuctions(UpdateSystem.java:117)
+	at a88.jbay/a88.jbay.server.RequestHandler.handleGetAuctions(RequestHandler.java:180)
+	at a88.jbay/a88.jbay.server.RequestHandler.handleRequest(RequestHandler.java:52)
+	at a88.jbay/a88.jbay.server.ClientConnection.run(ClientConnection.java:66)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at java.base/java.util.concurrent.ThreadPerTaskExecutor$ThreadBoundFuture.run(ThreadPerTaskExecutor.java:323)
+	at java.base/java.lang.VirtualThread.run(VirtualThread.java:460)
+2026-05-09 22:35:58.673 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.674 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.676 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:35:58.676 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:35:58.676 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:35:58.677 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.677 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:35:58.677 [] ERROR a88.jbay.util.JBayLogger - Error sending response: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.ensureOpenAndConnected(NioSocketImpl.java:162)
+	at java.base/sun.nio.ch.NioSocketImpl.beginWrite(NioSocketImpl.java:370)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:415)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.server.ClientConnection.send(ClientConnection.java:101)
+	at a88.jbay/a88.jbay.system.UpdateSystem.lambda$updateAllUsers$1(UpdateSystem.java:135)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at a88.jbay/a88.jbay.system.UpdateSystem.lambda$updateAllUsers$0(UpdateSystem.java:135)
+	at java.base/java.util.concurrent.ConcurrentHashMap.forEach(ConcurrentHashMap.java:1619)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAllUsers(UpdateSystem.java:133)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAuctionToAllUsers(UpdateSystem.java:89)
+	at a88.jbay/a88.jbay.model.event.Auction.notifyObservers(Auction.java:150)
+	at a88.jbay/a88.jbay.model.event.Auction.updatePrice(Auction.java:120)
+	at a88.jbay/a88.jbay.system.AuctionSystem.getAuctionById(AuctionSystem.java:287)
+	at a88.jbay/a88.jbay.system.AuctionSystem.getAuctionsBySellerId(AuctionSystem.java:309)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateSellerAuctions(UpdateSystem.java:94)
+	at a88.jbay/a88.jbay.system.UpdateSystem.updateAllAuctions(UpdateSystem.java:117)
+	at a88.jbay/a88.jbay.server.RequestHandler.handleGetAuctions(RequestHandler.java:180)
+	at a88.jbay/a88.jbay.server.RequestHandler.handleRequest(RequestHandler.java:52)
+	at a88.jbay/a88.jbay.server.ClientConnection.run(ClientConnection.java:66)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at java.base/java.util.concurrent.ThreadPerTaskExecutor$ThreadBoundFuture.run(ThreadPerTaskExecutor.java:323)
+	at java.base/java.lang.VirtualThread.run(VirtualThread.java:460)
+2026-05-09 22:35:58.677 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.678 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:35:58.680 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-09 22:35:58.680 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:35:58.681 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:35:58.681 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:35:58.681 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:35:58.682 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:35:58.682 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:35:58.683 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: AUCTION_UPDATE
+2026-05-09 22:35:58.684 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:35:58.684 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:35:58.685 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:35:58.686 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:35:58.687 [] INFO  a88.jbay.util.JBayLogger - Sending response: SELLER_AUCTION_LIST
+2026-05-09 22:35:58.689 [] INFO  a88.jbay.util.JBayLogger - Sending response: GET_AUCTIONS_SUCCESS
+2026-05-09 22:35:58.689 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: SELLER_AUCTION_LIST
+2026-05-09 22:35:58.690 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: GET_AUCTIONS_SUCCESS
+2026-05-09 22:35:58.738 [pool-1-thread-1] INFO  a88.jbay.util.JBayLogger - Auction ended: 2 - FINISHED
+2026-05-09 22:35:58.738 [pool-1-thread-1] INFO  a88.jbay.util.JBayLogger - Auction ended: 13 - FINISHED
+2026-05-09 22:35:59.033 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - GET_AUCTIONS_SUCCESS
+2026-05-09 22:36:03.794 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: LOGOUT
+2026-05-09 22:36:03.795 [] DEBUG a88.jbay.util.JBayLogger - User logging out with session: eeba556d-7559-4f3a-bcf6-9d6e9f9e8a33
+2026-05-09 22:36:03.795 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-09 22:36:03.795 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-09 22:36:03.799 [] INFO  a88.jbay.util.JBayLogger - User logged out successfully
+2026-05-09 22:36:03.799 [] DEBUG a88.jbay.util.JBayLogger - Unregistering connection: 1870666881
+2026-05-09 22:36:03.799 [] DEBUG a88.jbay.util.JBayLogger - Remaining connections: 3
+2026-05-09 22:36:03.799 [] INFO  a88.jbay.util.JBayLogger - Sending response: LOGOUT_SUCCESS
+2026-05-09 22:36:03.799 [Thread-4] DEBUG a88.jbay.util.JBayLogger - Received response: LOGOUT_SUCCESS
+2026-05-09 22:36:03.850 [JavaFX Application Thread] INFO  a88.jbay.util.JBayLogger - Session has been cleared
+2026-05-09 22:36:10.809 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: MISC
+2026-05-09 22:36:10.812 [] DEBUG a88.jbay.util.JBayLogger - Unregistering connection: 1870666881
+2026-05-09 22:36:10.812 [] DEBUG a88.jbay.util.JBayLogger - Remaining connections: 3
+2026-05-09 22:36:10.811 [Thread-4] ERROR a88.jbay.util.JBayLogger - Disconnected from server: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.endRead(NioSocketImpl.java:242)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:321)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:354)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:798)
+	at java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:974)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:964)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:958)
+	at java.base/java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2740)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:3069)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:3079)
+	at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1571)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:487)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:445)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startListener$0(ServerConnection.java:62)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-09 22:36:10.812 [Thread-4] INFO  a88.jbay.util.JBayLogger - Listener thread ended
