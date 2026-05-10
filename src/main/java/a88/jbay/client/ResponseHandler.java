@@ -157,7 +157,7 @@ public class ResponseHandler {
 
     private void handleAuctionUpdateNotify(Response response) {
         Auction auction = (Auction) response.getPayload();
-        System.out.println("handleAuctionUpdateNotify called for auction " + auction.getId());
+        logger.info("handleAuctionUpdateNotify called for auction " + auction.getId());
         new Alert(Alert.AlertType.INFORMATION, "Auction " + auction.getId() + " - " + auction.getItem().getName() + " update: " + auction.getWinner() + " is the current winner, current price is " + auction.getCurrentPrice() + " USD").show();
     }
 }
