@@ -16,6 +16,8 @@ public class ServerConnection {
     private static ServerConnection instance;
     private ResponseHandler responseHandler;
     private final JBayLogger logger;
+    private Thread listenerThread;
+    private volatile boolean listenerRunning = false;
 
     private ServerConnection() {
         this.logger = JBayLogger.getInstance();
@@ -55,9 +57,15 @@ public class ServerConnection {
 
     //listener
     public void startListener() {
-        Thread listener = new Thread(() -> {
+        if (listenerRunning) {
+            logger.warn("Listener already running, skipping startListener()");
+            return;
+        }
+
+        listenerRunning = true;
+        listenerThread = new Thread(() -> {
             try {
-                while (!socket.isClosed()) {
+                while (!socket.isClosed() && listenerRunning) {
                     try {
                         Response response = (Response) in.readObject();
                         logger.debug("Received response: " + (String) response.getMessage());
@@ -69,20 +77,23 @@ public class ServerConnection {
                 }
             } catch (Exception e) {
                 logger.error("Disconnected from server: " + e.getMessage(), e);
-                            } finally {
+            } finally {
                 logger.info("Listener thread ended");
+                listenerRunning = false;
             }
         });
 
-        listener.start();
+        listenerThread.start();
     }
 
     public void disconnect() {
+        listenerRunning = false;
+        listenerThread.interrupt();
         try {
             send(new Request(RequestType.MISC)
                     .put("disconnect", true));
             socket.close();
         } catch (IOException e) {
-                    }
+        }
     }
 }

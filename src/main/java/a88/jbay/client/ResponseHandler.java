@@ -93,8 +93,9 @@ public class ResponseHandler {
 
     public void handleLogoutSuccess(Response response) {
         try {
-            ViewManager.displayScene("client/client-login-register-view.fxml");
             ClientSession.getInstance().resetSession();
+            ControllerProvider.getInstance().clearControllers();
+            ViewManager.displayScene("client/client-login-register-view.fxml");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -145,6 +146,7 @@ public class ResponseHandler {
 
     private void handleBanUser(Response response) {
         clientSession.resetSession();
+        ControllerProvider.getInstance().clearControllers();
         try {
             ViewManager.displayScene("client/client-login-register-view.fxml");
             new Alert(Alert.AlertType.WARNING, "You have been banned").show();
@@ -155,7 +157,7 @@ public class ResponseHandler {
 
     private void handleAuctionUpdateNotify(Response response) {
         Auction auction = (Auction) response.getPayload();
-
-        new Alert(Alert.AlertType.INFORMATION, "Auction update: " + auction.getWinner() + " is the current winner, current price is " + auction.getCurrentPrice() + " USD").show();
+        System.out.println("handleAuctionUpdateNotify called for auction " + auction.getId());
+        new Alert(Alert.AlertType.INFORMATION, "Auction " + auction.getId() + " - " + auction.getItem().getName() + " update: " + auction.getWinner() + " is the current winner, current price is " + auction.getCurrentPrice() + " USD").show();
     }
 }

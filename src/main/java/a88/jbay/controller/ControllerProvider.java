@@ -34,4 +34,8 @@ public class ControllerProvider {
     public boolean hasController(String name) {
         return controllers.containsKey(name);
     }
+
+    public void clearControllers() {
+        controllers.clear();
+    }
 }

@@ -5190,3 +5190,537 @@ java.net.SocketException: Connection reset
 2026-05-09 23:12:33.607 [Thread-4] INFO  a88.jbay.util.JBayLogger - Server closed the connection
 2026-05-09 23:12:33.607 [Thread-4] INFO  a88.jbay.util.JBayLogger - Listener thread ended
 2026-05-09 23:15:50.660 [JavaFX Application Thread] DEBUG a88.jbay.util.JBayLogger - Sending request: MISC
+2026-05-10 01:53:49.010 [main] INFO  a88.jbay.util.JBayLogger - JBAY Server TUI starting
+2026-05-10 01:53:49.012 [main] INFO  a88.jbay.util.JBayLogger - ------------------JBAY_SERVER_TUI-----------------
+2026-05-10 01:53:49.012 [main] INFO  a88.jbay.util.JBayLogger - --------------software infrastructure-------------
+2026-05-10 01:53:49.013 [main] INFO  a88.jbay.util.JBayLogger - Connect to database:
+2026-05-10 01:53:49.013 [main] INFO  a88.jbay.util.JBayLogger - Enter URL:
+2026-05-10 01:54:12.974 [main] INFO  a88.jbay.util.JBayLogger - Enter username:
+2026-05-10 01:54:14.598 [main] INFO  a88.jbay.util.JBayLogger - Enter password:
+2026-05-10 01:54:16.913 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-05-10 01:54:17.182 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2ce6c6ec
+2026-05-10 01:54:17.183 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-05-10 01:54:17.183 [main] INFO  a88.jbay.util.JBayLogger - Database connection pool initialized with URL: jdbc:mysql://localhost:3306/jbay_db
+2026-05-10 01:54:17.183 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.184 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.205 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.220 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.237 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.263 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.275 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.275 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.288 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.288 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.289 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.289 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.291 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.291 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.292 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.293 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.294 [main] INFO  a88.jbay.util.JBayLogger - Loading 6 active auctions from database
+2026-05-10 01:54:17.295 [main] DEBUG a88.jbay.util.JBayLogger - Loading auction: 4 - Nhà trọ NASA - State: RUNNING
+2026-05-10 01:54:17.306 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.306 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.308 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.308 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.311 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.311 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.316 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.316 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.318 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.318 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.318 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.318 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.319 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.320 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.320 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.320 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.320 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.320 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.321 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.322 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.322 [main] DEBUG a88.jbay.util.JBayLogger - Loading auction: 6 - one piece - State: RUNNING
+2026-05-10 01:54:17.322 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.322 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.323 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.323 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.324 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.324 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.324 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.324 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.325 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.325 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.326 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.326 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.326 [main] DEBUG a88.jbay.util.JBayLogger - Loading auction: 9 - My Life - State: RUNNING
+2026-05-10 01:54:17.326 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.326 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.327 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.327 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.330 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.330 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.330 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.330 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.331 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.331 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.332 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.332 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.333 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.333 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.334 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.334 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.334 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.334 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.335 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.335 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.335 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.335 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.336 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.336 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.337 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.337 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.337 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.337 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.338 [main] DEBUG a88.jbay.util.JBayLogger - Loading auction: 15 - 7 pha le - State: RUNNING
+2026-05-10 01:54:17.338 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.338 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.338 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.338 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.340 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.340 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.340 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.340 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.341 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.341 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.342 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.342 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.343 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.343 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.343 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.343 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.344 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.344 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.345 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.345 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.345 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.345 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.345 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.345 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.346 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.346 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.347 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.347 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.347 [main] DEBUG a88.jbay.util.JBayLogger - Loading auction: 17 - reaver vandal - State: RUNNING
+2026-05-10 01:54:17.347 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.347 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.348 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.348 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.349 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.349 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.351 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.351 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.352 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.352 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.352 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.352 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.353 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.353 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.353 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.353 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.354 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.354 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.354 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.354 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.355 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.355 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.355 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.355 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.355 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.355 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.356 [main] DEBUG a88.jbay.util.JBayLogger - Loading auction: 19 - chiu chet1 - State: RUNNING
+2026-05-10 01:54:17.356 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.356 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.356 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.357 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.358 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.358 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.358 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.358 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.359 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.359 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.360 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.360 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 01:54:17.360 [main] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 01:54:17.360 [main] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:06:50.609 [Thread-1] DEBUG a88.jbay.util.JBayLogger - Registering connection: 971192941
+2026-05-10 02:06:50.611 [Thread-1] DEBUG a88.jbay.util.JBayLogger - Total registered connections: 1
+2026-05-10 02:07:02.337 [] DEBUG a88.jbay.util.JBayLogger - Attempting login for user: khangg
+2026-05-10 02:07:02.337 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:07:02.338 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:07:02.340 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:07:02.341 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:07:02.346 [] INFO  a88.jbay.util.JBayLogger - User logged in successfully: khangg
+2026-05-10 02:07:02.347 [] DEBUG a88.jbay.util.JBayLogger - Registering connection: 971192941
+2026-05-10 02:07:02.347 [] DEBUG a88.jbay.util.JBayLogger - Total registered connections: 2
+2026-05-10 02:07:02.347 [] INFO  a88.jbay.util.JBayLogger - Sending response: LOGIN_SUCCESS
+2026-05-10 02:07:02.692 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:07:02.692 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:07:02.694 [] INFO  a88.jbay.util.JBayLogger - Sending response: ACTIVE_AUCTION_LIST
+2026-05-10 02:07:02.784 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:07:02.784 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:07:02.784 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:07:02.785 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:07:02.786 [] INFO  a88.jbay.util.JBayLogger - Sending response: BIDDER_AUCTION_LIST
+2026-05-10 02:07:02.787 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:07:02.787 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:07:02.788 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:07:02.788 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:07:02.789 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:07:02.789 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:07:02.789 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:07:02.789 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:07:02.790 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:07:02.790 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:07:02.791 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:07:02.791 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:07:02.791 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:07:02.791 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:07:02.792 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:07:02.792 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:07:02.792 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:07:02.792 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:07:02.793 [] INFO  a88.jbay.util.JBayLogger - Sending response: SELLER_AUCTION_LIST
+2026-05-10 02:07:02.797 [] INFO  a88.jbay.util.JBayLogger - Sending response: GET_AUCTIONS_SUCCESS
+2026-05-10 02:07:03.362 [pool-1-thread-1] INFO  a88.jbay.util.JBayLogger - Auction ended: 18 - CANCELED
+2026-05-10 02:10:20.118 [] DEBUG a88.jbay.util.JBayLogger - Unregistering connection: 971192941
+2026-05-10 02:10:20.118 [] DEBUG a88.jbay.util.JBayLogger - Remaining connections: 2
+2026-05-10 02:10:38.436 [Thread-1] DEBUG a88.jbay.util.JBayLogger - Registering connection: 1193966864
+2026-05-10 02:10:38.436 [Thread-1] DEBUG a88.jbay.util.JBayLogger - Total registered connections: 2
+2026-05-10 02:10:49.025 [] DEBUG a88.jbay.util.JBayLogger - Attempting login for user: khangg
+2026-05-10 02:10:49.025 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:10:49.025 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:10:49.026 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:10:49.026 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:10:49.030 [] INFO  a88.jbay.util.JBayLogger - User logged in successfully: khangg
+2026-05-10 02:10:49.030 [] DEBUG a88.jbay.util.JBayLogger - Registering connection: 1193966864
+2026-05-10 02:10:49.030 [] DEBUG a88.jbay.util.JBayLogger - Total registered connections: 2
+2026-05-10 02:10:49.030 [] INFO  a88.jbay.util.JBayLogger - Sending response: LOGIN_SUCCESS
+2026-05-10 02:10:49.276 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:10:49.276 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:10:49.277 [] INFO  a88.jbay.util.JBayLogger - Sending response: ACTIVE_AUCTION_LIST
+2026-05-10 02:10:49.327 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:10:49.327 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:10:49.328 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:10:49.328 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:10:49.329 [] INFO  a88.jbay.util.JBayLogger - Sending response: BIDDER_AUCTION_LIST
+2026-05-10 02:10:49.331 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:10:49.331 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:10:49.331 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:10:49.332 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:10:49.332 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:10:49.332 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:10:49.332 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:10:49.333 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:10:49.333 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:10:49.333 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:10:49.334 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:10:49.334 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:10:49.334 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:10:49.334 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:10:49.335 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:10:49.335 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:10:49.336 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:10:49.336 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:10:49.336 [] INFO  a88.jbay.util.JBayLogger - Sending response: SELLER_AUCTION_LIST
+2026-05-10 02:10:49.339 [] INFO  a88.jbay.util.JBayLogger - Sending response: GET_AUCTIONS_SUCCESS
+2026-05-10 02:10:49.363 [pool-1-thread-1] INFO  a88.jbay.util.JBayLogger - Auction ended: 18 - CANCELED
+2026-05-10 02:11:36.143 [] DEBUG a88.jbay.util.JBayLogger - User logging out with session: f3d99a85-2297-4989-a890-18e4af46cd40
+2026-05-10 02:11:36.143 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:11:36.144 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:11:36.148 [] INFO  a88.jbay.util.JBayLogger - User logged out successfully
+2026-05-10 02:11:36.148 [] DEBUG a88.jbay.util.JBayLogger - Unregistering connection: 1193966864
+2026-05-10 02:11:36.148 [] DEBUG a88.jbay.util.JBayLogger - Remaining connections: 2
+2026-05-10 02:11:36.148 [] INFO  a88.jbay.util.JBayLogger - Sending response: LOGOUT_SUCCESS
+2026-05-10 02:12:16.283 [] DEBUG a88.jbay.util.JBayLogger - Attempting registration for user: thaitufifa
+2026-05-10 02:12:16.283 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:12:16.283 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:12:16.284 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:12:16.284 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:12:16.291 [] INFO  a88.jbay.util.JBayLogger - User registered successfully: thaitufifa
+2026-05-10 02:12:16.291 [] INFO  a88.jbay.util.JBayLogger - Sending response: REGISTER_SUCCESS
+2026-05-10 02:12:29.204 [] DEBUG a88.jbay.util.JBayLogger - Attempting login for user: thaitufifa
+2026-05-10 02:12:29.204 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:12:29.204 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:12:29.205 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:12:29.205 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:12:29.209 [] INFO  a88.jbay.util.JBayLogger - User logged in successfully: thaitufifa
+2026-05-10 02:12:29.209 [] DEBUG a88.jbay.util.JBayLogger - Registering connection: 1193966864
+2026-05-10 02:12:29.209 [] DEBUG a88.jbay.util.JBayLogger - Total registered connections: 3
+2026-05-10 02:12:29.209 [] INFO  a88.jbay.util.JBayLogger - Sending response: LOGIN_SUCCESS
+2026-05-10 02:12:29.405 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:12:29.405 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:12:29.406 [] INFO  a88.jbay.util.JBayLogger - Sending response: ACTIVE_AUCTION_LIST
+2026-05-10 02:12:29.459 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:12:29.459 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:12:29.460 [] INFO  a88.jbay.util.JBayLogger - Sending response: BIDDER_AUCTION_LIST
+2026-05-10 02:12:29.460 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:12:29.460 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:12:29.462 [] INFO  a88.jbay.util.JBayLogger - Sending response: SELLER_AUCTION_LIST
+2026-05-10 02:12:29.462 [] INFO  a88.jbay.util.JBayLogger - Sending response: GET_AUCTIONS_SUCCESS
+2026-05-10 02:13:01.809 [] INFO  a88.jbay.util.JBayLogger - Auto-bid canceled for user 19 on auction 17
+2026-05-10 02:13:01.809 [] INFO  a88.jbay.util.JBayLogger - Sending response: CANCEL_AUTO_BID_SUCCESS
+2026-05-10 02:13:02.793 [] INFO  a88.jbay.util.JBayLogger - Auto-bid canceled for user 19 on auction 17
+2026-05-10 02:13:02.793 [] INFO  a88.jbay.util.JBayLogger - Sending response: CANCEL_AUTO_BID_SUCCESS
+2026-05-10 02:13:07.780 [] DEBUG a88.jbay.util.JBayLogger - Bid attempt: User=19, Auction=17, Amount=120.0
+2026-05-10 02:13:07.780 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:13:07.781 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:13:07.782 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE_NOTIFY
+2026-05-10 02:13:07.784 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE_NOTIFY
+2026-05-10 02:13:07.785 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:13:07.786 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:13:07.787 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:13:07.787 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:13:07.793 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:13:07.793 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:13:07.796 [] INFO  a88.jbay.util.JBayLogger - Bid placed successfully: User=19, Auction=17, Amount=120.0
+2026-05-10 02:13:07.796 [] INFO  a88.jbay.util.JBayLogger - Sending response: BID_SUCCESS
+2026-05-10 02:13:15.886 [] DEBUG a88.jbay.util.JBayLogger - Bid attempt: User=19, Auction=17, Amount=1000.0
+2026-05-10 02:13:15.886 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:13:15.887 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:13:15.888 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE_NOTIFY
+2026-05-10 02:13:15.889 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE_NOTIFY
+2026-05-10 02:13:15.890 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:13:15.891 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:13:15.892 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:13:15.892 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:13:15.896 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:13:15.896 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:13:15.900 [] INFO  a88.jbay.util.JBayLogger - Bid placed successfully: User=19, Auction=17, Amount=1000.0
+2026-05-10 02:13:15.900 [] INFO  a88.jbay.util.JBayLogger - Sending response: BID_SUCCESS
+2026-05-10 02:13:29.909 [] DEBUG a88.jbay.util.JBayLogger - Bid attempt: User=19, Auction=19, Amount=14.0
+2026-05-10 02:13:29.909 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:13:29.909 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:13:29.910 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE_NOTIFY
+2026-05-10 02:13:29.911 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE_NOTIFY
+2026-05-10 02:13:29.912 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:13:29.912 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:13:29.913 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:13:29.913 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:13:29.917 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:13:29.917 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:13:29.920 [] INFO  a88.jbay.util.JBayLogger - Bid placed successfully: User=19, Auction=19, Amount=14.0
+2026-05-10 02:13:29.921 [] INFO  a88.jbay.util.JBayLogger - Sending response: BID_SUCCESS
+2026-05-10 02:13:39.099 [] DEBUG a88.jbay.util.JBayLogger - Bid attempt: User=19, Auction=19, Amount=15.0
+2026-05-10 02:13:39.099 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:13:39.099 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:13:39.100 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE_NOTIFY
+2026-05-10 02:13:39.101 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE_NOTIFY
+2026-05-10 02:13:39.102 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:13:39.103 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:13:39.103 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:13:39.103 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:13:39.107 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:13:39.107 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:13:39.110 [] INFO  a88.jbay.util.JBayLogger - Bid placed successfully: User=19, Auction=19, Amount=15.0
+2026-05-10 02:13:39.110 [] INFO  a88.jbay.util.JBayLogger - Sending response: BID_SUCCESS
+2026-05-10 02:13:48.365 [] DEBUG a88.jbay.util.JBayLogger - Bid attempt: User=19, Auction=19, Amount=17.0
+2026-05-10 02:13:48.365 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:13:48.365 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:13:48.366 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE_NOTIFY
+2026-05-10 02:13:48.367 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE_NOTIFY
+2026-05-10 02:13:48.368 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:13:48.369 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:13:48.369 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:13:48.370 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:13:48.373 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:13:48.374 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:13:48.377 [] INFO  a88.jbay.util.JBayLogger - Bid placed successfully: User=19, Auction=19, Amount=17.0
+2026-05-10 02:13:48.377 [] INFO  a88.jbay.util.JBayLogger - Sending response: BID_SUCCESS
+2026-05-10 02:14:03.073 [] DEBUG a88.jbay.util.JBayLogger - Bid attempt: User=19, Auction=19, Amount=18.0
+2026-05-10 02:14:03.073 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:14:03.074 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:14:03.074 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE_NOTIFY
+2026-05-10 02:14:03.075 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE_NOTIFY
+2026-05-10 02:14:03.076 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:14:03.077 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:14:03.078 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:14:03.078 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:14:03.082 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:14:03.082 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:14:03.085 [] INFO  a88.jbay.util.JBayLogger - Bid placed successfully: User=19, Auction=19, Amount=18.0
+2026-05-10 02:14:03.085 [] INFO  a88.jbay.util.JBayLogger - Sending response: BID_SUCCESS
+2026-05-10 02:15:48.876 [] DEBUG a88.jbay.util.JBayLogger - Bid attempt: User=19, Auction=15, Amount=1000.0
+2026-05-10 02:15:48.876 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:15:48.877 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:15:48.878 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE_NOTIFY
+2026-05-10 02:15:48.879 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE_NOTIFY
+2026-05-10 02:15:48.880 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:15:48.881 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:15:48.882 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:15:48.882 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:15:48.887 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:15:48.887 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:15:48.890 [] INFO  a88.jbay.util.JBayLogger - Bid placed successfully: User=19, Auction=15, Amount=1000.0
+2026-05-10 02:15:48.890 [] INFO  a88.jbay.util.JBayLogger - Sending response: BID_SUCCESS
+2026-05-10 02:19:54.769 [] INFO  a88.jbay.util.JBayLogger - Creating auction for item: deo bt la j by seller: 19
+2026-05-10 02:19:54.770 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:19:54.770 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:19:54.775 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:19:54.775 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:19:54.778 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:19:54.778 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:19:54.779 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:19:54.779 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:19:54.780 [] INFO  a88.jbay.util.JBayLogger - Auction created successfully: ID=20, Item=deo bt la j
+2026-05-10 02:19:54.780 [] INFO  a88.jbay.util.JBayLogger - Sending response: SELL_SUCCESS
+2026-05-10 02:19:56.361 [pool-1-thread-1] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE_NOTIFY
+2026-05-10 02:19:56.362 [pool-1-thread-1] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:19:56.363 [pool-1-thread-1] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:19:56.363 [pool-1-thread-1] DEBUG a88.jbay.util.JBayLogger - Heartbeat: State changed for auction 20 to RUNNING
+2026-05-10 02:19:56.363 [pool-1-thread-1] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:19:56.363 [pool-1-thread-1] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:23:08.951 [] INFO  a88.jbay.util.JBayLogger - Creating auction for item: stars by seller: 19
+2026-05-10 02:23:08.951 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:23:08.951 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:23:08.979 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:23:08.979 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:23:08.984 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:23:08.984 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:23:08.985 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:23:08.986 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:23:08.988 [] INFO  a88.jbay.util.JBayLogger - Auction created successfully: ID=21, Item=stars
+2026-05-10 02:23:08.988 [] INFO  a88.jbay.util.JBayLogger - Sending response: SELL_SUCCESS
+2026-05-10 02:23:09.363 [pool-1-thread-1] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE_NOTIFY
+2026-05-10 02:23:09.365 [pool-1-thread-1] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:23:09.367 [pool-1-thread-1] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:23:09.408 [pool-1-thread-1] DEBUG a88.jbay.util.JBayLogger - Heartbeat: State changed for auction 21 to RUNNING
+2026-05-10 02:23:09.408 [pool-1-thread-1] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:23:09.408 [pool-1-thread-1] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:24:01.603 [] INFO  a88.jbay.util.JBayLogger - Creating auction for item: treeeeeeeeeeeeeeeeeeeeeee by seller: 19
+2026-05-10 02:24:01.603 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:24:01.603 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:24:01.616 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:24:01.616 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:24:01.619 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:24:01.619 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:24:01.620 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:24:01.622 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:24:01.624 [] INFO  a88.jbay.util.JBayLogger - Auction created successfully: ID=22, Item=treeeeeeeeeeeeeeeeeeeeeee
+2026-05-10 02:24:01.624 [] INFO  a88.jbay.util.JBayLogger - Sending response: SELL_SUCCESS
+2026-05-10 02:24:02.363 [pool-1-thread-1] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE_NOTIFY
+2026-05-10 02:24:02.365 [pool-1-thread-1] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:24:02.367 [pool-1-thread-1] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:24:02.408 [pool-1-thread-1] DEBUG a88.jbay.util.JBayLogger - Heartbeat: State changed for auction 22 to RUNNING
+2026-05-10 02:24:02.408 [pool-1-thread-1] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:24:02.408 [pool-1-thread-1] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:24:44.317 [] INFO  a88.jbay.util.JBayLogger - Creating auction for item: chaos Vandalllllllllllllllllllllll by seller: 19
+2026-05-10 02:24:44.317 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:24:44.318 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:24:44.322 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:24:44.322 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:24:44.325 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:24:44.325 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:24:44.326 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:24:44.326 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:24:44.327 [] INFO  a88.jbay.util.JBayLogger - Auction created successfully: ID=23, Item=chaos Vandalllllllllllllllllllllll
+2026-05-10 02:24:44.327 [] INFO  a88.jbay.util.JBayLogger - Sending response: SELL_SUCCESS
+2026-05-10 02:24:45.362 [pool-1-thread-1] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE_NOTIFY
+2026-05-10 02:24:45.362 [pool-1-thread-1] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:24:45.363 [pool-1-thread-1] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:24:45.363 [pool-1-thread-1] DEBUG a88.jbay.util.JBayLogger - Heartbeat: State changed for auction 23 to RUNNING
+2026-05-10 02:24:45.363 [pool-1-thread-1] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:24:45.363 [pool-1-thread-1] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:25:25.782 [] INFO  a88.jbay.util.JBayLogger - Creating auction for item: chaosss by seller: 19
+2026-05-10 02:25:25.782 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:25:25.782 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:25:25.787 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:25:25.787 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:25:25.789 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:25:25.789 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:25:25.790 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:25:25.790 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:25:25.791 [] INFO  a88.jbay.util.JBayLogger - Auction created successfully: ID=24, Item=chaosss
+2026-05-10 02:25:25.791 [] INFO  a88.jbay.util.JBayLogger - Sending response: SELL_SUCCESS
+2026-05-10 02:25:27.361 [pool-1-thread-1] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE_NOTIFY
+2026-05-10 02:25:27.362 [pool-1-thread-1] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:25:27.362 [pool-1-thread-1] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:25:27.363 [pool-1-thread-1] DEBUG a88.jbay.util.JBayLogger - Heartbeat: State changed for auction 24 to RUNNING
+2026-05-10 02:25:27.363 [pool-1-thread-1] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:25:27.363 [pool-1-thread-1] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:25:35.378 [] INFO  a88.jbay.util.JBayLogger - Attempting to cancel auction: 24
+2026-05-10 02:25:35.378 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE_NOTIFY
+2026-05-10 02:25:35.379 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:25:35.379 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:25:35.380 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:25:35.380 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:25:35.384 [] INFO  a88.jbay.util.JBayLogger - Auction canceled successfully: 24
+2026-05-10 02:25:35.384 [] INFO  a88.jbay.util.JBayLogger - Sending response: CANCEL_SUCCESS
+2026-05-10 02:26:19.517 [] INFO  a88.jbay.util.JBayLogger - Creating auction for item: thousand sunny by seller: 19
+2026-05-10 02:26:19.517 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:26:19.518 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:26:19.530 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:26:19.530 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:26:19.534 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:26:19.534 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:26:19.534 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:26:19.536 [] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:26:19.538 [] INFO  a88.jbay.util.JBayLogger - Auction created successfully: ID=25, Item=thousand sunny
+2026-05-10 02:26:19.538 [] INFO  a88.jbay.util.JBayLogger - Sending response: SELL_SUCCESS
+2026-05-10 02:26:20.362 [pool-1-thread-1] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE_NOTIFY
+2026-05-10 02:26:20.364 [pool-1-thread-1] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:26:20.366 [pool-1-thread-1] INFO  a88.jbay.util.JBayLogger - Sending response: AUCTION_UPDATE
+2026-05-10 02:26:20.367 [pool-1-thread-1] DEBUG a88.jbay.util.JBayLogger - Heartbeat: State changed for auction 25 to RUNNING
+2026-05-10 02:26:20.367 [pool-1-thread-1] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:26:20.367 [pool-1-thread-1] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:31:20.462 [] DEBUG a88.jbay.util.JBayLogger - Unregistering connection: 1193966864
+2026-05-10 02:31:20.462 [] DEBUG a88.jbay.util.JBayLogger - Remaining connections: 3
+2026-05-10 02:32:00.904 [Thread-1] DEBUG a88.jbay.util.JBayLogger - Registering connection: 1824400965
+2026-05-10 02:32:00.904 [Thread-1] DEBUG a88.jbay.util.JBayLogger - Total registered connections: 3
+2026-05-10 02:32:12.681 [] DEBUG a88.jbay.util.JBayLogger - Attempting login for user: thaitufifa
+2026-05-10 02:32:12.682 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:32:12.682 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:32:12.683 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:32:12.683 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:32:12.686 [] INFO  a88.jbay.util.JBayLogger - User logged in successfully: thaitufifa
+2026-05-10 02:32:12.686 [] DEBUG a88.jbay.util.JBayLogger - Registering connection: 1824400965
+2026-05-10 02:32:12.686 [] DEBUG a88.jbay.util.JBayLogger - Total registered connections: 3
+2026-05-10 02:32:12.686 [] INFO  a88.jbay.util.JBayLogger - Sending response: LOGIN_SUCCESS
+2026-05-10 02:32:12.936 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:32:12.936 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:32:12.937 [] INFO  a88.jbay.util.JBayLogger - Sending response: ACTIVE_AUCTION_LIST
+2026-05-10 02:32:12.986 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:32:12.986 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:32:12.987 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:32:12.987 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:32:12.988 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:32:12.988 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:32:12.989 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:32:12.989 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:32:12.990 [] INFO  a88.jbay.util.JBayLogger - Sending response: BIDDER_AUCTION_LIST
+2026-05-10 02:32:13.028 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:32:13.028 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:32:13.029 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:32:13.029 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:32:13.029 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:32:13.029 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:32:13.035 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:32:13.035 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:32:13.038 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:32:13.038 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:32:13.038 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:32:13.038 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:32:13.039 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:32:13.039 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:32:13.041 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:32:13.041 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:32:13.041 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:32:13.041 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:32:13.042 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:32:13.042 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:32:13.042 [] DEBUG a88.jbay.util.JBayLogger - Database connection requested
+2026-05-10 02:32:13.042 [] DEBUG a88.jbay.util.JBayLogger - Database connection established
+2026-05-10 02:32:13.043 [] INFO  a88.jbay.util.JBayLogger - Sending response: SELLER_AUCTION_LIST
+2026-05-10 02:32:13.080 [] INFO  a88.jbay.util.JBayLogger - Sending response: GET_AUCTIONS_SUCCESS
+2026-05-10 02:32:13.362 [pool-1-thread-1] INFO  a88.jbay.util.JBayLogger - Auction ended: 24 - CANCELED
+2026-05-10 02:37:13.238 [] DEBUG a88.jbay.util.JBayLogger - Unregistering connection: 1824400965
+2026-05-10 02:37:13.238 [] DEBUG a88.jbay.util.JBayLogger - Remaining connections: 3
