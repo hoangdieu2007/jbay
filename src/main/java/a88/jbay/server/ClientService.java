@@ -43,7 +43,6 @@ public class ClientService {
                     System.out.println("Client connected...");
 
                     ClientConnection connection = new ClientConnection(client);
-                    UpdateSystem.getInstance().register(connection);
                     executor.submit(connection);
                 }
             } catch (IOException e) {

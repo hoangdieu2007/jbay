@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Collections;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
@@ -44,7 +45,7 @@ public class Auction implements Subject, Serializable {
 
     // auto-bid configuration - supports multiple users
     private final Map<Integer, AutoBidConfig> autoBidConfigs;
-    private boolean isAutoBidding = false;
+    private final AtomicBoolean isAutoBidding = new AtomicBoolean(false);
 
     public Auction(int id, Item item, String seller, LocalDateTime startTime, LocalDateTime endTime) {
         this.id = id;
@@ -200,8 +201,8 @@ public class Auction implements Subject, Serializable {
         }
 
         // Prevent recursive auto-bid calls
-        if (isAutoBidding) {
-            return;
+        if (!isAutoBidding.compareAndSet(false, true)) {
+            return; // another thread is already processing auto-bid
         }
 
         // Filter out current winner from auto-bid candidates
@@ -235,14 +236,11 @@ public class Auction implements Subject, Serializable {
             return;
         }
 
-        // Set flag to prevent recursive calls
-        isAutoBidding = true;
-
         // Place the auto-bid through AuctionSystem
         a88.jbay.system.AuctionSystem.getInstance().placeBid(winningUserId, id, autoBidAmount);
 
         // Reset flag after bid is placed
-        isAutoBidding = false;
+        isAutoBidding.set(false);
     }
 
     // Inner class to store auto-bid configuration for each user

@@ -5,17 +5,22 @@ import a88.jbay.dao.BidDAO;
 import a88.jbay.dao.ItemDAO;
 import a88.jbay.dao.UserDAO;
 import a88.jbay.model.event.Auction;
+import a88.jbay.server.ClientConnection;
 import a88.jbay.server.ClientService;
 import a88.jbay.server.DatabaseController;
 import a88.jbay.server.RequestHandler;
 import a88.jbay.system.AuctionSystem;
+import a88.jbay.system.UpdateSystem;
 import a88.jbay.system.UserSystem;
 import a88.jbay.util.JBayLogger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.SQLException;
 import java.util.Scanner;
 
 public class MainServerTUI {
+    private static final Logger log = LoggerFactory.getLogger(MainServerTUI.class);
     private static JBayLogger logger;
     
     public static void main(String[] args) {
@@ -56,6 +61,7 @@ public class MainServerTUI {
         //init systems
         AuctionSystem auctionSystem = AuctionSystem.getInstance();
         UserSystem userSystem = UserSystem.getInstance();
+        UpdateSystem updateSystem = UpdateSystem.getInstance();
 
         try {
 
@@ -117,12 +123,22 @@ public class MainServerTUI {
 
                             break;
                         case "NUKE":
-
+                            // nuke the database
                             break;
                         case "RELOAD":
                             auctionSystem.loadActiveAuctions();
                             break;
                         case "UPDATE":
+                            //update all users
+                            break;
+                        case "LS_CONN":
+                            // list all connections
+                            updateSystem.getConnections().forEach((uid, clientConnection) -> {
+                                logger.info("UserID: " + uid);
+                                for (ClientConnection client : clientConnection) {
+                                    logger.info("Connection ID: " + client.getConnectionId());
+                                }
+                            });
                             break;
                         default:
                             System.out.println("Invalid input");
