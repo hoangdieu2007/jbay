@@ -133,7 +133,12 @@ public class SellerBidderHomeScreenController {
                         int index = sellerFlowPane.getChildren().indexOf(oldCard);
                         VBox updatedCard = createCardSeller(updateAuction);
                         if (updatedCard != null) {
-                            sellerFlowPane.getChildren().set(index, updatedCard);
+                            if (index != -1) {
+                                sellerFlowPane.getChildren().set(index, updatedCard);
+                            } else {
+                                sellerFlowPane.getChildren().add(updatedCard);
+                            }
+                            sellerCardBox.put(id, updatedCard);
                         }
                     }
 
@@ -211,7 +216,12 @@ public class SellerBidderHomeScreenController {
                         VBox updatedCard = createCardBidder(updateAuction);
 
                         if (updatedCard != null) {
-                            bidderFlowPane.getChildren().set(index, updatedCard);
+                            if (index != -1) {
+                                bidderFlowPane.getChildren().set(index, updatedCard);
+                            } else {
+                                bidderFlowPane.getChildren().add(updatedCard);
+                            }
+                            bidderCardBox.put(id, updatedCard);
                         }
                     }
                 }

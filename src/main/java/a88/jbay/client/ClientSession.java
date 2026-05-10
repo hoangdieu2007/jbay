@@ -66,14 +66,24 @@ public class ClientSession {
         //Reset ttin user
         this.user = new User();
 
-        // Clear maps to remove data but keep listeners
-        if (this.bidderAuctions != null) {
-            this.bidderAuctions.clear();
-        }
-        if (this.sellerAuctions != null) {
-            this.sellerAuctions.clear();
-        }
+        // Create new map instances to remove all listeners
+        this.sellerAuctions = FXCollections.observableMap(new TreeMap<>(Collections.reverseOrder()));
+        this.bidderAuctions = FXCollections.observableMap(new TreeMap<>(Collections.reverseOrder()));
 
         logger.info("Session has been cleared");
+    }
+
+    // Call this before entering home screen to remove all old listeners
+    public void clearAuctionListeners() {
+        // Use copy constructor to preserve data while removing listeners
+        TreeMap<Integer, Auction> newSellerMap = new TreeMap<>(Collections.reverseOrder());
+        newSellerMap.putAll(this.sellerAuctions);
+        this.sellerAuctions = FXCollections.observableMap(newSellerMap);
+
+        TreeMap<Integer, Auction> newBidderMap = new TreeMap<>(Collections.reverseOrder());
+        newBidderMap.putAll(this.bidderAuctions);
+        this.bidderAuctions = FXCollections.observableMap(newBidderMap);
+
+        logger.info("Auction listeners cleared");
     }
 }

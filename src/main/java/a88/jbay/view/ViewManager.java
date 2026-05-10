@@ -1,5 +1,6 @@
 package a88.jbay.view;
 
+import a88.jbay.client.ClientSession;
 import a88.jbay.controller.ControllerProvider;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXMLLoader;
@@ -40,6 +41,8 @@ public class ViewManager {
     }
 
     public static void displayScene(String fxmlPath) throws IOException {
+        // Clear auction listeners before scene change to prevent memory leaks
+        ClientSession.getInstance().clearAuctionListeners();
 
         FXMLLoader loader = new FXMLLoader(
                 ViewManager.class.getResource("/a88/jbay/view/" + fxmlPath)
