@@ -79,11 +79,20 @@ public class ClientBidderItemController {
             // Cập nhật giá
             currentPriceLabel.setText(String.format("%.2f USD", auction.getCurrentPrice()));
 
-            // Vẽ biểu đồ
+            //Vẽ biểu đồ
+
+            // Xóa sạch dữ liệu cũ trên biểu đồ để tránh vẽ đè/giật lùi
+            priceSeries.getData().clear();
+
+            // Vẽ lại toàn bộ lịch sử từ Server (đã được sắp xếp)
             for (BidTransaction bid : auction.getBidHistory()) {
                 String time = bid.getTimestamp().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
                 priceSeries.getData().add(new XYChart.Data<>(time, bid.getAmt()));
-                if (priceSeries.getData().size() > 15) priceSeries.getData().remove(0);
+            }
+
+            // Giới hạn 15 điểm để biểu đồ không bị quá dày
+            if (priceSeries.getData().size() > 15) {
+                priceSeries.getData().remove(0, priceSeries.getData().size() - 15);
             }
 
             // Cập nhật ảnh
