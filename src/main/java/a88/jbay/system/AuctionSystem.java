@@ -45,7 +45,7 @@ public class AuctionSystem {
         this.userDAO = UserDAO.getInstance();
         this.bidDAO = BidDAO.getInstance();
         this.updateSystem = UpdateSystem.getInstance();
-        this.logger = JBayLogger.getInstance();
+        this.logger = JBayLogger.getLogger(AuctionSystem.class);
         this.activeAuctions = new ConcurrentHashMap<>();
         this.scheduler = Executors.newSingleThreadScheduledExecutor();
 

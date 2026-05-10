@@ -28,7 +28,7 @@ public class UpdateSystem {
     private final JBayLogger logger;
 
     private UpdateSystem() {
-        this.logger = JBayLogger.getInstance();
+        this.logger = JBayLogger.getLogger(UpdateSystem.class);
     }
 
     public static synchronized UpdateSystem getInstance() {

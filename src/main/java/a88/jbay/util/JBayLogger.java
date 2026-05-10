@@ -7,12 +7,18 @@ import org.slf4j.LoggerFactory;
  * Logger wrapper using SLF4J with Logback for jBay auction system.
  */
 public class JBayLogger {
-    private static final Logger logger = LoggerFactory.getLogger(JBayLogger.class);
+    private final Logger logger;
 
-    private JBayLogger() {}
+    private JBayLogger(Class<?> clazz) {
+        this.logger = LoggerFactory.getLogger(clazz);
+    }
 
-    public static synchronized JBayLogger getInstance() {
-        return new JBayLogger();
+    public static synchronized JBayLogger getLogger() {
+        return new JBayLogger(JBayLogger.class);
+    }
+
+    public static synchronized JBayLogger getLogger(Class<?> clazz) {
+        return new JBayLogger(clazz);
     }
 
     public void info(String message) {

@@ -39,7 +39,7 @@ public class ClientConnection implements Runnable {
 
         this.userCache = new User();
 
-        this.logger = JBayLogger.getInstance();
+        this.logger = JBayLogger.getLogger(ClientConnection.class);
     }
 
     public int getConnectionId() {

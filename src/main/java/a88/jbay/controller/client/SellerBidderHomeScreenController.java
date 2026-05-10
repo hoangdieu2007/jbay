@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class SellerBidderHomeScreenController {
-    private final JBayLogger logger = JBayLogger.getInstance();
+    private final JBayLogger logger = JBayLogger.getLogger(SellerBidderHomeScreenController.class);
 
     // LOG OUT
     @FXML private Button btnLogOut;

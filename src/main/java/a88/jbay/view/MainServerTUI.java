@@ -19,7 +19,7 @@ public class MainServerTUI {
     private static JBayLogger logger;
     
     public static void main(String[] args) {
-        logger = JBayLogger.getInstance();
+        logger = JBayLogger.getLogger(MainServerTUI.class);
         logger.info("JBAY Server TUI starting");
         logger.info("------------------JBAY_SERVER_TUI-----------------");
         logger.info("--------------software infrastructure-------------");

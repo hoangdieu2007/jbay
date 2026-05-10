@@ -24,7 +24,7 @@ public class ResponseHandler {
     private final JBayLogger logger;
 
     private ResponseHandler() {
-        this.logger = JBayLogger.getInstance();
+        this.logger = JBayLogger.getLogger(ResponseHandler.class);
         clientSession = ClientSession.getInstance();
         controllerProvider = ControllerProvider.getInstance();
         viewManager = ViewManager.getInstance();

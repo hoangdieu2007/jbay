@@ -29,7 +29,7 @@ public class ClientSession {
     private ObservableMap<Integer, Auction> bidderAuctions;
 
     private ClientSession() {
-        this.logger = JBayLogger.getInstance();
+        this.logger = JBayLogger.getLogger(ClientSession.class);
         user = new User();
         sellerAuctions = FXCollections.observableMap(new TreeMap<>(Collections.reverseOrder()));
         bidderAuctions = FXCollections.observableMap(new TreeMap<>(Collections.reverseOrder()));

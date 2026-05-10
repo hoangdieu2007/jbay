@@ -20,7 +20,7 @@ public class ServerConnection {
     private volatile boolean listenerRunning = false;
 
     private ServerConnection() {
-        this.logger = JBayLogger.getInstance();
+        this.logger = JBayLogger.getLogger(ServerConnection.class);
         responseHandler = ResponseHandler.getInstance();
     }
 
