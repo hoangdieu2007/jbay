@@ -37,7 +37,7 @@ public class DatabaseController implements DatabaseConnectionProvider {
         logger.info("Database connection pool initialized with URL: " + url);
     }
 
-    public static synchronized DatabaseController getInstance() {
+    public static DatabaseController getInstance() {
         if (instance == null) {
             instance = new DatabaseController();
         }

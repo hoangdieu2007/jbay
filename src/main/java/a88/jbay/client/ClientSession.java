@@ -36,7 +36,7 @@ public class ClientSession {
 
     }
 
-    public synchronized static ClientSession getInstance() {
+    public static ClientSession getInstance() {
         if (instance == null) {
             instance = new ClientSession();
         }

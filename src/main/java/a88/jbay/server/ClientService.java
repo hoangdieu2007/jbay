@@ -21,7 +21,7 @@ public class ClientService {
         executor = Executors.newVirtualThreadPerTaskExecutor();
     }
 
-    public static synchronized ClientService getInstance() {
+    public static ClientService getInstance() {
         if (instance == null) {
             instance = new ClientService();
         }

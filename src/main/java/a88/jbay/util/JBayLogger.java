@@ -13,10 +13,6 @@ public class JBayLogger {
         this.logger = LoggerFactory.getLogger(clazz);
     }
 
-    public static synchronized JBayLogger getLogger() {
-        return new JBayLogger(JBayLogger.class);
-    }
-
     public static synchronized JBayLogger getLogger(Class<?> clazz) {
         return new JBayLogger(clazz);
     }

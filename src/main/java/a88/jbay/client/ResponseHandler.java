@@ -30,7 +30,7 @@ public class ResponseHandler {
         viewManager = ViewManager.getInstance();
     }
 
-    public synchronized static ResponseHandler getInstance() {
+    public static ResponseHandler getInstance() {
         if (instance == null) {
             instance = new ResponseHandler();
         }

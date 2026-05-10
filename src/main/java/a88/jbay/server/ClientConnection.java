@@ -100,12 +100,10 @@ public class ClientConnection implements Runnable {
         logger.info("Sending response: " + response.getMessage());
 
         try {
-            //prevent crash when update and response send at the same time
-            synchronized (this) {
-                out.reset();
-                out.writeObject(response);
-                out.flush();
-            }
+            // Use atomic write to prevent deadlocks
+            out.reset();
+            out.writeObject(response);
+            out.flush();
         } catch (IOException e) {
             logger.error("Error sending response: " + e.getMessage(), e);
         }
