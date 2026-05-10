@@ -4,7 +4,9 @@ import a88.jbay.model.network.Request;
 import a88.jbay.model.network.RequestType;
 import a88.jbay.model.network.Response;
 import a88.jbay.util.JBayLogger;
+import a88.jbay.view.ViewManager;
 import javafx.application.Platform;
+import javafx.scene.control.Alert;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -72,11 +74,31 @@ public class ServerConnection {
                         Platform.runLater(() -> responseHandler.handle(response));
                     } catch (java.io.EOFException e) {
                         logger.info("Server closed the connection");
+                        // handle disconnection - switch to connection view and show alert
+                        Platform.runLater(() -> {
+                            Alert alert = new Alert(Alert.AlertType.WARNING, "Disconnected from server");
+                            alert.showAndWait();
+                            try {
+                                ViewManager.displayScene("client/client-server-connect-view.fxml");
+                            } catch (IOException ex) {
+                                logger.error("Failed to switch to connection view: " + ex.getMessage(), ex);
+                            }
+                        });
                         break;
                     }
                 }
             } catch (Exception e) {
                 logger.error("Disconnected from server: " + e.getMessage(), e);
+                // handle disconnection - switch to connection view and show alert
+                Platform.runLater(() -> {
+                    Alert alert = new Alert(Alert.AlertType.WARNING, "Disconnected from server");
+                    alert.showAndWait();
+                    try {
+                        ViewManager.displayScene("client/client-server-connect-view.fxml");
+                    } catch (IOException ex) {
+                        logger.error("Failed to switch to connection view: " + ex.getMessage(), ex);
+                    }
+                });
             } finally {
                 logger.info("Listener thread ended");
                 listenerRunning = false;

@@ -90,6 +90,7 @@ public class ClientConnection implements Runnable {
             UpdateSystem.getInstance().unregister(this);
             UserSystem.getInstance().logout(userCache.getSessionId());
             closeResources(out, in, socket);
+            Thread.currentThread().interrupt();
         }
     }
 

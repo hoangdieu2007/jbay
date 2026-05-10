@@ -7,6 +7,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class ClientService {
     private static ClientService instance;
@@ -54,6 +55,23 @@ public class ClientService {
     }
 
     public void stopService() {
-        executor.shutdown();
+        try {
+            // Close the server socket to stop accepting new connections
+            if (serverSocket != null && !serverSocket.isClosed()) {
+                serverSocket.close();
+            }
+            
+            // Shutdown the executor and wait for active tasks to complete
+            executor.shutdown();
+            if (!executor.awaitTermination(5, TimeUnit.SECONDS)) {
+                executor.shutdownNow();
+                if (!executor.awaitTermination(5, TimeUnit.SECONDS)) {
+                    System.err.println("Executor did not terminate");
+                }
+            }
+        } catch (IOException | InterruptedException e) {
+            executor.shutdownNow();
+            Thread.currentThread().interrupt();
+        }
     }
 }
