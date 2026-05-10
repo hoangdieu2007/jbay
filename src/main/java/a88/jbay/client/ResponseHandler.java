@@ -49,6 +49,7 @@ public class ResponseHandler {
                 case "AUCTION_UPDATE" -> handleAuctionUpdate(response);
                 case "AUCTION_UPDATE_NOTIFY" -> handleAuctionUpdateNotify(response);
                 case "BAN_USER" -> handleBanUser(response);
+                case "PONG" -> handlePong(response);
                 default -> handleDefault(response);
             };
         } else {
@@ -58,6 +59,10 @@ public class ResponseHandler {
                 default -> handleDefault(response);
             }
         }
+    }
+
+    public void handlePong(Response response) {
+        logger.debug("Received PONG from server");
     }
 
     public void handleDefault(Response response) {

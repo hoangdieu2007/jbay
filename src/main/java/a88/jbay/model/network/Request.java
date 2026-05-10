@@ -13,9 +13,6 @@ public class Request implements Serializable {
     public Request(RequestType type) {
         this.type = type;
         this.data = new HashMap<>();
-
-        //automatically add sessionId
-        this.put("sessionId", ClientSession.getInstance().getUser().getSessionId());
     }
 
     public RequestType getType() {

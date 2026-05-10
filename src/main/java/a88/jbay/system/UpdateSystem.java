@@ -74,10 +74,12 @@ public class UpdateSystem {
         // Update all active connections
         connections.forEach((userId, connections) -> {
             if (subscriberIds.contains(userId)) {
-                try {
-                    connections.forEach(connection -> connection.send(response));
-                } catch (Exception e) {
-                    logger.error("Failed to send update: " + e.getMessage(), e);
+                for (ClientConnection connection : connections) {
+                    try {
+                        connection.send(response);
+                    } catch (Exception e) {
+                        logger.error("Failed to send update: " + e.getMessage(), e);
+                    }
                 }
             }
         });

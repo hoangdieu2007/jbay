@@ -31,7 +31,6 @@ public class ClientConnection implements Runnable {
     public ClientConnection(Socket socket) throws IOException {
         this.connectionId = socket.hashCode(); // Use socket hash as connection ID
         this.socket = socket;
-        socket.setSoTimeout(0); // No read timeout - connection lives forever
         socket.setKeepAlive(true);  // enable TCP keep-alive
         this.out = new ObjectOutputStream(socket.getOutputStream());
         out.flush();

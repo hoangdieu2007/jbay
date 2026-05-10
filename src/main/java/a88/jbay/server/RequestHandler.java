@@ -40,6 +40,7 @@ public class RequestHandler {
         System.out.println("Received request: " + request.getType().name());
 
         return switch (request.getType()) {
+            case PING -> handlePing(request);
             case LOGIN -> handleLogin(request);
             case REGISTER -> handleRegister(request);
             case LOGOUT -> handleLogout(request);
@@ -53,6 +54,10 @@ public class RequestHandler {
             case GET_AUCTIONS -> handleGetAuctions(request);
             case MISC -> handleMisc(request);
         };
+    }
+
+    private static Response handlePing(Request request) {
+        return new Response(true, "PONG", null);
     }
 
     //handling login
