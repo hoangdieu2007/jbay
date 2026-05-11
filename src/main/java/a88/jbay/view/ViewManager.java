@@ -41,8 +41,6 @@ public class ViewManager {
     }
 
     public static void displayScene(String fxmlPath) throws IOException {
-        // Clear auction listeners before scene change to prevent memory leaks
-        ClientSession.getInstance().clearAuctionListeners();
 
         FXMLLoader loader = new FXMLLoader(
                 ViewManager.class.getResource("/a88/jbay/view/" + fxmlPath)

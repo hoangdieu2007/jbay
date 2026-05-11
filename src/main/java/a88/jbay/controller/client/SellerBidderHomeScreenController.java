@@ -9,12 +9,14 @@ import a88.jbay.model.network.RequestType;
 import a88.jbay.util.JBayLogger;
 import a88.jbay.view.ViewManager;
 import javafx.collections.*;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 
@@ -227,5 +229,106 @@ public class SellerBidderHomeScreenController {
                 }
 
         });
+    }
+
+    @FXML
+    TextField bidderSearchField;
+
+    public void initializeBidderUINew() {
+        //initialize data structures
+        ObservableMap<Integer, Auction> bidderMap = ClientSession.getInstance().getBidderAuctions();
+
+        ObservableList<Auction> bidderList = FXCollections.observableList(new ArrayList<>(bidderMap.values()));
+
+        FilteredList<Auction> filteredList = new FilteredList<>(bidderList, auction -> true);
+
+        refreshBidderList(filteredList);
+
+        // adding listeners
+        bidderMap.addListener((MapChangeListener<Integer, Auction>) change -> {
+            if (change.wasRemoved() && change.wasAdded()) {
+
+                int idx = bidderList.indexOf(change.getValueRemoved());
+
+                if (idx >= 0) {
+                    bidderList.set(idx, change.getValueAdded());
+                }
+
+            } else {
+
+                if (change.wasRemoved()) {
+                    bidderList.remove(change.getValueRemoved());
+                }
+
+                if (change.wasAdded()) {
+                    bidderList.add(change.getValueAdded());
+                }
+            }
+        });
+
+        filteredList.addListener((ListChangeListener<Auction>) change -> {
+            refreshBidderList(filteredList);
+        });
+
+        bidderSearchField.textProperty().addListener(((observable, oldValue, newValue) -> {
+            filteredList.setPredicate(auction -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                return auction.getItem().getName().toLowerCase().contains(lowerCaseFilter);
+            });
+        } ));
+    }
+
+    public void refreshBidderList(FilteredList<Auction> filteredList) {
+        bidderFlowPane.getChildren().clear();
+        for (Auction auction : filteredList) {
+            bidderFlowPane.getChildren().add(createCardBidder(auction));
+        }
+    }
+
+    public void initializeSellerUINew() {
+        // initialize data structures
+        ObservableMap<Integer, Auction> sellerMap = ClientSession.getInstance().getSellerAuctions();
+
+        ObservableList<Auction> sellerList = FXCollections.observableList(new ArrayList<>(sellerMap.values()));
+
+        FilteredList<Auction> filteredList = new FilteredList<>(sellerList, auction -> true);
+
+        refreshSellerList(filteredList);
+
+        // add listeners
+        sellerMap.addListener((MapChangeListener<Integer, Auction>) change -> {
+            if (change.wasRemoved() && change.wasAdded()) {
+
+                int idx = sellerList.indexOf(change.getValueRemoved());
+
+                if (idx >= 0) {
+                    sellerList.set(idx, change.getValueAdded());
+                }
+
+            } else {
+
+                if (change.wasRemoved()) {
+                    sellerList.remove(change.getValueRemoved());
+                }
+
+                if (change.wasAdded()) {
+                    sellerList.add(change.getValueAdded());
+                }
+            }
+        });
+
+        filteredList.addListener((ListChangeListener<Auction>) change -> {
+            refreshBidderList(filteredList);
+        });
+    }
+
+    public void refreshSellerList(FilteredList<Auction> filteredList) {
+        sellerFlowPane.getChildren().clear();
+        for (Auction auction : filteredList) {
+            sellerFlowPane.getChildren().add(createCardSeller(auction));
+        }
     }
 }

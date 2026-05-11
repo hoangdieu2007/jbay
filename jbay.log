@@ -37468,3 +37468,8 @@ java.net.SocketException: Socket closed
 	at java.base/java.lang.Thread.run(Thread.java:1474)
 2026-05-11 11:00:33.001 [Thread-4] INFO  a88.jbay.client.ServerConnection - Listener thread ended
 2026-05-11 11:00:33.005 [] INFO  a88.jbay.system.UserSystem - User logged out successfully
+2026-05-11 11:02:38.741 [main] INFO  a88.jbay.view.MainServerTUI - JBAY Server TUI starting
+2026-05-11 11:02:38.743 [main] INFO  a88.jbay.view.MainServerTUI - ------------------JBAY_SERVER_TUI-----------------
+2026-05-11 11:02:38.743 [main] INFO  a88.jbay.view.MainServerTUI - --------------software infrastructure-------------
+2026-05-11 11:02:38.745 [main] INFO  a88.jbay.view.MainServerTUI - Connect to database:
+2026-05-11 11:02:38.745 [main] INFO  a88.jbay.view.MainServerTUI - Enter URL:

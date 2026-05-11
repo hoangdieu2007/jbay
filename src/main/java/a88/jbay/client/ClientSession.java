@@ -72,18 +72,4 @@ public class ClientSession {
 
         logger.info("Session has been cleared");
     }
-
-    // Call this before entering home screen to remove all old listeners
-    public void clearAuctionListeners() {
-        // Use copy constructor to preserve data while removing listeners
-        TreeMap<Integer, Auction> newSellerMap = new TreeMap<>(Collections.reverseOrder());
-        newSellerMap.putAll(this.sellerAuctions);
-        this.sellerAuctions = FXCollections.observableMap(newSellerMap);
-
-        TreeMap<Integer, Auction> newBidderMap = new TreeMap<>(Collections.reverseOrder());
-        newBidderMap.putAll(this.bidderAuctions);
-        this.bidderAuctions = FXCollections.observableMap(newBidderMap);
-
-        logger.info("Auction listeners cleared");
-    }
 }
