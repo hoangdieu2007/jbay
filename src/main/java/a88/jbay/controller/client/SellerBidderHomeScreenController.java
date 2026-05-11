@@ -288,8 +288,20 @@ public class SellerBidderHomeScreenController {
     public void refreshBidderList(FilteredList<Auction> filteredList) {
         bidderFlowPane.getChildren().clear();
         for (Auction auction : filteredList) {
-            bidderFlowPane.getChildren().add(createCardBidder(auction));
+            // Reuse existing card from cache to prevent massive memory allocation
+            VBox card = bidderCardBox.get(auction.getId());
+            if (card == null) {
+                card = createCardBidder(auction);
+                if (card != null) {
+                    bidderCardBox.put(auction.getId(), card);
+                }
+            }
+            if (card != null) {
+                bidderFlowPane.getChildren().add(card);
+            }
         }
+        // Cleanup cache for auctions that are no longer in the list
+        bidderCardBox.keySet().removeIf(id -> filteredList.stream().noneMatch(a -> a.getId() == id));
     }
 
     public void initializeSellerUINew() {
@@ -336,7 +348,19 @@ public class SellerBidderHomeScreenController {
     public void refreshSellerList(FilteredList<Auction> filteredList) {
         sellerFlowPane.getChildren().clear();
         for (Auction auction : filteredList) {
-            sellerFlowPane.getChildren().add(createCardSeller(auction));
+            // Reuse existing card from cache
+            VBox card = sellerCardBox.get(auction.getId());
+            if (card == null) {
+                card = createCardSeller(auction);
+                if (card != null) {
+                    sellerCardBox.put(auction.getId(), card);
+                }
+            }
+            if (card != null) {
+                sellerFlowPane.getChildren().add(card);
+            }
         }
+        // Cleanup cache
+        sellerCardBox.keySet().removeIf(id -> filteredList.stream().noneMatch(a -> a.getId() == id));
     }
 }

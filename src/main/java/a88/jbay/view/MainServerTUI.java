@@ -59,6 +59,7 @@ public class MainServerTUI {
         ItemDAO itemDAO = ItemDAO.getInstance();
 
         //init systems
+        DatabaseController dbController = DatabaseController.getInstance();
         AuctionSystem auctionSystem = AuctionSystem.getInstance();
         UserSystem userSystem = UserSystem.getInstance();
         UpdateSystem updateSystem = UpdateSystem.getInstance();
