@@ -63,8 +63,8 @@ public class SellerBidderHomeScreenController {
 
         lblUserName.setText(ClientSession.getInstance().getUser().getUsername());
 
-        initializeSellerUI();
-        initializeBidderUI();
+        initializeSellerUINew();
+        initializeBidderUINew();
     }
 
     /** ====SELLER==== **/
@@ -264,6 +264,10 @@ public class SellerBidderHomeScreenController {
                     bidderList.add(change.getValueAdded());
                 }
             }
+            bidderList.sort(
+                    Comparator.comparingInt(Auction::getId)
+                            .reversed()
+            );
         });
 
         filteredList.addListener((ListChangeListener<Auction>) change -> {
@@ -318,10 +322,14 @@ public class SellerBidderHomeScreenController {
                     sellerList.add(change.getValueAdded());
                 }
             }
+            sellerList.sort(
+                    Comparator.comparingInt(Auction::getId)
+                            .reversed()
+            );
         });
 
         filteredList.addListener((ListChangeListener<Auction>) change -> {
-            refreshBidderList(filteredList);
+            refreshSellerList(filteredList);
         });
     }
 
