@@ -5,18 +5,10 @@ import a88.jbay.util.ImageProcessor;
 import a88.jbay.model.event.Auction;
 import a88.jbay.model.event.AuctionState;
 import a88.jbay.view.ViewManager;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -27,7 +19,7 @@ public class BidderItemCardController {
     @FXML private Label descriptionLabel;
     @FXML private Label titleLabel;
     @FXML private Label statusLabel;
-    @FXML private Label bidsIDLabel;
+    @FXML private Label lblTopBidder;
     @FXML private Label currentBidLabel;
     @FXML private Label sellerIDLabel;
     @FXML private Button bidButton;
@@ -55,7 +47,7 @@ public class BidderItemCardController {
         descriptionLabel.setText(auction.getItem().getDescription());
         sellerIDLabel.setText(auction.getSellerName());
         currentBidLabel.setText(String.valueOf(auction.getCurrentPrice()) + "USD");
-        bidsIDLabel.setText(String.valueOf(auction.getId()));
+        lblTopBidder.setText(auction.getWinner());
         remainingSeconds = java.time.Duration.between(java.time.LocalDateTime.now(), auction.getEndTime()).getSeconds();
         updateStatusUI(auction.getAuctionState());
 

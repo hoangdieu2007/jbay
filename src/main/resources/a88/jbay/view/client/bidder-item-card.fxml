@@ -74,12 +74,12 @@
                                 <Font name="System Bold" size="20.0" />
                             </font>
                         </Label>
-                        <Label text="BidID:" textFill="#555555" GridPane.rowIndex="1">
+                        <Label text="Top Bidder:" textFill="#555555" GridPane.rowIndex="1">
                             <font>
                                 <Font size="16.0" />
                             </font>
                         </Label>
-                        <Label fx:id="bidsIDLabel" text="2" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Label fx:id="lblTopBidder" minWidth="106.0" prefHeight="20.0" text="2" GridPane.columnIndex="1" GridPane.rowIndex="1">
                             <font>
                                 <Font size="16.0" />
                             </font>

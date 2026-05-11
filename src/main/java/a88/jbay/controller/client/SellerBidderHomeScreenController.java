@@ -96,20 +96,17 @@ public class SellerBidderHomeScreenController {
         }
     }
 
+    @FXML private TextField sellerSearchField;
+
     @FXML
     public void initializeSellerUI() {
         sellerFlowPane.getChildren().clear();
         ObservableMap<Integer, Auction> sellerMap = ClientSession.getInstance().getSellerAuctions();
+        ObservableList<Auction> sellerList = FXCollections.observableList(new ArrayList<>(sellerMap.values()));
+        FilteredList<Auction> filteredList = new FilteredList<>(sellerList, auction -> true);
         logger.debug("Seller UI initialized with " + sellerMap.size() + " auctions");
 
-        int initIndex = 0;
-        for (Auction auction : sellerMap.values()) {
-            VBox newCard = createCardSeller(auction);
-            if (newCard != null) {
-                sellerCardBox.put(auction.getId(), newCard);
-                sellerFlowPane.getChildren().add(initIndex++, newCard);
-            }
-        }
+        refreshSellerList(filteredList);
 
         ClientSession.getInstance().getSellerAuctions().addListener((MapChangeListener<Integer, Auction>) change -> {
             // nếu còn phần tử, trả về true --> chạy tiếp
@@ -151,6 +148,19 @@ public class SellerBidderHomeScreenController {
 
         });
 
+        filteredList.addListener((ListChangeListener<Auction>) change -> {
+            refreshSellerList(filteredList);
+        });
+
+        sellerSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredList.setPredicate(auction -> {
+                if(newValue == null || newValue.isEmpty()){
+                    return true;
+                }
+                String lowerNewValue = newValue.toLowerCase();
+                return auction.getItem().getName().toLowerCase().contains(lowerNewValue);
+            });
+        });
     }
 
 
@@ -229,11 +239,11 @@ public class SellerBidderHomeScreenController {
 
         bidderSearchField.textProperty().addListener(((observable, oldValue, newValue) -> {
             filteredList.setPredicate(auction -> {
-                if (newValue == null || newValue.isEmpty()){
+                if (newValue == null || newValue.isEmpty()){ // display all auctions
                     return true;
                 }
                 String lowerNewValue = newValue.toLowerCase();
-                return auction.getItem().getName().toLowerCase().contains(lowerNewValue);
+                return auction.getItem().getName().toLowerCase().contains(lowerNewValue); // display auctions that satisfy the condition
             });
         }));
     }
@@ -295,7 +305,7 @@ public class SellerBidderHomeScreenController {
     }
 
     public void refreshBidderList(FilteredList<Auction> filteredList) {
-        int initIdx = 0;
+
         bidderFlowPane.getChildren().clear();
         for (Auction auction : filteredList) {
             // Reuse existing card from cache to prevent massive memory allocation
@@ -307,7 +317,7 @@ public class SellerBidderHomeScreenController {
                 }
             }
             if (card != null) {
-                bidderFlowPane.getChildren().add(initIdx++,card);
+                bidderFlowPane.getChildren().add(card);
             }
         }
         // Cleanup cache for auctions that are no longer in the list
@@ -356,6 +366,7 @@ public class SellerBidderHomeScreenController {
     }
 
     public void refreshSellerList(FilteredList<Auction> filteredList) {
+        int initIdx = 0;
         sellerFlowPane.getChildren().clear();
         for (Auction auction : filteredList) {
             // Reuse existing card from cache
@@ -367,7 +378,7 @@ public class SellerBidderHomeScreenController {
                 }
             }
             if (card != null) {
-                sellerFlowPane.getChildren().add(card);
+                sellerFlowPane.getChildren().add(initIdx++, card);
             }
         }
         // Cleanup cache
