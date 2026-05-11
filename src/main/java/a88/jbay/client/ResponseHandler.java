@@ -13,6 +13,7 @@ import a88.jbay.util.JBayLogger;
 import a88.jbay.view.ViewManager;
 import javafx.scene.control.Alert;
 
+import javax.swing.text.View;
 import java.io.IOException;
 import java.util.List;
 
@@ -70,11 +71,18 @@ public class ResponseHandler {
     }
 
     public void handleLoginSuccess(Response response) {
-        clientSession.setUser((User) response.getPayload());
+        User curUser = (User) response.getPayload();
+        clientSession.setUser(curUser);
         controllerProvider.getController(ClientLoginRegisterController.class).updateLoginLabel("Login successful");
 
         try {
-            ViewManager.displayScene("client/Seller-Bidder-HomeScreens.fxml");
+            ViewManager.closePrimaryStage();
+            ViewManager.newStage("Auction88's jBay");
+            ViewManager.setResolution(1280, 720);
+            if (curUser.getRole().equals("USER"))
+                ViewManager.displayScene("client/Seller-Bidder-HomeScreens.fxml");
+            else if (curUser.getRole().equals("ADMIN"))
+                ViewManager.displayScene("client/Admin-HomeScreens.fxml");
 
             ServerConnection.getInstance().send(new Request(RequestType.GET_AUCTIONS)
                     .put("userId", clientSession.getUser().getId()));
@@ -98,11 +106,14 @@ public class ResponseHandler {
 
     public void handleLogoutSuccess(Response response) {
         try {
+            ViewManager.closePrimaryStage();
+            ViewManager.newStage("Welcome to jBay");
+            ViewManager.setResolution(600, 429);
             ClientSession.getInstance().resetSession();
             ControllerProvider.getInstance().clearControllers();
             ViewManager.displayScene("client/client-login-register-view.fxml");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            logger.error("Failed to display login register view");
         }
     }
 
@@ -153,6 +164,9 @@ public class ResponseHandler {
         clientSession.resetSession();
         ControllerProvider.getInstance().clearControllers();
         try {
+            ViewManager.closePrimaryStage();
+            ViewManager.newStage("Welcome to jBay");
+            ViewManager.setResolution(600, 429);
             ViewManager.displayScene("client/client-login-register-view.fxml");
             new Alert(Alert.AlertType.WARNING, "You have been banned").show();
         } catch (IOException e) {

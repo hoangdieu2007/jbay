@@ -69,7 +69,7 @@ public class RequestHandler {
         if (user != null) {
             //check if user is banned
             if (user.getRole().equals("BAN")) {
-                return new Response(false, "LOGIN_BAN", null);
+                return new Response(false, "BAN_USER", null);
             }
 
             // UpdateSystem.getInstance().register(user.getId(), RequestHandler.out);
