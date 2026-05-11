@@ -224,8 +224,7 @@ public class SellerBidderHomeScreenController {
     }
 
 
-    /**BIDDER SEARCH BAR*/
-
+    /*BIDDER SEARCH BAR
 
     public void initializeBidderUINew() {
         //initialize data structures
@@ -279,7 +278,7 @@ public class SellerBidderHomeScreenController {
                 return auction.getItem().getName().toLowerCase().contains(lowerCaseFilter);
             });
         } ));
-    }
+    }*/
 
     public void refreshBidderList(FilteredList<Auction> filteredList) {
 
@@ -300,7 +299,7 @@ public class SellerBidderHomeScreenController {
         // Cleanup cache for auctions that are no longer in the list
         bidderCardBox.keySet().removeIf(id -> filteredList.stream().noneMatch(a -> a.getId() == id));
     }
-    
+    /*
     public void initializeSellerUINew() {
         // initialize data structures
         ObservableMap<Integer, Auction> sellerMap = ClientSession.getInstance().getSellerAuctions();
@@ -340,7 +339,7 @@ public class SellerBidderHomeScreenController {
         filteredList.addListener((ListChangeListener<Auction>) change -> {
             refreshSellerList(filteredList);
         });
-    }
+    }**/
 
     public void refreshSellerList(FilteredList<Auction> filteredList) {
         int initIdx = 0;
