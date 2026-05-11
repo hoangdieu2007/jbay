@@ -13,10 +13,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 
@@ -63,8 +60,8 @@ public class SellerBidderHomeScreenController {
 
         lblUserName.setText(ClientSession.getInstance().getUser().getUsername());
 
-        initializeSellerUINew();
-        initializeBidderUINew();
+        initializeSellerUI();
+        initializeBidderUI();
     }
 
     /** ====SELLER==== **/
@@ -178,21 +175,18 @@ public class SellerBidderHomeScreenController {
     }
 
     private Map<Integer, VBox> bidderCardBox = new HashMap<>();
+    @FXML
+    TextField bidderSearchField;
 
     @FXML
     public void  initializeBidderUI(){
         bidderFlowPane.getChildren().clear();
         ObservableMap<Integer, Auction> bidderMap = ClientSession.getInstance().getBidderAuctions();
+        ObservableList<Auction> bidderList = FXCollections.observableList(new ArrayList<>(bidderMap.values()));
+        FilteredList<Auction> filteredList = new FilteredList<>(bidderList, auction -> true);
         logger.debug("Bidder UI initialized with " + bidderMap.size() + " auctions");
 
-        int initIndex = 0;
-        for (Auction auction : bidderMap.values()) {
-            VBox newCard = createCardBidder(auction);
-            if (newCard != null) {
-                bidderCardBox.put(auction.getId(), newCard);
-                bidderFlowPane.getChildren().add(initIndex++, newCard);
-            }
-        }
+       refreshBidderList(filteredList);
 
         ClientSession.getInstance().getBidderAuctions().addListener((MapChangeListener< Integer, Auction>) change -> {
             // nếu còn phần tử, trả về true --> chạy tiếp
@@ -229,10 +223,24 @@ public class SellerBidderHomeScreenController {
                 }
 
         });
+        filteredList.addListener((ListChangeListener<Auction>) change -> {
+            refreshBidderList(filteredList);
+        });
+
+        bidderSearchField.textProperty().addListener(((observable, oldValue, newValue) -> {
+            filteredList.setPredicate(auction -> {
+                if (newValue == null || newValue.isEmpty()){
+                    return true;
+                }
+                String lowerNewValue = newValue.toLowerCase();
+                return auction.getItem().getName().toLowerCase().contains(lowerNewValue);
+            });
+        }));
     }
 
-    @FXML
-    TextField bidderSearchField;
+
+    /**BIDDER SEARCH BAR*/
+
 
     public void initializeBidderUINew() {
         //initialize data structures
@@ -274,8 +282,9 @@ public class SellerBidderHomeScreenController {
             refreshBidderList(filteredList);
         });
 
+        //If auctions satisfy the condition --> display on UI
         bidderSearchField.textProperty().addListener(((observable, oldValue, newValue) -> {
-            filteredList.setPredicate(auction -> {
+            filteredList.setPredicate(auction -> { // update on filter condition for auction: Retunr type Boolean
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
@@ -286,6 +295,7 @@ public class SellerBidderHomeScreenController {
     }
 
     public void refreshBidderList(FilteredList<Auction> filteredList) {
+        int initIdx = 0;
         bidderFlowPane.getChildren().clear();
         for (Auction auction : filteredList) {
             // Reuse existing card from cache to prevent massive memory allocation
@@ -297,13 +307,13 @@ public class SellerBidderHomeScreenController {
                 }
             }
             if (card != null) {
-                bidderFlowPane.getChildren().add(card);
+                bidderFlowPane.getChildren().add(initIdx++,card);
             }
         }
         // Cleanup cache for auctions that are no longer in the list
         bidderCardBox.keySet().removeIf(id -> filteredList.stream().noneMatch(a -> a.getId() == id));
     }
-
+    
     public void initializeSellerUINew() {
         // initialize data structures
         ObservableMap<Integer, Auction> sellerMap = ClientSession.getInstance().getSellerAuctions();

@@ -71,7 +71,11 @@
                                       </FlowPane>
                                   </content>
                               </ScrollPane>
-                        <TextField fx:id="bidderSearchField" layoutX="843.0" layoutY="40.0" prefHeight="26.0" prefWidth="357.0" promptText="Search " style="-fx-background-radius: 45;" />
+                        <TextField fx:id="bidderSearchField" layoutX="843.0" layoutY="25.0" prefHeight="41.0" prefWidth="357.0" promptText="Search " style="-fx-background-radius: 45;">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </TextField>
                           </children>
                       </AnchorPane>
                   </content>
