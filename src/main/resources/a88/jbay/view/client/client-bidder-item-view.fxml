@@ -52,9 +52,9 @@
                         <Insets bottom="15.0" />
                     </GridPane.margin>
                 </Label>
-                <Label fx:id="currentPriceLabel" prefHeight="86.0" prefWidth="402.0" text="current price(USD)" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                <Label fx:id="currentPriceLabel" prefHeight="86.0" prefWidth="402.0" text="current price(USD)" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
                     <font>
-                        <Font name="System Bold" size="28.0" />
+                        <Font name="System Bold" size="24.0" />
                     </font>
                 </Label>
                 <VBox prefHeight="103.0" prefWidth="366.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
@@ -75,27 +75,27 @@
                         <Font name="System Bold" size="32.0" />
                     </font>
                 </Label>
-                <Label fx:id="sellerLabel" prefHeight="87.0" prefWidth="408.0" text="Seller Name/Id" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                <Label fx:id="sellerLabel" prefHeight="87.0" prefWidth="408.0" text="Seller Name/Id" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <font>
-                        <Font name="System Bold" size="28.0" />
+                        <Font name="System Bold" size="24.0" />
                     </font></Label>
                 <Label text="Auction Time:" GridPane.rowIndex="1">
                     <font>
                         <Font name="System Bold" size="32.0" />
                     </font>
                 </Label>
-                <Label fx:id="auctionTimeLabel" prefHeight="96.0" prefWidth="385.0" text="StartTime-EndTime" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <Label fx:id="auctionTimeLabel" prefHeight="96.0" prefWidth="385.0" text="StartTime-EndTime" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <font>
-                        <Font name="System Bold" size="28.0" />
+                        <Font name="System Bold" size="24.0" />
                     </font></Label>
                 <Label text="Item Name:">
                     <font>
                         <Font name="System Bold" size="32.0" />
                     </font>
                 </Label>
-                <Label fx:id="itemNameLabel" prefHeight="80.0" prefWidth="391.0" text="Item name" GridPane.columnIndex="1">
+                <Label fx:id="itemNameLabel" prefHeight="80.0" prefWidth="391.0" text="Item name" wrapText="true" GridPane.columnIndex="1">
                     <font>
-                        <Font name="System Bold" size="28.0" />
+                        <Font name="System Bold" size="24.0" />
                     </font>
                 </Label>
             </children>

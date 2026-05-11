@@ -24142,6 +24142,392 @@ java.net.SocketException: Connection reset
 2026-05-10 16:46:17.441 [main] INFO  a88.jbay.view.MainServerTUI - Connect to database:
 2026-05-10 16:46:17.441 [main] INFO  a88.jbay.view.MainServerTUI - Enter URL:
 2026-05-10 16:46:23.822 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 16:55:50.223 [main] INFO  a88.jbay.view.MainServerTUI - JBAY Server TUI starting
+2026-05-10 16:55:50.225 [main] INFO  a88.jbay.view.MainServerTUI - ------------------JBAY_SERVER_TUI-----------------
+2026-05-10 16:55:50.225 [main] INFO  a88.jbay.view.MainServerTUI - --------------software infrastructure-------------
+2026-05-10 16:55:50.229 [main] INFO  a88.jbay.view.MainServerTUI - Connect to database:
+2026-05-10 16:55:50.229 [main] INFO  a88.jbay.view.MainServerTUI - Enter URL:
+2026-05-10 16:56:26.611 [main] INFO  a88.jbay.view.MainServerTUI - Enter username:
+2026-05-10 16:57:36.285 [main] INFO  a88.jbay.view.MainServerTUI - Enter password:
+2026-05-10 16:57:41.188 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-05-10 17:23:17.039 [main] INFO  a88.jbay.view.MainServerTUI - JBAY Server TUI starting
+2026-05-10 17:23:17.042 [main] INFO  a88.jbay.view.MainServerTUI - ------------------JBAY_SERVER_TUI-----------------
+2026-05-10 17:23:17.043 [main] INFO  a88.jbay.view.MainServerTUI - --------------software infrastructure-------------
+2026-05-10 17:23:17.047 [main] INFO  a88.jbay.view.MainServerTUI - Connect to database:
+2026-05-10 17:23:17.049 [main] INFO  a88.jbay.view.MainServerTUI - Enter URL:
+2026-05-10 17:23:30.796 [main] INFO  a88.jbay.view.MainServerTUI - Enter username:
+2026-05-10 17:23:33.265 [main] INFO  a88.jbay.view.MainServerTUI - Enter password:
+2026-05-10 17:23:35.172 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-05-10 17:23:35.911 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@40317ba2
+2026-05-10 17:23:35.916 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-05-10 17:23:35.917 [main] INFO  a88.jbay.server.DatabaseController - Database connection pool initialized with URL: jdbc:mysql://localhost:3306/jbay_db
+2026-05-10 17:23:35.918 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-10 17:23:35.921 [main] DEBUG a88.jbay.server.DatabaseController - Database connection established
+2026-05-10 17:23:35.935 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-10 17:23:36.015 [main] DEBUG a88.jbay.server.DatabaseController - Database connection established
+2026-05-10 17:23:36.087 [main] INFO  a88.jbay.system.AuctionSystem - Loading 0 active auctions from database
+2026-05-10 17:24:17.947 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 17:24:20.984 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 17:24:31.450 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connecting to server: localhost:1234
+2026-05-10 17:24:31.453 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connection successful to server: localhost:1234
+2026-05-10 17:24:31.454 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 17:24:43.388 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: LOGIN
+2026-05-10 17:24:43.420 [] DEBUG a88.jbay.system.UserSystem - Attempting login for user: Duckie
+2026-05-10 17:24:43.420 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-10 17:24:43.423 [] DEBUG a88.jbay.server.DatabaseController - Database connection established
+2026-05-10 17:24:43.439 [] WARN  a88.jbay.system.UserSystem - Login failed - user not found: Duckie
+2026-05-10 17:24:43.440 [] INFO  a88.jbay.server.ClientConnection - Sending response: LOGIN_FAIL
+2026-05-10 17:24:43.444 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: LOGIN_FAIL
+2026-05-10 17:24:50.345 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: REGISTER
+2026-05-10 17:24:50.347 [] DEBUG a88.jbay.system.UserSystem - Attempting registration for user: Duckie
+2026-05-10 17:24:50.347 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-10 17:24:50.348 [] DEBUG a88.jbay.server.DatabaseController - Database connection established
+2026-05-10 17:24:50.351 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-10 17:24:50.352 [] DEBUG a88.jbay.server.DatabaseController - Database connection established
+2026-05-10 17:24:50.371 [] INFO  a88.jbay.system.UserSystem - User registered successfully: Duckie
+2026-05-10 17:24:50.371 [] INFO  a88.jbay.server.ClientConnection - Sending response: REGISTER_SUCCESS
+2026-05-10 17:24:50.372 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: REGISTER_SUCCESS
+2026-05-10 17:24:50.372 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - REGISTER_SUCCESS
+2026-05-10 17:24:53.355 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: LOGIN
+2026-05-10 17:24:53.357 [] DEBUG a88.jbay.system.UserSystem - Attempting login for user: Duckie
+2026-05-10 17:24:53.357 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-10 17:24:53.358 [] DEBUG a88.jbay.server.DatabaseController - Database connection established
+2026-05-10 17:24:53.362 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-10 17:24:53.362 [] DEBUG a88.jbay.server.DatabaseController - Database connection established
+2026-05-10 17:24:53.388 [] INFO  a88.jbay.system.UserSystem - User logged in successfully: Duckie
+2026-05-10 17:24:53.392 [] DEBUG a88.jbay.system.UpdateSystem - Registering connection: 923073201
+2026-05-10 17:24:53.393 [] DEBUG a88.jbay.system.UpdateSystem - Total registered connections: 1
+2026-05-10 17:24:53.393 [] INFO  a88.jbay.server.ClientConnection - Sending response: LOGIN_SUCCESS
+2026-05-10 17:24:53.401 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: LOGIN_SUCCESS
+2026-05-10 17:24:53.402 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 17:24:53.453 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 0 auctions
+2026-05-10 17:24:53.455 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 0 auctions
+2026-05-10 17:24:53.656 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: GET_AUCTIONS
+2026-05-10 17:24:53.662 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-10 17:24:53.662 [] DEBUG a88.jbay.server.DatabaseController - Database connection established
+2026-05-10 17:24:53.666 [] INFO  a88.jbay.server.ClientConnection - Sending response: ACTIVE_AUCTION_LIST
+2026-05-10 17:24:53.668 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-10 17:24:53.668 [] DEBUG a88.jbay.server.DatabaseController - Database connection established
+2026-05-10 17:24:53.669 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: ACTIVE_AUCTION_LIST
+2026-05-10 17:24:53.679 [] INFO  a88.jbay.server.ClientConnection - Sending response: BIDDER_AUCTION_LIST
+2026-05-10 17:24:53.681 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-10 17:24:53.681 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BIDDER_AUCTION_LIST
+2026-05-10 17:24:53.682 [] DEBUG a88.jbay.server.DatabaseController - Database connection established
+2026-05-10 17:24:53.684 [] INFO  a88.jbay.server.ClientConnection - Sending response: SELLER_AUCTION_LIST
+2026-05-10 17:24:53.684 [] INFO  a88.jbay.server.ClientConnection - Sending response: GET_AUCTIONS_SUCCESS
+2026-05-10 17:24:53.685 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: SELLER_AUCTION_LIST
+2026-05-10 17:24:53.685 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: GET_AUCTIONS_SUCCESS
+2026-05-10 17:24:53.686 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - GET_AUCTIONS_SUCCESS
+2026-05-10 17:24:58.573 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 17:27:08.143 [JavaFX Application Thread] DEBUG a.j.c.c.ClientSellerItemController - File selected: 517405600_1248356506933158_8451578439029865986_n.jpg
+2026-05-10 17:27:37.989 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 17:27:38.012 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 0 auctions
+2026-05-10 17:27:38.012 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 0 auctions
+2026-05-10 17:27:43.061 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: LOGOUT
+2026-05-10 17:27:43.064 [] DEBUG a88.jbay.system.UserSystem - User logging out with session: 682f164e-3071-44d0-aa79-f8fc5ca342d5
+2026-05-10 17:27:43.065 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-10 17:27:43.065 [] DEBUG a88.jbay.server.DatabaseController - Database connection established
+2026-05-10 17:27:43.091 [] INFO  a88.jbay.system.UserSystem - User logged out successfully
+2026-05-10 17:27:43.091 [] DEBUG a88.jbay.system.UpdateSystem - Unregistering connection: 923073201
+2026-05-10 17:27:43.091 [] DEBUG a88.jbay.system.UpdateSystem - Remaining connections: 1
+2026-05-10 17:27:43.091 [] INFO  a88.jbay.server.ClientConnection - Sending response: LOGOUT_SUCCESS
+2026-05-10 17:27:43.092 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: LOGOUT_SUCCESS
+2026-05-10 17:27:43.093 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Session has been cleared
+2026-05-10 17:27:43.093 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 17:27:56.276 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: LOGIN
+2026-05-10 17:27:56.277 [] DEBUG a88.jbay.system.UserSystem - Attempting login for user: Duckie
+2026-05-10 17:27:56.278 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-10 17:27:56.279 [] DEBUG a88.jbay.server.DatabaseController - Database connection established
+2026-05-10 17:27:56.282 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-10 17:27:56.282 [] DEBUG a88.jbay.server.DatabaseController - Database connection established
+2026-05-10 17:27:56.295 [] INFO  a88.jbay.system.UserSystem - User logged in successfully: Duckie
+2026-05-10 17:27:56.296 [] DEBUG a88.jbay.system.UpdateSystem - Registering connection: 923073201
+2026-05-10 17:27:56.296 [] DEBUG a88.jbay.system.UpdateSystem - Total registered connections: 1
+2026-05-10 17:27:56.296 [] INFO  a88.jbay.server.ClientConnection - Sending response: LOGIN_SUCCESS
+2026-05-10 17:27:56.297 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: LOGIN_SUCCESS
+2026-05-10 17:27:56.297 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 17:27:56.314 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 0 auctions
+2026-05-10 17:27:56.314 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 0 auctions
+2026-05-10 17:27:56.386 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: GET_AUCTIONS
+2026-05-10 17:27:56.437 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-10 17:27:56.438 [] DEBUG a88.jbay.server.DatabaseController - Database connection established
+2026-05-10 17:27:56.482 [] INFO  a88.jbay.server.ClientConnection - Sending response: ACTIVE_AUCTION_LIST
+2026-05-10 17:27:56.483 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: ACTIVE_AUCTION_LIST
+2026-05-10 17:27:56.484 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-10 17:27:56.485 [] DEBUG a88.jbay.server.DatabaseController - Database connection established
+2026-05-10 17:27:56.487 [] INFO  a88.jbay.server.ClientConnection - Sending response: BIDDER_AUCTION_LIST
+2026-05-10 17:27:56.491 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BIDDER_AUCTION_LIST
+2026-05-10 17:27:56.492 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-10 17:27:56.493 [] DEBUG a88.jbay.server.DatabaseController - Database connection established
+2026-05-10 17:27:56.494 [] INFO  a88.jbay.server.ClientConnection - Sending response: SELLER_AUCTION_LIST
+2026-05-10 17:27:56.495 [] INFO  a88.jbay.server.ClientConnection - Sending response: GET_AUCTIONS_SUCCESS
+2026-05-10 17:27:56.495 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: SELLER_AUCTION_LIST
+2026-05-10 17:27:56.496 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: GET_AUCTIONS_SUCCESS
+2026-05-10 17:27:56.496 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - GET_AUCTIONS_SUCCESS
+2026-05-10 17:28:01.005 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 17:28:09.191 [JavaFX Application Thread] DEBUG a.j.c.c.ClientSellerItemController - File selected: 517405600_1248356506933158_8451578439029865986_n.jpg
+2026-05-10 17:28:37.492 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: SELL
+2026-05-10 17:28:37.501 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 17:28:37.523 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 0 auctions
+2026-05-10 17:28:37.523 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 0 auctions
+2026-05-10 17:28:37.609 [] INFO  a88.jbay.system.AuctionSystem - Creating auction for item: HG Star Build Strike by seller: 5
+2026-05-10 17:28:37.610 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-10 17:28:37.645 [] DEBUG a88.jbay.server.DatabaseController - Database connection established
+2026-05-10 17:28:37.907 [] ERROR a88.jbay.system.AuctionSystem - Failed to insert item: HG Star Build Strike
+2026-05-10 17:28:37.908 [] INFO  a88.jbay.server.ClientConnection - Sending response: SELL_FAIL
+2026-05-10 17:28:37.908 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: SELL_FAIL
+2026-05-10 17:28:37.909 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - SELL_FAIL
+2026-05-10 17:28:41.029 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 17:28:42.244 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 17:28:42.261 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 0 auctions
+2026-05-10 17:28:42.261 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 0 auctions
+2026-05-10 17:28:49.437 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: LOGOUT
+2026-05-10 17:28:49.438 [] DEBUG a88.jbay.system.UserSystem - User logging out with session: b2089345-bd8d-457a-9f57-366f02662e52
+2026-05-10 17:28:49.438 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-10 17:28:49.439 [] DEBUG a88.jbay.server.DatabaseController - Database connection established
+2026-05-10 17:28:49.451 [] INFO  a88.jbay.system.UserSystem - User logged out successfully
+2026-05-10 17:28:49.451 [] DEBUG a88.jbay.system.UpdateSystem - Unregistering connection: 923073201
+2026-05-10 17:28:49.451 [] DEBUG a88.jbay.system.UpdateSystem - Remaining connections: 1
+2026-05-10 17:28:49.451 [] INFO  a88.jbay.server.ClientConnection - Sending response: LOGOUT_SUCCESS
+2026-05-10 17:28:49.452 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: LOGOUT_SUCCESS
+2026-05-10 17:28:49.452 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Session has been cleared
+2026-05-10 17:28:49.452 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 17:28:55.716 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: LOGIN
+2026-05-10 17:28:55.718 [] DEBUG a88.jbay.system.UserSystem - Attempting login for user: Duckie
+2026-05-10 17:28:55.718 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-10 17:28:55.719 [] DEBUG a88.jbay.server.DatabaseController - Database connection established
+2026-05-10 17:28:55.720 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-10 17:28:55.721 [] DEBUG a88.jbay.server.DatabaseController - Database connection established
+2026-05-10 17:28:55.774 [] INFO  a88.jbay.system.UserSystem - User logged in successfully: Duckie
+2026-05-10 17:28:55.775 [] DEBUG a88.jbay.system.UpdateSystem - Registering connection: 923073201
+2026-05-10 17:28:55.775 [] DEBUG a88.jbay.system.UpdateSystem - Total registered connections: 1
+2026-05-10 17:28:55.775 [] INFO  a88.jbay.server.ClientConnection - Sending response: LOGIN_SUCCESS
+2026-05-10 17:28:55.777 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: LOGIN_SUCCESS
+2026-05-10 17:28:55.777 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 17:28:55.791 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 0 auctions
+2026-05-10 17:28:55.792 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 0 auctions
+2026-05-10 17:28:55.847 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: GET_AUCTIONS
+2026-05-10 17:28:55.869 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-10 17:28:55.869 [] DEBUG a88.jbay.server.DatabaseController - Database connection established
+2026-05-10 17:28:55.872 [] INFO  a88.jbay.server.ClientConnection - Sending response: ACTIVE_AUCTION_LIST
+2026-05-10 17:28:55.873 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-10 17:28:55.873 [] DEBUG a88.jbay.server.DatabaseController - Database connection established
+2026-05-10 17:28:55.873 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: ACTIVE_AUCTION_LIST
+2026-05-10 17:28:55.876 [] INFO  a88.jbay.server.ClientConnection - Sending response: BIDDER_AUCTION_LIST
+2026-05-10 17:28:55.877 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BIDDER_AUCTION_LIST
+2026-05-10 17:28:55.878 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-10 17:28:55.878 [] DEBUG a88.jbay.server.DatabaseController - Database connection established
+2026-05-10 17:28:55.882 [] INFO  a88.jbay.server.ClientConnection - Sending response: SELLER_AUCTION_LIST
+2026-05-10 17:28:55.883 [] INFO  a88.jbay.server.ClientConnection - Sending response: GET_AUCTIONS_SUCCESS
+2026-05-10 17:28:55.883 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: SELLER_AUCTION_LIST
+2026-05-10 17:28:55.883 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: GET_AUCTIONS_SUCCESS
+2026-05-10 17:28:55.883 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - GET_AUCTIONS_SUCCESS
+2026-05-10 17:28:58.500 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 17:29:08.420 [JavaFX Application Thread] DEBUG a.j.c.c.ClientSellerItemController - File selected: 517405600_1248356506933158_8451578439029865986_n.jpg
+2026-05-10 17:29:25.856 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: SELL
+2026-05-10 17:29:25.861 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 17:29:25.881 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 0 auctions
+2026-05-10 17:29:25.881 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 0 auctions
+2026-05-10 17:29:25.930 [] INFO  a88.jbay.system.AuctionSystem - Creating auction for item: HG gundam by seller: 5
+2026-05-10 17:29:25.931 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-10 17:29:25.932 [] DEBUG a88.jbay.server.DatabaseController - Database connection established
+2026-05-10 17:29:26.038 [] ERROR a88.jbay.system.AuctionSystem - Failed to insert item: HG gundam
+2026-05-10 17:29:26.039 [] INFO  a88.jbay.server.ClientConnection - Sending response: SELL_FAIL
+2026-05-10 17:29:26.039 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: SELL_FAIL
+2026-05-10 17:29:26.040 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - SELL_FAIL
+2026-05-10 17:30:07.492 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 17:30:15.951 [JavaFX Application Thread] DEBUG a.j.c.c.ClientSellerItemController - File selected: 517405600_1248356506933158_8451578439029865986_n.jpg
+2026-05-10 17:31:02.198 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: SELL
+2026-05-10 17:31:02.202 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 17:31:02.204 [] INFO  a88.jbay.system.AuctionSystem - Creating auction for item: hg gundam by seller: 5
+2026-05-10 17:31:02.204 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-10 17:31:02.205 [] DEBUG a88.jbay.server.DatabaseController - Database connection established
+2026-05-10 17:31:02.217 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 0 auctions
+2026-05-10 17:31:02.217 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 0 auctions
+2026-05-10 17:31:02.293 [] ERROR a88.jbay.system.AuctionSystem - Failed to insert item: hg gundam
+2026-05-10 17:31:02.294 [] INFO  a88.jbay.server.ClientConnection - Sending response: SELL_FAIL
+2026-05-10 17:31:02.294 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: SELL_FAIL
+2026-05-10 17:31:02.336 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - SELL_FAIL
+2026-05-10 17:31:08.662 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 17:31:18.503 [JavaFX Application Thread] DEBUG a.j.c.c.ClientSellerItemController - File selected: 517405600_1248356506933158_8451578439029865986_n.jpg
+2026-05-10 17:31:36.058 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: SELL
+2026-05-10 17:31:36.077 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 17:31:36.119 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 0 auctions
+2026-05-10 17:31:36.119 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 0 auctions
+2026-05-10 17:31:36.160 [] INFO  a88.jbay.system.AuctionSystem - Creating auction for item: gundam by seller: 5
+2026-05-10 17:31:36.160 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-10 17:31:36.161 [] DEBUG a88.jbay.server.DatabaseController - Database connection established
+2026-05-10 17:31:36.302 [] ERROR a88.jbay.system.AuctionSystem - Failed to insert item: gundam
+2026-05-10 17:31:36.302 [] INFO  a88.jbay.server.ClientConnection - Sending response: SELL_FAIL
+2026-05-10 17:31:36.303 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: SELL_FAIL
+2026-05-10 17:31:36.303 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - SELL_FAIL
+2026-05-10 17:32:01.428 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: LOGOUT
+2026-05-10 17:32:01.430 [] DEBUG a88.jbay.system.UserSystem - User logging out with session: 82fbb986-7d61-47fa-949c-53b0d721f77c
+2026-05-10 17:32:01.430 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-10 17:32:01.431 [] DEBUG a88.jbay.server.DatabaseController - Database connection established
+2026-05-10 17:32:01.444 [] INFO  a88.jbay.system.UserSystem - User logged out successfully
+2026-05-10 17:32:01.444 [] DEBUG a88.jbay.system.UpdateSystem - Unregistering connection: 923073201
+2026-05-10 17:32:01.445 [] DEBUG a88.jbay.system.UpdateSystem - Remaining connections: 1
+2026-05-10 17:32:01.445 [] INFO  a88.jbay.server.ClientConnection - Sending response: LOGOUT_SUCCESS
+2026-05-10 17:32:01.445 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: LOGOUT_SUCCESS
+2026-05-10 17:32:01.446 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Session has been cleared
+2026-05-10 17:32:01.446 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 17:32:02.485 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: MISC
+2026-05-10 17:32:02.526 [Thread-4] ERROR a88.jbay.client.ServerConnection - Disconnected from server: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.endRead(NioSocketImpl.java:242)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:321)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:354)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:798)
+	at java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:974)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:964)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:958)
+	at java.base/java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2740)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:3069)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:3079)
+	at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1571)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:487)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:445)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startListener$0(ServerConnection.java:72)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-10 17:32:02.531 [Thread-4] INFO  a88.jbay.client.ServerConnection - Listener thread ended
+2026-05-10 17:32:02.546 [] DEBUG a88.jbay.system.UpdateSystem - Unregistering connection: 923073201
+2026-05-10 23:31:14.217 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:31:17.149 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:31:32.389 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connecting to server: 0.tcp.ap.ngrok.io:17359
+2026-05-10 23:31:32.622 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connection successful to server: 0.tcp.ap.ngrok.io:17359
+2026-05-10 23:31:32.623 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:31:43.480 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: LOGIN
+2026-05-10 23:31:43.641 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: LOGIN_SUCCESS
+2026-05-10 23:31:43.643 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:31:43.705 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 0 auctions
+2026-05-10 23:31:43.707 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 0 auctions
+2026-05-10 23:31:43.907 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: GET_AUCTIONS
+2026-05-10 23:31:44.521 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: ACTIVE_AUCTION_LIST
+2026-05-10 23:31:44.525 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:31:44.527 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:31:44.531 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:31:44.535 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:31:44.538 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:31:44.541 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:31:44.545 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:31:44.548 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:31:44.550 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:31:44.553 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:31:44.557 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:31:44.561 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:31:44.564 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:31:44.579 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:31:44.593 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:31:44.620 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:31:44.623 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BIDDER_AUCTION_LIST
+2026-05-10 23:31:44.859 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:32:08.370 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:36:24.179 [JavaFX Application Thread] DEBUG a.j.c.c.ClientSellerItemController - File selected: thumb-1920-380196.png
+2026-05-10 23:36:44.482 [Thread-4] INFO  a88.jbay.client.ServerConnection - Server closed the connection
+2026-05-10 23:36:44.483 [Thread-4] INFO  a88.jbay.client.ServerConnection - Listener thread ended
+2026-05-10 23:36:47.303 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:37:25.376 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connecting to server: 0.tcp.ap.ngrok.io:17359
+2026-05-10 23:37:25.538 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connection successful to server: 0.tcp.ap.ngrok.io:17359
+2026-05-10 23:37:25.539 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:37:33.678 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: LOGIN
+2026-05-10 23:37:33.814 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: LOGIN_SUCCESS
+2026-05-10 23:37:33.815 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:37:33.826 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 1 auctions
+2026-05-10 23:37:33.894 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 16 auctions
+2026-05-10 23:37:34.780 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: GET_AUCTIONS
+2026-05-10 23:37:35.346 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: ACTIVE_AUCTION_LIST
+2026-05-10 23:37:36.579 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:37:44.764 [JavaFX Application Thread] DEBUG a.j.c.c.ClientSellerItemController - File selected: 033d6586-8e5d-469d-8c25-3a427f1117ab.jpg
+2026-05-10 23:38:12.397 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: SELL
+2026-05-10 23:38:12.557 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:38:12.570 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 1 auctions
+2026-05-10 23:38:12.646 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 16 auctions
+2026-05-10 23:38:28.392 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:38:36.056 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: BID
+2026-05-10 23:38:46.784 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: BID
+2026-05-10 23:38:50.297 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: BID
+2026-05-10 23:38:52.440 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: BID
+2026-05-10 23:38:53.465 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:38:53.476 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 1 auctions
+2026-05-10 23:38:53.553 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 16 auctions
+2026-05-10 23:38:56.929 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:39:06.512 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: BID
+2026-05-10 23:39:07.904 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:39:07.913 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 1 auctions
+2026-05-10 23:39:07.969 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 16 auctions
+2026-05-10 23:39:33.577 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:39:38.730 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: CANCEL
+2026-05-10 23:39:38.731 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:39:38.739 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 1 auctions
+2026-05-10 23:39:38.808 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 16 auctions
+2026-05-10 23:39:40.561 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:39:47.313 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:39:47.323 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 1 auctions
+2026-05-10 23:39:47.376 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 16 auctions
+2026-05-10 23:39:56.560 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:40:09.416 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:40:09.423 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 1 auctions
+2026-05-10 23:40:09.484 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 16 auctions
+2026-05-10 23:40:11.232 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: LOGOUT
+2026-05-10 23:40:12.832 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: LOGOUT
+2026-05-10 23:40:13.936 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: LOGOUT
+2026-05-10 23:40:14.385 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: MISC
+2026-05-10 23:40:14.403 [Thread-5] ERROR a88.jbay.client.ServerConnection - Disconnected from server: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.endRead(NioSocketImpl.java:242)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:321)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:354)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:798)
+	at java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:974)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:964)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:958)
+	at java.base/java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2740)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:3069)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:3079)
+	at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1571)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:487)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:445)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startListener$0(ServerConnection.java:72)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-10 23:40:14.407 [Thread-5] INFO  a88.jbay.client.ServerConnection - Listener thread ended
+2026-05-10 23:40:14.442 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:40:25.577 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:40:27.689 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:40:37.958 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connecting to server: 0.tcp.ap.ngrok.io:17359
+2026-05-10 23:40:38.133 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connection successful to server: 0.tcp.ap.ngrok.io:17359
+2026-05-10 23:40:38.134 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:40:48.837 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: LOGIN
+2026-05-10 23:40:48.980 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: LOGIN_SUCCESS
+2026-05-10 23:40:48.981 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:40:49.028 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 0 auctions
+2026-05-10 23:40:49.030 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 0 auctions
+2026-05-10 23:40:49.254 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: GET_AUCTIONS
+2026-05-10 23:40:49.760 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: ACTIVE_AUCTION_LIST
+2026-05-10 23:42:27.048 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: LOGOUT
+2026-05-10 23:42:27.520 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: LOGOUT
+2026-05-10 23:42:32.848 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:42:46.929 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: BID
+2026-05-10 23:42:49.777 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:42:49.790 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 0 auctions
+2026-05-10 23:42:49.791 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 15 auctions
+2026-05-10 23:42:54.472 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:42:56.041 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:42:56.051 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 0 auctions
+2026-05-10 23:42:56.051 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 15 auctions
+2026-05-10 23:42:57.737 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:42:58.872 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:42:58.888 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 0 auctions
+2026-05-10 23:42:58.888 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 15 auctions
+2026-05-10 23:43:00.096 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:43:13.832 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:43:13.842 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 0 auctions
+2026-05-10 23:43:13.842 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 15 auctions
+2026-05-10 23:43:15.704 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:43:25.924 [Thread-4] INFO  a88.jbay.client.ServerConnection - Server closed the connection
+2026-05-10 23:43:25.925 [Thread-4] INFO  a88.jbay.client.ServerConnection - Listener thread ended
+2026-05-10 23:43:29.340 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:43:58.929 [JavaFX Application Thread] DEBUG a88.jbay.client.ServerConnection - Sending request: MISC
 2026-05-10 16:51:03.387 [main] INFO  a88.jbay.view.MainServerTUI - JBAY Server TUI starting
 2026-05-10 16:51:03.388 [main] INFO  a88.jbay.view.MainServerTUI - ------------------JBAY_SERVER_TUI-----------------
 2026-05-10 16:51:03.389 [main] INFO  a88.jbay.view.MainServerTUI - --------------software infrastructure-------------
@@ -31673,6 +32059,344 @@ java.net.SocketException: Socket closed
 2026-05-10 23:01:44.716 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=TESTUSER
 2026-05-10 23:01:44.718 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
 2026-05-10 23:01:44.718 [main] INFO  a88.jbay.server.DatabaseController - Database connection pool initialized with URL: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
+2026-05-10 23:45:36.933 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:45:39.702 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:46:04.272 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connecting to server: 0.tcp.ap.ngrok.io:17359
+2026-05-10 23:46:04.450 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connection successful to server: 0.tcp.ap.ngrok.io:17359
+2026-05-10 23:46:04.452 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:46:04.454 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-10 23:46:04.617 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-10 23:46:04.791 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-10 23:46:17.756 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: LOGIN
+2026-05-10 23:46:17.901 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: LOGIN_SUCCESS
+2026-05-10 23:46:17.901 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:46:17.960 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 0 auctions
+2026-05-10 23:46:17.962 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 0 auctions
+2026-05-10 23:46:18.162 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: GET_AUCTIONS
+2026-05-10 23:46:18.651 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: ACTIVE_AUCTION_LIST
+2026-05-10 23:46:18.654 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:18.656 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:18.697 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:18.699 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:18.703 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:18.705 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:18.709 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:18.711 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:18.714 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:18.718 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:18.720 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:18.724 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:18.726 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:18.729 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:18.732 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:18.734 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:18.737 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BIDDER_AUCTION_LIST
+2026-05-10 23:46:18.740 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:18.805 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:18.846 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:18.926 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:18.972 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:19.035 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:19.092 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:19.207 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:19.224 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:19.256 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:19.326 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:19.340 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:19.369 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:19.386 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:19.409 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:19.418 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:19.457 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:19.458 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:19.496 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:19.499 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:19.533 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:19.647 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: SELLER_AUCTION_LIST
+2026-05-10 23:46:19.648 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: GET_AUCTIONS_SUCCESS
+2026-05-10 23:46:22.405 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - GET_AUCTIONS_SUCCESS
+2026-05-10 23:46:28.859 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:46:34.452 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-10 23:46:34.603 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-10 23:46:34.603 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-10 23:46:34.920 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: BID
+2026-05-10 23:46:35.263 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-10 23:46:35.264 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 33
+2026-05-10 23:46:35.311 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:46:35.311 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BID_SUCCESS
+2026-05-10 23:46:35.312 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - BID_SUCCESS
+2026-05-10 23:46:41.136 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:46:41.147 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 3 auctions
+2026-05-10 23:46:41.282 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 16 auctions
+2026-05-10 23:46:46.024 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:47:03.120 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:47:03.128 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 3 auctions
+2026-05-10 23:47:03.248 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 16 auctions
+2026-05-10 23:47:04.453 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-10 23:47:04.582 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-10 23:47:04.583 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-10 23:47:11.175 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:47:14.664 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:47:14.674 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 3 auctions
+2026-05-10 23:47:14.788 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 16 auctions
+2026-05-10 23:47:17.040 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:47:24.760 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: BID
+2026-05-10 23:47:25.040 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-10 23:47:25.040 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 34
+2026-05-10 23:47:25.103 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:47:25.103 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BID_SUCCESS
+2026-05-10 23:47:25.104 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - BID_SUCCESS
+2026-05-10 23:47:28.648 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: BID
+2026-05-10 23:47:28.944 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-10 23:47:28.945 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 34
+2026-05-10 23:47:28.992 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:47:28.992 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BID_SUCCESS
+2026-05-10 23:47:28.992 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - BID_SUCCESS
+2026-05-10 23:47:34.000 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: BID
+2026-05-10 23:47:34.301 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-10 23:47:34.301 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 34
+2026-05-10 23:47:34.351 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:47:34.351 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BID_SUCCESS
+2026-05-10 23:47:34.352 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - BID_SUCCESS
+2026-05-10 23:47:34.453 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-10 23:47:34.584 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-10 23:47:34.585 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-10 23:47:39.568 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: BID
+2026-05-10 23:47:39.894 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-10 23:47:39.895 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 34
+2026-05-10 23:47:39.948 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:47:39.948 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BID_SUCCESS
+2026-05-10 23:47:39.948 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - BID_SUCCESS
+2026-05-10 23:47:43.824 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: BID
+2026-05-10 23:47:44.112 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-10 23:47:44.112 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 34
+2026-05-10 23:47:44.169 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:47:44.169 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BID_SUCCESS
+2026-05-10 23:47:44.169 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - BID_SUCCESS
+2026-05-10 23:47:47.951 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: BID
+2026-05-10 23:47:48.300 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-10 23:47:48.300 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 34
+2026-05-10 23:47:48.346 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:47:48.346 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BID_SUCCESS
+2026-05-10 23:47:48.347 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - BID_SUCCESS
+2026-05-10 23:47:52.223 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: BID
+2026-05-10 23:47:52.507 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-10 23:47:52.507 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 34
+2026-05-10 23:47:52.553 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:47:52.554 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BID_SUCCESS
+2026-05-10 23:47:52.554 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - BID_SUCCESS
+2026-05-10 23:47:56.576 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: BID
+2026-05-10 23:47:56.856 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-10 23:47:56.856 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 34
+2026-05-10 23:47:56.903 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:47:56.904 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BID_SUCCESS
+2026-05-10 23:47:56.904 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - BID_SUCCESS
+2026-05-10 23:48:00.744 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: BID
+2026-05-10 23:48:01.024 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-10 23:48:01.024 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 34
+2026-05-10 23:48:01.072 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:48:01.072 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BID_SUCCESS
+2026-05-10 23:48:01.073 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - BID_SUCCESS
+2026-05-10 23:48:04.453 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-10 23:48:04.586 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-10 23:48:04.586 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-10 23:48:08.632 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: BID
+2026-05-10 23:48:08.904 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-10 23:48:08.905 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 34
+2026-05-10 23:48:08.959 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:48:09.754 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BID_SUCCESS
+2026-05-10 23:48:09.754 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - BID_SUCCESS
+2026-05-10 23:48:17.887 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:48:17.898 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 3 auctions
+2026-05-10 23:48:18.021 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 16 auctions
+2026-05-10 23:48:26.448 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:48:33.148 [JavaFX Application Thread] DEBUG a.j.c.c.ClientSellerItemController - File selected: ac84176f-f86a-44a7-8759-6f72d66e5b45.jpg
+2026-05-10 23:48:34.454 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-10 23:48:34.583 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-10 23:48:34.583 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-10 23:48:37.272 [JavaFX Application Thread] DEBUG a.j.c.c.ClientSellerItemController - File selected: 36bff651-59dc-460e-8233-e562bd8633bf.jpg
+2026-05-10 23:48:40.987 [JavaFX Application Thread] DEBUG a.j.c.c.ClientSellerItemController - File selected: 033d6586-8e5d-469d-8c25-3a427f1117ab.jpg
+2026-05-10 23:48:45.934 [JavaFX Application Thread] DEBUG a.j.c.c.ClientSellerItemController - File selected: thumb-1920-380196.png
+2026-05-10 23:49:04.453 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-10 23:49:04.648 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-10 23:49:04.648 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-10 23:49:11.160 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: SELL
+2026-05-10 23:49:11.351 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:49:11.361 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 3 auctions
+2026-05-10 23:49:11.487 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 16 auctions
+2026-05-10 23:49:12.234 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:49:12.235 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: SELL_SUCCESS
+2026-05-10 23:49:12.428 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - SELL_SUCCESS
+2026-05-10 23:49:15.045 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-10 23:49:15.045 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 36
+2026-05-10 23:49:15.138 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:49:34.452 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-10 23:49:34.592 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-10 23:49:34.592 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-10 23:50:04.453 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-10 23:50:04.632 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-10 23:50:04.632 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-10 23:50:32.503 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:50:34.452 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-10 23:50:34.589 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-10 23:50:34.590 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-10 23:50:41.856 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: BID
+2026-05-10 23:50:42.099 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-10 23:50:42.099 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 30
+2026-05-10 23:50:42.145 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:50:42.145 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BID_SUCCESS
+2026-05-10 23:50:42.146 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - BID_SUCCESS
+2026-05-10 23:50:46.576 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: BID
+2026-05-10 23:50:46.805 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-10 23:50:46.805 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 30
+2026-05-10 23:50:46.850 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:50:46.850 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BID_SUCCESS
+2026-05-10 23:50:46.880 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - BID_SUCCESS
+2026-05-10 23:50:50.655 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: BID
+2026-05-10 23:50:50.895 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-10 23:50:50.895 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 30
+2026-05-10 23:50:50.940 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:50:50.940 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BID_SUCCESS
+2026-05-10 23:50:50.940 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - BID_SUCCESS
+2026-05-10 23:50:54.599 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: BID
+2026-05-10 23:50:54.829 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-10 23:50:54.829 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 30
+2026-05-10 23:50:54.872 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:50:54.872 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BID_SUCCESS
+2026-05-10 23:50:54.873 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - BID_SUCCESS
+2026-05-10 23:51:04.462 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-10 23:51:04.649 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-10 23:51:04.649 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-10 23:51:07.751 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: BID
+2026-05-10 23:51:07.997 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-10 23:51:07.997 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 30
+2026-05-10 23:51:08.028 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:51:08.029 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BID_SUCCESS
+2026-05-10 23:51:08.031 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - BID_SUCCESS
+2026-05-10 23:51:13.815 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: BID
+2026-05-10 23:51:14.087 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-10 23:51:14.087 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 30
+2026-05-10 23:51:14.135 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:51:14.136 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BID_SUCCESS
+2026-05-10 23:51:14.136 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - BID_SUCCESS
+2026-05-10 23:51:22.768 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:51:22.776 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 4 auctions
+2026-05-10 23:51:22.948 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 16 auctions
+2026-05-10 23:51:27.631 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:51:34.453 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-10 23:51:34.599 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-10 23:51:34.599 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-10 23:51:34.904 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: BID
+2026-05-10 23:51:35.206 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-10 23:51:35.206 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 21
+2026-05-10 23:51:35.254 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:51:35.255 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BID_SUCCESS
+2026-05-10 23:51:35.255 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - BID_SUCCESS
+2026-05-10 23:51:54.296 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: BID
+2026-05-10 23:51:54.582 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-10 23:51:54.583 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 21
+2026-05-10 23:51:54.634 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:51:54.634 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BID_SUCCESS
+2026-05-10 23:51:54.635 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - BID_SUCCESS
+2026-05-10 23:51:58.072 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: CANCEL_AUTO_BID
+2026-05-10 23:51:58.215 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: CANCEL_AUTO_BID_SUCCESS
+2026-05-10 23:51:58.215 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - CANCEL_AUTO_BID_SUCCESS
+2026-05-10 23:52:01.223 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: BID
+2026-05-10 23:52:01.501 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-10 23:52:01.501 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 21
+2026-05-10 23:52:01.549 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:52:01.549 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BID_SUCCESS
+2026-05-10 23:52:01.549 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - BID_SUCCESS
+2026-05-10 23:52:04.453 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-10 23:52:04.595 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-10 23:52:04.595 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-10 23:52:05.303 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:52:05.314 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 4 auctions
+2026-05-10 23:52:05.465 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 16 auctions
+2026-05-10 23:52:34.453 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-10 23:52:34.582 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-10 23:52:34.583 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-10 23:52:35.743 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:52:39.854 [JavaFX Application Thread] DEBUG a.j.c.c.ClientSellerItemController - File selected: 36bff651-59dc-460e-8233-e562bd8633bf.jpg
+2026-05-10 23:52:45.344 [JavaFX Application Thread] DEBUG a.j.c.c.ClientSellerItemController - File selected: bdb64a4f-400b-42c0-823a-5f0f11e667ea.jpg
+2026-05-10 23:52:49.634 [JavaFX Application Thread] DEBUG a.j.c.c.ClientSellerItemController - File selected: 6eb991a1550b04227b9686d9da9f7dd2.jpg
+2026-05-10 23:52:58.368 [JavaFX Application Thread] DEBUG a.j.c.c.ClientSellerItemController - File selected: 854-3840x2160-desktop-4k-halo-background.jpg
+2026-05-10 23:53:04.462 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-10 23:53:04.637 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-10 23:53:04.637 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-10 23:53:21.050 [JavaFX Application Thread] DEBUG a.j.c.c.ClientSellerItemController - File selected: editbox864.png
+2026-05-10 23:53:34.453 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-10 23:53:34.583 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-10 23:53:34.583 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-10 23:54:04.459 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-10 23:54:04.591 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-10 23:54:04.591 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-10 23:54:34.462 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-10 23:54:34.652 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-10 23:54:34.652 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-10 23:54:51.323 [JavaFX Application Thread] DEBUG a.j.c.c.ClientSellerItemController - File selected: Screenshot 2026-04-26 202453.png
+2026-05-10 23:55:04.452 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-10 23:55:04.582 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-10 23:55:04.582 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-10 23:55:17.968 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: SELL
+2026-05-10 23:55:17.969 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:55:18.016 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 4 auctions
+2026-05-10 23:55:18.164 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 16 auctions
+2026-05-10 23:55:18.274 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:55:18.275 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: SELL_SUCCESS
+2026-05-10 23:55:18.812 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - SELL_SUCCESS
+2026-05-10 23:55:18.902 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-10 23:55:18.902 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 37
+2026-05-10 23:55:18.955 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:55:32.855 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:55:34.453 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-10 23:55:34.584 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-10 23:55:34.584 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-10 23:55:42.255 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:55:42.261 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 5 auctions
+2026-05-10 23:55:42.388 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 16 auctions
+2026-05-10 23:56:04.452 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-10 23:56:04.587 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-10 23:56:04.587 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-10 23:56:06.511 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
+2026-05-10 23:56:14.591 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: BID
+2026-05-10 23:56:14.870 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-10 23:56:14.870 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 34
+2026-05-10 23:56:14.917 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:56:14.917 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BID_SUCCESS
+2026-05-10 23:56:14.917 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - BID_SUCCESS
+2026-05-10 23:56:20.983 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: BID
+2026-05-10 23:56:21.292 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-10 23:56:21.292 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 34
+2026-05-10 23:56:21.348 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:56:21.348 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BID_SUCCESS
+2026-05-10 23:56:21.349 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - BID_SUCCESS
+2026-05-10 23:56:30.415 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: BID
+2026-05-10 23:56:30.719 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-10 23:56:30.719 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 34
+2026-05-10 23:56:30.764 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-10 23:56:30.764 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BID_SUCCESS
+2026-05-10 23:56:30.765 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - BID_SUCCESS
+2026-05-10 23:56:34.453 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-10 23:56:34.567 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: MISC
+2026-05-10 23:56:34.609 [Thread-4] ERROR a88.jbay.client.ServerConnection - Disconnected from server: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.endRead(NioSocketImpl.java:242)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:321)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:354)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:798)
+	at java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:974)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:964)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:958)
+	at java.base/java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2740)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:3069)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:3079)
+	at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1571)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:487)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:445)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startListener$0(ServerConnection.java:78)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-10 23:56:34.613 [Thread-4] INFO  a88.jbay.client.ServerConnection - Listener thread ended
 2026-05-10 23:01:54.661 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
 2026-05-10 23:01:56.491 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Auction listeners cleared
 2026-05-10 23:02:04.126 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connecting to server: localhost:1234
