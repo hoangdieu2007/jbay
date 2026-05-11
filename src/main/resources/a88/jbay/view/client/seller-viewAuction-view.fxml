@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="861.0" prefWidth="1284.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.SellerViewAuctionController">
+<AnchorPane prefHeight="861.0" prefWidth="1284.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.SellerViewAuctionController">
     <children>
         <StackPane layoutX="45.0" layoutY="85.0" prefHeight="231.0" prefWidth="281.0" style="-fx-border-color: #ddd; -fx-border-style: dashed;" AnchorPane.bottomAnchor="335.0" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="785.0" AnchorPane.topAnchor="85.0">
             <children>
@@ -44,9 +44,9 @@
                         <Font name="System Bold" size="32.0" />
                     </font>
                 </Label>
-                <Label fx:id="lblCurrentPrice" prefHeight="86.0" prefWidth="402.0" text="current price(USD)" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                <Label fx:id="lblCurrentPrice" prefHeight="86.0" prefWidth="402.0" text="current price(USD)" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
                     <font>
-                        <Font name="System Bold" size="28.0" />
+                        <Font name="System Bold" size="24.0" />
                     </font>
                 </Label>
                 <Label minWidth="250.0" text="Current Bidder:" GridPane.rowIndex="2">
@@ -54,27 +54,27 @@
                         <Font name="System Bold" size="32.0" />
                     </font>
                 </Label>
-                <Label fx:id="lblBidderName" minHeight="87.0" minWidth="408.0" text="Bidder Name/Id" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                <Label fx:id="lblBidderName" minHeight="87.0" minWidth="408.0" text="Bidder Name/Id" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <font>
-                        <Font name="System Bold" size="28.0" />
+                        <Font name="System Bold" size="24.0" />
                     </font></Label>
                 <Label text="Auction Time:" GridPane.rowIndex="1">
                     <font>
                         <Font name="System Bold" size="32.0" />
                     </font>
                 </Label>
-                <Label fx:id="lblAuctionTime" prefHeight="96.0" prefWidth="385.0" text="StartTime-EndTime" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <Label fx:id="lblAuctionTime" prefHeight="96.0" prefWidth="385.0" text="StartTime-EndTime" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <font>
-                        <Font name="System Bold" size="28.0" />
+                        <Font name="System Bold" size="24.0" />
                     </font></Label>
                 <Label text="Item Name:">
                     <font>
                         <Font name="System Bold" size="32.0" />
                     </font>
                 </Label>
-                <Label fx:id="lblItemName" prefHeight="80.0" prefWidth="391.0" text="Item name" GridPane.columnIndex="1">
+                <Label fx:id="lblItemName" prefHeight="80.0" prefWidth="391.0" text="Item name" wrapText="true" GridPane.columnIndex="1">
                     <font>
-                        <Font name="System Bold" size="28.0" />
+                        <Font name="System Bold" size="24.0" />
                     </font>
                 </Label>
             </children>
