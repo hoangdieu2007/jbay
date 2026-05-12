@@ -34,16 +34,6 @@ public class AuctionDAO {
         this.bidDAO = bidDAO;
     }
 
-    // Deprecated singleton method - use dependency injection instead
-    @Deprecated
-    public static AuctionDAO getInstance() {
-        return new AuctionDAO(
-            DatabaseController.getInstance(),
-            new ItemDAO(DatabaseController.getInstance()),
-            new BidDAO(DatabaseController.getInstance())
-        );
-    }
-
     private AuctionData mapAuction(ResultSet rs) throws SQLException {
         Item item = itemDAO.findItemById(rs.getInt("item"));
         if (item == null) return null;

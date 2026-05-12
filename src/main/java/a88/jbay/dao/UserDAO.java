@@ -22,12 +22,6 @@ public class UserDAO {
         this.dbController = dbController;
     }
 
-    // Deprecated singleton method - use dependency injection instead
-    @Deprecated
-    public static synchronized UserDAO getInstance() {
-        return new UserDAO(a88.jbay.server.DatabaseController.getInstance());
-    }
-
     private UserData extractUserDataFromResultSet(ResultSet rs) throws SQLException {
         int id = rs.getInt("id");
         String username = rs.getString("username");

@@ -16,12 +16,6 @@ public class ItemDAO {
         this.dbController = dbController;
     }
 
-    // Deprecated singleton method - use dependency injection instead
-    @Deprecated
-    public static synchronized ItemDAO getInstance() {
-        return new ItemDAO(DatabaseController.getInstance());
-    }
-
     public int insertItem(Item item) {
         String sql = "INSERT INTO items (name, type, `desc`, start_price, image) VALUES (?, ?, ?, ?, ?)";
 

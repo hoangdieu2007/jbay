@@ -25,12 +25,6 @@ public class BidDAO {
         this.dbController = dbController;
     }
 
-    // Deprecated singleton method - use dependency injection instead
-    @Deprecated
-    public static synchronized BidDAO getInstance() {
-        return new BidDAO(DatabaseController.getInstance());
-    }
-
     public boolean insertBid(int userId, int auctionId, double amount, LocalDateTime time) {
         String sql = "INSERT INTO bids (userid, auctionid, amt, time) VALUES (?, ?, ?, ?)";
 
