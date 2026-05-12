@@ -23,16 +23,16 @@ import java.util.concurrent.CopyOnWriteArraySet;
 public class UpdateSystem {
     private final Map<Integer, Set<ClientConnection>> connections = new ConcurrentHashMap<>();
     private final JBayLogger logger;
+    private AuctionSystem auctionSystem;
 
     // constructor for dependency injection
     public UpdateSystem() {
         this.logger = JBayLogger.getLogger(UpdateSystem.class);
     }
 
-    // deprecated singleton method - use dependency injection instead
-    @Deprecated
-    public static synchronized UpdateSystem getInstance() {
-        return new UpdateSystem();
+    // setter for AuctionSystem dependency (to avoid circular dependency)
+    public void setAuctionSystem(AuctionSystem auctionSystem) {
+        this.auctionSystem = auctionSystem;
     }
 
     public Map<Integer, Set<ClientConnection>> getConnections() {
@@ -60,9 +60,9 @@ public class UpdateSystem {
     }
 
     //unsub from all auctions
-    public void unsubscribeUserFromAllAuctions(int userId) {
+    public void unsubscribeUserFromAllAuctions(int userId, AuctionSystem auctionSystem) {
         logger.info("Unsubscribing user from all auctions: " + userId);
-        AuctionSystem.getInstance().getActiveAuctionList().forEach(auction -> auction.unsubscribe(userId));
+        auctionSystem.getActiveAuctionList().forEach(auction -> auction.unsubscribe(userId));
     }
 
     //new notification method - receives subscriber list from Auction
@@ -90,21 +90,21 @@ public class UpdateSystem {
 
     //update seller auction list to user by id
     public void updateSellerAuctions(int userId) {
-        Response response = new Response(true, "SELLER_AUCTION_LIST", AuctionSystem.getInstance().getAuctionsBySellerId(userId));
+        Response response = new Response(true, "SELLER_AUCTION_LIST", auctionSystem.getAuctionsBySellerId(userId));
 
         updateByUserId(userId, response);
     }
 
     //update won auction list to user by id
     public void updateBidderAuctions(int userId) {
-        Response response = new Response(true, "BIDDER_AUCTION_LIST", AuctionSystem.getInstance().getAuctionsByWinnerId(userId));
+        Response response = new Response(true, "BIDDER_AUCTION_LIST", auctionSystem.getAuctionsByWinnerId(userId));
 
         updateByUserId(userId, response);
     }
 
     //update active auction list to user by id
     public void updateActiveAuctions(int userId) {
-        Response response = new Response(true, "ACTIVE_AUCTION_LIST", AuctionSystem.getInstance().getActiveAuctionListExceptForSeller(userId));
+        Response response = new Response(true, "ACTIVE_AUCTION_LIST", auctionSystem.getActiveAuctionListExceptForSeller(userId));
 
         updateByUserId(userId, response);
     }

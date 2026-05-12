@@ -21,14 +21,16 @@ subscrition are handled by the notification system and client handler, the only 
 public class UserSystem {
     private final UserDAO userDAO;
     private final UpdateSystem updateSystem;
+    private final AuctionSystem auctionSystem;
     private final JBayLogger logger;
 
     private final Map<String, User> userCache;
 
     // constructor for dependency injection
-    public UserSystem(UserDAO userDAO, UpdateSystem updateSystem) {
+    public UserSystem(UserDAO userDAO, UpdateSystem updateSystem, AuctionSystem auctionSystem) {
         this.userDAO = userDAO;
         this.updateSystem = updateSystem;
+        this.auctionSystem = auctionSystem;
         this.logger = JBayLogger.getLogger(UserSystem.class);
         this.userCache = new ConcurrentHashMap<>();
     }
@@ -112,15 +114,15 @@ public class UserSystem {
 
         if (userDAO.changeUserRole(userId, "BAN")) {
             logger.info("User banned successfully: " + userId);
-            UpdateSystem.getInstance().unsubscribeUserFromAllAuctions(userId);
+            updateSystem.unsubscribeUserFromAllAuctions(userId, auctionSystem);
             // when client receives this it will switch to login scene
-            UpdateSystem.getInstance().updateByUserId(userId, new Response(true, "BAN_USER", null));
+            updateSystem.updateByUserId(userId, new Response(true, "BAN_USER", null));
 
-            for (ClientConnection clientConnection : UpdateSystem.getInstance().getConnections().get(userId)) {
+            for (ClientConnection clientConnection : updateSystem.getConnections().get(userId)) {
                 logout(clientConnection.getUserCache().getSessionId());
             }
 
-            UpdateSystem.getInstance().unregister(userId);
+            updateSystem.unregister(userId);
 //            activeUsers.remove(userId);
 //
 //            List<User> sessions = activeUsers.get(userId);

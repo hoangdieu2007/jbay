@@ -3,6 +3,7 @@ package a88.jbay.system;
 import a88.jbay.dao.AuctionDAO;
 import a88.jbay.dao.BidDAO;
 import a88.jbay.dao.UserDAO;
+import a88.jbay.repository.AuctionRepository;
 import a88.jbay.common.auction.Auction;
 import a88.jbay.common.auction.AuctionState;
 import a88.jbay.common.auction.BidTransaction;
@@ -14,16 +15,18 @@ public class BidSystem {
     private final AuctionDAO auctionDAO;
     private final BidDAO bidDAO;
     private final UserDAO userDAO;
+    private final AuctionRepository auctionRepository;
 
     // Constructor for dependency injection
-    public BidSystem(AuctionDAO auctionDAO, BidDAO bidDAO, UserDAO userDAO) {
+    public BidSystem(AuctionDAO auctionDAO, BidDAO bidDAO, UserDAO userDAO, AuctionRepository auctionRepository) {
         this.auctionDAO = auctionDAO;
         this.bidDAO = bidDAO;
         this.userDAO = userDAO;
+        this.auctionRepository = auctionRepository;
     }
 
     public synchronized boolean placeBid(int userId, int auctionId, double amount) {
-        Auction auction = getAuctionById(auctionId);
+        Auction auction = auctionRepository.getActiveAuction(auctionId);
         if (auction == null) {
             return false;
         }
@@ -54,7 +57,4 @@ public class BidSystem {
         return bidDAO.findCurrentPrice(auctionId);
     }
 
-    private Auction getAuctionById(int auctionId) {
-        return AuctionSystem.getInstance().getActiveAuctionById(auctionId);
     }
-}

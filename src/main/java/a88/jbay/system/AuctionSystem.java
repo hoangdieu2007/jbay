@@ -5,6 +5,7 @@ import a88.jbay.dao.AuctionDAO;
 import a88.jbay.dao.AuctionDAO.AuctionData;
 import a88.jbay.dao.BidDAO;
 import a88.jbay.dao.UserDAO;
+import a88.jbay.repository.AuctionRepository;
 import a88.jbay.util.JBayLogger;
 import a88.jbay.common.item.Item;
 import a88.jbay.common.auction.Auction;
@@ -15,7 +16,6 @@ import a88.jbay.common.network.Response;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.*;
 
 /*
@@ -28,22 +28,20 @@ public class AuctionSystem {
     private final AuctionDAO auctionDAO;
     private final UserDAO userDAO;
     private final BidDAO bidDAO;
-    private final UpdateSystem updateSystem;
     private final JBayLogger logger;
-
-    // Memory cache for active auctions to handle real-time bidding
-    private final Map<Integer, Auction> activeAuctions;
+    private final AuctionRepository auctionRepository;
+    private final BidSystem bidSystem;
 
     private final ScheduledExecutorService scheduler;
 
     // Constructor for dependency injection
-    public AuctionSystem(AuctionDAO auctionDAO, UserDAO userDAO, BidDAO bidDAO, UpdateSystem updateSystem) {
+    public AuctionSystem(AuctionDAO auctionDAO, UserDAO userDAO, BidDAO bidDAO, AuctionRepository auctionRepository, BidSystem bidSystem) {
         this.auctionDAO = auctionDAO;
         this.userDAO = userDAO;
         this.bidDAO = bidDAO;
-        this.updateSystem = updateSystem;
         this.logger = JBayLogger.getLogger(AuctionSystem.class);
-        this.activeAuctions = new ConcurrentHashMap<>();
+        this.auctionRepository = auctionRepository;
+        this.bidSystem = bidSystem;
         this.scheduler = Executors.newSingleThreadScheduledExecutor();
 
         loadActiveAuctions();
@@ -85,7 +83,7 @@ public class AuctionSystem {
             // always subscribe seller
             auction.subscribe(auctionData.sellerId());
 
-            activeAuctions.put(auctionData.id(), auction);
+            auctionRepository.storeActiveAuction(auction);
             
             } catch (Exception e) {
                 logger.error("Failed to load auction " + auctionData.id() + ": " + e.getMessage(), e);
@@ -125,13 +123,10 @@ public class AuctionSystem {
                 start,
                 end
         );
-        activeAuctions.put(auctionId, auction);
+        auctionRepository.storeActiveAuction(auction);
         auction.subscribe(sellerId); // Seller is automatically subscribed
 
-        //update everyone about this auction
-        UpdateSystem.getInstance().updateAllUsers(
-                new Response(true, "AUCTION_UPDATE", auction)
-        );
+        notifyAuctionUpdate(auction);
 
         logger.info("Auction created successfully: ID=" + auctionId + ", Item=" + item.getName());
         return true;
@@ -140,12 +135,12 @@ public class AuctionSystem {
     //place bid and validate bid - delegate to BidSystem
     public synchronized boolean placeBid(int userId, int auctionId, double amount) {
         logger.debug("Bid attempt: User=" + userId + ", Auction=" + auctionId + ", Amount=" + amount);
-        boolean bidPlaced = BidSystem.getInstance().placeBid(userId, auctionId, amount);
+        boolean bidPlaced = bidSystem.placeBid(userId, auctionId, amount);
         
         if (bidPlaced) {
             logger.info("Bid placed successfully: User=" + userId + ", Auction=" + auctionId + ", Amount=" + amount);
             // anti-sniping check upon successful bid
-            Auction auction = activeAuctions.get(auctionId);
+            Auction auction = auctionRepository.getActiveAuction(auctionId);
             if (auction != null) {
                 extendEndTime(LocalDateTime.now(), auction);
             }
@@ -164,7 +159,7 @@ public class AuctionSystem {
         Nếu giá auto placeBid cao hơn max_amount thì dừng auto bid
         */
 
-        Auction auction = activeAuctions.get(auctionId);
+        Auction auction = auctionRepository.getActiveAuction(auctionId);
         if (auction == null) {
             logger.warn("Auto-bid failed - auction not found or not active: " + auctionId);
             return;
@@ -244,7 +239,7 @@ public class AuctionSystem {
     }
 
     public synchronized void cancelAutoBid(int userId, int auctionId) {
-        Auction auction = activeAuctions.get(auctionId);
+        Auction auction = auctionRepository.getActiveAuction(auctionId);
         if (auction == null) {
             logger.warn("Cancel auto-bid failed - auction not found or not active: " + auctionId);
             return;
@@ -282,14 +277,14 @@ public class AuctionSystem {
     //ONLY ADMIN CAN CALL THIS
     public boolean cancelAuction(int auctionId) {
         logger.info("Attempting to cancel auction: " + auctionId);
-        Auction auction = activeAuctions.get(auctionId);
+        Auction auction = auctionRepository.getActiveAuction(auctionId);
         if (auction != null) {
             auction.cancel();
         }
 
         boolean closed = auctionDAO.setAuctionState(auctionId, AuctionState.CANCELED);
         if (closed) {
-            activeAuctions.remove(auctionId);
+            auctionRepository.removeActiveAuction(auctionId);
             logger.info("Auction canceled successfully: " + auctionId);
             // Subscribers are automatically cleared when auction is removed from memory
         } else {
@@ -299,18 +294,18 @@ public class AuctionSystem {
     }
 
     public boolean isAuctionActive(int auctionId) {
-        return activeAuctions.containsKey(auctionId);
+        return auctionRepository.isAuctionActive(auctionId);
     }
 
     public List<Auction> getActiveAuctionList() {
-        return new ArrayList<>(activeAuctions.values());
+        return new ArrayList<>(auctionRepository.getAllActiveAuctions());
     }
 
     public List<Auction> getActiveAuctionListExceptForSeller(int userId) {
         String sellerName = userDAO.findByUserId(userId).username();
 
         ArrayList<Auction> activeAuctionsExceptForSeller = new ArrayList<>();
-        for (Auction auction : activeAuctions.values()) {
+        for (Auction auction : auctionRepository.getAllActiveAuctions()) {
             if (!auction.getSellerName().equals(sellerName)) {
                 activeAuctionsExceptForSeller.add(auction);
             }
@@ -320,11 +315,11 @@ public class AuctionSystem {
     }
 
     public Auction getActiveAuctionById(int auctionId) {
-        return activeAuctions.get(auctionId);
+        return auctionRepository.getActiveAuction(auctionId);
     }
 
     public Auction getAuctionById(int auctionId) {
-        Auction auction = activeAuctions.get(auctionId);
+        Auction auction = auctionRepository.getActiveAuction(auctionId);
         if (auction != null) {
             return auction;
         }
@@ -362,7 +357,7 @@ public class AuctionSystem {
         // always subscribe seller
         auction.subscribe(auctionData.sellerId());
 
-        activeAuctions.put(auctionData.id(), auction);
+        auctionRepository.storeActiveAuction(auction);
 
         return auction;
     }
@@ -397,10 +392,17 @@ public class AuctionSystem {
 
     public String listActiveAuctions() {
         String result = "";
-        for (Auction auction : activeAuctions.values()) {
+        for (Auction auction : auctionRepository.getAllActiveAuctions()) {
             result += auction.toString() + "\n\n";
         }
         return result;
+    }
+
+    // Handle auction notifications - can be called from outside
+    public void notifyAuctionUpdate(Auction auction) {
+        updateSystem.updateAllUsers(
+                new Response(true, "AUCTION_UPDATE", auction)
+        );
     }
 
     /*
@@ -414,7 +416,7 @@ public class AuctionSystem {
         LocalDateTime now = LocalDateTime.now();
         List<Integer> ended = new ArrayList<>();
 
-        for (Auction auction : activeAuctions.values()) {
+        for (Auction auction : auctionRepository.getAllActiveAuctions()) {
             // check and change state
             if (auction.tick(now)) {
                 logger.debug("Heartbeat: State changed for auction " + auction.getId() + " to " + auction.getAuctionState());
@@ -430,7 +432,7 @@ public class AuctionSystem {
 
         //remove ended auctions from memory
         for (int auctionId : ended) {
-            activeAuctions.remove(auctionId);
+            auctionRepository.removeActiveAuction(auctionId);
             // Subscribers are automatically cleared when auction is removed from memory
         }
     }
