@@ -50,17 +50,6 @@ public class AuctionSystem {
         startHeartbeat();
     }
 
-    // Deprecated singleton method - use dependency injection instead
-    @Deprecated
-    public static synchronized AuctionSystem getInstance() {
-        return new AuctionSystem(
-            AuctionDAO.getInstance(),
-            UserDAO.getInstance(),
-            BidDAO.getInstance(),
-            UpdateSystem.getInstance()
-        );
-    }
-
     public void loadActiveAuctions() {
         java.util.List<AuctionData> activeAuctionData = auctionDAO.findAllActiveAuctions();
         logger.info("Loading " + activeAuctionData.size() + " active auctions from database");

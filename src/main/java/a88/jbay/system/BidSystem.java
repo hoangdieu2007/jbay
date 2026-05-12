@@ -22,12 +22,6 @@ public class BidSystem {
         this.userDAO = userDAO;
     }
 
-    // Deprecated singleton method - use dependency injection instead
-    @Deprecated
-    public static synchronized BidSystem getInstance() {
-        return new BidSystem(AuctionDAO.getInstance(), BidDAO.getInstance(), UserDAO.getInstance());
-    }
-
     public synchronized boolean placeBid(int userId, int auctionId, double amount) {
         Auction auction = getAuctionById(auctionId);
         if (auction == null) {

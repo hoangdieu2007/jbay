@@ -20,22 +20,20 @@ subscrition are handled by the notification system and client handler, the only 
 
 public class UserSystem {
     private final UserDAO userDAO;
+    private final UpdateSystem updateSystem;
     private final JBayLogger logger;
 
     private final Map<String, User> userCache;
 
     // constructor for dependency injection
-    public UserSystem(UserDAO userDAO) {
+    public UserSystem(UserDAO userDAO, UpdateSystem updateSystem) {
         this.userDAO = userDAO;
+        this.updateSystem = updateSystem;
         this.logger = JBayLogger.getLogger(UserSystem.class);
         this.userCache = new ConcurrentHashMap<>();
     }
 
     // deprecated singleton method - use dependency injection instead
-    @Deprecated
-    public static synchronized UserSystem getInstance() {
-        return new UserSystem(UserDAO.getInstance());
-    }
 
     //login: find user by username, then check password and generate session if valid
     public User login(String username, String password) {
