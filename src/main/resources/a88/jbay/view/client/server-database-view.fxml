@@ -11,9 +11,9 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="655.0" prefWidth="1051.0" style="-fx-background-color: #1E0B4B;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CONTROLLER_NAME">
+<AnchorPane prefHeight="669.0" prefWidth="1051.0" style="-fx-background-color: #5287C5;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CONTROLLER_NAME">
    <children>
-      <BorderPane layoutX="347.0" prefHeight="47.0" prefWidth="894.0" style="-fx-background-color: #2D1B69;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <BorderPane layoutX="347.0" prefHeight="47.0" prefWidth="894.0" style="-fx-background-color: #22368B;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <right>
             <Region prefHeight="40.0" prefWidth="13.0" BorderPane.alignment="CENTER" />
          </right>
@@ -78,7 +78,7 @@
             <Region prefHeight="22.0" prefWidth="302.0" />
             <AnchorPane>
                <children>
-                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="64.0" minWidth="97.0" mnemonicParsing="false" prefHeight="47.0" style="-fx-background-color: #53B1F9; -fx-background-radius: 10;" text="Conect to Database" textFill="WHITE">
+                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="57.0" minWidth="97.0" mnemonicParsing="false" prefHeight="47.0" style="-fx-background-color: #53B1F9; -fx-background-radius: 10;" text="Connect to Database" textFill="WHITE">
                      <font>
                         <Font name="System Bold Italic" size="18.0" />
                      </font>
@@ -106,7 +106,7 @@
                         <Font size="18.0" />
                      </font>
                   </TextField>
-                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="75.0" layoutY="137.0" minWidth="97.0" mnemonicParsing="false" prefHeight="47.0" style="-fx-background-color: #57B684; -fx-background-radius: 10;" text="Conect to Server" textFill="WHITE">
+                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="89.0" layoutY="137.0" minWidth="97.0" mnemonicParsing="false" prefHeight="47.0" style="-fx-background-color: #57B684; -fx-background-radius: 10;" text="Start Service" textFill="WHITE">
                      <font>
                         <Font name="System Bold Italic" size="18.0" />
                      </font>
@@ -130,7 +130,7 @@
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" layoutX="10.0" layoutY="37.0" prefHeight="34.0" prefWidth="137.0" text="Admin Username" textFill="WHITE">
+                  <Label alignment="CENTER" layoutX="10.0" layoutY="37.0" minWidth="137.0" prefHeight="34.0" text="Admin Username" textFill="WHITE">
                      <font>
                         <Font name="System Bold Italic" size="18.0" />
                      </font>
@@ -160,5 +160,10 @@
             <AnchorPane />
          </children>
       </VBox>
+      <Label alignment="CENTER" layoutX="383.0" layoutY="76.0" prefHeight="59.0" prefWidth="278.0" style="-fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.4), 5, 0, 0, 0);" text="jBay Server" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="48.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
