@@ -53,7 +53,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="database" prefHeight="40.0" prefWidth="314.0" promptText="Enter username" style="-fx-background-radius: 20;">
+            <TextField fx:id="databaseusernameTextField" prefHeight="40.0" prefWidth="314.0" promptText="Enter username" style="-fx-background-radius: 20;">
                <font>
                   <Font size="18.0" />
                </font>
@@ -66,7 +66,7 @@
                   <Font name="System Bold Italic" size="18.0" />
                </font>
             </Label>
-            <TextField prefHeight="40.0" prefWidth="314.0" promptText="Enter password" style="-fx-background-radius: 20;">
+            <TextField fx:id="databasePassword" prefHeight="40.0" prefWidth="314.0" promptText="Enter password" style="-fx-background-radius: 20;">
                <font>
                   <Font size="18.0" />
                </font>
@@ -77,7 +77,7 @@
             <Region prefHeight="22.0" prefWidth="302.0" />
             <AnchorPane>
                <children>
-                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="57.0" minWidth="97.0" mnemonicParsing="false" prefHeight="47.0" style="-fx-background-color: #53B1F9; -fx-background-radius: 10;" text="Connect to Database" textFill="WHITE">
+                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="57.0" minWidth="97.0" mnemonicParsing="false" onAction="#handleConnectToDatabase" prefHeight="47.0" style="-fx-background-color: #53B1F9; -fx-background-radius: 10;" text="Connect to Database" textFill="WHITE">
                      <font>
                         <Font name="System Bold Italic" size="18.0" />
                      </font>
@@ -100,12 +100,12 @@
                         <Font name="System Bold Italic" size="18.0" />
                      </font>
                   </Label>
-                  <TextField layoutX="10.0" layoutY="77.0" prefHeight="40.0" prefWidth="314.0" promptText="Enter number" style="-fx-background-radius: 20;" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                  <TextField fx:id="portNumberTextField" layoutX="10.0" layoutY="77.0" prefHeight="40.0" prefWidth="314.0" promptText="Enter number" style="-fx-background-radius: 20;" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </TextField>
-                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="89.0" layoutY="137.0" minWidth="97.0" mnemonicParsing="false" prefHeight="47.0" style="-fx-background-color: #57B684; -fx-background-radius: 10;" text="Start Service" textFill="WHITE">
+                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="89.0" layoutY="137.0" minWidth="97.0" mnemonicParsing="false" onAction="#handelStartService" prefHeight="47.0" style="-fx-background-color: #57B684; -fx-background-radius: 10;" text="Start Service" textFill="WHITE">
                      <font>
                         <Font name="System Bold Italic" size="18.0" />
                      </font>
@@ -134,7 +134,7 @@
                         <Font name="System Bold Italic" size="18.0" />
                      </font>
                   </Label>
-                  <TextField layoutX="10.0" layoutY="65.0" prefHeight="40.0" prefWidth="314.0" promptText="Enter Username" style="-fx-background-radius: 20;" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                  <TextField fx:id="adminUsernameTextField" layoutX="10.0" layoutY="65.0" prefHeight="40.0" prefWidth="314.0" promptText="Enter Username" style="-fx-background-radius: 20;" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -144,12 +144,12 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <TextField layoutX="10.0" layoutY="140.0" prefHeight="40.0" prefWidth="314.0" promptText="Enter password" style="-fx-background-radius: 20;" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                  <TextField fx:id="adminPasswordTextField" layoutX="10.0" layoutY="140.0" prefHeight="40.0" prefWidth="314.0" promptText="Enter password" style="-fx-background-radius: 20;" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </TextField>
-                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="82.0" layoutY="200.0" minWidth="97.0" mnemonicParsing="false" prefHeight="47.0" style="-fx-background-color: #EE668C; -fx-background-radius: 10;" text="Register admin" textFill="WHITE">
+                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="82.0" layoutY="200.0" minWidth="97.0" mnemonicParsing="false" onAction="#handleRegisterAdmin" prefHeight="47.0" style="-fx-background-color: #EE668C; -fx-background-radius: 10;" text="Register admin" textFill="WHITE">
                      <font>
                         <Font name="System Bold Italic" size="18.0" />
                      </font>
