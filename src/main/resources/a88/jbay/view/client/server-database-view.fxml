@@ -10,15 +10,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="669.0" prefWidth="1051.0" style="-fx-background-color: #5287C5;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CONTROLLER_NAME">
+<AnchorPane prefHeight="669.0" prefWidth="1051.0" style="-fx-background-color: #5287C5; -fx-background-color: linear-gradient(to bottom, #5287C1, #2A4565);" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CONTROLLER_NAME">
    <children>
-      <BorderPane layoutX="347.0" prefHeight="47.0" prefWidth="894.0" style="-fx-background-color: #22368B;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <BorderPane layoutX="347.0" prefHeight="47.0" prefWidth="894.0" style="-fx-background-color: #BBD8EA;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <right>
             <Region prefHeight="40.0" prefWidth="13.0" BorderPane.alignment="CENTER" />
          </right>
          <center>
-            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="36.0" prefWidth="111.0" style="-fx-background-radius: 10; -fx-background-color: #2b5fe8;" text="Log Out" textFill="WHITE" BorderPane.alignment="CENTER_RIGHT">
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleLogOut" prefHeight="36.0" prefWidth="111.0" style="-fx-background-radius: 10; -fx-background-color: #000250;" text="Log Out" textFill="WHITE" BorderPane.alignment="CENTER_RIGHT">
                <font>
                   <Font name="System Bold Italic" size="18.0" />
                </font>
@@ -41,7 +40,7 @@
                   <Font name="System Bold Italic" size="18.0" />
                </font>
             </Label>
-            <TextField prefHeight="40.0" prefWidth="314.0" promptText="https:/example.com" style="-fx-background-radius: 20;">
+            <TextField fx:id="serverURLTextField" prefHeight="40.0" prefWidth="314.0" promptText="https:/example.com" style="-fx-background-radius: 20;">
                <font>
                   <Font size="18.0" />
                </font>
@@ -54,7 +53,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <TextField prefHeight="40.0" prefWidth="314.0" promptText="Enter username" style="-fx-background-radius: 20;">
+            <TextField fx:id="database" prefHeight="40.0" prefWidth="314.0" promptText="Enter username" style="-fx-background-radius: 20;">
                <font>
                   <Font size="18.0" />
                </font>
@@ -160,7 +159,7 @@
             <AnchorPane />
          </children>
       </VBox>
-      <Label alignment="CENTER" layoutX="383.0" layoutY="76.0" prefHeight="59.0" prefWidth="278.0" style="-fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.4), 5, 0, 0, 0);" text="jBay Server" textFill="WHITE">
+      <Label alignment="CENTER" layoutX="383.0" layoutY="76.0" prefHeight="59.0" prefWidth="278.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0, 255, 255, 0.3), 8, 0, 0, 0);" text="jBay Server" textFill="WHITE">
          <font>
             <Font name="System Bold" size="48.0" />
          </font>
