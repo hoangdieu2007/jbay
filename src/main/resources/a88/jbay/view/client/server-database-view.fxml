@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="669.0" prefWidth="1051.0" style="-fx-background-color: #5287C5; -fx-background-color: linear-gradient(to bottom, #5287C1, #2A4565);" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CONTROLLER_NAME">
+<AnchorPane prefHeight="669.0" prefWidth="1051.0" style="-fx-background-color: #5287C5; -fx-background-color: linear-gradient(to bottom, #5287C1, #2A4565);" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.ServerDatabaseController">
    <children>
       <BorderPane layoutX="347.0" prefHeight="47.0" prefWidth="894.0" style="-fx-background-color: #BBD8EA;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <right>
