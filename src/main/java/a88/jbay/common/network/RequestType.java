@@ -1,4 +1,4 @@
-package a88.jbay.model.network;
+package a88.jbay.common.network;
 
 public enum RequestType {
     PING,

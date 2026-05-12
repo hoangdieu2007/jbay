@@ -1,11 +1,10 @@
 package a88.jbay.system;
 
-import a88.jbay.model.event.Auction;
-import a88.jbay.model.network.Response;
+import a88.jbay.common.auction.Auction;
+import a88.jbay.common.network.Response;
 import a88.jbay.server.ClientConnection;
 import a88.jbay.util.JBayLogger;
 
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;

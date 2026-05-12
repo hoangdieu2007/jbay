@@ -1,6 +1,5 @@
 package a88.jbay.dao;
 
-import a88.jbay.model.entity.user.User;
 import a88.jbay.server.DatabaseConnectionProvider;
 
 import java.sql.Connection;

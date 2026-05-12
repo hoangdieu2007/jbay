@@ -1,4 +1,4 @@
-package a88.jbay.model.entity.user.role;
+package a88.jbay.common.user.role;
 
 public enum Role {
     GUEST,

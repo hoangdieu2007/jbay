@@ -1,7 +1,6 @@
 package a88.jbay.dao;
 
-import a88.jbay.model.entity.item.Item;
-import a88.jbay.server.DatabaseConnectionProvider;
+import a88.jbay.common.item.Item;
 import a88.jbay.testutil.TestDatabaseConnectionProvider;
 
 import java.sql.SQLException;

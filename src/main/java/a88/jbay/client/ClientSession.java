@@ -1,22 +1,13 @@
 package a88.jbay.client;
 
-import a88.jbay.controller.client.BidderItemCardController;
 import a88.jbay.controller.client.SellerItemCardController;
-import a88.jbay.model.entity.user.User;
-import a88.jbay.model.event.Auction;
+import a88.jbay.common.user.User;
+import a88.jbay.common.auction.Auction;
 import a88.jbay.util.JBayLogger;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.VBox;
 
-import java.io.IOException;
 import java.util.Collections;
-import java.util.List;
 import java.util.TreeMap;
 
 public class ClientSession {

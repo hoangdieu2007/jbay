@@ -4,22 +4,18 @@ import a88.jbay.dao.AuctionDAO;
 import a88.jbay.dao.AuctionDAO.AuctionData;
 import a88.jbay.dao.BidDAO;
 import a88.jbay.dao.UserDAO;
-import a88.jbay.model.entity.user.User;
 import a88.jbay.util.JBayLogger;
-import a88.jbay.model.entity.item.Item;
-import a88.jbay.model.event.Auction;
-import a88.jbay.model.event.AuctionState;
-import a88.jbay.model.event.BidTransaction;
-import a88.jbay.model.network.Response;
+import a88.jbay.common.item.Item;
+import a88.jbay.common.auction.Auction;
+import a88.jbay.common.auction.AuctionState;
+import a88.jbay.common.auction.BidTransaction;
+import a88.jbay.common.network.Response;
 
-import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
 
 /*
 the code for operations on the auction data

@@ -1,8 +1,8 @@
 package a88.jbay.client;
 
-import a88.jbay.model.network.Request;
-import a88.jbay.model.network.RequestType;
-import a88.jbay.model.network.Response;
+import a88.jbay.common.network.Request;
+import a88.jbay.common.network.RequestType;
+import a88.jbay.common.network.Response;
 import a88.jbay.util.JBayLogger;
 import a88.jbay.view.ViewManager;
 import javafx.application.Platform;

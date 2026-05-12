@@ -1,7 +1,7 @@
 package a88.jbay.dao;
 
-import a88.jbay.model.entity.item.Item;
-import a88.jbay.model.event.AuctionState;
+import a88.jbay.common.item.Item;
+import a88.jbay.common.auction.AuctionState;
 import a88.jbay.server.DatabaseConnectionProvider;
 import a88.jbay.server.DatabaseController;
 
@@ -10,8 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 
 public class AuctionDAO {
     private static final AuctionDAO instance = new AuctionDAO();

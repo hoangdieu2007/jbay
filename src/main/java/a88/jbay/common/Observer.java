@@ -1,6 +1,6 @@
-package a88.jbay.model;
+package a88.jbay.common;
 
-import a88.jbay.model.event.Auction;
+import a88.jbay.common.auction.Auction;
 
 public interface Observer {
     void update (Auction auction);

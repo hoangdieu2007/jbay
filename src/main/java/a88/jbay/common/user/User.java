@@ -4,14 +4,13 @@
 
 //extends entity and implements observer
 
-package a88.jbay.model.entity.user;
+package a88.jbay.common.user;
 
-import a88.jbay.model.Observer;
-import a88.jbay.model.entity.Entity;
-import a88.jbay.model.entity.user.role.ActionType;
-import a88.jbay.model.entity.user.role.Permission;
-import a88.jbay.model.entity.user.role.Role;
-import a88.jbay.model.event.Auction;
+import a88.jbay.common.Observer;
+import a88.jbay.common.user.role.ActionType;
+import a88.jbay.common.user.role.Permission;
+import a88.jbay.common.user.role.Role;
+import a88.jbay.common.auction.Auction;
 
 import java.io.Serializable;
 
@@ -20,7 +19,7 @@ this class is sent over network for authorization processes
  it implements observer interface to receive auction updates
  updates are sent from notification system, the update method of this object is only for local update after receiving auction updates
  */
-public class User extends Entity implements Observer, Serializable {
+public class User implements Observer, Serializable {
     private static final long serialVersionUID = 1L;
 
     //credentials

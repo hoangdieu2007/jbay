@@ -96,7 +96,7 @@ class AuctionDAOMockTest {
         testDbProvider.setShouldThrowException(true);
         
         // Act
-        boolean result = auctionDAO.setAuctionState(1, a88.jbay.model.event.AuctionState.RUNNING);
+        boolean result = auctionDAO.setAuctionState(1, a88.jbay.common.auction.AuctionState.RUNNING);
         
         // Assert
         assertFalse(result, "Database error should return false");

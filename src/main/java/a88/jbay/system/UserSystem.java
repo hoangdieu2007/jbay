@@ -5,12 +5,9 @@ import a88.jbay.dao.UserDAO.UserData;
 import a88.jbay.server.ClientConnection;
 import a88.jbay.util.StringHash;
 import a88.jbay.util.JBayLogger;
-import a88.jbay.model.entity.user.User;
-import a88.jbay.model.network.Response;
+import a88.jbay.common.user.User;
+import a88.jbay.common.network.Response;
 
-import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;

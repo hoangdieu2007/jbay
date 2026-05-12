@@ -1,6 +1,4 @@
-package a88.jbay.model.network;
-
-import a88.jbay.client.ClientSession;
+package a88.jbay.common.network;
 
 import java.io.Serializable;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package a88.jbay.model;
+package a88.jbay.common;
 
 public interface Subject {
     void subscribe(int userId);

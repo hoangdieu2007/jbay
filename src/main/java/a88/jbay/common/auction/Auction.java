@@ -1,7 +1,7 @@
-package a88.jbay.model.event;
+package a88.jbay.common.auction;
 
-import a88.jbay.model.Subject;
-import a88.jbay.model.entity.item.Item;
+import a88.jbay.common.Subject;
+import a88.jbay.common.item.Item;
 import a88.jbay.system.UpdateSystem;
 
 import java.io.Serializable;

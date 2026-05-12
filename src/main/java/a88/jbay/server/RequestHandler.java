@@ -1,16 +1,14 @@
 package a88.jbay.server;
 
-import a88.jbay.model.entity.item.Item;
-import a88.jbay.model.entity.user.User;
-import a88.jbay.model.entity.user.role.ActionType;
-import a88.jbay.model.event.Auction;
-import a88.jbay.model.network.Request;
-import a88.jbay.model.network.Response;
+import a88.jbay.common.item.Item;
+import a88.jbay.common.user.User;
+import a88.jbay.common.user.role.ActionType;
+import a88.jbay.common.auction.Auction;
+import a88.jbay.common.network.Request;
+import a88.jbay.common.network.Response;
 import a88.jbay.system.AuctionSystem;
 import a88.jbay.system.UpdateSystem;
 import a88.jbay.system.UserSystem;
-
-import java.io.ObjectOutputStream;
 
 /**
  * Handles processing of client requests by calling the appropriate systems.

@@ -1,4 +1,4 @@
-package a88.jbay.model.entity.user.role;
+package a88.jbay.common.user.role;
 
 import java.util.EnumSet;
 import java.util.HashMap;

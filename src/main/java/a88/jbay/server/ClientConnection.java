@@ -1,9 +1,8 @@
 package a88.jbay.server;
 
-import a88.jbay.model.entity.user.User;
-import a88.jbay.model.network.Request;
-import a88.jbay.model.network.Response;
-import a88.jbay.system.AuctionSystem;
+import a88.jbay.common.user.User;
+import a88.jbay.common.network.Request;
+import a88.jbay.common.network.Response;
 import a88.jbay.system.UpdateSystem;
 import a88.jbay.system.UserSystem;
 import a88.jbay.util.JBayLogger;

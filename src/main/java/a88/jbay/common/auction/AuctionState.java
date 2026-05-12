@@ -1,4 +1,4 @@
-package a88.jbay.model.event;
+package a88.jbay.common.auction;
 
 //all of the states:
 //opening: auction can be viewed, no bidding can be done

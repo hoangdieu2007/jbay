@@ -1,10 +1,10 @@
 package a88.jbay.testutil;
 
-import a88.jbay.model.entity.item.Item;
-import a88.jbay.model.entity.user.User;
-import a88.jbay.model.event.Auction;
-import a88.jbay.model.event.AuctionState;
-import a88.jbay.model.event.BidTransaction;
+import a88.jbay.common.item.Item;
+import a88.jbay.common.user.User;
+import a88.jbay.common.auction.Auction;
+import a88.jbay.common.auction.AuctionState;
+import a88.jbay.common.auction.BidTransaction;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;

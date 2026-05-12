@@ -2,8 +2,8 @@ package a88.jbay.controller.client;
 
 import a88.jbay.client.ServerConnection;
 import a88.jbay.util.StringHash;
-import a88.jbay.model.network.Request;
-import a88.jbay.model.network.RequestType;
+import a88.jbay.common.network.Request;
+import a88.jbay.common.network.RequestType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

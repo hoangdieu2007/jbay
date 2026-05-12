@@ -25,8 +25,8 @@ module a88.jbay {
     opens a88.jbay.server to javafx.fxml, javafx.graphics;
     exports a88.jbay.system;
     opens a88.jbay.system to javafx.fxml, javafx.graphics;
-    exports a88.jbay.model.network;
-    opens a88.jbay.model.network to javafx.fxml, javafx.graphics;
+    exports a88.jbay.common.network;
+    opens a88.jbay.common.network to javafx.fxml, javafx.graphics;
     exports a88.jbay.dao;
     opens a88.jbay.dao to javafx.fxml, javafx.graphics;
     exports a88.jbay.client;

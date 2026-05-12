@@ -1,6 +1,4 @@
-package a88.jbay.model.event;
-
-import org.jetbrains.annotations.NotNull;
+package a88.jbay.common.auction;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

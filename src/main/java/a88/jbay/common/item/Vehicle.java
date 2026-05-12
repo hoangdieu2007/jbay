@@ -1,4 +1,4 @@
-package a88.jbay.model.entity.item;
+package a88.jbay.common.item;
 
 public class Vehicle extends Item {
     private String make, model;
