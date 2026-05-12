@@ -21,19 +21,18 @@ import java.util.concurrent.CopyOnWriteArraySet;
  */
 
 public class UpdateSystem {
-    private static UpdateSystem instance;
     private final Map<Integer, Set<ClientConnection>> connections = new ConcurrentHashMap<>();
     private final JBayLogger logger;
 
-    private UpdateSystem() {
+    // constructor for dependency injection
+    public UpdateSystem() {
         this.logger = JBayLogger.getLogger(UpdateSystem.class);
     }
 
+    // deprecated singleton method - use dependency injection instead
+    @Deprecated
     public static synchronized UpdateSystem getInstance() {
-        if (instance == null) {
-            instance = new UpdateSystem();
-        }
-        return instance;
+        return new UpdateSystem();
     }
 
     public Map<Integer, Set<ClientConnection>> getConnections() {

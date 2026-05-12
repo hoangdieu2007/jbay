@@ -1,6 +1,5 @@
 package a88.jbay.dao;
 
-import a88.jbay.server.DatabaseConnectionProvider;
 import a88.jbay.server.DatabaseController;
 
 import java.sql.Connection;
@@ -12,8 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BidDAO {
-    private static BidDAO instance;
-    private final DatabaseConnectionProvider dbProvider;
+    private final DatabaseController dbController;
 
     public record BidData(
         int userId,
@@ -22,26 +20,21 @@ public class BidDAO {
         LocalDateTime time
     ) {}
 
-    private BidDAO() {
-        this.dbProvider = DatabaseController.getInstance();
+    // Constructor for dependency injection
+    public BidDAO(DatabaseController dbController) {
+        this.dbController = dbController;
     }
 
-    //dependency injection
-    public BidDAO(DatabaseConnectionProvider dbProvider) {
-        this.dbProvider = dbProvider;
-    }
-
+    // Deprecated singleton method - use dependency injection instead
+    @Deprecated
     public static synchronized BidDAO getInstance() {
-        if (instance == null) {
-            instance = new BidDAO();
-        }
-        return instance;
+        return new BidDAO(DatabaseController.getInstance());
     }
 
     public boolean insertBid(int userId, int auctionId, double amount, LocalDateTime time) {
         String sql = "INSERT INTO bids (userid, auctionid, amt, time) VALUES (?, ?, ?, ?)";
 
-        try (Connection connection = dbProvider.getConnection();
+        try (Connection connection = dbController.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setInt(1, userId);
@@ -60,7 +53,7 @@ public class BidDAO {
         String sql = "SELECT userid, auctionid, amt, time FROM bids WHERE auctionid = ? ORDER BY time ASC";
         List<BidData> bidHistory = new ArrayList<>();
 
-        try (Connection connection = dbProvider.getConnection();
+        try (Connection connection = dbController.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setInt(1, auctionId);
@@ -85,7 +78,7 @@ public class BidDAO {
     public Double findCurrentPrice(int auctionId) {
         String sql = "SELECT cur_price FROM auctions WHERE id = ?";
 
-        try (Connection connection = dbProvider.getConnection();
+        try (Connection connection = dbController.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setInt(1, auctionId);

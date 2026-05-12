@@ -6,6 +6,7 @@ import a88.jbay.common.user.role.ActionType;
 import a88.jbay.common.auction.Auction;
 import a88.jbay.common.network.Request;
 import a88.jbay.common.network.Response;
+import a88.jbay.di.DependencyInjectionContainer;
 import a88.jbay.system.AuctionSystem;
 import a88.jbay.system.UpdateSystem;
 import a88.jbay.system.UserSystem;
@@ -15,26 +16,25 @@ import a88.jbay.system.UserSystem;
  * Responsible for request routing and business logic delegation.
  */
 public class RequestHandler {
-    private static UserSystem userSystem = UserSystem.getInstance();
-    private static AuctionSystem auctionSystem = AuctionSystem.getInstance();
-//    private static User currentUser;
-//    private static ObjectOutputStream out;
+    private final UserSystem userSystem;
+    private final AuctionSystem auctionSystem;
+    private final UpdateSystem updateSystem;
 
-    // this method is mostly for testing
-    // DO NOT CALL UNLESS FOR TESTING
-    public static void inject(UserSystem userSystemParam, AuctionSystem auctionSystemParam) {
-        RequestHandler.userSystem = userSystemParam;
-        RequestHandler.auctionSystem = auctionSystemParam;
-//        RequestHandler.currentUser = new User();
-//        RequestHandler.out = null;
+    // constructor for dependency injection
+    public RequestHandler(DependencyInjectionContainer container) {
+        this.userSystem = container.getInstance(UserSystem.class);
+        this.auctionSystem = container.getInstance(AuctionSystem.class);
+        this.updateSystem = container.getInstance(UpdateSystem.class);
     }
 
+    
+    
 //    public static void setObjectOutputStream(ObjectOutputStream outParam) {
 //        RequestHandler.out = outParam;
 //    }
 
     // directing request to respective handler
-    public static Response handleRequest(Request request) {
+    public Response handleRequest(Request request) {
         System.out.println("Received request: " + request.getType().name());
 
         return switch (request.getType()) {
@@ -54,12 +54,12 @@ public class RequestHandler {
         };
     }
 
-    private static Response handlePing(Request request) {
+    private Response handlePing(Request request) {
         return new Response(true, "PONG", null);
     }
 
     //handling login
-    private static Response handleLogin(Request request) {
+    private Response handleLogin(Request request) {
         String username = (String) request.get("username");
         String password = (String) request.get("password");
 
@@ -81,7 +81,7 @@ public class RequestHandler {
     }
 
     //handling register
-    private static Response handleRegister(Request request) {
+    private Response handleRegister(Request request) {
         String username = (String) request.get("username");
         String password = (String) request.get("password");
         String role = "USER";
@@ -94,7 +94,7 @@ public class RequestHandler {
 
     //handling logout
     //deletes session and logs out user, also removes all subscriptions
-    private static Response handleLogout(Request request) {
+    private Response handleLogout(Request request) {
         String sessionId = (String) request.get("sessionId");
         // cleanupCurrentUserSession();
         userSystem.logout(sessionId);
@@ -102,7 +102,7 @@ public class RequestHandler {
     }
 
     //handling bidding
-    private static Response handleBid(Request request) {
+    private Response handleBid(Request request) {
         User user = userSystem.findBySessionId((String) request.get("sessionId"));
         if (user == null) return new Response(false, "INVALID_SESSION", null);
         if (user.can(ActionType.BID)) {
@@ -113,7 +113,7 @@ public class RequestHandler {
     }
 
     //handling auto-bidding
-    private static Response handleAutoBid(Request request) {
+    private Response handleAutoBid(Request request) {
         User user = userSystem.findBySessionId((String) request.get("sessionId"));
         if (user == null) return new Response(false, "INVALID_SESSION", null);
         if (user.can(ActionType.BID)) {
@@ -124,7 +124,7 @@ public class RequestHandler {
     }
 
     //handling cancel auto-bid
-    private static Response handleCancelAutoBid(Request request) {
+    private Response handleCancelAutoBid(Request request) {
         User user = userSystem.findBySessionId((String) request.get("sessionId"));
         if (user == null) return new Response(false, "INVALID_SESSION", null);
         if (user.can(ActionType.BID)) {
@@ -135,7 +135,7 @@ public class RequestHandler {
     }
 
     //handling selling and creating auction
-    private static Response handleSell(Request request) {
+    private Response handleSell(Request request) {
         User user = userSystem.findBySessionId((String) request.get("sessionId"));
         if (user == null) return new Response(false, "INVALID_SESSION", null);
         if (user.can(ActionType.SELL)) {
@@ -147,7 +147,7 @@ public class RequestHandler {
 
     //canceling auctions
     //ADMIN ONLY, REPORT IF CALLS FROM NORMAL USERS ALSO RETURN CANCEL_SUCCESS
-    private static Response handleCancel(Request request) {
+    private Response handleCancel(Request request) {
         User user = userSystem.findBySessionId((String) request.get("sessionId"));
         if (user == null) return new Response(false, "INVALID_SESSION", null);
 
@@ -168,7 +168,7 @@ public class RequestHandler {
     //subscribing to auctions
     //this is often automatically handled by the auction system upon bidding/selling a product
     //but separating this makes everything clear
-    private static Response handleSubscribeAuction(Request request) {
+    private Response handleSubscribeAuction(Request request) {
         User user = userSystem.findBySessionId((String) request.get("sessionId"));
         if (user == null) return new Response(false, "INVALID_SESSION", null);
 
@@ -184,7 +184,7 @@ public class RequestHandler {
 
     //unsubscribing from auctions
     //also automatically handled by the auction system when an auction finishes
-    private static Response handleUnsubscribeAuction(Request request) {
+    private Response handleUnsubscribeAuction(Request request) {
         User user = userSystem.findBySessionId((String) request.get("sessionId"));
         if (user == null) return new Response(false, "INVALID_SESSION", null);
 
@@ -198,13 +198,13 @@ public class RequestHandler {
         return new Response(true, "UNSUBSCRIBE_AUCTION_SUCCESS", null);
     }
 
-    private static Response handleGetAuctions(Request request) {
-        UpdateSystem.getInstance().updateAllAuctions((int) request.get("userId"));
+    private Response handleGetAuctions(Request request) {
+        updateSystem.updateAllAuctions((int) request.get("userId"));
         return new Response(true, "GET_AUCTIONS_SUCCESS", null);
     }
 
     //misc commands
-    private static Response handleMisc(Request request) {
+    private Response handleMisc(Request request) {
         return switch ((String) request.get("command")) {
             case "ls-auction" -> new Response(true, "LIST_AUCTION_SUCCESS", auctionSystem.listActiveAuctions());
             case "disconnect" -> {

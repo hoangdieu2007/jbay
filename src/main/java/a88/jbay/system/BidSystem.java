@@ -11,20 +11,21 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class BidSystem {
-    private static BidSystem instance;
     private final AuctionDAO auctionDAO;
     private final BidDAO bidDAO;
+    private final UserDAO userDAO;
 
-    private BidSystem() {
-        this.auctionDAO = AuctionDAO.getInstance();
-        this.bidDAO = BidDAO.getInstance();
+    // Constructor for dependency injection
+    public BidSystem(AuctionDAO auctionDAO, BidDAO bidDAO, UserDAO userDAO) {
+        this.auctionDAO = auctionDAO;
+        this.bidDAO = bidDAO;
+        this.userDAO = userDAO;
     }
 
+    // Deprecated singleton method - use dependency injection instead
+    @Deprecated
     public static synchronized BidSystem getInstance() {
-        if (instance == null) {
-            instance = new BidSystem();
-        }
-        return instance;
+        return new BidSystem(AuctionDAO.getInstance(), BidDAO.getInstance(), UserDAO.getInstance());
     }
 
     public synchronized boolean placeBid(int userId, int auctionId, double amount) {
@@ -41,7 +42,7 @@ public class BidSystem {
             return false;
         }
 
-        BidTransaction tx = new BidTransaction(userId, UserDAO.getInstance().findByUserId(userId).username(), amount, LocalDateTime.now());
+        BidTransaction tx = new BidTransaction(userId, userDAO.findByUserId(userId).username(), amount, LocalDateTime.now());
         auction.subscribe(userId); // bidder is automatically subscribed
         auction.updatePrice(amount, tx);
 

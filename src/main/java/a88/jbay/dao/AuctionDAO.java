@@ -2,7 +2,6 @@ package a88.jbay.dao;
 
 import a88.jbay.common.item.Item;
 import a88.jbay.common.auction.AuctionState;
-import a88.jbay.server.DatabaseConnectionProvider;
 import a88.jbay.server.DatabaseController;
 
 import java.sql.Connection;
@@ -12,8 +11,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public class AuctionDAO {
-    private static final AuctionDAO instance = new AuctionDAO();
-    private final DatabaseConnectionProvider dbProvider;
+    private final DatabaseController dbController;
     private final ItemDAO itemDAO;
     private final BidDAO bidDAO;
 
@@ -29,21 +27,21 @@ public class AuctionDAO {
         String state
     ) {}
 
-    private AuctionDAO() {
-        this.dbProvider = DatabaseController.getInstance();
-        this.itemDAO = ItemDAO.getInstance();
-        this.bidDAO = BidDAO.getInstance();
-    }
-
-    // dependency injection
-    public AuctionDAO(DatabaseConnectionProvider dbProvider, ItemDAO itemDAO, BidDAO bidDAO) {
-        this.dbProvider = dbProvider;
+    // Constructor for dependency injection
+    public AuctionDAO(DatabaseController dbController, ItemDAO itemDAO, BidDAO bidDAO) {
+        this.dbController = dbController;
         this.itemDAO = itemDAO;
         this.bidDAO = bidDAO;
     }
 
+    // Deprecated singleton method - use dependency injection instead
+    @Deprecated
     public static AuctionDAO getInstance() {
-        return instance;
+        return new AuctionDAO(
+            DatabaseController.getInstance(),
+            new ItemDAO(DatabaseController.getInstance()),
+            new BidDAO(DatabaseController.getInstance())
+        );
     }
 
     private AuctionData mapAuction(ResultSet rs) throws SQLException {
@@ -75,7 +73,7 @@ public class AuctionDAO {
                 VALUES (?, ?, ?, ?, NULL, ?, ?, 'OPENING')
                 """;
 
-        try (Connection connection = dbProvider.getConnection();
+        try (Connection connection = dbController.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
             stmt.setInt(1, itemId);
@@ -107,7 +105,7 @@ public class AuctionDAO {
 
         String sql = "UPDATE auctions SET cur_price = ?, winner = ? WHERE id = ?";
 
-        try (Connection connection = dbProvider.getConnection();
+        try (Connection connection = dbController.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setDouble(1, newPrice);
@@ -124,7 +122,7 @@ public class AuctionDAO {
     public boolean updateEndTime(int auctionId, LocalDateTime newEndTime) {
         String sql = "UPDATE auctions SET end_time = ? WHERE id = ?";
 
-        try (Connection connection = dbProvider.getConnection();
+        try (Connection connection = dbController.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setObject(1, newEndTime);
@@ -141,7 +139,7 @@ public class AuctionDAO {
 
         String sql = "UPDATE auctions SET winner = ?, state = 'FINISHED' WHERE id = ?";
 
-        try (Connection connection = dbProvider.getConnection();
+        try (Connection connection = dbController.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             if (winnerId == null) {
@@ -162,7 +160,7 @@ public class AuctionDAO {
 
         String sql = "UPDATE auctions SET state = ? WHERE id = ?";
 
-        try (Connection connection = dbProvider.getConnection();
+        try (Connection connection = dbController.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setString(1, newState.name());
@@ -187,7 +185,7 @@ public class AuctionDAO {
 
         String sql = "SELECT seller FROM auctions WHERE id = ?";
 
-        try (Connection connection = dbProvider.getConnection();
+        try (Connection connection = dbController.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setInt(1, auctionId);
@@ -207,7 +205,7 @@ public class AuctionDAO {
     public AuctionData findAuctionById(int auctionId) {
         String sql = "SELECT * FROM auctions WHERE id = ?";
 
-        try (Connection connection = dbProvider.getConnection();
+        try (Connection connection = dbController.getConnection();
             PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, auctionId);
 
@@ -233,7 +231,7 @@ public class AuctionDAO {
         String sql = "SELECT * FROM auctions WHERE seller = ?";
         java.util.List<AuctionData> sellerAuctions = new java.util.ArrayList<>();
 
-        try (Connection connection = dbProvider.getConnection();
+        try (Connection connection = dbController.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setInt(1, sellerId);
@@ -254,7 +252,7 @@ public class AuctionDAO {
         String sql = "SELECT * FROM auctions WHERE winner = ?";
         java.util.List<AuctionData> winnerAuctions = new java.util.ArrayList<>();
 
-        try (Connection connection = dbProvider.getConnection();
+        try (Connection connection = dbController.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setInt(1, winnerId);
@@ -275,7 +273,7 @@ public class AuctionDAO {
         String sql = "SELECT * FROM auctions WHERE state IN ('OPENING', 'RUNNING')";
         java.util.List<AuctionData> activeAuctions = new java.util.ArrayList<>();
 
-        try (Connection connection = dbProvider.getConnection();
+        try (Connection connection = dbController.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             try (ResultSet rs = stmt.executeQuery()) {

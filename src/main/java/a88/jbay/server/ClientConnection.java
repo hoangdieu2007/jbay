@@ -3,6 +3,7 @@ package a88.jbay.server;
 import a88.jbay.common.user.User;
 import a88.jbay.common.network.Request;
 import a88.jbay.common.network.Response;
+import a88.jbay.di.DependencyInjectionContainer;
 import a88.jbay.system.UpdateSystem;
 import a88.jbay.system.UserSystem;
 import a88.jbay.util.JBayLogger;
@@ -23,6 +24,7 @@ public class ClientConnection implements Runnable {
     private final ObjectOutputStream out;
     private final int connectionId;
     private final JBayLogger logger;
+    private final RequestHandler requestHandler;
 
     // user cache, this helps reduce the number of database queries
     private User userCache;
@@ -36,8 +38,11 @@ public class ClientConnection implements Runnable {
         this.in = new ObjectInputStream(socket.getInputStream());
 
         this.userCache = new User();
-
         this.logger = JBayLogger.getLogger(ClientConnection.class);
+        
+        // Get RequestHandler from DI container
+        DependencyInjectionContainer container = DependencyInjectionContainer.getInstance();
+        this.requestHandler = new RequestHandler(container);
     }
 
     public int getConnectionId() {
@@ -61,14 +66,18 @@ public class ClientConnection implements Runnable {
                     Request request = (Request) in.readObject();
                     if (request == null) break;
 
-                    Response response = RequestHandler.handleRequest(request);
+                    Response response = requestHandler.handleRequest(request);
 
                     // update cache if login success
                     if (response.getMessage().equals("LOGIN_SUCCESS")) {
                         this.userCache = (User) response.getPayload();
-                        UpdateSystem.getInstance().register(this);
+                        DependencyInjectionContainer container = DependencyInjectionContainer.getInstance();
+                        UpdateSystem updateSystem = container.getInstance(UpdateSystem.class);
+                        updateSystem.register(this);
                     } else if (response.getMessage().equals("LOGOUT_SUCCESS")) {
-                        UpdateSystem.getInstance().unregister(this); // this has to be called before setting userCache to new User()
+                        DependencyInjectionContainer container = DependencyInjectionContainer.getInstance();
+                        UpdateSystem updateSystem = container.getInstance(UpdateSystem.class);
+                        updateSystem.unregister(this); // this has to be called before setting userCache to new User()
                         this.userCache = new User();
                     }
 
@@ -85,8 +94,11 @@ public class ClientConnection implements Runnable {
             }
         } finally {
             // later add clean up codes here!
-            UpdateSystem.getInstance().unregister(this);
-            UserSystem.getInstance().logout(userCache.getSessionId());
+            DependencyInjectionContainer container = DependencyInjectionContainer.getInstance();
+            UpdateSystem updateSystem = container.getInstance(UpdateSystem.class);
+            UserSystem userSystem = container.getInstance(UserSystem.class);
+            updateSystem.unregister(this);
+            userSystem.logout(userCache.getSessionId());
             closeResources(out, in, socket);
             Thread.currentThread().interrupt();
         }

@@ -1,7 +1,6 @@
 package a88.jbay.dao;
 
 import a88.jbay.common.item.Item;
-import a88.jbay.server.DatabaseConnectionProvider;
 import a88.jbay.server.DatabaseController;
 
 import java.sql.Connection;
@@ -10,30 +9,23 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ItemDAO {
-    private static ItemDAO instance;
-    private final DatabaseConnectionProvider dbProvider;
-
-    // Default constructor for singleton pattern (backward compatibility)
-    private ItemDAO() {
-        this.dbProvider = DatabaseController.getInstance();
-    }
+    private final DatabaseController dbController;
 
     // Constructor for dependency injection
-    public ItemDAO(DatabaseConnectionProvider dbProvider) {
-        this.dbProvider = dbProvider;
+    public ItemDAO(DatabaseController dbController) {
+        this.dbController = dbController;
     }
 
+    // Deprecated singleton method - use dependency injection instead
+    @Deprecated
     public static synchronized ItemDAO getInstance() {
-        if (instance == null) {
-            instance = new ItemDAO();
-        }
-        return instance;
+        return new ItemDAO(DatabaseController.getInstance());
     }
 
     public int insertItem(Item item) {
         String sql = "INSERT INTO items (name, type, `desc`, start_price, image) VALUES (?, ?, ?, ?, ?)";
 
-        try (Connection connection = dbProvider.getConnection();
+        try (Connection connection = dbController.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
             stmt.setString(1, item.getName());
@@ -63,7 +55,7 @@ public class ItemDAO {
     public Item findItemById(int itemId) {
         String sql = "SELECT id, name, type, `desc`, start_price, image FROM items WHERE id = ?";
 
-        try (Connection connection = dbProvider.getConnection();
+        try (Connection connection = dbController.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setInt(1, itemId);

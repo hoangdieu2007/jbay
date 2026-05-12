@@ -1,5 +1,6 @@
 package a88.jbay.view;
 
+import a88.jbay.di.ApplicationContext;
 import a88.jbay.system.AuctionSystem;
 import a88.jbay.system.UserSystem;
 import javafx.application.Application;
@@ -26,10 +27,12 @@ public class MainServer extends Application {
         Task<Void> loadingTask = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-                //loading
+                // Initialize dependency injection container
+                ApplicationContext.initialize();
 
-                UserSystem userSystem = UserSystem.getInstance();
-                AuctionSystem auctionSystem = AuctionSystem.getInstance();
+                // Load systems through DI container
+                UserSystem userSystem = ApplicationContext.getInstance().getDependency(UserSystem.class);
+                AuctionSystem auctionSystem = ApplicationContext.getInstance().getDependency(AuctionSystem.class);
 
                 Thread.sleep(1500);
 

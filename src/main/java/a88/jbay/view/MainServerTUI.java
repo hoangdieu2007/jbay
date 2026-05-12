@@ -1,13 +1,10 @@
 package a88.jbay.view;
 
-import a88.jbay.dao.AuctionDAO;
-import a88.jbay.dao.BidDAO;
-import a88.jbay.dao.ItemDAO;
-import a88.jbay.dao.UserDAO;
 import a88.jbay.common.auction.Auction;
 import a88.jbay.server.ClientConnection;
 import a88.jbay.server.ClientService;
 import a88.jbay.server.DatabaseController;
+import a88.jbay.di.ApplicationContext;
 import a88.jbay.system.AuctionSystem;
 import a88.jbay.system.UpdateSystem;
 import a88.jbay.system.UserSystem;
@@ -47,21 +44,15 @@ public class MainServerTUI {
             }
         }
 
+        // Initialize dependency injection container
+        ApplicationContext.initialize();
+
         ClientService clientService = ClientService.getInstance();
 
-        /**
-         * init DAOs
-         */
-        AuctionDAO auctionDAO = AuctionDAO.getInstance();
-        UserDAO userDAO = UserDAO.getInstance();
-        BidDAO bidDAO = BidDAO.getInstance();
-        ItemDAO itemDAO = ItemDAO.getInstance();
-
-        //init systems
-        DatabaseController dbController = DatabaseController.getInstance();
-        AuctionSystem auctionSystem = AuctionSystem.getInstance();
-        UserSystem userSystem = UserSystem.getInstance();
-        UpdateSystem updateSystem = UpdateSystem.getInstance();
+        // Get systems from DI container
+        AuctionSystem auctionSystem = ApplicationContext.getInstance().getDependency(AuctionSystem.class);
+        UserSystem userSystem = ApplicationContext.getInstance().getDependency(UserSystem.class);
+        UpdateSystem updateSystem = ApplicationContext.getInstance().getDependency(UpdateSystem.class);
 
         try {
 
@@ -85,21 +76,21 @@ public class MainServerTUI {
                             System.out.println("Password:");
                             String password = sc.nextLine();
 
-                            UserSystem.getInstance().register(username, password, "ADMIN");
+                            userSystem.register(username, password, "ADMIN");
 
                             break;
                         case "CANCEL":
                             System.out.println("Auction ID:");
                             int auctionId = sc.nextInt();
 
-                            AuctionSystem.getInstance().cancelAuction(auctionId);
+                            auctionSystem.cancelAuction(auctionId);
 
                             break;
                         case "BAN":
                             System.out.println("User ID:");
                             int userId = sc.nextInt();
 
-                            UserSystem.getInstance().banUser(userId);
+                            userSystem.banUser(userId);
 
                             break;
                         case "UQ":
@@ -116,7 +107,7 @@ public class MainServerTUI {
                             auctionId = sc.nextInt();
 
                             if (auctionId == -1) {
-                                for (Auction auction : AuctionSystem.getInstance().getActiveAuctionList()) {
+                                for (Auction auction : auctionSystem.getActiveAuctionList()) {
                                     System.out.println(auction);
                                 }
                             }

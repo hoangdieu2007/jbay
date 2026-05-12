@@ -10,8 +10,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 // singleton class for database controlling
 // requirement: thread safe
-public class DatabaseController implements DatabaseConnectionProvider {
-    private static DatabaseController instance;
+public class DatabaseController {
+    private static final DatabaseController instance = new DatabaseController();
     private final HikariDataSource dataSource;
     private final JBayLogger logger;
 
@@ -38,9 +38,6 @@ public class DatabaseController implements DatabaseConnectionProvider {
     }
 
     public static DatabaseController getInstance() {
-        if (instance == null) {
-            instance = new DatabaseController();
-        }
         return instance;
     }
 

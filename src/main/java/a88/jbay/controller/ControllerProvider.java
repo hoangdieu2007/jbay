@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class ControllerProvider {
     private static ControllerProvider instance;
-    private Map<Class<?>, Object> controllers = new HashMap<>();
+    private final Map<Class<?>, Object> controllers = new HashMap<>();
     
     private ControllerProvider() {}
     
@@ -25,14 +25,6 @@ public class ControllerProvider {
     // generic getter
     public <T> T getController(Class<T> clazz) {
         return clazz.cast(controllers.get(clazz));
-    }
-    
-    public void removeController(String name) {
-        controllers.remove(name);
-    }
-    
-    public boolean hasController(String name) {
-        return controllers.containsKey(name);
     }
 
     public void clearControllers() {

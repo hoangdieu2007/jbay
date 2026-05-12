@@ -24,7 +24,6 @@ features: real-time bidding, auction lifecycle management
  */
 
 public class AuctionSystem {
-    private static AuctionSystem instance;
     private final AuctionDAO auctionDAO;
     private final UserDAO userDAO;
     private final BidDAO bidDAO;
@@ -36,11 +35,12 @@ public class AuctionSystem {
 
     private final ScheduledExecutorService scheduler;
 
-    private AuctionSystem() {
-        this.auctionDAO = AuctionDAO.getInstance();
-        this.userDAO = UserDAO.getInstance();
-        this.bidDAO = BidDAO.getInstance();
-        this.updateSystem = UpdateSystem.getInstance();
+    // Constructor for dependency injection
+    public AuctionSystem(AuctionDAO auctionDAO, UserDAO userDAO, BidDAO bidDAO, UpdateSystem updateSystem) {
+        this.auctionDAO = auctionDAO;
+        this.userDAO = userDAO;
+        this.bidDAO = bidDAO;
+        this.updateSystem = updateSystem;
         this.logger = JBayLogger.getLogger(AuctionSystem.class);
         this.activeAuctions = new ConcurrentHashMap<>();
         this.scheduler = Executors.newSingleThreadScheduledExecutor();
@@ -49,11 +49,15 @@ public class AuctionSystem {
         startHeartbeat();
     }
 
+    // Deprecated singleton method - use dependency injection instead
+    @Deprecated
     public static synchronized AuctionSystem getInstance() {
-        if (instance == null) {
-            instance = new AuctionSystem();
-        }
-        return instance;
+        return new AuctionSystem(
+            AuctionDAO.getInstance(),
+            UserDAO.getInstance(),
+            BidDAO.getInstance(),
+            UpdateSystem.getInstance()
+        );
     }
 
     public void loadActiveAuctions() {
