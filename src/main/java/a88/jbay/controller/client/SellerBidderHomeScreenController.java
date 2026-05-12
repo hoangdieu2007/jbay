@@ -9,12 +9,11 @@ import a88.jbay.model.network.RequestType;
 import a88.jbay.util.JBayLogger;
 import a88.jbay.view.ViewManager;
 import javafx.collections.*;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 
@@ -22,7 +21,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class SellerBidderHomeScreenController {
-    private final JBayLogger logger = JBayLogger.getInstance();
+    private final JBayLogger logger = JBayLogger.getLogger(SellerBidderHomeScreenController.class);
 
     // LOG OUT
     @FXML private Button btnLogOut;
@@ -93,60 +92,60 @@ public class SellerBidderHomeScreenController {
 
             return cardBox;
         } catch (IOException e) {
-                        return null;
+            return null;
         }
     }
+
+    @FXML private TextField sellerSearchField;
 
     @FXML
     public void initializeSellerUI() {
         sellerFlowPane.getChildren().clear();
+
         ObservableMap<Integer, Auction> sellerMap = ClientSession.getInstance().getSellerAuctions();
+
+        ObservableList<Auction> sellerList = FXCollections.observableList(new ArrayList<>(sellerMap.values()));
+
+        FilteredList<Auction> filteredList = new FilteredList<>(sellerList, auction -> true);
+
         logger.debug("Seller UI initialized with " + sellerMap.size() + " auctions");
 
-        int initIndex = 0;
-        for (Auction auction : sellerMap.values()) {
-            VBox newCard = createCardSeller(auction);
-            if (newCard != null) {
-                sellerCardBox.put(auction.getId(), newCard);
-                sellerFlowPane.getChildren().add(initIndex++, newCard);
-            }
-        }
+        refreshSellerList(filteredList);
 
         ClientSession.getInstance().getSellerAuctions().addListener((MapChangeListener<Integer, Auction>) change -> {
             // nếu còn phần tử, trả về true --> chạy tiếp
+            if(change.wasAdded() && !change.wasRemoved()){
+                sellerList.add(change.getValueAdded());
+            }
+            else if(change.wasAdded() && change.wasRemoved()){
+                int idx = sellerList.indexOf(change.getValueRemoved());
 
-            Integer id = change.getKey();
-
-                if (change.wasAdded() && !change.wasRemoved()) {
-                        Auction newAuction = change.getValueAdded();
-                        VBox newCard = createCardSeller(newAuction);
-                        if (newCard != null) {
-                            sellerCardBox.put(id, newCard);
-                            int targetIdx = new ArrayList<>(sellerMap.keySet()).indexOf(id); // find the exact idx to display card
-                            sellerFlowPane.getChildren().add(targetIdx, newCard);
-                        }
-
-                } else if (change.wasAdded() && change.wasRemoved()) { //ObservableMap doesnt have wasReplaced()
-                    Auction updateAuction = change.getValueAdded();
-                    VBox oldCard = sellerCardBox.get(id);
-                    if (oldCard != null) {
-                        int index = sellerFlowPane.getChildren().indexOf(oldCard);
-                        VBox updatedCard = createCardSeller(updateAuction);
-                        if (updatedCard != null) {
-                            sellerFlowPane.getChildren().set(index, updatedCard);
-                        }
-                    }
-
-                }else if (change.wasRemoved() && !change.wasAdded()){
-                    VBox oldCard = sellerCardBox.get(id);
-                    if (oldCard != null) {
-                        sellerFlowPane.getChildren().remove(oldCard); // delete from UI
-                        sellerCardBox.remove(id);
-                    }
+                if (idx >= 0) {
+                    sellerList.set(idx, change.getValueAdded());
                 }
+            }
+            else if(change.wasRemoved()) {
+                sellerList.remove(change.wasRemoved());
+            }
 
         });
 
+        /** xử lý thay đổi from sellerList và textField*/
+        filteredList.addListener((ListChangeListener<Auction>) change -> {
+            refreshSellerList(filteredList);
+        });
+
+        sellerSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredList.setPredicate(auction -> {
+
+                if(newValue == null || newValue.isEmpty()){
+                    return true;
+                }
+
+                String lowerNewValue = newValue.toLowerCase();
+                return auction.getItem().getName().toLowerCase().contains(lowerNewValue);
+            });
+        });
     }
 
 
@@ -166,56 +165,199 @@ public class SellerBidderHomeScreenController {
 
             return cardBox;
         }catch (IOException e){
-                        return null;
+            return null;
         }
     }
 
     private Map<Integer, VBox> bidderCardBox = new HashMap<>();
+    @FXML
+    TextField bidderSearchField;
 
     @FXML
     public void  initializeBidderUI(){
         bidderFlowPane.getChildren().clear();
+
         ObservableMap<Integer, Auction> bidderMap = ClientSession.getInstance().getBidderAuctions();
+
+        ObservableList<Auction> bidderList = FXCollections.observableList(new ArrayList<>(bidderMap.values()));
+
+        FilteredList<Auction> filteredList = new FilteredList<>(bidderList, auction -> true);
+
         logger.debug("Bidder UI initialized with " + bidderMap.size() + " auctions");
 
-        int initIndex = 0;
-        for (Auction auction : bidderMap.values()) {
-            VBox newCard = createCardBidder(auction);
-            if (newCard != null) {
-                bidderCardBox.put(auction.getId(), newCard);
-                bidderFlowPane.getChildren().add(initIndex++, newCard);
-            }
-        }
+       refreshBidderList(filteredList);
 
         ClientSession.getInstance().getBidderAuctions().addListener((MapChangeListener< Integer, Auction>) change -> {
             // nếu còn phần tử, trả về true --> chạy tiếp
-            Integer id = change.getKey();
-
             if(change.wasAdded() && !change.wasRemoved()){
-                    Auction newAuction = change.getValueAdded();
-                    VBox newCard =  createCardBidder(newAuction);
+                bidderList.add(change.getValueAdded());
+            }
+            else if (change.wasAdded() && change.wasRemoved()) {
 
-                    if (newCard != null){
-                        bidderCardBox.put(id, newCard);
-                        int targetIndex = new ArrayList<>(ClientSession.getInstance().getBidderAuctions().keySet()).indexOf(id); // find index of the ID in the List of keys
-                        bidderFlowPane.getChildren().add(targetIndex, newCard);
-                    }
+                int idx = bidderList.indexOf(change.getValueRemoved()); // Nếu ko tìm thấy --> trả về -1
 
-
-                } else if(change.wasAdded() && change.wasRemoved()){
-                    VBox oldCard = bidderCardBox.get(id);
-
-                    if (oldCard != null) {
-                        int index = bidderFlowPane.getChildren().indexOf(oldCard);
-                        Auction updateAuction = change.getValueAdded();
-                        VBox updatedCard = createCardBidder(updateAuction);
-
-                        if (updatedCard != null) {
-                            bidderFlowPane.getChildren().set(index, updatedCard);
-                        }
-                    }
+                if (idx >= 0) {
+                    bidderList.set(idx, change.getValueAdded()); // nhận idx = -1 --> crash
                 }
+            }
+            else{
+                bidderList.remove(change.getValueRemoved());
+            }
 
         });
+        /** xử lý thay đổi from bidderList và textField*/
+        filteredList.addListener((ListChangeListener<Auction>) change -> {
+            refreshBidderList(filteredList);
+        });
+
+        bidderSearchField.textProperty().addListener(((observable, oldValue, newValue) -> {
+            filteredList.setPredicate(auction -> {
+
+                if (newValue == null || newValue.isEmpty()){ // display all auctions
+                    return true;
+                }
+
+                String lowerNewValue = newValue.toLowerCase();
+                return auction.getItem().getName().toLowerCase().contains(lowerNewValue); // display auctions that satisfy the condition
+            });
+        }));
+    }
+
+
+    /*BIDDER SEARCH BAR
+
+    public void initializeBidderUINew() {
+        //initialize data structures
+        ObservableMap<Integer, Auction> bidderMap = ClientSession.getInstance().getBidderAuctions();
+
+        ObservableList<Auction> bidderList = FXCollections.observableList(new ArrayList<>(bidderMap.values()));
+
+        FilteredList<Auction> filteredList = new FilteredList<>(bidderList, auction -> true);
+
+        refreshBidderList(filteredList);
+
+        // adding listeners
+        bidderMap.addListener((MapChangeListener<Integer, Auction>) change -> {
+            if (change.wasRemoved() && change.wasAdded()) {
+
+                int idx = bidderList.indexOf(change.getValueRemoved());
+
+                if (idx >= 0) {
+                    bidderList.set(idx, change.getValueAdded());
+                }
+
+            } else {
+
+                if (change.wasRemoved()) {
+                    bidderList.remove(change.getValueRemoved());
+                }
+
+                if (change.wasAdded()) {
+                    bidderList.add(change.getValueAdded());
+                }
+            }
+            bidderList.sort(
+                    Comparator.comparingInt(Auction::getId)
+                            .reversed()
+            );
+        });
+
+        filteredList.addListener((ListChangeListener<Auction>) change -> {
+            refreshBidderList(filteredList);
+        });
+
+        //If auctions satisfy the condition --> display on UI
+        bidderSearchField.textProperty().addListener(((observable, oldValue, newValue) -> {
+            filteredList.setPredicate(auction -> { // update on filter condition for auction: Retunr type Boolean
+
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+                return auction.getItem().getName().toLowerCase().contains(lowerCaseFilter);
+            });
+        } ));
+    }*/
+
+    public void refreshBidderList(FilteredList<Auction> filteredList) {
+
+        bidderFlowPane.getChildren().clear();
+        for (Auction auction : filteredList) {
+            // Reuse existing card from cache to prevent massive memory allocation
+            VBox card = bidderCardBox.get(auction.getId());
+            if (card == null) {
+                card = createCardBidder(auction);
+                if (card != null) {
+                    bidderCardBox.put(auction.getId(), card);
+                }
+            }
+            if (card != null) {
+                bidderFlowPane.getChildren().add(card);
+            }
+        }
+        // Cleanup cache for auctions that are no longer in the list
+        bidderCardBox.keySet().removeIf(id -> filteredList.stream().noneMatch(a -> a.getId() == id));
+    }
+    /*
+    public void initializeSellerUINew() {
+        // initialize data structures
+        ObservableMap<Integer, Auction> sellerMap = ClientSession.getInstance().getSellerAuctions();
+
+        ObservableList<Auction> sellerList = FXCollections.observableList(new ArrayList<>(sellerMap.values()));
+
+        FilteredList<Auction> filteredList = new FilteredList<>(sellerList, auction -> true);
+
+        refreshSellerList(filteredList);
+
+        // add listeners
+        sellerMap.addListener((MapChangeListener<Integer, Auction>) change -> {
+            if (change.wasRemoved() && change.wasAdded()) {
+
+                int idx = sellerList.indexOf(change.getValueRemoved());
+
+                if (idx >= 0) {
+                    sellerList.set(idx, change.getValueAdded());
+                }
+
+            } else {
+
+                if (change.wasRemoved()) {
+                    sellerList.remove(change.getValueRemoved());
+                }
+
+                if (change.wasAdded()) {
+                    sellerList.add(change.getValueAdded());
+                }
+            }
+            sellerList.sort(
+                    Comparator.comparingInt(Auction::getId)
+                            .reversed()
+            );
+        });
+
+        filteredList.addListener((ListChangeListener<Auction>) change -> {
+            refreshSellerList(filteredList);
+        });
+    }**/
+
+    public void refreshSellerList(FilteredList<Auction> filteredList) {
+        int initIdx = 0;
+        sellerFlowPane.getChildren().clear();
+        for (Auction auction : filteredList) {
+            // Reuse existing card from cache
+            VBox card = sellerCardBox.get(auction.getId());
+            if (card == null) {
+                card = createCardSeller(auction);
+                if (card != null) {
+                    sellerCardBox.put(auction.getId(), card);
+                }
+            }
+            if (card != null) {
+                sellerFlowPane.getChildren().add(initIdx++, card);
+            }
+        }
+        // Cleanup cache
+        sellerCardBox.keySet().removeIf(id -> filteredList.stream().noneMatch(a -> a.getId() == id));
     }
 }

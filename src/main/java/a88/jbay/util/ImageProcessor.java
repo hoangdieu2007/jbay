@@ -8,36 +8,51 @@ import java.io.*;
 
 public class ImageProcessor {
 
-    // Chuyển File ảnh thành byte[] và nén xuống dưới 500KB
     public static byte[] compressToBytes(File file) {
         if (file == null) return null;
 
+        // Nếu ảnh đã nhỏ hơn 500KB rồi thì không cần nén
+        if (file.length() <= 500 * 1024) {
+            try (FileInputStream fis = new FileInputStream(file)) {
+                return fis.readAllBytes();
+            } catch (IOException e) { return null; }
+        }
+
         try {
             BufferedImage originalImage = ImageIO.read(file);
-            double quality = 1.0;
+            if (originalImage == null) {
+                System.err.println("This image type is not supported.");
+                return null;
+            }
+
+            // Tạo một bản copy để nén, giữ nguyên bản gốc để resize không bị dồn toa
+            BufferedImage workingImage = originalImage;
+            double scale = 0.9;
             byte[] imageBytes;
 
-            // Vòng lặp nén: Nếu ảnh > 500KB, giảm kích thước ảnh xuống
             do {
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-                // Nếu ảnh quá lớn, ta sẽ resize nó (giảm 10% mỗi lần)
-                if (quality < 1.0) {
-                    originalImage = resizeImage(originalImage, quality);
-                }
+                // Fix lỗi mất màu/trong suốt: Chuyển sang ảnh RGB chuẩn trước khi lưu JPG
+                BufferedImage finalImage = new BufferedImage(workingImage.getWidth(), workingImage.getHeight(), BufferedImage.TYPE_INT_RGB);
+                Graphics2D graphic = finalImage.createGraphics();
+                // Đổ nền trắng cho các vùng trong suốt của PNG để ảnh trông đẹp hơn
+                graphic.drawImage(workingImage, 0, 0, Color.WHITE, null);
+                graphic.dispose();
 
-                // Ghi ảnh vào stream dưới định dạng JPG để nhẹ nhất
-                ImageIO.write(originalImage, "jpg", baos);
+                ImageIO.write(finalImage, "jpg", baos);
                 imageBytes = baos.toByteArray();
 
-                // Giảm hệ số tỉ lệ cho vòng lặp tiếp theo nếu vẫn > 500KB
-                quality -= 0.1;
-
-            } while (imageBytes.length > 500 * 1024 && quality > 0.1);
+                if (imageBytes.length > 500 * 1024) {
+                    // LUÔN RESIZE TỪ ẢNH GỐC để đảm bảo chất lượng
+                    workingImage = resizeImage(originalImage, scale);
+                    scale -= 0.1;
+                }
+            } while (imageBytes.length > 500 * 1024 && scale > 0.1);
 
             return imageBytes;
         } catch (IOException e) {
-            System.err.println("Error in processing image: " + e.getMessage());
+            e.printStackTrace();
             return null;
         }
     }

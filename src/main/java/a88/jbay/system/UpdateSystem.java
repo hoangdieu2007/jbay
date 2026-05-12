@@ -5,12 +5,11 @@ import a88.jbay.model.network.Response;
 import a88.jbay.server.ClientConnection;
 import a88.jbay.util.JBayLogger;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
     the notification system for the server
@@ -24,11 +23,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class UpdateSystem {
     private static UpdateSystem instance;
-    private final Map<Integer, List<ClientConnection>> connections = new ConcurrentHashMap<>();
+    private final Map<Integer, Set<ClientConnection>> connections = new ConcurrentHashMap<>();
     private final JBayLogger logger;
 
     private UpdateSystem() {
-        this.logger = JBayLogger.getInstance();
+        this.logger = JBayLogger.getLogger(UpdateSystem.class);
     }
 
     public static synchronized UpdateSystem getInstance() {
@@ -38,14 +37,14 @@ public class UpdateSystem {
         return instance;
     }
 
-    public Map<Integer, List<ClientConnection>> getConnections() {
+    public Map<Integer, Set<ClientConnection>> getConnections() {
         return connections;
     }
 
     //register client connection
     public void register(ClientConnection connection) {
         logger.debug("Registering connection: " + connection.getConnectionId());
-        connections.computeIfAbsent(connection.getUserCache().getId(), k -> new ArrayList<>()).add(connection);
+        connections.computeIfAbsent(connection.getUserCache().getId(), k -> new CopyOnWriteArraySet<>()).add(connection);
         logger.debug("Total registered connections: " + connections.size());
     }
 
@@ -75,10 +74,12 @@ public class UpdateSystem {
         // Update all active connections
         connections.forEach((userId, connections) -> {
             if (subscriberIds.contains(userId)) {
-                try {
-                    connections.forEach(connection -> connection.send(response));
-                } catch (Exception e) {
-                    logger.error("Failed to send update: " + e.getMessage(), e);
+                for (ClientConnection connection : connections) {
+                    try {
+                        connection.send(response);
+                    } catch (Exception e) {
+                        logger.error("Failed to send update: " + e.getMessage(), e);
+                    }
                 }
             }
         });

@@ -45,7 +45,7 @@ public class AuctionSystem {
         this.userDAO = UserDAO.getInstance();
         this.bidDAO = BidDAO.getInstance();
         this.updateSystem = UpdateSystem.getInstance();
-        this.logger = JBayLogger.getInstance();
+        this.logger = JBayLogger.getLogger(AuctionSystem.class);
         this.activeAuctions = new ConcurrentHashMap<>();
         this.scheduler = Executors.newSingleThreadScheduledExecutor();
 
@@ -448,6 +448,18 @@ public class AuctionSystem {
     //stopping the heartbeat, WARNING: no automatic auction lifecycle management after stopping
     //do NOT call this method unless for testing purpose
     public void stopSystem() {
-        scheduler.shutdown();
+        try {
+            // Shutdown the scheduler and wait for tasks to complete
+            scheduler.shutdown();
+            if (!scheduler.awaitTermination(5, TimeUnit.SECONDS)) {
+                scheduler.shutdownNow();
+                if (!scheduler.awaitTermination(5, TimeUnit.SECONDS)) {
+                    logger.warn("Scheduler did not terminate");
+                }
+            }
+        } catch (InterruptedException e) {
+            scheduler.shutdownNow();
+            Thread.currentThread().interrupt();
+        }
     }
 }

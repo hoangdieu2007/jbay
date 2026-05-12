@@ -20,7 +20,7 @@ public class DatabaseController implements DatabaseConnectionProvider {
     public static String password;
 
     private DatabaseController() {
-        this.logger = JBayLogger.getInstance();
+        this.logger = JBayLogger.getLogger(DatabaseController.class);
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(url);
         config.setUsername(username);
@@ -37,7 +37,7 @@ public class DatabaseController implements DatabaseConnectionProvider {
         logger.info("Database connection pool initialized with URL: " + url);
     }
 
-    public static synchronized DatabaseController getInstance() {
+    public static DatabaseController getInstance() {
         if (instance == null) {
             instance = new DatabaseController();
         }

@@ -30,7 +30,7 @@ public class UserSystem {
 
     private UserSystem() {
         this.userDAO = UserDAO.getInstance();
-        this.logger = JBayLogger.getInstance();
+        this.logger = JBayLogger.getLogger(UserSystem.class);
         this.userCache = new ConcurrentHashMap<>();
     }
 

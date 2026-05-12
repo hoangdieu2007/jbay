@@ -31,7 +31,6 @@ public class ClientConnection implements Runnable {
     public ClientConnection(Socket socket) throws IOException {
         this.connectionId = socket.hashCode(); // Use socket hash as connection ID
         this.socket = socket;
-        socket.setSoTimeout(0); // No read timeout - connection lives forever
         socket.setKeepAlive(true);  // enable TCP keep-alive
         this.out = new ObjectOutputStream(socket.getOutputStream());
         out.flush();
@@ -39,7 +38,7 @@ public class ClientConnection implements Runnable {
 
         this.userCache = new User();
 
-        this.logger = JBayLogger.getInstance();
+        this.logger = JBayLogger.getLogger(ClientConnection.class);
     }
 
     public int getConnectionId() {
@@ -70,8 +69,8 @@ public class ClientConnection implements Runnable {
                         this.userCache = (User) response.getPayload();
                         UpdateSystem.getInstance().register(this);
                     } else if (response.getMessage().equals("LOGOUT_SUCCESS")) {
+                        UpdateSystem.getInstance().unregister(this); // this has to be called before setting userCache to new User()
                         this.userCache = new User();
-                        UpdateSystem.getInstance().unregister(this);
                     }
 
                     //prevent crash when update and response sends at the same time
@@ -88,7 +87,9 @@ public class ClientConnection implements Runnable {
         } finally {
             // later add clean up codes here!
             UpdateSystem.getInstance().unregister(this);
+            UserSystem.getInstance().logout(userCache.getSessionId());
             closeResources(out, in, socket);
+            Thread.currentThread().interrupt();
         }
     }
 
@@ -99,12 +100,10 @@ public class ClientConnection implements Runnable {
         logger.info("Sending response: " + response.getMessage());
 
         try {
-            //prevent crash when update and response send at the same time
-            synchronized (this) {
-                out.reset();
-                out.writeObject(response);
-                out.flush();
-            }
+            // Use atomic write to prevent deadlocks
+            out.reset();
+            out.writeObject(response);
+            out.flush();
         } catch (IOException e) {
             logger.error("Error sending response: " + e.getMessage(), e);
         }

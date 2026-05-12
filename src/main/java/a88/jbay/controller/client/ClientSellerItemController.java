@@ -25,7 +25,7 @@ import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
 
 public class ClientSellerItemController {
-    private final JBayLogger logger = JBayLogger.getInstance();
+    private final JBayLogger logger = JBayLogger.getLogger(ClientSellerItemController.class);
 
     @FXML
     private TextField nameField;

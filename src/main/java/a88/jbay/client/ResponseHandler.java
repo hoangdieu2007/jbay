@@ -24,13 +24,13 @@ public class ResponseHandler {
     private final JBayLogger logger;
 
     private ResponseHandler() {
-        this.logger = JBayLogger.getInstance();
+        this.logger = JBayLogger.getLogger(ResponseHandler.class);
         clientSession = ClientSession.getInstance();
         controllerProvider = ControllerProvider.getInstance();
         viewManager = ViewManager.getInstance();
     }
 
-    public synchronized static ResponseHandler getInstance() {
+    public static ResponseHandler getInstance() {
         if (instance == null) {
             instance = new ResponseHandler();
         }
@@ -49,6 +49,7 @@ public class ResponseHandler {
                 case "AUCTION_UPDATE" -> handleAuctionUpdate(response);
                 case "AUCTION_UPDATE_NOTIFY" -> handleAuctionUpdateNotify(response);
                 case "BAN_USER" -> handleBanUser(response);
+                case "PONG" -> handlePong(response);
                 default -> handleDefault(response);
             };
         } else {
@@ -58,6 +59,10 @@ public class ResponseHandler {
                 default -> handleDefault(response);
             }
         }
+    }
+
+    public void handlePong(Response response) {
+        logger.debug("Received PONG from server");
     }
 
     public void handleDefault(Response response) {
@@ -93,8 +98,9 @@ public class ResponseHandler {
 
     public void handleLogoutSuccess(Response response) {
         try {
-            ViewManager.displayScene("client/client-login-register-view.fxml");
             ClientSession.getInstance().resetSession();
+            ControllerProvider.getInstance().clearControllers();
+            ViewManager.displayScene("client/client-login-register-view.fxml");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -145,6 +151,7 @@ public class ResponseHandler {
 
     private void handleBanUser(Response response) {
         clientSession.resetSession();
+        ControllerProvider.getInstance().clearControllers();
         try {
             ViewManager.displayScene("client/client-login-register-view.fxml");
             new Alert(Alert.AlertType.WARNING, "You have been banned").show();
@@ -155,7 +162,7 @@ public class ResponseHandler {
 
     private void handleAuctionUpdateNotify(Response response) {
         Auction auction = (Auction) response.getPayload();
-
-        new Alert(Alert.AlertType.INFORMATION, "Auction update: " + auction.getWinner() + " is the current winner, current price is " + auction.getCurrentPrice() + " USD").show();
+        logger.info("handleAuctionUpdateNotify called for auction " + auction.getId());
+        new Alert(Alert.AlertType.INFORMATION, "Auction " + auction.getId() + " - " + auction.getItem().getName() + " update: " + auction.getWinner() + " is the current winner, current price is " + auction.getCurrentPrice() + " USD").show();
     }
 }

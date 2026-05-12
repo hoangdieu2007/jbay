@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -43,6 +44,11 @@
                                       </FlowPane>
                                   </content>
                               </ScrollPane>
+                        <TextField fx:id="sellerSearchField" layoutX="823.0" layoutY="35.0" prefHeight="35.0" prefWidth="272.0" promptText="Search" style="-fx-background-radius: 40;">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </TextField>
                           </children>
                           <effect>
                               <DropShadow color="#00000033" />
@@ -70,6 +76,11 @@
                                       </FlowPane>
                                   </content>
                               </ScrollPane>
+                        <TextField fx:id="bidderSearchField" layoutX="843.0" layoutY="25.0" prefHeight="41.0" prefWidth="357.0" promptText="Search " style="-fx-background-radius: 45;">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </TextField>
                           </children>
                       </AnchorPane>
                   </content>

@@ -1,6 +1,7 @@
 package a88.jbay.model.network;
 
 public enum RequestType {
+    PING,
     LOGIN,
     REGISTER,
     LOGOUT,

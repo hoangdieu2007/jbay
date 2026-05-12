@@ -29,14 +29,14 @@ public class ClientSession {
     private ObservableMap<Integer, Auction> bidderAuctions;
 
     private ClientSession() {
-        this.logger = JBayLogger.getInstance();
+        this.logger = JBayLogger.getLogger(ClientSession.class);
         user = new User();
         sellerAuctions = FXCollections.observableMap(new TreeMap<>(Collections.reverseOrder()));
         bidderAuctions = FXCollections.observableMap(new TreeMap<>(Collections.reverseOrder()));
 
     }
 
-    public synchronized static ClientSession getInstance() {
+    public static ClientSession getInstance() {
         if (instance == null) {
             instance = new ClientSession();
         }
@@ -66,14 +66,9 @@ public class ClientSession {
         //Reset ttin user
         this.user = new User();
 
-        //Làm sạch Map nhưng giữ nguyên thực thể và không làm đứt kết nối với Listener
-        if (this.bidderAuctions != null) {
-            this.bidderAuctions.clear();
-        }
-
-        if (this.sellerAuctions != null) {
-            this.sellerAuctions.clear();
-        }
+        // Create new map instances to remove all listeners
+        this.sellerAuctions = FXCollections.observableMap(new TreeMap<>(Collections.reverseOrder()));
+        this.bidderAuctions = FXCollections.observableMap(new TreeMap<>(Collections.reverseOrder()));
 
         logger.info("Session has been cleared");
     }

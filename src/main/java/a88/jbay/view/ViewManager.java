@@ -1,5 +1,6 @@
 package a88.jbay.view;
 
+import a88.jbay.client.ClientSession;
 import a88.jbay.controller.ControllerProvider;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +21,7 @@ public class ViewManager {
 
     private ViewManager() {}
 
-    public synchronized static ViewManager getInstance() {
+    public static ViewManager getInstance() {
         if (instance == null) {
             instance = new ViewManager();
         }
