@@ -123,7 +123,7 @@
       </VBox>
       <VBox alignment="CENTER_LEFT" layoutX="716.0" layoutY="173.0" prefHeight="369.0" prefWidth="302.0" style="-fx-border-color: #ffffff; -fx-border-radius: 30; -fx-border-width: 1; -fx-background-color: rgba(255, 255, 255, 0.1); -fx-background-radius: 30;">
          <children>
-            <AnchorPane prefHeight="339.0" prefWidth="300.0">
+            <AnchorPane prefHeight="333.0" prefWidth="300.0">
                <children>
                   <Label alignment="CENTER" layoutX="114.0" text="Admin" textFill="WHITE">
                      <font>
