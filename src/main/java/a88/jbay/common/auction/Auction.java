@@ -243,24 +243,4 @@ public class Auction implements Subject, Serializable {
         isAutoBidding.set(false);
     }
 
-    // Inner class to store auto-bid configuration for each user
-    public static class AutoBidConfig implements Serializable {
-        private static final long serialVersionUID = 1L;
-        private double maxAmount;
-        private double increment;
-
-        AutoBidConfig(double maxAmount, double increment) {
-            this.maxAmount = maxAmount;
-            this.increment = increment;
-        }
-
-        public double getMaxAmount() {
-            return maxAmount;
-        }
-
-        public double getIncrement() {
-            return increment;
-        }
-    }
-
 }

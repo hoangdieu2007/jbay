@@ -1,5 +1,6 @@
 package a88.jbay.system;
 
+import a88.jbay.common.auction.AutoBidConfig;
 import a88.jbay.dao.AuctionDAO;
 import a88.jbay.dao.AuctionDAO.AuctionData;
 import a88.jbay.dao.BidDAO;
@@ -219,8 +220,8 @@ public class AuctionSystem {
 
     private void handleMultipleAutoBids(Auction auction) {
         // Get all auto-bid configs and sort by max_amount descending
-        java.util.List<java.util.Map.Entry<Integer, Auction.AutoBidConfig>> sortedConfigs = auction.getAutoBidConfigs().entrySet().stream()
-                .sorted(java.util.Comparator.comparingDouble((java.util.Map.Entry<Integer, Auction.AutoBidConfig> e) -> e.getValue().getMaxAmount()).reversed())
+        java.util.List<java.util.Map.Entry<Integer, AutoBidConfig>> sortedConfigs = auction.getAutoBidConfigs().entrySet().stream()
+                .sorted(java.util.Comparator.comparingDouble((java.util.Map.Entry<Integer, AutoBidConfig> e) -> e.getValue().getMaxAmount()).reversed())
                 .collect(java.util.stream.Collectors.toList());
 
         if (sortedConfigs.size() < 2) {
@@ -229,8 +230,8 @@ public class AuctionSystem {
         }
 
         // Get top 2 bidders by max_amount
-        java.util.Map.Entry<Integer, Auction.AutoBidConfig> topBidder = sortedConfigs.get(0);
-        java.util.Map.Entry<Integer, Auction.AutoBidConfig> secondBidder = sortedConfigs.get(1);
+        java.util.Map.Entry<Integer, AutoBidConfig> topBidder = sortedConfigs.get(0);
+        java.util.Map.Entry<Integer, AutoBidConfig> secondBidder = sortedConfigs.get(1);
 
         int topUserId = topBidder.getKey();
         double topMaxAmount = topBidder.getValue().getMaxAmount();
