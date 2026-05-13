@@ -1,6 +1,7 @@
 package a88.jbay.view;
 
 import a88.jbay.common.auction.Auction;
+import a88.jbay.repository.AuctionRepository;
 import a88.jbay.server.ClientConnection;
 import a88.jbay.server.ClientService;
 import a88.jbay.server.DatabaseController;
@@ -50,6 +51,7 @@ public class MainServerTUI {
         ClientService clientService = ClientService.getInstance();
 
         // Get systems from DI container
+        AuctionRepository auctionRepository = ApplicationContext.getInstance().getDependency(AuctionRepository.class);
         AuctionSystem auctionSystem = ApplicationContext.getInstance().getDependency(AuctionSystem.class);
         UserSystem userSystem = ApplicationContext.getInstance().getDependency(UserSystem.class);
         UpdateSystem updateSystem = ApplicationContext.getInstance().getDependency(UpdateSystem.class);
@@ -117,7 +119,7 @@ public class MainServerTUI {
                             // nuke the database
                             break;
                         case "RELOAD":
-                            auctionSystem.loadActiveAuctions();
+                            auctionRepository.loadActiveAuctions();
                             break;
                         case "UPDATE":
                             //update all users

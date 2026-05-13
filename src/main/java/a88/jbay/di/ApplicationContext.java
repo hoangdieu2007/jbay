@@ -4,12 +4,12 @@ import a88.jbay.dao.AuctionDAO;
 import a88.jbay.dao.BidDAO;
 import a88.jbay.dao.ItemDAO;
 import a88.jbay.dao.UserDAO;
-import a88.jbay.repository.AuctionRepository;
 import a88.jbay.server.DatabaseController;
 import a88.jbay.system.AuctionSystem;
 import a88.jbay.system.BidSystem;
 import a88.jbay.system.UpdateSystem;
 import a88.jbay.system.UserSystem;
+import a88.jbay.repository.AuctionRepository;
 import a88.jbay.util.JBayLogger;
 
 /**
@@ -57,29 +57,23 @@ public class ApplicationContext {
         ));
 
         // system classes a.k.a. service layer - register as singletons
-        container.registerSingleton(AuctionRepository.class, new AuctionRepository());
         container.registerSingleton(UpdateSystem.class, new UpdateSystem());
-        container.registerSingleton(BidSystem.class, new BidSystem(
-            container.getInstance(AuctionDAO.class),
-            container.getInstance(BidDAO.class),
-            container.getInstance(UserDAO.class),
-            container.getInstance(AuctionRepository.class)
-        ));
         container.registerSingleton(UserSystem.class, new UserSystem(
                 container.getInstance(UserDAO.class),
-                container.getInstance(UpdateSystem.class),
-                container.getInstance(AuctionSystem.class)
+                container.getInstance(UpdateSystem.class)
         ));
-        container.registerSingleton(AuctionSystem.class, new AuctionSystem(
+        container.registerSingleton(AuctionRepository.class, new AuctionRepository(
             container.getInstance(AuctionDAO.class),
             container.getInstance(UserDAO.class),
-            container.getInstance(BidDAO.class),
-            container.getInstance(AuctionRepository.class),
-            container.getInstance(BidSystem.class)
+            container.getInstance(BidDAO.class)
         ));
-        
-        // resolve circular dependency by setting AuctionSystem in UpdateSystem
-        container.getInstance(UpdateSystem.class).setAuctionSystem(container.getInstance(AuctionSystem.class));
+        container.registerSingleton(BidSystem.class, new BidSystem(
+            container.getInstance(AuctionRepository.class)
+        ));
+        container.registerSingleton(AuctionSystem.class, new AuctionSystem(
+            container.getInstance(UpdateSystem.class),
+            container.getInstance(AuctionRepository.class)
+        ));
     }
 
     /**

@@ -2,6 +2,7 @@ package a88.jbay.common.auction;
 
 import a88.jbay.common.Subject;
 import a88.jbay.common.item.Item;
+import a88.jbay.system.UpdateSystem;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -156,7 +157,8 @@ public class Auction implements Subject, Serializable {
 
     public void notifyObservers() {
         System.out.println("Update: " + this);
-        // Note: UpdateSystem calls will be handled by the calling AuctionSystem
+        UpdateSystem.getInstance().notifySubscribers(this, observers);
+        UpdateSystem.getInstance().updateAuctionToAllUsers(this);
     }
 
     //check and change state

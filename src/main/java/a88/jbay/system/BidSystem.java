@@ -1,32 +1,30 @@
 package a88.jbay.system;
 
-import a88.jbay.dao.AuctionDAO;
-import a88.jbay.dao.BidDAO;
-import a88.jbay.dao.UserDAO;
-import a88.jbay.repository.AuctionRepository;
 import a88.jbay.common.auction.Auction;
 import a88.jbay.common.auction.AuctionState;
 import a88.jbay.common.auction.BidTransaction;
+import a88.jbay.dao.BidDAO;
+import a88.jbay.di.ApplicationContext;
+import a88.jbay.repository.AuctionRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class BidSystem {
-    private final AuctionDAO auctionDAO;
-    private final BidDAO bidDAO;
-    private final UserDAO userDAO;
     private final AuctionRepository auctionRepository;
 
     // Constructor for dependency injection
-    public BidSystem(AuctionDAO auctionDAO, BidDAO bidDAO, UserDAO userDAO, AuctionRepository auctionRepository) {
-        this.auctionDAO = auctionDAO;
-        this.bidDAO = bidDAO;
-        this.userDAO = userDAO;
+    public BidSystem(AuctionRepository auctionRepository) {
         this.auctionRepository = auctionRepository;
     }
 
+    // Singleton accessor via ApplicationContext
+    public static BidSystem getInstance() {
+        return ApplicationContext.getInstance().getDependency(BidSystem.class);
+    }
+
     public synchronized boolean placeBid(int userId, int auctionId, double amount) {
-        Auction auction = auctionRepository.getActiveAuction(auctionId);
+        Auction auction = getAuctionById(auctionId);
         if (auction == null) {
             return false;
         }
@@ -39,22 +37,26 @@ public class BidSystem {
             return false;
         }
 
-        BidTransaction tx = new BidTransaction(userId, userDAO.findByUserId(userId).username(), amount, LocalDateTime.now());
+        String username = auctionRepository.getUsernameByUserId(userId);
+        BidTransaction tx = new BidTransaction(userId, username, amount, LocalDateTime.now());
         auction.subscribe(userId); // bidder is automatically subscribed
         auction.updatePrice(amount, tx);
 
-        boolean bidInserted = bidDAO.insertBid(userId, auctionId, amount, tx.getTimestamp());
-        boolean priceUpdated = auctionDAO.updateCurrentPrice(auctionId, amount, userId);
+        boolean bidInserted = auctionRepository.insertBid(userId, auctionId, amount, tx.getTimestamp());
+        boolean priceUpdated = auctionRepository.updateCurrentPrice(auctionId, amount, userId);
 
         return bidInserted && priceUpdated;
     }
 
     public List<BidDAO.BidData> getBidHistory(int auctionId) {
-        return bidDAO.findBidHistoryByAuctionId(auctionId);
+        return auctionRepository.findBidHistoryByAuctionId(auctionId);
     }
 
     public Double getCurrentPrice(int auctionId) {
-        return bidDAO.findCurrentPrice(auctionId);
+        return auctionRepository.findCurrentPrice(auctionId);
     }
 
+    private Auction getAuctionById(int auctionId) {
+        return auctionRepository.getActiveAuctionById(auctionId);
     }
+}

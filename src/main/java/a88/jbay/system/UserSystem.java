@@ -7,6 +7,7 @@ import a88.jbay.util.StringHash;
 import a88.jbay.util.JBayLogger;
 import a88.jbay.common.user.User;
 import a88.jbay.common.network.Response;
+import a88.jbay.di.ApplicationContext;
 
 import java.util.Map;
 import java.util.UUID;
@@ -21,18 +22,21 @@ subscrition are handled by the notification system and client handler, the only 
 public class UserSystem {
     private final UserDAO userDAO;
     private final UpdateSystem updateSystem;
-    private final AuctionSystem auctionSystem;
     private final JBayLogger logger;
 
     private final Map<String, User> userCache;
 
     // constructor for dependency injection
-    public UserSystem(UserDAO userDAO, UpdateSystem updateSystem, AuctionSystem auctionSystem) {
+    public UserSystem(UserDAO userDAO, UpdateSystem updateSystem) {
         this.userDAO = userDAO;
         this.updateSystem = updateSystem;
-        this.auctionSystem = auctionSystem;
         this.logger = JBayLogger.getLogger(UserSystem.class);
         this.userCache = new ConcurrentHashMap<>();
+    }
+
+    // Singleton accessor via ApplicationContext
+    public static UserSystem getInstance() {
+        return ApplicationContext.getInstance().getDependency(UserSystem.class);
     }
 
     // deprecated singleton method - use dependency injection instead
@@ -114,15 +118,15 @@ public class UserSystem {
 
         if (userDAO.changeUserRole(userId, "BAN")) {
             logger.info("User banned successfully: " + userId);
-            updateSystem.unsubscribeUserFromAllAuctions(userId, auctionSystem);
+            UpdateSystem.getInstance().unsubscribeUserFromAllAuctions(userId);
             // when client receives this it will switch to login scene
-            updateSystem.updateByUserId(userId, new Response(true, "BAN_USER", null));
+            UpdateSystem.getInstance().updateByUserId(userId, new Response(true, "BAN_USER", null));
 
-            for (ClientConnection clientConnection : updateSystem.getConnections().get(userId)) {
+            for (ClientConnection clientConnection : UpdateSystem.getInstance().getConnections().get(userId)) {
                 logout(clientConnection.getUserCache().getSessionId());
             }
 
-            updateSystem.unregister(userId);
+            UpdateSystem.getInstance().unregister(userId);
 //            activeUsers.remove(userId);
 //
 //            List<User> sessions = activeUsers.get(userId);
