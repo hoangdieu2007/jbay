@@ -2,6 +2,7 @@ package a88.jbay.system;
 
 import a88.jbay.common.auction.Auction;
 import a88.jbay.common.network.Response;
+import a88.jbay.repository.AuctionRepository;
 import a88.jbay.server.ClientConnection;
 import a88.jbay.util.JBayLogger;
 import a88.jbay.di.ApplicationContext;

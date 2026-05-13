@@ -2,6 +2,7 @@ package a88.jbay.common.auction;
 
 import a88.jbay.common.Subject;
 import a88.jbay.common.item.Item;
+import a88.jbay.system.BidSystem;
 import a88.jbay.system.UpdateSystem;
 
 import java.io.Serializable;
@@ -237,7 +238,7 @@ public class Auction implements Subject, Serializable {
         }
 
         // Place the auto-bid through AuctionSystem
-        a88.jbay.system.AuctionSystem.getInstance().placeBid(winningUserId, id, autoBidAmount);
+        BidSystem.getInstance().placeBid(winningUserId, id, autoBidAmount);
 
         // Reset flag after bid is placed
         isAutoBidding.set(false);

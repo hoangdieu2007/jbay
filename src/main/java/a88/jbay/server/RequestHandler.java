@@ -8,6 +8,7 @@ import a88.jbay.common.network.Request;
 import a88.jbay.common.network.Response;
 import a88.jbay.di.DependencyInjectionContainer;
 import a88.jbay.system.AuctionSystem;
+import a88.jbay.system.BidSystem;
 import a88.jbay.system.UpdateSystem;
 import a88.jbay.system.UserSystem;
 
@@ -19,12 +20,14 @@ public class RequestHandler {
     private final UserSystem userSystem;
     private final AuctionSystem auctionSystem;
     private final UpdateSystem updateSystem;
+    private final BidSystem bidSystem;
 
     // constructor for dependency injection
     public RequestHandler(DependencyInjectionContainer container) {
         this.userSystem = container.getInstance(UserSystem.class);
         this.auctionSystem = container.getInstance(AuctionSystem.class);
         this.updateSystem = container.getInstance(UpdateSystem.class);
+        this.bidSystem = container.getInstance(BidSystem.class);
     }
 
     
@@ -106,7 +109,7 @@ public class RequestHandler {
         User user = userSystem.findBySessionId((String) request.get("sessionId"));
         if (user == null) return new Response(false, "INVALID_SESSION", null);
         if (user.can(ActionType.BID)) {
-            boolean success = auctionSystem.placeBid(user.getId(), (Integer) request.get("auctionId"), (Double) request.get("amount"));
+            boolean success = bidSystem.placeBid(user.getId(), (Integer) request.get("auctionId"), (Double) request.get("amount"));
             return new Response(success, success ? "BID_SUCCESS" : "BID_FAIL", null);
         }
         return new Response(false, "BID_FAIL", null);

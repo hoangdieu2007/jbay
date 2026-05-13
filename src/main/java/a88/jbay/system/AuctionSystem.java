@@ -83,7 +83,7 @@ public class AuctionSystem {
         auction.subscribe(sellerId); // Seller is automatically subscribed
 
         //update everyone about this auction
-        UpdateSystem.getInstance().updateAllUsers(
+        updateSystem.updateAllUsers(
                 new Response(true, "AUCTION_UPDATE", auction)
         );
 

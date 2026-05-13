@@ -37,7 +37,7 @@ public class MainServerTUI {
                 String username = sc.nextLine();
                 logger.info("Enter password:");
                 String password = sc.nextLine();
-                DatabaseController.setCredentials(url, username, password);
+                DatabaseController.getInstance().initializePool(url, username, password);
                 DatabaseController.getInstance().getConnection();
                 break;
             } catch (SQLException e) {

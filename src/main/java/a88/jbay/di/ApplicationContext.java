@@ -48,12 +48,14 @@ public class ApplicationContext {
 
         // dao - register as singletons
         container.registerSingleton(UserDAO.class, new UserDAO(DatabaseController.getInstance()));
-        container.registerSingleton(ItemDAO.class, new ItemDAO(DatabaseController.getInstance()));
-        container.registerSingleton(BidDAO.class, new BidDAO(DatabaseController.getInstance()));
+        ItemDAO itemDAO = new ItemDAO(DatabaseController.getInstance());
+        container.registerSingleton(ItemDAO.class, itemDAO);
+        BidDAO bidDAO = new BidDAO(DatabaseController.getInstance());
+        container.registerSingleton(BidDAO.class, bidDAO);
         container.registerSingleton(AuctionDAO.class, new AuctionDAO(
             DatabaseController.getInstance(),
-            container.getInstance(ItemDAO.class),
-            container.getInstance(BidDAO.class)
+            itemDAO,
+            bidDAO
         ));
 
         // system classes a.k.a. service layer - register as singletons
