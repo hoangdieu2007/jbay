@@ -1,11 +1,11 @@
 package a88.jbay.system;
 
 import a88.jbay.common.auction.AutoBidConfig;
+import a88.jbay.system.update.ConnectionSystem;
 import a88.jbay.util.JBayLogger;
 import a88.jbay.common.item.Item;
 import a88.jbay.common.auction.Auction;
 import a88.jbay.common.auction.AuctionState;
-import a88.jbay.common.auction.BidTransaction;
 import a88.jbay.common.network.Response;
 import a88.jbay.di.ApplicationContext;
 import a88.jbay.repository.AuctionRepository;
@@ -13,7 +13,6 @@ import a88.jbay.repository.AuctionRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.*;
 
 /*
@@ -23,15 +22,15 @@ features: real-time bidding, auction lifecycle management
  */
 
 public class AuctionSystem {
-    private final UpdateSystem updateSystem;
+    private final ConnectionSystem connectionSystem;
     private final AuctionRepository auctionRepository;
     private final JBayLogger logger;
 
     private final ScheduledExecutorService scheduler;
 
     // Constructor for dependency injection
-    public AuctionSystem(UpdateSystem updateSystem, AuctionRepository auctionRepository) {
-        this.updateSystem = updateSystem;
+    public AuctionSystem(ConnectionSystem connectionSystem, AuctionRepository auctionRepository) {
+        this.connectionSystem = connectionSystem;
         this.auctionRepository = auctionRepository;
         this.logger = JBayLogger.getLogger(AuctionSystem.class);
         this.scheduler = Executors.newSingleThreadScheduledExecutor();
@@ -83,7 +82,7 @@ public class AuctionSystem {
         auction.subscribe(sellerId); // Seller is automatically subscribed
 
         //update everyone about this auction
-        updateSystem.updateAllUsers(
+        connectionSystem.broadcast(
                 new Response(true, "AUCTION_UPDATE", auction)
         );
 

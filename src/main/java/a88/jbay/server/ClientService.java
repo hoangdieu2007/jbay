@@ -1,7 +1,5 @@
 package a88.jbay.server;
 
-import a88.jbay.system.UpdateSystem;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;

@@ -4,8 +4,8 @@ import a88.jbay.common.user.User;
 import a88.jbay.common.network.Request;
 import a88.jbay.common.network.Response;
 import a88.jbay.di.DependencyInjectionContainer;
-import a88.jbay.system.UpdateSystem;
-import a88.jbay.system.UserSystem;
+import a88.jbay.system.update.ConnectionSystem;
+import a88.jbay.system.user.UserSystem;
 import a88.jbay.util.JBayLogger;
 
 import java.io.IOException;
@@ -72,12 +72,12 @@ public class ClientConnection implements Runnable {
                     if (response.getMessage().equals("LOGIN_SUCCESS")) {
                         this.userCache = (User) response.getPayload();
                         DependencyInjectionContainer container = DependencyInjectionContainer.getInstance();
-                        UpdateSystem updateSystem = container.getInstance(UpdateSystem.class);
-                        updateSystem.register(this);
+                        ConnectionSystem connectionSystem = container.getInstance(ConnectionSystem.class);
+                        connectionSystem.register(this);
                     } else if (response.getMessage().equals("LOGOUT_SUCCESS")) {
                         DependencyInjectionContainer container = DependencyInjectionContainer.getInstance();
-                        UpdateSystem updateSystem = container.getInstance(UpdateSystem.class);
-                        updateSystem.unregister(this); // this has to be called before setting userCache to new User()
+                        ConnectionSystem connectionSystem = container.getInstance(ConnectionSystem.class);
+                        connectionSystem.unregister(this); // this has to be called before setting userCache to new User()
                         this.userCache = new User();
                     }
 
@@ -95,9 +95,9 @@ public class ClientConnection implements Runnable {
         } finally {
             // later add clean up codes here!
             DependencyInjectionContainer container = DependencyInjectionContainer.getInstance();
-            UpdateSystem updateSystem = container.getInstance(UpdateSystem.class);
+            ConnectionSystem connectionSystem = container.getInstance(ConnectionSystem.class);
             UserSystem userSystem = container.getInstance(UserSystem.class);
-            updateSystem.unregister(this);
+            connectionSystem.unregister(this);
             userSystem.logout(userCache.getSessionId());
             closeResources(out, in, socket);
             Thread.currentThread().interrupt();

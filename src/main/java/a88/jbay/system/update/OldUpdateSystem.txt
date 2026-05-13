@@ -1,9 +1,9 @@
-package a88.jbay.system;
+package a88.jbay.system.update;
 
 import a88.jbay.common.auction.Auction;
 import a88.jbay.common.network.Response;
-import a88.jbay.repository.AuctionRepository;
 import a88.jbay.server.ClientConnection;
+import a88.jbay.system.AuctionSystem;
 import a88.jbay.util.JBayLogger;
 import a88.jbay.di.ApplicationContext;
 
@@ -22,18 +22,18 @@ import java.util.concurrent.CopyOnWriteArraySet;
         + manage each user session with an object output stream so the server can send response to the client (register/unregister)
  */
 
-public class UpdateSystem {
+public class ConnectionSystem {
     private final Map<Integer, Set<ClientConnection>> connections = new ConcurrentHashMap<>();
     private final JBayLogger logger;
 
     // constructor for dependency injection
-    public UpdateSystem() {
-        this.logger = JBayLogger.getLogger(UpdateSystem.class);
+    public ConnectionSystem() {
+        this.logger = JBayLogger.getLogger(ConnectionSystem.class);
     }
 
     // Singleton accessor via ApplicationContext
-    public static UpdateSystem getInstance() {
-        return ApplicationContext.getInstance().getDependency(UpdateSystem.class);
+    public static ConnectionSystem getInstance() {
+        return ApplicationContext.getInstance().getDependency(ConnectionSystem.class);
     }
 
     public Map<Integer, Set<ClientConnection>> getConnections() {
@@ -69,7 +69,7 @@ public class UpdateSystem {
     //new notification method - receives subscriber list from Auction
     public void notifySubscribers(Auction auction, Set<Integer> subscriberIds) {
         Response response = new Response(true, "AUCTION_UPDATE_NOTIFY", auction);
-        
+
         // Update all active connections
         connections.forEach((userId, connections) -> {
             if (subscriberIds.contains(userId)) {

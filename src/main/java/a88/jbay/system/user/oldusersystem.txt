@@ -1,8 +1,9 @@
-package a88.jbay.system;
+package a88.jbay.system.user;
 
 import a88.jbay.dao.UserDAO;
 import a88.jbay.dao.UserDAO.UserData;
 import a88.jbay.server.ClientConnection;
+import a88.jbay.system.update.ConnectionSystem;
 import a88.jbay.util.StringHash;
 import a88.jbay.util.JBayLogger;
 import a88.jbay.common.user.User;
@@ -21,15 +22,15 @@ subscrition are handled by the notification system and client handler, the only 
 
 public class UserSystem {
     private final UserDAO userDAO;
-    private final UpdateSystem updateSystem;
+    private final ConnectionSystem connectionSystem;
     private final JBayLogger logger;
 
     private final Map<String, User> userCache;
 
     // constructor for dependency injection
-    public UserSystem(UserDAO userDAO, UpdateSystem updateSystem) {
+    public UserSystem(UserDAO userDAO, ConnectionSystem connectionSystem) {
         this.userDAO = userDAO;
-        this.updateSystem = updateSystem;
+        this.connectionSystem = connectionSystem;
         this.logger = JBayLogger.getLogger(UserSystem.class);
         this.userCache = new ConcurrentHashMap<>();
     }
@@ -77,7 +78,7 @@ public class UserSystem {
         }
 
         password = StringHash.hash(password);
-        
+
         boolean success = userDAO.insertUser(username, password, role) != -1;
         if (success) {
             logger.info("User registered successfully: " + username);
@@ -118,15 +119,15 @@ public class UserSystem {
 
         if (userDAO.changeUserRole(userId, "BAN")) {
             logger.info("User banned successfully: " + userId);
-            UpdateSystem.getInstance().unsubscribeUserFromAllAuctions(userId);
+            ConnectionSystem.getInstance().unsubscribeUserFromAllAuctions(userId);
             // when client receives this it will switch to login scene
-            UpdateSystem.getInstance().updateByUserId(userId, new Response(true, "BAN_USER", null));
+            ConnectionSystem.getInstance().updateByUserId(userId, new Response(true, "BAN_USER", null));
 
-            for (ClientConnection clientConnection : UpdateSystem.getInstance().getConnections().get(userId)) {
+            for (ClientConnection clientConnection : ConnectionSystem.getInstance().getConnections().get(userId)) {
                 logout(clientConnection.getUserCache().getSessionId());
             }
 
-            UpdateSystem.getInstance().unregister(userId);
+            ConnectionSystem.getInstance().unregister(userId);
 //            activeUsers.remove(userId);
 //
 //            List<User> sessions = activeUsers.get(userId);

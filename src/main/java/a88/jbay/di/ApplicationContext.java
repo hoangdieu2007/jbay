@@ -5,12 +5,13 @@ import a88.jbay.dao.BidDAO;
 import a88.jbay.dao.ItemDAO;
 import a88.jbay.dao.UserDAO;
 import a88.jbay.server.DatabaseController;
+import a88.jbay.system.user.AdminService;
 import a88.jbay.system.AuctionSystem;
 import a88.jbay.system.BidSystem;
-import a88.jbay.system.UpdateSystem;
-import a88.jbay.system.UserSystem;
+import a88.jbay.system.update.ConnectionSystem;
+import a88.jbay.system.update.UpdateSystem;
+import a88.jbay.system.user.UserSystem;
 import a88.jbay.repository.AuctionRepository;
-import a88.jbay.util.JBayLogger;
 
 /**
  * application context for configuring and managing application dependencies.
@@ -55,24 +56,37 @@ public class ApplicationContext {
         container.registerSingleton(AuctionDAO.class, new AuctionDAO(DatabaseController.getInstance()));
 
         // system classes a.k.a. service layer - register as singletons
-        container.registerSingleton(UpdateSystem.class, new UpdateSystem());
-        container.registerSingleton(UserSystem.class, new UserSystem(
-                container.getInstance(UserDAO.class),
-                container.getInstance(UpdateSystem.class)
-        ));
         container.registerSingleton(AuctionRepository.class, new AuctionRepository(
-            container.getInstance(AuctionDAO.class),
-            container.getInstance(ItemDAO.class),
-            container.getInstance(UserDAO.class),
-            container.getInstance(BidDAO.class)
+                container.getInstance(AuctionDAO.class),
+                container.getInstance(ItemDAO.class),
+                container.getInstance(UserDAO.class),
+                container.getInstance(BidDAO.class)
         ));
+
+        container.registerSingleton(ConnectionSystem.class, new ConnectionSystem());
+        container.registerSingleton(UpdateSystem.class, new UpdateSystem(
+                container.getInstance(ConnectionSystem.class),
+                container.getInstance(AuctionRepository.class)
+        ));
+
+        container.registerSingleton(UserSystem.class, new UserSystem(
+                container.getInstance(UserDAO.class)
+        ));
+        container.registerSingleton(AdminService.class, new AdminService(
+                container.getInstance(UserDAO.class),
+                container.getInstance(ConnectionSystem.class),
+                container.getInstance(UpdateSystem.class),
+                container.getInstance(UserSystem.class)
+        ));
+
         container.registerSingleton(BidSystem.class, new BidSystem(
             container.getInstance(AuctionRepository.class),
             container.getInstance(BidDAO.class),
             container.getInstance(AuctionDAO.class)
         ));
+
         container.registerSingleton(AuctionSystem.class, new AuctionSystem(
-            container.getInstance(UpdateSystem.class),
+            container.getInstance(ConnectionSystem.class),
             container.getInstance(AuctionRepository.class)
         ));
     }

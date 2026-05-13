@@ -1,8 +1,8 @@
 package a88.jbay.di;
 
 import a88.jbay.dao.UserDAO;
-import a88.jbay.system.UpdateSystem;
-import a88.jbay.system.UserSystem;
+import a88.jbay.system.update.ConnectionSystem;
+import a88.jbay.system.user.UserSystem;
 import a88.jbay.server.DatabaseController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,7 +24,7 @@ public class DependencyInjectionTest {
         // Set up test dependencies
         container.registerSingleton(DatabaseController.class, DatabaseController.getInstance());
         container.registerSingleton(UserDAO.class, new UserDAO(DatabaseController.getInstance()));
-        container.registerSingleton(UserSystem.class, new UserSystem(container.getInstance(UserDAO.class), container.getInstance(UpdateSystem.class)));
+        container.registerSingleton(UserSystem.class, new UserSystem(container.getInstance(UserDAO.class)));
     }
 
     @Test

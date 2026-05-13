@@ -6,9 +6,10 @@ import a88.jbay.server.ClientConnection;
 import a88.jbay.server.ClientService;
 import a88.jbay.server.DatabaseController;
 import a88.jbay.di.ApplicationContext;
+import a88.jbay.system.user.AdminService;
 import a88.jbay.system.AuctionSystem;
-import a88.jbay.system.UpdateSystem;
-import a88.jbay.system.UserSystem;
+import a88.jbay.system.update.ConnectionSystem;
+import a88.jbay.system.user.UserSystem;
 import a88.jbay.util.JBayLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,7 +55,8 @@ public class MainServerTUI {
         AuctionRepository auctionRepository = ApplicationContext.getInstance().getDependency(AuctionRepository.class);
         AuctionSystem auctionSystem = ApplicationContext.getInstance().getDependency(AuctionSystem.class);
         UserSystem userSystem = ApplicationContext.getInstance().getDependency(UserSystem.class);
-        UpdateSystem updateSystem = ApplicationContext.getInstance().getDependency(UpdateSystem.class);
+        AdminService adminService = ApplicationContext.getInstance().getDependency(AdminService.class);
+        ConnectionSystem connectionSystem = ApplicationContext.getInstance().getDependency(ConnectionSystem.class);
 
         try {
 
@@ -92,7 +94,7 @@ public class MainServerTUI {
                             System.out.println("User ID:");
                             int userId = sc.nextInt();
 
-                            userSystem.banUser(userId);
+                            adminService.banUser(userId);
 
                             break;
                         case "UQ":
@@ -126,7 +128,7 @@ public class MainServerTUI {
                             break;
                         case "LS_CONN":
                             // list all connections
-                            updateSystem.getConnections().forEach((uid, clientConnection) -> {
+                            connectionSystem.getConnections().forEach((uid, clientConnection) -> {
                                 logger.info("UserID: " + uid);
                                 for (ClientConnection client : clientConnection) {
                                     logger.info("Connection ID: " + client.getConnectionId());

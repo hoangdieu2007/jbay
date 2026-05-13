@@ -9,8 +9,9 @@ import a88.jbay.common.network.Response;
 import a88.jbay.di.DependencyInjectionContainer;
 import a88.jbay.system.AuctionSystem;
 import a88.jbay.system.BidSystem;
-import a88.jbay.system.UpdateSystem;
-import a88.jbay.system.UserSystem;
+import a88.jbay.system.update.ConnectionSystem;
+import a88.jbay.system.update.UpdateSystem;
+import a88.jbay.system.user.UserSystem;
 
 /**
  * Handles processing of client requests by calling the appropriate systems.
@@ -19,6 +20,7 @@ import a88.jbay.system.UserSystem;
 public class RequestHandler {
     private final UserSystem userSystem;
     private final AuctionSystem auctionSystem;
+    private final ConnectionSystem connectionSystem;
     private final UpdateSystem updateSystem;
     private final BidSystem bidSystem;
 
@@ -26,6 +28,7 @@ public class RequestHandler {
     public RequestHandler(DependencyInjectionContainer container) {
         this.userSystem = container.getInstance(UserSystem.class);
         this.auctionSystem = container.getInstance(AuctionSystem.class);
+        this.connectionSystem = container.getInstance(ConnectionSystem.class);
         this.updateSystem = container.getInstance(UpdateSystem.class);
         this.bidSystem = container.getInstance(BidSystem.class);
     }

@@ -2,7 +2,7 @@ package a88.jbay.view;
 
 import a88.jbay.di.ApplicationContext;
 import a88.jbay.system.AuctionSystem;
-import a88.jbay.system.UserSystem;
+import a88.jbay.system.user.UserSystem;
 import javafx.application.Application;
 import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
