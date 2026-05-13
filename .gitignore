@@ -4,6 +4,7 @@ target/
 !**/src/test/**/target/
 .kotlin
 *.log
+jbay.log
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
