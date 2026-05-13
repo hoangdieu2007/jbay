@@ -2,6 +2,7 @@ package a88.jbay.controller.client;
 
 import a88.jbay.client.ClientSession;
 import a88.jbay.client.ServerConnection;
+import a88.jbay.system.AutoBidConfig;
 import a88.jbay.util.ImageProcessor;
 import a88.jbay.common.auction.Auction;
 import a88.jbay.common.auction.BidTransaction;
@@ -99,7 +100,34 @@ public class ClientBidderItemController {
             if (auction.getItem().getImage() != null) {
                 itemImageView.setImage(ImageProcessor.bytesToImage(auction.getItem().getImage()));
             }
+
+            applyAutoBidState(auction);
         });
+    }
+
+    private void applyAutoBidState(Auction auction) {
+        int userId = ClientSession.getInstance().getUser().getId();
+        AutoBidConfig autoBidConfig = auction.getAutoBidConfig(userId);
+        boolean enabled = autoBidConfig != null;
+
+        autoBidIncrement.setDisable(enabled);
+        autoBidMaxAmount.setDisable(enabled);
+        bidInput.setDisable(enabled);
+        placeBidButton.setDisable(enabled);
+
+        if (enabled) {
+            autoBidIncrement.setText(String.valueOf(autoBidConfig.getIncrement()));
+            autoBidMaxAmount.setText(String.valueOf(autoBidConfig.getMaxAmount()));
+            bidInput.setPromptText("Currently in auto-bidding mode");
+        } else {
+            if (autoBidActive) {
+                autoBidIncrement.clear();
+                autoBidMaxAmount.clear();
+            }
+            bidInput.setPromptText("Enter Your Bid(USD)");
+        }
+
+        autoBidActive = enabled;
     }
 
     private void setupAuctionListener() {
@@ -262,6 +290,7 @@ public class ClientBidderItemController {
             autoBidMaxAmount.setDisable(true);
             // Also disable bid input and place bid button
             bidInput.setDisable(true);
+            placeBidButton.setDisable(true);
             bidInput.setPromptText("Currently in auto-bidding mode");
             autoBidActive = true;
 
@@ -303,6 +332,7 @@ public class ClientBidderItemController {
             autoBidMaxAmount.clear();
             // Also re-enable bid input and place bid button
             bidInput.setDisable(false);
+            placeBidButton.setDisable(false);
             bidInput.setPromptText("Enter Your Bid(USD)");
             autoBidActive = false;
 

@@ -1,6 +1,5 @@
 package a88.jbay.system;
 
-import a88.jbay.common.auction.AutoBidConfig;
 import a88.jbay.system.update.ConnectionSystem;
 import a88.jbay.util.JBayLogger;
 import a88.jbay.common.item.Item;
@@ -123,21 +122,18 @@ public class AuctionSystem {
             return;
         }
 
-        // Check if this auction already has auto-bids (excluding the current user if they already have one)
-        boolean existingAutoBid = auction.hasAutoBidConfig(userId);
-        int autoBidCount = auction.getAutoBidConfigs().size();
-        
         // Store auto-bid configuration for this user and auction
-        auction.setAutoBidConfig(userId, max_amount, increment);
+        BidSystem.getInstance().setAutoBidConfig(auctionId, userId, max_amount, increment);
 
         // Subscribe user to auction to receive price change notifications
         auction.subscribe(userId);
 
         logger.info("Auto-bid enabled for user " + userId + " on auction " + auctionId +
                           " with max_amount=" + max_amount + ", increment=" + increment);
+        auction.notifyObservers();
 
         // If there are now 2 or more auto-bids, apply the new logic
-        if (autoBidCount >= 1 || (!existingAutoBid && auction.getAutoBidConfigs().size() >= 2)) {
+        if (BidSystem.getInstance().getAutoBidConfigs(auctionId).size() >= 2) {
             logger.info("Multiple auto-bids detected on auction " + auctionId + ", applying competitive bidding logic");
             handleMultipleAutoBids(auction);
             return;
@@ -162,7 +158,7 @@ public class AuctionSystem {
 
     private void handleMultipleAutoBids(Auction auction) {
         // Get all auto-bid configs and sort by max_amount descending
-        java.util.List<java.util.Map.Entry<Integer, AutoBidConfig>> sortedConfigs = auction.getAutoBidConfigs().entrySet().stream()
+        java.util.List<java.util.Map.Entry<Integer, AutoBidConfig>> sortedConfigs = BidSystem.getInstance().getAutoBidConfigs(auction.getId()).entrySet().stream()
                 .sorted(java.util.Comparator.comparingDouble((java.util.Map.Entry<Integer, AutoBidConfig> e) -> e.getValue().getMaxAmount()).reversed())
                 .collect(java.util.stream.Collectors.toList());
 
@@ -180,8 +176,6 @@ public class AuctionSystem {
         double topIncrement = topBidder.getValue().getIncrement();
 
         double secondMaxAmount = secondBidder.getValue().getMaxAmount();
-        double secondIncrement = secondBidder.getValue().getIncrement();
-
         // Calculate final price: min(max_amount of top bidder, max_amount of second bidder + increment of top bidder)
         double finalPrice = Math.min(topMaxAmount, secondMaxAmount + topIncrement);
 
@@ -192,8 +186,9 @@ public class AuctionSystem {
         placeBid(topUserId, auction.getId(), finalPrice);
 
         // Cancel all auto-bids in this auction
-        auction.clearAllAutoBidConfigs();
+        BidSystem.getInstance().clearAllAutoBidConfigs(auction.getId());
         logger.info("All auto-bids canceled for auction " + auction.getId());
+        auction.notifyObservers();
     }
 
     public synchronized void cancelAutoBid(int userId, int auctionId) {
@@ -203,8 +198,9 @@ public class AuctionSystem {
             return;
         }
 
-        auction.clearAutoBidConfig(userId);
+        BidSystem.getInstance().clearAutoBidConfig(auctionId, userId);
         logger.info("Auto-bid canceled for user " + userId + " on auction " + auctionId);
+        auction.notifyObservers();
     }
 
     public void extendEndTime(LocalDateTime now, Auction auction) {

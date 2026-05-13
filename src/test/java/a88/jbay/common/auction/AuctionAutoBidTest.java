@@ -2,6 +2,8 @@ package a88.jbay.common.auction;
 
 import a88.jbay.common.item.Item;
 import a88.jbay.system.AuctionSystem;
+import a88.jbay.system.BidSystem;
+import a88.jbay.system.AutoBidConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -22,6 +24,9 @@ class AuctionAutoBidTest {
 
     @Mock
     private AuctionSystem auctionSystem;
+
+    @Mock
+    private BidSystem bidSystem;
 
     @Mock
     private Item item;
@@ -46,90 +51,96 @@ class AuctionAutoBidTest {
     @DisplayName("Should set auto-bid configuration for user")
     void testSetAutoBidConfig() {
         // Arrange
+        int auctionId = auction.getId();
         int userId = 2;
         double maxAmount = 200.0;
         double increment = 10.0;
 
         // Act
-        auction.setAutoBidConfig(userId, maxAmount, increment);
+        BidSystem.getInstance().setAutoBidConfig(auctionId, userId, maxAmount, increment);
 
         // Assert
-        assertTrue(auction.hasAutoBidConfig(userId));
-        assertEquals(maxAmount, auction.getAutoBidConfigs().get(userId).getMaxAmount());
-        assertEquals(increment, auction.getAutoBidConfigs().get(userId).getIncrement());
+        assertTrue(BidSystem.getInstance().hasAutoBidConfig(auctionId, userId));
+        assertEquals(maxAmount, BidSystem.getInstance().getAutoBidConfigs(auctionId).get(userId).getMaxAmount());
+        assertEquals(increment, BidSystem.getInstance().getAutoBidConfigs(auctionId).get(userId).getIncrement());
     }
 
     @Test
     @DisplayName("Should update auto-bid configuration for existing user")
     void testUpdateAutoBidConfig() {
         // Arrange
+        int auctionId = auction.getId();
         int userId = 2;
-        auction.setAutoBidConfig(userId, 200.0, 10.0);
+        BidSystem.getInstance().setAutoBidConfig(auctionId, userId, 200.0, 10.0);
 
         // Act
-        auction.setAutoBidConfig(userId, 300.0, 15.0);
+        BidSystem.getInstance().setAutoBidConfig(auctionId, userId, 300.0, 15.0);
 
         // Assert
-        assertEquals(300.0, auction.getAutoBidConfigs().get(userId).getMaxAmount());
-        assertEquals(15.0, auction.getAutoBidConfigs().get(userId).getIncrement());
-        assertEquals(1, auction.getAutoBidConfigs().size());
+        assertEquals(300.0, BidSystem.getInstance().getAutoBidConfigs(auctionId).get(userId).getMaxAmount());
+        assertEquals(15.0, BidSystem.getInstance().getAutoBidConfigs(auctionId).get(userId).getIncrement());
+        assertEquals(1, BidSystem.getInstance().getAutoBidConfigs(auctionId).size());
     }
 
     @Test
     @DisplayName("Should clear auto-bid configuration for user")
     void testClearAutoBidConfig() {
         // Arrange
+        int auctionId = auction.getId();
         int userId = 2;
-        auction.setAutoBidConfig(userId, 200.0, 10.0);
-        assertTrue(auction.hasAutoBidConfig(userId));
+        BidSystem.getInstance().setAutoBidConfig(auctionId, userId, 200.0, 10.0);
+        assertTrue(BidSystem.getInstance().hasAutoBidConfig(auctionId, userId));
 
         // Act
-        auction.clearAutoBidConfig(userId);
+        BidSystem.getInstance().clearAutoBidConfig(auctionId, userId);
 
         // Assert
-        assertFalse(auction.hasAutoBidConfig(userId));
+        assertFalse(BidSystem.getInstance().hasAutoBidConfig(auctionId, userId));
     }
 
     @Test
     @DisplayName("Should clear all auto-bid configurations")
     void testClearAllAutoBidConfigs() {
         // Arrange
-        auction.setAutoBidConfig(2, 200.0, 10.0);
-        auction.setAutoBidConfig(3, 300.0, 15.0);
-        auction.setAutoBidConfig(4, 400.0, 20.0);
-        assertEquals(3, auction.getAutoBidConfigs().size());
+        int auctionId = auction.getId();
+        BidSystem.getInstance().setAutoBidConfig(auctionId, 2, 200.0, 10.0);
+        BidSystem.getInstance().setAutoBidConfig(auctionId, 3, 300.0, 15.0);
+        BidSystem.getInstance().setAutoBidConfig(auctionId, 4, 400.0, 20.0);
+        assertEquals(3, BidSystem.getInstance().getAutoBidConfigs(auctionId).size());
 
         // Act
-        auction.clearAllAutoBidConfigs();
+        BidSystem.getInstance().clearAllAutoBidConfigs(auctionId);
 
         // Assert
-        assertEquals(0, auction.getAutoBidConfigs().size());
-        assertFalse(auction.hasAutoBidConfig(2));
-        assertFalse(auction.hasAutoBidConfig(3));
-        assertFalse(auction.hasAutoBidConfig(4));
+        assertEquals(0, BidSystem.getInstance().getAutoBidConfigs(auctionId).size());
+        assertFalse(BidSystem.getInstance().hasAutoBidConfig(auctionId, 2));
+        assertFalse(BidSystem.getInstance().hasAutoBidConfig(auctionId, 3));
+        assertFalse(BidSystem.getInstance().hasAutoBidConfig(auctionId, 4));
     }
 
     @Test
     @DisplayName("Should check if user has auto-bid configuration")
     void testHasAutoBidConfig() {
         // Arrange
+        int auctionId = auction.getId();
         int userId = 2;
-        auction.setAutoBidConfig(userId, 200.0, 10.0);
+        BidSystem.getInstance().setAutoBidConfig(auctionId, userId, 200.0, 10.0);
 
         // Act & Assert
-        assertTrue(auction.hasAutoBidConfig(userId));
-        assertFalse(auction.hasAutoBidConfig(999));
+        assertTrue(BidSystem.getInstance().hasAutoBidConfig(auctionId, userId));
+        assertFalse(BidSystem.getInstance().hasAutoBidConfig(auctionId, 999));
     }
 
     @Test
     @DisplayName("Should get auto-bid configurations")
     void testGetAutoBidConfigs() {
         // Arrange
-        auction.setAutoBidConfig(2, 200.0, 10.0);
-        auction.setAutoBidConfig(3, 300.0, 15.0);
+        int auctionId = auction.getId();
+        BidSystem.getInstance().setAutoBidConfig(auctionId, 2, 200.0, 10.0);
+        BidSystem.getInstance().setAutoBidConfig(auctionId, 3, 300.0, 15.0);
 
         // Act
-        Map<Integer, AutoBidConfig> configs = auction.getAutoBidConfigs();
+        Map<Integer, AutoBidConfig> configs = BidSystem.getInstance().getAutoBidConfigs(auctionId);
 
         // Assert
         assertNotNull(configs);
@@ -142,12 +153,13 @@ class AuctionAutoBidTest {
     @DisplayName("Should return copy of auto-bid configurations")
     void testGetAutoBidConfigs_ReturnsCopy() {
         // Arrange
-        auction.setAutoBidConfig(2, 200.0, 10.0);
-        Map<Integer, AutoBidConfig> configs1 = auction.getAutoBidConfigs();
+        int auctionId = auction.getId();
+        BidSystem.getInstance().setAutoBidConfig(auctionId, 2, 200.0, 10.0);
+        Map<Integer, AutoBidConfig> configs1 = BidSystem.getInstance().getAutoBidConfigs(auctionId);
 
         // Act
-        auction.setAutoBidConfig(3, 300.0, 15.0);
-        Map<Integer, AutoBidConfig> configs2 = auction.getAutoBidConfigs();
+        BidSystem.getInstance().setAutoBidConfig(auctionId, 3, 300.0, 15.0);
+        Map<Integer, AutoBidConfig> configs2 = BidSystem.getInstance().getAutoBidConfigs(auctionId);
 
         // Assert
         assertNotSame(configs1, configs2, "Should return a new map instance");
@@ -159,48 +171,51 @@ class AuctionAutoBidTest {
     @DisplayName("Should handle multiple auto-bid configurations")
     void testMultipleAutoBidConfigs() {
         // Arrange
-        auction.setAutoBidConfig(2, 200.0, 10.0);
-        auction.setAutoBidConfig(3, 300.0, 15.0);
-        auction.setAutoBidConfig(4, 400.0, 20.0);
+        int auctionId = auction.getId();
+        BidSystem.getInstance().setAutoBidConfig(auctionId, 2, 200.0, 10.0);
+        BidSystem.getInstance().setAutoBidConfig(auctionId, 3, 300.0, 15.0);
+        BidSystem.getInstance().setAutoBidConfig(auctionId, 4, 400.0, 20.0);
 
         // Act & Assert
-        assertEquals(3, auction.getAutoBidConfigs().size());
-        assertTrue(auction.hasAutoBidConfig(2));
-        assertTrue(auction.hasAutoBidConfig(3));
-        assertTrue(auction.hasAutoBidConfig(4));
+        assertEquals(3, BidSystem.getInstance().getAutoBidConfigs(auctionId).size());
+        assertTrue(BidSystem.getInstance().hasAutoBidConfig(auctionId, 2));
+        assertTrue(BidSystem.getInstance().hasAutoBidConfig(auctionId, 3));
+        assertTrue(BidSystem.getInstance().hasAutoBidConfig(auctionId, 4));
     }
 
     @Test
     @DisplayName("Should cancel auto-bid for specific user")
     void testCancelAutoBid_SpecificUser() {
         // Arrange
+        int auctionId = auction.getId();
         int userId1 = 2;
         int userId2 = 3;
-        auction.setAutoBidConfig(userId1, 200.0, 10.0);
-        auction.setAutoBidConfig(userId2, 300.0, 15.0);
+        BidSystem.getInstance().setAutoBidConfig(auctionId, userId1, 200.0, 10.0);
+        BidSystem.getInstance().setAutoBidConfig(auctionId, userId2, 300.0, 15.0);
 
         // Act
-        auction.clearAutoBidConfig(userId1);
+        BidSystem.getInstance().clearAutoBidConfig(auctionId, userId1);
 
         // Assert
-        assertFalse(auction.hasAutoBidConfig(userId1));
-        assertTrue(auction.hasAutoBidConfig(userId2));
-        assertEquals(1, auction.getAutoBidConfigs().size());
+        assertFalse(BidSystem.getInstance().hasAutoBidConfig(auctionId, userId1));
+        assertTrue(BidSystem.getInstance().hasAutoBidConfig(auctionId, userId2));
+        assertEquals(1, BidSystem.getInstance().getAutoBidConfigs(auctionId).size());
     }
 
     @Test
     @DisplayName("Should handle auto-bid with small increment")
     void testAutoBid_SmallIncrement() {
         // Arrange
+        int auctionId = auction.getId();
         int userId = 2;
         double maxAmount = 200.0;
         double smallIncrement = 0.01;
 
         // Act
-        auction.setAutoBidConfig(userId, maxAmount, smallIncrement);
+        BidSystem.getInstance().setAutoBidConfig(auctionId, userId, maxAmount, smallIncrement);
 
         // Assert
-        assertEquals(smallIncrement, auction.getAutoBidConfigs().get(userId).getIncrement());
+        assertEquals(smallIncrement, BidSystem.getInstance().getAutoBidConfigs(auctionId).get(userId).getIncrement());
         assertTrue(smallIncrement > 0, "Increment should be positive");
     }
 
@@ -208,28 +223,30 @@ class AuctionAutoBidTest {
     @DisplayName("Should handle auto-bid with large increment")
     void testAutoBid_LargeIncrement() {
         // Arrange
+        int auctionId = auction.getId();
         int userId = 2;
         double maxAmount = 1000.0;
         double largeIncrement = 100.0;
 
         // Act
-        auction.setAutoBidConfig(userId, maxAmount, largeIncrement);
+        BidSystem.getInstance().setAutoBidConfig(auctionId, userId, maxAmount, largeIncrement);
 
         // Assert
-        assertEquals(largeIncrement, auction.getAutoBidConfigs().get(userId).getIncrement());
+        assertEquals(largeIncrement, BidSystem.getInstance().getAutoBidConfigs(auctionId).get(userId).getIncrement());
     }
 
     @Test
     @DisplayName("Should handle auto-bid configuration persistence")
     void testAutoBidConfig_Persistence() {
         // Arrange
+        int auctionId = auction.getId();
         int userId = 2;
         double maxAmount = 200.0;
         double increment = 10.0;
 
         // Act
-        auction.setAutoBidConfig(userId, maxAmount, increment);
-        Map<Integer, AutoBidConfig> configs = auction.getAutoBidConfigs();
+        BidSystem.getInstance().setAutoBidConfig(auctionId, userId, maxAmount, increment);
+        Map<Integer, AutoBidConfig> configs = BidSystem.getInstance().getAutoBidConfigs(auctionId);
 
         // Assert
         assertNotNull(configs.get(userId));
@@ -252,36 +269,39 @@ class AuctionAutoBidTest {
     @DisplayName("Should handle auto-bid with zero increment edge case")
     void testAutoBid_ZeroIncrement() {
         // Arrange
+        int auctionId = auction.getId();
         int userId = 2;
         double maxAmount = 200.0;
         double zeroIncrement = 0.0;
 
         // Act
-        auction.setAutoBidConfig(userId, maxAmount, zeroIncrement);
+        BidSystem.getInstance().setAutoBidConfig(auctionId, userId, maxAmount, zeroIncrement);
 
         // Assert
-        assertEquals(zeroIncrement, auction.getAutoBidConfigs().get(userId).getIncrement());
+        assertEquals(zeroIncrement, BidSystem.getInstance().getAutoBidConfigs(auctionId).get(userId).getIncrement());
     }
 
     @Test
     @DisplayName("Should handle auto-bid with negative max amount edge case")
     void testAutoBid_NegativeMaxAmount() {
         // Arrange
+        int auctionId = auction.getId();
         int userId = 2;
         double negativeMaxAmount = -100.0;
         double increment = 10.0;
 
         // Act
-        auction.setAutoBidConfig(userId, negativeMaxAmount, increment);
+        BidSystem.getInstance().setAutoBidConfig(auctionId, userId, negativeMaxAmount, increment);
 
         // Assert
-        assertEquals(negativeMaxAmount, auction.getAutoBidConfigs().get(userId).getMaxAmount());
+        assertEquals(negativeMaxAmount, BidSystem.getInstance().getAutoBidConfigs(auctionId).get(userId).getMaxAmount());
     }
 
     @Test
     @DisplayName("Should not trigger auto-bid when no configurations exist")
     void testTriggerAutoBid_NoConfigs() {
         // Arrange
+        int auctionId = auction.getId();
         double currentPrice = 100.0;
         BidTransaction tx = new BidTransaction(1, "user1", currentPrice, LocalDateTime.now());
 
@@ -289,17 +309,18 @@ class AuctionAutoBidTest {
         auction.updatePrice(currentPrice, tx);
 
         // Assert
-        assertEquals(0, auction.getAutoBidConfigs().size());
+        assertEquals(0, BidSystem.getInstance().getAutoBidConfigs(auctionId).size());
     }
 
     @Test
     @DisplayName("Should filter current winner from auto-bid candidates")
     void testAutoBid_FilterCurrentWinner() {
         // Arrange
+        int auctionId = auction.getId();
         int winnerId = 2;
         int otherUserId = 3;
-        auction.setAutoBidConfig(winnerId, 200.0, 10.0);
-        auction.setAutoBidConfig(otherUserId, 250.0, 15.0);
+        BidSystem.getInstance().setAutoBidConfig(auctionId, winnerId, 200.0, 10.0);
+        BidSystem.getInstance().setAutoBidConfig(auctionId, otherUserId, 250.0, 15.0);
 
         // Act
         BidTransaction tx = new BidTransaction(winnerId, "user2", 150.0, LocalDateTime.now());
@@ -307,39 +328,41 @@ class AuctionAutoBidTest {
 
         // Assert
         assertEquals(winnerId, auction.getWinnerId());
-        assertTrue(auction.hasAutoBidConfig(winnerId));
-        assertTrue(auction.hasAutoBidConfig(otherUserId));
+        assertTrue(BidSystem.getInstance().hasAutoBidConfig(auctionId, winnerId));
+        assertTrue(BidSystem.getInstance().hasAutoBidConfig(auctionId, otherUserId));
     }
 
     @Test
     @DisplayName("Should handle auto-bid when auction is not running")
     void testAutoBid_AuctionNotRunning() {
         // Arrange
+        int auctionId = auction.getId();
         auction.setAuctionState(AuctionState.OPENING);
         int userId = 2;
-        auction.setAutoBidConfig(userId, 200.0, 10.0);
+        BidSystem.getInstance().setAutoBidConfig(auctionId, userId, 200.0, 10.0);
 
         // Act & Assert
         assertEquals(AuctionState.OPENING, auction.getAuctionState());
-        assertTrue(auction.hasAutoBidConfig(userId));
+        assertTrue(BidSystem.getInstance().hasAutoBidConfig(auctionId, userId));
     }
 
     @Test
     @DisplayName("Should maintain auto-bid config after bid update")
     void testAutoBidConfig_AfterBidUpdate() {
         // Arrange
+        int auctionId = auction.getId();
         int userId = 2;
         double maxAmount = 200.0;
         double increment = 10.0;
-        auction.setAutoBidConfig(userId, maxAmount, increment);
+        BidSystem.getInstance().setAutoBidConfig(auctionId, userId, maxAmount, increment);
 
         // Act
         BidTransaction tx = new BidTransaction(1, "user1", 150.0, LocalDateTime.now());
         auction.updatePrice(150.0, tx);
 
         // Assert
-        assertTrue(auction.hasAutoBidConfig(userId));
-        assertEquals(maxAmount, auction.getAutoBidConfigs().get(userId).getMaxAmount());
-        assertEquals(increment, auction.getAutoBidConfigs().get(userId).getIncrement());
+        assertTrue(BidSystem.getInstance().hasAutoBidConfig(auctionId, userId));
+        assertEquals(maxAmount, BidSystem.getInstance().getAutoBidConfigs(auctionId).get(userId).getMaxAmount());
+        assertEquals(increment, BidSystem.getInstance().getAutoBidConfigs(auctionId).get(userId).getIncrement());
     }
 }

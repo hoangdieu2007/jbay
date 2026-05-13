@@ -2,23 +2,19 @@ package a88.jbay.common.auction;
 
 import a88.jbay.common.Subject;
 import a88.jbay.common.item.Item;
-import a88.jbay.common.network.Response;
+import a88.jbay.system.AutoBidConfig;
 import a88.jbay.system.BidSystem;
-import a88.jbay.system.update.ConnectionSystem;
 import a88.jbay.system.update.UpdateSystem;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Set;
-import java.util.Map;
-import java.util.HashMap;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.Comparator;
-import java.util.stream.Collectors;
 
 //manage auction data, state and subscribers, all business logic belong to auction system
 
@@ -45,10 +41,7 @@ public class Auction implements Subject, Serializable {
     private AuctionState auctionState;
     private List<BidTransaction> bidHistory;
     private final Set<Integer> observers;
-
-    // auto-bid configuration - supports multiple users
-    private final Map<Integer, AutoBidConfig> autoBidConfigs;
-    private final AtomicBoolean isAutoBidding = new AtomicBoolean(false);
+    private Map<Integer, AutoBidConfig> autoBidConfigs;
 
     public Auction(int id, Item item, String seller, LocalDateTime startTime, LocalDateTime endTime) {
         this.id = id;
@@ -95,6 +88,22 @@ public class Auction implements Subject, Serializable {
         return bidHistory;
     }
 
+    public Map<Integer, AutoBidConfig> getAutoBidConfigs() {
+        return new HashMap<>(autoBidConfigs);
+    }
+
+    public void setAutoBidConfigs(Map<Integer, AutoBidConfig> autoBidConfigs) {
+        this.autoBidConfigs = autoBidConfigs == null ? new HashMap<>() : new HashMap<>(autoBidConfigs);
+    }
+
+    public boolean hasAutoBidConfig(int userId) {
+        return autoBidConfigs.containsKey(userId);
+    }
+
+    public AutoBidConfig getAutoBidConfig(int userId) {
+        return autoBidConfigs.get(userId);
+    }
+
     public String toString() {
         return Integer.toString(id) + " - " + item.toString() + " - " + seller + " - " + startPrice + " - " + currentPrice + " - " + winner + " - " + startTime.toString() + " - " + endTime.toString() + " - " + auctionState.name();
     }
@@ -137,7 +146,7 @@ public class Auction implements Subject, Serializable {
     public void updatePrice(double newPrice, BidTransaction tx) {
         addBid(newPrice, tx);
         notifyObservers();
-        triggerAutoBid();
+        BidSystem.getInstance().triggerAutoBid(this);
     }
 
     public void setEndTime(LocalDateTime newEndTime) {
@@ -178,75 +187,6 @@ public class Auction implements Subject, Serializable {
             return true;
         }
         return false;
-    }
-
-    // auto-bid methods
-    public void setAutoBidConfig(int userId, double maxAmount, double increment) {
-        autoBidConfigs.put(userId, new AutoBidConfig(maxAmount, increment));
-    }
-
-    public void clearAutoBidConfig(int userId) {
-        autoBidConfigs.remove(userId);
-    }
-
-    public Map<Integer, AutoBidConfig> getAutoBidConfigs() {
-        return new HashMap<>(autoBidConfigs);
-    }
-
-    public void clearAllAutoBidConfigs() {
-        autoBidConfigs.clear();
-    }
-
-    public boolean hasAutoBidConfig(int userId) {
-        return autoBidConfigs.containsKey(userId);
-    }
-
-    private void triggerAutoBid() {
-        if (autoBidConfigs.isEmpty()) {
-            return;
-        }
-
-        // Prevent recursive auto-bid calls
-        if (!isAutoBidding.compareAndSet(false, true)) {
-            return; // another thread is already processing auto-bid
-        }
-
-        // Filter out current winner from auto-bid candidates
-        List<Map.Entry<Integer, AutoBidConfig>> candidates = autoBidConfigs.entrySet().stream()
-                .filter(entry -> !entry.getKey().equals(winnerId))
-                .sorted(Comparator.comparingDouble((Map.Entry<Integer, AutoBidConfig> e) -> e.getValue().getMaxAmount()).reversed())
-                .collect(Collectors.toList());
-
-        if (candidates.isEmpty()) {
-            return;
-        }
-
-        // Get the top bidder by max_amount
-        Map.Entry<Integer, AutoBidConfig> topBidder = candidates.get(0);
-        int winningUserId = topBidder.getKey();
-        double winningMaxAmount = topBidder.getValue().getMaxAmount();
-        double winningIncrement = topBidder.getValue().getIncrement();
-
-        double autoBidAmount = currentPrice + winningIncrement;
-
-        // Check if auto-bid amount exceeds max_amount
-        if (autoBidAmount > winningMaxAmount) {
-            System.out.println("Auto-bid stopped for user " + winningUserId + " on auction " + id +
-                              ": auto-bid amount (" + autoBidAmount + ") exceeds max_amount (" + winningMaxAmount + ")");
-            clearAutoBidConfig(winningUserId);
-            return;
-        }
-
-        // Check if auto-bid amount is higher than current price
-        if (autoBidAmount <= currentPrice) {
-            return;
-        }
-
-        // Place the auto-bid through AuctionSystem
-        BidSystem.getInstance().placeBid(winningUserId, id, autoBidAmount);
-
-        // Reset flag after bid is placed
-        isAutoBidding.set(false);
     }
 
 }
