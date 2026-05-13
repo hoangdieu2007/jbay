@@ -56,6 +56,7 @@ public class RequestHandler {
             case SUBSCRIBE_AUCTION -> handleSubscribeAuction(request);
             case UNSUBSCRIBE_AUCTION -> handleUnsubscribeAuction(request);
             case GET_AUCTIONS -> handleGetAuctions(request);
+            case GET_USERS -> handleGetUsers(request);
             case MISC -> handleMisc(request);
         };
     }
@@ -205,8 +206,35 @@ public class RequestHandler {
     }
 
     private Response handleGetAuctions(Request request) {
-        updateSystem.updateAllAuctions((int) request.get("userId"));
+        // Lấy thông tin user từ sessionId để kiểm tra Role
+        String sessionId = (String) request.get("sessionId");
+        User user = userSystem.findBySessionId(sessionId);
+
+        // Kiểm tra xem có phải ADMIN không
+        if (user != null && user.getRole().equals("ADMIN")) {
+            // Chuyển hướng luồng chạy cho ADMIN
+            updateSystem.updateAdminAuctions(user.getId());
+        } else {
+            // GIỮ NGUYÊN LUỒNG CŨ CHO USER (Bidder/Seller)
+            updateSystem.updateAllAuctions((int) request.get("userId"));
+        }
+
         return new Response(true, "GET_AUCTIONS_SUCCESS", null);
+    }
+
+    // Xử lý luồng lấy danh sách User (Chỉ Admin mới có quyền)
+    private Response handleGetUsers(Request request) {
+        String sessionId = (String) request.get("sessionId");
+        User user = userSystem.findBySessionId(sessionId);
+
+        // Chặn cửa: Chỉ xử lý nếu là ADMIN
+        if (user != null && user.getRole().equals("ADMIN")) {
+            // Nhờ UpdateSystem đóng gói và đẩy qua mạng
+            updateSystem.updateAdminUsers(user.getId());
+            return new Response(true, "GET_USERS_SUCCESS", null);
+        }
+
+        return new Response(false, "UNAUTHORIZED", null);
     }
 
     //misc commands

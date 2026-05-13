@@ -86,4 +86,17 @@ public class UserSystem {
 
         return new User(data.id(), data.role(), data.username(), sessionId);
     }
+
+    public java.util.List<User> getAllNormalUsersForAdmin() {
+        java.util.List<UserDAO.UserData> rawUsers = userDAO.getAllNormalUsers();
+        java.util.List<User> userList = new java.util.ArrayList<>();
+
+        if (rawUsers != null) {
+            for (UserDAO.UserData data : rawUsers) {
+                // Dùng constructor 3 tham số (id, role, username) - Session tự động gán là "none"
+                userList.add(new User(data.id(), data.role(), data.username()));
+            }
+        }
+        return userList;
+    }
 }

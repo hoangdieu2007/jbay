@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AuctionDAO {
 
@@ -22,7 +24,8 @@ public class AuctionDAO {
             Integer winnerId,
             LocalDateTime startTime,
             LocalDateTime endTime,
-            String state
+            String state,
+            String itemName
     ) {}
 
     // Constructor for dependency injection
@@ -45,7 +48,8 @@ public class AuctionDAO {
                 winnerId,
                 rs.getTimestamp("start_time").toLocalDateTime(),
                 rs.getTimestamp("end_time").toLocalDateTime(),
-                rs.getString("state")
+                rs.getString("state"),
+                ""
         );
     }
 
@@ -343,5 +347,42 @@ public class AuctionDAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public List<AuctionData> getAllAuctionsForAdmin() {
+        List<AuctionData> adminAuctions = new ArrayList<>();
+        String sql = """
+                SELECT a.id, a.item, a.seller, a.start_price, a.cur_price, 
+                       a.winner, a.start_time, a.end_time, a.state,
+                       i.name AS item_name
+                FROM auctions a
+                JOIN items i ON a.item = i.id
+                ORDER BY a.id DESC
+                """;
+
+        try (Connection conn = dbController.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                Integer winnerId = rs.getObject("winner") == null ? null : rs.getInt("winner");
+
+                adminAuctions.add(new AuctionData(
+                        rs.getInt("id"),
+                        rs.getInt("item"),
+                        rs.getInt("seller"),
+                        rs.getDouble("start_price"),
+                        rs.getDouble("cur_price"),
+                        winnerId,
+                        rs.getTimestamp("start_time").toLocalDateTime(),
+                        rs.getTimestamp("end_time").toLocalDateTime(),
+                        rs.getString("state"),
+                        rs.getString("item_name")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return adminAuctions;
     }
 }

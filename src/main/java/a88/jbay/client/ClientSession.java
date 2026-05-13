@@ -18,6 +18,8 @@ public class ClientSession {
     private User user;
     private ObservableMap<Integer, Auction> sellerAuctions;
     private ObservableMap<Integer, Auction> bidderAuctions;
+    private ObservableMap<Integer, User> adminUsers = FXCollections.observableHashMap();
+    private ObservableMap<Integer, Auction> adminAuctions = FXCollections.observableHashMap();
 
     private ClientSession() {
         this.logger = JBayLogger.getLogger(ClientSession.class);
@@ -51,6 +53,10 @@ public class ClientSession {
     public ObservableMap<Integer, Auction> getBidderAuctions() {
         return bidderAuctions;
     }
+
+    public ObservableMap<Integer, User> getAdminUsers() { return adminUsers; }
+
+    public ObservableMap<Integer, Auction> getAdminAuctions() { return adminAuctions; }
 
     // after each logout, call this to erase session
     public void resetSession() {

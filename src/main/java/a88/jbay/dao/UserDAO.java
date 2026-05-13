@@ -165,4 +165,22 @@ public class UserDAO {
         String sql = "UPDATE users SET role = ? WHERE id = ?";
         return executeUpdate(sql, role, userId);
     }
+
+    // Dành cho Admin: Lấy toàn bộ user không phải ADMIN (Bao gồm USER bình thường và bị BAN)
+    public java.util.List<UserData> getAllNormalUsers() {
+        java.util.List<UserData> users = new java.util.ArrayList<>();
+        String sql = "SELECT id, username, role, password FROM users WHERE role != 'ADMIN' ORDER BY id DESC";
+
+        try (Connection connection = dbController.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                users.add(extractUserDataFromResultSet(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
 }

@@ -279,6 +279,13 @@ public class AuctionSystem {
         return auctionRepository.listActiveAuctions();
     }
 
+    // Lấy toàn bộ Auction phục vụ cho Admin
+    public List<Auction> getAllAuctionsForAdmin() {
+        // Đá qua AuctionRepository.
+        // (Bên trong hàm này của repo, team bạn đã dùng DAO lấy Data và convert thành Object)
+        return auctionRepository.getAllAuctionsForAdmin();
+    }
+
     /*
     code section for handling auction state transitions
      */

@@ -47,6 +47,8 @@ public class ResponseHandler {
                 case "BIDDER_AUCTION_LIST" -> handleBidderAuctionList(response);
                 case "AUCTION_UPDATE" -> handleAuctionUpdate(response);
                 case "AUCTION_UPDATE_NOTIFY" -> handleAuctionUpdateNotify(response);
+                case "ADMIN_AUCTION_LIST" -> handleAdminAuctionList(response);
+                case "ADMIN_USER_LIST" -> handleAdminUserList(response);
                 case "BAN_USER" -> handleBanUser(response);
                 case "PONG" -> handlePong(response);
                 default -> handleDefault(response);
@@ -144,6 +146,7 @@ public class ResponseHandler {
 
     private void handleAuctionUpdate(Response response) {
         Auction auction = (Auction) response.getPayload();
+        String role = clientSession.getUser().getRole();
 
         System.out.println(auction);
         System.out.println("Bid List:");
@@ -155,6 +158,10 @@ public class ResponseHandler {
             clientSession.getSellerAuctions().put(auction.getId(), auction);
         } else {
             clientSession.getBidderAuctions().put(auction.getId(), auction);
+        }
+
+        if ("ADMIN".equals(role)) {
+            clientSession.getAdminAuctions().put(auction.getId(), auction);
         }
     }
 
@@ -177,4 +184,21 @@ public class ResponseHandler {
         logger.info("handleAuctionUpdateNotify called for auction " + auction.getId());
         new Alert(Alert.AlertType.INFORMATION, "Auction " + auction.getId() + " - " + auction.getItem().getName() + " update: " + auction.getWinner() + " is the current winner, current price is " + auction.getCurrentPrice() + " USD").show();
     }
+
+    private void handleAdminAuctionList(Response response) {
+        List<Auction> auctions = (List<Auction>) response.getPayload();
+        for (Auction a : auctions) {
+            clientSession.getAdminAuctions().put(a.getId(), a);
+        }
+    }
+
+    private void handleAdminUserList(Response response) {
+        List<User> users = (List<User>) response.getPayload();
+        // Ném User vào kho dành riêng cho Admin
+        for (User u : users) {
+            clientSession.getAdminUsers().put(u.getId(), u);
+        }
+    }
+
+
 }

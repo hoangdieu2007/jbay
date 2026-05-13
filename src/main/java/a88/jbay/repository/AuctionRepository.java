@@ -298,6 +298,50 @@ public class AuctionRepository {
     }
 
     /**
+     * Dành riêng cho Admin: Lấy toàn bộ Auction từ DB và convert sang Object.
+     */
+    public List<Auction> getAllAuctionsForAdmin() {
+        // Gọi DAO lấy danh sách dữ liệu thô (Record 10 biến)
+        List<a88.jbay.dao.AuctionDAO.AuctionData> rawDataList = auctionDAO.getAllAuctionsForAdmin();
+        List<Auction> adminAuctionList = new ArrayList<>();
+
+        if (rawDataList != null) {
+            for (a88.jbay.dao.AuctionDAO.AuctionData data : rawDataList) {
+                // 1. Tạo Item: Gọi ĐÚNG tên hàm của Record là data.itemId(), data.itemName(), data.startPrice()
+                a88.jbay.common.item.Item item = new a88.jbay.common.item.Item(
+                        data.itemId(),
+                        data.itemName(),
+                        "UNKNOWN",
+                        "",
+                        data.startPrice()
+                );
+
+                // 2. Tạo Auction: Gọi ĐÚNG data.id(), data.sellerId()
+                Auction auction = new Auction(
+                        data.id(),
+                        item,
+                        String.valueOf(data.sellerId()),
+                        data.startTime(),
+                        data.endTime()
+                );
+
+                // 3. Fix lỗi State: Ép kiểu từ String (data.state()) sang Enum (AuctionState)
+                try {
+                    auction.setAuctionState(a88.jbay.common.auction.AuctionState.valueOf(data.state()));
+                } catch (Exception e) {
+                    auction.setAuctionState(a88.jbay.common.auction.AuctionState.OPENING);
+                }
+
+                // BỎ QUA việc gọi setCurrentPrice và setWinner vì Auction class của ông không có 2 hàm này
+                // Và bảng UI Admin cũng không hiển thị chúng!
+
+                adminAuctionList.add(auction);
+            }
+        }
+        return adminAuctionList;
+    }
+
+    /**
      * Reconstruct auction from persistent data.
      * This method restores state only.
      * No side effects should happen here.

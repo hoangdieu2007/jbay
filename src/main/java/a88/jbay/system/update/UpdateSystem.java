@@ -4,6 +4,7 @@ import a88.jbay.common.auction.Auction;
 import a88.jbay.common.network.Response;
 import a88.jbay.di.ApplicationContext;
 import a88.jbay.repository.AuctionRepository;
+import a88.jbay.system.AuctionSystem;
 
 import java.util.Set;
 
@@ -119,5 +120,37 @@ public class UpdateSystem {
         for (Auction auction : auctionRepository.getAllActiveAuctions()) {
             auction.unsubscribe(userId);
         }
+    }
+
+    /**
+     * Send all Auction List for admin.
+     */
+    public void updateAdminAuctions(int adminId) {
+        // Lấy instance của AuctionSystem để đá luồng logic qua đó
+        AuctionSystem auctionSystem = ApplicationContext.getInstance().getDependency(AuctionSystem.class);
+
+        Response response = new Response(
+                true,
+                "ADMIN_AUCTION_LIST", // Gắn nhãn riêng cho Admin
+                auctionSystem.getAllAuctionsForAdmin() // Đá qua AuctionSystem
+        );
+
+        connectionSystem.sendToUser(adminId, response);
+    }
+
+    /**
+     * Send all normal Users to admin
+     */
+    public void updateAdminUsers(int adminId) {
+        a88.jbay.system.user.UserSystem userSystem =
+                ApplicationContext.getInstance().getDependency(a88.jbay.system.user.UserSystem.class);
+
+        Response response = new Response(
+                true,
+                "ADMIN_USER_LIST", // Gắn nhãn phân loại User
+                userSystem.getAllNormalUsersForAdmin()
+        );
+
+        connectionSystem.sendToUser(adminId, response);
     }
 }
