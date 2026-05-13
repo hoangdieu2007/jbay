@@ -128,6 +128,8 @@ public class SellerBidderHomeScreenController {
                 sellerList.remove(change.wasRemoved());
             }
 
+            sellerList.sort(Comparator.comparingInt(Auction:: getId).reversed());
+
         });
 
         /** xử lý thay đổi from sellerList và textField*/
@@ -203,6 +205,8 @@ public class SellerBidderHomeScreenController {
             else{
                 bidderList.remove(change.getValueRemoved());
             }
+
+            bidderList.sort(Comparator.comparingInt(Auction::getId).reversed());
 
         });
         /** xử lý thay đổi from bidderList và textField*/
