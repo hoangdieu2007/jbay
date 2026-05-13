@@ -52,11 +52,7 @@ public class ApplicationContext {
         container.registerSingleton(ItemDAO.class, itemDAO);
         BidDAO bidDAO = new BidDAO(DatabaseController.getInstance());
         container.registerSingleton(BidDAO.class, bidDAO);
-        container.registerSingleton(AuctionDAO.class, new AuctionDAO(
-            DatabaseController.getInstance(),
-            itemDAO,
-            bidDAO
-        ));
+        container.registerSingleton(AuctionDAO.class, new AuctionDAO(DatabaseController.getInstance()));
 
         // system classes a.k.a. service layer - register as singletons
         container.registerSingleton(UpdateSystem.class, new UpdateSystem());
