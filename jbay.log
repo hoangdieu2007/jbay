@@ -85210,3 +85210,1566 @@ java.net.SocketException: Socket closed
 2026-05-13 17:52:42.912 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
 2026-05-13 18:16:04.864 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m21s988ms378µs800ns).
 2026-05-13 20:05:20.780 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h49m22s404ms993µs200ns).
+2026-05-13 20:39:49.766 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connecting to server: 0.tcp.ap.ngrok.io:28651
+2026-05-13 20:39:50.053 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connection successful to server: 0.tcp.ap.ngrok.io:28651
+2026-05-13 20:39:50.056 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:39:50.208 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:39:50.209 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:39:55.792 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: LOGIN
+2026-05-13 20:39:55.962 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: LOGIN_SUCCESS
+2026-05-13 20:39:56.056 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 0 auctions
+2026-05-13 20:39:56.057 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 0 auctions
+2026-05-13 20:39:56.180 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: GET_AUCTIONS
+2026-05-13 20:39:56.717 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: ACTIVE_AUCTION_LIST
+2026-05-13 20:39:57.264 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BIDDER_AUCTION_LIST
+2026-05-13 20:39:57.379 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: SELLER_AUCTION_LIST
+2026-05-13 20:39:57.379 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: GET_AUCTIONS_SUCCESS
+2026-05-13 20:39:57.403 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - GET_AUCTIONS_SUCCESS
+2026-05-13 20:40:20.061 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:40:20.212 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:40:20.212 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:40:43.141 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-13 20:40:43.142 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 4
+2026-05-13 20:40:43.165 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-13 20:40:43.207 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-13 20:40:43.209 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-13 20:40:43.212 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-13 20:40:43.214 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 4
+2026-05-13 20:40:43.220 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-13 20:40:43.224 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-13 20:40:43.234 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-13 20:40:43.251 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 4
+2026-05-13 20:40:43.292 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 4
+2026-05-13 20:40:50.062 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:40:50.210 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:40:50.211 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:41:20.056 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:41:20.204 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:41:20.204 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:41:50.064 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:41:50.212 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:41:50.212 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:42:20.065 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:42:20.224 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:42:20.225 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:42:50.064 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:42:50.218 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:42:50.218 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:43:20.058 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:43:20.223 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:43:20.223 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:43:50.062 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:43:50.216 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:43:50.217 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:44:20.064 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:44:20.223 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:44:20.223 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:44:50.064 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:44:50.215 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:44:50.215 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:44:52.803 [main] INFO  a88.jbay.view.MainServerTUI - JBAY Server TUI starting
+2026-05-13 20:44:52.804 [main] INFO  a88.jbay.view.MainServerTUI - ------------------JBAY_SERVER_TUI-----------------
+2026-05-13 20:44:52.804 [main] INFO  a88.jbay.view.MainServerTUI - --------------software infrastructure-------------
+2026-05-13 20:44:52.807 [main] INFO  a88.jbay.view.MainServerTUI - Connect to database:
+2026-05-13 20:44:52.807 [main] INFO  a88.jbay.view.MainServerTUI - Enter URL:
+2026-05-13 20:45:20.055 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:45:20.209 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:45:20.209 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:45:36.793 [main] INFO  a88.jbay.view.MainServerTUI - Enter username:
+2026-05-13 20:45:38.442 [main] INFO  a88.jbay.view.MainServerTUI - Enter password:
+2026-05-13 20:45:40.464 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-05-13 20:45:40.868 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@45d2ade3
+2026-05-13 20:45:40.870 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-05-13 20:45:40.870 [main] INFO  a88.jbay.server.DatabaseController - Database connection pool initialized with URL: jdbc:mysql://localhost:3306/jbay_db
+2026-05-13 20:45:40.870 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.879 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.929 [main] INFO  a.jbay.repository.AuctionRepository - Loading 6 active auctions from database
+2026-05-13 20:45:40.929 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.946 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.951 [main] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 1 - iphone - State: RUNNING
+2026-05-13 20:45:40.952 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.957 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.962 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.964 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.967 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.969 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.970 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.971 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.973 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.973 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.974 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.975 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.976 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.978 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.980 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.981 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.982 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.983 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.984 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.985 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.986 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.986 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.988 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.989 [main] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 2 - kho ga - State: RUNNING
+2026-05-13 20:45:40.989 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.991 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.992 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.992 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.992 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.993 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.994 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.994 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.995 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.996 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.996 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.997 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.998 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.998 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.999 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:40.999 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.000 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.000 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.001 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.001 [main] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 3 - sua mixi - State: RUNNING
+2026-05-13 20:45:41.001 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.002 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.003 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.003 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.004 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.005 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.005 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.006 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.017 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.017 [main] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 5 - ba mia - State: RUNNING
+2026-05-13 20:45:41.017 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.019 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.019 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.020 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.020 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.021 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.038 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.038 [main] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 6 - one piece - State: RUNNING
+2026-05-13 20:45:41.038 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.040 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.041 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.041 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.042 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.042 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.046 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.047 [main] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 12 - alo vu a vu - State: RUNNING
+2026-05-13 20:45:41.047 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.048 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.048 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.049 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.049 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.049 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.050 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.051 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.051 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.052 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.055 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.057 [main] INFO  a.jbay.repository.AuctionRepository - Loading 6 active auctions from database
+2026-05-13 20:45:41.057 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.060 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.061 [main] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 1 - iphone - State: RUNNING
+2026-05-13 20:45:41.061 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.063 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.063 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.064 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.064 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.065 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.065 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.065 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.066 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.066 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.067 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.067 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.068 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.068 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.068 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.068 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.069 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.070 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.070 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.071 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.071 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.072 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.072 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.072 [main] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 2 - kho ga - State: RUNNING
+2026-05-13 20:45:41.072 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.074 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.074 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.075 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.076 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.077 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.077 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.078 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.079 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.080 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.081 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.082 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.083 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.084 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.084 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.085 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.086 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.087 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.088 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.089 [main] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 3 - sua mixi - State: RUNNING
+2026-05-13 20:45:41.089 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.090 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.090 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.092 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.092 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.092 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.094 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.095 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.101 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.102 [main] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 5 - ba mia - State: RUNNING
+2026-05-13 20:45:41.102 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.104 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.105 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.105 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.106 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.106 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.114 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.117 [main] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 6 - one piece - State: RUNNING
+2026-05-13 20:45:41.118 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.119 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.120 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.121 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.121 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.122 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.124 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.124 [main] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 12 - alo vu a vu - State: RUNNING
+2026-05-13 20:45:41.124 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.125 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.126 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.126 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.127 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.127 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.127 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.128 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.128 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:41.128 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-13 20:45:50.063 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:45:50.220 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:45:50.220 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:46:20.068 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:46:20.219 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:46:20.219 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:46:50.067 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:46:50.220 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:46:50.220 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:47:20.055 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:47:20.211 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:47:20.213 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:47:50.059 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:47:50.214 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:47:50.214 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:48:13.333 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: LOGOUT
+2026-05-13 20:48:13.490 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: LOGOUT_SUCCESS
+2026-05-13 20:48:13.505 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Session has been cleared
+2026-05-13 20:48:18.820 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: LOGIN
+2026-05-13 20:48:18.977 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: LOGIN_SUCCESS
+2026-05-13 20:48:19.007 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 0 auctions
+2026-05-13 20:48:19.007 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 0 auctions
+2026-05-13 20:48:19.058 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: GET_AUCTIONS
+2026-05-13 20:48:19.554 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: ACTIVE_AUCTION_LIST
+2026-05-13 20:48:19.689 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BIDDER_AUCTION_LIST
+2026-05-13 20:48:19.767 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: SELLER_AUCTION_LIST
+2026-05-13 20:48:19.768 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: GET_AUCTIONS_SUCCESS
+2026-05-13 20:48:19.791 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - GET_AUCTIONS_SUCCESS
+2026-05-13 20:48:20.069 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:48:20.218 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:48:20.218 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:48:50.067 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:48:50.217 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:48:50.217 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:49:12.482 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: LOGOUT
+2026-05-13 20:49:12.638 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: LOGOUT_SUCCESS
+2026-05-13 20:49:12.652 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Session has been cleared
+2026-05-13 20:49:20.068 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:49:20.218 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:49:20.218 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:49:21.180 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: LOGIN
+2026-05-13 20:49:21.335 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: LOGIN_SUCCESS
+2026-05-13 20:49:21.360 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 0 auctions
+2026-05-13 20:49:21.360 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 0 auctions
+2026-05-13 20:49:21.401 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: GET_AUCTIONS
+2026-05-13 20:49:22.048 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: ACTIVE_AUCTION_LIST
+2026-05-13 20:49:22.049 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BIDDER_AUCTION_LIST
+2026-05-13 20:49:22.050 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: SELLER_AUCTION_LIST
+2026-05-13 20:49:22.050 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: GET_AUCTIONS_SUCCESS
+2026-05-13 20:49:22.079 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - GET_AUCTIONS_SUCCESS
+2026-05-13 20:49:31.563 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: BID
+2026-05-13 20:49:31.722 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-13 20:49:31.722 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 4
+2026-05-13 20:49:31.723 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-13 20:49:31.730 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BID_SUCCESS
+2026-05-13 20:49:31.744 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - BID_SUCCESS
+2026-05-13 20:49:46.114 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: AUTO_BID
+2026-05-13 20:49:46.280 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-13 20:49:46.281 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 4
+2026-05-13 20:49:46.281 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-13 20:49:46.281 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUTO_BID_SUCCESS
+2026-05-13 20:49:46.301 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - AUTO_BID_SUCCESS
+2026-05-13 20:49:50.055 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:49:50.204 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:49:50.205 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:49:57.683 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 2 auctions
+2026-05-13 20:49:57.691 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 2 auctions
+2026-05-13 20:50:20.066 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:50:20.222 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:50:20.222 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:50:50.058 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:50:50.212 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:50:50.212 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:50:53.415 [Thread-4] INFO  a88.jbay.client.ServerConnection - Server closed the connection
+2026-05-13 20:50:53.416 [Thread-4] INFO  a88.jbay.client.ServerConnection - Listener thread ended
+2026-05-13 20:51:20.057 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:51:50.064 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:51:50.065 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 20:52:20.066 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:52:20.067 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 20:52:50.055 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:52:50.055 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 20:53:20.059 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:53:20.060 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 20:53:50.069 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:53:50.069 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 20:54:20.062 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:54:20.063 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 20:54:50.063 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:54:50.063 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 20:55:17.284 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connecting to server: 0.tcp.ap.ngrok.io:28651
+2026-05-13 20:55:17.514 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connection successful to server: 0.tcp.ap.ngrok.io:28651
+2026-05-13 20:55:17.516 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:55:17.688 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:55:17.688 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:55:20.055 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:55:20.226 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:55:20.226 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:55:22.693 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: LOGIN
+2026-05-13 20:55:22.878 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: LOGIN_SUCCESS
+2026-05-13 20:55:22.904 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 2 auctions
+2026-05-13 20:55:22.916 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 2 auctions
+2026-05-13 20:55:22.984 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: GET_AUCTIONS
+2026-05-13 20:55:23.527 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: ACTIVE_AUCTION_LIST
+2026-05-13 20:55:23.866 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: BIDDER_AUCTION_LIST
+2026-05-13 20:55:23.976 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: SELLER_AUCTION_LIST
+2026-05-13 20:55:23.976 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: GET_AUCTIONS_SUCCESS
+2026-05-13 20:55:24.008 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - GET_AUCTIONS_SUCCESS
+2026-05-13 20:55:47.521 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:55:47.687 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:55:47.687 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:55:50.065 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:55:50.225 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:55:50.225 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:56:17.528 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:56:17.698 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:56:17.698 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:56:20.056 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:56:20.222 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:56:20.222 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:56:47.531 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:56:47.727 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:56:47.727 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:56:50.063 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:56:50.226 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:56:50.226 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:57:17.524 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:57:17.690 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:57:17.690 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:57:20.066 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:57:20.239 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:57:20.239 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:57:47.524 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:57:47.691 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:57:47.691 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:57:50.054 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:57:50.235 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:57:50.235 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:58:17.528 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:58:17.693 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:58:17.693 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:58:20.055 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:58:20.220 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:58:20.220 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:58:47.527 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:58:47.691 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:58:47.691 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:58:50.058 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:58:50.235 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:58:50.235 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:59:17.529 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:59:17.699 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:59:17.699 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:59:20.069 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:59:20.233 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 20:59:20.233 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 20:59:29.538 [Thread-5] INFO  a88.jbay.client.ServerConnection - Server closed the connection
+2026-05-13 20:59:29.538 [Thread-5] INFO  a88.jbay.client.ServerConnection - Listener thread ended
+2026-05-13 20:59:47.517 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:59:50.068 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 20:59:50.068 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 21:00:17.519 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:00:17.519 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 21:00:20.068 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:00:20.068 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 21:00:47.530 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:00:47.530 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 21:00:50.063 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:00:50.063 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 21:01:17.516 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:01:17.516 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 21:01:20.065 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:01:20.065 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 21:01:47.518 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:01:47.518 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 21:01:50.069 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:01:50.069 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 21:02:17.517 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:02:17.517 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 21:02:20.066 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:02:20.066 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 21:02:47.520 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:02:47.521 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 21:02:50.057 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:02:50.057 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 21:03:17.524 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:03:17.524 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 21:03:20.058 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:03:20.058 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 21:03:47.523 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:03:47.523 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 21:03:50.055 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:03:50.055 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 21:04:17.524 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:04:17.524 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 21:04:20.059 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:04:20.059 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 21:04:47.518 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:04:47.519 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 21:04:50.063 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:04:50.063 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 21:05:17.531 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:05:17.531 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 21:05:20.069 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:05:20.069 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 21:05:47.517 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:05:47.517 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 21:05:50.069 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:05:50.069 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 21:06:17.530 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:06:17.530 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 21:06:20.062 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:06:20.062 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 21:06:47.521 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:06:47.521 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 21:06:50.055 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:06:50.055 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 21:07:17.528 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:07:17.528 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 21:07:20.064 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:07:20.064 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 21:07:47.530 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:07:47.530 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 21:07:50.055 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:07:50.055 [pool-2-thread-1] ERROR a88.jbay.client.ServerConnection - Failed to send ping: An established connection was aborted by the software in your host machine
+java.net.SocketException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:57)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:402)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:418)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:448)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:821)
+	at java.base/java.net.Socket$SocketOutputStream.implWrite(Socket.java:1086)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1076)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.drain(ObjectOutputStream.java:1765)
+	at java.base/java.io.ObjectOutputStream$BlockDataOutputStream.setBlockDataMode(ObjectOutputStream.java:1674)
+	at java.base/java.io.ObjectOutputStream.reset(ObjectOutputStream.java:474)
+	at a88.jbay/a88.jbay.client.ServerConnection.send(ServerConnection.java:61)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startPing$0(ServerConnection.java:124)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-13 21:07:50.683 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connecting to server: 0.tcp.ap.ngrok.io:28651
+2026-05-13 21:07:50.896 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connection successful to server: 0.tcp.ap.ngrok.io:28651
+2026-05-13 21:07:50.896 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:07:51.084 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:07:51.084 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:07:59.619 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: LOGIN
+2026-05-13 21:07:59.819 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: LOGIN_SUCCESS
+2026-05-13 21:07:59.844 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 5 auctions
+2026-05-13 21:07:59.882 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 4 auctions
+2026-05-13 21:07:59.977 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: GET_AUCTIONS
+2026-05-13 21:08:00.550 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: ACTIVE_AUCTION_LIST
+2026-05-13 21:08:00.647 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: BIDDER_AUCTION_LIST
+2026-05-13 21:08:00.652 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: SELLER_AUCTION_LIST
+2026-05-13 21:08:00.652 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: GET_AUCTIONS_SUCCESS
+2026-05-13 21:08:00.697 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - GET_AUCTIONS_SUCCESS
+2026-05-13 21:08:17.516 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:08:17.679 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:08:17.680 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:08:20.057 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:08:20.215 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:08:20.215 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:08:20.909 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:08:21.070 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:08:21.072 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:08:47.522 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:08:47.679 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:08:47.679 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:08:48.020 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 8 auctions
+2026-05-13 21:08:48.046 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 9 auctions
+2026-05-13 21:08:50.055 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:08:50.211 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:08:50.212 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:08:50.896 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:08:51.055 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:08:51.055 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:09:17.523 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:09:17.687 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:09:17.688 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:09:20.056 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:09:20.224 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:09:20.224 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:09:20.905 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:09:21.067 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:09:21.068 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:09:47.524 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:09:47.683 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:09:47.683 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:09:50.055 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:09:50.214 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:09:50.215 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:09:50.905 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:09:51.065 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:09:51.066 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:10:17.524 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:10:17.684 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:10:17.684 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:10:20.069 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:10:20.228 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:10:20.228 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:10:20.901 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:10:21.062 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:10:21.062 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:10:47.524 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:10:47.692 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:10:47.692 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:10:50.063 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:10:50.222 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:10:50.223 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:10:50.898 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:10:51.057 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:10:51.057 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:11:17.517 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:11:17.678 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:11:17.678 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:11:20.065 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:11:20.233 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:11:20.233 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:11:20.899 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:11:21.061 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:11:21.061 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:11:47.524 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:11:47.685 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:11:47.685 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:11:50.060 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:11:50.219 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:11:50.219 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:11:50.908 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:11:51.069 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:11:51.070 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:12:17.526 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:12:17.686 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:12:17.686 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:12:20.056 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:12:20.216 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:12:20.217 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:12:20.908 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:12:21.070 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:12:21.070 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:12:47.520 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:12:47.683 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:12:47.683 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:12:50.055 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:12:50.232 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:12:50.232 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:12:50.907 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:12:51.072 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:12:51.073 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:13:17.520 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:13:17.689 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:13:17.690 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:13:20.056 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:13:20.216 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:13:20.216 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:13:20.906 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:13:21.065 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:13:21.065 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:13:47.520 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:13:47.684 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:13:47.684 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:13:50.057 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:13:50.217 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:13:50.217 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:13:50.897 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:13:51.055 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:13:51.055 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:14:17.518 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:14:17.677 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:14:17.677 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:14:20.064 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:14:20.227 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:14:20.227 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:14:20.897 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:14:21.057 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:14:21.057 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:14:47.519 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:14:47.683 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:14:47.683 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:14:50.069 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:14:50.232 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:14:50.232 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:14:50.902 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:14:51.065 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:14:51.065 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:15:17.529 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:15:17.690 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:15:17.690 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:15:20.062 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:15:20.221 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:15:20.222 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:15:20.910 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:15:21.071 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:15:21.071 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:15:47.517 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:15:47.745 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:15:47.745 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:15:50.068 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:15:50.230 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:15:50.230 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:15:50.902 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:15:51.062 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:15:51.062 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:16:17.521 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:16:17.685 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:16:17.685 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:16:20.066 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:16:20.228 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:16:20.228 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:16:20.900 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:16:21.061 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:16:21.061 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:16:47.527 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:16:47.693 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:16:47.693 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:16:50.067 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:16:50.231 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:16:50.231 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:16:50.897 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:16:51.057 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:16:51.057 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:17:17.531 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:17:17.692 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:17:17.692 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:17:20.067 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:17:20.230 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:17:20.230 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:17:20.901 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:17:21.067 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:17:21.067 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:17:47.520 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:17:47.685 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:17:47.686 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:17:50.057 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:17:50.220 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:17:50.220 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:17:50.908 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:17:51.070 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:17:51.070 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:18:17.525 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:18:17.694 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:18:17.695 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:18:20.059 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:18:20.220 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:18:20.220 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:18:20.911 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:18:21.070 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:18:21.070 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:18:47.522 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:18:47.680 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:18:47.680 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:18:50.055 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:18:50.217 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:18:50.217 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:18:50.905 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:18:51.064 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:18:51.064 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:19:17.524 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:19:17.687 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:19:17.687 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:19:20.057 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:19:20.217 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:19:20.217 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:19:20.906 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:19:21.067 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:19:21.067 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:19:47.521 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:19:47.683 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:19:47.683 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:19:50.056 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:19:50.217 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:19:50.217 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:19:50.909 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:19:51.071 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:19:51.071 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:20:17.523 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:20:17.683 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:20:17.683 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:20:20.067 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:20:20.227 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:20:20.228 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:20:20.901 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:20:21.062 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:20:21.062 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:20:47.522 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:20:47.683 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:20:47.683 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:20:50.056 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:20:50.218 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:20:50.218 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:20:50.897 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:20:51.058 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:20:51.058 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:21:17.518 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:21:17.679 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:21:17.679 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:21:20.064 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:21:20.225 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:21:20.225 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:21:20.898 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:21:21.061 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:21:21.062 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:21:47.525 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:21:47.685 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:21:47.686 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:21:50.059 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:21:50.226 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:21:50.226 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:21:50.909 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:21:51.071 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:21:51.071 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:22:17.523 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:22:17.684 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:22:17.684 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:22:20.069 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:22:20.229 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:22:20.229 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:22:20.904 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:22:21.063 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:22:21.064 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:22:47.518 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:22:47.677 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:22:47.677 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:22:50.056 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:22:50.216 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:22:50.216 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:22:50.905 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:22:51.065 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:22:51.065 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:23:17.527 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:23:17.689 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:23:17.689 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:23:20.059 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:23:20.218 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:23:20.218 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-13 21:23:20.907 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-13 21:23:21.098 [Thread-6] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-13 21:23:21.098 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
