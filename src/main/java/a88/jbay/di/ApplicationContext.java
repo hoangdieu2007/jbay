@@ -62,11 +62,14 @@ public class ApplicationContext {
         ));
         container.registerSingleton(AuctionRepository.class, new AuctionRepository(
             container.getInstance(AuctionDAO.class),
+            container.getInstance(ItemDAO.class),
             container.getInstance(UserDAO.class),
             container.getInstance(BidDAO.class)
         ));
         container.registerSingleton(BidSystem.class, new BidSystem(
-            container.getInstance(AuctionRepository.class)
+            container.getInstance(AuctionRepository.class),
+            container.getInstance(BidDAO.class),
+            container.getInstance(AuctionDAO.class)
         ));
         container.registerSingleton(AuctionSystem.class, new AuctionSystem(
             container.getInstance(UpdateSystem.class),

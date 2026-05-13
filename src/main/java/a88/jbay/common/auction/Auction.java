@@ -124,14 +124,17 @@ public class Auction implements Subject, Serializable {
         return currentPrice;
     }
 
-    public void updatePrice(double newPrice, BidTransaction tx) {
+    public void addBid(double newPrice, BidTransaction tx) {
         this.currentPrice = newPrice;
         this.winner = tx.getUsername();
         this.winnerId = tx.getUserID();
-        this.bidHistory.add(tx);
-        this.notifyObservers();
 
-        // Trigger auto-bid if configured
+        this.bidHistory.add(tx);
+    }
+
+    public void updatePrice(double newPrice, BidTransaction tx) {
+        addBid(newPrice, tx);
+        notifyObservers();
         triggerAutoBid();
     }
 

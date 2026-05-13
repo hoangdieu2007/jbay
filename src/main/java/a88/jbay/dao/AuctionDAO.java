@@ -325,4 +325,23 @@ public class AuctionDAO {
 
         return activeAuctions;
     }
+
+    public Double findCurrentPrice(int auctionId) {
+        String sql = "SELECT cur_price FROM auctions WHERE id = ?";
+
+        try (Connection connection = dbController.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setInt(1, auctionId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getDouble("cur_price");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

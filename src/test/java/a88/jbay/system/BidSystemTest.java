@@ -5,6 +5,7 @@ import a88.jbay.common.auction.AuctionState;
 import a88.jbay.dao.AuctionDAO;
 import a88.jbay.dao.BidDAO;
 import a88.jbay.dao.UserDAO;
+import a88.jbay.repository.AuctionRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -35,6 +36,9 @@ class BidSystemTest {
     private Auction auction;
 
     @Mock
+    private AuctionRepository auctionRepository;
+
+    @Mock
     private AuctionSystem auctionSystem;
 
     private BidSystem bidSystem;
@@ -42,7 +46,7 @@ class BidSystemTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        bidSystem = new BidSystem(auctionDAO, bidDAO, userDAO);
+        bidSystem = new BidSystem(auctionRepository, bidDAO, auctionDAO);
     }
 
     @Test
@@ -287,7 +291,7 @@ class BidSystemTest {
         // Arrange
         int auctionId = 100;
         double expectedPrice = 150.0;
-        when(bidDAO.findCurrentPrice(auctionId)).thenReturn(expectedPrice);
+        when(auctionDAO.findCurrentPrice(auctionId)).thenReturn(expectedPrice);
 
         // Act
         Double result = bidSystem.getCurrentPrice(auctionId);
@@ -295,7 +299,7 @@ class BidSystemTest {
         // Assert
         assertNotNull(result);
         assertEquals(expectedPrice, result);
-        verify(bidDAO).findCurrentPrice(auctionId);
+        verify(auctionDAO).findCurrentPrice(auctionId);
     }
 
     @Test
@@ -303,13 +307,13 @@ class BidSystemTest {
     void testGetCurrentPrice_NotFound() {
         // Arrange
         int auctionId = 999;
-        when(bidDAO.findCurrentPrice(auctionId)).thenReturn(null);
+        when(auctionDAO.findCurrentPrice(auctionId)).thenReturn(null);
 
         // Act
         Double result = bidSystem.getCurrentPrice(auctionId);
 
         // Assert
         assertNull(result);
-        verify(bidDAO).findCurrentPrice(auctionId);
+        verify(auctionDAO).findCurrentPrice(auctionId);
     }
 }
