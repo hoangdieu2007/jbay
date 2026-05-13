@@ -100,6 +100,9 @@ public class ServerConnection {
                     Alert alert = new Alert(Alert.AlertType.WARNING, "Disconnected from server");
                     alert.showAndWait();
                     try {
+                        ViewManager.closePrimaryStage();
+                        ViewManager.newStage("Welcome to jBay");
+                        ViewManager.setResolution(600, 429);
                         ViewManager.displayScene("client/client-server-connect-view.fxml");
                     } catch (IOException ex) {
                         logger.error("Failed to switch to connection view: " + ex.getMessage(), ex);
