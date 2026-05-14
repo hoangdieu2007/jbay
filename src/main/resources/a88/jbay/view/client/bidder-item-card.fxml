@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="BOTTOM_CENTER" prefHeight="450.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0); -fx-border-radius: 10; -fx-border-color: #e0e0e0;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/25.0.1" fx:controller="a88.jbay.controller.client.BidderItemCardController">
+<VBox alignment="BOTTOM_CENTER" prefHeight="450.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0); -fx-border-radius: 10; -fx-border-color: #e0e0e0;" xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.BidderItemCardController">
     <children>
         <ImageView fx:id="itemImage" fitHeight="178.0" fitWidth="283.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="NEVER">
          <VBox.margin>
