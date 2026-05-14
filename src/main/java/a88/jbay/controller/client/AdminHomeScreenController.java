@@ -99,7 +99,7 @@ public class AdminHomeScreenController {
     }
 
     private void setupActionButtons() {
-        // Nút Ban/Unban
+        // Nút Ban/Unban (Dành cho bảng User)
         colUserAction.setCellFactory(p -> new TableCell<>() {
             private final Button btn = new Button();
             @Override protected void updateItem(Void item, boolean empty) {
@@ -108,23 +108,42 @@ public class AdminHomeScreenController {
                 else {
                     User u = getTableView().getItems().get(getIndex());
                     boolean isBanned = "BAN".equals(u.getRole());
-                    btn.setText(isBanned ? "Unban" : "Ban");
-                    btn.setStyle(isBanned ? "-fx-background-color: #10B981; -fx-text-fill: white;" : "-fx-background-color: #EF4444; -fx-text-fill: white;");
+
+                    btn.setText(isBanned ? "Unban User" : "Ban User");
+
+                    // THIẾT KẾ: Unban màu xanh dương (#3B82F6), Ban màu đỏ (#EF4444)
+                    String baseStyle = "-fx-text-fill: white; -fx-background-radius: 15; -fx-font-weight: bold; -fx-padding: 5 15; -fx-cursor: hand;";
+                    if (isBanned) {
+                        btn.setStyle("-fx-background-color: #3B82F6; " + baseStyle); // Màu xanh dương đồng bộ thiết kế
+                    } else {
+                        btn.setStyle("-fx-background-color: #EF4444; " + baseStyle); // Màu đỏ cảnh báo
+                    }
+
                     btn.setOnAction(e -> sendBanRequest(u));
                     setGraphic(btn);
                 }
             }
         });
 
-        // Nút Cancel Auction
+        // Nút Cancel Auction (Dành cho bảng Auction)
         colAuctionAction.setCellFactory(p -> new TableCell<>() {
-            private final Button btn = new Button("Cancel");
+            private final Button btn = new Button("Cancel Auction");
             @Override protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty) setGraphic(null);
                 else {
                     Auction a = getTableView().getItems().get(getIndex());
-                    btn.setDisable(a.getAuctionState() == AuctionState.FINISHED || a.getAuctionState() == AuctionState.CANCELED);
+
+                    // THIẾT KẾ: Màu cam hổ phách (#F59E0B) cho hành động Hủy
+                    String activeStyle = "-fx-background-color: #F59E0B; -fx-text-fill: white; -fx-background-radius: 15; -fx-font-weight: bold; -fx-padding: 5 15; -fx-cursor: hand;";
+                    String disabledStyle = "-fx-background-color: #CBD5E1; -fx-text-fill: #64748B; -fx-background-radius: 15; -fx-font-weight: bold; -fx-padding: 5 15;";
+
+                    // Chỉ cho phép Cancel nếu đấu giá chưa kết thúc
+                    boolean canCancel = a.getAuctionState() != AuctionState.FINISHED && a.getAuctionState() != AuctionState.CANCELED;
+
+                    btn.setDisable(!canCancel);
+                    btn.setStyle(canCancel ? activeStyle : disabledStyle);
+
                     btn.setOnAction(e -> sendCancelRequest(a));
                     setGraphic(btn);
                 }
