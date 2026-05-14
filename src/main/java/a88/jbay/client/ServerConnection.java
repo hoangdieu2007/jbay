@@ -58,9 +58,9 @@ public class ServerConnection {
 
         //automatically add sessionId
         request.put("sessionId", ClientSession.getInstance().getUser().getSessionId());
-        out.reset();
         out.writeObject(request);
         out.flush();
+        out.reset();
     }
 
     //listener
