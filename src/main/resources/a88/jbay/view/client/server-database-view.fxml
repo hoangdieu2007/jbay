@@ -28,7 +28,7 @@
          <children>
             <AnchorPane prefHeight="34.0" prefWidth="302.0">
                <children>
-                  <Label alignment="CENTER" layoutX="103.0" text="Database" textFill="#fffbfb">
+                  <Label alignment="CENTER" layoutX="83.0" layoutY="3.0" text=" 📁 Database" textFill="#fffbfb">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
@@ -40,7 +40,7 @@
                   <Font name="System Bold Italic" size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="serverURLTextField" prefHeight="40.0" prefWidth="314.0" promptText="https:/example.com" style="-fx-background-radius: 20;">
+            <TextField fx:id="serverURLTextField" prefHeight="40.0" prefWidth="314.0" promptText="https://example.com" style="-fx-background-radius: 20;">
                <font>
                   <Font size="18.0" />
                </font>
@@ -53,7 +53,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="databaseusernameTextField" prefHeight="40.0" prefWidth="314.0" promptText="Enter username" style="-fx-background-radius: 20;">
+            <TextField fx:id="databaseUsernameTextField" prefHeight="40.0" prefWidth="314.0" promptText="Enter username" style="-fx-background-radius: 20;">
                <font>
                   <Font size="18.0" />
                </font>
@@ -90,7 +90,7 @@
          <children>
             <AnchorPane prefHeight="296.0" prefWidth="300.0">
                <children>
-                  <Label alignment="CENTER" layoutX="92.0" layoutY="14.0" text="Socket Port" textFill="WHITE">
+                  <Label alignment="CENTER" layoutX="74.0" layoutY="14.0" text="🌐 Socket Port" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
@@ -124,7 +124,7 @@
          <children>
             <AnchorPane prefHeight="333.0" prefWidth="300.0">
                <children>
-                  <Label alignment="CENTER" layoutX="114.0" text="Admin" textFill="WHITE">
+                  <Label alignment="CENTER" layoutX="101.0" layoutY="2.0" text="🔒 Admin" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
@@ -159,7 +159,7 @@
             <AnchorPane />
          </children>
       </VBox>
-      <Label alignment="CENTER" layoutX="383.0" layoutY="76.0" prefHeight="59.0" prefWidth="278.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0, 255, 255, 0.3), 8, 0, 0, 0);" text="jBay Server" textFill="WHITE">
+      <Label alignment="CENTER" layoutX="379.0" layoutY="79.0" prefHeight="60.0" prefWidth="329.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0, 255, 255, 0.3), 8, 0, 0, 0);" text="📡 jBay Server" textFill="WHITE">
          <font>
             <Font name="System Bold" size="48.0" />
          </font>
