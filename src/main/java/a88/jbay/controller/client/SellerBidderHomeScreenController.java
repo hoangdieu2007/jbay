@@ -110,8 +110,6 @@ public class SellerBidderHomeScreenController {
 
         logger.debug("Seller UI initialized with " + sellerMap.size() + " auctions");
 
-        sellerList.sort(Comparator.comparingInt(Auction:: getId).reversed());
-        refreshSellerList(filteredList);
 
         ClientSession.getInstance().getSellerAuctions().addListener((MapChangeListener<Integer, Auction>) change -> {
             // nếu còn phần tử, trả về true --> chạy tiếp
@@ -189,8 +187,8 @@ public class SellerBidderHomeScreenController {
 
         logger.debug("Bidder UI initialized with " + bidderMap.size() + " auctions");
 
-        bidderList.sort(Comparator.comparingInt(Auction::getId).reversed());
-        refreshBidderList(filteredList);
+        /**bidderList.sort(Comparator.comparingInt(Auction::getId).reversed());
+        refreshBidderList(filteredList);*/
 
         ClientSession.getInstance().getBidderAuctions().addListener((MapChangeListener< Integer, Auction>) change -> {
             // nếu còn phần tử, trả về true --> chạy tiếp
