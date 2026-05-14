@@ -252,7 +252,7 @@ public class SellerBidderHomeScreenController {
         sellerFlowPane.getChildren().clear();
         for (Auction auction : filteredList) {
             int currentID = auction.getId();
-            VBox card = sellerCardBox.get(auction.getId());
+            VBox card = createCardSeller(auction);
             if (card != null) {
                 sellerCardBox.put(currentID, card);
                 sellerFlowPane.getChildren().add(initIdx++, card);
