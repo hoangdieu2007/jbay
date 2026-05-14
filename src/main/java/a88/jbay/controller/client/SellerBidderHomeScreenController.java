@@ -129,6 +129,7 @@ public class SellerBidderHomeScreenController {
             }
 
             sellerList.sort(Comparator.comparingInt(Auction:: getId).reversed());
+            refreshSellerList(filteredList);
 
         });
 
@@ -207,6 +208,7 @@ public class SellerBidderHomeScreenController {
             }
 
             bidderList.sort(Comparator.comparingInt(Auction::getId).reversed());
+            refreshBidderList(filteredList);
 
         });
         /** xử lý thay đổi from bidderList và textField*/
