@@ -42936,3 +42936,450 @@ java.net.SocketException: Socket closed
 	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startListener$0(ServerConnection.java:82)
 	at java.base/java.lang.Thread.run(Thread.java:1474)
 2026-05-14 16:59:18.253 [Thread-5] INFO  a88.jbay.client.ServerConnection - Listener thread ended
+2026-05-14 17:12:22.634 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connecting to server: 0.tcp.ap.ngrok.io:12520
+2026-05-14 17:12:23.001 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connection successful to server: 0.tcp.ap.ngrok.io:12520
+2026-05-14 17:12:23.004 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:12:23.182 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:12:23.182 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:12:29.176 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: LOGIN
+2026-05-14 17:12:29.363 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: LOGIN_SUCCESS
+2026-05-14 17:12:29.397 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 0 auctions
+2026-05-14 17:12:29.398 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 0 auctions
+2026-05-14 17:12:29.439 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: GET_AUCTIONS
+2026-05-14 17:12:29.440 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: GET_AUCTIONS
+2026-05-14 17:12:30.302 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: ACTIVE_AUCTION_LIST
+2026-05-14 17:12:30.383 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: BIDDER_AUCTION_LIST
+2026-05-14 17:12:30.641 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: SELLER_AUCTION_LIST
+2026-05-14 17:12:30.641 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: GET_AUCTIONS_SUCCESS
+2026-05-14 17:12:31.107 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - GET_AUCTIONS_SUCCESS
+2026-05-14 17:12:31.255 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: ACTIVE_AUCTION_LIST
+2026-05-14 17:12:31.256 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: BIDDER_AUCTION_LIST
+2026-05-14 17:12:31.461 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: SELLER_AUCTION_LIST
+2026-05-14 17:12:31.461 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: GET_AUCTIONS_SUCCESS
+2026-05-14 17:12:32.492 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - GET_AUCTIONS_SUCCESS
+2026-05-14 17:12:33.006 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:12:33.140 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:12:33.140 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:12:39.057 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: BID
+2026-05-14 17:12:39.290 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-14 17:12:39.291 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 44
+2026-05-14 17:12:39.338 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-14 17:12:39.338 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: BID_SUCCESS
+2026-05-14 17:12:39.425 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - BID_SUCCESS
+2026-05-14 17:12:42.348 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 7 auctions
+2026-05-14 17:12:42.400 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 8 auctions
+2026-05-14 17:12:43.008 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:12:43.147 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:12:43.148 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:12:53.008 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:12:53.148 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:12:53.149 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:12:57.129 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-14 17:12:57.130 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 44
+2026-05-14 17:12:57.177 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-14 17:13:03.008 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:13:03.145 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:13:03.145 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:13:13.008 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:13:13.230 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:13:13.230 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:13:23.008 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:13:23.144 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:13:23.144 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:13:33.008 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:13:33.304 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:13:33.304 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:13:43.008 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:13:43.235 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:13:43.235 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:13:53.008 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:13:53.188 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:13:53.189 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:14:03.004 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:14:03.140 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:14:03.140 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:14:13.008 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:14:13.144 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:14:13.145 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:14:23.008 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:14:23.198 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:14:23.198 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:14:33.008 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:14:33.143 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:14:33.143 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:14:43.008 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:14:43.243 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:14:43.244 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:14:53.005 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:14:53.143 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:14:53.144 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:15:03.005 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:15:03.136 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:15:03.137 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:15:13.006 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:15:13.138 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:15:13.138 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:15:23.009 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:15:23.149 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:15:23.149 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:15:33.009 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:15:33.145 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:15:33.145 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:15:43.009 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:15:43.146 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:15:43.146 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:15:53.007 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:15:53.140 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:15:53.140 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:16:03.009 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:16:03.145 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:16:03.146 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:16:13.009 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:16:13.254 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:16:13.255 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:16:23.004 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:16:23.292 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:16:23.293 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:16:33.009 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:16:33.153 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:16:33.154 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:16:43.009 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:16:43.147 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:16:43.147 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:16:53.009 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:16:53.293 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:16:53.294 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:17:03.009 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:17:03.151 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:17:03.151 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:17:13.009 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:17:13.147 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:17:13.147 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:17:23.009 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:17:23.145 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:17:23.145 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:17:45.132 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connecting to server: 0.tcp.ap.ngrok.io:12520
+2026-05-14 17:19:00.510 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connecting to server: 0.tcp.ap.ngrok.io:12520
+2026-05-14 17:21:07.626 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connecting to server: 0.tcp.ap.ngrok.io:12929
+2026-05-14 17:21:07.758 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connection successful to server: 0.tcp.ap.ngrok.io:12929
+2026-05-14 17:21:07.761 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:21:07.876 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:21:07.876 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:21:14.860 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: LOGIN
+2026-05-14 17:21:15.143 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: LOGIN_SUCCESS
+2026-05-14 17:21:15.179 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 0 auctions
+2026-05-14 17:21:15.179 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 0 auctions
+2026-05-14 17:21:15.238 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: GET_AUCTIONS
+2026-05-14 17:21:15.239 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: GET_AUCTIONS
+2026-05-14 17:21:15.638 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: ACTIVE_AUCTION_LIST
+2026-05-14 17:21:15.647 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: BIDDER_AUCTION_LIST
+2026-05-14 17:21:15.747 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: SELLER_AUCTION_LIST
+2026-05-14 17:21:15.747 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: GET_AUCTIONS_SUCCESS
+2026-05-14 17:21:15.912 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: ACTIVE_AUCTION_LIST
+2026-05-14 17:21:15.929 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: BIDDER_AUCTION_LIST
+2026-05-14 17:21:16.012 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: SELLER_AUCTION_LIST
+2026-05-14 17:21:16.012 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: GET_AUCTIONS_SUCCESS
+2026-05-14 17:21:17.094 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - GET_AUCTIONS_SUCCESS
+2026-05-14 17:21:17.764 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:21:17.877 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:21:20.173 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - GET_AUCTIONS_SUCCESS
+2026-05-14 17:21:20.206 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:21:27.764 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:21:28.162 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:21:28.163 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:21:37.763 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:21:37.806 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: LOGOUT
+2026-05-14 17:21:37.885 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:21:37.885 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:21:37.891 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: LOGOUT_SUCCESS
+2026-05-14 17:21:37.901 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Session has been cleared
+2026-05-14 17:21:43.792 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: LOGIN
+2026-05-14 17:21:44.011 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: LOGIN_SUCCESS
+2026-05-14 17:21:44.031 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 0 auctions
+2026-05-14 17:21:44.031 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 0 auctions
+2026-05-14 17:21:44.059 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: GET_AUCTIONS
+2026-05-14 17:21:44.060 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: GET_AUCTIONS
+2026-05-14 17:21:44.414 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: ACTIVE_AUCTION_LIST
+2026-05-14 17:21:44.416 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: BIDDER_AUCTION_LIST
+2026-05-14 17:21:44.460 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: SELLER_AUCTION_LIST
+2026-05-14 17:21:44.461 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: GET_AUCTIONS_SUCCESS
+2026-05-14 17:21:44.622 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: ACTIVE_AUCTION_LIST
+2026-05-14 17:21:44.647 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: BIDDER_AUCTION_LIST
+2026-05-14 17:21:44.749 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: SELLER_AUCTION_LIST
+2026-05-14 17:21:44.749 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: GET_AUCTIONS_SUCCESS
+2026-05-14 17:21:45.565 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - GET_AUCTIONS_SUCCESS
+2026-05-14 17:21:47.764 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:21:47.868 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - GET_AUCTIONS_SUCCESS
+2026-05-14 17:21:47.877 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:21:47.889 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:21:57.764 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:21:58.033 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:21:58.033 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:22:07.765 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:22:07.880 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:22:07.880 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:22:17.760 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:22:17.882 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:22:17.882 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:22:25.503 [Thread-5] INFO  a88.jbay.client.ServerConnection - Server closed the connection
+2026-05-14 17:22:25.504 [Thread-5] INFO  a88.jbay.client.ServerConnection - Listener thread ended
+2026-05-14 17:22:27.760 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:22:29.982 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: MISC
+2026-05-14 17:23:46.829 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connecting to server: 0.tcp.ap.ngrok.io:12929
+2026-05-14 17:23:55.573 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connecting to server: 0.tcp.ap.ngrok.io:12929
+2026-05-14 17:23:55.720 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connection successful to server: 0.tcp.ap.ngrok.io:12929
+2026-05-14 17:23:55.724 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:23:55.863 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:23:55.864 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:24:04.477 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: LOGIN
+2026-05-14 17:24:04.629 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: LOGIN_SUCCESS
+2026-05-14 17:24:04.664 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 0 auctions
+2026-05-14 17:24:04.664 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 0 auctions
+2026-05-14 17:24:04.724 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: GET_AUCTIONS
+2026-05-14 17:24:04.725 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: GET_AUCTIONS
+2026-05-14 17:24:05.172 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: ACTIVE_AUCTION_LIST
+2026-05-14 17:24:05.175 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: BIDDER_AUCTION_LIST
+2026-05-14 17:24:05.234 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: SELLER_AUCTION_LIST
+2026-05-14 17:24:05.235 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: GET_AUCTIONS_SUCCESS
+2026-05-14 17:24:05.343 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: ACTIVE_AUCTION_LIST
+2026-05-14 17:24:05.371 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: BIDDER_AUCTION_LIST
+2026-05-14 17:24:05.451 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: SELLER_AUCTION_LIST
+2026-05-14 17:24:05.451 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: GET_AUCTIONS_SUCCESS
+2026-05-14 17:24:05.726 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:24:05.867 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:24:06.609 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - GET_AUCTIONS_SUCCESS
+2026-05-14 17:24:08.987 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - GET_AUCTIONS_SUCCESS
+2026-05-14 17:24:08.987 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:24:15.727 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:24:15.978 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:24:15.979 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:24:25.727 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:24:26.011 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:24:26.012 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:24:35.727 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:24:35.859 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:24:35.859 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:24:40.294 [JavaFX Application Thread] DEBUG a.j.c.c.ClientSellerItemController - File selected: dog and cat sing die with a smile.png
+2026-05-14 17:24:45.727 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:24:45.868 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:24:45.869 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:24:52.715 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: SELL
+2026-05-14 17:24:52.824 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 7 auctions
+2026-05-14 17:24:52.824 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 8 auctions
+2026-05-14 17:24:53.173 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-14 17:24:53.174 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: SELL_SUCCESS
+2026-05-14 17:24:53.459 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - SELL_SUCCESS
+2026-05-14 17:24:53.991 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-14 17:24:53.992 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 45
+2026-05-14 17:24:54.040 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-14 17:24:55.727 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:24:55.862 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:24:55.862 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:25:05.727 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:25:05.872 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:25:05.872 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:25:06.320 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-14 17:25:06.320 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 45
+2026-05-14 17:25:06.369 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-14 17:25:14.968 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: CANCEL
+2026-05-14 17:25:14.976 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 8 auctions
+2026-05-14 17:25:14.976 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 8 auctions
+2026-05-14 17:25:15.254 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-14 17:25:15.255 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 45
+2026-05-14 17:25:15.305 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-14 17:25:15.305 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: CANCEL_SUCCESS
+2026-05-14 17:25:15.728 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:25:15.746 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - CANCEL_SUCCESS
+2026-05-14 17:25:15.867 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:25:15.868 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:25:25.728 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:25:26.021 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:25:26.021 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:25:35.727 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:25:35.868 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:25:35.869 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:25:37.693 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 8 auctions
+2026-05-14 17:25:37.693 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 8 auctions
+2026-05-14 17:25:45.727 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:25:45.988 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:25:45.989 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:25:46.287 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: LOGOUT
+2026-05-14 17:25:46.429 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: LOGOUT_SUCCESS
+2026-05-14 17:25:46.445 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Session has been cleared
+2026-05-14 17:25:48.619 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: MISC
+2026-05-14 17:25:48.623 [Thread-5] ERROR a88.jbay.client.ServerConnection - Disconnected from server: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.endRead(NioSocketImpl.java:242)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:321)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:354)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:798)
+	at java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:974)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:964)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:958)
+	at java.base/java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2740)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:3069)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:3079)
+	at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1571)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:487)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:445)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startListener$0(ServerConnection.java:82)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-14 17:25:48.627 [Thread-5] INFO  a88.jbay.client.ServerConnection - Listener thread ended
+2026-05-14 17:28:17.778 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connecting to server: 0.tcp.ap.ngrok.io:12929
+2026-05-14 17:28:17.986 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connection successful to server: 0.tcp.ap.ngrok.io:12929
+2026-05-14 17:28:17.989 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:28:18.123 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:28:18.124 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:28:23.407 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: LOGIN
+2026-05-14 17:28:23.606 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: LOGIN_SUCCESS
+2026-05-14 17:28:23.645 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 0 auctions
+2026-05-14 17:28:23.645 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 0 auctions
+2026-05-14 17:28:23.707 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: GET_AUCTIONS
+2026-05-14 17:28:23.707 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: GET_AUCTIONS
+2026-05-14 17:28:24.156 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: ACTIVE_AUCTION_LIST
+2026-05-14 17:28:24.199 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: BIDDER_AUCTION_LIST
+2026-05-14 17:28:24.248 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: SELLER_AUCTION_LIST
+2026-05-14 17:28:24.248 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: GET_AUCTIONS_SUCCESS
+2026-05-14 17:28:24.352 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: ACTIVE_AUCTION_LIST
+2026-05-14 17:28:24.405 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: BIDDER_AUCTION_LIST
+2026-05-14 17:28:24.455 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: SELLER_AUCTION_LIST
+2026-05-14 17:28:24.455 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: GET_AUCTIONS_SUCCESS
+2026-05-14 17:28:25.697 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - GET_AUCTIONS_SUCCESS
+2026-05-14 17:28:27.986 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:28:28.122 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:28:28.746 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - GET_AUCTIONS_SUCCESS
+2026-05-14 17:28:28.780 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:28:37.987 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:28:38.118 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:28:38.118 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:28:47.987 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:28:48.126 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:28:48.126 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:28:49.825 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 8 auctions
+2026-05-14 17:28:49.896 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 8 auctions
+2026-05-14 17:28:54.472 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 8 auctions
+2026-05-14 17:28:54.541 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 8 auctions
+2026-05-14 17:28:57.985 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:28:58.170 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:28:58.171 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:29:00.238 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 8 auctions
+2026-05-14 17:29:00.310 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 8 auctions
+2026-05-14 17:29:07.986 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:29:08.119 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:29:08.119 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:29:12.823 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: MISC
+2026-05-14 17:29:12.827 [Thread-5] ERROR a88.jbay.client.ServerConnection - Disconnected from server: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.endRead(NioSocketImpl.java:242)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:321)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:354)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:798)
+	at java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:974)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:964)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:958)
+	at java.base/java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2740)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:3069)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:3079)
+	at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1571)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:487)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:445)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startListener$0(ServerConnection.java:82)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-14 17:29:12.828 [Thread-5] INFO  a88.jbay.client.ServerConnection - Listener thread ended
+2026-05-14 17:36:33.638 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connecting to server: 0.tcp.ap.nrok.io:12929
+2026-05-14 17:36:46.797 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connecting to server: 0.tcp.ap.ngrok.io:12929
+2026-05-14 17:36:46.992 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connection successful to server: 0.tcp.ap.ngrok.io:12929
+2026-05-14 17:36:46.995 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:36:47.128 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:36:47.129 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:36:56.999 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:36:57.133 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:36:57.134 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:37:06.998 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:37:07.138 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:37:07.138 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:37:11.600 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: LOGIN
+2026-05-14 17:37:11.746 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: LOGIN_SUCCESS
+2026-05-14 17:37:11.780 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 0 auctions
+2026-05-14 17:37:11.781 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 0 auctions
+2026-05-14 17:37:11.846 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: GET_AUCTIONS
+2026-05-14 17:37:11.846 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: GET_AUCTIONS
+2026-05-14 17:37:12.294 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: ACTIVE_AUCTION_LIST
+2026-05-14 17:37:12.524 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: BIDDER_AUCTION_LIST
+2026-05-14 17:37:12.665 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: SELLER_AUCTION_LIST
+2026-05-14 17:37:12.665 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: GET_AUCTIONS_SUCCESS
+2026-05-14 17:37:13.081 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: ACTIVE_AUCTION_LIST
+2026-05-14 17:37:13.397 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: BIDDER_AUCTION_LIST
+2026-05-14 17:37:13.544 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: SELLER_AUCTION_LIST
+2026-05-14 17:37:13.544 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: GET_AUCTIONS_SUCCESS
+2026-05-14 17:37:16.996 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:37:17.133 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:37:18.824 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - GET_AUCTIONS_SUCCESS
+2026-05-14 17:37:26.999 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:37:27.139 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:37:34.875 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - GET_AUCTIONS_SUCCESS
+2026-05-14 17:37:34.875 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:37:34.932 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:37:36.999 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:37:37.140 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:37:37.141 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:37:46.995 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:37:47.126 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:37:47.126 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:37:56.999 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:37:57.129 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:37:57.129 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:38:06.999 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:38:07.137 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:38:07.138 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:38:16.999 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:38:17.141 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:38:17.142 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:38:26.997 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:38:27.191 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:38:27.191 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:38:36.999 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:38:37.143 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:38:37.144 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:38:46.997 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:38:47.177 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:38:47.178 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:38:56.998 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:38:57.157 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:38:57.158 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:39:06.999 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:39:07.129 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:39:07.129 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:39:16.999 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:39:17.133 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:39:17.134 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:39:26.996 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:39:27.129 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:39:27.129 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:39:36.998 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:39:37.139 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:39:37.139 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:39:46.994 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:39:47.125 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:39:47.126 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:39:56.999 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:39:57.139 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:39:57.140 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:40:06.999 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:40:07.138 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:40:07.138 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:40:16.999 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:40:17.134 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:40:17.135 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:40:26.997 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:40:27.134 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:40:27.135 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:40:36.999 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:40:37.199 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:40:37.199 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:40:46.999 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:40:47.136 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:40:47.136 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-14 17:40:56.999 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-14 17:40:57.142 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-14 17:40:57.143 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
