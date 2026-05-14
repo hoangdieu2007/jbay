@@ -113,11 +113,9 @@ public class ClientConnection implements Runnable {
 
         try {
             // Use atomic write to prevent deadlocks
-            synchronized(out) {
-                out.writeObject(response);
-                out.flush();
-                out.reset();
-            }
+            out.writeObject(response);
+            out.flush();
+            out.reset();
         } catch (IOException e) {
             logger.error("Error sending response: " + e.getMessage(), e);
         }
