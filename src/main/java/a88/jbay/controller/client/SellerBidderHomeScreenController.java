@@ -129,7 +129,7 @@ public class SellerBidderHomeScreenController {
             }
 
             sellerList.sort(Comparator.comparingInt(Auction:: getId).reversed());
-            refreshSellerList(filteredList);
+
 
         });
 
@@ -238,8 +238,7 @@ public class SellerBidderHomeScreenController {
             int currentID = auction.getId();
             VBox card = createCardBidder(auction);
             if (card != null) {
-                bidderCardBox.put(currentID, card);
-                bidderFlowPane.getChildren().add(card);
+                bidderFlowPane.getChildren().add(currentID, card);
             }
         }
         // Cleanup cache for auctions that are no longer in the list
@@ -248,14 +247,12 @@ public class SellerBidderHomeScreenController {
 
 
     public void refreshSellerList(FilteredList<Auction> filteredList) {
-        int initIdx = 0;
         sellerFlowPane.getChildren().clear();
         for (Auction auction : filteredList) {
             int currentID = auction.getId();
             VBox card = createCardSeller(auction);
             if (card != null) {
-                sellerCardBox.put(currentID, card);
-                sellerFlowPane.getChildren().add(initIdx++, card);
+                sellerFlowPane.getChildren().add(currentID, card);
             }
         }
         // Cleanup cache
