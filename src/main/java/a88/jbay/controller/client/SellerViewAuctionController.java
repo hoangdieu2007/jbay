@@ -75,7 +75,7 @@ public class SellerViewAuctionController {
 
     private void setupSellerViewListener() {
         // Lấy Map từ ClientSession
-        ObservableMap<Integer, Auction> auctions = ClientSession.getInstance().getBidderAuctions();
+        ObservableMap<Integer, Auction> auctions = ClientSession.getInstance().getSellerAuctions();
 
         // Đăng ký listener
         auctions.addListener((MapChangeListener<Integer, Auction>) change -> {
