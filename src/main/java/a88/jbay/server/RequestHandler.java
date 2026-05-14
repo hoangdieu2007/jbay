@@ -124,7 +124,7 @@ public class RequestHandler {
         User user = userSystem.findBySessionId((String) request.get("sessionId"));
         if (user == null) return new Response(false, "INVALID_SESSION", null);
         if (user.can(ActionType.BID)) {
-            auctionSystem.placeBidAutomated(user.getId(), (Integer) request.get("auctionId"), (Double) request.get("max_amount"), (Double) request.get("increment"));
+            bidSystem.placeBidAutomated(user.getId(), (Integer) request.get("auctionId"), (Double) request.get("max_amount"), (Double) request.get("increment"));
             return new Response(true, "AUTO_BID_SUCCESS", null);
         }
         return new Response(false, "AUTO_BID_FAIL", null);
@@ -135,7 +135,7 @@ public class RequestHandler {
         User user = userSystem.findBySessionId((String) request.get("sessionId"));
         if (user == null) return new Response(false, "INVALID_SESSION", null);
         if (user.can(ActionType.BID)) {
-            auctionSystem.cancelAutoBid(user.getId(), (Integer) request.get("auctionId"));
+            bidSystem.cancelAutoBid(user.getId(), (Integer) request.get("auctionId"));
             return new Response(true, "CANCEL_AUTO_BID_SUCCESS", null);
         }
         return new Response(false, "CANCEL_AUTO_BID_FAIL", null);
