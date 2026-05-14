@@ -91,9 +91,6 @@ public class ResponseHandler {
                 ServerConnection.getInstance().send(new Request(RequestType.GET_USERS)
                         .put("userId", clientSession.getUser().getId()));
             }
-
-            ServerConnection.getInstance().send(new Request(RequestType.GET_AUCTIONS)
-                    .put("userId", clientSession.getUser().getId()));
         } catch (IOException e) {
             controllerProvider.getController(ClientLoginRegisterController.class).updateLoginLabel("Failed to display home screen");
                     }
