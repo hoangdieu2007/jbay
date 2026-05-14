@@ -125,7 +125,7 @@ public class ServerConnection {
             } catch (IOException e) {
                 logger.error("Failed to send ping: " + e.getMessage(), e);
             }
-        }, 0, 30, TimeUnit.SECONDS);
+        }, 0, 10, TimeUnit.SECONDS);
     }
 
     public void disconnect() {

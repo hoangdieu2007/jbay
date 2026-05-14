@@ -79,10 +79,18 @@ public class ResponseHandler {
             ViewManager.closePrimaryStage();
             ViewManager.newStage("Auction88's jBay");
             ViewManager.setResolution(1280, 720);
-            if (curUser.getRole().equals("USER"))
+            if (curUser.getRole().equals("USER")) {
                 ViewManager.displayScene("client/Seller-Bidder-HomeScreens.fxml");
-            else if (curUser.getRole().equals("ADMIN"))
+                ServerConnection.getInstance().send(new Request(RequestType.GET_AUCTIONS)
+                        .put("userId", clientSession.getUser().getId()));
+            }
+            else if (curUser.getRole().equals("ADMIN")) {
                 ViewManager.displayScene("client/Admin-HomeScreens.fxml");
+                ServerConnection.getInstance().send(new Request(RequestType.GET_AUCTIONS)
+                        .put("userId", clientSession.getUser().getId()));
+                ServerConnection.getInstance().send(new Request(RequestType.GET_USERS)
+                        .put("userId", clientSession.getUser().getId()));
+            }
 
             ServerConnection.getInstance().send(new Request(RequestType.GET_AUCTIONS)
                     .put("userId", clientSession.getUser().getId()));
