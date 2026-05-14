@@ -33,6 +33,7 @@ public class ClientConnection implements Runnable {
         this.connectionId = socket.hashCode(); // Use socket hash as connection ID
         this.socket = socket;
         socket.setKeepAlive(true);  // enable TCP keep-alive
+
         this.out = new ObjectOutputStream(socket.getOutputStream());
         out.flush();
         this.in = new ObjectInputStream(socket.getInputStream());

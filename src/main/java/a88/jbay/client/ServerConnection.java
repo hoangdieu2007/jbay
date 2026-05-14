@@ -46,14 +46,16 @@ public class ServerConnection {
         logger.info("Connecting to server: " + host + ":" + port);
         socket = new Socket(host, port);
         socket.setKeepAlive(true);  // Enable TCP keep-alive
+
         out = new ObjectOutputStream(socket.getOutputStream());
         out.flush();
         in = new ObjectInputStream(socket.getInputStream());
+
         logger.info("Connection successful to server: " + host + ":" + port);
     }
 
     //methods for sending requests
-    public synchronized void send(Request request) throws IOException {
+    public void send(Request request) throws IOException {
         logger.info("Sending request: " + request.getType().name());
 
         //automatically add sessionId
