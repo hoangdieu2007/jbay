@@ -125,7 +125,7 @@ public class SellerBidderHomeScreenController {
                 }
             }
             else if(change.wasRemoved()) {
-                sellerList.remove(change.wasRemoved());
+                sellerList.remove(change.getValueRemoved());
             }
 
             sellerList.sort(Comparator.comparingInt(Auction:: getId).reversed());
@@ -194,6 +194,7 @@ public class SellerBidderHomeScreenController {
             // nếu còn phần tử, trả về true --> chạy tiếp
             if(change.wasAdded() && !change.wasRemoved()){
                 bidderList.add(change.getValueAdded());
+
             }
             else if (change.wasAdded() && change.wasRemoved()) {
 
@@ -208,7 +209,7 @@ public class SellerBidderHomeScreenController {
             }
 
             bidderList.sort(Comparator.comparingInt(Auction::getId).reversed());
-            refreshBidderList(filteredList);
+
 
         });
         /** xử lý thay đổi from bidderList và textField*/
@@ -230,136 +231,30 @@ public class SellerBidderHomeScreenController {
     }
 
 
-    /*BIDDER SEARCH BAR
-
-    public void initializeBidderUINew() {
-        //initialize data structures
-        ObservableMap<Integer, Auction> bidderMap = ClientSession.getInstance().getBidderAuctions();
-
-        ObservableList<Auction> bidderList = FXCollections.observableList(new ArrayList<>(bidderMap.values()));
-
-        FilteredList<Auction> filteredList = new FilteredList<>(bidderList, auction -> true);
-
-        refreshBidderList(filteredList);
-
-        // adding listeners
-        bidderMap.addListener((MapChangeListener<Integer, Auction>) change -> {
-            if (change.wasRemoved() && change.wasAdded()) {
-
-                int idx = bidderList.indexOf(change.getValueRemoved());
-
-                if (idx >= 0) {
-                    bidderList.set(idx, change.getValueAdded());
-                }
-
-            } else {
-
-                if (change.wasRemoved()) {
-                    bidderList.remove(change.getValueRemoved());
-                }
-
-                if (change.wasAdded()) {
-                    bidderList.add(change.getValueAdded());
-                }
-            }
-            bidderList.sort(
-                    Comparator.comparingInt(Auction::getId)
-                            .reversed()
-            );
-        });
-
-        filteredList.addListener((ListChangeListener<Auction>) change -> {
-            refreshBidderList(filteredList);
-        });
-
-        //If auctions satisfy the condition --> display on UI
-        bidderSearchField.textProperty().addListener(((observable, oldValue, newValue) -> {
-            filteredList.setPredicate(auction -> { // update on filter condition for auction: Retunr type Boolean
-
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-
-                String lowerCaseFilter = newValue.toLowerCase();
-                return auction.getItem().getName().toLowerCase().contains(lowerCaseFilter);
-            });
-        } ));
-    }*/
 
     public void refreshBidderList(FilteredList<Auction> filteredList) {
-
         bidderFlowPane.getChildren().clear();
         for (Auction auction : filteredList) {
-            // Reuse existing card from cache to prevent massive memory allocation
-            VBox card = bidderCardBox.get(auction.getId());
-            if (card == null) {
-                card = createCardBidder(auction);
-                if (card != null) {
-                    bidderCardBox.put(auction.getId(), card);
-                }
-            }
+            int currentID = auction.getId();
+            VBox card = createCardBidder(auction);
             if (card != null) {
+                bidderCardBox.put(currentID, card);
                 bidderFlowPane.getChildren().add(card);
             }
         }
         // Cleanup cache for auctions that are no longer in the list
         bidderCardBox.keySet().removeIf(id -> filteredList.stream().noneMatch(a -> a.getId() == id));
     }
-    /*
-    public void initializeSellerUINew() {
-        // initialize data structures
-        ObservableMap<Integer, Auction> sellerMap = ClientSession.getInstance().getSellerAuctions();
 
-        ObservableList<Auction> sellerList = FXCollections.observableList(new ArrayList<>(sellerMap.values()));
-
-        FilteredList<Auction> filteredList = new FilteredList<>(sellerList, auction -> true);
-
-        refreshSellerList(filteredList);
-
-        // add listeners
-        sellerMap.addListener((MapChangeListener<Integer, Auction>) change -> {
-            if (change.wasRemoved() && change.wasAdded()) {
-
-                int idx = sellerList.indexOf(change.getValueRemoved());
-
-                if (idx >= 0) {
-                    sellerList.set(idx, change.getValueAdded());
-                }
-
-            } else {
-
-                if (change.wasRemoved()) {
-                    sellerList.remove(change.getValueRemoved());
-                }
-
-                if (change.wasAdded()) {
-                    sellerList.add(change.getValueAdded());
-                }
-            }
-            sellerList.sort(
-                    Comparator.comparingInt(Auction::getId)
-                            .reversed()
-            );
-        });
-
-        filteredList.addListener((ListChangeListener<Auction>) change -> {
-            refreshSellerList(filteredList);
-        });
-    }**/
 
     public void refreshSellerList(FilteredList<Auction> filteredList) {
         int initIdx = 0;
         sellerFlowPane.getChildren().clear();
         for (Auction auction : filteredList) {
-            // Reuse existing card from cache
+            int currentID = auction.getId();
             VBox card = sellerCardBox.get(auction.getId());
-            if (card == null) {
-                card = createCardSeller(auction);
-                if (card != null) {
-                    sellerCardBox.put(auction.getId(), card);
-                }
-            }
             if (card != null) {
+                sellerCardBox.put(currentID, card);
                 sellerFlowPane.getChildren().add(initIdx++, card);
             }
         }
