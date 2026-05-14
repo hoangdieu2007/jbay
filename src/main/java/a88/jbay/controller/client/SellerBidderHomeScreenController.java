@@ -148,6 +148,8 @@ public class SellerBidderHomeScreenController {
                 return auction.getItem().getName().toLowerCase().contains(lowerNewValue);
             });
         });
+
+        refreshSellerList(filteredList);
     }
 
 
@@ -228,6 +230,8 @@ public class SellerBidderHomeScreenController {
                 return auction.getItem().getName().toLowerCase().contains(lowerNewValue); // display auctions that satisfy the condition
             });
         }));
+
+        refreshBidderList(filteredList);
     }
 
 
