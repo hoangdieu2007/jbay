@@ -60,7 +60,7 @@ public class ServerConnection {
 
         //automatically add sessionId
         request.put("sessionId", ClientSession.getInstance().getUser().getSessionId());
-        synchronized(out) {
+        synchronized (out) {
             out.writeObject(request);
             out.flush();
             out.reset();

@@ -102,7 +102,6 @@ public class SellerViewAuctionController {
     private void handleCancel() throws IOException {
         String userId = ClientSession.getInstance().getUser().getSessionId();
 
-        currAuction.cancel();
         ServerConnection.getInstance().send(new Request(RequestType.CANCEL).put("auctionId", currAuction.getId()));
 
         // Chỉ định tab cần mở khi quay về là seller
