@@ -110,6 +110,7 @@ public class SellerBidderHomeScreenController {
 
         logger.debug("Seller UI initialized with " + sellerMap.size() + " auctions");
 
+        sellerList.sort(Comparator.comparingInt(Auction:: getId).reversed());
         refreshSellerList(filteredList);
 
         ClientSession.getInstance().getSellerAuctions().addListener((MapChangeListener<Integer, Auction>) change -> {
@@ -188,7 +189,8 @@ public class SellerBidderHomeScreenController {
 
         logger.debug("Bidder UI initialized with " + bidderMap.size() + " auctions");
 
-       refreshBidderList(filteredList);
+        bidderList.sort(Comparator.comparingInt(Auction::getId).reversed());
+        refreshBidderList(filteredList);
 
         ClientSession.getInstance().getBidderAuctions().addListener((MapChangeListener< Integer, Auction>) change -> {
             // nếu còn phần tử, trả về true --> chạy tiếp
@@ -235,10 +237,9 @@ public class SellerBidderHomeScreenController {
     public void refreshBidderList(FilteredList<Auction> filteredList) {
         bidderFlowPane.getChildren().clear();
         for (Auction auction : filteredList) {
-            int currentID = auction.getId();
             VBox card = createCardBidder(auction);
             if (card != null) {
-                bidderFlowPane.getChildren().add(currentID, card);
+                bidderFlowPane.getChildren().add(card);
             }
         }
         // Cleanup cache for auctions that are no longer in the list
@@ -249,10 +250,9 @@ public class SellerBidderHomeScreenController {
     public void refreshSellerList(FilteredList<Auction> filteredList) {
         sellerFlowPane.getChildren().clear();
         for (Auction auction : filteredList) {
-            int currentID = auction.getId();
             VBox card = createCardSeller(auction);
             if (card != null) {
-                sellerFlowPane.getChildren().add(currentID, card);
+                sellerFlowPane.getChildren().add( card);
             }
         }
         // Cleanup cache
