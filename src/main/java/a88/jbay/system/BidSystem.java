@@ -85,7 +85,14 @@ public class BidSystem {
 
         BidTransaction tx = createBidTransaction(userId, amount);
         addBid(auction, tx); // subscribe user to auction and update auction price
-        return saveBid(auctionId, tx); // save bid to DB
+        boolean saved = saveBid(auctionId, tx); // save bid to DB
+
+        if (saved) {
+            // anti-sniping check upon successful bid
+            extendEndTime(tx.getTimestamp(), auction);
+        }
+
+        return saved;
     }
 
     /**
@@ -473,7 +480,7 @@ public class BidSystem {
             }
 
             if (auction.getCurrentPrice() >= maxAmount) {
-                System.out.println("Auto-bid stopped for user " + configUserId + " on auction " + auction.getId() +
+                logger.info("Auto-bid stopped for user " + configUserId + " on auction " + auction.getId() +
                         ": Max amount (" + maxAmount + ") has reached");
                 clearAutoBidConfig(auctionId);
                 auction.notifyObservers();
@@ -491,7 +498,7 @@ public class BidSystem {
             placeBid(configUserId, auction.getId(), autoBidAmount);
 
             if (Double.compare(autoBidAmount, maxAmount) == 0) {
-                System.out.println("Auto-bid stopped for user " + configUserId + " on auction " + auction.getId() +
+                logger.info("Auto-bid stopped for user " + configUserId + " on auction " + auction.getId() +
                         ": Max amount (" + maxAmount + ") has reached");
                 clearAutoBidConfig(auctionId);
                 auction.notifyObservers();
@@ -504,5 +511,28 @@ public class BidSystem {
 
     private boolean isCurrentWinner(Auction auction, int userId) {
         return auction.getWinnerId() != null && auction.getWinnerId().equals(userId);
+    }
+
+    private void extendEndTime(LocalDateTime bidTime, Auction auction) {
+        // anti-sniping: automatically extend the duration of an auction
+        // when it receives a placeBid request close to its end
+
+        int ANTI_SNIPING_EXTENSION_SECONDS = 3600;
+        int ANTI_SNIPING_THRESHOLD_SECONDS = 300;
+
+        long secondsUntilEnd = java.time.Duration.between(bidTime, auction.getEndTime()).getSeconds();
+
+        if (secondsUntilEnd <= ANTI_SNIPING_THRESHOLD_SECONDS && secondsUntilEnd > 0) {
+            LocalDateTime newEndTime = auction.getEndTime().plusSeconds(ANTI_SNIPING_EXTENSION_SECONDS);
+            auction.setEndTime(newEndTime);
+
+            boolean updated = auctionDAO.updateEndTime(auction.getId(), newEndTime);
+
+            if (updated) {
+                auction.notifyObservers();
+                logger.info("Auction " + auction.getId() + " extended due to anti-sniping. " +
+                        "New end time: " + newEndTime);
+            }
+        }
     }
 }

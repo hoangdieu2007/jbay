@@ -93,43 +93,14 @@ public class AuctionSystem {
     public synchronized boolean placeBid(int userId, int auctionId, double amount) {
         logger.debug("Bid attempt: User=" + userId + ", Auction=" + auctionId + ", Amount=" + amount);
         boolean bidPlaced = BidSystem.getInstance().placeBid(userId, auctionId, amount);
-        
+
         if (bidPlaced) {
             logger.info("Bid placed successfully: User=" + userId + ", Auction=" + auctionId + ", Amount=" + amount);
-            // anti-sniping check upon successful bid
-            Auction auction = auctionRepository.getActiveAuctionById(auctionId);
-            if (auction != null) {
-                extendEndTime(LocalDateTime.now(), auction);
-            }
         } else {
             logger.warn("Bid failed: User=" + userId + ", Auction=" + auctionId + ", Amount=" + amount);
         }
-        
+
         return bidPlaced;
-    }
-
-    public void extendEndTime(LocalDateTime now, Auction auction) {
-        //use anti-sniping: automatically extend the duration of an auction
-        //when it receives a placeBid request close to its end
-
-        int ANTI_SNIPING_EXTENSION_SECONDS = 3600;
-        int ANTI_SNIPING_THRESHOLD_SECONDS = 300;
-
-        long secondsUntilEnd = java.time.Duration.between(now, auction.getEndTime()).getSeconds();
-
-        if (secondsUntilEnd <= ANTI_SNIPING_THRESHOLD_SECONDS && secondsUntilEnd > 0) {
-            LocalDateTime newEndTime = auction.getEndTime().plusSeconds(ANTI_SNIPING_EXTENSION_SECONDS);
-            auction.setEndTime(newEndTime);
-
-            boolean updated = auctionRepository.updateEndTime(auction.getId(), newEndTime);
-
-            if (updated) {
-                // Notify all subscribers about the extension
-                auction.notifyObservers();
-                logger.info("Auction " + auction.getId() + " extended due to anti-sniping. " +
-                        "New end time: " + newEndTime);
-            }
-        }
     }
 
     //cancel auction
