@@ -9,9 +9,9 @@ import a88.jbay.system.update.UpdateSystem;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Collections;
-import java.util.HashMap;
+//import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+//import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
@@ -88,20 +88,26 @@ public class Auction implements Subject, Serializable {
         return bidHistory;
     }
 
-    public Map<Integer, AutoBidConfig> getAutoBidConfigs() {
-        Map<Integer, AutoBidConfig> autoBidConfigs = new HashMap<>();
-        if (currAutoBidConfig != null) {
-            autoBidConfigs.put(currAutoBidConfig.getUserId(), currAutoBidConfig);
-        }
-        return autoBidConfigs;
-    }
+    /**
+     * @deprecated Use {@link #getCurrAutoBidConfig()} instead.
+     */
+//    public Map<Integer, AutoBidConfig> getAutoBidConfigs() {
+//        Map<Integer, AutoBidConfig> autoBidConfigs = new HashMap<>();
+//        if (currAutoBidConfig != null) {
+//            autoBidConfigs.put(currAutoBidConfig.getUserId(), currAutoBidConfig);
+//        }
+//        return autoBidConfigs;
+//    }
 
-    public void setAutoBidConfigs(Map<Integer, AutoBidConfig> autoBidConfigs) {
-        this.currAutoBidConfig = null;
-        if (autoBidConfigs != null && !autoBidConfigs.isEmpty()) {
-            this.currAutoBidConfig = autoBidConfigs.values().iterator().next();
-        }
-    }
+    /**
+     * @deprecated Use {@link #setCurrAutoBidConfig(AutoBidConfig)} instead.
+     */
+//    public void setAutoBidConfigs(Map<Integer, AutoBidConfig> autoBidConfigs) {
+//        this.currAutoBidConfig = null;
+//        if (autoBidConfigs != null && !autoBidConfigs.isEmpty()) {
+//            this.currAutoBidConfig = autoBidConfigs.values().iterator().next();
+//        }
+//    }
 
     public AutoBidConfig getCurrAutoBidConfig() {
         return currAutoBidConfig;

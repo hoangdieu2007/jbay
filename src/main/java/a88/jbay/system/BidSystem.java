@@ -10,9 +10,9 @@ import a88.jbay.repository.AuctionRepository;
 import a88.jbay.util.JBayLogger;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
+//import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+//import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -234,7 +234,7 @@ public class BidSystem {
             if (isCurrentWinner(auction, userId)) {
                 logger.info("Skipping initial auto-bid for user " + userId + " on auction " + auctionId +
                         ": user is already the current winner");
-                auction.notifyObservers();
+//                auction.notifyObservers();
                 return;
             }
 
@@ -372,19 +372,16 @@ public class BidSystem {
     }
 
     /**
-     * Returns the single current auto-bid configuration as a singleton map.
-     *
-     * @param auctionId ID of the auction whose auto-bid configuration should be read
-     * @return singleton map from user ID to auto-bid configuration, or empty map when none exists
+     * @deprecated Use {@link #getCurrAutoBidConfig(int)} instead.
      */
-    public Map<Integer, AutoBidConfig> getAutoBidConfigs(int auctionId) {
-        Map<Integer, AutoBidConfig> result = new HashMap<>();
-        AutoBidConfig config = getCurrAutoBidConfig(auctionId);
-        if (config != null) {
-            result.put(config.getUserId(), config);
-        }
-        return result;
-    }
+//    public Map<Integer, AutoBidConfig> getAutoBidConfigs(int auctionId) {
+//        Map<Integer, AutoBidConfig> result = new HashMap<>();
+//        AutoBidConfig config = getCurrAutoBidConfig(auctionId);
+//        if (config != null) {
+//            result.put(config.getUserId(), config);
+//        }
+//        return result;
+//    }
 
     /**
      * Clears the current auto-bid configuration for an auction.
