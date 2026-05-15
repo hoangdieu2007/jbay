@@ -303,6 +303,7 @@ public class ClientSellerItemController {
 
             ServerConnection.getInstance().send(request);
 
+            SellerBidderHomeScreenController.targetTabIndex = 0;
             ViewManager.displayScene("client/Seller-Bidder-HomeScreens.fxml");
 
             new Alert(Alert.AlertType.INFORMATION, "Auction created successfully!").show();
