@@ -9,9 +9,9 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane prefHeight="892.0" prefWidth="1315.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.SellerBidderHomeScreenController">
@@ -43,11 +43,11 @@
 
                                 <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutY="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
                                     <content>
-                                        <FlowPane fx:id="sellerFlowPane" alignment="TOP_CENTER" hgap="15.0" vgap="15.0">
+                                        <TilePane fx:id="sellerTilePane" alignment="TOP_CENTER" hgap="15.0" prefColumns="4" vgap="15.0">
                                             <padding>
                                                 <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                             </padding>
-                                        </FlowPane>
+                                        </TilePane>
                                     </content>
                                 </ScrollPane>
                             </children>
@@ -74,11 +74,11 @@
 
                                 <ScrollPane fitToWidth="true" layoutY="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
                                     <content>
-                                        <FlowPane fx:id="bidderFlowPane" alignment="TOP_CENTER" hgap="15.0" vgap="15.0">
+                                        <TilePane fx:id="bidderTilePane" alignment="TOP_CENTER" hgap="15.0" prefColumns="4" vgap="15.0">
                                             <padding>
                                                 <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                             </padding>
-                                        </FlowPane>
+                                        </TilePane>
                                     </content>
                                 </ScrollPane>
                             </children>

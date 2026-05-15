@@ -14,7 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -67,7 +67,7 @@ public class SellerBidderHomeScreenController {
     /** ====SELLER==== **/
 
     @FXML
-    private FlowPane sellerFlowPane;
+    private TilePane sellerTilePane;
 
     private Map<Integer, VBox> sellerCardBox = new HashMap<>();
 
@@ -100,7 +100,7 @@ public class SellerBidderHomeScreenController {
 
     @FXML
     public void initializeSellerUI() {
-        sellerFlowPane.getChildren().clear();
+        sellerTilePane.getChildren().clear();
 
         ObservableMap<Integer, Auction> sellerMap = ClientSession.getInstance().getSellerAuctions();
 
@@ -154,7 +154,7 @@ public class SellerBidderHomeScreenController {
 
 
     /** ====BIDDER==== **/
-    @FXML private FlowPane bidderFlowPane;
+    @FXML private TilePane bidderTilePane;
 
     @FXML
     private VBox createCardBidder(Auction auction){
@@ -179,7 +179,7 @@ public class SellerBidderHomeScreenController {
 
     @FXML
     public void  initializeBidderUI(){
-        bidderFlowPane.getChildren().clear();
+        bidderTilePane.getChildren().clear();
 
         ObservableMap<Integer, Auction> bidderMap = ClientSession.getInstance().getBidderAuctions();
 
@@ -190,7 +190,7 @@ public class SellerBidderHomeScreenController {
         logger.debug("Bidder UI initialized with " + bidderMap.size() + " auctions");
 
         /**bidderList.sort(Comparator.comparingInt(Auction::getId).reversed());
-        refreshBidderList(filteredList);*/
+         refreshBidderList(filteredList);*/
 
         ClientSession.getInstance().getBidderAuctions().addListener((MapChangeListener< Integer, Auction>) change -> {
             // nếu còn phần tử, trả về true --> chạy tiếp
@@ -237,11 +237,11 @@ public class SellerBidderHomeScreenController {
 
 
     public void refreshBidderList(FilteredList<Auction> filteredList) {
-        bidderFlowPane.getChildren().clear();
+        bidderTilePane.getChildren().clear();
         for (Auction auction : filteredList) {
             VBox card = createCardBidder(auction);
             if (card != null) {
-                bidderFlowPane.getChildren().add(card);
+                bidderTilePane.getChildren().add(card);
             }
         }
         // Cleanup cache for auctions that are no longer in the list
@@ -250,11 +250,11 @@ public class SellerBidderHomeScreenController {
 
 
     public void refreshSellerList(FilteredList<Auction> filteredList) {
-        sellerFlowPane.getChildren().clear();
+        sellerTilePane.getChildren().clear();
         for (Auction auction : filteredList) {
             VBox card = createCardSeller(auction);
             if (card != null) {
-                sellerFlowPane.getChildren().add( card);
+                sellerTilePane.getChildren().add( card);
             }
         }
         // Cleanup cache
