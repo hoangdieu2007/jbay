@@ -313,3 +313,13 @@
 2026-05-16 00:22:05.603 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
 2026-05-16 00:22:05.741 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
 2026-05-16 00:22:05.741 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-16 01:10:20.345 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connecting to server: 0.tcp.ap.ngrok.io:11047
+2026-05-16 01:10:20.554 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connection successful to server: 0.tcp.ap.ngrok.io:11047
+2026-05-16 01:10:20.557 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-16 01:10:20.710 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-16 01:10:20.711 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-16 01:10:26.323 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: LOGIN
+2026-05-16 01:10:26.490 [Thread-5] DEBUG a88.jbay.client.ServerConnection - Received response: LOGIN_SUCCESS
+2026-05-16 01:10:26.532 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: MISC
+2026-05-16 01:43:15.894 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connecting to server: 0.tcp.ap.ngrok.io:11047
+2026-05-16 01:43:46.674 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connecting to server: 0.tcp.ap.ngrok.io:11047

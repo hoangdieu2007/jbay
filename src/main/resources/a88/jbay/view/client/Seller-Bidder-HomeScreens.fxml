@@ -69,7 +69,7 @@
                                         <Font name="Arial Bold" size="20.0" />
                                     </font>
                                 </Label>
-                                <Label layoutX="37.0" layoutY="60.0" text="Place bids on items you are interested in" />
+                                <Label layoutX="37.0" layoutY="60.0" text ="Place bids on items you are interested in" />
 
                                 <TextField fx:id="bidderSearchField" prefHeight="36.0" prefWidth="357.0" promptText="Search" styleClass="search-field" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="34.0">
                                     <font>
