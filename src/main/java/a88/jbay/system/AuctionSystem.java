@@ -204,6 +204,7 @@ public class AuctionSystem {
 
         for (Auction auction : auctionRepository.getAllActiveAuctions()) {
             // check and change state
+            // if tick == true --> reset AuctionState
             if (auction.tick(now)) {
                 logger.debug("Heartbeat: State changed for auction " + auction.getId() + " to " + auction.getAuctionState());
                 auctionRepository.setAuctionState(auction.getId(), auction.getAuctionState());

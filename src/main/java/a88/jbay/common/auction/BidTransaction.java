@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+// Save data of a bid to DB
 public class BidTransaction implements Serializable {
     private int userID;
     private String username;

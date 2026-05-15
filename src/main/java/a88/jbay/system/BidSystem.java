@@ -89,8 +89,8 @@ public class BidSystem {
         }
 
         BidTransaction tx = createBidTransaction(userId, amount);
-        addBid(auction, tx);
-        return saveBid(auctionId, tx);
+        addBid(auction, tx); // subscribe user to auction and update auction price
+        return saveBid(auctionId, tx); // save bid to DB
     }
 
     /**
@@ -155,7 +155,7 @@ public class BidSystem {
      */
     private BidTransaction createBidTransaction(int userId, double amount) {
 
-        String username = auctionRepository.getUsernameByUserId(userId);
+        String username = auctionRepository.getUsernameByUserId(userId); // get bidder username
 
         return new BidTransaction(
                 userId,
@@ -176,7 +176,7 @@ public class BidSystem {
      */
     private void addBid(Auction auction, BidTransaction tx) {
         // bidder automatically becomes observer
-        auction.subscribe(tx.getUserID());
+        auction.subscribe(tx.getUserID()); // subscribe first so that client can get a notification
         auction.updatePrice(tx.getAmt(), tx);
     }
 
