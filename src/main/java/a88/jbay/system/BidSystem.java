@@ -234,7 +234,7 @@ public class BidSystem {
             if (isCurrentWinner(auction, userId)) {
                 logger.info("Skipping initial auto-bid for user " + userId + " on auction " + auctionId +
                         ": user is already the current winner");
-//                auction.notifyObservers();
+                auction.notifyObservers();
                 return;
             }
 
