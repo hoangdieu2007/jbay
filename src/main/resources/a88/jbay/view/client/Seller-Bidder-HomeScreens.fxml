@@ -7,7 +7,6 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
@@ -15,98 +14,99 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="892.0" prefWidth="1300.0" style="-fx-border-radius: 60;" xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.SellerBidderHomeScreenController">
-   <center>
-      <TabPane fx:id="mainTabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="861.0" prefWidth="1300.0" style="-fx-background-color: #C9F7F6;" tabClosingPolicy="UNAVAILABLE">
-          <tabs>
-              <Tab text="        Seller        ">
-                  <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="491.0" prefWidth="699.0" style="-fx-background-color: white;">
-                          <children>
-                              <Button fx:id="btnCreateListing" alignment="CENTER" layoutX="428.0" layoutY="34.0" mnemonicParsing="false" onAction="#handleCreateListing" prefHeight="36.0" prefWidth="158.0" style="-fx-background-color: #2196F3; -fx-background-radius: 45;" text="+ Create Listing" textFill="#fffcfc" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="34.0">
-                                  <font>
-                                      <Font name="Arial Bold" size="17.0" />
-                                  </font>
-                              </Button>
-                              <Label layoutX="29.0" layoutY="29.0" text="My Listings">
-                                  <font>
-                                      <Font name="Arial Bold" size="20.0" />
-                                  </font>
-                              </Label>
-                              <Label layoutX="29.0" layoutY="60.0" text="Manage your auction items" />
-                  
-                                    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutY="100.0" prefHeight="272.0" prefWidth="1300.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
-                                  <content>
-                                      <FlowPane fx:id="sellerFlowPane" hgap="15.0" vgap="15.0">
-                                          <padding>
-                                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                                          </padding>
-                                      </FlowPane>
-                                  </content>
-                              </ScrollPane>
-                        <TextField fx:id="sellerSearchField" layoutX="823.0" layoutY="35.0" prefHeight="35.0" prefWidth="272.0" promptText="Search" style="-fx-background-radius: 40;">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </TextField>
-                          </children>
-                          <effect>
-                              <DropShadow color="#00000033" />
-                          </effect>
-                      </AnchorPane>
-                  </content>
-              </Tab>
-      
-              <Tab text="         Bidder        ">
-                  <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: white;">
-                          <children>
-                              <Label layoutX="37.0" layoutY="60.0" text="Place bids on items you are interested in" />
-                              <Label layoutX="37.0" layoutY="30.0" text="Browse Auctions">
-                                  <font>
-                                      <Font name="Arial Bold" size="20.0" />
-                                  </font>
-                              </Label>
-                              <ScrollPane fitToWidth="true" layoutY="100.0" prefHeight="352.0" prefWidth="699.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
-                                  <content>
-                                      <FlowPane fx:id="bidderFlowPane" hgap="15.0" vgap="15.0">
-                                          <padding>
-                                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                                          </padding>
-                                      </FlowPane>
-                                  </content>
-                              </ScrollPane>
-                        <TextField fx:id="bidderSearchField" layoutX="843.0" layoutY="25.0" prefHeight="41.0" prefWidth="357.0" promptText="Search " style="-fx-background-radius: 45;">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </TextField>
-                          </children>
-                      </AnchorPane>
-                  </content>
-              </Tab>
-          </tabs>
-      </TabPane>
-   </center>
-   <top>
-      <HBox alignment="CENTER_RIGHT" prefHeight="31.0" BorderPane.alignment="TOP_LEFT">
-         <children>
-            <Region prefHeight="31.0" prefWidth="0.0" />
-            <Label fx:id="lblUserName" prefHeight="31.0" prefWidth="572.0" text="UserName" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-               <HBox.margin>
-                  <Insets left="15.0" />
-               </HBox.margin>
-            </Label>
-            <Region prefHeight="31.0" prefWidth="987.0" />
-            <Button fx:id="btnLogOut" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleLogOut" prefHeight="23.0" prefWidth="357.0" style="-fx-background-radius: 8; -fx-background-color: #69D3FF; -fx-text-fill: white;" text="LOG OUT" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="11.0" />
-               </font>
-            </Button>
-         </children>
-      </HBox>
-   </top>
+<BorderPane prefHeight="892.0" prefWidth="1360.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.SellerBidderHomeScreenController">
+    <center>
+        <TabPane fx:id="mainTabPane" prefHeight="861.0" prefWidth="1360.0" style="-fx-background-color: #C9F7F6;" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab text="        Seller        ">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="491.0" prefWidth="1360.0" style="-fx-background-color: white;">
+                            <children>
+                                <Label layoutX="29.0" layoutY="29.0" text="My Listings">
+                                    <font>
+                                        <Font name="Arial Bold" size="20.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="29.0" layoutY="60.0" text="Manage your auction items" />
+
+                                <TextField fx:id="sellerSearchField" prefHeight="36.0" prefWidth="272.0" promptText="Search" styleClass="search-field" AnchorPane.rightAnchor="190.0" AnchorPane.topAnchor="34.0">
+                                    <font>
+                                        <Font size="16.0" />
+                                    </font>
+                                </TextField>
+
+                                <Button fx:id="btnCreateListing" alignment="CENTER" mnemonicParsing="false" onAction="#handleCreateListing" prefHeight="36.0" prefWidth="158.0" styleClass="primary-button" text="+ Create Listing" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="34.0">
+                                    <font>
+                                        <Font name="Arial Bold" size="16.0" />
+                                    </font>
+                                </Button>
+
+                                <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutY="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+                                    <content>
+                                        <FlowPane fx:id="sellerFlowPane" hgap="15.0" vgap="15.0">
+                                            <padding>
+                                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                            </padding>
+                                        </FlowPane>
+                                    </content>
+                                </ScrollPane>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+                <Tab text="         Bidder        ">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="1360.0" style="-fx-background-color: white;">
+                            <children>
+                                <Label layoutX="37.0" layoutY="30.0" text="Browse Auctions">
+                                    <font>
+                                        <Font name="Arial Bold" size="20.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="37.0" layoutY="60.0" text="Place bids on items you are interested in" />
+
+                                <TextField fx:id="bidderSearchField" prefHeight="36.0" prefWidth="357.0" promptText="Search" styleClass="search-field" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="34.0">
+                                    <font>
+                                        <Font size="16.0" />
+                                    </font>
+                                </TextField>
+
+                                <ScrollPane fitToWidth="true" layoutY="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+                                    <content>
+                                        <FlowPane fx:id="bidderFlowPane" hgap="15.0" vgap="15.0">
+                                            <padding>
+                                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                            </padding>
+                                        </FlowPane>
+                                    </content>
+                                </ScrollPane>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </center>
+
+    <top>
+        <HBox alignment="CENTER_LEFT" prefHeight="50.0" spacing="10.0" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+            </padding>
+            <children>
+                <Label fx:id="lblUserName" text="UserName">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+                <Region HBox.hgrow="ALWAYS" />
+                <Button fx:id="btnLogOut" mnemonicParsing="false" onAction="#handleLogOut" styleClass="logout-button" text="LOG OUT">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Button>
+            </children>
+        </HBox>
+    </top>
 </BorderPane>

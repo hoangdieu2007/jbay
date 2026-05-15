@@ -1,4 +1,5 @@
 /* Giao diện mặc định của thẻ (Card) */
+/* Seller Card */
 .item-card {
     -fx-border-color: #ccc;
     -fx-border-radius: 10;
@@ -33,6 +34,7 @@
     -fx-effect: dropshadow(gaussian, rgba(43, 95, 232, 0.3), 5, 0, 0, 1);
 }
 
+/* BIDDER CARD
 /* Card Base Style */
 .bidder-item-card {
     -fx-background-color: white;
@@ -76,4 +78,58 @@
 .bid-button:pressed {
     -fx-translate-y: 1px;
     -fx-effect: dropshadow(gaussian, rgba(43, 95, 232, 0.3), 5, 0, 0, 1);
+}
+
+/* HomeScreen
+/* Primary Action Button (Create Listing) */
+.primary-button {
+    -fx-background-color: #2196F3;
+    -fx-text-fill: white;
+    -fx-background-radius: 45;
+    -fx-cursor: hand;
+}
+
+.primary-button:hover {
+    -fx-background-color: #42A5F5;
+    -fx-translate-y: -2px;
+    -fx-effect: dropshadow(gaussian, rgba(33, 150, 243, 0.4), 10, 0, 0, 3);
+}
+
+.primary-button:pressed {
+    -fx-translate-y: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(33, 150, 243, 0.2), 5, 0, 0, 1);
+}
+
+/* Logout Button */
+.logout-button {
+    -fx-background-color: #69D3FF;
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-padding: 8 20 8 20;
+}
+
+.logout-button:hover {
+    -fx-background-color: #8ADFFF;
+    -fx-translate-y: -2px;
+    -fx-effect: dropshadow(gaussian, rgba(105, 211, 255, 0.4), 8, 0, 0, 2);
+}
+
+.logout-button:pressed {
+    -fx-translate-y: 1px;
+    -fx-effect: none;
+}
+
+/* Search Input Fields */
+.search-field {
+    -fx-background-radius: 40;
+    -fx-border-radius: 40;
+    -fx-border-color: #cccccc;
+    -fx-background-color: white;
+    -fx-padding: 5 15 5 15;
+}
+
+.search-field:focused {
+    -fx-border-color: #2196F3;
+    -fx-effect: dropshadow(gaussian, rgba(33, 150, 243, 0.2), 5, 0, 0, 0);
 }
