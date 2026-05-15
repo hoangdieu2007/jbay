@@ -53,7 +53,7 @@
                             <children>
                                 <StackPane prefHeight="350.0" prefWidth="350.0" style="-fx-border-color: #CBD5E1; -fx-border-style: dashed; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-color: #F8FAFC; -fx-background-radius: 10;">
                                     <children>
-                                        <ImageView fx:id="itemImageView" fitHeight="340.0" fitWidth="340.0" pickOnBounds="true" preserveRatio="true" />
+                                        <ImageView fx:id="itemImageView" fitHeight="350.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true" />
                                     </children>
                                 </StackPane>
                             </children>
@@ -110,34 +110,37 @@
                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
-                                        <Label text="Name:" textFill="#64748B" GridPane.rowIndex="0"><font><Font name="System Bold" size="16.0" /></font></Label>
-                                        <Label fx:id="itemNameLabel" prefHeight="27.0" prefWidth="253.0" text="Item name" textFill="#1E293B" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="0"><font><Font name="System Bold" size="18.0" /></font></Label>
+                                        <Label text="Name:" textFill="#64748B" GridPane.rowIndex="0"><font><Font name="System Bold" size="18.0" /></font></Label>
+                                        <Label fx:id="itemNameLabel" prefHeight="27.0" prefWidth="253.0" text="Item name" textFill="#1E293B" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="0"><font><Font name="System Bold" size="20.0" /></font></Label>
 
-                                        <Label text="Time:" textFill="#64748B" GridPane.rowIndex="1"><font><Font name="System Bold" size="16.0" /></font></Label>
-                                        <Label fx:id="auctionTimeLabel" prefHeight="25.0" prefWidth="255.0" text="StartTime - EndTime" textFill="#1E293B" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1"><font><Font size="16.0" /></font></Label>
+                                        <Label text="Time:" textFill="#64748B" GridPane.rowIndex="1"><font><Font name="System Bold" size="18.0" /></font></Label>
+                                        <Label fx:id="auctionTimeLabel" prefHeight="25.0" prefWidth="255.0" text="StartTime - EndTime" textFill="#1E293B" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1"><font><Font size="18.0" /></font></Label>
 
-                                        <Label text="Seller:" textFill="#64748B" GridPane.rowIndex="2"><font><Font name="System Bold" size="16.0" /></font></Label>
-                                        <Label fx:id="sellerLabel" prefHeight="25.0" prefWidth="257.0" text="Seller Name/Id" textFill="#2563EB" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2"><font><Font name="System Bold" size="16.0" /></font></Label>
+                                        <Label text="Seller:" textFill="#64748B" GridPane.rowIndex="2"><font><Font name="System Bold" size="18.0" /></font></Label>
+                                        <Label fx:id="sellerLabel" prefHeight="25.0" prefWidth="257.0" text="Seller Name/Id" textFill="#2563EB" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2"><font><Font name="System Bold" size="18.0" /></font></Label>
 
-                                        <Label text="Current:" textFill="#64748B" GridPane.rowIndex="3"><font><Font name="System Bold" size="18.0" /></font></Label>
-                                        <Label fx:id="currentPriceLabel" prefHeight="35.0" prefWidth="253.0" text="\$ 0.00" textFill="#059669" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3"><font><Font name="System Bold" size="24.0" /></font></Label>
+                                        <Label text="Current:" textFill="#64748B" GridPane.rowIndex="3"><font><Font name="System Bold" size="20.0" /></font></Label>
+                                        <Label fx:id="currentPriceLabel" prefHeight="35.0" prefWidth="253.0" text="\$ 0.00" textFill="#059669" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3"><font><Font name="System Bold" size="25.0" /></font></Label>
                                     </children>
                                 </GridPane>
 
                                 <VBox prefWidth="320.0" spacing="15.0" style="-fx-background-color: #F8FAFC; -fx-background-radius: 12; -fx-padding: 15; -fx-border-color: #E2E8F0; -fx-border-radius: 12;" HBox.hgrow="NEVER">
                                     <children>
-                                        <Label text="Manual Bid" textFill="#1E293B"><font><Font name="System Bold" size="14.0" /></font></Label>
+                                        <Label prefHeight="25.0" prefWidth="97.0" text="Manual Bid" textFill="#1E293B"><font><Font name="System Bold" size="16.0" /></font></Label>
                                         <HBox spacing="10.0">
                                             <children>
                                                 <TextField fx:id="bidInput" promptText="Enter Bid (USD)" style="-fx-font-size: 14; -fx-background-radius: 6; -fx-border-color: #CBD5E1; -fx-border-radius: 6;" HBox.hgrow="ALWAYS" />
-                                                <Button fx:id="placeBidButton" mnemonicParsing="false" onAction="#handlePlaceBid" style="-fx-background-color: #2563EB; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6; -fx-cursor: hand;" text="Place Bid" />
+                                                <Button fx:id="placeBidButton" mnemonicParsing="false" onAction="#handlePlaceBid" prefHeight="31.0" prefWidth="88.0" style="-fx-background-color: #2563EB; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6; -fx-cursor: hand;" text="Place Bid">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></Button>
                                             </children>
                                         </HBox>
                                         <Label fx:id="errorLabel" text="Invalid Bid" textFill="#EF4444" visible="false"><font><Font name="System Bold" size="12.0" /></font></Label>
 
                                         <Region prefHeight="10.0" />
 
-                                        <Label text="Auto Bid Settings" textFill="#1E293B"><font><Font name="System Bold" size="14.0" /></font></Label>
+                                        <Label text="Auto Bid Settings" textFill="#1E293B"><font><Font name="System Bold" size="16.0" /></font></Label>
                                         <HBox spacing="10.0">
                                             <children>
                                                 <TextField fx:id="autoBidIncrement" promptText="Increment" style="-fx-font-size: 14; -fx-background-radius: 6; -fx-border-color: #CBD5E1; -fx-border-radius: 6;" HBox.hgrow="ALWAYS" />
@@ -146,8 +149,14 @@
                                         </HBox>
                                         <HBox spacing="10.0">
                                             <children>
-                                                <Button fx:id="autoBidButton" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleAutoBid" prefHeight="35.0" style="-fx-background-color: #10B981; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6; -fx-cursor: hand;" text="Start Auto Bid" HBox.hgrow="ALWAYS" />
-                                                <Button fx:id="cancelAutoBidButton" mnemonicParsing="false" onAction="#handleCancelAutoBid" prefHeight="35.0" prefWidth="40.0" style="-fx-background-color: #EF4444; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6; -fx-cursor: hand;" text="X" />
+                                                <Button fx:id="autoBidButton" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleAutoBid" prefHeight="35.0" style="-fx-background-color: #10B981; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6; -fx-cursor: hand;" text="Start Auto Bid" HBox.hgrow="ALWAYS">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></Button>
+                                                <Button fx:id="cancelAutoBidButton" mnemonicParsing="false" onAction="#handleCancelAutoBid" prefHeight="35.0" prefWidth="40.0" style="-fx-background-color: #EF4444; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6; -fx-cursor: hand;" text="X">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></Button>
                                             </children>
                                         </HBox>
                                     </children>
@@ -161,4 +170,3 @@
         </HBox>
     </center>
 </BorderPane>
-
