@@ -224,6 +224,8 @@
                 <version>3.5.0</version>
 
                 <executions>
+
+                    <!-- CLIENT -->
                     <execution>
                         <id>shade-client</id>
                         <phase>package</phase>
@@ -233,11 +235,13 @@
                         </goals>
 
                         <configuration>
-                            <!-- prevent breaking encapsulation warnings -->
+
+                            <shadedArtifactAttached>true</shadedArtifactAttached>
+                            <shadedClassifierName>client</shadedClassifierName>
+
                             <filters>
                                 <filter>
                                     <artifact>*:*</artifact>
-
                                     <excludes>
                                         <exclude>module-info.class</exclude>
                                     </excludes>
@@ -256,6 +260,7 @@
                         </configuration>
                     </execution>
 
+                    <!-- SERVER -->
                     <execution>
                         <id>shade-server</id>
                         <phase>package</phase>
@@ -265,11 +270,13 @@
                         </goals>
 
                         <configuration>
-                            <!-- prevent breaking encapsulation warnings -->
+
+                            <shadedArtifactAttached>true</shadedArtifactAttached>
+                            <shadedClassifierName>server</shadedClassifierName>
+
                             <filters>
                                 <filter>
                                     <artifact>*:*</artifact>
-
                                     <excludes>
                                         <exclude>module-info.class</exclude>
                                     </excludes>
@@ -287,6 +294,7 @@
 
                         </configuration>
                     </execution>
+
                 </executions>
             </plugin>
             <plugin>
