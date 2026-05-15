@@ -37,6 +37,8 @@ public class ClientBidderItemController {
     @FXML
     private Button placeBidButton;
     @FXML
+    private Button autoBidButton;
+    @FXML
     private LineChart<String, Number> priceChart;
     @FXML
     private ImageView itemImageView;
@@ -47,6 +49,8 @@ public class ClientBidderItemController {
     private XYChart.Series<String, Number> priceSeries;
     private final DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
     private boolean autoBidActive = false;
+    private static final String AUTO_BID_ENABLED_STYLE = "-fx-background-color: #4CAF50; -fx-text-fill: white;";
+    private static final String AUTO_BID_DISABLED_STYLE = "-fx-background-color: #9E9E9E; -fx-text-fill: white;";
 
     //Xử lí mục ID cho auction đang hoạt động
     public void setCurrentAuction(Auction auction) {
@@ -112,6 +116,8 @@ public class ClientBidderItemController {
 
         autoBidIncrement.setDisable(enabled);
         autoBidMaxAmount.setDisable(enabled);
+        autoBidButton.setDisable(enabled);
+        autoBidButton.setStyle(enabled ? AUTO_BID_DISABLED_STYLE : AUTO_BID_ENABLED_STYLE);
         bidInput.setDisable(enabled);
         placeBidButton.setDisable(enabled);
 
@@ -288,6 +294,8 @@ public class ClientBidderItemController {
             // Keep values in text boxes and disable them
             autoBidIncrement.setDisable(true);
             autoBidMaxAmount.setDisable(true);
+            autoBidButton.setDisable(true);
+            autoBidButton.setStyle(AUTO_BID_DISABLED_STYLE);
             // Also disable bid input and place bid button
             bidInput.setDisable(true);
             placeBidButton.setDisable(true);
@@ -328,6 +336,8 @@ public class ClientBidderItemController {
             // Re-enable text fields and clear values
             autoBidIncrement.setDisable(false);
             autoBidMaxAmount.setDisable(false);
+            autoBidButton.setDisable(false);
+            autoBidButton.setStyle(AUTO_BID_ENABLED_STYLE);
             autoBidIncrement.clear();
             autoBidMaxAmount.clear();
             // Also re-enable bid input and place bid button

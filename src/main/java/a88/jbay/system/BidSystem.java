@@ -10,12 +10,10 @@ import a88.jbay.repository.AuctionRepository;
 import a88.jbay.util.JBayLogger;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.Comparator;
-import java.util.stream.Collectors;
 
 /**
  * Coordinates bid placement, bid persistence, and auto-bidding behavior for active auctions.
@@ -25,16 +23,14 @@ public class BidSystem {
     private final AtomicBoolean isAutoBidding = new AtomicBoolean(false);
     private final JBayLogger logger;
 
-    // auto-bid configuration - supports multiple users per auction
-    private final Map<Integer, Map<Integer, AutoBidConfig>> auctionAutoBidConfigs;
     private final BidDAO bidDAO;
     private final AuctionDAO auctionDAO;
 
     /**
      * Creates a bid system with the repositories and DAOs needed to manage bids.
      *
-     * <p>Processing: stores the injected collaborators, initializes the in-memory auto-bid
-     * configuration map, and prepares a class-specific logger for bid and auto-bid events.</p>
+     * <p>Processing: stores the injected collaborators and prepares a class-specific logger for
+     * bid and auto-bid events.</p>
      *
      * @param auctionRepository repository used to read and update in-memory auction state
      * @param bidDAO DAO used to read and write bid transactions
@@ -47,7 +43,6 @@ public class BidSystem {
     ) {
 
         this.auctionRepository = auctionRepository;
-        this.auctionAutoBidConfigs = new HashMap<>();
         this.bidDAO = bidDAO;
         this.auctionDAO = auctionDAO;
         this.logger = JBayLogger.getLogger(BidSystem.class);
@@ -206,91 +201,11 @@ public class BidSystem {
     }
 
     /**
-     * Stores or replaces a user's auto-bid configuration for an auction.
-     *
-     * <p>Processing: creates the per-auction configuration map when needed, writes the user's
-     * maximum amount and increment, and synchronizes the active auction object with the new
-     * configuration snapshot.</p>
-     *
-     * @param auctionId ID of the auction where auto-bidding is enabled
-     * @param userId ID of the user enabling auto-bidding
-     * @param maxAmount highest amount the system may bid for the user
-     * @param increment amount to add above the current price for each automated bid
-     */
-    public void setAutoBidConfig(int auctionId, int userId, double maxAmount, double increment) {
-        auctionAutoBidConfigs.computeIfAbsent(auctionId, k -> new HashMap<>()).put(userId, new AutoBidConfig(maxAmount, increment));
-        syncAuctionAutoBidConfigs(auctionId);
-    }
-
-    /**
-     * Removes one user's auto-bid configuration from an auction.
-     *
-     * <p>Processing: finds the auction's configuration map, removes the user's entry, deletes the
-     * per-auction map if it becomes empty, and refreshes the active auction's auto-bid snapshot.</p>
-     *
-     * @param auctionId ID of the auction where auto-bidding should be cleared
-     * @param userId ID of the user whose auto-bid configuration should be removed
-     */
-    public void clearAutoBidConfig(int auctionId, int userId) {
-        Map<Integer, AutoBidConfig> configs = auctionAutoBidConfigs.get(auctionId);
-        if (configs != null) {
-            configs.remove(userId);
-            if (configs.isEmpty()) {
-                auctionAutoBidConfigs.remove(auctionId);
-            }
-        }
-        syncAuctionAutoBidConfigs(auctionId);
-    }
-
-    /**
-     * Returns the auto-bid configurations currently registered for an auction.
-     *
-     * <p>Processing: reads the in-memory per-auction configuration map and returns a defensive copy
-     * so callers cannot directly mutate the internal auto-bid state.</p>
-     *
-     * @param auctionId ID of the auction whose auto-bid configurations should be read
-     * @return copied map from user ID to auto-bid configuration, or an empty map when none exist
-     */
-    public Map<Integer, AutoBidConfig> getAutoBidConfigs(int auctionId) {
-        Map<Integer, AutoBidConfig> configs = auctionAutoBidConfigs.get(auctionId);
-        return configs != null ? new HashMap<>(configs) : new HashMap<>();
-    }
-
-    /**
-     * Clears every auto-bid configuration for an auction.
-     *
-     * <p>Processing: removes the auction's configuration map from memory and synchronizes the
-     * active auction object so observers see that no auto-bid configurations remain.</p>
-     *
-     * @param auctionId ID of the auction whose auto-bid configurations should be removed
-     */
-    public void clearAllAutoBidConfigs(int auctionId) {
-        auctionAutoBidConfigs.remove(auctionId);
-        syncAuctionAutoBidConfigs(auctionId);
-    }
-
-    /**
-     * Checks whether a user has enabled auto-bidding on an auction.
-     *
-     * <p>Processing: looks up the auction's configuration map and tests whether it contains the
-     * requested user ID.</p>
-     *
-     * @param auctionId ID of the auction to inspect
-     * @param userId ID of the user to check
-     * @return {@code true} if the user currently has an auto-bid configuration on the auction
-     */
-    public boolean hasAutoBidConfig(int auctionId, int userId) {
-        Map<Integer, AutoBidConfig> configs = auctionAutoBidConfigs.get(auctionId);
-        return configs != null && configs.containsKey(userId);
-    }
-
-    /**
      * Enables automated bidding for a user on an active auction.
      *
-     * <p>Processing: loads the active auction, stores the user's auto-bid limits, subscribes the
-     * user for updates, notifies observers, resolves competitive auto-bids immediately when more
-     * than one configuration exists, and otherwise places an initial automatic bid if the user is
-     * not already winning and the next increment does not exceed the maximum amount.</p>
+     * <p>Processing: loads the active auction, stores the user's auto-bid limits as the auction's
+     * single current auto-bid configuration, subscribes the user for updates, and resolves a
+     * competitive auto-bid immediately when another user's configuration is already active.</p>
      *
      * @param userId ID of the user enabling auto-bidding
      * @param auctionId ID of the auction where auto-bidding should run
@@ -304,39 +219,203 @@ public class BidSystem {
             return;
         }
 
-        setAutoBidConfig(auctionId, userId, maxAmount, increment);
-
         // Subscribe user to auction to receive price change notifications.
         auction.subscribe(userId);
 
-        logger.info("Auto-bid enabled for user " + userId + " on auction " + auctionId +
-                          " with maxAmount=" + maxAmount + ", increment=" + increment);
+        logger.info("Auto-bid request from user " + userId + " on auction " + auctionId +
+                " with maxAmount=" + maxAmount + ", increment=" + increment);
+
+        AutoBidConfig existingConfig = auction.getCurrAutoBidConfig();
+        AutoBidConfig requestedConfig = new AutoBidConfig(userId, maxAmount, increment);
+
+        if (existingConfig == null) {
+            auction.setCurrAutoBidConfig(requestedConfig);
+
+            if (isCurrentWinner(auction, userId)) {
+                logger.info("Skipping initial auto-bid for user " + userId + " on auction " + auctionId +
+                        ": user is already the current winner");
+                auction.notifyObservers();
+                return;
+            }
+
+            placeSingleAutoBid(auction, requestedConfig);
+        } else if (existingConfig.getUserId() == userId) {
+            auction.setCurrAutoBidConfig(requestedConfig);
+
+            if (isCurrentWinner(auction, userId)) {
+                logger.info("Updated auto-bid config for current winner " + userId +
+                        " on auction " + auctionId);
+                auction.notifyObservers();
+                return;
+            }
+
+            placeSingleAutoBid(auction, requestedConfig);
+        } else {
+            handleCompetitiveAutoBid(auction, existingConfig, requestedConfig);
+        }
+
         auction.notifyObservers();
+    }
 
-        if (getAutoBidConfigs(auctionId).size() >= 2) {
-            logger.info("Multiple auto-bids detected on auction " + auctionId + ", applying competitive bidding logic");
-            handleMultipleAutoBids(auction);
+    private void placeSingleAutoBid(Auction auction, AutoBidConfig config) {
+        double newPrice = Math.min(
+                config.getMaxAmount(),
+                auction.getCurrentPrice() + config.getIncrement()
+        );
+
+        if (newPrice <= auction.getCurrentPrice()) {
+            if (auction.getCurrentPrice() >= config.getMaxAmount()) {
+                clearAutoBidConfig(auction.getId());
+            }
             return;
         }
 
-        if (auction.getWinnerId() != null && auction.getWinnerId().equals(userId)) {
-            logger.info("Skipping initial auto-bid for user " + userId + " on auction " + auctionId +
-                              ": user is already the current winner");
+        placeBid(config.getUserId(), auction.getId(), newPrice);
+
+        if (Double.compare(newPrice, config.getMaxAmount()) == 0) {
+            logger.info("Auto-bid reached max amount, clearing auto-bid config");
+            clearAutoBidConfig(auction.getId());
+        }
+    }
+
+    private void handleCompetitiveAutoBid(
+            Auction auction,
+            AutoBidConfig existingConfig,
+            AutoBidConfig requestedConfig
+    ) {
+        int userIdA = existingConfig.getUserId();
+        double maxAmountA = existingConfig.getMaxAmount();
+        double incrementA = existingConfig.getIncrement();
+
+        int userIdB = requestedConfig.getUserId();
+        double maxAmountB = requestedConfig.getMaxAmount();
+        double incrementB = requestedConfig.getIncrement();
+
+        logger.info("Competitive auto-bid: User A=" + userIdA +
+                " (max=" + maxAmountA + ", inc=" + incrementA + ") vs User B=" + userIdB +
+                " (max=" + maxAmountB + ", inc=" + incrementB + ")");
+
+        if (maxAmountA >= maxAmountB) {
+            double newPrice = Math.min(maxAmountA, maxAmountB + incrementA);
+            logger.info("User A keeps auto-bid config; new price=" + newPrice);
+            updateCompetitiveAutoBidPrice(auction, userIdA, newPrice, maxAmountA);
             return;
         }
 
-        double initialBidAmount = auction.getCurrentPrice() + increment;
+        auction.setCurrAutoBidConfig(requestedConfig);
+        double newPrice = Math.min(maxAmountB, maxAmountA + incrementB);
+        logger.info("User B takes over auto-bid config; new price=" + newPrice);
+        updateCompetitiveAutoBidPrice(auction, userIdB, newPrice, maxAmountB);
+    }
 
-        if (initialBidAmount <= maxAmount) {
-            placeBid(userId, auctionId, initialBidAmount);
+    private void updateCompetitiveAutoBidPrice(
+            Auction auction,
+            int winnerId,
+            double newPrice,
+            double winnerMaxAmount
+    ) {
+        if (newPrice > auction.getCurrentPrice()) {
+            placeBid(winnerId, auction.getId(), newPrice);
         }
+
+        if (Double.compare(newPrice, winnerMaxAmount) == 0 ||
+                auction.getCurrentPrice() >= winnerMaxAmount) {
+            logger.info("Competitive auto-bid reached winner max amount, clearing config");
+            clearAutoBidConfig(auction.getId());
+        }
+    }
+
+    /**
+     * Stores or replaces the auto-bid configuration for an auction.
+     *
+     * <p>Processing: stores the user's auto-bid configuration as the single current config
+     * for the auction and synchronizes the active auction object with the new configuration.</p>
+     *
+     * @param auctionId ID of the auction where auto-bidding is enabled
+     * @param userId ID of the user enabling auto-bidding
+     * @param maxAmount highest amount the system may bid for the user
+     * @param increment amount to add above the current price for each automated bid
+     */
+    public void setAutoBidConfig(int auctionId, int userId, double maxAmount, double increment) {
+        Auction auction = auctionRepository.getActiveAuctionById(auctionId);
+        if (auction != null) {
+            auction.setCurrAutoBidConfig(new AutoBidConfig(userId, maxAmount, increment));
+        }
+    }
+
+    /**
+     * Removes the auto-bid configuration from an auction.
+     *
+     * <p>Processing: removes the auction's configuration and refreshes the active auction's
+     * auto-bid snapshot.</p>
+     *
+     * @param auctionId ID of the auction where auto-bidding should be cleared
+     */
+    public void clearAutoBidConfig(int auctionId) {
+        Auction auction = auctionRepository.getActiveAuctionById(auctionId);
+        if (auction != null) {
+            auction.setCurrAutoBidConfig(null);
+        }
+    }
+
+    /**
+     * Removes the current auto-bid configuration if it belongs to the requested user.
+     *
+     * @param auctionId ID of the auction where auto-bidding should be cleared
+     * @param userId ID of the user whose auto-bid configuration should be removed
+     */
+    public void clearAutoBidConfig(int auctionId, int userId) {
+        AutoBidConfig config = getCurrAutoBidConfig(auctionId);
+        if (config != null && config.getUserId() == userId) {
+            clearAutoBidConfig(auctionId);
+        }
+    }
+
+    /**
+     * Returns the single current auto-bid configuration as a singleton map.
+     *
+     * @param auctionId ID of the auction whose auto-bid configuration should be read
+     * @return singleton map from user ID to auto-bid configuration, or empty map when none exists
+     */
+    public Map<Integer, AutoBidConfig> getAutoBidConfigs(int auctionId) {
+        Map<Integer, AutoBidConfig> result = new HashMap<>();
+        AutoBidConfig config = getCurrAutoBidConfig(auctionId);
+        if (config != null) {
+            result.put(config.getUserId(), config);
+        }
+        return result;
+    }
+
+    /**
+     * Clears the current auto-bid configuration for an auction.
+     *
+     * @param auctionId ID of the auction whose auto-bid configuration should be removed
+     */
+    public void clearAllAutoBidConfigs(int auctionId) {
+        clearAutoBidConfig(auctionId);
+    }
+
+    /**
+     * Checks whether a user has enabled auto-bidding on an auction.
+     *
+     * <p>Processing: looks up the auction's configuration and tests whether it belongs to
+     * the requested user ID.</p>
+     *
+     * @param auctionId ID of the auction to inspect
+     * @param userId ID of the user to check
+     * @return {@code true} if the user currently has the auto-bid configuration on the auction
+     */
+    public boolean hasAutoBidConfig(int auctionId, int userId) {
+        AutoBidConfig config = getCurrAutoBidConfig(auctionId);
+        return config != null && config.getUserId() == userId;
     }
 
     /**
      * Cancels automated bidding for a user on an active auction.
      *
-     * <p>Processing: loads the active auction, removes the user's auto-bid configuration, logs the
-     * cancellation, and notifies auction observers so connected clients can refresh their state.</p>
+     * <p>Processing: loads the active auction, removes the user's auto-bid configuration if it
+     * belongs to them, logs the cancellation, and notifies auction observers so connected clients
+     * can refresh their state.</p>
      *
      * @param userId ID of the user canceling auto-bidding
      * @param auctionId ID of the auction where auto-bidding should be canceled
@@ -348,81 +427,36 @@ public class BidSystem {
             return;
         }
 
-        clearAutoBidConfig(auctionId, userId);
-        logger.info("Auto-bid canceled for user " + userId + " on auction " + auctionId);
-        auction.notifyObservers();
-    }
-
-    /**
-     * Resolves an auction that has multiple active auto-bid configurations.
-     *
-     * <p>Processing: sorts auto-bidders by maximum amount, compares the two strongest bidders,
-     * places the winning bid at the lower of the top maximum and the second maximum plus the top
-     * bidder's increment, then clears all auto-bid configurations for the auction and notifies
-     * observers.</p>
-     *
-     * @param auction auction whose competing auto-bids should be resolved
-     */
-    private void handleMultipleAutoBids(Auction auction) {
-        List<Map.Entry<Integer, AutoBidConfig>> sortedConfigs = getAutoBidConfigs(auction.getId()).entrySet().stream()
-                .sorted(Comparator.comparingDouble((Map.Entry<Integer, AutoBidConfig> e) -> e.getValue().getMaxAmount()).reversed())
-                .collect(Collectors.toList());
-
-        if (sortedConfigs.size() < 2) {
-            logger.warn("handleMultipleAutoBids called with less than 2 auto-bids");
-            return;
+        AutoBidConfig config = auction.getCurrAutoBidConfig();
+        if (config != null && config.getUserId() == userId) {
+            clearAutoBidConfig(auctionId);
+            logger.info("Auto-bid canceled for user " + userId + " on auction " + auctionId);
+            auction.notifyObservers();
+        } else {
+            logger.warn("Cancel auto-bid failed - user " + userId + " does not have auto-bid config on auction " + auctionId);
         }
-
-        Map.Entry<Integer, AutoBidConfig> topBidder = sortedConfigs.get(0);
-        Map.Entry<Integer, AutoBidConfig> secondBidder = sortedConfigs.get(1);
-
-        int topUserId = topBidder.getKey();
-        double topMaxAmount = topBidder.getValue().getMaxAmount();
-        double topIncrement = topBidder.getValue().getIncrement();
-
-        double secondMaxAmount = secondBidder.getValue().getMaxAmount();
-        double finalPrice = Math.min(topMaxAmount, secondMaxAmount + topIncrement);
-
-        logger.info("Competitive auto-bid resolution: User " + topUserId + " wins with price " + finalPrice +
-                          " (max=" + topMaxAmount + ", second_max=" + secondMaxAmount + ", increment=" + topIncrement + ")");
-
-        placeBid(topUserId, auction.getId(), finalPrice);
-
-        clearAllAutoBidConfigs(auction.getId());
-        logger.info("All auto-bids canceled for auction " + auction.getId());
-        auction.notifyObservers();
     }
 
-    /**
-     * Copies the latest auto-bid configuration map into the active auction object.
-     *
-     * <p>Processing: loads the active auction by ID and, when it exists, assigns a defensive copy of
-     * the current auto-bid configurations to that auction.</p>
-     *
-     * @param auctionId ID of the auction whose in-memory auto-bid state should be synchronized
-     */
-    private void syncAuctionAutoBidConfigs(int auctionId) {
+
+    private AutoBidConfig getCurrAutoBidConfig(int auctionId) {
         Auction auction = auctionRepository.getActiveAuctionById(auctionId);
-        if (auction != null) {
-            auction.setAutoBidConfigs(getAutoBidConfigs(auctionId));
-        }
+        return auction == null ? null : auction.getCurrAutoBidConfig();
     }
 
     /**
      * Attempts to place an automatic bid after an auction price change.
      *
-     * <p>Processing: reads the auction's auto-bid configurations, skips processing when none exist,
+     * <p>Processing: reads the auction's auto-bid configuration, skips processing when none exist,
      * uses an atomic guard to avoid recursive auto-bid execution, filters out the current winner,
-     * chooses the candidate with the highest maximum amount, computes the next bid from the current
-     * price plus that user's increment, cancels the configuration if the computed amount exceeds the
-     * user's maximum, and otherwise places the automated bid.</p>
+     * computes the next bid from the current price plus the increment, cancels the configuration
+     * if the computed amount exceeds the maximum, and otherwise places the automated bid.</p>
      *
      * @param auction auction whose price change may trigger an auto-bid
      */
     public void triggerAutoBid(Auction auction) {
         int auctionId = auction.getId();
-        Map<Integer, AutoBidConfig> autoBidConfigs = auctionAutoBidConfigs.get(auctionId);
-        if (autoBidConfigs == null || autoBidConfigs.isEmpty()) {
+        AutoBidConfig config = auction.getCurrAutoBidConfig();
+        if (config == null) {
             return;
         }
 
@@ -432,32 +466,24 @@ public class BidSystem {
         }
 
         try {
-            // Filter out current winner from auto-bid candidates
-            List<Map.Entry<Integer, AutoBidConfig>> candidates = autoBidConfigs.entrySet().stream()
-                    .filter(entry -> !entry.getKey().equals(auction.getWinnerId()))
-                    .sorted(Comparator.comparingDouble((Map.Entry<Integer, AutoBidConfig> e) -> e.getValue().getMaxAmount()).reversed())
-                    .collect(Collectors.toList());
+            int configUserId = config.getUserId();
+            double maxAmount = config.getMaxAmount();
+            double increment = config.getIncrement();
 
-            if (candidates.isEmpty()) {
+            // Filter out current winner from auto-bid candidates
+            if (isCurrentWinner(auction, configUserId)) {
                 return;
             }
 
-            // Get the top bidder by max_amount
-            Map.Entry<Integer, AutoBidConfig> topBidder = candidates.get(0);
-            int winningUserId = topBidder.getKey();
-            double winningMaxAmount = topBidder.getValue().getMaxAmount();
-            double winningIncrement = topBidder.getValue().getIncrement();
-
-            double autoBidAmount = auction.getCurrentPrice() + winningIncrement;
-
-            // Check if auto-bid amount exceeds max_amount
-            if (autoBidAmount > winningMaxAmount) {
-                System.out.println("Auto-bid stopped for user " + winningUserId + " on auction " + auction.getId() +
-                                  ": auto-bid amount (" + autoBidAmount + ") exceeds max_amount (" + winningMaxAmount + ")");
-                clearAutoBidConfig(auctionId, winningUserId);
+            if (auction.getCurrentPrice() >= maxAmount) {
+                System.out.println("Auto-bid stopped for user " + configUserId + " on auction " + auction.getId() +
+                        ": Max amount (" + maxAmount + ") has reached");
+                clearAutoBidConfig(auctionId);
                 auction.notifyObservers();
                 return;
             }
+
+            double autoBidAmount = Math.min(maxAmount, auction.getCurrentPrice() + increment);
 
             // Check if auto-bid amount is higher than current price
             if (autoBidAmount <= auction.getCurrentPrice()) {
@@ -465,10 +491,21 @@ public class BidSystem {
             }
 
             // Place the auto-bid
-            placeBid(winningUserId, auction.getId(), autoBidAmount);
+            placeBid(configUserId, auction.getId(), autoBidAmount);
+
+            if (Double.compare(autoBidAmount, maxAmount) == 0) {
+                System.out.println("Auto-bid stopped for user " + configUserId + " on auction " + auction.getId() +
+                        ": Max amount (" + maxAmount + ") has reached");
+                clearAutoBidConfig(auctionId);
+                auction.notifyObservers();
+            }
         } finally {
             // Reset flag after bid is placed
             isAutoBidding.set(false);
         }
+    }
+
+    private boolean isCurrentWinner(Auction auction, int userId) {
+        return auction.getWinnerId() != null && auction.getWinnerId().equals(userId);
     }
 }

@@ -41,7 +41,7 @@ public class Auction implements Subject, Serializable {
     private AuctionState auctionState;
     private List<BidTransaction> bidHistory;
     private final Set<Integer> observers;
-    private Map<Integer, AutoBidConfig> autoBidConfigs;
+    private AutoBidConfig currAutoBidConfig;
 
     public Auction(int id, Item item, String seller, LocalDateTime startTime, LocalDateTime endTime) {
         this.id = id;
@@ -57,7 +57,7 @@ public class Auction implements Subject, Serializable {
         this.auctionState = AuctionState.OPENING;
         this.bidHistory = new CopyOnWriteArrayList<>();
         this.observers = new CopyOnWriteArraySet<>();
-        this.autoBidConfigs = new HashMap<>();
+        this.currAutoBidConfig = null;
     }
 
     public int getId() {
@@ -89,19 +89,37 @@ public class Auction implements Subject, Serializable {
     }
 
     public Map<Integer, AutoBidConfig> getAutoBidConfigs() {
-        return new HashMap<>(autoBidConfigs);
+        Map<Integer, AutoBidConfig> autoBidConfigs = new HashMap<>();
+        if (currAutoBidConfig != null) {
+            autoBidConfigs.put(currAutoBidConfig.getUserId(), currAutoBidConfig);
+        }
+        return autoBidConfigs;
     }
 
     public void setAutoBidConfigs(Map<Integer, AutoBidConfig> autoBidConfigs) {
-        this.autoBidConfigs = autoBidConfigs == null ? new HashMap<>() : new HashMap<>(autoBidConfigs);
+        this.currAutoBidConfig = null;
+        if (autoBidConfigs != null && !autoBidConfigs.isEmpty()) {
+            this.currAutoBidConfig = autoBidConfigs.values().iterator().next();
+        }
+    }
+
+    public AutoBidConfig getCurrAutoBidConfig() {
+        return currAutoBidConfig;
+    }
+
+    public void setCurrAutoBidConfig(AutoBidConfig currAutoBidConfig) {
+        this.currAutoBidConfig = currAutoBidConfig;
     }
 
     public boolean hasAutoBidConfig(int userId) {
-        return autoBidConfigs.containsKey(userId);
+        return currAutoBidConfig != null && currAutoBidConfig.getUserId() == userId;
     }
 
     public AutoBidConfig getAutoBidConfig(int userId) {
-        return autoBidConfigs.get(userId);
+        if (!hasAutoBidConfig(userId)) {
+            return null;
+        }
+        return currAutoBidConfig;
     }
 
     public String toString() {
