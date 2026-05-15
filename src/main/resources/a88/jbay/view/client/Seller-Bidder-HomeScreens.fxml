@@ -14,13 +14,13 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="892.0" prefWidth="1360.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.SellerBidderHomeScreenController">
+<BorderPane prefHeight="892.0" prefWidth="1315.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.SellerBidderHomeScreenController">
     <center>
-        <TabPane fx:id="mainTabPane" prefHeight="861.0" prefWidth="1360.0" style="-fx-background-color: #C9F7F6;" tabClosingPolicy="UNAVAILABLE">
+        <TabPane fx:id="mainTabPane" prefHeight="861.0" prefWidth="1315.0" style="-fx-background-color: #C9F7F6;" tabClosingPolicy="UNAVAILABLE">
             <tabs>
                 <Tab text="        Seller        ">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="491.0" prefWidth="1360.0" style="-fx-background-color: white;">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="491.0" prefWidth="1315.0" style="-fx-background-color: white;">
                             <children>
                                 <Label layoutX="29.0" layoutY="29.0" text="My Listings">
                                     <font>
@@ -43,7 +43,7 @@
 
                                 <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutY="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
                                     <content>
-                                        <FlowPane fx:id="sellerFlowPane" hgap="15.0" vgap="15.0">
+                                        <FlowPane fx:id="sellerFlowPane" alignment="TOP_CENTER" hgap="15.0" vgap="15.0">
                                             <padding>
                                                 <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                             </padding>
@@ -57,7 +57,7 @@
 
                 <Tab text="         Bidder        ">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="1360.0" style="-fx-background-color: white;">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="1315.0" style="-fx-background-color: white;">
                             <children>
                                 <Label layoutX="37.0" layoutY="30.0" text="Browse Auctions">
                                     <font>
@@ -74,7 +74,7 @@
 
                                 <ScrollPane fitToWidth="true" layoutY="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
                                     <content>
-                                        <FlowPane fx:id="bidderFlowPane" hgap="15.0" vgap="15.0">
+                                        <FlowPane fx:id="bidderFlowPane" alignment="TOP_CENTER" hgap="15.0" vgap="15.0">
                                             <padding>
                                                 <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                             </padding>
