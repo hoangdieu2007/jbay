@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -16,112 +16,131 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="861.0" prefWidth="1327.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.ClientSellerItemController">
-   <children>
-      <StackPane alignment="CENTER" layoutX="26.0" layoutY="135.0" prefHeight="511.0" prefWidth="493.0" style="-fx-border-color: #2196F3; -fx-border-style: dashed; -fx-border-width: 2; -fx-background-color: #f9f9f9;">
+<BorderPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #F4F7F9;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.ClientSellerItemController">
+
+   <top>
+      <HBox alignment="CENTER_LEFT" prefHeight="70.0" spacing="15.0" style="-fx-background-color: linear-gradient(to right, #1E3A8A, #3B82F6); -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets left="20.0" right="30.0" />
+         </padding>
          <children>
-            <ImageView fx:id="itemImageView" fitHeight="511.0" fitWidth="493.0" pickOnBounds="true" preserveRatio="true" />
-         </children>
-      </StackPane>
-
-      <GridPane layoutX="696.0" layoutY="147.0" prefHeight="420.0" prefWidth="563.0">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="149.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="474.0" minWidth="0.0" prefWidth="420.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints maxHeight="126.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="109.0" minHeight="9.0" prefHeight="36.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="109.0" minHeight="9.0" prefHeight="35.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="109.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="109.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <Label contentDisplay="CENTER" text="TYPE" GridPane.rowIndex="4" GridPane.valignment="TOP"><font><Font name="System Bold" size="32.0" /></font></Label>
-            <Label text="Name" GridPane.valignment="TOP"><font><Font name="System Bold" size="32.0" /></font></Label>
-            <Label text="Price" GridPane.rowIndex="1" GridPane.valignment="TOP"><font><Font name="System Bold" size="32.0" /></font></Label>
-            <Label text="Start" GridPane.rowIndex="2" GridPane.valignment="TOP"><font><Font name="System Bold" size="32.0" /></font></Label>
-            <Label text="Run Time" GridPane.rowIndex="3" GridPane.valignment="TOP"><font><Font name="System Bold" size="32.0" /></font></Label>
-
-            <VBox GridPane.columnIndex="1" GridPane.rowIndex="4">
-               <children>
-                  <ComboBox fx:id="typeComboBox" prefHeight="44.0" prefWidth="420.0" promptText="Item Type" style="-fx-font-size: 16px;" />
-                  <Label fx:id="typeErrorLabel" prefHeight="25.0" prefWidth="428.0" style="-fx-text-fill: red;" text="Invalid Type" visible="false"><font><Font name="System Bold" size="16.0" /></font></Label>
-               </children>
-            </VBox>
-
-            <VBox GridPane.columnIndex="1">
-               <children>
-                  <TextField fx:id="nameField" prefHeight="44.0" prefWidth="420.0" promptText="Item Name">
-                     <font>
-                        <Font size="16.0" />
-                     </font></TextField>
-                  <Label fx:id="nameErrorLabel" prefHeight="26.0" prefWidth="451.0" style="-fx-text-fill: red;" text="Invalid Name" visible="false"><font><Font name="System Bold" size="16.0" /></font></Label>
-               </children>
-            </VBox>
-
-            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="87.0" prefWidth="405.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <children>
-                  <TextField fx:id="priceField" prefHeight="44.0" prefWidth="420.0" promptText="Starting Price(USD)">
-                     <font>
-                        <Font size="16.0" />
-                     </font></TextField>
-                  <Label fx:id="priceErrorLabel" prefHeight="25.0" prefWidth="421.0" style="-fx-text-fill: red;" text="Invalid Price" visible="false"><font><Font name="System Bold" size="16.0" /></font></Label>
-               </children>
-            </VBox>
-
-            <VBox GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <children>
-                  <HBox spacing="5">
-                     <children>
-                        <ComboBox fx:id="startChoiceCombo" prefHeight="44.0" prefWidth="80.0" />
-                        <TextField fx:id="startStr" prefHeight="44.0" prefWidth="352.0" promptText="dd/MM HH:mm">
-                           <font>
-                              <Font size="16.0" />
-                           </font></TextField>
-                     </children>
-                  </HBox>
-                  <Label fx:id="startErrorLabel" prefHeight="25.0" prefWidth="423.0" style="-fx-text-fill: red;" text="Invalid Time" visible="false"><font><Font name="System Bold" size="16.0" /></font></Label>
-               </children>
-            </VBox>
-
-            <VBox GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <children>
-                  <HBox spacing="5">
-                     <children>
-                        <ComboBox fx:id="runChoiceCombo" prefHeight="44.0" prefWidth="80.0" />
-                        <TextField fx:id="runStr" prefHeight="44.0" prefWidth="352.0" promptText="Days">
-                           <font>
-                              <Font size="16.0" />
-                           </font></TextField>
-                     </children>
-                  </HBox>
-                  <Label fx:id="endErrorLabel" prefHeight="25.0" prefWidth="516.0" style="-fx-text-fill: red;" text="Invalid Duration" visible="false"><font><Font name="System Bold" size="16.0" /></font></Label>
-               </children>
-            </VBox>
-         </children>
-      </GridPane>
-
-      <HBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="1327.0" style="-fx-background-color: #2196F3;">
-         <children>
-            <Button mnemonicParsing="false" onAction="#handleBack" prefHeight="45.0" prefWidth="96.0" style="-fx-background-color: white; -fx-text-fill: #007bff; -fx-background-radius: 15; -fx-font-weight: bold;" text="BACK">
+            <Button mnemonicParsing="false" onAction="#handleBack" style="-fx-background-color: rgba(255, 255, 255, 0.2); -fx-text-fill: white; -fx-background-radius: 20; -fx-border-color: white; -fx-border-radius: 20; -fx-font-weight: bold; -fx-padding: 8 20; -fx-cursor: hand;" text="⬅ BACK" />
+            <Label style="-fx-text-fill: white;" text="Create / Edit Auction Item">
                <font>
-                  <Font size="18.0" />
-               </font></Button>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
          </children>
-         <padding><Insets left="5.0" /></padding>
       </HBox>
+   </top>
 
-      <Label layoutX="789.0" layoutY="70.0" text=" ITEM INFORMATION">
-         <font><Font name="System Bold Italic" size="36.0" /></font>
-      </Label>
+   <center>
+      <HBox alignment="CENTER" spacing="30.0" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />
+         </padding>
+         <children>
 
-      <TextArea fx:id="descriptionArea" layoutX="690.0" layoutY="561.0" prefHeight="184.0" prefWidth="569.0" promptText="Item Description" wrapText="true">
-         <font>
-            <Font size="16.0" />
-         </font></TextArea>
+            <VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 5); -fx-padding: 30;" HBox.hgrow="NEVER">
+               <children>
+                  <StackPane prefHeight="420.0" prefWidth="420.0" style="-fx-border-color: #CBD5E1; -fx-border-style: dashed; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-color: #F8FAFC; -fx-background-radius: 10;">
+                     <children>
+                        <ImageView fx:id="itemImageView" fitHeight="410.0" fitWidth="410.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </StackPane>
+                  <Button mnemonicParsing="false" onAction="#handleUploadImage" prefHeight="45.0" prefWidth="250.0" style="-fx-background-color: #3B82F6; -fx-text-fill: white; -fx-background-radius: 10; -fx-font-weight: bold; -fx-cursor: hand;" text="📸 Upload Item Image">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
 
-      <Button layoutX="186.0" layoutY="672.0" mnemonicParsing="false" onAction="#handleUploadImage" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="Upload Item Image"><font><Font size="18.0" /></font></Button>
-      <Button layoutX="875.0" layoutY="771.0" mnemonicParsing="false" onAction="#handleSubmit" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="Submit/Create Auction"><font><Font size="18.0" /></font></Button>
-   </children>
-</AnchorPane>
+            <VBox spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 5); -fx-padding: 30;" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label text="Item Information" textFill="#1E293B">
+                     <font>
+                        <Font name="System Bold" size="26.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Label>
+
+                  <GridPane hgap="25.0" vgap="5.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+
+                        <VBox GridPane.columnIndex="0" GridPane.rowIndex="0">
+                           <Label text="Item Name" textFill="#64748B"><font><Font name="System Bold" size="14.0" /></font></Label>
+                           <TextField fx:id="nameField" prefHeight="42.0" promptText="Item Name..." style="-fx-background-radius: 8; -fx-border-color: #CBD5E1; -fx-border-radius: 8; -fx-font-size: 14;" />
+                           <Label fx:id="nameErrorLabel" prefHeight="17.0" prefWidth="146.0" text="Invalid Name" textFill="#EF4444" visible="false"><font><Font size="12.0" /></font></Label>
+                        </VBox>
+
+                        <VBox GridPane.columnIndex="1" GridPane.rowIndex="0">
+                           <Label text="Starting Price (USD)" textFill="#64748B"><font><Font name="System Bold" size="14.0" /></font></Label>
+                           <TextField fx:id="priceField" prefHeight="42.0" promptText="0.00" style="-fx-background-radius: 8; -fx-border-color: #CBD5E1; -fx-border-radius: 8; -fx-font-size: 14;" />
+                           <Label fx:id="priceErrorLabel" prefHeight="17.0" prefWidth="201.0" text="Invalid Price" textFill="#EF4444" visible="false"><font><Font size="12.0" /></font></Label>
+                        </VBox>
+
+                        <VBox GridPane.columnIndex="0" GridPane.rowIndex="1">
+                           <Label text="Category Type" textFill="#64748B"><font><Font name="System Bold" size="14.0" /></font></Label>
+                           <ComboBox fx:id="typeComboBox" prefHeight="42.0" prefWidth="1000.0" promptText="Choose item type" style="-fx-background-radius: 8; -fx-border-color: #CBD5E1; -fx-border-radius: 8; -fx-background-color: white; -fx-font-size: 14;" />
+                           <Label fx:id="typeErrorLabel" prefHeight="17.0" prefWidth="162.0" text="Invalid Type" textFill="#EF4444" visible="false"><font><Font size="12.0" /></font></Label>
+                        </VBox>
+
+                        <VBox GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <Label text="Start Time" textFill="#64748B"><font><Font name="System Bold" size="14.0" /></font></Label>
+                           <HBox spacing="10.0">
+                              <ComboBox fx:id="startChoiceCombo" prefHeight="32.0" prefWidth="45.0" style="-fx-background-radius: 8; -fx-border-color: #CBD5E1; -fx-border-radius: 8; -fx-background-color: white; -fx-font-size: 14;" />
+                              <TextField fx:id="startStr" prefHeight="42.0" promptText="dd/MM HH:mm" style="-fx-background-radius: 8; -fx-border-color: #CBD5E1; -fx-border-radius: 8; -fx-font-size: 14;" HBox.hgrow="ALWAYS" />
+                           </HBox>
+                           <Label fx:id="startErrorLabel" prefHeight="17.0" prefWidth="148.0" text="Invalid Time" textFill="#EF4444" visible="false"><font><Font size="12.0" /></font></Label>
+                        </VBox>
+
+                        <VBox GridPane.columnIndex="0" GridPane.rowIndex="2">
+                           <Label text="Run Duration (Days)" textFill="#64748B"><font><Font name="System Bold" size="14.0" /></font></Label>
+                           <HBox spacing="10.0">
+                              <ComboBox fx:id="runChoiceCombo" prefHeight="32.0" prefWidth="45.0" style="-fx-background-radius: 8; -fx-border-color: #CBD5E1; -fx-border-radius: 8; -fx-background-color: white; -fx-font-size: 14;" />
+                              <TextField fx:id="runStr" prefHeight="32.0" prefWidth="166.0" promptText="Enter Auction Duration" style="-fx-background-radius: 8; -fx-border-color: #CBD5E1; -fx-border-radius: 8; -fx-font-size: 14;" HBox.hgrow="ALWAYS" />
+                           </HBox>
+                           <Label fx:id="endErrorLabel" prefHeight="17.0" prefWidth="196.0" text="Invalid Duration" textFill="#EF4444" visible="false"><font><Font size="12.0" /></font></Label>
+                        </VBox>
+                     </children>
+                  </GridPane>
+
+                  <VBox VBox.vgrow="ALWAYS">
+                     <Label text="Item Description" textFill="#64748B"><font><Font name="System Bold" size="14.0" /></font></Label>
+                     <TextArea fx:id="descriptionArea" promptText="Enter Item Description" style="-fx-background-radius: 8; -fx-border-color: #CBD5E1; -fx-border-radius: 8; -fx-font-size: 14;" wrapText="true" VBox.vgrow="ALWAYS" />
+                  </VBox>
+
+                  <HBox alignment="CENTER_RIGHT" prefHeight="60.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#handleSubmit" prefHeight="45.0" prefWidth="250.0" style="-fx-background-color: #2563EB; -fx-text-fill: white; -fx-background-radius: 10; -fx-font-weight: bold; -fx-cursor: hand;" text="🚀 Submit / Create Auction">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </center>
+</BorderPane>
