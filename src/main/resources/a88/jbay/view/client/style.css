@@ -32,3 +32,48 @@
     -fx-translate-y: 1px;
     -fx-effect: dropshadow(gaussian, rgba(43, 95, 232, 0.3), 5, 0, 0, 1);
 }
+
+/* Card Base Style */
+.bidder-item-card {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #e0e0e0;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+}
+
+/* Card Hover Effect */
+.bidder-item-card:hover {
+    -fx-translate-y: -5px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 15, 0, 0, 5);
+}
+
+/* Status Label Style */
+.status-badge {
+    -fx-background-color: #e0e7ff;
+    -fx-text-fill: #2b5fe8;
+    -fx-background-radius: 5;
+    -fx-padding: 5 10 5 10;
+}
+
+/* Button Base Style */
+.bid-button {
+    -fx-background-color: #2b5fe8;
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-padding: 10;
+    -fx-cursor: hand;
+}
+
+/* Button Hover Effect */
+.bid-button:hover {
+    -fx-background-color: #3b6ff8;
+    -fx-translate-y: -2px;
+    -fx-effect: dropshadow(gaussian, rgba(43, 95, 232, 0.6), 10, 0, 0, 3);
+}
+
+/* Button Press Effect */
+.bid-button:pressed {
+    -fx-translate-y: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(43, 95, 232, 0.3), 5, 0, 0, 1);
+}
