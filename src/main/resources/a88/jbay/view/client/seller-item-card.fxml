@@ -8,16 +8,17 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <VBox alignment="BOTTOM_CENTER" fillWidth="false" prefHeight="440.0" prefWidth="302.0" spacing="10.0" styleClass="item-card" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.SellerItemCardController">
     <children>
-        <StackPane prefHeight="200.0" prefWidth="281.0" VBox.vgrow="NEVER">
-            <VBox.margin>
-                <Insets left="8.0" right="8.0" top="8.0" />
-            </VBox.margin>
+        <StackPane prefHeight="200.0" prefWidth="302.0" VBox.vgrow="NEVER">
+            <clip>
+                <Rectangle arcHeight="20.0" arcWidth="20.0" height="200.0" width="302.0" />
+            </clip>
             <children>
-                <ImageView fx:id="sellerImage" fitHeight="200.0" fitWidth="281.0" pickOnBounds="true" preserveRatio="true" />
+                <ImageView fx:id="sellerImage" fitHeight="200.0" fitWidth="302.0" pickOnBounds="true" preserveRatio="true" />
             </children>
         </StackPane>
 
