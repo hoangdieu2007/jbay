@@ -22,16 +22,16 @@
           <center>
               <TabPane fx:id="mainTabPane" prefHeight="861.0" prefWidth="1350.0" style="-fx-background-color: #C9F7F6;" tabClosingPolicy="UNAVAILABLE">
                   <tabs>
-                      <Tab text="        Seller        ">
+                      <Tab style="-fx-font-size: 18;" text="        My Listings      ">
                           <content>
                               <AnchorPane style="-fx-background-color: white;">
                                   <children>
-                                      <Label layoutX="83.0" layoutY="32.0" text="My Listings">
+                                      <Label layoutX="81.0" layoutY="27.0" prefHeight="47.0" prefWidth="155.0" style="-fx-font-family: Poppins;" text="My Listings">
                                           <font>
-                                              <Font name="Arial Bold" size="28.0" />
+                                              <Font name="Arial Hebrew Bold" size="28.0" />
                                           </font>
                                       </Label>
-                                      <Label layoutX="83.0" layoutY="62.0" text="Manage your auction items" />
+                                      <Label layoutX="81.0" layoutY="73.0" text="Manage your auction items" />
       
                                       <TextField fx:id="sellerSearchField" prefHeight="36.0" prefWidth="272.0" promptText="Search" styleClass="search-field" AnchorPane.rightAnchor="190.0" AnchorPane.topAnchor="34.0">
                                           <font>
@@ -58,14 +58,14 @@
                                               </VBox>
                                           </content>
                                       </ScrollPane>
-                              <Region layoutX="26.0" layoutY="32.0" prefHeight="40.0" prefWidth="46.0" style="-fx-shape: &quot;M192-144v-72h432v72H192Zm204-195L192-542l85-85 203 204-84 84Zm237-237L430-779l84-85 204 204-85 84Zm180 384L327-678l51-51 486 486-51 51Z&quot;; -fx-background-color: black;" />
+                              <Region layoutX="22.0" layoutY="40.0" prefHeight="48.0" prefWidth="48.0" style="-fx-shape: &quot;M192-144v-72h432v72H192Zm204-195L192-542l85-85 203 204-84 84Zm237-237L430-779l84-85 204 204-85 84Zm180 384L327-678l51-51 486 486-51 51Z&quot;; -fx-background-color: black;" />
                               <Region layoutX="1122.0" layoutY="42.0" prefHeight="21.0" prefWidth="23.0" style="-fx-shape: &quot;M765-144 526-383q-30 22-65.79 34.5-35.79 12.5-76.18 12.5Q284-336 214-406t-70-170q0-100 70-170t170-70q100 0 170 70t70 170.03q0 40.39-12.5 76.18Q599-464 577-434l239 239-51 51ZM384-408q70 0 119-49t49-119q0-70-49-119t-119-49q-70 0-119 49t-49 119q0 70 49 119t119 49Z&quot;; -fx-background-color: gray;" />
                                   </children>
                               </AnchorPane>
                           </content>
                       </Tab>
       
-                      <Tab text="         Bidder        ">
+                      <Tab style="-fx-font-size: 18;" text="         Ongoing Auctions       ">
                           <content>
                               <AnchorPane style="-fx-background-color: white;">
                                   <children>
@@ -95,7 +95,7 @@
                                               </VBox>
                                           </content>
                                       </ScrollPane>
-                              <Region layoutX="27.0" layoutY="38.0" prefHeight="39.0" prefWidth="43.0" style="-fx-shape: &quot;m312-312 264-72 72-264-264 72-72 264Zm168-120q-20 1-34-13.5T432-480q0-20 14-34t34-14q20 0 34 14t14 34q0 20-14 34t-34 14Zm.28 336Q401-96 331-126t-122.5-82.5Q156-261 126-330.96t-30-149.5Q96-560 126-629.5q30-69.5 82.5-122T330.96-834q69.96-30 149.5-30t149.04 30q69.5 30 122 82.5T834-629.28q30 69.73 30 149Q864-401 834-331t-82.5 122.5Q699-156 629.28-126q-69.73 30-149 30Zm-.05-72Q610-168 701-259.23t91-221Q792-610 700.77-701t-221-91Q350-792 259-700.77t-91 221Q168-350 259.23-259t221 91ZM480-480Z&quot;; -fx-background-color: black;" />
+                              <Region layoutX="27.0" layoutY="38.0" prefHeight="39.0" prefWidth="39.0" style="-fx-shape: &quot;m312-312 264-72 72-264-264 72-72 264Zm168-120q-20 1-34-13.5T432-480q0-20 14-34t34-14q20 0 34 14t14 34q0 20-14 34t-34 14Zm.28 336Q401-96 331-126t-122.5-82.5Q156-261 126-330.96t-30-149.5Q96-560 126-629.5q30-69.5 82.5-122T330.96-834q69.96-30 149.5-30t149.04 30q69.5 30 122 82.5T834-629.28q30 69.73 30 149Q864-401 834-331t-82.5 122.5Q699-156 629.28-126q-69.73 30-149 30Zm-.05-72Q610-168 701-259.23t91-221Q792-610 700.77-701t-221-91Q350-792 259-700.77t-91 221Q168-350 259.23-259t221 91ZM480-480Z&quot;; -fx-background-color: black;" />
                               <Region layoutX="1286.0" layoutY="40.0" prefHeight="25.0" prefWidth="26.0" style="-fx-shape: &quot;M765-144 526-383q-30 22-65.79 34.5-35.79 12.5-76.18 12.5Q284-336 214-406t-70-170q0-100 70-170t170-70q100 0 170 70t70 170.03q0 40.39-12.5 76.18Q599-464 577-434l239 239-51 51ZM384-408q70 0 119-49t49-119q0-70-49-119t-119-49q-70 0-119 49t-49 119q0 70 49 119t119 49Z&quot;; -fx-background-color: gray;" />
                                   </children>
                               </AnchorPane>
@@ -123,7 +123,7 @@
                      </font>
                   </Button>
                       <Region prefHeight="31.0" prefWidth="1010.0" HBox.hgrow="ALWAYS" />
-                      <Button fx:id="btnLogOut" mnemonicParsing="false" onAction="#handleLogOut" styleClass="logout-button" text="LOG OUT">
+                      <Button fx:id="btnLogOut" mnemonicParsing="false" onAction="#handleLogOut" style="-fx-background-color: #000250;" styleClass="logout-button" text="LOG OUT">
                           <font>
                               <Font name="System Bold" size="12.0" />
                           </font>
