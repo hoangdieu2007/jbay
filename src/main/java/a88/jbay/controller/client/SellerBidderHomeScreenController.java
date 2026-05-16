@@ -8,14 +8,17 @@ import a88.jbay.common.network.Request;
 import a88.jbay.common.network.RequestType;
 import a88.jbay.util.JBayLogger;
 import a88.jbay.view.ViewManager;
+import javafx.animation.TranslateTransition;
 import javafx.collections.*;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.*;
@@ -35,6 +38,31 @@ public class SellerBidderHomeScreenController {
             throw new RuntimeException(e);
         }
     }
+
+    @FXML
+    private AnchorPane sliderMenu;
+
+    private boolean isMenuOpen = false;
+
+    @FXML
+    public void handleMenuToggle() {
+        // Set animation duration to 0.3 seconds
+        TranslateTransition transition = new TranslateTransition(Duration.seconds(0.3), sliderMenu);
+
+        if (isMenuOpen) {
+            // Menu is open, slide it back out of view to the left
+            transition.setToX(-250);
+            isMenuOpen = false;
+        } else {
+            // Menu is closed, slide it into view to the 0 position
+            transition.setToX(0);
+            isMenuOpen = true;
+        }
+
+        transition.play();
+    }
+
+
 
     //UserName
     @FXML private Label lblUserName;
