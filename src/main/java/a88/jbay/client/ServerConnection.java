@@ -56,6 +56,10 @@ public class ServerConnection {
 
     //methods for sending requests
     public void send(Request request) throws IOException {
+        if (out == null) {
+            throw new IOException("Not connected to server. Please connect first.");
+        }
+
         logger.info("Sending request: " + request.getType().name());
 
         //automatically add sessionId
