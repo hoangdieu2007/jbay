@@ -2754,3 +2754,882 @@ java.net.SocketException: Socket closed
 2026-05-16 18:17:27.754 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
 2026-05-16 18:17:36.839 [] DEBUG a88.jbay.system.user.UserSystem - Logout: aec52a83-7cb0-4847-b75c-eff27efdfa94
 2026-05-16 18:17:36.839 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:19.366 [main] INFO  a88.jbay.view.MainServerTUI - JBAY Server TUI starting
+2026-05-16 19:03:19.368 [main] INFO  a88.jbay.view.MainServerTUI - ------------------JBAY_SERVER_TUI-----------------
+2026-05-16 19:03:19.368 [main] INFO  a88.jbay.view.MainServerTUI - --------------software infrastructure-------------
+2026-05-16 19:03:19.370 [main] INFO  a88.jbay.view.MainServerTUI - Connect to database:
+2026-05-16 19:03:19.371 [main] INFO  a88.jbay.view.MainServerTUI - Enter URL:
+2026-05-16 19:03:32.802 [main] INFO  a88.jbay.view.MainServerTUI - Enter username:
+2026-05-16 19:03:34.469 [main] INFO  a88.jbay.view.MainServerTUI - Enter password:
+2026-05-16 19:03:36.217 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-05-16 19:03:36.639 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3eb81efb
+2026-05-16 19:03:36.640 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-05-16 19:03:36.641 [main] INFO  a88.jbay.server.DatabaseController - Database connection pool initialized with URL: jdbc:mysql://localhost:3306/jbay_db
+2026-05-16 19:03:36.641 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:36.650 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:36.695 [main] INFO  a.jbay.repository.AuctionRepository - Loading 1 active auctions from database
+2026-05-16 19:03:36.695 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:36.713 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:36.717 [main] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 6 - one piece - State: RUNNING
+2026-05-16 19:03:36.718 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:36.720 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:36.722 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:36.723 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:36.724 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:36.728 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:36.729 [main] INFO  a.jbay.repository.AuctionRepository - Loading 1 active auctions from database
+2026-05-16 19:03:36.729 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:36.738 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:36.738 [main] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 6 - one piece - State: RUNNING
+2026-05-16 19:03:36.738 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:36.740 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:36.741 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:36.741 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:36.742 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:52.610 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connecting to server: localhost:1234
+2026-05-16 19:03:52.613 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connection successful to server: localhost:1234
+2026-05-16 19:03:52.614 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-16 19:03:52.623 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-16 19:03:52.625 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-16 19:03:52.714 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-16 19:03:57.706 [ForkJoinPool.commonPool-worker-1] INFO  a88.jbay.client.ServerConnection - Sending request: LOGIN
+2026-05-16 19:03:57.707 [] DEBUG a88.jbay.system.user.UserSystem - Login attempt: hxd
+2026-05-16 19:03:57.708 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.712 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.719 [] INFO  a88.jbay.server.ClientConnection - Sending response: LOGIN_SUCCESS
+2026-05-16 19:03:57.722 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: LOGIN_SUCCESS
+2026-05-16 19:03:57.722 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - Displaying home screen
+2026-05-16 19:03:57.791 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 0 auctions
+2026-05-16 19:03:57.791 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 0 auctions
+2026-05-16 19:03:57.884 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: GET_AUCTIONS
+2026-05-16 19:03:57.886 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.887 [] INFO  a88.jbay.server.ClientConnection - Sending response: ACTIVE_AUCTION_LIST
+2026-05-16 19:03:57.905 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.906 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: ACTIVE_AUCTION_LIST
+2026-05-16 19:03:57.910 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.912 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.914 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.916 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 4 - Nhà trọ NASA - State: CANCELED
+2026-05-16 19:03:57.916 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.918 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.920 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.921 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.922 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.923 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.924 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.925 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.927 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.928 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.930 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.933 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.946 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.947 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 7 - HG Star Build Strike Gundam - State: FINISHED
+2026-05-16 19:03:57.948 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.950 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.951 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.952 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.953 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.954 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.954 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.955 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.956 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.956 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.957 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.958 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.959 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.959 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.960 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.961 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 16 - mi li xon - State: CANCELED
+2026-05-16 19:03:57.961 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.961 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.963 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.964 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.965 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.966 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.966 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.968 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.968 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.969 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.971 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.972 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.973 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.977 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.979 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 22 - treeeeeeeeeeeeeeeeeeeeeee - State: FINISHED
+2026-05-16 19:03:57.980 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.981 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.982 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.983 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.984 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.985 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.990 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.992 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 25 - thousand sunny - State: FINISHED
+2026-05-16 19:03:57.992 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.992 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.994 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.994 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.995 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.996 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.997 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.998 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 26 - cây nhị phân - State: FINISHED
+2026-05-16 19:03:57.998 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:57.999 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.000 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.000 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.001 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.002 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.003 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.004 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 28 - queue - State: CANCELED
+2026-05-16 19:03:58.004 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.005 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.005 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.005 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.006 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.007 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.008 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 29 - đồ thị - State: CANCELED
+2026-05-16 19:03:58.008 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.009 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.010 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.010 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.011 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.011 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.012 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.012 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.013 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.013 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.015 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.015 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.016 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.016 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.022 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.023 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 33 - minecraft - State: FINISHED
+2026-05-16 19:03:58.023 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.025 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.025 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.025 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.026 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.026 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.026 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.028 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.028 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.028 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.029 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.030 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.031 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.032 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.032 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.033 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.033 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.034 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.041 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.042 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 36 - Dark Soul - State: FINISHED
+2026-05-16 19:03:58.042 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.043 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.045 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.046 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.047 [] INFO  a88.jbay.server.ClientConnection - Sending response: BIDDER_AUCTION_LIST
+2026-05-16 19:03:58.074 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BIDDER_AUCTION_LIST
+2026-05-16 19:03:58.074 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.077 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.078 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.084 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.085 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 1 - iphone - State: FINISHED
+2026-05-16 19:03:58.085 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.086 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.087 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.087 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.088 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.088 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.089 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.089 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.090 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.090 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.091 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.091 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.092 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.092 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.093 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.093 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.094 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.094 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.094 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.094 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.095 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.096 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.097 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.097 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.098 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 3 - sua mixi - State: FINISHED
+2026-05-16 19:03:58.098 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.098 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.100 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.100 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.101 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.101 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.102 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.102 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.104 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.106 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.106 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 10 - Duc - State: CANCELED
+2026-05-16 19:03:58.107 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.108 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.108 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.109 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.110 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.110 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.111 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.112 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.113 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 27 - stack - State: FINISHED
+2026-05-16 19:03:58.113 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.114 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.115 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.116 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.117 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.118 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.121 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.122 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 30 - merge sort - State: FINISHED
+2026-05-16 19:03:58.122 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.122 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.124 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.125 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.125 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.126 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.126 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.126 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.128 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.129 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.130 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.130 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 31 - floyd warshall - State: FINISHED
+2026-05-16 19:03:58.130 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.131 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.131 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.132 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.133 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.141 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.142 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 32 - mặt trăng - State: FINISHED
+2026-05-16 19:03:58.142 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.143 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.143 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.143 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.144 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.145 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.145 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.146 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.147 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.148 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.149 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 38 - very long nameeeeeeeeeeeeeeeeeeeeeeeeeeeeeee - State: FINISHED
+2026-05-16 19:03:58.149 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.150 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.150 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.152 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.152 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 39 - messenger - State: FINISHED
+2026-05-16 19:03:58.152 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.153 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.154 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.155 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:03:58.156 [] INFO  a88.jbay.server.ClientConnection - Sending response: SELLER_AUCTION_LIST
+2026-05-16 19:03:58.178 [] INFO  a88.jbay.server.ClientConnection - Sending response: GET_AUCTIONS_SUCCESS
+2026-05-16 19:03:58.178 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: SELLER_AUCTION_LIST
+2026-05-16 19:03:58.178 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: GET_AUCTIONS_SUCCESS
+2026-05-16 19:03:58.743 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 32 - FINISHED
+2026-05-16 19:03:58.744 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 33 - FINISHED
+2026-05-16 19:03:58.744 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 1 - FINISHED
+2026-05-16 19:03:58.744 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 3 - FINISHED
+2026-05-16 19:03:58.744 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 4 - CANCELED
+2026-05-16 19:03:58.744 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 36 - FINISHED
+2026-05-16 19:03:58.744 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 38 - FINISHED
+2026-05-16 19:03:58.744 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 7 - FINISHED
+2026-05-16 19:03:58.744 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 39 - FINISHED
+2026-05-16 19:03:58.744 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 10 - CANCELED
+2026-05-16 19:03:58.744 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 16 - CANCELED
+2026-05-16 19:03:58.744 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 22 - FINISHED
+2026-05-16 19:03:58.744 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 25 - FINISHED
+2026-05-16 19:03:58.744 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 26 - FINISHED
+2026-05-16 19:03:58.744 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 27 - FINISHED
+2026-05-16 19:03:58.744 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 28 - CANCELED
+2026-05-16 19:03:58.744 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 29 - CANCELED
+2026-05-16 19:03:58.744 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 30 - FINISHED
+2026-05-16 19:03:58.744 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 31 - FINISHED
+2026-05-16 19:04:01.458 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - GET_AUCTIONS_SUCCESS
+2026-05-16 19:04:02.615 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-16 19:04:02.615 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-16 19:04:02.616 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-16 19:04:02.616 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-16 19:04:10.621 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: MISC
+2026-05-16 19:04:10.622 [] DEBUG a88.jbay.system.user.UserSystem - Logout: 6ff2b362-b96e-4b85-a2e7-dba1ab4c2e4e
+2026-05-16 19:04:10.623 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:04:10.623 [Thread-4] ERROR a88.jbay.client.ServerConnection - Disconnected from server: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.endRead(NioSocketImpl.java:242)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:321)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:354)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:798)
+	at java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:974)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:964)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:958)
+	at java.base/java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2740)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:3069)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:3079)
+	at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1571)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:487)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:445)
+	at a88.jbay@0.1-ALPHA/a88.jbay.client.ServerConnection.lambda$startListener$0(ServerConnection.java:86)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-16 19:04:10.624 [Thread-4] INFO  a88.jbay.client.ServerConnection - Listener thread ended
+2026-05-16 19:05:07.078 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connecting to server: localhost:1234
+2026-05-16 19:05:07.079 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connection successful to server: localhost:1234
+2026-05-16 19:05:07.081 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-16 19:05:07.082 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-16 19:05:07.084 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-16 19:05:07.175 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-16 19:05:12.840 [ForkJoinPool.commonPool-worker-1] INFO  a88.jbay.client.ServerConnection - Sending request: LOGIN
+2026-05-16 19:05:12.841 [] DEBUG a88.jbay.system.user.UserSystem - Login attempt: hxd
+2026-05-16 19:05:12.841 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:12.842 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:12.846 [] INFO  a88.jbay.server.ClientConnection - Sending response: LOGIN_SUCCESS
+2026-05-16 19:05:12.848 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: LOGIN_SUCCESS
+2026-05-16 19:05:12.849 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - Displaying home screen
+2026-05-16 19:05:12.904 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 0 auctions
+2026-05-16 19:05:12.905 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 0 auctions
+2026-05-16 19:05:12.997 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: GET_AUCTIONS
+2026-05-16 19:05:12.999 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.000 [] INFO  a88.jbay.server.ClientConnection - Sending response: ACTIVE_AUCTION_LIST
+2026-05-16 19:05:13.016 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.017 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: ACTIVE_AUCTION_LIST
+2026-05-16 19:05:13.019 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.021 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.023 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.024 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 4 - Nhà trọ NASA - State: CANCELED
+2026-05-16 19:05:13.024 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.026 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.027 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.028 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.029 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.030 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.031 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.032 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.032 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.033 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.034 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.034 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.043 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.045 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 7 - HG Star Build Strike Gundam - State: FINISHED
+2026-05-16 19:05:13.045 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.047 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.048 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.049 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.050 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.051 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.053 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.053 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.054 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.055 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.056 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.056 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.058 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.059 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.061 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.062 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 16 - mi li xon - State: CANCELED
+2026-05-16 19:05:13.062 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.063 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.065 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.065 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.066 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.066 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.067 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.068 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.068 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.068 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.069 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.070 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.071 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.073 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.075 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 22 - treeeeeeeeeeeeeeeeeeeeeee - State: FINISHED
+2026-05-16 19:05:13.075 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.076 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.076 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.078 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.078 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.079 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.081 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.083 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 25 - thousand sunny - State: FINISHED
+2026-05-16 19:05:13.083 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.083 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.085 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.085 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.086 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.088 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.089 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.089 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 26 - cây nhị phân - State: FINISHED
+2026-05-16 19:05:13.089 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.091 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.092 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.093 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.093 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.095 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.096 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.097 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 28 - queue - State: CANCELED
+2026-05-16 19:05:13.097 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.098 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.100 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.100 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.101 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.103 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.104 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 29 - đồ thị - State: CANCELED
+2026-05-16 19:05:13.104 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.106 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.106 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.107 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.108 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.109 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.109 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.110 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.110 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.110 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.111 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.112 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.113 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.113 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.118 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.119 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 33 - minecraft - State: FINISHED
+2026-05-16 19:05:13.119 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.120 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.120 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.120 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.121 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.122 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.122 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.123 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.123 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.123 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.124 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.124 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.124 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.125 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.126 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.126 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.127 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.127 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.133 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.134 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 36 - Dark Soul - State: FINISHED
+2026-05-16 19:05:13.134 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.135 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.136 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.136 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.136 [] INFO  a88.jbay.server.ClientConnection - Sending response: BIDDER_AUCTION_LIST
+2026-05-16 19:05:13.159 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.159 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BIDDER_AUCTION_LIST
+2026-05-16 19:05:13.161 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.162 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.165 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.166 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 1 - iphone - State: FINISHED
+2026-05-16 19:05:13.166 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.167 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.168 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.168 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.168 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.169 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.170 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.170 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.170 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.170 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.171 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.172 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.172 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.172 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.172 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.173 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.173 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.174 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.174 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.175 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.175 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.175 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.176 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.177 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.177 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 3 - sua mixi - State: FINISHED
+2026-05-16 19:05:13.177 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.178 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.178 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.178 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.179 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.179 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.180 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.180 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.180 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.182 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.182 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 10 - Duc - State: CANCELED
+2026-05-16 19:05:13.182 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.182 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.183 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.183 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.184 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.184 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.185 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.185 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.186 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 27 - stack - State: FINISHED
+2026-05-16 19:05:13.186 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.186 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.187 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.188 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.189 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.189 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.190 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.191 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 30 - merge sort - State: FINISHED
+2026-05-16 19:05:13.191 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.193 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.194 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.195 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.196 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.197 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.197 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.197 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.198 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.199 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.200 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.200 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 31 - floyd warshall - State: FINISHED
+2026-05-16 19:05:13.200 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.201 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.201 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.202 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.203 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.205 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.206 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 32 - mặt trăng - State: FINISHED
+2026-05-16 19:05:13.206 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.207 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.207 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.207 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.209 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.209 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.210 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.210 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.211 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.211 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.211 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 38 - very long nameeeeeeeeeeeeeeeeeeeeeeeeeeeeeee - State: FINISHED
+2026-05-16 19:05:13.211 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.212 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.212 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.213 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.213 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 39 - messenger - State: FINISHED
+2026-05-16 19:05:13.213 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.214 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.214 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.215 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:13.215 [] INFO  a88.jbay.server.ClientConnection - Sending response: SELLER_AUCTION_LIST
+2026-05-16 19:05:13.227 [] INFO  a88.jbay.server.ClientConnection - Sending response: GET_AUCTIONS_SUCCESS
+2026-05-16 19:05:13.227 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: SELLER_AUCTION_LIST
+2026-05-16 19:05:13.229 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: GET_AUCTIONS_SUCCESS
+2026-05-16 19:05:13.743 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 32 - FINISHED
+2026-05-16 19:05:13.743 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 33 - FINISHED
+2026-05-16 19:05:13.743 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 1 - FINISHED
+2026-05-16 19:05:13.743 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 3 - FINISHED
+2026-05-16 19:05:13.743 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 4 - CANCELED
+2026-05-16 19:05:13.743 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 36 - FINISHED
+2026-05-16 19:05:13.743 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 38 - FINISHED
+2026-05-16 19:05:13.743 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 7 - FINISHED
+2026-05-16 19:05:13.743 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 39 - FINISHED
+2026-05-16 19:05:13.743 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 10 - CANCELED
+2026-05-16 19:05:13.743 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 16 - CANCELED
+2026-05-16 19:05:13.743 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 22 - FINISHED
+2026-05-16 19:05:13.743 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 25 - FINISHED
+2026-05-16 19:05:13.743 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 26 - FINISHED
+2026-05-16 19:05:13.743 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 27 - FINISHED
+2026-05-16 19:05:13.743 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 28 - CANCELED
+2026-05-16 19:05:13.743 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 29 - CANCELED
+2026-05-16 19:05:13.743 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 30 - FINISHED
+2026-05-16 19:05:13.743 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 31 - FINISHED
+2026-05-16 19:05:16.372 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - GET_AUCTIONS_SUCCESS
+2026-05-16 19:05:17.080 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-16 19:05:17.081 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-16 19:05:17.081 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-16 19:05:17.081 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-16 19:05:27.081 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-16 19:05:27.082 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-16 19:05:27.082 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-16 19:05:27.082 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-16 19:05:30.744 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: LOGOUT
+2026-05-16 19:05:30.744 [] DEBUG a88.jbay.system.user.UserSystem - Logout: f44f8a0d-c02e-4d24-a10d-86247aff7956
+2026-05-16 19:05:30.744 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:30.749 [] INFO  a88.jbay.server.ClientConnection - Sending response: LOGOUT_SUCCESS
+2026-05-16 19:05:30.749 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: LOGOUT_SUCCESS
+2026-05-16 19:05:30.763 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Session has been cleared
+2026-05-16 19:05:37.080 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-16 19:05:37.081 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-16 19:05:37.081 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-16 19:05:37.081 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-16 19:05:37.564 [ForkJoinPool.commonPool-worker-1] INFO  a88.jbay.client.ServerConnection - Sending request: LOGIN
+2026-05-16 19:05:37.565 [] DEBUG a88.jbay.system.user.UserSystem - Login attempt: hxd
+2026-05-16 19:05:37.565 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.566 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.570 [] INFO  a88.jbay.server.ClientConnection - Sending response: LOGIN_SUCCESS
+2026-05-16 19:05:37.570 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: LOGIN_SUCCESS
+2026-05-16 19:05:37.570 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - Displaying home screen
+2026-05-16 19:05:37.590 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 0 auctions
+2026-05-16 19:05:37.591 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 0 auctions
+2026-05-16 19:05:37.633 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: GET_AUCTIONS
+2026-05-16 19:05:37.634 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.635 [] INFO  a88.jbay.server.ClientConnection - Sending response: ACTIVE_AUCTION_LIST
+2026-05-16 19:05:37.643 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.643 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: ACTIVE_AUCTION_LIST
+2026-05-16 19:05:37.645 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.646 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.647 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.648 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 4 - Nhà trọ NASA - State: CANCELED
+2026-05-16 19:05:37.648 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.650 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.651 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.652 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.653 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.653 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.654 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.654 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.655 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.655 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.656 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.657 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.660 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.661 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 7 - HG Star Build Strike Gundam - State: FINISHED
+2026-05-16 19:05:37.661 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.662 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.662 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.662 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.663 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.663 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.664 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.664 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.665 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.665 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.666 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.666 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.667 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.668 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.669 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.669 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 16 - mi li xon - State: CANCELED
+2026-05-16 19:05:37.669 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.670 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.671 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.671 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.673 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.673 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.673 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.674 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.674 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.675 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.676 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.676 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.677 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.679 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.679 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 22 - treeeeeeeeeeeeeeeeeeeeeee - State: FINISHED
+2026-05-16 19:05:37.680 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.681 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.682 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.683 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.683 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.684 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.685 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.686 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 25 - thousand sunny - State: FINISHED
+2026-05-16 19:05:37.686 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.686 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.687 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.688 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.688 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.688 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.689 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.690 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 26 - cây nhị phân - State: FINISHED
+2026-05-16 19:05:37.690 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.690 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.691 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.691 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.692 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.692 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.693 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.693 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 28 - queue - State: CANCELED
+2026-05-16 19:05:37.693 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.693 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.694 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.695 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.695 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.696 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.696 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 29 - đồ thị - State: CANCELED
+2026-05-16 19:05:37.696 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.697 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.697 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.698 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.698 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.699 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.699 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.699 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.700 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.700 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.700 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.701 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.701 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.702 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.705 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.706 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 33 - minecraft - State: FINISHED
+2026-05-16 19:05:37.706 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.707 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.708 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.708 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.709 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.710 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.710 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.710 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.710 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.711 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.712 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.712 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.712 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.713 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.713 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.713 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.714 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.714 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.715 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.716 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 36 - Dark Soul - State: FINISHED
+2026-05-16 19:05:37.716 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.716 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.716 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.717 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.717 [] INFO  a88.jbay.server.ClientConnection - Sending response: BIDDER_AUCTION_LIST
+2026-05-16 19:05:37.741 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.741 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BIDDER_AUCTION_LIST
+2026-05-16 19:05:37.743 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.743 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 33 - FINISHED
+2026-05-16 19:05:37.743 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 4 - CANCELED
+2026-05-16 19:05:37.743 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.743 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 36 - FINISHED
+2026-05-16 19:05:37.743 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 7 - FINISHED
+2026-05-16 19:05:37.743 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 16 - CANCELED
+2026-05-16 19:05:37.743 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 22 - FINISHED
+2026-05-16 19:05:37.743 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 25 - FINISHED
+2026-05-16 19:05:37.743 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 26 - FINISHED
+2026-05-16 19:05:37.743 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 28 - CANCELED
+2026-05-16 19:05:37.743 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 29 - CANCELED
+2026-05-16 19:05:37.745 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.745 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 1 - iphone - State: FINISHED
+2026-05-16 19:05:37.745 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.746 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.746 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.747 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.747 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.747 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.748 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.748 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.748 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.749 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.749 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.749 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.750 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.750 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.750 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.750 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.751 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.751 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.751 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.752 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.752 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.752 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.753 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.753 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.754 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 3 - sua mixi - State: FINISHED
+2026-05-16 19:05:37.754 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.754 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.755 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.755 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.755 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.755 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.755 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.756 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.756 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.758 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.758 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 10 - Duc - State: CANCELED
+2026-05-16 19:05:37.758 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.759 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.759 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.759 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.760 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.760 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.760 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.761 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.761 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 27 - stack - State: FINISHED
+2026-05-16 19:05:37.761 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.762 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.762 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.763 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.763 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.763 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.764 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.764 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 30 - merge sort - State: FINISHED
+2026-05-16 19:05:37.764 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.765 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.765 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.766 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.766 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.767 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.767 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.767 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.768 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.768 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.769 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.769 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 31 - floyd warshall - State: FINISHED
+2026-05-16 19:05:37.769 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.770 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.770 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.771 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.772 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.774 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.775 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 32 - mặt trăng - State: FINISHED
+2026-05-16 19:05:37.775 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.775 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.776 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.776 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.776 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.776 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.777 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.777 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.777 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.778 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.779 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 38 - very long nameeeeeeeeeeeeeeeeeeeeeeeeeeeeeee - State: FINISHED
+2026-05-16 19:05:37.779 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.779 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.780 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.781 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.781 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 39 - messenger - State: FINISHED
+2026-05-16 19:05:37.781 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.781 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.782 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.782 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:37.783 [] INFO  a88.jbay.server.ClientConnection - Sending response: SELLER_AUCTION_LIST
+2026-05-16 19:05:37.798 [] INFO  a88.jbay.server.ClientConnection - Sending response: GET_AUCTIONS_SUCCESS
+2026-05-16 19:05:37.798 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: SELLER_AUCTION_LIST
+2026-05-16 19:05:37.799 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: GET_AUCTIONS_SUCCESS
+2026-05-16 19:05:38.744 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 32 - FINISHED
+2026-05-16 19:05:38.744 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 1 - FINISHED
+2026-05-16 19:05:38.744 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 3 - FINISHED
+2026-05-16 19:05:38.744 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 38 - FINISHED
+2026-05-16 19:05:38.744 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 39 - FINISHED
+2026-05-16 19:05:38.744 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 10 - CANCELED
+2026-05-16 19:05:38.744 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 27 - FINISHED
+2026-05-16 19:05:38.744 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 30 - FINISHED
+2026-05-16 19:05:38.744 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 31 - FINISHED
+2026-05-16 19:05:40.540 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - GET_AUCTIONS_SUCCESS
+2026-05-16 19:05:45.760 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: MISC
+2026-05-16 19:05:45.761 [] DEBUG a88.jbay.system.user.UserSystem - Logout: a5dfde55-e08a-455d-977e-f3b43b4fdf26
+2026-05-16 19:05:45.761 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-16 19:05:45.762 [Thread-4] ERROR a88.jbay.client.ServerConnection - Disconnected from server: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.endRead(NioSocketImpl.java:242)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:321)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:354)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:798)
+	at java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:974)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:964)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:958)
+	at java.base/java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2740)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:3069)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:3079)
+	at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1571)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:487)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:445)
+	at a88.jbay@0.1-ALPHA/a88.jbay.client.ServerConnection.lambda$startListener$0(ServerConnection.java:86)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-16 19:05:45.763 [Thread-4] INFO  a88.jbay.client.ServerConnection - Listener thread ended
