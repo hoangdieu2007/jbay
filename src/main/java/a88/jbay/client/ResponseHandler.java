@@ -76,7 +76,7 @@ public class ResponseHandler {
         controllerProvider.getController(ClientLoginRegisterController.class).updateLoginLabel("Login successful");
 
         try {
-            ViewManager.closePrimaryStage();
+            logger.info("Displaying home screen");
             ViewManager.newStage("Auction88's jBay");
             ViewManager.setResolution(1280, 720);
             if (curUser.getRole().equals("USER")) {
@@ -93,7 +93,9 @@ public class ResponseHandler {
             }
         } catch (IOException e) {
             controllerProvider.getController(ClientLoginRegisterController.class).updateLoginLabel("Failed to display home screen");
-                    }
+            logger.error("Failed to display home screen" + e.getMessage() + e);
+            e.printStackTrace();
+        }
     }
 
     public void handleLoginFail(Response response) {
@@ -111,7 +113,6 @@ public class ResponseHandler {
 
     public void handleLogoutSuccess(Response response) {
         try {
-            ViewManager.closePrimaryStage();
             ViewManager.newStage("Welcome to jBay");
             ViewManager.setResolution(600, 429);
             ClientSession.getInstance().resetSession();
@@ -174,7 +175,6 @@ public class ResponseHandler {
         clientSession.resetSession();
         ControllerProvider.getInstance().clearControllers();
         try {
-            ViewManager.closePrimaryStage();
             ViewManager.newStage("Welcome to jBay");
             ViewManager.setResolution(600, 429);
             ViewManager.displayScene("client/client-login-register-view.fxml");

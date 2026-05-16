@@ -38,6 +38,8 @@ public class ViewManager {
     }
 
     public static void newStage(String title) {
+        closePrimaryStage();
+
         Stage stage = new Stage();
         stage.setResizable(true);
         stage.getIcons().add(new Image(MainClient.class.getResourceAsStream("/a88/jbay/image/logo-no-bg.png")));
