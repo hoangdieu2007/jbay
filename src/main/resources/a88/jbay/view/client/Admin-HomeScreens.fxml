@@ -19,7 +19,7 @@
     <top>
         <HBox alignment="CENTER_LEFT" prefHeight="70.0" spacing="20.0" style="-fx-background-color: linear-gradient(to right, #1E3A8A, #3B82F6); -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);">
             <children>
-                <Label style="-fx-text-fill: white;" text="👤 UserName">
+                <Label fx:id="adminNameLabel" style="-fx-text-fill: white;" text="👤 UserName">
                     <font>
                         <Font name="System Bold" size="22.0" />
                     </font>
