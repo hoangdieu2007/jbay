@@ -51,7 +51,7 @@ public class SellerBidderHomeScreenController {
 
         if (isMenuOpen) {
             // Menu is open, slide it back out of view to the left
-            transition.setToX(-250);
+            transition.setToX(-sliderMenu.getPrefWidth());
             isMenuOpen = false;
         } else {
             // Menu is closed, slide it into view to the 0 position
