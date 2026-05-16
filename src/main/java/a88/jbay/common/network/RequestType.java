@@ -14,5 +14,6 @@ public enum RequestType {
     UNSUBSCRIBE_AUCTION,
     GET_AUCTIONS,
     GET_USERS,
+    BAN,
     MISC;
 }

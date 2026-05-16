@@ -11,6 +11,7 @@ import a88.jbay.system.AuctionSystem;
 import a88.jbay.system.BidSystem;
 import a88.jbay.system.update.ConnectionSystem;
 import a88.jbay.system.update.UpdateSystem;
+import a88.jbay.system.user.AdminService;
 import a88.jbay.system.user.UserSystem;
 
 /**
@@ -19,6 +20,7 @@ import a88.jbay.system.user.UserSystem;
  */
 public class RequestHandler {
     private final UserSystem userSystem;
+    private final AdminService adminService;
     private final AuctionSystem auctionSystem;
     private final ConnectionSystem connectionSystem;
     private final UpdateSystem updateSystem;
@@ -27,6 +29,7 @@ public class RequestHandler {
     // constructor for dependency injection
     public RequestHandler(DependencyInjectionContainer container) {
         this.userSystem = container.getInstance(UserSystem.class);
+        this.adminService = container.getInstance(AdminService.class);
         this.auctionSystem = container.getInstance(AuctionSystem.class);
         this.connectionSystem = container.getInstance(ConnectionSystem.class);
         this.updateSystem = container.getInstance(UpdateSystem.class);
@@ -57,6 +60,7 @@ public class RequestHandler {
             case UNSUBSCRIBE_AUCTION -> handleUnsubscribeAuction(request);
             case GET_AUCTIONS -> handleGetAuctions(request);
             case GET_USERS -> handleGetUsers(request);
+            case BAN -> handleBan(request);
             case MISC -> handleMisc(request);
         };
     }
@@ -74,7 +78,7 @@ public class RequestHandler {
         if (user != null) {
             //check if user is banned
             if (user.getRole().equals("BAN")) {
-                return new Response(false, "BAN_USER", null);
+                return new Response(true, "BAN_USER", null);
             }
 
             // UpdateSystem.getInstance().register(user.getId(), RequestHandler.out);
@@ -235,6 +239,16 @@ public class RequestHandler {
         }
 
         return new Response(false, "UNAUTHORIZED", null);
+    }
+
+    private Response handleBan(Request request) {
+        String sessionId = (String) request.get("sessionId");
+        int userId = (int) request.get("userId");
+        boolean success = adminService.banUser(userId);
+        if (!success || !userSystem.findBySessionId(sessionId).getRole().equals("ADMIN")) {
+            return new Response(false, "BAN_FAIL", null);
+        }
+        return new Response(true, "BAN_SUCCESS", null);
     }
 
     //misc commands

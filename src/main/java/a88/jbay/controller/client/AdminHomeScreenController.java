@@ -177,7 +177,7 @@ public class AdminHomeScreenController {
     private void sendBanRequest(User u) {
         try {
             String newRole = "BAN".equals(u.getRole()) ? "USER" : "BAN";
-            Request req = new Request(RequestType.MISC).put("command", "CHANGE_ROLE").put("targetId", u.getId()).put("newRole", newRole);
+            Request req = new Request(RequestType.BAN).put("userId", u.getId());
             ServerConnection.getInstance().send(req);
         } catch (IOException e) { e.printStackTrace(); }
     }

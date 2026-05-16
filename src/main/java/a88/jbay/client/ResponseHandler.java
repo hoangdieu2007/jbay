@@ -173,7 +173,6 @@ public class ResponseHandler {
 
     private void handleBanUser(Response response) {
         clientSession.resetSession();
-        ControllerProvider.getInstance().clearControllers();
         try {
             ViewManager.newStage("Welcome to jBay");
             ViewManager.setResolution(600, 429);
