@@ -95,7 +95,7 @@ public class SellerBidderHomeScreenController {
     /** ====SELLER==== **/
 
     @FXML
-    private TilePane sellerTilePane = new TilePane();
+    private TilePane sellerTilePane;
 
     private Map<Integer, VBox> sellerCardBox = new HashMap<>();
 
@@ -182,7 +182,7 @@ public class SellerBidderHomeScreenController {
 
 
     /** ====BIDDER==== **/
-    @FXML private TilePane bidderTilePane = new TilePane();
+    @FXML private TilePane bidderTilePane;
 
     @FXML
     private VBox createCardBidder(Auction auction){
