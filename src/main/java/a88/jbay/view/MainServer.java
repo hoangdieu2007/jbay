@@ -27,13 +27,6 @@ public class MainServer extends Application {
         Task<Void> loadingTask = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-                // Initialize dependency injection container
-                ApplicationContext.initialize();
-
-                // Load systems through DI container
-                UserSystem userSystem = ApplicationContext.getInstance().getDependency(UserSystem.class);
-                AuctionSystem auctionSystem = ApplicationContext.getInstance().getDependency(AuctionSystem.class);
-
                 Thread.sleep(1500);
 
                 return null;
@@ -44,7 +37,7 @@ public class MainServer extends Application {
             loadingStage.close();
 
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(MainClient.class.getResource("client/client-login-register-view.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(MainClient.class.getResource("client/server-database-view.fxml"));
                 Scene scene = new Scene(fxmlLoader.load(), 600, 400);
                 stage.setResizable(false);
                 stage.getIcons().add(new Image(MainClient.class.getResourceAsStream("/a88/jbay/image/logo-no-bg.png")));
