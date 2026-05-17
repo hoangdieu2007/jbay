@@ -243,3 +243,87 @@
     -fx-translate-y: 1px;
     -fx-effect: none;
 }
+
+/* Server-Databse */
+/* --- Glassmorphism Cards --- */
+.glass-card {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-background-radius: 30;
+    -fx-border-color: #ffffff;
+    -fx-border-width: 2;
+    -fx-border-radius: 30;
+}
+
+.glass-card:hover {
+    -fx-translate-y: -5px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 20, 0, 0, 5);
+}
+
+/* --- Input Fields --- */
+.input-field {
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-padding: 5 15 5 15;
+}
+
+.input-field:focused {
+    -fx-border-color: #53B1F9;
+    -fx-effect: dropshadow(gaussian, rgba(83, 177, 249, 0.6), 10, 0, 0, 0);
+}
+
+/* --- Connect Database Button --- */
+.btn-connect {
+    -fx-background-color: #53B1F9;
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+}
+
+.btn-connect:hover {
+    -fx-background-color: #75C6FC;
+    -fx-translate-y: -2px;
+    -fx-effect: dropshadow(gaussian, rgba(83, 177, 249, 0.6), 12, 0, 0, 4);
+}
+
+.btn-connect:pressed {
+    -fx-translate-y: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(83, 177, 249, 0.3), 5, 0, 0, 1);
+}
+
+/* --- Start Service Button --- */
+.btn-start {
+    -fx-background-color: #57B684;
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+}
+
+.btn-start:hover {
+    -fx-background-color: #70CD9D;
+    -fx-translate-y: -2px;
+    -fx-effect: dropshadow(gaussian, rgba(87, 182, 132, 0.6), 12, 0, 0, 4);
+}
+
+.btn-start:pressed {
+    -fx-translate-y: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(87, 182, 132, 0.3), 5, 0, 0, 1);
+}
+
+/* --- Register Admin Button --- */
+.btn-register {
+    -fx-background-color: #EE668C;
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+}
+
+.btn-register:hover {
+    -fx-background-color: #F385A4;
+    -fx-translate-y: -2px;
+    -fx-effect: dropshadow(gaussian, rgba(238, 102, 140, 0.6), 12, 0, 0, 4);
+}
+
+.btn-register:pressed {
+    -fx-translate-y: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(238, 102, 140, 0.3), 5, 0, 0, 1);
+}

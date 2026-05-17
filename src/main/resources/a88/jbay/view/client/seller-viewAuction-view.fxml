@@ -12,12 +12,11 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="861.0" prefWidth="1284.0" styleClass="main-bg" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.SellerViewAuctionController">
+<BorderPane prefHeight="861.0" prefWidth="1284.0" styleClass="main-bg" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.SellerViewAuctionController">
 
     <top>
         <HBox alignment="CENTER_LEFT" prefHeight="70.0" spacing="20.0" styleClass="header-bar" BorderPane.alignment="CENTER">
@@ -108,7 +107,7 @@
 
                                 <HBox alignment="CENTER_RIGHT" prefHeight="50.0">
                                     <children>
-                                        <Button mnemonicParsing="false" onAction="#handleCancel" styleClass="btn-cancel" text="Cancel Auction" />
+                                        <Button mnemonicParsing="false" onAction="#handleCancel" styleClass="btn-cancel" text="End Auction" textFill="WHITE" />
                                     </children>
                                 </HBox>
                             </children>
