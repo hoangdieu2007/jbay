@@ -50,6 +50,7 @@ public class ResponseHandler {
                 case "ADMIN_AUCTION_LIST" -> handleAdminAuctionList(response);
                 case "ADMIN_USER_LIST" -> handleAdminUserList(response);
                 case "BAN_USER" -> handleBanUser(response);
+                case "USER_STATE_CHANGED" -> handleUserStateChanged(response);
                 case "PONG" -> handlePong(response);
                 default -> handleDefault(response);
             };
@@ -181,6 +182,11 @@ public class ResponseHandler {
         } catch (IOException e) {
             logger.error("Failed to display login scene");
         }
+    }
+
+    private void handleUserStateChanged(Response response) {
+        User updatedUser = (User) response.getPayload();
+        clientSession.getAdminUsers().put(updatedUser.getId(), updatedUser);
     }
 
     private void handleAuctionUpdateNotify(Response response) {

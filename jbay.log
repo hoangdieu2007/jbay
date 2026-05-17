@@ -1301,3 +1301,426 @@ java.net.SocketException: Socket closed
 	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startListener$0(ServerConnection.java:86)
 	at java.base/java.lang.Thread.run(Thread.java:1474)
 2026-05-17 01:03:10.378 [Thread-4] INFO  a88.jbay.client.ServerConnection - Listener thread ended
+2026-05-17 01:19:16.149 [main] INFO  a88.jbay.view.MainServerTUI - JBAY Server TUI starting
+2026-05-17 01:19:16.151 [main] INFO  a88.jbay.view.MainServerTUI - ------------------JBAY_SERVER_TUI-----------------
+2026-05-17 01:19:16.152 [main] INFO  a88.jbay.view.MainServerTUI - --------------software infrastructure-------------
+2026-05-17 01:19:16.156 [main] INFO  a88.jbay.view.MainServerTUI - Connect to database:
+2026-05-17 01:19:16.157 [main] INFO  a88.jbay.view.MainServerTUI - Enter URL:
+2026-05-17 01:19:44.413 [main] INFO  a88.jbay.view.MainServerTUI - Enter username:
+2026-05-17 01:19:47.401 [main] INFO  a88.jbay.view.MainServerTUI - Enter password:
+2026-05-17 01:19:49.116 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-05-17 01:19:49.689 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@34f6515b
+2026-05-17 01:19:49.692 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-05-17 01:19:49.692 [main] INFO  a88.jbay.server.DatabaseController - Database connection pool initialized with URL: jdbc:mysql://localhost:3306/jbay_db
+2026-05-17 01:19:49.692 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:19:49.726 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:19:49.882 [main] INFO  a.jbay.repository.AuctionRepository - Loading 1 active auctions from database
+2026-05-17 01:19:49.884 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:19:50.001 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:19:50.008 [main] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 6 - one piece - State: RUNNING
+2026-05-17 01:19:50.010 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:19:50.013 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:19:50.016 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:19:50.017 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:19:50.019 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:19:50.023 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:19:50.025 [main] INFO  a.jbay.repository.AuctionRepository - Loading 1 active auctions from database
+2026-05-17 01:19:50.025 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:19:50.047 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:19:50.049 [main] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 6 - one piece - State: RUNNING
+2026-05-17 01:19:50.049 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:19:50.052 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:19:50.054 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:19:50.056 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:19:50.057 [main] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:31.718 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connecting to server: localhost:1234
+2026-05-17 01:20:31.723 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Connection successful to server: localhost:1234
+2026-05-17 01:20:31.737 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:20:31.795 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:20:31.799 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:20:31.977 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:20:41.583 [ForkJoinPool.commonPool-worker-1] INFO  a88.jbay.client.ServerConnection - Sending request: LOGIN
+2026-05-17 01:20:41.585 [] DEBUG a88.jbay.system.user.UserSystem - Login attempt: Duckie
+2026-05-17 01:20:41.585 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:41.600 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:41.662 [] INFO  a88.jbay.server.ClientConnection - Sending response: LOGIN_SUCCESS
+2026-05-17 01:20:41.666 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: LOGIN_SUCCESS
+2026-05-17 01:20:41.667 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - Displaying home screen
+2026-05-17 01:20:41.793 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:20:41.800 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:20:41.801 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:20:41.916 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 0 auctions
+2026-05-17 01:20:41.917 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 0 auctions
+2026-05-17 01:20:42.125 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: GET_AUCTIONS
+2026-05-17 01:20:42.166 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:20:42.217 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.225 [] INFO  a88.jbay.server.ClientConnection - Sending response: ACTIVE_AUCTION_LIST
+2026-05-17 01:20:42.261 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.262 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: ACTIVE_AUCTION_LIST
+2026-05-17 01:20:42.272 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.332 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.336 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.351 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 2 - kho ga - State: FINISHED
+2026-05-17 01:20:42.352 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.357 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.359 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.363 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.364 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.366 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.370 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.372 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.373 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.375 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.377 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.379 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.382 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.385 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.433 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.444 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.449 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.452 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.457 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.478 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.481 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 21 - stars - State: FINISHED
+2026-05-17 01:20:42.481 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.484 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.486 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.487 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.489 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.491 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.494 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.496 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.501 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.504 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 30 - merge sort - State: FINISHED
+2026-05-17 01:20:42.504 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.511 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.513 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.515 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.516 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.518 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.522 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.524 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.529 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.533 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.545 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.547 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 34 - chaos - State: FINISHED
+2026-05-17 01:20:42.547 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.550 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.552 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.554 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.556 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.557 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.558 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.559 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.561 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.562 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.563 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.565 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.566 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.567 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.569 [] INFO  a88.jbay.server.ClientConnection - Sending response: BIDDER_AUCTION_LIST
+2026-05-17 01:20:42.580 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.580 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: BIDDER_AUCTION_LIST
+2026-05-17 01:20:42.582 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.585 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.603 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.604 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 7 - HG Star Build Strike Gundam - State: FINISHED
+2026-05-17 01:20:42.604 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.607 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.608 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.609 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.611 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.613 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.614 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.615 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.617 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.618 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.619 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.621 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.623 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.624 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.632 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.633 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 8 - FANTA - State: FINISHED
+2026-05-17 01:20:42.634 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.636 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.638 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.641 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.643 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.662 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.668 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.671 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.678 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.680 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.687 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.688 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.690 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.694 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.695 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 9 - My Life - State: FINISHED
+2026-05-17 01:20:42.696 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.701 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.703 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.704 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.706 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.707 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.708 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.710 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.712 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.713 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.715 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.760 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.762 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.765 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.768 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.785 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.787 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 36 - Dark Soul - State: FINISHED
+2026-05-17 01:20:42.787 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.789 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.791 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.793 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.796 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.806 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.811 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.814 [] DEBUG a.jbay.repository.AuctionRepository - Loading auction: 37 - Gay - State: FINISHED
+2026-05-17 01:20:42.814 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.817 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.828 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.833 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.838 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.839 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.842 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.851 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.853 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:20:42.855 [] INFO  a88.jbay.server.ClientConnection - Sending response: SELLER_AUCTION_LIST
+2026-05-17 01:20:42.909 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: SELLER_AUCTION_LIST
+2026-05-17 01:20:42.910 [] INFO  a88.jbay.server.ClientConnection - Sending response: GET_AUCTIONS_SUCCESS
+2026-05-17 01:20:42.917 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: GET_AUCTIONS_SUCCESS
+2026-05-17 01:20:43.062 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 2 - FINISHED
+2026-05-17 01:20:43.063 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 34 - FINISHED
+2026-05-17 01:20:43.063 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 36 - FINISHED
+2026-05-17 01:20:43.063 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 21 - FINISHED
+2026-05-17 01:20:43.063 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 37 - FINISHED
+2026-05-17 01:20:43.063 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 7 - FINISHED
+2026-05-17 01:20:43.063 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 8 - FINISHED
+2026-05-17 01:20:43.063 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 9 - FINISHED
+2026-05-17 01:20:43.063 [pool-2-thread-1] INFO  a88.jbay.system.AuctionSystem - Auction ended: 30 - FINISHED
+2026-05-17 01:20:44.973 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - GET_AUCTIONS_SUCCESS
+2026-05-17 01:20:51.725 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:20:51.727 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:20:51.728 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:20:51.729 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:20:54.147 [JavaFX Application Thread] DEBUG a.j.c.c.ClientSellerItemController - File selected: 033d6586-8e5d-469d-8c25-3a427f1117ab.jpg
+2026-05-17 01:21:01.726 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:21:01.729 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:21:01.730 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:21:01.731 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:21:11.726 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:21:11.727 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:21:11.728 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:21:11.728 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:21:12.023 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: SELL
+2026-05-17 01:21:12.033 [] INFO  a88.jbay.system.AuctionSystem - Creating auction for item: POCO X7 PRO by seller: 13
+2026-05-17 01:21:12.033 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:21:12.046 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Seller UI initialized with 5 auctions
+2026-05-17 01:21:12.092 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:21:12.119 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:21:12.121 [] INFO  a88.jbay.server.ClientConnection - Sending response: AUCTION_UPDATE
+2026-05-17 01:21:12.126 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-17 01:21:12.126 [] INFO  a88.jbay.system.AuctionSystem - Auction created successfully: ID=40, Item=POCO X7 PRO
+2026-05-17 01:21:12.126 [] INFO  a88.jbay.server.ClientConnection - Sending response: SELL_SUCCESS
+2026-05-17 01:21:12.127 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: SELL_SUCCESS
+2026-05-17 01:21:12.205 [JavaFX Application Thread] DEBUG a.j.c.c.SellerBidderHomeScreenController - Bidder UI initialized with 5 auctions
+2026-05-17 01:21:13.084 [pool-2-thread-1] INFO  a88.jbay.server.ClientConnection - Sending response: AUCTION_UPDATE_NOTIFY
+2026-05-17 01:21:13.092 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE_NOTIFY
+2026-05-17 01:21:13.092 [pool-2-thread-1] INFO  a88.jbay.server.ClientConnection - Sending response: AUCTION_UPDATE
+2026-05-17 01:21:13.108 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: AUCTION_UPDATE
+2026-05-17 01:21:13.109 [pool-2-thread-1] DEBUG a88.jbay.system.AuctionSystem - Heartbeat: State changed for auction 40 to RUNNING
+2026-05-17 01:21:13.109 [pool-2-thread-1] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:21:13.517 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - SELL_SUCCESS
+2026-05-17 01:21:13.585 [JavaFX Application Thread] INFO  a88.jbay.client.ResponseHandler - handleAuctionUpdateNotify called for auction 40
+2026-05-17 01:21:21.734 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:21:21.737 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:21:21.738 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:21:21.739 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:21:31.731 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:21:31.733 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:21:31.733 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:21:31.734 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:21:41.725 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:21:41.728 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:21:41.729 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:21:41.730 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:21:51.737 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:21:51.738 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:21:51.738 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:21:51.739 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:22:01.726 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:22:01.727 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:22:01.728 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:22:01.729 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:22:11.728 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:22:11.732 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:22:11.734 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:22:11.735 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:22:21.726 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:22:21.728 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:22:21.728 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:22:21.728 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:22:31.746 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:22:31.747 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:22:31.748 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:22:31.748 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:22:41.738 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:22:41.739 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:22:41.740 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:22:41.741 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:22:51.740 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:22:51.743 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:22:51.744 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:22:51.746 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:23:01.736 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:23:01.739 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:23:01.741 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:23:01.742 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:23:11.728 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:23:11.729 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:23:11.729 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:23:11.730 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:23:21.737 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:23:21.742 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:23:21.746 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:23:21.749 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:23:31.934 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:23:31.936 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:23:31.939 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:23:31.939 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:23:41.733 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:23:41.735 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:23:41.735 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:23:41.735 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:23:51.727 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:23:51.731 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:23:51.731 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:23:51.732 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:24:01.725 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:24:01.726 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:24:01.726 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:24:01.727 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:24:11.739 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:24:11.739 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:24:11.739 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:24:11.740 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:24:21.736 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:24:21.736 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:24:21.737 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:24:21.737 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:24:31.739 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:24:31.740 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:24:31.740 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:24:31.741 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:24:42.091 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:24:42.092 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:24:42.093 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:24:42.093 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:24:51.733 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:24:51.734 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:24:51.735 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:24:51.736 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:25:01.730 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:25:01.731 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:25:01.731 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:25:01.731 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:25:11.741 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:25:11.744 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:25:11.744 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:25:11.745 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:25:21.733 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:25:21.734 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:25:21.735 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:25:21.735 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:25:31.729 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:25:31.734 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:25:31.735 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:25:31.736 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:25:41.731 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:25:41.732 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:25:41.732 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:25:41.732 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:25:51.731 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:25:51.733 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:25:51.734 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:25:51.735 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:26:01.734 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:26:01.735 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:26:01.735 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:26:01.736 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:26:11.738 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:26:11.741 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:26:11.742 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:26:11.743 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:26:21.727 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:26:21.730 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:26:21.730 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:26:21.731 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:26:31.738 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:26:31.739 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:26:31.739 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:26:31.739 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:26:41.730 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:26:41.732 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:26:41.733 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:26:41.734 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:26:51.728 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:26:51.729 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:26:51.729 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:26:51.729 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:27:01.730 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:27:01.732 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:27:01.732 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:27:01.732 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:27:11.726 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:27:11.726 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:27:11.727 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:27:11.727 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:27:21.730 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:27:21.731 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:27:21.731 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:27:21.731 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:27:31.732 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:27:31.734 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:27:31.734 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:27:31.735 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:27:41.735 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:27:41.739 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:27:41.739 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:27:41.740 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:27:50.652 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: LOGOUT
+2026-05-17 01:27:50.657 [] DEBUG a88.jbay.system.user.UserSystem - Logout: 43dcd576-1af8-47a2-9745-7f02b0e295bd
+2026-05-17 01:27:50.658 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested
+2026-05-17 01:27:50.689 [] INFO  a88.jbay.server.ClientConnection - Sending response: LOGOUT_SUCCESS
+2026-05-17 01:27:50.689 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: LOGOUT_SUCCESS
+2026-05-17 01:27:50.721 [JavaFX Application Thread] INFO  a88.jbay.client.ClientSession - Session has been cleared
+2026-05-17 01:27:51.732 [pool-2-thread-1] INFO  a88.jbay.client.ServerConnection - Sending request: PING
+2026-05-17 01:27:51.732 [] INFO  a88.jbay.server.ClientConnection - Sending response: PONG
+2026-05-17 01:27:51.732 [Thread-4] DEBUG a88.jbay.client.ServerConnection - Received response: PONG
+2026-05-17 01:27:51.733 [JavaFX Application Thread] DEBUG a88.jbay.client.ResponseHandler - Received PONG from server
+2026-05-17 01:27:52.227 [JavaFX Application Thread] INFO  a88.jbay.client.ServerConnection - Sending request: MISC
+2026-05-17 01:27:52.239 [Thread-4] ERROR a88.jbay.client.ServerConnection - Disconnected from server: Socket closed
+java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.endRead(NioSocketImpl.java:242)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:321)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:354)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:798)
+	at java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:974)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:964)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:958)
+	at java.base/java.io.ObjectInputStream$PeekInputStream.peek(ObjectInputStream.java:2740)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peek(ObjectInputStream.java:3069)
+	at java.base/java.io.ObjectInputStream$BlockDataInputStream.peekByte(ObjectInputStream.java:3079)
+	at java.base/java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1571)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:487)
+	at java.base/java.io.ObjectInputStream.readObject(ObjectInputStream.java:445)
+	at a88.jbay/a88.jbay.client.ServerConnection.lambda$startListener$0(ServerConnection.java:86)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+2026-05-17 01:27:52.243 [Thread-4] INFO  a88.jbay.client.ServerConnection - Listener thread ended
+2026-05-17 01:27:52.255 [] DEBUG a88.jbay.system.user.UserSystem - Logout: none
+2026-05-17 01:27:52.255 [] DEBUG a88.jbay.server.DatabaseController - Database connection requested

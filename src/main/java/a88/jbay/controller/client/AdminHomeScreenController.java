@@ -176,9 +176,17 @@ public class AdminHomeScreenController {
 
     private void sendBanRequest(User u) {
         try {
-            Request req = new Request(RequestType.BAN).put("userId", u.getId());
+            // Tự động phân loại: Nếu đang bị BAN thì hành động tiếp theo là UNBAN, ngược lại là BAN
+            String action = "BAN".equals(u.getRole()) ? "UNBAN" : "BAN";
+
+            Request req = new Request(RequestType.BAN);
+            req.put("userId", u.getId());
+            req.put("action", action); // Đính kèm hành động cụ thể để Server biết đường rẽ nhánh
+
             ServerConnection.getInstance().send(req);
-        } catch (IOException e) { e.printStackTrace(); }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void sendCancelRequest(Auction a) {

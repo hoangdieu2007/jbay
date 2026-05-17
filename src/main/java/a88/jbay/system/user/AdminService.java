@@ -1,6 +1,7 @@
 package a88.jbay.system.user;
 
 import a88.jbay.common.network.Response;
+import a88.jbay.common.user.User;
 import a88.jbay.dao.UserDAO;
 import a88.jbay.server.ClientConnection;
 import a88.jbay.system.update.ConnectionSystem;
@@ -31,24 +32,22 @@ public class AdminService {
         this.logger = JBayLogger.getLogger(AdminService.class);
     }
 
-    public boolean banUser(int userId) {
+    public User banUser(int userId) {
         logger.info("Ban user: " + userId);
 
-        if (userDAO.findByUserId(userId) == null) return false;
+        // Lấy thông tin thô từ DB để kiểm tra tồn tại và giữ lại username
+        UserDAO.UserData userData = userDAO.findByUserId(userId);
+        if (userData == null) return null;
 
         if (!userDAO.changeUserRole(userId, "BAN")) {
-            return false;
+            return null;
         }
 
-        // notify client
-        connectionSystem.sendToUser(
-                userId,
-                new Response(true, "BAN_USER", null)
-        );
+        // Gửi gói tin Real-time báo tử live xuống máy NẠN NHÂN
+        connectionSystem.sendToUser(userId, new Response(true, "BAN_USER", null));
 
-        // force disconnect sessions
+        // Ép hủy các phiên làm việc live của nạn nhân
         Set<ClientConnection> connections = connectionSystem.getConnections().get(userId);
-
         if (connections != null) {
             for (ClientConnection conn : connections) {
                 userSystem.logout(conn.getUserCache().getSessionId());
@@ -58,11 +57,21 @@ public class AdminService {
         updateSystem.unsubscribeUserFromAllAuctions(userId);
         connectionSystem.unregister(userId);
 
-        return true;
+        // Đúc và trả về đối tượng mang Role mới
+        return new User(userId, "BAN", userData.username());
     }
 
-    public boolean unbanUser(int userId) {
+    public User unbanUser(int userId) {
         logger.info("Unban user: " + userId);
-        return userDAO.changeUserRole(userId, "USER");
+
+        UserDAO.UserData userData = userDAO.findByUserId(userId);
+        if (userData == null) return null;
+
+        if (!userDAO.changeUserRole(userId, "USER")) {
+            return null;
+        }
+
+        // Đúc và trả về đối tượng mang Role mới
+        return new User(userId, "USER", userData.username());
     }
 }

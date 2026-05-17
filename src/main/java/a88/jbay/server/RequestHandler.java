@@ -243,12 +243,32 @@ public class RequestHandler {
 
     private Response handleBan(Request request) {
         String sessionId = (String) request.get("sessionId");
+        User admin = userSystem.findBySessionId(sessionId);
+
+        // Kiểm tra bảo mật nghiêm ngặt: Chỉ ADMIN mới được xử lý luồng này
+        if (admin == null || !admin.getRole().equals("ADMIN")) {
+            return new Response(false, "UNAUTHORIZED", null);
+        }
+
         int userId = (int) request.get("userId");
-        boolean success = adminService.banUser(userId);
-        if (!success || !userSystem.findBySessionId(sessionId).getRole().equals("ADMIN")) {
+        String action = (String) request.get("action"); // Lấy biến hành động "BAN" / "UNBAN"
+
+        User updatedUser; // Khai báo đối tượng hứng kết quả
+
+        // Phân luồng điều hướng nghiệp vụ
+        if ("UNBAN".equals(action)) {
+            updatedUser = adminService.unbanUser(userId);
+        } else {
+            updatedUser = adminService.banUser(userId);
+        }
+
+        // Nếu xử lý dưới DB hoặc Service thất bại (trả về null)
+        if (updatedUser == null) {
             return new Response(false, "BAN_FAIL", null);
         }
-        return new Response(true, "BAN_SUCCESS", null);
+
+        // Trả phản hồi đồng bộ kèm Object User mới làm payload về cho máy Admin hiển thị
+        return new Response(true, "USER_STATE_CHANGED", updatedUser);
     }
 
     //misc commands
