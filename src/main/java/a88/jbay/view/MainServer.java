@@ -1,6 +1,7 @@
 package a88.jbay.view;
 
 import a88.jbay.di.ApplicationContext;
+import a88.jbay.server.ClientService;
 import a88.jbay.system.AuctionSystem;
 import a88.jbay.system.user.UserSystem;
 import javafx.application.Application;
@@ -56,5 +57,13 @@ public class MainServer extends Application {
 
         Thread loadingThread = new Thread(loadingTask);
         loadingThread.start();
+    }
+
+    // automatically call when users close the UI
+    @Override
+    public void stop(){
+        ClientService.getInstance().stopService();
+        System.exit(0);
+
     }
 }
