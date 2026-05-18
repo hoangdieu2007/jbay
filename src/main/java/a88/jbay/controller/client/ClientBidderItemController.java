@@ -2,7 +2,7 @@ package a88.jbay.controller.client;
 
 import a88.jbay.client.ClientSession;
 import a88.jbay.client.ServerConnection;
-import a88.jbay.system.AutoBidConfig;
+import a88.jbay.common.auction.AutoBidConfig;
 import a88.jbay.util.ImageProcessor;
 import a88.jbay.common.auction.Auction;
 import a88.jbay.common.auction.BidTransaction;

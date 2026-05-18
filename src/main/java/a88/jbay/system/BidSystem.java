@@ -1,9 +1,6 @@
 package a88.jbay.system;
 
-import a88.jbay.common.auction.Auction;
-import a88.jbay.common.auction.AuctionState;
-import a88.jbay.common.auction.BidData;
-import a88.jbay.common.auction.BidTransaction;
+import a88.jbay.common.auction.*;
 import a88.jbay.dao.AuctionDAO;
 import a88.jbay.dao.BidDAO;
 import a88.jbay.di.ApplicationContext;

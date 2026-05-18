@@ -2,6 +2,8 @@ package a88.jbay.system;
 
 import a88.jbay.common.auction.Auction;
 import a88.jbay.common.auction.AuctionState;
+import a88.jbay.common.auction.BidData;
+import a88.jbay.common.user.UserData;
 import a88.jbay.dao.AuctionDAO;
 import a88.jbay.dao.BidDAO;
 import a88.jbay.dao.UserDAO;
@@ -62,7 +64,7 @@ class BidSystemTest {
         when(auction.getAuctionState()).thenReturn(AuctionState.RUNNING);
         when(auctionDAO.updateCurrentPrice(anyInt(), anyDouble(), anyInt())).thenReturn(true);
         when(bidDAO.insertBid(anyInt(), anyInt(), anyDouble(), any())).thenReturn(true);
-        when(userDAO.findByUserId(userId)).thenReturn(new a88.jbay.dao.UserDAO.UserData(userId, "testuser", "password", "BIDDER"));
+        when(userDAO.findByUserId(userId)).thenReturn(new UserData(userId, "testuser", "password", "BIDDER"));
 
         // Mock AuctionSystem.getInstance().getActiveAuctionById()
         try (var mockedStatic = mockStatic(AuctionSystem.class)) {
@@ -225,7 +227,7 @@ class BidSystemTest {
         when(auction.getAuctionState()).thenReturn(AuctionState.RUNNING);
         when(auctionDAO.updateCurrentPrice(anyInt(), anyDouble(), anyInt())).thenReturn(true);
         when(bidDAO.insertBid(anyInt(), anyInt(), anyDouble(), any())).thenReturn(false);
-        when(userDAO.findByUserId(userId)).thenReturn(new a88.jbay.dao.UserDAO.UserData(userId, "testuser", "password", "BIDDER"));
+        when(userDAO.findByUserId(userId)).thenReturn(new UserData(userId, "testuser", "password", "BIDDER"));
 
         try (var mockedStatic = mockStatic(AuctionSystem.class)) {
             mockedStatic.when(AuctionSystem::getInstance).thenReturn(auctionSystem);
@@ -252,7 +254,7 @@ class BidSystemTest {
         when(auction.getAuctionState()).thenReturn(AuctionState.RUNNING);
         when(auctionDAO.updateCurrentPrice(anyInt(), anyDouble(), anyInt())).thenReturn(false);
         when(bidDAO.insertBid(anyInt(), anyInt(), anyDouble(), any())).thenReturn(true);
-        when(userDAO.findByUserId(userId)).thenReturn(new a88.jbay.dao.UserDAO.UserData(userId, "testuser", "password", "BIDDER"));
+        when(userDAO.findByUserId(userId)).thenReturn(new UserData(userId, "testuser", "password", "BIDDER"));
 
         try (var mockedStatic = mockStatic(AuctionSystem.class)) {
             mockedStatic.when(AuctionSystem::getInstance).thenReturn(auctionSystem);
@@ -271,13 +273,13 @@ class BidSystemTest {
     void testGetBidHistory() {
         // Arrange
         int auctionId = 100;
-        java.util.List<BidDAO.BidData> expectedHistory = java.util.List.of(
-            new BidDAO.BidData(1, auctionId, 150.0, java.time.LocalDateTime.now())
+        java.util.List<BidData> expectedHistory = java.util.List.of(
+            new BidData(1, auctionId, 150.0, java.time.LocalDateTime.now())
         );
         when(bidDAO.findBidHistoryByAuctionId(auctionId)).thenReturn(expectedHistory);
 
         // Act
-        java.util.List<BidDAO.BidData> result = bidSystem.getBidHistory(auctionId);
+        java.util.List<BidData> result = bidSystem.getBidHistory(auctionId);
 
         // Assert
         assertNotNull(result);

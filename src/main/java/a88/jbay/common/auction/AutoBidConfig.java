@@ -1,4 +1,4 @@
-package a88.jbay.system;
+package a88.jbay.common.auction;
 
 import java.io.Serializable;
 

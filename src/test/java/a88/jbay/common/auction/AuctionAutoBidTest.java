@@ -3,7 +3,6 @@ package a88.jbay.common.auction;
 import a88.jbay.common.item.Item;
 import a88.jbay.system.AuctionSystem;
 import a88.jbay.system.BidSystem;
-import a88.jbay.system.AutoBidConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -14,7 +13,6 @@ import java.time.LocalDateTime;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
 /**

@@ -2,7 +2,6 @@ package a88.jbay.common.auction;
 
 import a88.jbay.common.Subject;
 import a88.jbay.common.item.Item;
-import a88.jbay.system.AutoBidConfig;
 import a88.jbay.system.BidSystem;
 import a88.jbay.system.update.UpdateSystem;
 
