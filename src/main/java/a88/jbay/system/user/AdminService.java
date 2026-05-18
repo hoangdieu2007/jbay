@@ -2,7 +2,9 @@ package a88.jbay.system.user;
 
 import a88.jbay.common.network.Response;
 import a88.jbay.common.user.User;
+import a88.jbay.common.user.UserData;
 import a88.jbay.dao.UserDAO;
+import a88.jbay.repository.UserRepository;
 import a88.jbay.server.ClientConnection;
 import a88.jbay.system.update.ConnectionSystem;
 import a88.jbay.system.update.UpdateSystem;
@@ -36,7 +38,7 @@ public class AdminService {
         logger.info("Ban user: " + userId);
 
         // Lấy thông tin thô từ DB để kiểm tra tồn tại và giữ lại username
-        UserDAO.UserData userData = userDAO.findByUserId(userId);
+        UserData userData = userDAO.findByUserId(userId);
         if (userData == null) return null;
 
         if (!userDAO.changeUserRole(userId, "BAN")) {
@@ -64,7 +66,7 @@ public class AdminService {
     public User unbanUser(int userId) {
         logger.info("Unban user: " + userId);
 
-        UserDAO.UserData userData = userDAO.findByUserId(userId);
+        UserData userData = userDAO.findByUserId(userId);
         if (userData == null) return null;
 
         if (!userDAO.changeUserRole(userId, "USER")) {

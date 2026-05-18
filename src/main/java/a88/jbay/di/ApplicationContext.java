@@ -1,9 +1,7 @@
 package a88.jbay.di;
 
-import a88.jbay.dao.AuctionDAO;
-import a88.jbay.dao.BidDAO;
-import a88.jbay.dao.ItemDAO;
-import a88.jbay.dao.UserDAO;
+import a88.jbay.dao.*;
+import a88.jbay.repository.UserRepository;
 import a88.jbay.server.DatabaseController;
 import a88.jbay.system.user.AdminService;
 import a88.jbay.system.AuctionSystem;
@@ -48,12 +46,12 @@ public class ApplicationContext {
         container.registerSingleton(DatabaseController.class, DatabaseController.getInstance());
 
         // dao - register as singletons
-        container.registerSingleton(UserDAO.class, new UserDAO(DatabaseController.getInstance()));
-        ItemDAO itemDAO = new ItemDAO(DatabaseController.getInstance());
+        container.registerSingleton(UserDAO.class, new UserDAOImpl(DatabaseController.getInstance()));
+        ItemDAO itemDAO = new ItemDAOImpl(DatabaseController.getInstance());
         container.registerSingleton(ItemDAO.class, itemDAO);
-        BidDAO bidDAO = new BidDAO(DatabaseController.getInstance());
+        BidDAO bidDAO = new BidDAOImpl(DatabaseController.getInstance());
         container.registerSingleton(BidDAO.class, bidDAO);
-        container.registerSingleton(AuctionDAO.class, new AuctionDAO(DatabaseController.getInstance()));
+        container.registerSingleton(AuctionDAO.class, new AuctionDAOImpl(DatabaseController.getInstance()));
 
         // system classes a.k.a. service layer - register as singletons
         container.registerSingleton(AuctionRepository.class, new AuctionRepository(
@@ -61,6 +59,9 @@ public class ApplicationContext {
                 container.getInstance(ItemDAO.class),
                 container.getInstance(UserDAO.class),
                 container.getInstance(BidDAO.class)
+        ));
+        container.registerSingleton(UserRepository.class, new UserRepository(
+                container.getInstance(UserDAO.class)
         ));
 
         container.registerSingleton(ConnectionSystem.class, new ConnectionSystem());
@@ -70,7 +71,7 @@ public class ApplicationContext {
         ));
 
         container.registerSingleton(UserSystem.class, new UserSystem(
-                container.getInstance(UserDAO.class)
+                container.getInstance(UserRepository.class)
         ));
         container.registerSingleton(AdminService.class, new AdminService(
                 container.getInstance(UserDAO.class),

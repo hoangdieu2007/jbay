@@ -19,7 +19,7 @@ public class ClientService {
         executor = Executors.newVirtualThreadPerTaskExecutor();
     }
 
-    public static ClientService getInstance() {
+    public synchronized static ClientService getInstance() {
         if (instance == null) {
             instance = new ClientService();
         }

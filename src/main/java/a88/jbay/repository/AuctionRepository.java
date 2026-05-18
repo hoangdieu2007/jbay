@@ -1,11 +1,8 @@
 package a88.jbay.repository;
 
-import a88.jbay.common.auction.Auction;
-import a88.jbay.common.auction.AuctionState;
-import a88.jbay.common.auction.BidTransaction;
+import a88.jbay.common.auction.*;
 import a88.jbay.common.item.Item;
 import a88.jbay.dao.AuctionDAO;
-import a88.jbay.dao.AuctionDAO.AuctionData;
 import a88.jbay.dao.BidDAO;
 import a88.jbay.dao.ItemDAO;
 import a88.jbay.dao.UserDAO;
@@ -302,11 +299,11 @@ public class AuctionRepository {
      */
     public List<Auction> getAllAuctionsForAdmin() {
         // Gọi DAO lấy danh sách dữ liệu thô (Record 10 biến)
-        List<a88.jbay.dao.AuctionDAO.AuctionData> rawDataList = auctionDAO.getAllAuctionsForAdmin();
+        List<AuctionData> rawDataList = auctionDAO.getAllAuctionsForAdmin();
         List<Auction> adminAuctionList = new ArrayList<>();
 
         if (rawDataList != null) {
-            for (a88.jbay.dao.AuctionDAO.AuctionData data : rawDataList) {
+            for (AuctionData data : rawDataList) {
                 // 1. Tạo Item: Gọi ĐÚNG tên hàm của Record là data.itemId(), data.itemName(), data.startPrice()
                 a88.jbay.common.item.Item item = new a88.jbay.common.item.Item(
                         data.itemId(),
@@ -393,14 +390,14 @@ public class AuctionRepository {
                 )
         );
 
-        List<BidDAO.BidData> bidHistory =
+        List<BidData> bidHistory =
                 bidDAO.findBidHistoryByAuctionId(
                         auctionData.id()
                 );
 
         Set<Integer> bidders = new HashSet<>();
 
-        for (BidDAO.BidData bidData : bidHistory) {
+        for (BidData bidData : bidHistory) {
 
             String bidderName =
                     userDAO.findByUserId(

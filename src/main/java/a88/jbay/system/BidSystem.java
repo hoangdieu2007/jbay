@@ -2,6 +2,7 @@ package a88.jbay.system;
 
 import a88.jbay.common.auction.Auction;
 import a88.jbay.common.auction.AuctionState;
+import a88.jbay.common.auction.BidData;
 import a88.jbay.common.auction.BidTransaction;
 import a88.jbay.dao.AuctionDAO;
 import a88.jbay.dao.BidDAO;
@@ -104,7 +105,7 @@ public class BidSystem {
      * @param auctionId ID of the auction whose bid history should be loaded
      * @return list of bid history records for the auction
      */
-    public List<BidDAO.BidData> getBidHistory(int auctionId) {
+    public List<BidData> getBidHistory(int auctionId) {
         return bidDAO.findBidHistoryByAuctionId(auctionId);
     }
 
