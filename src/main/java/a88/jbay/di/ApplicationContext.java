@@ -1,7 +1,8 @@
 package a88.jbay.di;
 
 import a88.jbay.dao.*;
-import a88.jbay.repository.UserRepository;
+import a88.jbay.data.BidRepository;
+import a88.jbay.data.UserRepository;
 import a88.jbay.server.DatabaseController;
 import a88.jbay.system.user.AdminService;
 import a88.jbay.system.AuctionSystem;
@@ -9,7 +10,7 @@ import a88.jbay.system.BidSystem;
 import a88.jbay.system.update.ConnectionSystem;
 import a88.jbay.system.update.UpdateSystem;
 import a88.jbay.system.user.UserSystem;
-import a88.jbay.repository.AuctionRepository;
+import a88.jbay.data.AuctionRepository;
 
 /**
  * application context for configuring and managing application dependencies.
@@ -55,6 +56,7 @@ public class ApplicationContext {
 
         // system classes a.k.a. service layer - register as singletons
         container.registerSingleton(AuctionRepository.class, new AuctionRepository(
+                container.getInstance(DatabaseController.class),
                 container.getInstance(AuctionDAO.class),
                 container.getInstance(ItemDAO.class),
                 container.getInstance(UserDAO.class),
@@ -62,6 +64,11 @@ public class ApplicationContext {
         ));
         container.registerSingleton(UserRepository.class, new UserRepository(
                 container.getInstance(UserDAO.class)
+        ));
+        container.registerSingleton(BidRepository.class, new BidRepository(
+                container.getInstance(DatabaseController.class),
+                container.getInstance(AuctionDAO.class),
+                container.getInstance(BidDAO.class)
         ));
 
         container.registerSingleton(ConnectionSystem.class, new ConnectionSystem());
@@ -82,6 +89,7 @@ public class ApplicationContext {
 
         container.registerSingleton(BidSystem.class, new BidSystem(
             container.getInstance(AuctionRepository.class),
+            container.getInstance(BidRepository.class),
             container.getInstance(BidDAO.class),
             container.getInstance(AuctionDAO.class)
         ));

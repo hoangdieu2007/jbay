@@ -2,8 +2,7 @@ package a88.jbay.di;
 
 import a88.jbay.dao.UserDAO;
 import a88.jbay.dao.UserDAOImpl;
-import a88.jbay.repository.UserRepository;
-import a88.jbay.system.update.ConnectionSystem;
+import a88.jbay.data.UserRepository;
 import a88.jbay.system.user.UserSystem;
 import a88.jbay.server.DatabaseController;
 import org.junit.jupiter.api.BeforeEach;

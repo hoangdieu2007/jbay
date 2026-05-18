@@ -1,7 +1,7 @@
 package a88.jbay.view;
 
 import a88.jbay.common.auction.Auction;
-import a88.jbay.repository.AuctionRepository;
+import a88.jbay.data.AuctionRepository;
 import a88.jbay.server.ClientConnection;
 import a88.jbay.server.ClientService;
 import a88.jbay.server.DatabaseController;

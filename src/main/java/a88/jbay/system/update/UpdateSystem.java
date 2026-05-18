@@ -3,7 +3,7 @@ package a88.jbay.system.update;
 import a88.jbay.common.auction.Auction;
 import a88.jbay.common.network.Response;
 import a88.jbay.di.ApplicationContext;
-import a88.jbay.repository.AuctionRepository;
+import a88.jbay.data.AuctionRepository;
 import a88.jbay.system.AuctionSystem;
 
 import java.util.Set;

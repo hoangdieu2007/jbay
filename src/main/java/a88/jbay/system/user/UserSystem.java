@@ -3,7 +3,7 @@ package a88.jbay.system.user;
 import a88.jbay.common.user.User;
 import a88.jbay.common.user.UserData;
 import a88.jbay.di.ApplicationContext;
-import a88.jbay.repository.UserRepository;
+import a88.jbay.data.UserRepository;
 import a88.jbay.util.JBayLogger;
 import a88.jbay.util.StringHash;
 

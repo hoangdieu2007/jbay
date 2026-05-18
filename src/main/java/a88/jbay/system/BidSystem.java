@@ -3,8 +3,9 @@ package a88.jbay.system;
 import a88.jbay.common.auction.*;
 import a88.jbay.dao.AuctionDAO;
 import a88.jbay.dao.BidDAO;
+import a88.jbay.data.BidRepository;
 import a88.jbay.di.ApplicationContext;
-import a88.jbay.repository.AuctionRepository;
+import a88.jbay.data.AuctionRepository;
 import a88.jbay.util.JBayLogger;
 
 import java.time.LocalDateTime;
@@ -18,6 +19,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class BidSystem {
     private final AuctionRepository auctionRepository;
+    private final BidRepository bidRepository;
     private final AtomicBoolean isAutoBidding = new AtomicBoolean(false);
     private final JBayLogger logger;
 
@@ -36,11 +38,12 @@ public class BidSystem {
      */
     public BidSystem(
             AuctionRepository auctionRepository,
+            BidRepository bidRepository,
             BidDAO bidDAO,
             AuctionDAO auctionDAO
     ) {
-
         this.auctionRepository = auctionRepository;
+        this.bidRepository = bidRepository;
         this.bidDAO = bidDAO;
         this.auctionDAO = auctionDAO;
         this.logger = JBayLogger.getLogger(BidSystem.class);
@@ -83,7 +86,7 @@ public class BidSystem {
 
         BidTransaction tx = createBidTransaction(userId, amount);
         addBid(auction, tx); // subscribe user to auction and update auction price
-        boolean saved = saveBid(auctionId, tx); // save bid to DB
+        boolean saved = bidRepository.saveBid(auctionId, tx); // save bid to DB
 
         if (saved) {
             // anti-sniping check upon successful bid
@@ -190,20 +193,6 @@ public class BidSystem {
      * @param tx accepted bid transaction to save
      * @return {@code true} if both the auction price update and bid insert succeed
      */
-    private boolean saveBid(int auctionId, BidTransaction tx) {
-        boolean priceUpdated = auctionDAO.updateCurrentPrice(auctionId, tx.getAmt(), tx.getUserID());
-
-        if (!priceUpdated) {
-            return false;
-        }
-
-        return bidDAO.insertBid(
-                tx.getUserID(),
-                auctionId,
-                tx.getAmt(),
-                tx.getTimestamp()
-        );
-    }
 
     /**
      * Enables automated bidding for a user on an active auction.

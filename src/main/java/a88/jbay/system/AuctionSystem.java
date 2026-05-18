@@ -7,7 +7,7 @@ import a88.jbay.common.auction.Auction;
 import a88.jbay.common.auction.AuctionState;
 import a88.jbay.common.network.Response;
 import a88.jbay.di.ApplicationContext;
-import a88.jbay.repository.AuctionRepository;
+import a88.jbay.data.AuctionRepository;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -48,42 +48,17 @@ public class AuctionSystem {
     public boolean createAuction(Item item, int sellerId, LocalDateTime start, LocalDateTime end) {
         logger.info("Creating auction for item: " + item.getName() + " by seller: " + sellerId);
 
-        // 1. Insert the item first
-        int itemId = auctionRepository.insertItem(item);
-        if (itemId == -1) {
-            logger.error("Failed to insert item: " + item.getName());
-            return false;
-        }
-
-        // 2. Create the auction record
-        int auctionId = auctionRepository.insertAuction(
-                itemId,
-                sellerId,
-                item.getInitPrice(),
-                item.getInitPrice(),
-                start,
-                end
-        );
+        int auctionId = auctionRepository.insertItemAndAuction(item, sellerId, start, end);
         if (auctionId == -1) {
             logger.error("Failed to create auction for item: " + item.getName());
             return false;
         }
 
         String sellerName = auctionRepository.getUsernameByUserId(sellerId);
-        Auction auction = new Auction(
-                auctionId,
-                item,
-                sellerName,
-                start,
-                end
-        );
+        Auction auction = new Auction(auctionId, item, sellerName, start, end);
         auctionRepository.storeActiveAuction(auction);
-        auction.subscribe(sellerId); // Seller is automatically subscribed
-
-        //update everyone about this auction
-        connectionSystem.broadcast(
-                new Response(true, "AUCTION_UPDATE", auction)
-        );
+        auction.subscribe(sellerId);
+        connectionSystem.broadcast(new Response(true, "AUCTION_UPDATE", auction));
 
         logger.info("Auction created successfully: ID=" + auctionId + ", Item=" + item.getName());
         return true;
