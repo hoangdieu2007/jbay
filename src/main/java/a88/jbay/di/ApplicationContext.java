@@ -47,12 +47,12 @@ public class ApplicationContext {
         container.registerSingleton(DatabaseController.class, new DatabaseController());
 
         // dao - register as singletons
-        container.registerSingleton(UserDAO.class, new UserDAOImpl(DatabaseController.getInstance()));
-        ItemDAO itemDAO = new ItemDAOImpl(DatabaseController.getInstance());
+        container.registerSingleton(UserDAO.class, new UserDAOImpl(container.getInstance(DatabaseController.class)));
+        ItemDAO itemDAO = new ItemDAOImpl(container.getInstance(DatabaseController.class));
         container.registerSingleton(ItemDAO.class, itemDAO);
-        BidDAO bidDAO = new BidDAOImpl(DatabaseController.getInstance());
+        BidDAO bidDAO = new BidDAOImpl(container.getInstance(DatabaseController.class));
         container.registerSingleton(BidDAO.class, bidDAO);
-        container.registerSingleton(AuctionDAO.class, new AuctionDAOImpl(DatabaseController.getInstance()));
+        container.registerSingleton(AuctionDAO.class, new AuctionDAOImpl(container.getInstance(DatabaseController.class)));
 
         // system classes a.k.a. service layer - register as singletons
         container.registerSingleton(AuctionRepository.class, new AuctionRepository(

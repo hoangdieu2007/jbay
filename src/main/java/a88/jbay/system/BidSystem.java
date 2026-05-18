@@ -366,18 +366,6 @@ public class BidSystem {
     }
 
     /**
-     * @deprecated Use {@link #getCurrAutoBidConfig(int)} instead.
-     */
-//    public Map<Integer, AutoBidConfig> getAutoBidConfigs(int auctionId) {
-//        Map<Integer, AutoBidConfig> result = new HashMap<>();
-//        AutoBidConfig config = getCurrAutoBidConfig(auctionId);
-//        if (config != null) {
-//            result.put(config.getUserId(), config);
-//        }
-//        return result;
-//    }
-
-    /**
      * Clears the current auto-bid configuration for an auction.
      *
      * @param auctionId ID of the auction whose auto-bid configuration should be removed

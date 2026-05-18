@@ -70,21 +70,21 @@ class BidSystemTest {
         when(bidDAO.insertBid(anyInt(), anyInt(), anyDouble(), any())).thenReturn(true);
         when(userDAO.findByUserId(userId)).thenReturn(new UserData(userId, "testuser", "password", "BIDDER"));
 
-        // Mock AuctionSystem.getInstance().getActiveAuctionById()
-        try (var mockedStatic = mockStatic(AuctionSystem.class)) {
-            mockedStatic.when(AuctionSystem::getInstance).thenReturn(auctionSystem);
-            when(auctionSystem.getActiveAuctionById(auctionId)).thenReturn(auction);
+        // Mock auctionRepository.getActiveAuctionById()
+        when(auctionRepository.getActiveAuctionById(auctionId)).thenReturn(auction);
+        // Mock bidRepository.saveBid() to return true
+        when(bidRepository.saveBid(anyInt(), any())).thenReturn(true);
+        // Mock auction.getEndTime() to avoid NullPointerException in extendEndTime
+        when(auction.getEndTime()).thenReturn(java.time.LocalDateTime.now().plusHours(1));
 
-            // Act
-            boolean result = bidSystem.placeBid(userId, auctionId, bidAmount);
+        // Act
+        boolean result = bidSystem.placeBid(userId, auctionId, bidAmount);
 
-            // Assert
-            assertTrue(result);
-            verify(auction).subscribe(userId);
-            verify(auction).updatePrice(bidAmount, any());
-            verify(bidDAO).insertBid(userId, auctionId, bidAmount, any());
-            verify(auctionDAO).updateCurrentPrice(auctionId, bidAmount, userId);
-        }
+        // Assert
+        assertTrue(result);
+        verify(auction).subscribe(userId);
+        verify(auction).updatePrice(eq(bidAmount), any());
+        verify(bidRepository).saveBid(eq(auctionId), any());
     }
 
     @Test
@@ -95,19 +95,16 @@ class BidSystemTest {
         int auctionId = 999;
         double bidAmount = 150.0;
 
-        try (var mockedStatic = mockStatic(AuctionSystem.class)) {
-            mockedStatic.when(AuctionSystem::getInstance).thenReturn(auctionSystem);
-            when(auctionSystem.getActiveAuctionById(auctionId)).thenReturn(null);
+        when(auctionRepository.getActiveAuctionById(auctionId)).thenReturn(null);
 
-            // Act
-            boolean result = bidSystem.placeBid(userId, auctionId, bidAmount);
+        // Act
+        boolean result = bidSystem.placeBid(userId, auctionId, bidAmount);
 
-            // Assert
-            assertFalse(result);
-            verify(auction, never()).subscribe(anyInt());
-            verify(auction, never()).updatePrice(anyDouble(), any());
-            verify(bidDAO, never()).insertBid(anyInt(), anyInt(), anyDouble(), any());
-        }
+        // Assert
+        assertFalse(result);
+        verify(auction, never()).subscribe(anyInt());
+        verify(auction, never()).updatePrice(anyDouble(), any());
+        verify(bidDAO, never()).insertBid(anyInt(), anyInt(), anyDouble(), any());
     }
 
     @Test
@@ -121,20 +118,16 @@ class BidSystemTest {
 
         when(auction.getCurrentPrice()).thenReturn(currentPrice);
         when(auction.getAuctionState()).thenReturn(AuctionState.RUNNING);
+        when(auctionRepository.getActiveAuctionById(auctionId)).thenReturn(auction);
 
-        try (var mockedStatic = mockStatic(AuctionSystem.class)) {
-            mockedStatic.when(AuctionSystem::getInstance).thenReturn(auctionSystem);
-            when(auctionSystem.getActiveAuctionById(auctionId)).thenReturn(auction);
+        // Act
+        boolean result = bidSystem.placeBid(userId, auctionId, invalidBidAmount);
 
-            // Act
-            boolean result = bidSystem.placeBid(userId, auctionId, invalidBidAmount);
-
-            // Assert
-            assertFalse(result);
-            verify(auction, never()).subscribe(anyInt());
-            verify(auction, never()).updatePrice(anyDouble(), any());
-            verify(bidDAO, never()).insertBid(anyInt(), anyInt(), anyDouble(), any());
-        }
+        // Assert
+        assertFalse(result);
+        verify(auction, never()).subscribe(anyInt());
+        verify(auction, never()).updatePrice(anyDouble(), any());
+        verify(bidDAO, never()).insertBid(anyInt(), anyInt(), anyDouble(), any());
     }
 
     @Test
@@ -148,20 +141,16 @@ class BidSystemTest {
 
         when(auction.getCurrentPrice()).thenReturn(currentPrice);
         when(auction.getAuctionState()).thenReturn(AuctionState.OPENING);
+        when(auctionRepository.getActiveAuctionById(auctionId)).thenReturn(auction);
 
-        try (var mockedStatic = mockStatic(AuctionSystem.class)) {
-            mockedStatic.when(AuctionSystem::getInstance).thenReturn(auctionSystem);
-            when(auctionSystem.getActiveAuctionById(auctionId)).thenReturn(auction);
+        // Act
+        boolean result = bidSystem.placeBid(userId, auctionId, bidAmount);
 
-            // Act
-            boolean result = bidSystem.placeBid(userId, auctionId, bidAmount);
-
-            // Assert
-            assertFalse(result);
-            verify(auction, never()).subscribe(anyInt());
-            verify(auction, never()).updatePrice(anyDouble(), any());
-            verify(bidDAO, never()).insertBid(anyInt(), anyInt(), anyDouble(), any());
-        }
+        // Assert
+        assertFalse(result);
+        verify(auction, never()).subscribe(anyInt());
+        verify(auction, never()).updatePrice(anyDouble(), any());
+        verify(bidDAO, never()).insertBid(anyInt(), anyInt(), anyDouble(), any());
     }
 
     @Test
@@ -175,20 +164,16 @@ class BidSystemTest {
 
         when(auction.getCurrentPrice()).thenReturn(currentPrice);
         when(auction.getAuctionState()).thenReturn(AuctionState.FINISHED);
+        when(auctionRepository.getActiveAuctionById(auctionId)).thenReturn(auction);
 
-        try (var mockedStatic = mockStatic(AuctionSystem.class)) {
-            mockedStatic.when(AuctionSystem::getInstance).thenReturn(auctionSystem);
-            when(auctionSystem.getActiveAuctionById(auctionId)).thenReturn(auction);
+        // Act
+        boolean result = bidSystem.placeBid(userId, auctionId, bidAmount);
 
-            // Act
-            boolean result = bidSystem.placeBid(userId, auctionId, bidAmount);
-
-            // Assert
-            assertFalse(result);
-            verify(auction, never()).subscribe(anyInt());
-            verify(auction, never()).updatePrice(anyDouble(), any());
-            verify(bidDAO, never()).insertBid(anyInt(), anyInt(), anyDouble(), any());
-        }
+        // Assert
+        assertFalse(result);
+        verify(auction, never()).subscribe(anyInt());
+        verify(auction, never()).updatePrice(anyDouble(), any());
+        verify(bidDAO, never()).insertBid(anyInt(), anyInt(), anyDouble(), any());
     }
 
     @Test
@@ -202,20 +187,16 @@ class BidSystemTest {
 
         when(auction.getCurrentPrice()).thenReturn(currentPrice);
         when(auction.getAuctionState()).thenReturn(AuctionState.CANCELED);
+        when(auctionRepository.getActiveAuctionById(auctionId)).thenReturn(auction);
 
-        try (var mockedStatic = mockStatic(AuctionSystem.class)) {
-            mockedStatic.when(AuctionSystem::getInstance).thenReturn(auctionSystem);
-            when(auctionSystem.getActiveAuctionById(auctionId)).thenReturn(auction);
+        // Act
+        boolean result = bidSystem.placeBid(userId, auctionId, bidAmount);
 
-            // Act
-            boolean result = bidSystem.placeBid(userId, auctionId, bidAmount);
-
-            // Assert
-            assertFalse(result);
-            verify(auction, never()).subscribe(anyInt());
-            verify(auction, never()).updatePrice(anyDouble(), any());
-            verify(bidDAO, never()).insertBid(anyInt(), anyInt(), anyDouble(), any());
-        }
+        // Assert
+        assertFalse(result);
+        verify(auction, never()).subscribe(anyInt());
+        verify(auction, never()).updatePrice(anyDouble(), any());
+        verify(bidDAO, never()).insertBid(anyInt(), anyInt(), anyDouble(), any());
     }
 
     @Test
@@ -232,17 +213,13 @@ class BidSystemTest {
         when(auctionDAO.updateCurrentPrice(anyInt(), anyDouble(), anyInt())).thenReturn(true);
         when(bidDAO.insertBid(anyInt(), anyInt(), anyDouble(), any())).thenReturn(false);
         when(userDAO.findByUserId(userId)).thenReturn(new UserData(userId, "testuser", "password", "BIDDER"));
+        when(auctionRepository.getActiveAuctionById(auctionId)).thenReturn(auction);
 
-        try (var mockedStatic = mockStatic(AuctionSystem.class)) {
-            mockedStatic.when(AuctionSystem::getInstance).thenReturn(auctionSystem);
-            when(auctionSystem.getActiveAuctionById(auctionId)).thenReturn(auction);
+        // Act
+        boolean result = bidSystem.placeBid(userId, auctionId, bidAmount);
 
-            // Act
-            boolean result = bidSystem.placeBid(userId, auctionId, bidAmount);
-
-            // Assert
-            assertFalse(result);
-        }
+        // Assert
+        assertFalse(result);
     }
 
     @Test
@@ -259,17 +236,13 @@ class BidSystemTest {
         when(auctionDAO.updateCurrentPrice(anyInt(), anyDouble(), anyInt())).thenReturn(false);
         when(bidDAO.insertBid(anyInt(), anyInt(), anyDouble(), any())).thenReturn(true);
         when(userDAO.findByUserId(userId)).thenReturn(new UserData(userId, "testuser", "password", "BIDDER"));
+        when(auctionRepository.getActiveAuctionById(auctionId)).thenReturn(auction);
 
-        try (var mockedStatic = mockStatic(AuctionSystem.class)) {
-            mockedStatic.when(AuctionSystem::getInstance).thenReturn(auctionSystem);
-            when(auctionSystem.getActiveAuctionById(auctionId)).thenReturn(auction);
+        // Act
+        boolean result = bidSystem.placeBid(userId, auctionId, bidAmount);
 
-            // Act
-            boolean result = bidSystem.placeBid(userId, auctionId, bidAmount);
-
-            // Assert
-            assertFalse(result);
-        }
+        // Assert
+        assertFalse(result);
     }
 
     @Test
