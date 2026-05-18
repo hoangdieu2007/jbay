@@ -25,6 +25,7 @@ public class MainServer extends Application {
         loadingStage.setScene(loadingScene);
         loadingStage.show();
 
+        // allow loading screen to be visible
         Task<Void> loadingTask = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
@@ -39,7 +40,7 @@ public class MainServer extends Application {
 
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(MainClient.class.getResource("client/server-database-view.fxml"));
-                Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+                Scene scene = new Scene(fxmlLoader.load());
                 stage.setResizable(false);
                 stage.getIcons().add(new Image(MainClient.class.getResourceAsStream("/a88/jbay/image/logo-no-bg.png")));
                 stage.setTitle("Login to jBay");
