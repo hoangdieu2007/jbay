@@ -37,6 +37,7 @@ public class ServerDatabaseController {
     public void initialize(){
         btnRegisterAdmin.setDisable(true);
         btnStartService.setDisable(true);
+        ApplicationContext.initialize();
     }
 
 
@@ -69,7 +70,7 @@ public class ServerDatabaseController {
 
     @FXML
     private void handleRegisterAdmin(){
-        ApplicationContext.initialize();
+
 
         userSystem = ApplicationContext.getInstance().getDependency(UserSystem.class);
 
@@ -80,7 +81,6 @@ public class ServerDatabaseController {
 
     }
 
-    ClientService clientService = ClientService.getInstance();
 
     @FXML
     private void handleStartService(){
@@ -90,6 +90,7 @@ public class ServerDatabaseController {
         // clientService is a blocking operation
         Thread serverThread = new Thread(() -> {
                 try {
+                    ClientService clientService = ClientService.getInstance();
                     clientService.setupServerSocket(portNum);
                     clientService.startService();
 

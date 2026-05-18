@@ -25,6 +25,8 @@ public class MainServer extends Application {
         loadingStage.setScene(loadingScene);
         loadingStage.show();
 
+
+
         // allow loading screen to be visible
         Task<Void> loadingTask = new Task<Void>() {
             @Override
