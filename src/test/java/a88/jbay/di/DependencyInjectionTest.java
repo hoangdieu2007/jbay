@@ -1,6 +1,7 @@
 package a88.jbay.di;
 
 import a88.jbay.dao.UserDAO;
+import a88.jbay.dao.UserDAOImpl;
 import a88.jbay.repository.UserRepository;
 import a88.jbay.system.update.ConnectionSystem;
 import a88.jbay.system.user.UserSystem;
@@ -24,7 +25,7 @@ public class DependencyInjectionTest {
         
         // Set up test dependencies
         container.registerSingleton(DatabaseController.class, DatabaseController.getInstance());
-        container.registerSingleton(UserDAO.class, new UserDAO(DatabaseController.getInstance()));
+        container.registerSingleton(UserDAO.class, new UserDAOImpl(DatabaseController.getInstance()));
         container.registerSingleton(UserRepository.class, new UserRepository(container.getInstance(UserDAO.class)));
         container.registerSingleton(UserSystem.class, new UserSystem(container.getInstance(UserRepository.class)));
     }
