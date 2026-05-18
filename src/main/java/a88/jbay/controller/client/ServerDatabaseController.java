@@ -9,6 +9,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
@@ -18,7 +19,7 @@ import java.sql.SQLException;
 public class ServerDatabaseController {
     @FXML private TextField serverURLTextField;
     @FXML private TextField databaseUsernameTextField;
-    @FXML private TextField databasePassword;
+    @FXML private PasswordField databasePassword;
     @FXML private TextField portNumberTextField;
     @FXML private TextField adminUsernameTextField;
     @FXML private TextField adminPasswordTextField;
