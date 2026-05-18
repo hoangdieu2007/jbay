@@ -55,9 +55,6 @@ public class ServerDatabaseController {
 
             lblConnectionState.setText("Connect to Database successfully");
 
-            ApplicationContext.initialize();
-
-            userSystem = ApplicationContext.getInstance().getDependency(UserSystem.class);
 
         }
         catch (IllegalStateException e){
@@ -69,8 +66,13 @@ public class ServerDatabaseController {
         }
     }
 
+
     @FXML
     private void handleRegisterAdmin(){
+        ApplicationContext.initialize();
+
+        userSystem = ApplicationContext.getInstance().getDependency(UserSystem.class);
+
         String adminUsername = adminUsernameTextField.getText();
         String adminPassword = adminPasswordTextField.getText();
 
