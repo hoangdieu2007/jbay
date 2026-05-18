@@ -44,7 +44,7 @@ public class ApplicationContext {
      */
     private void configureDependencies() {
         // database controller - directly use the singleton
-        container.registerSingleton(DatabaseController.class, DatabaseController.getInstance());
+        container.registerSingleton(DatabaseController.class, new DatabaseController());
 
         // dao - register as singletons
         container.registerSingleton(UserDAO.class, new UserDAOImpl(DatabaseController.getInstance()));

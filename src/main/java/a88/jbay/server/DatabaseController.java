@@ -1,5 +1,6 @@
 package a88.jbay.server;
 
+import a88.jbay.di.ApplicationContext;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import a88.jbay.util.JBayLogger;
@@ -7,19 +8,15 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class DatabaseController {
-    private static DatabaseController instance;
     private volatile HikariDataSource dataSource;
     private final JBayLogger logger;
 
-    private DatabaseController() {
+    public DatabaseController() {
         this.logger = JBayLogger.getLogger(DatabaseController.class);
     }
 
     public static synchronized DatabaseController getInstance() {
-        if (instance == null) {
-            instance = new DatabaseController();
-        }
-        return instance;
+        return ApplicationContext.getInstance().getDependency(DatabaseController.class);
     }
 
     public synchronized void initializePool(String url, String username, String password) {
