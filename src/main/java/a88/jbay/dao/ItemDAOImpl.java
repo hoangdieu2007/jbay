@@ -5,6 +5,7 @@ import a88.jbay.dao.BaseDAO;
 import a88.jbay.dao.ItemDAO;
 import a88.jbay.server.DatabaseController;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -27,6 +28,14 @@ public class ItemDAOImpl extends BaseDAO implements ItemDAO {
 
     public int insertItem(Item item) {
         return executeInsert(
+                "INSERT INTO items (name, type, `desc`, start_price, image) VALUES (?, ?, ?, ?, ?)",
+                item.getName(), item.getType(), item.getDescription(), item.getInitPrice(), item.getImage()
+        );
+    }
+
+    @Override
+    public int insertItem(Connection connection, Item item) throws SQLException {
+        return executeInsert(connection,
                 "INSERT INTO items (name, type, `desc`, start_price, image) VALUES (?, ?, ?, ?, ?)",
                 item.getName(), item.getType(), item.getDescription(), item.getInitPrice(), item.getImage()
         );

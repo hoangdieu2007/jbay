@@ -3,6 +3,8 @@ package a88.jbay.dao;
 import a88.jbay.common.auction.AuctionData;
 import a88.jbay.common.auction.AuctionState;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -55,4 +57,12 @@ public interface AuctionDAO {
     Double findCurrentPrice(int auctionId);
 
     List<AuctionData> getAllAuctionsForAdmin();
+
+    // --- transactional overloads ---
+    int insertAuction(Connection connection, int itemId, int sellerId,
+                      double startPrice, double curPrice,
+                      LocalDateTime startTime, LocalDateTime endTime) throws SQLException;
+
+    boolean updateCurrentPrice(Connection connection, int auctionId,
+                               double newPrice, int winnerId) throws SQLException;
 }

@@ -24,6 +24,15 @@ public class BidDAOImpl extends BaseDAO implements BidDAO {
         ) > 0;
     }
 
+    @Override
+    public boolean insertBid(Connection connection, int userId, int auctionId,
+                             double amount, LocalDateTime time) throws SQLException {
+        return executeUpdate(connection,
+                "INSERT INTO bids (userid, auctionid, amt, time) VALUES (?, ?, ?, ?)",
+                userId, auctionId, amount, time
+        ) > 0;
+    }
+
     public List<BidData> findBidHistoryByAuctionId(int auctionId) {
         return executeQueryList(
                 "SELECT userid, auctionid, amt, time FROM bids WHERE auctionid = ? ORDER BY time ASC",

@@ -106,21 +106,21 @@ public class AuctionSystem {
     //cancel auction
     //ONLY ADMIN CAN CALL THIS
     public boolean cancelAuction(int auctionId) {
-        logger.info("Attempting to cancel auction: " + auctionId);
         Auction auction = auctionRepository.getActiveAuctionById(auctionId);
-        if (auction != null) {
-            auction.cancel();
+        if (auction == null) {
+            logger.warn("Cancel requested for unknown auction: " + auctionId);
+            return false;
         }
 
-        boolean closed = auctionRepository.setAuctionState(auctionId, AuctionState.CANCELED);
-        if (closed) {
+        auction.cancel();
+        boolean canceled = auctionRepository.setAuctionState(auctionId, AuctionState.CANCELED);
+        if (canceled) {
             auctionRepository.removeActiveAuction(auctionId);
-            logger.info("Auction canceled successfully: " + auctionId);
-            // Subscribers are automatically cleared when auction is removed from memory
+            logger.info("Auction canceled: " + auctionId);
         } else {
-            logger.error("Failed to cancel auction: " + auctionId);
+            logger.error("Failed to cancel auction in DB: " + auctionId);
         }
-        return closed;
+        return canceled;
     }
 
     public boolean isAuctionActive(int auctionId) {
@@ -170,29 +170,26 @@ public class AuctionSystem {
     }
 
     private void checkAuctionTransitions() {
+        List<Integer> ended = tickAuctions();
+        ended.forEach(auctionRepository::removeActiveAuction);
+    }
+
+    private List<Integer> tickAuctions() {
         LocalDateTime now = LocalDateTime.now();
         List<Integer> ended = new ArrayList<>();
 
         for (Auction auction : auctionRepository.getAllActiveAuctions()) {
-            // check and change state
-            // if tick == true --> reset AuctionState
             if (auction.tick(now)) {
-                logger.debug("Heartbeat: State changed for auction " + auction.getId() + " to " + auction.getAuctionState());
                 auctionRepository.setAuctionState(auction.getId(), auction.getAuctionState());
+                logger.debug("State changed for auction " + auction.getId() + " to " + auction.getAuctionState());
             }
-
-            // Add canceled/finsihed auctions to ended list to remove
-            if (auction.getAuctionState() == AuctionState.CANCELED || auction.getAuctionState() == AuctionState.FINISHED) {
+            if (auction.getAuctionState() == AuctionState.CANCELED
+                    || auction.getAuctionState() == AuctionState.FINISHED) {
                 ended.add(auction.getId());
                 logger.info("Auction ended: " + auction.getId() + " - " + auction.getAuctionState());
             }
         }
-
-        //remove ended auctions from memory
-        for (int auctionId : ended) {
-            auctionRepository.removeActiveAuction(auctionId);
-            // Subscribers are automatically cleared when auction is removed from memory
-        }
+        return ended;
     }
 
     //stopping the heartbeat, WARNING: no automatic auction lifecycle management after stopping

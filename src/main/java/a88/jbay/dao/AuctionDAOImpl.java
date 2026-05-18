@@ -44,6 +44,27 @@ public class AuctionDAOImpl extends BaseDAO implements AuctionDAO {
                 newPrice, winnerId, auctionId) > 0;
     }
 
+    @Override
+    public int insertAuction(Connection connection, int itemId, int sellerId,
+                             double startPrice, double curPrice,
+                             LocalDateTime startTime, LocalDateTime endTime) throws SQLException {
+        return executeInsert(connection, """
+            INSERT INTO auctions (item, seller, start_price, cur_price, winner, start_time, end_time, state)
+            VALUES (?, ?, ?, ?, NULL, ?, ?, 'OPENING')
+            """,
+                itemId, sellerId, startPrice, curPrice, startTime, endTime
+        );
+    }
+
+    @Override
+    public boolean updateCurrentPrice(Connection connection, int auctionId,
+                                      double newPrice, int winnerId) throws SQLException {
+        return executeUpdate(connection,
+                "UPDATE auctions SET cur_price = ?, winner = ? WHERE id = ?",
+                newPrice, winnerId, auctionId
+        ) > 0;
+    }
+
     public boolean updateEndTime(int auctionId, LocalDateTime newEndTime) {
         return executeUpdate("UPDATE auctions SET end_time = ? WHERE id = ?",
                 newEndTime, auctionId) > 0;
