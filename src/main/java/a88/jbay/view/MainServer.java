@@ -1,7 +1,9 @@
 package a88.jbay.view;
 
+import a88.jbay.di.ApplicationContext;
+import a88.jbay.server.ClientService;
 import a88.jbay.system.AuctionSystem;
-import a88.jbay.system.UserSystem;
+import a88.jbay.system.user.UserSystem;
 import javafx.application.Application;
 import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
@@ -23,14 +25,12 @@ public class MainServer extends Application {
         loadingStage.setScene(loadingScene);
         loadingStage.show();
 
+
+
+        // allow loading screen to be visible
         Task<Void> loadingTask = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-                //loading
-
-                UserSystem userSystem = UserSystem.getInstance();
-                AuctionSystem auctionSystem = AuctionSystem.getInstance();
-
                 Thread.sleep(1500);
 
                 return null;
@@ -41,8 +41,8 @@ public class MainServer extends Application {
             loadingStage.close();
 
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(MainClient.class.getResource("client/client-login-register-view.fxml"));
-                Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+                FXMLLoader fxmlLoader = new FXMLLoader(MainClient.class.getResource("client/server-database-view.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
                 stage.setResizable(false);
                 stage.getIcons().add(new Image(MainClient.class.getResourceAsStream("/a88/jbay/image/logo-no-bg.png")));
                 stage.setTitle("Login to jBay");
@@ -60,5 +60,13 @@ public class MainServer extends Application {
 
         Thread loadingThread = new Thread(loadingTask);
         loadingThread.start();
+    }
+
+    // automatically call when users close the UI
+    @Override
+    public void stop(){
+        ApplicationContext.getInstance().getDependency(ClientService.class).stopService();
+        System.exit(0);
+
     }
 }

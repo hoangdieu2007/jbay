@@ -1,11 +1,12 @@
 package a88.jbay.server;
 
-import a88.jbay.model.entity.user.User;
-import a88.jbay.model.network.Request;
-import a88.jbay.model.network.Response;
-import a88.jbay.system.AuctionSystem;
-import a88.jbay.system.UpdateSystem;
-import a88.jbay.system.UserSystem;
+import a88.jbay.common.user.User;
+import a88.jbay.common.network.Request;
+import a88.jbay.common.network.Response;
+import a88.jbay.di.ApplicationContext;
+import a88.jbay.di.DependencyInjectionContainer;
+import a88.jbay.system.update.ConnectionSystem;
+import a88.jbay.system.user.UserSystem;
 import a88.jbay.util.JBayLogger;
 
 import java.io.IOException;
@@ -24,21 +25,27 @@ public class ClientConnection implements Runnable {
     private final ObjectOutputStream out;
     private final int connectionId;
     private final JBayLogger logger;
+    private final RequestHandler requestHandler;
+    private final ConnectionSystem connectionSystem;
+    private final UserSystem userSystem;
 
-    // user cache, this helps reduce the number of database queries
     private User userCache;
 
-    public ClientConnection(Socket socket) throws IOException {
-        this.connectionId = socket.hashCode(); // Use socket hash as connection ID
+    public ClientConnection(Socket socket, ConnectionSystem connectionSystem,
+                            UserSystem userSystem, RequestHandler requestHandler) throws IOException {
+        this.connectionId = socket.hashCode();
         this.socket = socket;
-        socket.setKeepAlive(true);  // enable TCP keep-alive
+        socket.setKeepAlive(true);
+
         this.out = new ObjectOutputStream(socket.getOutputStream());
         out.flush();
         this.in = new ObjectInputStream(socket.getInputStream());
 
         this.userCache = new User();
-
         this.logger = JBayLogger.getLogger(ClientConnection.class);
+        this.connectionSystem = connectionSystem;
+        this.userSystem = userSystem;
+        this.requestHandler = requestHandler;
     }
 
     public int getConnectionId() {
@@ -62,14 +69,14 @@ public class ClientConnection implements Runnable {
                     Request request = (Request) in.readObject();
                     if (request == null) break;
 
-                    Response response = RequestHandler.handleRequest(request);
+                    Response response = requestHandler.handleRequest(request);
 
                     // update cache if login success
                     if (response.getMessage().equals("LOGIN_SUCCESS")) {
                         this.userCache = (User) response.getPayload();
-                        UpdateSystem.getInstance().register(this);
+                        connectionSystem.register(this);
                     } else if (response.getMessage().equals("LOGOUT_SUCCESS")) {
-                        UpdateSystem.getInstance().unregister(this); // this has to be called before setting userCache to new User()
+                        connectionSystem.unregister(this); // this has to be called before setting userCache to new User()
                         this.userCache = new User();
                     }
 
@@ -86,8 +93,8 @@ public class ClientConnection implements Runnable {
             }
         } finally {
             // later add clean up codes here!
-            UpdateSystem.getInstance().unregister(this);
-            UserSystem.getInstance().logout(userCache.getSessionId());
+            connectionSystem.unregister(this);
+            userSystem.logout(userCache.getSessionId());
             closeResources(out, in, socket);
             Thread.currentThread().interrupt();
         }
@@ -101,9 +108,11 @@ public class ClientConnection implements Runnable {
 
         try {
             // Use atomic write to prevent deadlocks
-            out.reset();
-            out.writeObject(response);
-            out.flush();
+            synchronized (out) {
+                out.writeObject(response);
+                out.flush();
+                out.reset();
+            }
         } catch (IOException e) {
             logger.error("Error sending response: " + e.getMessage(), e);
         }

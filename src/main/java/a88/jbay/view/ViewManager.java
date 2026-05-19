@@ -2,11 +2,14 @@ package a88.jbay.view;
 
 import a88.jbay.client.ClientSession;
 import a88.jbay.controller.ControllerProvider;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
@@ -16,8 +19,8 @@ import java.io.IOException;
 public class ViewManager {
     private static ViewManager instance;
 
-    private static final double DEFAULT_WIDTH = 1327;
-    private static final double DEFAULT_HEIGHT = 861;
+    private static final double DEFAULT_WIDTH = 1280;
+    private static final double DEFAULT_HEIGHT = 720;
 
     private ViewManager() {}
 
@@ -34,19 +37,35 @@ public class ViewManager {
         primaryStage = stage;
     }
 
+    public static void newStage(String title) {
+        closePrimaryStage();
+
+        Stage stage = new Stage();
+        stage.setResizable(true);
+        stage.getIcons().add(new Image(MainClient.class.getResourceAsStream("/a88/jbay/image/logo-no-bg.png")));
+        stage.setTitle(title);
+        stage.setOnCloseRequest(event -> Platform.exit());
+
+        setPrimaryStage(stage);
+    }
+
     public static void closePrimaryStage() {
         if (primaryStage != null) {
             primaryStage.close();
         }
     }
 
-    public static void displayScene(String fxmlPath) throws IOException {
+    public static void setResolution(double width, double height) {
+        primaryStage.setWidth(width);
+        primaryStage.setHeight(height);
+    }
 
+    public static void displayScene(String fxmlPath) throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 ViewManager.class.getResource("/a88/jbay/view/" + fxmlPath)
         );
 
-        Parent content = loader.load();
+        Region content = loader.load();
 
         // Register controller
         Object controller = loader.getController();
@@ -54,33 +73,30 @@ public class ViewManager {
             ControllerProvider.getInstance().registerController(controller);
         }
 
-        // Get original FXML designed size
-        double designWidth = content.prefWidth(-1);
-        double designHeight = content.prefHeight(-1);
+        // get stage size
+        double stageWidth = primaryStage.getWidth();
+        double stageHeight = primaryStage.getHeight();
 
-        // Fallback if pref sizes are not set
-        if (designWidth <= 0) designWidth = 1280;
-        if (designHeight <= 0) designHeight = 720;
+        // get fxml size
+        double designWidth = content.getPrefWidth();
+        double designHeight = content.getPrefHeight();
 
+        // wrap in group to prevent layout managers from overriding
         Group group = new Group(content);
-
         StackPane viewport = new StackPane(group);
 
-        Scene scene = new Scene(viewport, designWidth, designHeight);
+        // create the scene using existing stage dimensions
+        // this prevents the window from snapping to a new size
+        Scene scene = new Scene(viewport, stageWidth, stageHeight);
 
         Scale scale = new Scale();
-        scale.setPivotX(0);
-        scale.setPivotY(0);
-
         content.getTransforms().add(scale);
 
-        scale.xProperty().bind(
-                Bindings.min(
-                        scene.widthProperty().divide(designWidth),
-                        scene.heightProperty().divide(designHeight)
-                )
-        );
-
+        // bind scale to the Scene size divided by the FXML's design size
+        scale.xProperty().bind(Bindings.min(
+                scene.widthProperty().divide(designWidth),
+                scene.heightProperty().divide(designHeight)
+        ));
         scale.yProperty().bind(scale.xProperty());
 
         primaryStage.setScene(scene);

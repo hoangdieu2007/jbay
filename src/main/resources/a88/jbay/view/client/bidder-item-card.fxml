@@ -9,15 +9,21 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="BOTTOM_CENTER" prefHeight="450.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0); -fx-border-radius: 10; -fx-border-color: #e0e0e0;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.BidderItemCardController">
+<VBox alignment="BOTTOM_CENTER" prefHeight="450.0" prefWidth="300.0" styleClass="bidder-item-card" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.BidderItemCardController">
     <children>
-        <ImageView fx:id="itemImage" fitHeight="178.0" fitWidth="283.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="NEVER">
-         <VBox.margin>
-            <Insets top="6.0" />
-         </VBox.margin></ImageView>
+        <StackPane prefHeight="180.0" prefWidth="300.0" VBox.vgrow="NEVER">
+            <clip>
+                <Rectangle arcHeight="20.0" arcWidth="20.0" height="180.0" width="300.0" />
+            </clip>
+            <children>
+                <ImageView fx:id="itemImage" fitHeight="180.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" />
+            </children>
+        </StackPane>
 
         <VBox spacing="15.0" VBox.vgrow="ALWAYS">
             <padding>
@@ -33,18 +39,19 @@
                             </font>
                         </Label>
                         <Region prefHeight="40.0" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin></Region>
-                        <Label fx:id="statusLabel" alignment="CENTER" minWidth="60.0" style="-fx-background-color: #e0e7ff; -fx-text-fill: #2b5fe8; -fx-background-radius: 5; -fx-padding: 5 10 5 10;" text="State">
+                            <HBox.margin>
+                                <Insets />
+                            </HBox.margin>
+                        </Region>
+                        <Label fx:id="statusLabel" alignment="CENTER" minWidth="60.0" styleClass="status-badge" text="State">
                             <font>
                                 <Font size="14.0" />
                             </font>
                         </Label>
                     </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
                 </HBox>
 
                 <Label fx:id="descriptionLabel" text="description" textFill="#555555">
@@ -99,16 +106,16 @@
 
                 <Region VBox.vgrow="ALWAYS" />
 
-                <Button fx:id="bidButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handlePlaceBid" style="-fx-background-color: #2b5fe8; -fx-text-fill: white; -fx-background-radius: 8; -fx-padding: 10;" text="Place Bid">
+                <Button fx:id="bidButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handlePlaceBid" styleClass="bid-button" text="Place Bid">
                     <font>
                         <Font name="System Bold" size="18.0" />
                     </font>
                 </Button>
 
             </children>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
+            <VBox.margin>
+                <Insets />
+            </VBox.margin>
         </VBox>
     </children>
 </VBox>

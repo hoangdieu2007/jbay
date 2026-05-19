@@ -1,17 +1,15 @@
 package a88.jbay.view;
 
-import a88.jbay.dao.AuctionDAO;
-import a88.jbay.dao.BidDAO;
-import a88.jbay.dao.ItemDAO;
-import a88.jbay.dao.UserDAO;
-import a88.jbay.model.event.Auction;
+import a88.jbay.common.auction.Auction;
+import a88.jbay.data.AuctionRepository;
 import a88.jbay.server.ClientConnection;
 import a88.jbay.server.ClientService;
 import a88.jbay.server.DatabaseController;
-import a88.jbay.server.RequestHandler;
+import a88.jbay.di.ApplicationContext;
+import a88.jbay.system.user.AdminService;
 import a88.jbay.system.AuctionSystem;
-import a88.jbay.system.UpdateSystem;
-import a88.jbay.system.UserSystem;
+import a88.jbay.system.update.ConnectionSystem;
+import a88.jbay.system.user.UserSystem;
 import a88.jbay.util.JBayLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +27,9 @@ public class MainServerTUI {
         logger.info("------------------JBAY_SERVER_TUI-----------------");
         logger.info("--------------software infrastructure-------------");
 
+        // Initialize dependency injection container
+        ApplicationContext.getInstance().configureDatabase(); // phase 1
+
         Scanner sc = new Scanner(System.in);
 
         logger.info("Connect to database:");
@@ -40,29 +41,27 @@ public class MainServerTUI {
                 String username = sc.nextLine();
                 logger.info("Enter password:");
                 String password = sc.nextLine();
-                DatabaseController.setCredentials(url, username, password);
-                DatabaseController.getInstance().getConnection();
+
+                DatabaseController dbController = ApplicationContext.getInstance().getDependency(DatabaseController.class);
+                dbController.initializePool(url, username, password);
+                dbController.getConnection();
+
                 break;
             } catch (SQLException e) {
                 logger.error("Database connection failed, please try again.");
             }
         }
 
-        ClientService clientService = ClientService.getInstance();
+        ApplicationContext.getInstance().configureServices(); // phase 2
 
-        /**
-         * init DAOs
-         */
-        AuctionDAO auctionDAO = AuctionDAO.getInstance();
-        UserDAO userDAO = UserDAO.getInstance();
-        BidDAO bidDAO = BidDAO.getInstance();
-        ItemDAO itemDAO = ItemDAO.getInstance();
+        ClientService clientService = ApplicationContext.getInstance().getDependency(ClientService.class);
 
-        //init systems
-        DatabaseController dbController = DatabaseController.getInstance();
-        AuctionSystem auctionSystem = AuctionSystem.getInstance();
-        UserSystem userSystem = UserSystem.getInstance();
-        UpdateSystem updateSystem = UpdateSystem.getInstance();
+        // Get systems from DI container
+        AuctionRepository auctionRepository = ApplicationContext.getInstance().getDependency(AuctionRepository.class);
+        AuctionSystem auctionSystem = ApplicationContext.getInstance().getDependency(AuctionSystem.class);
+        UserSystem userSystem = ApplicationContext.getInstance().getDependency(UserSystem.class);
+        AdminService adminService = ApplicationContext.getInstance().getDependency(AdminService.class);
+        ConnectionSystem connectionSystem = ApplicationContext.getInstance().getDependency(ConnectionSystem.class);
 
         try {
 
@@ -86,21 +85,21 @@ public class MainServerTUI {
                             System.out.println("Password:");
                             String password = sc.nextLine();
 
-                            UserSystem.getInstance().register(username, password, "ADMIN");
+                            userSystem.register(username, password, "ADMIN");
 
                             break;
                         case "CANCEL":
                             System.out.println("Auction ID:");
                             int auctionId = sc.nextInt();
 
-                            AuctionSystem.getInstance().cancelAuction(auctionId);
+                            auctionSystem.cancelAuction(auctionId);
 
                             break;
                         case "BAN":
                             System.out.println("User ID:");
                             int userId = sc.nextInt();
 
-                            UserSystem.getInstance().banUser(userId);
+                            adminService.banUser(userId);
 
                             break;
                         case "UQ":
@@ -117,7 +116,7 @@ public class MainServerTUI {
                             auctionId = sc.nextInt();
 
                             if (auctionId == -1) {
-                                for (Auction auction : AuctionSystem.getInstance().getActiveAuctionList()) {
+                                for (Auction auction : auctionSystem.getActiveAuctionList()) {
                                     System.out.println(auction);
                                 }
                             }
@@ -127,14 +126,14 @@ public class MainServerTUI {
                             // nuke the database
                             break;
                         case "RELOAD":
-                            auctionSystem.loadActiveAuctions();
+                            auctionRepository.loadActiveAuctions();
                             break;
                         case "UPDATE":
                             //update all users
                             break;
                         case "LS_CONN":
                             // list all connections
-                            updateSystem.getConnections().forEach((uid, clientConnection) -> {
+                            connectionSystem.getConnections().forEach((uid, clientConnection) -> {
                                 logger.info("UserID: " + uid);
                                 for (ClientConnection client : clientConnection) {
                                     logger.info("Connection ID: " + client.getConnectionId());

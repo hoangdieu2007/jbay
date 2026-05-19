@@ -2,9 +2,9 @@ package a88.jbay.controller.client;
 
 import a88.jbay.client.ServerConnection;
 import a88.jbay.util.ImageProcessor;
-import a88.jbay.model.entity.item.Item;
-import a88.jbay.model.network.Request;
-import a88.jbay.model.network.RequestType;
+import a88.jbay.common.item.Item;
+import a88.jbay.common.network.Request;
+import a88.jbay.common.network.RequestType;
 import a88.jbay.util.JBayLogger;
 import a88.jbay.view.ViewManager;
 import javafx.fxml.FXML;
@@ -303,6 +303,7 @@ public class ClientSellerItemController {
 
             ServerConnection.getInstance().send(request);
 
+            SellerBidderHomeScreenController.targetTabIndex = 0;
             ViewManager.displayScene("client/Seller-Bidder-HomeScreens.fxml");
 
             new Alert(Alert.AlertType.INFORMATION, "Auction created successfully!").show();

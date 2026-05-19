@@ -2,11 +2,11 @@ package a88.jbay.controller.client;
 
 import a88.jbay.client.ClientSession;
 import a88.jbay.client.ServerConnection;
-import a88.jbay.model.network.Request;
-import a88.jbay.model.network.RequestType;
+import a88.jbay.common.network.Request;
+import a88.jbay.common.network.RequestType;
 import a88.jbay.util.ImageProcessor;
-import a88.jbay.model.event.Auction;
-import a88.jbay.model.event.BidTransaction;
+import a88.jbay.common.auction.Auction;
+import a88.jbay.common.auction.BidTransaction;
 import a88.jbay.view.ViewManager;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
@@ -75,7 +75,7 @@ public class SellerViewAuctionController {
 
     private void setupSellerViewListener() {
         // Lấy Map từ ClientSession
-        ObservableMap<Integer, Auction> auctions = ClientSession.getInstance().getBidderAuctions();
+        ObservableMap<Integer, Auction> auctions = ClientSession.getInstance().getSellerAuctions();
 
         // Đăng ký listener
         auctions.addListener((MapChangeListener<Integer, Auction>) change -> {
@@ -102,7 +102,6 @@ public class SellerViewAuctionController {
     private void handleCancel() throws IOException {
         String userId = ClientSession.getInstance().getUser().getSessionId();
 
-        currAuction.cancel();
         ServerConnection.getInstance().send(new Request(RequestType.CANCEL).put("auctionId", currAuction.getId()));
 
         // Chỉ định tab cần mở khi quay về là seller

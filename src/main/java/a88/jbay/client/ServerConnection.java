@@ -1,8 +1,8 @@
 package a88.jbay.client;
 
-import a88.jbay.model.network.Request;
-import a88.jbay.model.network.RequestType;
-import a88.jbay.model.network.Response;
+import a88.jbay.common.network.Request;
+import a88.jbay.common.network.RequestType;
+import a88.jbay.common.network.Response;
 import a88.jbay.util.JBayLogger;
 import a88.jbay.view.ViewManager;
 import javafx.application.Platform;
@@ -46,21 +46,29 @@ public class ServerConnection {
         logger.info("Connecting to server: " + host + ":" + port);
         socket = new Socket(host, port);
         socket.setKeepAlive(true);  // Enable TCP keep-alive
+
         out = new ObjectOutputStream(socket.getOutputStream());
         out.flush();
         in = new ObjectInputStream(socket.getInputStream());
+
         logger.info("Connection successful to server: " + host + ":" + port);
     }
 
     //methods for sending requests
-    public synchronized void send(Request request) throws IOException {
+    public void send(Request request) throws IOException {
+        if (out == null) {
+            throw new IOException("Not connected to server. Please connect first.");
+        }
+
         logger.info("Sending request: " + request.getType().name());
 
         //automatically add sessionId
         request.put("sessionId", ClientSession.getInstance().getUser().getSessionId());
-        out.reset();
-        out.writeObject(request);
-        out.flush();
+        synchronized (out) {
+            out.writeObject(request);
+            out.flush();
+            out.reset();
+        }
     }
 
     //listener
@@ -100,6 +108,8 @@ public class ServerConnection {
                     Alert alert = new Alert(Alert.AlertType.WARNING, "Disconnected from server");
                     alert.showAndWait();
                     try {
+                        ViewManager.newStage("Welcome to jBay");
+                        ViewManager.setResolution(600, 429);
                         ViewManager.displayScene("client/client-server-connect-view.fxml");
                     } catch (IOException ex) {
                         logger.error("Failed to switch to connection view: " + ex.getMessage(), ex);
@@ -122,7 +132,7 @@ public class ServerConnection {
             } catch (IOException e) {
                 logger.error("Failed to send ping: " + e.getMessage(), e);
             }
-        }, 0, 30, TimeUnit.SECONDS);
+        }, 0, 10, TimeUnit.SECONDS);
     }
 
     public void disconnect() {

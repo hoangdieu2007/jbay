@@ -1,32 +1,30 @@
 package a88.jbay.server;
 
+import a88.jbay.di.ApplicationContext;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import a88.jbay.util.JBayLogger;
-
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.concurrent.atomic.AtomicBoolean;
 
-// singleton class for database controlling
-// requirement: thread safe
-public class DatabaseController implements DatabaseConnectionProvider {
-    private static DatabaseController instance;
-    private final HikariDataSource dataSource;
+public class DatabaseController {
+    private volatile HikariDataSource dataSource;
     private final JBayLogger logger;
 
-    public static String url;
-    public static String username;
-    public static String password;
-
-    private DatabaseController() {
+    public DatabaseController() {
         this.logger = JBayLogger.getLogger(DatabaseController.class);
+    }
+
+    public synchronized void initializePool(String url, String username, String password) {
+        if (url == null || username == null) {
+            throw new IllegalStateException("Database credentials have not been set!");
+        }
+
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(url);
         config.setUsername(username);
         config.setPassword(password);
 
-        // Pool configuration
         config.setMaximumPoolSize(10);
         config.setMinimumIdle(2);
         config.setIdleTimeout(30000);
@@ -37,28 +35,17 @@ public class DatabaseController implements DatabaseConnectionProvider {
         logger.info("Database connection pool initialized with URL: " + url);
     }
 
-    public static DatabaseController getInstance() {
-        if (instance == null) {
-            instance = new DatabaseController();
-        }
-        return instance;
-    }
-
-    public static void setCredentials(String inputUrl, String inputUsername, String inputPassword) {
-        url = inputUrl;
-        username = inputUsername;
-        password = inputPassword;
-    }
-
     public Connection getConnection() throws SQLException {
+        // ensure pool exists before handing out connections
+        if (dataSource == null) {
+            throw new IllegalStateException("Database connection pool has not been initialized");
+        }
+
         logger.debug("Database connection requested");
-        Connection connection = dataSource.getConnection();
-        logger.debug("Database connection established");
-        return connection;
+        return dataSource.getConnection();
     }
 
     public void close() {
-        logger.info("Closing database connection pool");
         if (dataSource != null) {
             dataSource.close();
             logger.info("Database connection pool closed successfully");

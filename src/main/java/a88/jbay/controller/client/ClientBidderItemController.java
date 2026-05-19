@@ -2,11 +2,12 @@ package a88.jbay.controller.client;
 
 import a88.jbay.client.ClientSession;
 import a88.jbay.client.ServerConnection;
+import a88.jbay.common.auction.AutoBidConfig;
 import a88.jbay.util.ImageProcessor;
-import a88.jbay.model.event.Auction;
-import a88.jbay.model.event.BidTransaction;
-import a88.jbay.model.network.Request;
-import a88.jbay.model.network.RequestType;
+import a88.jbay.common.auction.Auction;
+import a88.jbay.common.auction.BidTransaction;
+import a88.jbay.common.network.Request;
+import a88.jbay.common.network.RequestType;
 import a88.jbay.view.ViewManager;
 import javafx.application.Platform;
 import javafx.collections.MapChangeListener;
@@ -36,6 +37,8 @@ public class ClientBidderItemController {
     @FXML
     private Button placeBidButton;
     @FXML
+    private Button autoBidButton;
+    @FXML
     private LineChart<String, Number> priceChart;
     @FXML
     private ImageView itemImageView;
@@ -46,6 +49,8 @@ public class ClientBidderItemController {
     private XYChart.Series<String, Number> priceSeries;
     private final DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
     private boolean autoBidActive = false;
+    private static final String AUTO_BID_ENABLED_STYLE = "-fx-background-color: #4CAF50; -fx-text-fill: white;";
+    private static final String AUTO_BID_DISABLED_STYLE = "-fx-background-color: #9E9E9E; -fx-text-fill: white;";
 
     //Xử lí mục ID cho auction đang hoạt động
     public void setCurrentAuction(Auction auction) {
@@ -99,7 +104,36 @@ public class ClientBidderItemController {
             if (auction.getItem().getImage() != null) {
                 itemImageView.setImage(ImageProcessor.bytesToImage(auction.getItem().getImage()));
             }
+
+            applyAutoBidState(auction);
         });
+    }
+
+    private void applyAutoBidState(Auction auction) {
+        int userId = ClientSession.getInstance().getUser().getId();
+        AutoBidConfig autoBidConfig = auction.getAutoBidConfig(userId);
+        boolean enabled = autoBidConfig != null;
+
+        autoBidIncrement.setDisable(enabled);
+        autoBidMaxAmount.setDisable(enabled);
+        autoBidButton.setDisable(enabled);
+        autoBidButton.setStyle(enabled ? AUTO_BID_DISABLED_STYLE : AUTO_BID_ENABLED_STYLE);
+        bidInput.setDisable(enabled);
+        placeBidButton.setDisable(enabled);
+
+        if (enabled) {
+            autoBidIncrement.setText(String.valueOf(autoBidConfig.getIncrement()));
+            autoBidMaxAmount.setText(String.valueOf(autoBidConfig.getMaxAmount()));
+            bidInput.setPromptText("Currently in auto-bidding mode");
+        } else {
+            if (autoBidActive) {
+                autoBidIncrement.clear();
+                autoBidMaxAmount.clear();
+            }
+            bidInput.setPromptText("Enter Your Bid(USD)");
+        }
+
+        autoBidActive = enabled;
     }
 
     private void setupAuctionListener() {
@@ -260,8 +294,11 @@ public class ClientBidderItemController {
             // Keep values in text boxes and disable them
             autoBidIncrement.setDisable(true);
             autoBidMaxAmount.setDisable(true);
+            autoBidButton.setDisable(true);
+            autoBidButton.setStyle(AUTO_BID_DISABLED_STYLE);
             // Also disable bid input and place bid button
             bidInput.setDisable(true);
+            placeBidButton.setDisable(true);
             bidInput.setPromptText("Currently in auto-bidding mode");
             autoBidActive = true;
 
@@ -299,10 +336,13 @@ public class ClientBidderItemController {
             // Re-enable text fields and clear values
             autoBidIncrement.setDisable(false);
             autoBidMaxAmount.setDisable(false);
+            autoBidButton.setDisable(false);
+            autoBidButton.setStyle(AUTO_BID_ENABLED_STYLE);
             autoBidIncrement.clear();
             autoBidMaxAmount.clear();
             // Also re-enable bid input and place bid button
             bidInput.setDisable(false);
+            placeBidButton.setDisable(false);
             bidInput.setPromptText("Enter Your Bid(USD)");
             autoBidActive = false;
 
