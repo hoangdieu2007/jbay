@@ -54,7 +54,7 @@
                                 <Font size="16.0" />
                             </font>
                         </Label>
-                        <Button fx:id="btnToLogin" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: #059669; -fx-padding: 0; -fx-cursor: hand; -fx-font-weight: bold;" text="Sign in" underline="true">
+                        <Button fx:id="btnToLogin" mnemonicParsing="false" onAction="#goToLoginScene" style="-fx-background-color: transparent; -fx-text-fill: #059669; -fx-padding: 0; -fx-cursor: hand; -fx-font-weight: bold;" text="Sign in" underline="true">
                             <font>
                                 <Font size="16.0" />
                             </font>

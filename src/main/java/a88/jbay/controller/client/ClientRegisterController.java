@@ -25,13 +25,7 @@ public class ClientRegisterController {
     @FXML private Button btnToLogin;
 
     @FXML
-    public void initialize() {
-        if (btnToLogin != null) {
-            btnToLogin.setOnAction(e -> goToLoginScene());
-        }
-    }
-
-    private void goToLoginScene() {
+    public void goToLoginScene(ActionEvent event) {
         try {
             // Gọi ViewManager để quay lại file FXML đăng nhập
             ViewManager.displayScene("client-login-view.fxml");
