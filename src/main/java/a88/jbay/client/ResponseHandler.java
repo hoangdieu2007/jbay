@@ -52,6 +52,7 @@ public class ResponseHandler {
                 case "ADMIN_USER_LIST" -> handleAdminUserList(response);
                 case "BAN_USER" -> handleBanUser(response);
                 case "USER_STATE_CHANGED" -> handleUserStateChanged(response);
+                case "NEW_USER_REGISTERED" -> handleNewUserRegistered(response);
                 case "PONG" -> handlePong(response);
                 default -> handleDefault(response);
             };
@@ -188,6 +189,19 @@ public class ResponseHandler {
     private void handleUserStateChanged(Response response) {
         User updatedUser = (User) response.getPayload();
         clientSession.getAdminUsers().put(updatedUser.getId(), updatedUser);
+    }
+
+    private void handleNewUserRegistered(Response response) {
+        // Chỉ những máy đang đăng nhập bằng tài khoản ADMIN mới cần xin lại danh sách
+        User currentUser = clientSession.getUser();
+        if (currentUser != null && "ADMIN".equals(currentUser.getRole())) {
+            try {
+                // Tự động gửi request xin Server cấp lại danh sách User mới nhất
+                ServerConnection.getInstance().send(new Request(RequestType.GET_USERS));
+            } catch (IOException e) {
+                logger.error("Failed to fetch updated users after new registration: " + e.getMessage());
+            }
+        }
     }
 
     private void handleAuctionUpdateNotify(Response response) {

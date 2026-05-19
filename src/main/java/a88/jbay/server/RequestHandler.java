@@ -97,6 +97,7 @@ public class RequestHandler {
         String role = "USER";
 
         if (userSystem.register(username, password, role)) {
+            updateSystem.broadcastToAll(new Response(true, "NEW_USER_REGISTERED", null));
             return new Response(true, "REGISTER_SUCCESS", null);
         }
         return new Response(false, "REGISTER_FAIL", null);
@@ -168,8 +169,14 @@ public class RequestHandler {
         }
 
         if (user.can(ActionType.CANCEL)) {
-            //direct cancel to system
-            boolean success = auctionSystem.cancelAuction((Integer) request.get("auctionId"));
+            boolean success = auctionSystem.cancelAuction(auction.getId());
+
+            if (success) {
+                // Lấy phiên đấu giá vừa bị hủy (mang trạng thái CANCELED) và phát sóng
+                Auction cancelledAuction = auctionSystem.getAuctionById(auction.getId());
+                updateSystem.broadcastAuctionUpdate(cancelledAuction);
+            }
+
             return new Response(success, success ? "CANCEL_SUCCESS" : "CANCEL_FAIL", null);
         }
         return new Response(false, "CANCEL_FAIL", null);
@@ -266,8 +273,11 @@ public class RequestHandler {
             return new Response(false, "BAN_FAIL", null);
         }
 
-        // Trả phản hồi đồng bộ kèm Object User mới làm payload về cho máy Admin hiển thị
-        return new Response(true, "USER_STATE_CHANGED", updatedUser);
+        // Đóng gói Object mang trạng thái mới và phát loa
+        Response broadcastResponse = new Response(true, "USER_STATE_CHANGED", updatedUser);
+        updateSystem.broadcastToAll(broadcastResponse);
+
+        return broadcastResponse;
     }
 
     //misc commands

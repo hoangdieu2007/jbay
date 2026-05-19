@@ -66,6 +66,13 @@ public class UpdateSystem {
     }
 
     /**
+     * broadcast user update to all admin
+     */
+    public void broadcastToAll(Response response) {
+        connectionSystem.broadcast(response);
+    }
+
+    /**
      * send seller auctions to a user.
      */
     public void updateSellerAuctions(int userId) {
