@@ -28,7 +28,7 @@ public class MainServerTUI {
         logger.info("--------------software infrastructure-------------");
 
         // Initialize dependency injection container
-        ApplicationContext.initialize();
+        ApplicationContext.getInstance().configureDatabase(); // phase 1
 
         Scanner sc = new Scanner(System.in);
 
@@ -51,6 +51,8 @@ public class MainServerTUI {
                 logger.error("Database connection failed, please try again.");
             }
         }
+
+        ApplicationContext.getInstance().configureServices(); // phase 2
 
         ClientService clientService = ApplicationContext.getInstance().getDependency(ClientService.class);
 

@@ -31,7 +31,6 @@ public class ApplicationContext {
 
     private ApplicationContext() {
         this.container = new DependencyInjectionContainer();
-        configureDatabase();
     }
 
     public static synchronized ApplicationContext getInstance() {
@@ -41,12 +40,8 @@ public class ApplicationContext {
         return instance;
     }
 
-    public static void initialize() {
-        getInstance();
-    }
-
     // phase 1 — just the database layer, safe to call before DB connects
-    private void configureDatabase() {
+    public void configureDatabase() {
         container.registerSingleton(DatabaseController.class, new DatabaseController()); // no getInstance()
 
         DatabaseController db = container.getInstance(DatabaseController.class);

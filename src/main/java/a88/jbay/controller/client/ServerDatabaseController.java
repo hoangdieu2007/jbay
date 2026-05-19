@@ -37,7 +37,7 @@ public class ServerDatabaseController {
     public void initialize(){
         btnRegisterAdmin.setDisable(true);
         btnStartService.setDisable(true);
-        ApplicationContext.initialize();
+        ApplicationContext.getInstance().configureDatabase();
     }
 
 
@@ -55,9 +55,9 @@ public class ServerDatabaseController {
             btnStartService.setDisable(false);
             btnRegisterAdmin.setDisable(false);
 
+            ApplicationContext.getInstance().configureServices(); // phase 2
+
             lblConnectionState.setText("Connect to Database successfully");
-
-
         }
         catch (IllegalStateException e){
             lblConnectionState.setText(e.getMessage());
@@ -85,6 +85,8 @@ public class ServerDatabaseController {
 
     @FXML
     private void handleStartService(){
+        ApplicationContext.getInstance().configureServices();
+
         String port = portNumberTextField.getText();
         int portNum = Integer.parseInt(port);
 

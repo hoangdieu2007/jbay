@@ -3,12 +3,7 @@ package a88.jbay.view;
 import a88.jbay.di.ApplicationContext;
 import a88.jbay.server.DatabaseController;
 import a88.jbay.util.JBayLogger;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -22,7 +17,7 @@ public class HelloApplication {
         logger.info("--------------software infrastructure-------------");
 
         // Initialize dependency injection container
-        ApplicationContext.initialize();
+        ApplicationContext.getInstance().configureDatabase();
 
         Scanner sc = new Scanner(System.in);
 
