@@ -116,7 +116,7 @@ public class ResponseHandler {
     public void handleLogoutSuccess(Response response) {
         try {
             ViewManager.newStage("Welcome to jBay");
-            ViewManager.setResolution(600, 429);
+            ViewManager.setResolution(1280, 720);
             ClientSession.getInstance().resetSession();
             ControllerProvider.getInstance().clearControllers();
             ViewManager.displayScene("client/client-login-view.fxml");
