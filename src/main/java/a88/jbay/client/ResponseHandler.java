@@ -1,13 +1,14 @@
 package a88.jbay.client;
 
 import a88.jbay.controller.ControllerProvider;
-import a88.jbay.controller.client.ClientLoginRegisterController;
+import a88.jbay.controller.client.ClientLoginController;
 import a88.jbay.common.user.User;
 import a88.jbay.common.auction.Auction;
 import a88.jbay.common.auction.BidTransaction;
 import a88.jbay.common.network.Request;
 import a88.jbay.common.network.RequestType;
 import a88.jbay.common.network.Response;
+import a88.jbay.controller.client.ClientRegisterController;
 import a88.jbay.util.JBayLogger;
 import a88.jbay.view.ViewManager;
 import javafx.scene.control.Alert;
@@ -74,7 +75,7 @@ public class ResponseHandler {
     public void handleLoginSuccess(Response response) {
         User curUser = (User) response.getPayload();
         clientSession.setUser(curUser);
-        controllerProvider.getController(ClientLoginRegisterController.class).updateLoginLabel("Login successful");
+        controllerProvider.getController(ClientLoginController.class).updateLoginLabel("Login successful");
 
         try {
             logger.info("Displaying home screen");
@@ -93,23 +94,23 @@ public class ResponseHandler {
                         .put("userId", clientSession.getUser().getId()));
             }
         } catch (IOException e) {
-            controllerProvider.getController(ClientLoginRegisterController.class).updateLoginLabel("Failed to display home screen");
+            controllerProvider.getController(ClientLoginController.class).updateLoginLabel("Failed to display home screen");
             logger.error("Failed to display home screen" + e.getMessage() + e);
             e.printStackTrace();
         }
     }
 
     public void handleLoginFail(Response response) {
-        controllerProvider.getController(ClientLoginRegisterController.class).updateLoginLabel("Login failed");
+        controllerProvider.getController(ClientLoginController.class).updateLoginLabel("Login failed");
     }
 
     public void handleRegisterSuccess(Response response) {
         logger.info((String) response.getMessage());
-        controllerProvider.getController(ClientLoginRegisterController.class).updateRegisterLabel("Register successful");
+        controllerProvider.getController(ClientRegisterController.class).updateRegisterLabel("Register successful");
     }
 
     public void handleRegisterFail(Response response) {
-        controllerProvider.getController(ClientLoginRegisterController.class).updateRegisterLabel("Register failed");
+        controllerProvider.getController(ClientRegisterController.class).updateRegisterLabel("Register failed");
     }
 
     public void handleLogoutSuccess(Response response) {
@@ -118,9 +119,9 @@ public class ResponseHandler {
             ViewManager.setResolution(600, 429);
             ClientSession.getInstance().resetSession();
             ControllerProvider.getInstance().clearControllers();
-            ViewManager.displayScene("client/client-login-register-view.fxml");
+            ViewManager.displayScene("client/client-login-view.fxml");
         } catch (IOException e) {
-            logger.error("Failed to display login register view");
+            logger.error("Failed to display login view");
         }
     }
 
@@ -177,7 +178,7 @@ public class ResponseHandler {
         try {
             ViewManager.newStage("Welcome to jBay");
             ViewManager.setResolution(600, 429);
-            ViewManager.displayScene("client/client-login-register-view.fxml");
+            ViewManager.displayScene("client/client-login-view.fxml");
             new Alert(Alert.AlertType.WARNING, "You have been banned").show();
         } catch (IOException e) {
             logger.error("Failed to display login scene");
