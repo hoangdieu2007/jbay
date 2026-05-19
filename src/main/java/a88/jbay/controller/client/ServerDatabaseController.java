@@ -5,6 +5,7 @@ import a88.jbay.di.ApplicationContext;
 import a88.jbay.server.ClientService;
 import a88.jbay.server.DatabaseController;
 import a88.jbay.system.user.UserSystem;
+import a88.jbay.util.StringHash;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -78,7 +79,7 @@ public class ServerDatabaseController {
         String adminUsername = adminUsernameTextField.getText();
         String adminPassword = adminPasswordTextField.getText();
 
-        userSystem.register(adminUsername, adminPassword, "ADMIN");
+        userSystem.register(adminUsername, StringHash.hash(adminPassword), "ADMIN");
 
     }
 
