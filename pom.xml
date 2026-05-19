@@ -13,6 +13,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.12.1</junit.version>
         <javafx.version>25.0.1</javafx.version>
+
     </properties>
 
     <dependencies>
@@ -20,58 +21,37 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>${javafx.version}</version>
+            <classifier>${javafx.platform}</classifier>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
             <version>${javafx.version}</version>
+            <classifier>${javafx.platform}</classifier>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-web</artifactId>
             <version>${javafx.version}</version>
+            <classifier>${javafx.platform}</classifier>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-swing</artifactId>
             <version>${javafx.version}</version>
+            <classifier>${javafx.platform}</classifier>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-media</artifactId>
             <version>${javafx.version}</version>
+            <classifier>${javafx.platform}</classifier>
         </dependency>
-
-        <!-- javafx windows native dependencies -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
             <version>${javafx.version}</version>
-            <classifier>win</classifier>
-        </dependency>
-
-        <!-- javafx mac intel native dependencies -->
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-graphics</artifactId>
-            <version>${javafx.version}</version>
-            <classifier>mac</classifier>
-        </dependency>
-
-        <!-- javafx mac sillicon native dependencies -->
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-graphics</artifactId>
-            <version>${javafx.version}</version>
-            <classifier>mac-aarch64</classifier>
-        </dependency>
-
-        <!-- javafx linux native dependencies -->
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-graphics</artifactId>
-            <version>${javafx.version}</version>
-            <classifier>linux</classifier>
+            <classifier>${javafx.platform}</classifier>
         </dependency>
 
         <dependency>
@@ -178,15 +158,11 @@
             <artifactId>HikariCP</artifactId>
             <version>6.2.1</version>
         </dependency>
-
-        <!-- MariaDB for Fedora -->
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
             <version>3.5.7</version>
         </dependency>
-        
-        <!-- Logback for logging -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
@@ -231,7 +207,6 @@
                 <version>0.0.8</version>
                 <executions>
                     <execution>
-                        <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>a88.jbay/a88.jbay.view.MainClient</mainClass>
@@ -265,28 +240,20 @@
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.5.0</version>
-
                 <executions>
-
-                    <!-- CLIENT -->
                     <execution>
                         <id>shade-client</id>
                         <phase>package</phase>
-
                         <goals>
                             <goal>shade</goal>
                         </goals>
-
                         <configuration>
-
                             <shadedArtifactAttached>true</shadedArtifactAttached>
                             <shadedClassifierName>client</shadedClassifierName>
-
                             <filters>
                                 <filter>
                                     <artifact>*:*</artifact>
@@ -295,33 +262,22 @@
                                     </excludes>
                                 </filter>
                             </filters>
-
                             <transformers>
-                                <transformer implementation=
-                                                     "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>a88.jbay.ClientLauncher</mainClass>
-
                                 </transformer>
                             </transformers>
-
                         </configuration>
                     </execution>
-
-                    <!-- SERVER -->
                     <execution>
                         <id>shade-server</id>
                         <phase>package</phase>
-
                         <goals>
                             <goal>shade</goal>
                         </goals>
-
                         <configuration>
-
                             <shadedArtifactAttached>true</shadedArtifactAttached>
                             <shadedClassifierName>server</shadedClassifierName>
-
                             <filters>
                                 <filter>
                                     <artifact>*:*</artifact>
@@ -330,21 +286,68 @@
                                     </excludes>
                                 </filter>
                             </filters>
-
                             <transformers>
-                                <transformer implementation=
-                                                     "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>a88.jbay.ServerLauncher</mainClass>
-
                                 </transformer>
                             </transformers>
-
                         </configuration>
                     </execution>
-
                 </executions>
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>windows</id>
+            <activation>
+                <os>
+                    <family>windows</family>
+                </os>
+            </activation>
+            <properties>
+                <javafx.platform>win</javafx.platform>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>mac-intel</id>
+            <activation>
+                <os>
+                    <family>mac</family>
+                    <arch>x86_64</arch>
+                </os>
+            </activation>
+            <properties>
+                <javafx.platform>mac</javafx.platform>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>mac-silicon</id>
+            <activation>
+                <os>
+                    <family>mac</family>
+                    <arch>aarch64</arch>
+                </os>
+            </activation>
+            <properties>
+                <javafx.platform>mac-aarch64</javafx.platform>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>linux</id>
+            <activation>
+                <os>
+                    <family>unix</family>
+                    <name>linux</name>
+                </os>
+            </activation>
+            <properties>
+                <javafx.platform>linux</javafx.platform>
+            </properties>
+        </profile>
+    </profiles>
 </project>
