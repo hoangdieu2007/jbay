@@ -143,6 +143,10 @@ public class BidSystem {
             return false;
         }
 
+        if (auction.getWinner().isEmpty()){
+            return amount >= auction.getCurrentPrice();
+        }
+
         return amount > auction.getCurrentPrice();
     }
 
