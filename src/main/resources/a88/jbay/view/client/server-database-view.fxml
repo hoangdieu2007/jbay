@@ -137,17 +137,17 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="adminPasswordTextField" layoutX="10.0" layoutY="140.0" prefHeight="40.0" prefWidth="314.0" promptText="Enter password" styleClass="input-field" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </TextField>
                   <Button fx:id="btnRegisterAdmin" alignment="CENTER" contentDisplay="CENTER" layoutX="82.0" layoutY="200.0" minWidth="97.0" mnemonicParsing="false" onAction="#handleRegisterAdmin" prefHeight="47.0" styleClass="btn-register" text="Register admin">
                      <font>
                         <Font name="System Bold Italic" size="18.0" />
                      </font>
                   </Button>
                   <Region layoutX="101.0" layoutY="2.0" prefHeight="29.0" prefWidth="29.0" style="-fx-shape: &quot;M378-450q-42-42-42-102t42-102q42-42 102-42t102 42q42 42 42 102t-42 102q-42 42-102 42t-102-42Zm153-51q21-21 21-51t-21-51q-21-21-51-21t-51 21q-21 21-21 51t21 51q21 21 51 21t51-21ZM480-96q-135-33-223.5-153T168-515v-229l312-120 312 120v229q0 146-88.5 266T480-96Zm0-383Zm0-308-240 92v180q0 53 15 103t41 93q43-20 89.5-30.5T480-360q48 0 94.5 10.5T664-319q26-43 41-93t15-103v-180l-240-92Zm-71 506q-35 7-68 21 29 31 64 54t75 35q40-12 75-35t64-54q-33-14-68-21t-71-7q-36 0-71 7Z&quot;; -fx-background-color: white;" />
+                  <PasswordField fx:id="adminPasswordField" layoutX="-8.0" layoutY="147.0" prefHeight="40.0" prefWidth="314.0" promptText="Enter Password" style="-fx-background-radius: 40;" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </PasswordField>
                </children>
             </AnchorPane>
             <AnchorPane />

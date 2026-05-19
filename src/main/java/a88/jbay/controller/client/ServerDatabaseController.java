@@ -23,7 +23,7 @@ public class ServerDatabaseController {
     @FXML private PasswordField databasePassword;
     @FXML private TextField portNumberTextField;
     @FXML private TextField adminUsernameTextField;
-    @FXML private TextField adminPasswordTextField;
+    @FXML private PasswordField adminPasswordField;
     @FXML private Label lblConnectionState;
     @FXML private Label lblStartServiceState;
 
@@ -77,7 +77,7 @@ public class ServerDatabaseController {
         userSystem = ApplicationContext.getInstance().getDependency(UserSystem.class);
 
         String adminUsername = adminUsernameTextField.getText();
-        String adminPassword = adminPasswordTextField.getText();
+        String adminPassword = adminPasswordField.getText();
 
         userSystem.register(adminUsername, StringHash.hash(adminPassword), "ADMIN");
 
