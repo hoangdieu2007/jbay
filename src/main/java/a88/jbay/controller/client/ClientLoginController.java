@@ -29,7 +29,7 @@ public class ClientLoginController {
     public void goToRegisterScene(ActionEvent event) {
         try {
             // Gọi ViewManager để chuyển sang file FXML đăng ký
-            ViewManager.displayScene("client-register-view.fxml");
+            ViewManager.displayScene("client/client-register-view.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
