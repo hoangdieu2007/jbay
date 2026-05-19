@@ -48,8 +48,9 @@ public class ServerDatabaseController {
         String password = databasePassword.getText();
 
         try {
-            DatabaseController.getInstance().initializePool(url, username, password);
-            DatabaseController.getInstance().getConnection();
+            DatabaseController dbController = ApplicationContext.getInstance().getDependency(DatabaseController.class);
+            dbController.initializePool(url, username, password);
+            dbController.getConnection();
 
             btnStartService.setDisable(false);
             btnRegisterAdmin.setDisable(false);
@@ -90,7 +91,7 @@ public class ServerDatabaseController {
         // clientService is a blocking operation
         Thread serverThread = new Thread(() -> {
                 try {
-                    ClientService clientService = ClientService.getInstance();
+                    ClientService clientService = ApplicationContext.getInstance().getDependency(ClientService.class);
                     clientService.setupServerSocket(portNum);
                     clientService.startService();
 

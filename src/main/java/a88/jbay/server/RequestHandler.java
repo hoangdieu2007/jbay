@@ -26,17 +26,16 @@ public class RequestHandler {
     private final UpdateSystem updateSystem;
     private final BidSystem bidSystem;
 
-    // constructor for dependency injection
-    public RequestHandler(DependencyInjectionContainer container) {
-        this.userSystem = container.getInstance(UserSystem.class);
-        this.adminService = container.getInstance(AdminService.class);
-        this.auctionSystem = container.getInstance(AuctionSystem.class);
-        this.connectionSystem = container.getInstance(ConnectionSystem.class);
-        this.updateSystem = container.getInstance(UpdateSystem.class);
-        this.bidSystem = container.getInstance(BidSystem.class);
+    public RequestHandler(UserSystem userSystem, AdminService adminService,
+                          AuctionSystem auctionSystem, ConnectionSystem connectionSystem,
+                          UpdateSystem updateSystem, BidSystem bidSystem) {
+        this.userSystem = userSystem;
+        this.adminService = adminService;
+        this.auctionSystem = auctionSystem;
+        this.connectionSystem = connectionSystem;
+        this.updateSystem = updateSystem;
+        this.bidSystem = bidSystem;
     }
-
-    
     
 //    public static void setObjectOutputStream(ObjectOutputStream outParam) {
 //        RequestHandler.out = outParam;

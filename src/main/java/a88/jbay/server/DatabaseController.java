@@ -15,10 +15,6 @@ public class DatabaseController {
         this.logger = JBayLogger.getLogger(DatabaseController.class);
     }
 
-    public static synchronized DatabaseController getInstance() {
-        return ApplicationContext.getInstance().getDependency(DatabaseController.class);
-    }
-
     public synchronized void initializePool(String url, String username, String password) {
         if (url == null || username == null) {
             throw new IllegalStateException("Database credentials have not been set!");

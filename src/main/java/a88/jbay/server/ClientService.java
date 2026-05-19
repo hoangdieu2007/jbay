@@ -1,5 +1,8 @@
 package a88.jbay.server;
 
+import a88.jbay.system.update.ConnectionSystem;
+import a88.jbay.system.user.UserSystem;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -8,47 +11,41 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class ClientService {
-    private static ClientService instance;
     private ServerSocket serverSocket;
     private ExecutorService executor;
+    private final ConnectionSystem connectionSystem;
+    private final UserSystem userSystem;
+    private final RequestHandler requestHandler;
 
-    private int port;
-
-    private ClientService() {
-        serverSocket = null;
-        executor = Executors.newVirtualThreadPerTaskExecutor();
-    }
-
-    public synchronized static ClientService getInstance() {
-        if (instance == null) {
-            instance = new ClientService();
-        }
-        return instance;
+    public ClientService(ConnectionSystem connectionSystem,
+                         UserSystem userSystem,
+                         RequestHandler requestHandler) {
+        this.connectionSystem = connectionSystem;
+        this.userSystem = userSystem;
+        this.requestHandler = requestHandler;
+        this.executor = Executors.newVirtualThreadPerTaskExecutor();
     }
 
     public void setupServerSocket(int port) throws IOException {
-        this.port = port;
         serverSocket = new ServerSocket(port);
     }
 
     public void startService() {
         Thread clientHandler = new Thread(() -> {
             System.out.println("Client handler starting...");
-
             try {
-                Socket client = null;
                 while (true) {
-                    client = serverSocket.accept();
+                    Socket client = serverSocket.accept();
                     System.out.println("Client connected...");
-
-                    ClientConnection connection = new ClientConnection(client);
+                    ClientConnection connection = new ClientConnection(
+                            client, connectionSystem, userSystem, requestHandler
+                    );
                     executor.submit(connection);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
-
         clientHandler.start();
     }
 

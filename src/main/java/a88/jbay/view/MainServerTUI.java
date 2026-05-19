@@ -27,6 +27,9 @@ public class MainServerTUI {
         logger.info("------------------JBAY_SERVER_TUI-----------------");
         logger.info("--------------software infrastructure-------------");
 
+        // Initialize dependency injection container
+        ApplicationContext.initialize();
+
         Scanner sc = new Scanner(System.in);
 
         logger.info("Connect to database:");
@@ -38,18 +41,18 @@ public class MainServerTUI {
                 String username = sc.nextLine();
                 logger.info("Enter password:");
                 String password = sc.nextLine();
-                DatabaseController.getInstance().initializePool(url, username, password);
-                DatabaseController.getInstance().getConnection();
+
+                DatabaseController dbController = ApplicationContext.getInstance().getDependency(DatabaseController.class);
+                dbController.initializePool(url, username, password);
+                dbController.getConnection();
+
                 break;
             } catch (SQLException e) {
                 logger.error("Database connection failed, please try again.");
             }
         }
 
-        // Initialize dependency injection container
-        ApplicationContext.initialize();
-
-        ClientService clientService = ClientService.getInstance();
+        ClientService clientService = ApplicationContext.getInstance().getDependency(ClientService.class);
 
         // Get systems from DI container
         AuctionRepository auctionRepository = ApplicationContext.getInstance().getDependency(AuctionRepository.class);

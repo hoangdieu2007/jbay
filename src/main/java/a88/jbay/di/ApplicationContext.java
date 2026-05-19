@@ -3,7 +3,9 @@ package a88.jbay.di;
 import a88.jbay.dao.*;
 import a88.jbay.data.BidRepository;
 import a88.jbay.data.UserRepository;
+import a88.jbay.server.ClientService;
 import a88.jbay.server.DatabaseController;
+import a88.jbay.server.RequestHandler;
 import a88.jbay.system.user.AdminService;
 import a88.jbay.system.AuctionSystem;
 import a88.jbay.system.BidSystem;
@@ -28,8 +30,8 @@ public class ApplicationContext {
     private final DependencyInjectionContainer container;
 
     private ApplicationContext() {
-        this.container = DependencyInjectionContainer.getInstance();
-        configureDependencies();
+        this.container = new DependencyInjectionContainer();
+        configureDatabase();
     }
 
     public static synchronized ApplicationContext getInstance() {
@@ -39,22 +41,28 @@ public class ApplicationContext {
         return instance;
     }
 
-    /**
-     * configure all application dependencies.
-     */
-    private void configureDependencies() {
-        // database controller - directly use the singleton
-        container.registerSingleton(DatabaseController.class, new DatabaseController());
+    public static void initialize() {
+        getInstance();
+    }
 
-        // dao - register as singletons
-        container.registerSingleton(UserDAO.class, new UserDAOImpl(container.getInstance(DatabaseController.class)));
-        ItemDAO itemDAO = new ItemDAOImpl(container.getInstance(DatabaseController.class));
-        container.registerSingleton(ItemDAO.class, itemDAO);
-        BidDAO bidDAO = new BidDAOImpl(container.getInstance(DatabaseController.class));
-        container.registerSingleton(BidDAO.class, bidDAO);
-        container.registerSingleton(AuctionDAO.class, new AuctionDAOImpl(container.getInstance(DatabaseController.class)));
+    // phase 1 — just the database layer, safe to call before DB connects
+    private void configureDatabase() {
+        container.registerSingleton(DatabaseController.class, new DatabaseController()); // no getInstance()
 
-        // system classes a.k.a. service layer - register as singletons
+        DatabaseController db = container.getInstance(DatabaseController.class);
+        container.registerSingleton(UserDAO.class, new UserDAOImpl(db));
+        container.registerSingleton(ItemDAO.class, new ItemDAOImpl(db));
+        container.registerSingleton(BidDAO.class, new BidDAOImpl(db));
+        container.registerSingleton(AuctionDAO.class, new AuctionDAOImpl(db));
+    }
+
+    // phase 2 — call this after DB pool is initialized
+    public void configureServices() {
+        configureRepositories();
+        configureSystems();
+    }
+
+    private void configureRepositories() {
         container.registerSingleton(AuctionRepository.class, new AuctionRepository(
                 container.getInstance(DatabaseController.class),
                 container.getInstance(AuctionDAO.class),
@@ -70,13 +78,14 @@ public class ApplicationContext {
                 container.getInstance(AuctionDAO.class),
                 container.getInstance(BidDAO.class)
         ));
+    }
 
+    private void configureSystems() {
         container.registerSingleton(ConnectionSystem.class, new ConnectionSystem());
         container.registerSingleton(UpdateSystem.class, new UpdateSystem(
                 container.getInstance(ConnectionSystem.class),
                 container.getInstance(AuctionRepository.class)
         ));
-
         container.registerSingleton(UserSystem.class, new UserSystem(
                 container.getInstance(UserRepository.class)
         ));
@@ -86,38 +95,36 @@ public class ApplicationContext {
                 container.getInstance(UpdateSystem.class),
                 container.getInstance(UserSystem.class)
         ));
-
         container.registerSingleton(BidSystem.class, new BidSystem(
-            container.getInstance(AuctionRepository.class),
-            container.getInstance(BidRepository.class),
-            container.getInstance(BidDAO.class),
-            container.getInstance(AuctionDAO.class)
+                container.getInstance(AuctionRepository.class),
+                container.getInstance(BidRepository.class),
+                container.getInstance(BidDAO.class),
+                container.getInstance(AuctionDAO.class)
         ));
-
         container.registerSingleton(AuctionSystem.class, new AuctionSystem(
-            container.getInstance(ConnectionSystem.class),
-            container.getInstance(AuctionRepository.class)
+                container.getInstance(ConnectionSystem.class),
+                container.getInstance(AuctionRepository.class)
+        ));
+        container.registerSingleton(RequestHandler.class, new RequestHandler(
+                container.getInstance(UserSystem.class),
+                container.getInstance(AdminService.class),
+                container.getInstance(AuctionSystem.class),
+                container.getInstance(ConnectionSystem.class),
+                container.getInstance(UpdateSystem.class),
+                container.getInstance(BidSystem.class)
+        ));
+        container.registerSingleton(ClientService.class, new ClientService(
+                container.getInstance(ConnectionSystem.class),
+                container.getInstance(UserSystem.class),
+                container.getInstance(RequestHandler.class)
         ));
     }
 
-    /**
-     * get a dependency from the DI container
-     */
     public <T> T getDependency(Class<T> type) {
         return container.getInstance(type);
     }
 
-    /**
-     * get the dependency injection container, make sure you know what you're doing.
-     */
     public DependencyInjectionContainer getContainer() {
         return container;
-    }
-
-    /**
-     * init the application context, call upon production app's loading stage.
-     */
-    public static void initialize() {
-        new ApplicationContext();
     }
 }

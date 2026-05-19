@@ -2,6 +2,7 @@ package a88.jbay.di;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Simple dependency injection container for managing application dependencies.
@@ -9,16 +10,9 @@ import java.util.Map;
  */
 public class DependencyInjectionContainer {
     private static DependencyInjectionContainer instance;
-    private final Map<Class<?>, Object> singletonInstances = new HashMap<>();
+    private final Map<Class<?>, Object> singletonInstances = new ConcurrentHashMap<>();
 
-    private DependencyInjectionContainer() {}
-
-    public static synchronized DependencyInjectionContainer getInstance() {
-        if (instance == null) {
-            instance = new DependencyInjectionContainer();
-        }
-        return instance;
-    }
+    public DependencyInjectionContainer() {}
 
     /**
      * register a singleton instance for a given type.
