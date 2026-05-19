@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="892.0" prefWidth="1350.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.UserHomeScreenController">
+
+    <left>
+        <VBox minWidth="222.0" prefHeight="892.0" spacing="0.0" style="-fx-background-color: #80C4EA;" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="20.0" />
+            </padding>
+
+            <AnchorPane prefHeight="199.0" prefWidth="222.0" style="-fx-background-color: #1a252f;">
+                <children>
+                    <HBox alignment="CENTER_LEFT" layoutX="23.0" layoutY="125.0" spacing="10.0">
+                        <Region prefHeight="24.0" prefWidth="24.0" style="-fx-shape: &quot;M237-285q54-38 115.5-56.5T480-360q66 0 127.5 18.5T723-285q35-41 52-91t17-104q0-130-91-221t-221-91q-130 0-221 91t-91 221q0 54 17 104t52 91Zm141-165q-42-42-42-102t42-102q42-42 102-42t102 42q42 42 42 102t-42 102q-42 42-102 42t-102-42ZM480-96q-79 0-149-30t-122.5-82.5Q156-261 126-331T96-480q0-80 30-149.5t82.5-122Q261-804 331-834t149-30q80 0 149.5 30t122 82.5Q804-699 834-629.5T864-480q0 79-30 149t-82.5 122.5Q699-156 629.5-126T480-96Zm100-88.5q48-16.5 90-48.5-43-27-91-41t-99-14q-51 0-99.5 13.5T290-233q42 32 90 48.5T480-168q52 0 100-16.5ZM531-501q21-21 21-51t-21-51q-21-21-51-21t-51 21q-21 21-21 51t21 51q21 21 51 21t51-21Zm-51-51Zm0 319Z&quot;; -fx-background-color: white;" />
+                        <Label fx:id="lblUserName" text="UserName" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                    </HBox>
+                    <Label layoutX="21.0" layoutY="87.0" prefHeight="38.0" prefWidth="59.0" text="Hello," textFill="WHITE">
+                        <font>
+                            <Font name="System Bold" size="20.0" />
+                        </font>
+                    </Label>
+               <ImageView fitHeight="82.0" fitWidth="109.0" layoutX="-12.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../image/logo-no-bg.png" />
+                  </image></ImageView>
+                </children>
+                <VBox.margin>
+                    <Insets bottom="15.0" />
+                </VBox.margin>
+            </AnchorPane>
+
+            <ToggleButton alignment="CENTER_LEFT" maxWidth="Infinity" mnemonicParsing="false" prefHeight="45.0" selected="true" style="-fx-background-radius: 10;" text="My Listings">
+                <graphic>
+                    <Region prefHeight="19.0" prefWidth="19.0" style="-fx-shape: &quot;M444-144v-80q-51-11-87.5-46T305-357l74-30q8 36 40.5 64.5T487-294q39 0 64-20t25-52q0-30-22.5-50T474-456q-78-28-114-61.5T324-604q0-50 32.5-86t87.5-47v-79h72v79q72 12 96.5 55t25.5 45l-70 29q-8-26-32-43t-53-17q-35 0-58 18t-23 44q0 26 25 44.5t93 41.5q70 23 102 60t32 94q0 57-37 96t-101 49v77h-72Z&quot;;" styleClass="my-custom-icon" />
+                </graphic>
+                <font>
+                    <Font name="System Bold" size="18.0" />
+                </font>
+                <toggleGroup>
+                    <ToggleGroup fx:id="userBtn" />
+                </toggleGroup>
+                <padding>
+                    <Insets left="15.0" />
+                </padding>
+            </ToggleButton>
+         <Region prefHeight="7.0" prefWidth="222.0" styleClass="toggle-button" />
+
+            <ToggleButton alignment="CENTER_LEFT" maxWidth="Infinity" mnemonicParsing="false" prefHeight="45.0" selected="false" style="-fx-background-radius: 10;" text="Ongoing Auctions" toggleGroup="$userBtn">
+                <graphic>
+                    <Region prefHeight="19.0" prefWidth="19.0" style="-fx-shape: &quot;M192-144v-72h432v72H192Zm204-195L192-542l85-85 203 204-84 84Zm237-237L430-779l84-85 204 204-85 84Zm180 384L327-678l51-51 486 486-51 51Z&quot;;" styleClass="my-custom-icon" />
+                </graphic>
+                <font>
+                    <Font name="System Bold Italic" size="18.0" />
+                </font>
+                <padding>
+                    <Insets left="15.0" />
+                </padding>
+            </ToggleButton>
+
+            <Region VBox.vgrow="ALWAYS" />
+             <Button fx:id="btnLogOut" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleLogOut" prefHeight="45.0" text="LOG OUT" textFill="WHITE">
+                 <font>
+                     <Font name="System Bold" size="14.0" />
+                 </font>
+            <graphic>
+               <Region prefHeight="20.0" prefWidth="20.0" style="-fx-shape: &quot;M216-144q-29.7 0-50.85-21.15Q144-186.3 144-216v-528q0-29.7 21.15-50.85Q186.3-816 216-816h264v72H216v528h264v72H216Zm432-168-51-51 81-81H384v-72h294l-81-81 51-51 168 168-168 168Z&quot;; -fx-background-color: white;" />
+            </graphic>
+            <VBox.margin>
+               <Insets left="35.0" right="35.0" />
+            </VBox.margin>
+            <styleClass>
+               <String fx:value="logout-button" />
+               <String fx:value="action-button" />
+            </styleClass>
+             </Button>
+        </VBox>
+    </left>
+
+    <center>
+        <StackPane fx:id="contentArea" prefHeight="892.0" prefWidth="1124.0" style="-fx-background-color: #F4F6F9;" BorderPane.alignment="CENTER" />
+    </center>
+
+</BorderPane>

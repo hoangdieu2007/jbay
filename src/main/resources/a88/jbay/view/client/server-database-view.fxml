@@ -154,7 +154,7 @@
          </children>
       </VBox>
 
-      <Label alignment="CENTER" layoutX="387.0" layoutY="85.0" prefHeight="60.0" prefWidth="329.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0, 255, 255, 0.3), 8, 0, 0, 0);" text="jBay Server" textFill="WHITE">
+      <Label alignment="CENTER" layoutX="384.0" layoutY="80.0" prefHeight="60.0" prefWidth="329.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0, 255, 255, 0.3), 8, 0, 0, 0);" text="jBay Server" textFill="WHITE">
          <font>
             <Font name="System Bold" size="48.0" />
          </font>

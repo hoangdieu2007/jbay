@@ -102,7 +102,7 @@
 
 /* Logout Button */
 .logout-button {
-    -fx-background-color: #69D3FF;
+    -fx-background-color:  #1a252f;
     -fx-text-fill: white;
     -fx-background-radius: 8;
     -fx-cursor: hand;
@@ -110,9 +110,9 @@
 }
 
 .logout-button:hover {
-    -fx-background-color: #8ADFFF;
+    -fx-background-color: #2c3e50;
     -fx-translate-y: -2px;
-    -fx-effect: dropshadow(gaussian, rgba(105, 211, 255, 0.4), 8, 0, 0, 2);
+    -fx-effect: dropshadow(gaussian, rgba(43, 95, 232, 0.6), 10, 0, 0, 3);
 }
 
 .logout-button:pressed {
@@ -326,4 +326,50 @@
 .btn-register:pressed {
     -fx-translate-y: 1px;
     -fx-effect: dropshadow(gaussian, rgba(238, 102, 140, 0.3), 5, 0, 0, 1);
+}
+
+/* 1. Default state of the ToggleButton */
+.toggle-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #2c3e50; /* Dark blue text for readability on light blue */
+    -fx-cursor: hand;
+}
+
+/* 2. State when the mouse hovers over the button */
+.toggle-button:hover {
+    /* A slightly darker/vibrant blue than the background */
+    -fx-background-color: #6fb3d9;
+    -fx-translate-y: -2px;
+    -fx-effect: dropshadow(gaussian, rgba(43, 95, 232, 0.6), 10, 0, 0, 3);
+}
+
+/* 3. State when the button is actively pressed/selected */
+.toggle-button:selected {
+    /* A clear, distinct blue to show it is active */
+    -fx-background-color: #5ba2c7;
+    -fx-text-fill: white; /* Switch text to white when active for better contrast */
+}
+
+/* Optional: Keep it dark when hovered while already selected */
+.toggle-button:selected:hover {
+    -fx-background-color: #5ba2c7;
+    -fx-translate-y: -2px;
+    -fx-effect: dropshadow(gaussian, rgba(43, 95, 232, 0.6), 10, 0, 0, 3);
+}
+
+/* The default look for the icon so you can see it */
+.my-custom-icon {
+    -fx-background-color: #2c3e50; /* The dark blue color */
+    -fx-min-width: 20px;
+    -fx-min-height: 20px;
+}
+
+/* When the parent button is hovered */
+.toggle-button:hover .my-custom-icon {
+    -fx-background-color: #2c3e50;
+}
+
+/* When the parent button is selected, change icon to white */
+.toggle-button:selected .my-custom-icon {
+    -fx-background-color: white;
 }
