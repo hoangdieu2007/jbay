@@ -35,7 +35,7 @@ public class ClientLoginController {
     private void goToRegisterScene() {
         try {
             // Gọi ViewManager để chuyển sang file FXML đăng ký
-            ViewManager.displayScene("testregister.fxml");
+            ViewManager.displayScene("client-login-view.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
