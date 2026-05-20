@@ -33,7 +33,7 @@
             </font>
         </Button>
 
-        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutY="100.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" layoutY="100.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
             <content>
                 <VBox alignment="TOP_CENTER" style="-fx-background-color: white;">
                     <children>

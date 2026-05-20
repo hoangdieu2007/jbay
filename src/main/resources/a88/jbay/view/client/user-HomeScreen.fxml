@@ -97,7 +97,7 @@
     </left>
 
     <center>
-        <StackPane fx:id="contentArea" minWidth="1275.0" prefHeight="892.0" style="-fx-background-color: #F4F6F9;" BorderPane.alignment="CENTER" />
+        <StackPane fx:id="contentArea" prefHeight="892.0" style="-fx-background-color: #F4F6F9;" BorderPane.alignment="CENTER" />
     </center>
 
 </BorderPane>
