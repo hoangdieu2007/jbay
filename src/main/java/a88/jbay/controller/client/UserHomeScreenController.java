@@ -18,12 +18,12 @@ public class UserHomeScreenController {
     @FXML
     private StackPane contentArea;
     @FXML
-    private Label lblUsername;
+    private Label lblUserName;
 
 
     public void initialize(){
         ViewManager.getInstance().setMainScene(contentArea);
-        lblUsername.setText(ClientSession.getInstance().getUser().getUsername());
+        lblUserName.setText(ClientSession.getInstance().getUser().getUsername());
         ControllerProvider.getInstance().registerController(this);
         showMyListings();
     }
