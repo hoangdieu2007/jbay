@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane style="-fx-background-color: white;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.MyListingsController">
+<AnchorPane style="-fx-background-color: white;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.MyListingsController">
     <children>
         <Label layoutX="81.0" layoutY="27.0" prefHeight="47.0" prefWidth="155.0" style="-fx-font-family: Poppins;" text="My Listings">
             <font>
@@ -37,7 +37,7 @@
             <content>
                 <VBox alignment="TOP_CENTER" style="-fx-background-color: white;">
                     <children>
-                        <TilePane fx:id="sellerTilePane" alignment="TOP_LEFT" hgap="15.0" maxWidth="1305.0" minWidth="1270.0" prefColumns="4" prefHeight="40.0" prefWidth="1305.0" vgap="20.0">
+                        <TilePane fx:id="sellerTilePane" alignment="TOP_LEFT" hgap="15.0" minWidth="1270.0" prefColumns="4" prefHeight="40.0" vgap="20.0">
                             <padding>
                                 <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
                             </padding>
@@ -49,6 +49,6 @@
 
         <Region layoutX="22.0" layoutY="40.0" prefHeight="48.0" prefWidth="48.0" style="-fx-shape: &quot;M192-144v-72h432v72H192Zm204-195L192-542l85-85 203 204-84 84Zm237-237L430-779l84-85 204 204-85 84Zm180 384L327-678l51-51 486 486-51 51Z&quot;; -fx-background-color: black;" />
 
-        <Region layoutX="1079.0" layoutY="42.0" prefHeight="21.0" prefWidth="23.0" style="-fx-shape: &quot;M765-144 526-383q-30 22-65.79 34.5-35.79 12.5-76.18 12.5Q284-336 214-406t-70-170q0-100 70-170t170-70q100 0 170 70t70 170.03q0 40.39-12.5 76.18Q599-464 577-434l239 239-51 51ZM384-408q70 0 119-49t49-119q0-70-49-119t-119-49q-70 0-119 49t-49 119q0 70 49 119t119 49Z&quot;; -fx-background-color: gray;" />
+        <Region layoutX="1041.0" layoutY="42.0" prefHeight="21.0" prefWidth="23.0" style="-fx-shape: &quot;M765-144 526-383q-30 22-65.79 34.5-35.79 12.5-76.18 12.5Q284-336 214-406t-70-170q0-100 70-170t170-70q100 0 170 70t70 170.03q0 40.39-12.5 76.18Q599-464 577-434l239 239-51 51ZM384-408q70 0 119-49t49-119q0-70-49-119t-119-49q-70 0-119 49t-49 119q0 70 49 119t119 49Z&quot;; -fx-background-color: gray;" />
     </children>
 </AnchorPane>
