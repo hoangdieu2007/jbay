@@ -9,6 +9,7 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.transform.Scale;
@@ -101,5 +102,42 @@ public class ViewManager {
 
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+
+    /** redesign homeScreen**/
+    private StackPane mainSceneArea;
+
+    public void setMainScene(StackPane contentArea){
+        mainSceneArea = contentArea;
+    }
+
+    public void loadIntoMainScene(String fxmlPath) throws IOException {
+        if(mainSceneArea == null){
+            throw new IllegalStateException("Main Scene Area hasn't been set!");
+        }
+
+        loadSubScene(mainSceneArea, fxmlPath);
+
+    }
+
+    public void loadSubScene(StackPane contentArea, String fxmlPath) throws IOException{
+        FXMLLoader loader = new FXMLLoader(ViewManager.class.getResource("a88/jbay/view/" + fxmlPath)); // find a file (URL)
+
+        Region content = loader.load(); // Region is a parent class --> can use for any types of container
+
+        Object controller = loader.getController();
+        if(controller != null){
+            ControllerProvider.getInstance().registerController(controller);
+        }
+
+        //replace old scene with new one
+        contentArea.getChildren().setAll(content);
+
+        // if parent node grows, its children grow too (auto resizing)
+        content.prefHeightProperty().bind(contentArea.heightProperty());
+        content.prefWidthProperty().bind(contentArea.widthProperty());
+
+
     }
 }

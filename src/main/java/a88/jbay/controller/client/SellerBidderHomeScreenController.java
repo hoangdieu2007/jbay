@@ -282,7 +282,7 @@ public class SellerBidderHomeScreenController {
         for (Auction auction : filteredList) {
             VBox card = createCardSeller(auction);
             if (card != null) {
-                sellerTilePane.getChildren().add( card);
+                sellerTilePane.getChildren().add(card);
             }
         }
         // Cleanup cache
