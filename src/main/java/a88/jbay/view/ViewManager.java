@@ -122,7 +122,7 @@ public class ViewManager {
     }
 
     public void loadSubScene(StackPane contentArea, String fxmlPath) throws IOException{
-        FXMLLoader loader = new FXMLLoader(ViewManager.class.getResource("a88/jbay/view/" + fxmlPath)); // find a file (URL)
+        FXMLLoader loader = new FXMLLoader(ViewManager.class.getResource("/a88/jbay/view/" + fxmlPath)); // find a file (URL)
 
         Region content = loader.load(); // Region is a parent class --> can use for any types of container
 
