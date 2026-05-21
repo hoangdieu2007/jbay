@@ -41,7 +41,7 @@ public class MainServer extends Application {
             loadingStage.close();
 
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(MainClient.class.getResource("client/server-database-view.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(MainClient.class.getResource("client/ServerUI/server-database-view.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
                 stage.setResizable(false);
                 stage.getIcons().add(new Image(MainClient.class.getResourceAsStream("/a88/jbay/image/logo-no-bg.png")));
