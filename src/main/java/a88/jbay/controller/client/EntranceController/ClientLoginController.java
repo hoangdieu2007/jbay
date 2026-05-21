@@ -1,4 +1,4 @@
-package a88.jbay.controller.client;
+package a88.jbay.controller.client.EntranceController;
 
 import a88.jbay.client.ServerConnection;
 import a88.jbay.util.StringHash;
@@ -16,36 +16,38 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
-public class ClientRegisterController {
+public class ClientLoginController {
 
-    @FXML private Label registerLabel;
-    @FXML private Button registerButton;
-    @FXML private TextField usernameTextFieldRegister;
-    @FXML private PasswordField passwordPasswordFieldRegister;
-    @FXML private Button btnToLogin;
+    @FXML private Label loginLabel;
+    @FXML private Label bottomErrorLabel;
+    @FXML private Button loginButton;
+    @FXML private TextField usernameTextField;
+    @FXML private PasswordField passwordPasswordField;
+    @FXML private Button btnToRegister;
 
     @FXML
-    public void goToLoginScene(ActionEvent event) {
+    public void goToRegisterScene(ActionEvent event) {
         try {
-            // Gọi ViewManager để quay lại file FXML đăng nhập
-            ViewManager.displayScene("client/client-login-view.fxml");
+            // Gọi ViewManager để chuyển sang file FXML đăng ký
+            ViewManager.displayScene("client/client-register-view.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void updateRegisterLabel(String text) {
-        if (registerLabel != null) registerLabel.setText(text);
+    public void updateLoginLabel(String text) {
+        if (loginLabel != null) loginLabel.setText(text);
+        if (bottomErrorLabel != null) bottomErrorLabel.setText(text);
     }
 
     @FXML
-    public void onClickRegisterButton(ActionEvent event) {
-        String username = usernameTextFieldRegister.getText();
-        String password = passwordPasswordFieldRegister.getText();
+    public void onClickLoginButton(ActionEvent event) {
+        String username = usernameTextField.getText();
+        String password = passwordPasswordField.getText();
 
         if (!username.isBlank() && !password.isBlank()) {
-            updateRegisterLabel("Registering...");
-            Request request = new Request(RequestType.REGISTER)
+            updateLoginLabel("Logging in...");
+            Request request = new Request(RequestType.LOGIN)
                     .put("username", username)
                     .put("password", StringHash.hash(password));
 
@@ -54,16 +56,16 @@ public class ClientRegisterController {
                     ServerConnection.getInstance().send(request);
                 } catch (IOException e) {
                     Platform.runLater(() -> {
-                        updateRegisterLabel("Connection error: " + e.getMessage());
+                        updateLoginLabel("Connection error: " + e.getMessage());
                     });
                 } catch (Exception e) {
                     Platform.runLater(() -> {
-                        updateRegisterLabel("Error: " + e.getMessage());
+                        updateLoginLabel("Error: " + e.getMessage());
                     });
                 }
             });
         } else {
-            updateRegisterLabel("Username or password is empty");
+            updateLoginLabel("Username or password is empty");
         }
     }
 }

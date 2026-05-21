@@ -37,4 +37,14 @@ module a88.jbay {
     opens a88.jbay.system.user to javafx.fxml, javafx.graphics;
     exports a88.jbay.common.auction;
     opens a88.jbay.common.auction to javafx.fxml, javafx.graphics;
+    exports a88.jbay.controller.client.AdminController;
+    opens a88.jbay.controller.client.AdminController to javafx.fxml, javafx.graphics;
+    exports a88.jbay.controller.client.AuctionController;
+    opens a88.jbay.controller.client.AuctionController to javafx.fxml, javafx.graphics;
+    exports a88.jbay.controller.client.EntranceController;
+    opens a88.jbay.controller.client.EntranceController to javafx.fxml, javafx.graphics;
+    exports a88.jbay.controller.client.ServerController;
+    opens a88.jbay.controller.client.ServerController to javafx.fxml, javafx.graphics;
+    exports a88.jbay.controller.client.UserHomeScreenController;
+    opens a88.jbay.controller.client.UserHomeScreenController to javafx.fxml, javafx.graphics;
 }

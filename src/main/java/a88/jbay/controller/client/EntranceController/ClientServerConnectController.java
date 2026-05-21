@@ -1,4 +1,4 @@
-package a88.jbay.controller.client;
+package a88.jbay.controller.client.EntranceController;
 
 import a88.jbay.client.ServerConnection;
 import a88.jbay.view.ViewManager;

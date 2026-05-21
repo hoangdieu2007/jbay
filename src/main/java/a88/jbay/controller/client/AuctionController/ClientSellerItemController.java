@@ -1,6 +1,7 @@
-package a88.jbay.controller.client;
+package a88.jbay.controller.client.AuctionController;
 
 import a88.jbay.client.ServerConnection;
+import a88.jbay.controller.client.UserHomeScreenController.SellerBidderHomeScreenController;
 import a88.jbay.util.ImageProcessor;
 import a88.jbay.common.item.Item;
 import a88.jbay.common.network.Request;

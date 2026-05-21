@@ -1,4 +1,4 @@
-package a88.jbay.controller.client;
+package a88.jbay.controller.client.UserHomeScreenController;
 
 import a88.jbay.client.ClientSession;
 import a88.jbay.client.ServerConnection;
@@ -9,7 +9,6 @@ import a88.jbay.view.ViewManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.TilePane;
 
 import java.io.IOException;
 

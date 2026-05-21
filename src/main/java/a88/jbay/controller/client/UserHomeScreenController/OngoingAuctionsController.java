@@ -1,4 +1,4 @@
-package a88.jbay.controller.client;
+package a88.jbay.controller.client.UserHomeScreenController;
 
 import a88.jbay.client.ClientSession;
 import a88.jbay.common.auction.Auction;

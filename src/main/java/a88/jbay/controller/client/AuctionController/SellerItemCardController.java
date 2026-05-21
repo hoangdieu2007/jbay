@@ -1,4 +1,4 @@
-package a88.jbay.controller.client;
+package a88.jbay.controller.client.AuctionController;
 
 import a88.jbay.controller.ControllerProvider;
 import a88.jbay.util.ImageProcessor;

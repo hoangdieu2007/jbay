@@ -1,4 +1,4 @@
-package a88.jbay.controller.client;
+package a88.jbay.controller.client.AdminController;
 
 import a88.jbay.client.ClientSession;
 import a88.jbay.client.ServerConnection;
@@ -7,7 +7,6 @@ import a88.jbay.common.auction.AuctionState;
 import a88.jbay.common.network.Request;
 import a88.jbay.common.network.RequestType;
 import a88.jbay.common.user.User;
-import a88.jbay.view.ViewManager;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;

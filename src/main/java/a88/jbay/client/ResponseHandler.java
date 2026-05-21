@@ -1,14 +1,14 @@
 package a88.jbay.client;
 
 import a88.jbay.controller.ControllerProvider;
-import a88.jbay.controller.client.ClientLoginController;
+import a88.jbay.controller.client.EntranceController.ClientLoginController;
 import a88.jbay.common.user.User;
 import a88.jbay.common.auction.Auction;
 import a88.jbay.common.auction.BidTransaction;
 import a88.jbay.common.network.Request;
 import a88.jbay.common.network.RequestType;
 import a88.jbay.common.network.Response;
-import a88.jbay.controller.client.ClientRegisterController;
+import a88.jbay.controller.client.EntranceController.ClientRegisterController;
 import a88.jbay.util.JBayLogger;
 import a88.jbay.view.ViewManager;
 import javafx.scene.control.Alert;

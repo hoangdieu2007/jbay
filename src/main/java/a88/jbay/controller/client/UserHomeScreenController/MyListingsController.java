@@ -1,7 +1,8 @@
-package a88.jbay.controller.client;
+package a88.jbay.controller.client.UserHomeScreenController;
 
 import a88.jbay.client.ClientSession;
 import a88.jbay.common.auction.Auction;
+import a88.jbay.controller.client.AuctionController.SellerItemCardController;
 import a88.jbay.view.ViewManager;
 import javafx.collections.*;
 import javafx.collections.transformation.FilteredList;
