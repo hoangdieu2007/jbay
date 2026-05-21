@@ -1,4 +1,4 @@
-package a88.jbay.controller.client.ServerController;
+package a88.jbay.controller.client.ServerUI;
 
 
 import a88.jbay.di.ApplicationContext;

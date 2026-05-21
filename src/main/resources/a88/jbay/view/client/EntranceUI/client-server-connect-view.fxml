@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.EntranceController.ClientServerConnectController">
+<HBox prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.EntranceUI.ClientServerConnectController">
    <children>
       <StackPane prefWidth="640.0" style="-fx-background-color: linear-gradient(to bottom, #BAE6FD, #0284C7);">
          <children>

@@ -1,4 +1,4 @@
-package a88.jbay.controller.client.AdminController;
+package a88.jbay.controller.client.AdminUI;
 
 import a88.jbay.client.ClientSession;
 import a88.jbay.client.ServerConnection;

@@ -1,4 +1,4 @@
-package a88.jbay.controller.client.UserHomeScreenController;
+package a88.jbay.controller.client.UserHomeScreenUI;
 
 import a88.jbay.client.ClientSession;
 import a88.jbay.client.ServerConnection;
@@ -6,8 +6,8 @@ import a88.jbay.controller.ControllerProvider;
 import a88.jbay.common.auction.Auction;
 import a88.jbay.common.network.Request;
 import a88.jbay.common.network.RequestType;
-import a88.jbay.controller.client.AuctionController.BidderItemCardController;
-import a88.jbay.controller.client.AuctionController.SellerItemCardController;
+import a88.jbay.controller.client.AuctionUI.BidderItemCardController;
+import a88.jbay.controller.client.AuctionUI.SellerItemCardController;
 import a88.jbay.util.JBayLogger;
 import a88.jbay.view.ViewManager;
 import javafx.animation.TranslateTransition;

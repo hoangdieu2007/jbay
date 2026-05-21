@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="861.0" prefWidth="1284.0" styleClass="main-bg" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.AuctionController.SellerViewAuctionController">
+<BorderPane prefHeight="861.0" prefWidth="1284.0" styleClass="main-bg" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.AuctionUI.SellerViewAuctionController">
 
     <top>
         <HBox alignment="CENTER_LEFT" prefHeight="70.0" spacing="20.0" styleClass="header-bar" BorderPane.alignment="CENTER">
