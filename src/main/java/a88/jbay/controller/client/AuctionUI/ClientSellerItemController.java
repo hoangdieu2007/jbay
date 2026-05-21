@@ -17,6 +17,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 
+import javax.swing.text.View;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -304,8 +305,7 @@ public class ClientSellerItemController {
 
             ServerConnection.getInstance().send(request);
 
-            SellerBidderHomeScreenController.targetTabIndex = 0;
-            ViewManager.displayScene("client/Seller-Bidder-HomeScreens.fxml");
+            ViewManager.getInstance().loadIntoMainScene("UserHomeScreenUI/my-Listings.fxml");
 
             new Alert(Alert.AlertType.INFORMATION, "Auction created successfully!").show();
 
@@ -320,7 +320,7 @@ public class ClientSellerItemController {
         SellerBidderHomeScreenController.targetTabIndex = 0;
 
         try {
-            ViewManager.displayScene("client/Seller-Bidder-HomeScreens.fxml");
+            ViewManager.getInstance().loadIntoMainScene("UserHomeScreenUI/my-Listings.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -109,7 +109,7 @@ public class SellerViewAuctionController {
         SellerBidderHomeScreenController.targetTabIndex = 0;
 
         try {
-            ViewManager.displayScene("client/Seller-Bidder-HomeScreens.fxml");
+            ViewManager.getInstance().loadIntoMainScene("UserHomeScreenUI/my-Listings.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -121,7 +121,7 @@ public class SellerViewAuctionController {
         SellerBidderHomeScreenController.targetTabIndex = 0;
 
         try {
-            ViewManager.displayScene("client/Seller-Bidder-HomeScreens.fxml");
+            ViewManager.getInstance().loadIntoMainScene("UserHomeScreenUI/my-Listings.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -30,7 +30,7 @@ public class ClientServerConnectController {
             ServerConnection.getInstance().connect(host, Integer.parseInt(port));
             ServerConnection.getInstance().startListener();
             connectLabel.setText("Connected to server");
-            ViewManager.displayScene("client/client-login-view.fxml");
+            ViewManager.displayScene("EntranceUI/client-login-view.fxml");
         } catch (IOException e) {
             connectLabel.setText("Failed to connect to server");
         }

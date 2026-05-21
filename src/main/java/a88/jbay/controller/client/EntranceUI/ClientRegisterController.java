@@ -28,7 +28,7 @@ public class ClientRegisterController {
     public void goToLoginScene(ActionEvent event) {
         try {
             // Gọi ViewManager để quay lại file FXML đăng nhập
-            ViewManager.displayScene("client/client-login-view.fxml");
+            ViewManager.displayScene("EntranceUI/client-login-view.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }

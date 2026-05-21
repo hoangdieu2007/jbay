@@ -103,7 +103,7 @@ public class SellerBidderHomeScreenController {
 
     public void handleCreateListing(ActionEvent actionEvent) {
         try {
-            ViewManager.displayScene("client/client-seller-item-view.fxml");
+            ViewManager.getInstance().loadIntoMainScene("AuctionUI/client-seller-item-view.fxml");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

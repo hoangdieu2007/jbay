@@ -93,7 +93,7 @@ public class ServerConnection {
                             Alert alert = new Alert(Alert.AlertType.WARNING, "Disconnected from server");
                             alert.showAndWait();
                             try {
-                                ViewManager.displayScene("client/client-server-connect-view.fxml");
+                                ViewManager.displayScene("EntranceUI/client-server-connect-view.fxml");
                             } catch (IOException ex) {
                                 logger.error("Failed to switch to connection view: " + ex.getMessage(), ex);
                             }
@@ -110,7 +110,7 @@ public class ServerConnection {
                     try {
                         ViewManager.newStage("Welcome to jBay");
                         ViewManager.setResolution(600, 429);
-                        ViewManager.displayScene("client/client-server-connect-view.fxml");
+                        ViewManager.displayScene("EntranceUI/client-server-connect-view.fxml");
                     } catch (IOException ex) {
                         logger.error("Failed to switch to connection view: " + ex.getMessage(), ex);
                     }

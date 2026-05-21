@@ -31,7 +31,7 @@ public class BidderItemCardController {
     @FXML
     private void handlePlaceBid() {
         try {
-            ViewManager.displayScene("client/client-bidder-item-view.fxml");
+            ViewManager.displayScene("AuctionUI/client-bidder-item-view.fxml");
             ControllerProvider.getInstance().getController(ClientBidderItemController.class).setCurrentAuction(currentAuction);
         } catch (IOException e) {
             throw new RuntimeException(e);

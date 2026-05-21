@@ -47,7 +47,7 @@ public class SellerItemCardController {
     @FXML
     private void handleView(){
         try {
-            ViewManager.displayScene("client/seller-viewAuction-view.fxml");
+            ViewManager.getInstance().loadIntoMainScene("AuctionUI/seller-viewAuction-view.fxml");
             ControllerProvider.getInstance().getController(SellerViewAuctionController.class).setSellerViewData(currentAuction);
         } catch (IOException e) {
             throw new RuntimeException(e);
