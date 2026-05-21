@@ -13,27 +13,24 @@
 
 <AnchorPane style="-fx-background-color: white;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.MyListingsController">
     <children>
-        <Label layoutX="81.0" layoutY="27.0" prefHeight="47.0" prefWidth="155.0" style="-fx-font-family: Poppins;" text="My Listings">
+        <Label layoutX="81.0" layoutY="27.0" prefHeight="48.0" prefWidth="203.0" style="-fx-font-family: Poppins;" text="My Listings">
             <font>
-                <Font name="Arial Hebrew Bold" size="28.0" />
+                <Font name="Arial Hebrew Bold" size="36.0" />
             </font>
         </Label>
 
-        <Label layoutX="81.0" layoutY="73.0" text="Manage your auction items" />
+        <Label layoutX="81.0" layoutY="73.0" text="Manage your auction items">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
 
-        <TextField fx:id="sellerSearchField" prefHeight="36.0" prefWidth="272.0" promptText="Search" styleClass="search-field" AnchorPane.rightAnchor="190.0" AnchorPane.topAnchor="34.0">
-            <font>
-                <Font size="16.0" />
-            </font>
-        </TextField>
-
-        <Button fx:id="btnCreateListing" alignment="CENTER" mnemonicParsing="false" onAction="#handleCreateListing" prefHeight="36.0" prefWidth="158.0" styleClass="primary-button" text="+ Create Listing" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="34.0">
+        <Button fx:id="btnCreateListing" alignment="CENTER" layoutX="1100.0" layoutY="46.0" mnemonicParsing="false" onAction="#handleCreateListing" prefHeight="36.0" prefWidth="158.0" styleClass="primary-button" text="+ Create Listing" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="46.0">
             <font>
                 <Font name="Arial Bold" size="16.0" />
             </font>
         </Button>
 
-        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" layoutY="100.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" layoutY="100.0" style="-fx-background-color: white;" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
             <content>
                 <VBox alignment="TOP_CENTER" style="-fx-background-color: white;">
                     <children>
@@ -49,6 +46,11 @@
 
         <Region layoutX="22.0" layoutY="40.0" prefHeight="48.0" prefWidth="48.0" style="-fx-shape: &quot;M192-144v-72h432v72H192Zm204-195L192-542l85-85 203 204-84 84Zm237-237L430-779l84-85 204 204-85 84Zm180 384L327-678l51-51 486 486-51 51Z&quot;; -fx-background-color: black;" />
 
-        <Region layoutX="1041.0" layoutY="42.0" prefHeight="21.0" prefWidth="23.0" style="-fx-shape: &quot;M765-144 526-383q-30 22-65.79 34.5-35.79 12.5-76.18 12.5Q284-336 214-406t-70-170q0-100 70-170t170-70q100 0 170 70t70 170.03q0 40.39-12.5 76.18Q599-464 577-434l239 239-51 51ZM384-408q70 0 119-49t49-119q0-70-49-119t-119-49q-70 0-119 49t-49 119q0 70 49 119t119 49Z&quot;; -fx-background-color: gray;" />
+              <TextField fx:id="sellerSearchField" layoutX="803.0" layoutY="46.0" prefHeight="36.0" prefWidth="272.0" promptText="Search" styleClass="search-field">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </TextField>
+      <Region layoutX="1033.0" layoutY="52.0" prefHeight="25.0" prefWidth="25.0" style="-fx-shape: &quot;M765-144 526-383q-30 22-65.79 34.5-35.79 12.5-76.18 12.5Q284-336 214-406t-70-170q0-100 70-170t170-70q100 0 170 70t70 170.03q0 40.39-12.5 76.18Q599-464 577-434l239 239-51 51ZM384-408q70 0 119-49t49-119q0-70-49-119t-119-49q-70 0-119 49t-49 119q0 70 49 119t119 49Z&quot;; -fx-background-color: gray;" />
     </children>
 </AnchorPane>
