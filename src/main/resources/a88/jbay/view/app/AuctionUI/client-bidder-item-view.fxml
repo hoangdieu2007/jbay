@@ -103,13 +103,13 @@
                                         <Label fx:id="itemNameLabel" prefWidth="253.0" styleClass="detail-value" text="Item name" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
                                         <Label styleClass="detail-label" text="Time:" GridPane.rowIndex="1" />
-                                        <Label fx:id="auctionTimeLabel" prefHeight="25.0" prefWidth="255.0" styleClass="detail-value" text="StartTime - EndTime" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <Label fx:id="auctionTimeLabel" prefWidth="255.0" styleClass="detail-value" text="StartTime - EndTime" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
                                         <Label styleClass="detail-label" text="Seller:" GridPane.rowIndex="2" />
                                         <Label fx:id="sellerLabel" prefHeight="25.0" prefWidth="257.0" styleClass="detail-value-link" text="Seller Name/Id" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
                                         <Label styleClass="detail-label" text="Current:" GridPane.rowIndex="3" />
-                                        <Label fx:id="currentPriceLabel" prefHeight="35.0" prefWidth="253.0" styleClass="price-value" text="\$ 0.00" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                        <Label fx:id="currentPriceLabel" prefWidth="253.0" styleClass="price-value" text="\$ 0.00" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     </children>
                                 </GridPane>
 

@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="861.0" prefWidth="1284.0" styleClass="main-bg" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.app.AuctionUI.SellerViewAuctionController">
+<BorderPane prefHeight="861.0" prefWidth="1284.0" styleClass="main-bg" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.app.AuctionUI.SellerViewAuctionController">
 
     <top>
         <HBox alignment="CENTER_LEFT" prefHeight="70.0" spacing="20.0" styleClass="header-bar" BorderPane.alignment="CENTER">
@@ -92,16 +92,16 @@
                                     </rowConstraints>
                                     <children>
                                         <Label styleClass="detail-label" text="Name:" />
-                                        <Label fx:id="lblItemName" styleClass="detail-value" text="Item name" wrapText="true" GridPane.columnIndex="1" />
+                                        <Label fx:id="lblItemName" prefWidth="520.0" styleClass="detail-value" text="Item name" wrapText="true" GridPane.columnIndex="1" />
 
                                         <Label styleClass="detail-label" text="Time:" GridPane.rowIndex="1" />
-                                        <Label fx:id="lblAuctionTime" styleClass="detail-value" text="StartTime - EndTime" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <Label fx:id="lblAuctionTime" prefWidth="521.0" styleClass="detail-value" text="StartTime - EndTime" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
                                         <Label styleClass="detail-label" text="Current Bidder:" GridPane.rowIndex="2" />
                                         <Label fx:id="lblBidderName" styleClass="detail-value" text="Bidder Name" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
                                         <Label styleClass="detail-label" text="Current:" GridPane.rowIndex="3" />
-                                        <Label fx:id="lblCurrentPrice" styleClass="price-value" text="0.00 USD" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                        <Label fx:id="lblCurrentPrice" prefWidth="517.0" styleClass="price-value" text="0.00 USD" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     </children>
                                 </GridPane>
 
