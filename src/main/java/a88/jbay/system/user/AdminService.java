@@ -5,8 +5,8 @@ import a88.jbay.common.user.User;
 import a88.jbay.common.user.UserData;
 import a88.jbay.dao.UserDAO;
 import a88.jbay.server.ClientConnection;
+import a88.jbay.system.AuctionSystem;
 import a88.jbay.system.update.ConnectionSystem;
-import a88.jbay.system.update.UpdateSystem;
 import a88.jbay.util.JBayLogger;
 
 import java.util.Set;
@@ -15,20 +15,20 @@ public class AdminService {
 
     private final UserDAO userDAO;
     private final ConnectionSystem connectionSystem;
-    private final UpdateSystem updateSystem;
+    private final AuctionSystem auctionSystem;
     private final UserSystem userSystem;
     private final JBayLogger logger;
 
     public AdminService(
             UserDAO userDAO,
             ConnectionSystem connectionSystem,
-            UpdateSystem updateSystem,
+            AuctionSystem auctionSystem,
             UserSystem userSystem
     ) {
         this.userDAO = userDAO;
         this.connectionSystem = connectionSystem;
         this.userSystem = userSystem;
-        this.updateSystem = updateSystem;
+        this.auctionSystem = auctionSystem;
         this.logger = JBayLogger.getLogger(AdminService.class);
     }
 
@@ -54,7 +54,7 @@ public class AdminService {
             }
         }
 
-        updateSystem.unsubscribeUserFromAllAuctions(userId);
+        auctionSystem.unsubscribeUserFromAllAuctions(userId);
         connectionSystem.unregister(userId);
 
         // Đúc và trả về đối tượng mang Role mới

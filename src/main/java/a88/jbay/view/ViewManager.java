@@ -130,6 +130,11 @@ public class ViewManager {
         FXMLLoader loader = new FXMLLoader(ViewManager.class.getResource("/a88/jbay/view/app/" + fxmlPath));
         Region newContent = loader.load();
 
+        Object controller = loader.getController();
+        if (controller != null) {
+            ControllerProvider.getInstance().registerController(controller);
+        }
+
         // 1. Prepare: SNAP dimensions immediately to prevent sidebar "pushing"
         newContent.setOpacity(0);
         newContent.setTranslateY(10);

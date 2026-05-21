@@ -1,6 +1,7 @@
 package a88.jbay.system;
 
 import a88.jbay.system.update.ConnectionSystem;
+import a88.jbay.system.update.UpdateSystem;
 import a88.jbay.util.JBayLogger;
 import a88.jbay.common.item.Item;
 import a88.jbay.common.auction.Auction;
@@ -22,14 +23,20 @@ features: real-time bidding, auction lifecycle management
 
 public class AuctionSystem {
     private final ConnectionSystem connectionSystem;
+    private final UpdateSystem updateSystem;
     private final AuctionRepository auctionRepository;
     private final JBayLogger logger;
 
     private final ScheduledExecutorService scheduler;
 
     // Constructor for dependency injection
-    public AuctionSystem(ConnectionSystem connectionSystem, AuctionRepository auctionRepository) {
+    public AuctionSystem(
+            ConnectionSystem connectionSystem,
+            UpdateSystem updateSystem,
+            AuctionRepository auctionRepository
+    ) {
         this.connectionSystem = connectionSystem;
+        this.updateSystem = updateSystem;
         this.auctionRepository = auctionRepository;
         this.logger = JBayLogger.getLogger(AuctionSystem.class);
         this.scheduler = Executors.newSingleThreadScheduledExecutor();
@@ -95,9 +102,10 @@ public class AuctionSystem {
             return false;
         }
 
-        auction.cancel();
         boolean canceled = auctionRepository.setAuctionState(auctionId, AuctionState.CANCELED);
         if (canceled) {
+            auction.cancel();
+            publishAuctionUpdate(auction);
             auctionRepository.removeActiveAuction(auctionId);
             logger.info("Auction canceled: " + auctionId);
         } else {
@@ -116,6 +124,50 @@ public class AuctionSystem {
 
     public List<Auction> getActiveAuctionListExceptForSeller(int userId) {
         return auctionRepository.getActiveAuctionListExceptForSeller(userId);
+    }
+
+    public void updateSellerAuctions(int userId) {
+        updateSystem.sendToUser(
+                userId,
+                new Response(true, "SELLER_AUCTION_LIST", auctionRepository.getAuctionsBySellerId(userId))
+        );
+    }
+
+    public void updateBidderAuctions(int userId) {
+        updateSystem.sendToUser(
+                userId,
+                new Response(true, "BIDDER_AUCTION_LIST", auctionRepository.getAuctionsByWinnerId(userId))
+        );
+    }
+
+    public void updateActiveAuctions(int userId) {
+        updateSystem.sendToUser(
+                userId,
+                new Response(
+                        true,
+                        "ACTIVE_AUCTION_LIST",
+                        auctionRepository.getActiveAuctionListExceptForSeller(userId)
+                )
+        );
+    }
+
+    public void updateAllAuctions(int userId) {
+        updateActiveAuctions(userId);
+        updateBidderAuctions(userId);
+        updateSellerAuctions(userId);
+    }
+
+    public void updateAdminAuctions(int adminId) {
+        updateSystem.sendToUser(
+                adminId,
+                new Response(true, "ADMIN_AUCTION_LIST", getAllAuctionsForAdmin())
+        );
+    }
+
+    public void unsubscribeUserFromAllAuctions(int userId) {
+        for (Auction auction : auctionRepository.getAllActiveAuctions()) {
+            auction.unsubscribe(userId);
+        }
     }
 
     public Auction getActiveAuctionById(int auctionId) {
@@ -164,6 +216,7 @@ public class AuctionSystem {
         for (Auction auction : auctionRepository.getAllActiveAuctions()) {
             if (auction.tick(now)) {
                 auctionRepository.setAuctionState(auction.getId(), auction.getAuctionState());
+                publishAuctionUpdate(auction);
                 logger.debug("State changed for auction " + auction.getId() + " to " + auction.getAuctionState());
             }
             if (auction.getAuctionState() == AuctionState.CANCELED
@@ -173,6 +226,11 @@ public class AuctionSystem {
             }
         }
         return ended;
+    }
+
+    private void publishAuctionUpdate(Auction auction) {
+        updateSystem.notifyAuctionSubscribers(auction);
+        updateSystem.broadcastAuctionUpdate(auction);
     }
 
     //stopping the heartbeat, WARNING: no automatic auction lifecycle management after stopping

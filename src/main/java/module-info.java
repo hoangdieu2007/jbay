@@ -16,6 +16,7 @@ module a88.jbay {
     requires com.zaxxer.hikari;
     requires java.desktop;
     requires org.slf4j;
+    requires mysql.connector.j;
 
     opens a88.jbay.view to javafx.fxml, javafx.graphics;
     exports a88.jbay.view;

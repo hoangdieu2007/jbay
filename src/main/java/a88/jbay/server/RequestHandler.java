@@ -187,12 +187,6 @@ public class RequestHandler {
         if (user.can(ActionType.CANCEL)) {
             boolean success = auctionSystem.cancelAuction(auction.getId());
 
-            if (success) {
-                // Lấy phiên đấu giá vừa bị hủy (mang trạng thái CANCELED) và phát sóng
-                Auction cancelledAuction = auctionSystem.getAuctionById(auction.getId());
-                updateSystem.broadcastAuctionUpdate(cancelledAuction);
-            }
-
             return new Response(success, success ? "CANCEL_SUCCESS" : "CANCEL_FAIL", null);
         }
         return new Response(false, "CANCEL_FAIL", null);
@@ -239,10 +233,13 @@ public class RequestHandler {
         // Kiểm tra xem có phải ADMIN không
         if (user != null && user.getRole().equals("ADMIN")) {
             // Chuyển hướng luồng chạy cho ADMIN
-            updateSystem.updateAdminAuctions(user.getId());
+            auctionSystem.updateAdminAuctions(user.getId());
         } else {
             // GIỮ NGUYÊN LUỒNG CŨ CHO USER (Bidder/Seller)
-            updateSystem.updateAllAuctions((int) request.get("userId"));
+            if (user == null) {
+                return new Response(false, "INVALID_SESSION", null);
+            }
+            auctionSystem.updateAllAuctions(user.getId());
         }
 
         return new Response(true, "GET_AUCTIONS_SUCCESS", null);
@@ -256,7 +253,10 @@ public class RequestHandler {
         // Chặn cửa: Chỉ xử lý nếu là ADMIN
         if (user != null && user.getRole().equals("ADMIN")) {
             // Nhờ UpdateSystem đóng gói và đẩy qua mạng
-            updateSystem.updateAdminUsers(user.getId());
+            updateSystem.sendToUser(
+                    user.getId(),
+                    new Response(true, "ADMIN_USER_LIST", userSystem.getAllNormalUsersForAdmin())
+            );
             return new Response(true, "GET_USERS_SUCCESS", null);
         }
 
@@ -308,14 +308,4 @@ public class RequestHandler {
         };
     }
 
-    //erase current user session
-    //remove all subscriptions, unregister from notification system
-//    public static void cleanupCurrentUserSession() {
-//        if (RequestHandler.currentUser == null) {
-//            return;
-//        }
-//        UpdateSystem.getInstance().unregister(RequestHandler.currentUser.getId(), RequestHandler.out);
-//        UpdateSystem.getInstance().unsubscribeUserFromAllAuctions(RequestHandler.currentUser.getId());
-//        RequestHandler.currentUser = null;
-//    }
 }

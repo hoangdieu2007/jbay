@@ -6,7 +6,9 @@ import a88.jbay.dao.BidDAO;
 import a88.jbay.data.BidRepository;
 import a88.jbay.di.ApplicationContext;
 import a88.jbay.data.AuctionRepository;
+import a88.jbay.system.update.UpdateSystem;
 import a88.jbay.util.JBayLogger;
+import com.mysql.cj.x.protobuf.MysqlxCrud;
 
 import java.time.LocalDateTime;
 //import java.util.HashMap;
@@ -25,6 +27,7 @@ public class BidSystem {
 
     private final BidDAO bidDAO;
     private final AuctionDAO auctionDAO;
+    private final UpdateSystem updateSystem;
 
     /**
      * Creates a bid system with the repositories and DAOs needed to manage bids.
@@ -40,12 +43,14 @@ public class BidSystem {
             AuctionRepository auctionRepository,
             BidRepository bidRepository,
             BidDAO bidDAO,
-            AuctionDAO auctionDAO
+            AuctionDAO auctionDAO,
+            UpdateSystem updateSystem
     ) {
         this.auctionRepository = auctionRepository;
         this.bidRepository = bidRepository;
         this.bidDAO = bidDAO;
         this.auctionDAO = auctionDAO;
+        this.updateSystem = updateSystem;
         this.logger = JBayLogger.getLogger(BidSystem.class);
     }
 
@@ -68,7 +73,7 @@ public class BidSystem {
      * Places a manual bid for a user on an active auction.
      *
      * <p>Processing: loads the active auction, validates that the bid is higher than the current
-     * price plus the minimum increment and that the auction is running, creates a bid transaction, applies it to the in-memory
+     * price and that the auction is running, creates a bid transaction, applies it to the in-memory
      * auction, and persists both the updated price and the bid transaction.</p>
      *
      * @param userId ID of the user placing the bid
@@ -85,12 +90,14 @@ public class BidSystem {
         }
 
         BidTransaction tx = createBidTransaction(userId, amount);
-        addBid(auction, tx); // subscribe user to auction and update auction price
         boolean saved = bidRepository.saveBid(auctionId, tx); // save bid to DB
 
         if (saved) {
+            addBid(auction, tx); // subscribe user to auction and update auction price
+            publishAuctionUpdate(auction);
             // anti-sniping check upon successful bid
             extendEndTime(tx.getTimestamp(), auction);
+            triggerAutoBid(auction);
         }
 
         return saved;
@@ -143,7 +150,8 @@ public class BidSystem {
             return false;
         }
 
-        if (auction.getWinner().isEmpty()){
+        String winner = auction.getWinner();
+        if (winner == null || winner.isEmpty()) {
             return amount >= auction.getCurrentPrice();
         }
 
@@ -176,7 +184,7 @@ public class BidSystem {
      * Applies a bid transaction to the in-memory auction state.
      *
      * <p>Processing: subscribes the bidder to auction updates and then updates the auction price,
-     * winner, transaction history, and observer notifications through {@link Auction#updatePrice}.</p>
+     * winner, and transaction history through {@link Auction#updatePrice}.</p>
      *
      * @param auction auction that should receive the bid
      * @param tx accepted bid transaction
@@ -185,6 +193,11 @@ public class BidSystem {
         // bidder automatically becomes observer
         auction.subscribe(tx.getUserID()); // subscribe first so that client can get a notification
         auction.updatePrice(tx.getAmt(), tx);
+    }
+
+    private void publishAuctionUpdate(Auction auction) {
+        updateSystem.notifyAuctionSubscribers(auction);
+        updateSystem.broadcastAuctionUpdate(auction);
     }
 
     /**
@@ -232,7 +245,7 @@ public class BidSystem {
             if (isCurrentWinner(auction, userId)) {
                 logger.info("Skipping initial auto-bid for user " + userId + " on auction " + auctionId +
                         ": user is already the current winner");
-                auction.notifyObservers();
+                publishAuctionUpdate(auction);
                 return;
             }
 
@@ -243,7 +256,7 @@ public class BidSystem {
             if (isCurrentWinner(auction, userId)) {
                 logger.info("Updated auto-bid config for current winner " + userId +
                         " on auction " + auctionId);
-                auction.notifyObservers();
+                publishAuctionUpdate(auction);
                 return;
             }
 
@@ -252,7 +265,7 @@ public class BidSystem {
             handleCompetitiveAutoBid(auction, existingConfig, requestedConfig);
         }
 
-        auction.notifyObservers();
+        publishAuctionUpdate(auction);
     }
 
     private void placeSingleAutoBid(Auction auction, AutoBidConfig config) {
@@ -411,7 +424,7 @@ public class BidSystem {
         if (config != null && config.getUserId() == userId) {
             clearAutoBidConfig(auctionId);
             logger.info("Auto-bid canceled for user " + userId + " on auction " + auctionId);
-            auction.notifyObservers();
+            publishAuctionUpdate(auction);
         } else {
             logger.warn("Cancel auto-bid failed - user " + userId + " does not have auto-bid config on auction " + auctionId);
         }
@@ -459,7 +472,7 @@ public class BidSystem {
                 logger.info("Auto-bid stopped for user " + configUserId + " on auction " + auction.getId() +
                         ": Max amount (" + maxAmount + ") has reached");
                 clearAutoBidConfig(auctionId);
-                auction.notifyObservers();
+                publishAuctionUpdate(auction);
                 return;
             }
 
@@ -478,7 +491,7 @@ public class BidSystem {
                 logger.info("Auto-bid stopped for user " + configUserId + " on auction " + auction.getId() +
                         ": Max amount (" + maxAmount + ") has reached");
                 clearAutoBidConfig(auctionId);
-                auction.notifyObservers();
+                publishAuctionUpdate(auction);
             }
         } finally {
             // Reset flag after bid is placed
@@ -506,7 +519,7 @@ public class BidSystem {
             boolean updated = auctionDAO.updateEndTime(auction.getId(), newEndTime);
 
             if (updated) {
-                auction.notifyObservers();
+                publishAuctionUpdate(auction);
                 logger.info("Auction " + auction.getId() + " extended due to anti-sniping. " +
                         "New end time: " + newEndTime);
             }

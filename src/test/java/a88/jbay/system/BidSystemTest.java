@@ -9,6 +9,7 @@ import a88.jbay.dao.BidDAO;
 import a88.jbay.dao.UserDAO;
 import a88.jbay.data.AuctionRepository;
 import a88.jbay.data.BidRepository;
+import a88.jbay.system.update.UpdateSystem;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -47,12 +48,15 @@ class BidSystemTest {
     @Mock
     private BidRepository bidRepository;
 
+    @Mock
+    private UpdateSystem updateSystem;
+
     private BidSystem bidSystem;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        bidSystem = new BidSystem(auctionRepository, bidRepository, bidDAO, auctionDAO);
+        bidSystem = new BidSystem(auctionRepository, bidRepository, bidDAO, auctionDAO, updateSystem);
     }
 
     @Test

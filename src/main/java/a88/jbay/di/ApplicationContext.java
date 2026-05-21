@@ -78,27 +78,28 @@ public class ApplicationContext {
     private void configureSystems() {
         container.registerSingleton(ConnectionSystem.class, new ConnectionSystem());
         container.registerSingleton(UpdateSystem.class, new UpdateSystem(
-                container.getInstance(ConnectionSystem.class),
-                container.getInstance(AuctionRepository.class)
+                container.getInstance(ConnectionSystem.class)
         ));
         container.registerSingleton(UserSystem.class, new UserSystem(
                 container.getInstance(UserRepository.class)
-        ));
-        container.registerSingleton(AdminService.class, new AdminService(
-                container.getInstance(UserDAO.class),
-                container.getInstance(ConnectionSystem.class),
-                container.getInstance(UpdateSystem.class),
-                container.getInstance(UserSystem.class)
         ));
         container.registerSingleton(BidSystem.class, new BidSystem(
                 container.getInstance(AuctionRepository.class),
                 container.getInstance(BidRepository.class),
                 container.getInstance(BidDAO.class),
-                container.getInstance(AuctionDAO.class)
+                container.getInstance(AuctionDAO.class),
+                container.getInstance(UpdateSystem.class)
         ));
         container.registerSingleton(AuctionSystem.class, new AuctionSystem(
                 container.getInstance(ConnectionSystem.class),
+                container.getInstance(UpdateSystem.class),
                 container.getInstance(AuctionRepository.class)
+        ));
+        container.registerSingleton(AdminService.class, new AdminService(
+                container.getInstance(UserDAO.class),
+                container.getInstance(ConnectionSystem.class),
+                container.getInstance(AuctionSystem.class),
+                container.getInstance(UserSystem.class)
         ));
         container.registerSingleton(RequestHandler.class, new RequestHandler(
                 container.getInstance(UserSystem.class),
