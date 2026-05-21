@@ -19,8 +19,6 @@ module a88.jbay {
 
     opens a88.jbay.view to javafx.fxml, javafx.graphics;
     exports a88.jbay.view;
-    exports a88.jbay.controller.client;
-    opens a88.jbay.controller.client to javafx.fxml, javafx.graphics;
     exports a88.jbay.server;
     opens a88.jbay.server to javafx.fxml, javafx.graphics;
     exports a88.jbay.system;
@@ -37,6 +35,7 @@ module a88.jbay {
     opens a88.jbay.system.user to javafx.fxml, javafx.graphics;
     exports a88.jbay.common.auction;
     opens a88.jbay.common.auction to javafx.fxml, javafx.graphics;
+
     exports a88.jbay.controller.client.AdminUI;
     opens a88.jbay.controller.client.AdminUI to javafx.fxml, javafx.graphics;
     exports a88.jbay.controller.client.AuctionUI;
