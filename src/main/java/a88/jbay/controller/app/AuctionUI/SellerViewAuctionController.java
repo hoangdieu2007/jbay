@@ -25,7 +25,7 @@ import java.time.format.DateTimeFormatter;
 public class SellerViewAuctionController {
     @FXML private ImageView itemImageView;
     @FXML private TextArea itemDescription;
-    @FXML private Label lblItemName, lblAuctionTime, lblBidderName, lblCurrentPrice;
+    @FXML private Label lblItemName, lblAuctionTime, lblBidderName, lblCurrentPrice, lblMinIncrement;
     @FXML private LineChart<String, Number> priceChart;
 
     private XYChart.Series<String, Number> priceSeries;
@@ -40,6 +40,7 @@ public class SellerViewAuctionController {
         lblAuctionTime.setText(auction.getStartTime().format(displayFormatter) + " - " + auction.getEndTime().format(displayFormatter));
         lblBidderName.setText(auction.getWinner());
         lblCurrentPrice.setText(String.format("%.2f USD", auction.getCurrentPrice()));
+        lblMinIncrement.setText(String.format("%.2f USD", auction.getMinIncrement()));
 
         //Vẽ biểu đồ
 

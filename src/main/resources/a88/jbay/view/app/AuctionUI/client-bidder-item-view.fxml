@@ -87,12 +87,13 @@
                         <HBox spacing="20.0" styleClass="card-panel" VBox.vgrow="ALWAYS">
                             <children>
 
-                                <GridPane hgap="10.0" vgap="15.0" HBox.hgrow="ALWAYS">
+                                <GridPane hgap="10.0" vgap="8.0" HBox.hgrow="ALWAYS">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" prefWidth="92.0" />
                                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="253.0" minWidth="10.0" prefWidth="253.0" />
                                     </columnConstraints>
                                     <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
@@ -110,6 +111,10 @@
 
                                         <Label styleClass="detail-label" text="Current:" GridPane.rowIndex="3" />
                                         <Label fx:id="currentPriceLabel" prefWidth="253.0" styleClass="price-value" text="\$ 0.00" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                                        <Label styleClass="detail-label" text="MinIncrement:" GridPane.rowIndex="4" />
+                                        <Label fx:id="minIncrementLabel" prefHeight="25.0" prefWidth="253.0" styleClass="detail-value" text="0.00 USD" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
                                     </children>
                                 </GridPane>
 
@@ -122,11 +127,12 @@
                                                 <Button fx:id="placeBidButton" mnemonicParsing="false" onAction="#handlePlaceBid" prefHeight="31.0" prefWidth="88.0" styleClass="btn-general, btn-place-bid" text="Place Bid" />
                                             </children>
                                         </HBox>
-                                        <Label fx:id="errorLabel" style="-fx-font-weight: bold; -fx-text-fill: #EF4444;" text="Invalid Bid" visible="false" />
+                                        <Label fx:id="errorLabel" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #EF4444;" text="Invalid Bid" visible="false" />
 
                                         <Region prefHeight="10.0" />
 
                                         <Label styleClass="section-title" text="Auto Bid Settings" />
+                                        <Label fx:id="autoBidErrorLabel" managed="false" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #EF4444;" text="Invalid Auto Bid" visible="false" />
                                         <HBox spacing="10.0">
                                             <children>
                                                 <TextField fx:id="autoBidIncrement" promptText="Increment" styleClass="bid-input" HBox.hgrow="ALWAYS" />

@@ -27,7 +27,7 @@ import java.time.format.DateTimeFormatter;
 
 public class ClientBidderItemController {
     @FXML
-    private Label sellerLabel, auctionTimeLabel, itemNameLabel, currentPriceLabel, errorLabel;
+    private Label sellerLabel, auctionTimeLabel, itemNameLabel, currentPriceLabel, minIncrementLabel, errorLabel, autoBidErrorLabel;
     @FXML
     private TextField bidInput;
     @FXML
@@ -83,6 +83,7 @@ public class ClientBidderItemController {
 
             // Cập nhật giá
             currentPriceLabel.setText(String.format("%.2f USD", auction.getCurrentPrice()));
+            minIncrementLabel.setText(String.format("%.2f USD", auction.getMinIncrement()));
 
             //Vẽ biểu đồ
 
@@ -110,6 +111,8 @@ public class ClientBidderItemController {
     }
 
     private void applyAutoBidState(Auction auction) {
+        hideAutoBidError();
+
         int userId = ClientSession.getInstance().getUser().getId();
         AutoBidConfig autoBidConfig = auction.getAutoBidConfig(userId);
         boolean enabled = autoBidConfig != null;
@@ -176,7 +179,7 @@ public class ClientBidderItemController {
         }
 
         try {
-            double bidAmount = Double.parseDouble(rawInput);
+            double bidAmount = Double.parseDouble(rawInput.trim());
 
             // LẤY GIÁ TỪ MODEL (Không lấy từ Label để tránh lỗi chữ "USD")
             Auction currentAuction = ClientSession.getInstance().getBidderAuctions().get(currentAuctionId);
@@ -188,10 +191,12 @@ public class ClientBidderItemController {
             }
 
             double currentPrice = currentAuction.getCurrentPrice();
+            double minIncrement = currentAuction.getMinIncrement();
+            double minimumBid = currentPrice + minIncrement;
 
             // SO SÁNH LOGIC
-            if (bidAmount <= currentPrice) {
-                errorLabel.setText("Bid must be higher than " + currentPrice);
+            if (bidAmount < minimumBid) {
+                errorLabel.setText(String.format("Bid must be raised by at least %.2f USD", minIncrement));
                 errorLabel.setVisible(true);
                 return;
             }
@@ -232,6 +237,7 @@ public class ClientBidderItemController {
     @FXML
     private void handleAutoBid() {
         errorLabel.setVisible(false);
+        hideAutoBidError();
 
         String rawIncrement = autoBidIncrement.getText();
         String rawMaxAmount = autoBidMaxAmount.getText();
@@ -269,6 +275,14 @@ public class ClientBidderItemController {
             if (currentAuction == null) {
                 errorLabel.setText("Auction no longer exists!");
                 errorLabel.setVisible(true);
+                return;
+            }
+
+            double minIncrement = currentAuction.getMinIncrement();
+            if (increment < minIncrement) {
+                autoBidErrorLabel.setText(String.format("Bid must be raised by at least %.2f USD", minIncrement));
+                autoBidErrorLabel.setManaged(true);
+                autoBidErrorLabel.setVisible(true);
                 return;
             }
 
@@ -314,6 +328,7 @@ public class ClientBidderItemController {
     @FXML
     private void handleCancelAutoBid() {
         errorLabel.setVisible(false);
+        hideAutoBidError();
 
         Auction currentAuction = ClientSession.getInstance().getBidderAuctions().get(currentAuctionId);
 
@@ -350,5 +365,10 @@ public class ClientBidderItemController {
                 alert.setHeaderText("Could not send cancel auto-bid request to server");
             });
         }
+    }
+
+    private void hideAutoBidError() {
+        autoBidErrorLabel.setVisible(false);
+        autoBidErrorLabel.setManaged(false);
     }
 }

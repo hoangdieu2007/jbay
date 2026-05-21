@@ -90,6 +90,12 @@
                         </VBox>
 
                         <VBox GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <Label styleClass="input-label" text="Minimum Increment" />
+                           <TextField fx:id="minIncrementField" prefHeight="42.0" promptText="0.0" styleClass="input-field" />
+                           <Label fx:id="minIncrementErrorLabel" prefHeight="17.0" prefWidth="305.0" styleClass="error-label" text="Invalid Increment" visible="false" />
+                        </VBox>
+
+                        <VBox GridPane.columnIndex="0" GridPane.rowIndex="2">
                            <Label styleClass="input-label" text="Start Time" />
                            <HBox spacing="10.0">
                               <ComboBox fx:id="startChoiceCombo" prefHeight="42.0" prefWidth="60.0" styleClass="input-field" />
@@ -98,7 +104,7 @@
                            <Label fx:id="startErrorLabel" prefHeight="17.0" prefWidth="305.0" styleClass="error-label" text="Invalid Time" visible="false" />
                         </VBox>
 
-                        <VBox GridPane.columnIndex="0" GridPane.rowIndex="2">
+                        <VBox GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <Label styleClass="input-label" text="Run Duration (Days)" />
                            <HBox spacing="10.0">
                               <ComboBox fx:id="runChoiceCombo" prefHeight="42.0" prefWidth="60.0" styleClass="input-field" />

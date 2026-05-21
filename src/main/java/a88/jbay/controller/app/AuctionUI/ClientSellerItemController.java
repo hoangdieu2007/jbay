@@ -33,6 +33,8 @@ public class ClientSellerItemController {
     @FXML
     private TextField priceField;
     @FXML
+    private TextField minIncrementField;
+    @FXML
     private ComboBox<String> startChoiceCombo;
     @FXML
     private ComboBox<String> runChoiceCombo;
@@ -52,6 +54,8 @@ public class ClientSellerItemController {
     @FXML
     private Label priceErrorLabel;
     @FXML
+    private Label minIncrementErrorLabel;
+    @FXML
     private Label startErrorLabel;
     @FXML
     private Label endErrorLabel;
@@ -69,6 +73,7 @@ public class ClientSellerItemController {
         //Reset lại các lỗi
         nameErrorLabel.setVisible(false);
         priceErrorLabel.setVisible(false);
+        minIncrementErrorLabel.setVisible(false);
         startErrorLabel.setVisible(false);
         endErrorLabel.setVisible(false);
         typeErrorLabel.setVisible(false);
@@ -100,7 +105,24 @@ public class ClientSellerItemController {
             return false;
         }
 
-        // 3. Kiểm tra Start Time
+        // 3. Kiểm tra Minimum Increment
+        try {
+            String minIncrementText = minIncrementField.getText().trim();
+            if (!minIncrementText.isEmpty()) {
+                double minIncrement = Double.parseDouble(minIncrementText);
+                if (minIncrement < 0) {
+                    minIncrementErrorLabel.setText("Minimum increment cannot be negative!");
+                    minIncrementErrorLabel.setVisible(true);
+                    return false;
+                }
+            }
+        } catch (NumberFormatException e) {
+            minIncrementErrorLabel.setText("Minimum increment must be a valid number!");
+            minIncrementErrorLabel.setVisible(true);
+            return false;
+        }
+
+        // 4. Kiểm tra Start Time
         String startChoice = startChoiceCombo.getValue();
         if (startChoice == null) {
             startErrorLabel.setText("Please select a start option!");
@@ -129,7 +151,7 @@ public class ClientSellerItemController {
             }
         }
 
-        // 4. Kiểm tra Run Time (Thời gian chạy đấu giá)
+        // 5. Kiểm tra Run Time (Thời gian chạy đấu giá)
         String runChoice = runChoiceCombo.getValue();
         if (runChoice == null) {
             endErrorLabel.setText("Please select auction duration!");
@@ -158,7 +180,7 @@ public class ClientSellerItemController {
             }
         }
 
-        // 5. Kiểm tra Type (Thể loại)
+        // 6. Kiểm tra Type (Thể loại)
         if (typeComboBox.getValue() == null) {
             typeErrorLabel.setText("Please select an item category!");
             typeErrorLabel.setVisible(true);
@@ -199,6 +221,14 @@ public class ClientSellerItemController {
 
         if (desc.isEmpty()) desc = "No description provided.";
         return new Item(name, type, desc, price, imageData);
+    }
+
+    private double getMinIncrementFromField() {
+        String minIncrementText = minIncrementField.getText().trim();
+        if (minIncrementText.isEmpty()) {
+            return 0.0;
+        }
+        return Double.parseDouble(minIncrementText);
     }
 
     @FXML
@@ -299,7 +329,7 @@ public class ClientSellerItemController {
 
             Request request = new Request(RequestType.SELL)
                     .put("item", newItem)
-                    .put("minIncrement", 0.0)
+                    .put("minIncrement", getMinIncrementFromField())
                     .put("start", calculateStartTime())
                     .put("end", calculateEndTime(calculateStartTime()));
 
