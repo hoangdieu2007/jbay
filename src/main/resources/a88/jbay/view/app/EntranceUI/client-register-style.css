@@ -1,0 +1,115 @@
+/* --- NỀN BỐ CỤC --- */
+.left-pane-register {
+    -fx-background-color: linear-gradient(to bottom, #6EE7B7, #059669);
+}
+
+.right-pane {
+    -fx-background-color: white;
+}
+
+/* --- VĂN BẢN (TEXT) --- */
+.slogan-text {
+    -fx-text-fill: white;
+    -fx-font-size: 22px;
+    -fx-opacity: 0.9;
+}
+
+.title-text {
+    -fx-text-fill: #1E293B;
+    -fx-font-size: 44px;
+    -fx-font-weight: bold;
+}
+
+.subtitle-text {
+    -fx-text-fill: #64748B;
+    -fx-font-size: 16px;
+}
+
+.link-button-green {
+    -fx-background-color: transparent;
+    -fx-text-fill: #059669;
+    -fx-padding: 0;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-underline: true;
+}
+.link-button-green:hover {
+    -fx-text-fill: #047857;
+}
+
+/* --- NHẬP LIỆU (INPUT) --- */
+.input-label {
+    -fx-text-fill: #1E293B;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+
+.input-field {
+    -fx-background-radius: 8;
+    -fx-border-color: #CBD5E1;
+    -fx-border-radius: 8;
+    -fx-padding: 10;
+    -fx-font-size: 14px;
+    -fx-background-color: white;
+}
+.input-field:focused {
+    -fx-border-color: #10B981;
+    -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.2), 5, 0, 0, 0);
+}
+
+/* --- UPLOAD QR CODE --- */
+.btn-upload-qr {
+    -fx-background-color: #F1F5F9;
+    -fx-text-fill: #0F172A;
+    -fx-border-color: #CBD5E1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+    -fx-padding: 8 15;
+    -fx-transition: all 0.2s ease;
+}
+.btn-upload-qr:hover {
+    -fx-background-color: #E2E8F0;
+    -fx-translate-y: -1px;
+}
+.btn-upload-qr:pressed {
+    -fx-translate-y: 1px;
+}
+
+.file-name-label {
+    -fx-text-fill: #64748B;
+    -fx-font-size: 14px;
+}
+
+/* --- NÚT BẤM (BUTTONS) --- */
+.btn-register {
+    -fx-background-color: #10B981;
+    -fx-text-fill: white;
+    -fx-background-radius: 25;
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+    -fx-cursor: hand;
+    -fx-transition: all 0.2s ease;
+}
+.btn-register:hover {
+    -fx-background-color: #059669;
+    -fx-translate-y: -2px;
+    -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.4), 8, 0, 0, 2);
+}
+.btn-register:pressed {
+    -fx-translate-y: 1px;
+    -fx-effect: none;
+}
+
+/* --- THÔNG BÁO LỖI --- */
+.error-text {
+    -fx-text-fill: #EF4444;
+    -fx-font-size: 14px;
+}
+.error-text-bold {
+    -fx-text-fill: #EF4444;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}

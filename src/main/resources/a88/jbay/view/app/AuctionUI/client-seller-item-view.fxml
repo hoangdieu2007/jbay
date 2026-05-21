@@ -14,21 +14,17 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #F4F7F9;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.app.AuctionUI.ClientSellerItemController">
+<BorderPane prefHeight="720.0" prefWidth="1280.0" styleClass="seller-item-root" stylesheets="@client-seller-item-style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.app.AuctionUI.ClientSellerItemController">
 
    <top>
-      <HBox alignment="CENTER_LEFT" prefHeight="70.0" spacing="15.0" style="-fx-background-color: linear-gradient(to right, #1E3A8A, #3B82F6); -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER_LEFT" prefHeight="70.0" spacing="15.0" styleClass="seller-item-header" BorderPane.alignment="CENTER">
          <padding>
             <Insets left="20.0" right="30.0" />
          </padding>
          <children>
-            <Button mnemonicParsing="false" onAction="#handleBack" style="-fx-background-color: rgba(255, 255, 255, 0.2); -fx-text-fill: white; -fx-background-radius: 20; -fx-border-color: white; -fx-border-radius: 20; -fx-font-weight: bold; -fx-padding: 8 20; -fx-cursor: hand;" text="⬅ BACK" />
-            <Label style="-fx-text-fill: white;" text="Create / Edit Auction Item">
-               <font>
-                  <Font name="System Bold" size="22.0" />
-               </font>
+            <Button mnemonicParsing="false" onAction="#handleBack" styleClass="btn-back" text="⬅ BACK" />
+            <Label styleClass="header-title" text="Create / Edit Auction Item">
                <HBox.margin>
                   <Insets left="10.0" />
                </HBox.margin>
@@ -44,27 +40,20 @@
          </padding>
          <children>
 
-            <VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 5); -fx-padding: 30;" HBox.hgrow="NEVER">
+            <VBox alignment="CENTER" spacing="20.0" styleClass="card-panel" HBox.hgrow="NEVER">
                <children>
-                  <StackPane prefHeight="420.0" prefWidth="420.0" style="-fx-border-color: #CBD5E1; -fx-border-style: dashed; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-color: #F8FAFC; -fx-background-radius: 10;">
+                  <StackPane prefHeight="420.0" prefWidth="420.0" styleClass="image-dashed-container">
                      <children>
                         <ImageView fx:id="itemImageView" fitHeight="410.0" fitWidth="410.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </StackPane>
-                  <Button mnemonicParsing="false" onAction="#handleUploadImage" prefHeight="45.0" prefWidth="250.0" style="-fx-background-color: #3B82F6; -fx-text-fill: white; -fx-background-radius: 10; -fx-font-weight: bold; -fx-cursor: hand;" text="📸 Upload Item Image">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Button>
+                  <Button mnemonicParsing="false" onAction="#handleUploadImage" prefHeight="45.0" prefWidth="250.0" styleClass="btn-general, btn-upload" text="📸 Upload Item Image" />
                </children>
             </VBox>
 
-            <VBox spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 5); -fx-padding: 30;" HBox.hgrow="ALWAYS">
+            <VBox spacing="10.0" styleClass="card-panel" HBox.hgrow="ALWAYS">
                <children>
-                  <Label text="Item Information" textFill="#1E293B">
-                     <font>
-                        <Font name="System Bold" size="28.0" />
-                     </font>
+                  <Label styleClass="section-title-large" text="Item Information">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
@@ -83,58 +72,51 @@
                      <children>
 
                         <VBox prefHeight="69.0" prefWidth="304.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                           <Label text="Item Name" textFill="#64748B"><font><Font name="System Bold" size="16.0" /></font></Label>
-                           <TextField fx:id="nameField" prefHeight="42.0" promptText="Item Name..." style="-fx-background-radius: 8; -fx-border-color: #CBD5E1; -fx-border-radius: 8; -fx-font-size: 14;" />
-                           <Label fx:id="nameErrorLabel" prefHeight="17.0" prefWidth="282.0" text="Invalid Name" textFill="#EF4444" visible="false"><font><Font name="System Bold" size="12.0" /></font></Label>
+                           <Label styleClass="input-label" text="Item Name" />
+                           <TextField fx:id="nameField" prefHeight="42.0" promptText="Item Name..." styleClass="input-field" />
+                           <Label fx:id="nameErrorLabel" prefHeight="17.0" prefWidth="282.0" styleClass="error-label" text="Invalid Name" visible="false" />
                         </VBox>
 
                         <VBox GridPane.columnIndex="1" GridPane.rowIndex="0">
-                           <Label text="Starting Price (USD)" textFill="#64748B"><font><Font name="System Bold" size="16.0" /></font></Label>
-                           <TextField fx:id="priceField" prefHeight="42.0" promptText="0.00" style="-fx-background-radius: 8; -fx-border-color: #CBD5E1; -fx-border-radius: 8; -fx-font-size: 14;" />
-                           <Label fx:id="priceErrorLabel" prefHeight="17.0" prefWidth="302.0" text="Invalid Price" textFill="#EF4444" visible="false"><font><Font name="System Bold" size="12.0" /></font></Label>
+                           <Label styleClass="input-label" text="Starting Price (USD)" />
+                           <TextField fx:id="priceField" prefHeight="42.0" promptText="0.00" styleClass="input-field" />
+                           <Label fx:id="priceErrorLabel" prefHeight="17.0" prefWidth="302.0" styleClass="error-label" text="Invalid Price" visible="false" />
                         </VBox>
 
                         <VBox prefHeight="79.0" prefWidth="304.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                           <Label text="Category Type" textFill="#64748B"><font><Font name="System Bold" size="16.0" /></font></Label>
-                           <ComboBox fx:id="typeComboBox" prefHeight="42.0" prefWidth="1000.0" promptText="Choose item type" style="-fx-background-radius: 8; -fx-border-color: #CBD5E1; -fx-border-radius: 8; -fx-background-color: white; -fx-font-size: 14;" />
-                           <Label fx:id="typeErrorLabel" prefHeight="17.0" prefWidth="301.0" text="Invalid Type" textFill="#EF4444" visible="false"><font><Font name="System Bold" size="12.0" /></font></Label>
+                           <Label styleClass="input-label" text="Category Type" />
+                           <ComboBox fx:id="typeComboBox" prefHeight="42.0" prefWidth="1000.0" promptText="Choose item type" styleClass="input-field" />
+                           <Label fx:id="typeErrorLabel" prefHeight="17.0" prefWidth="301.0" styleClass="error-label" text="Invalid Type" visible="false" />
                         </VBox>
 
                         <VBox GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <Label text="Start Time" textFill="#64748B"><font><Font name="System Bold" size="16.0" /></font></Label>
+                           <Label styleClass="input-label" text="Start Time" />
                            <HBox spacing="10.0">
-                              <ComboBox fx:id="startChoiceCombo" prefHeight="32.0" prefWidth="45.0" style="-fx-background-radius: 8; -fx-border-color: #CBD5E1; -fx-border-radius: 8; -fx-background-color: white; -fx-font-size: 14;" />
-                              <TextField fx:id="startStr" prefHeight="42.0" promptText="dd/MM HH:mm" style="-fx-background-radius: 8; -fx-border-color: #CBD5E1; -fx-border-radius: 8; -fx-font-size: 14;" HBox.hgrow="ALWAYS" />
+                              <ComboBox fx:id="startChoiceCombo" prefHeight="42.0" prefWidth="60.0" styleClass="input-field" />
+                              <TextField fx:id="startStr" prefHeight="42.0" promptText="dd/MM HH:mm" styleClass="input-field" HBox.hgrow="ALWAYS" />
                            </HBox>
-                           <Label fx:id="startErrorLabel" prefHeight="17.0" prefWidth="305.0" text="Invalid Time" textFill="#EF4444" visible="false"><font><Font name="System Bold" size="12.0" /></font></Label>
+                           <Label fx:id="startErrorLabel" prefHeight="17.0" prefWidth="305.0" styleClass="error-label" text="Invalid Time" visible="false" />
                         </VBox>
 
                         <VBox GridPane.columnIndex="0" GridPane.rowIndex="2">
-                           <Label text="Run Duration (Days)" textFill="#64748B"><font><Font name="System Bold" size="16.0" /></font></Label>
+                           <Label styleClass="input-label" text="Run Duration (Days)" />
                            <HBox spacing="10.0">
-                              <ComboBox fx:id="runChoiceCombo" prefHeight="32.0" prefWidth="45.0" style="-fx-background-radius: 8; -fx-border-color: #CBD5E1; -fx-border-radius: 8; -fx-background-color: white; -fx-font-size: 14;" />
-                              <TextField fx:id="runStr" prefHeight="32.0" prefWidth="166.0" promptText="Enter Auction Duration" style="-fx-background-radius: 8; -fx-border-color: #CBD5E1; -fx-border-radius: 8; -fx-font-size: 14;" HBox.hgrow="ALWAYS" />
+                              <ComboBox fx:id="runChoiceCombo" prefHeight="42.0" prefWidth="60.0" styleClass="input-field" />
+                              <TextField fx:id="runStr" prefHeight="42.0" promptText="Enter Auction Duration" styleClass="input-field" HBox.hgrow="ALWAYS" />
                            </HBox>
-                           <Label fx:id="endErrorLabel" prefHeight="17.0" prefWidth="305.0" text="Invalid Duration" textFill="#EF4444" visible="false"><font><Font name="System Bold" size="12.0" /></font></Label>
+                           <Label fx:id="endErrorLabel" prefHeight="17.0" prefWidth="305.0" styleClass="error-label" text="Invalid Duration" visible="false" />
                         </VBox>
                      </children>
                   </GridPane>
 
                   <VBox VBox.vgrow="ALWAYS">
-                     <Label text="Item Description" textFill="#64748B"><font><Font name="System Bold" size="16.0" /></font></Label>
-                     <TextArea fx:id="descriptionArea" promptText="Enter Item Description" style="-fx-background-radius: 8; -fx-border-color: #CBD5E1; -fx-border-radius: 8; -fx-font-size: 14;" wrapText="true" VBox.vgrow="ALWAYS">
-                        <font>
-                           <Font size="14.0" />
-                        </font></TextArea>
+                     <Label styleClass="input-label" text="Item Description" />
+                     <TextArea fx:id="descriptionArea" promptText="Enter Item Description" styleClass="input-field" wrapText="true" VBox.vgrow="ALWAYS" />
                   </VBox>
 
                   <HBox alignment="CENTER_RIGHT" prefHeight="60.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#handleSubmit" prefHeight="45.0" prefWidth="250.0" style="-fx-background-color: #2563EB; -fx-text-fill: white; -fx-background-radius: 10; -fx-font-weight: bold; -fx-cursor: hand;" text="🚀 Submit / Create Auction">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Button>
+                        <Button mnemonicParsing="false" onAction="#handleSubmit" prefHeight="45.0" prefWidth="250.0" styleClass="btn-general, btn-submit" text="🚀 Submit / Create Auction" />
                      </children>
                      <VBox.margin>
                         <Insets top="10.0" />

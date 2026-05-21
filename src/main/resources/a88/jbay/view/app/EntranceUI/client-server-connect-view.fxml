@@ -9,11 +9,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<HBox prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.app.EntranceUI.ClientServerConnectController">
+<HBox prefHeight="720.0" prefWidth="1280.0" stylesheets="@client-server-connect-style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.app.EntranceUI.ClientServerConnectController">
    <children>
-      <StackPane prefWidth="640.0" style="-fx-background-color: linear-gradient(to bottom, #BAE6FD, #0284C7);">
+
+      <StackPane prefWidth="640.0" styleClass="left-pane-connect">
          <children>
             <VBox alignment="CENTER" spacing="20.0">
                <children>
@@ -22,34 +22,25 @@
                         <Image url="@../../../image/logo-no-bg.png" />
                      </image>
                   </ImageView>
-                  <Label opacity="0.9" text="Connecting you to the world of bidding" textFill="WHITE">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
+                  <Label styleClass="slogan-text" text="Connecting you to the world of bidding" />
                </children>
             </VBox>
          </children>
       </StackPane>
 
-      <VBox alignment="CENTER_LEFT" prefWidth="640.0" style="-fx-background-color: white;">
+      <VBox alignment="CENTER_LEFT" prefWidth="640.0" styleClass="right-pane">
          <padding>
             <Insets bottom="60.0" left="100.0" right="100.0" top="60.0" />
          </padding>
          <children>
-            <Label text="Connect to Server" textFill="#1E293B">
-               <font>
-                  <Font name="System Bold" size="44.0" />
-               </font>
+
+            <Label styleClass="title-text" text="Connect to Server">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>
             </Label>
 
-            <Label text="Please enter server details to continue" textFill="#64748B">
-               <font>
-                  <Font size="16.0" />
-               </font>
+            <Label styleClass="subtitle-text" text="Please enter server details to continue">
                <VBox.margin>
                   <Insets bottom="40.0" />
                </VBox.margin>
@@ -57,46 +48,33 @@
 
             <VBox spacing="25.0">
                <children>
+
                   <VBox spacing="8.0">
                      <children>
-                        <Label text="Server Host" textFill="#1E293B">
-                           <font>
-                              <Font name="System Bold" size="16.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="hostTextField" prefHeight="50.0" promptText="e.g. localhost or ngrok server" style="-fx-background-radius: 8; -fx-border-color: #CBD5E1; -fx-border-radius: 8; -fx-padding: 10; -fx-font-size: 14;" />
+                        <Label styleClass="input-label" text="Server Host" />
+                        <TextField fx:id="hostTextField" prefHeight="50.0" promptText="e.g. localhost or ngrok server" styleClass="input-field" />
                      </children>
                   </VBox>
 
                   <VBox spacing="8.0">
                      <children>
-                        <Label text="Server Port" textFill="#1E293B">
-                           <font>
-                              <Font name="System Bold" size="16.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="portTextField" prefHeight="50.0" promptText="e.g. 1234" style="-fx-background-radius: 8; -fx-border-color: #CBD5E1; -fx-border-radius: 8; -fx-padding: 10; -fx-font-size: 14;" />
+                        <Label styleClass="input-label" text="Server Port" />
+                        <TextField fx:id="portTextField" prefHeight="50.0" promptText="e.g. 1234" styleClass="input-field" />
                      </children>
                   </VBox>
 
-                  <Label fx:id="connectLabel" alignment="CENTER" maxWidth="Infinity" textFill="#0284C7" wrapText="true">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
+                  <Label fx:id="connectLabel" alignment="CENTER" maxWidth="Infinity" styleClass="status-text" wrapText="true" />
+
                </children>
             </VBox>
 
-            <Button fx:id="connectButton" maxWidth="Infinity" mnemonicParsing="false" onAction="#onClickConnectButton" prefHeight="55.0" style="-fx-background-color: #0284C7; -fx-text-fill: white; -fx-background-radius: 25; -fx-font-weight: bold; -fx-cursor: hand;" text="Connect to jBay">
-               <font>
-                  <Font size="18.0" />
-               </font>
+            <Button fx:id="connectButton" maxWidth="Infinity" mnemonicParsing="false" onAction="#onClickConnectButton" prefHeight="55.0" styleClass="btn-connect" text="Connect to jBay">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
             </Button>
+
          </children>
       </VBox>
    </children>
 </HBox>
-
