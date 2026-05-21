@@ -6,6 +6,7 @@ import a88.jbay.common.network.Request;
 import a88.jbay.common.network.RequestType;
 import a88.jbay.controller.ControllerProvider;
 import a88.jbay.view.ViewManager;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
@@ -24,7 +25,7 @@ public class UserHomeScreenController {
         ViewManager.getInstance().setMainScene(contentArea);
         lblUserName.setText(ClientSession.getInstance().getUser().getUsername());
         ControllerProvider.getInstance().registerController(this);
-        showMyListings();
+        Platform.runLater(() -> showMyListings());
     }
 
     @FXML
