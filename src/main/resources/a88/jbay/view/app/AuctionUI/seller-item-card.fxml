@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="BOTTOM_CENTER" fillWidth="false" prefHeight="440.0" prefWidth="302.0" spacing="10.0" styleClass="item-card" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.app.AuctionUI.SellerItemCardController">
+<VBox alignment="BOTTOM_CENTER" fillWidth="false" prefHeight="440.0" prefWidth="345.0" spacing="10.0" styleClass="item-card" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.app.AuctionUI.SellerItemCardController">
     <children>
         <StackPane prefHeight="200.0" prefWidth="302.0" VBox.vgrow="NEVER">
             <clip>
@@ -22,11 +22,11 @@
             </children>
         </StackPane>
 
-        <HBox alignment="CENTER_LEFT" prefHeight="22.0" prefWidth="298.0" spacing="10.0" VBox.vgrow="NEVER">
+        <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="320.0" spacing="10.0" VBox.vgrow="NEVER">
             <children>
-                <Label fx:id="lblName" prefHeight="26.0" text="ItemName" HBox.hgrow="ALWAYS">
+                <Label fx:id="lblName" prefHeight="30.0" text="ItemName" HBox.hgrow="ALWAYS">
                     <font>
-                        <Font name="System Bold" size="20.0" />
+                        <Font name="System Bold" size="24.0" />
                     </font>
                 </Label>
                 <Region minWidth="50.0" prefHeight="26.0" HBox.hgrow="ALWAYS" />
@@ -42,11 +42,11 @@
             </padding>
         </HBox>
 
-        <HBox prefHeight="56.0" prefWidth="298.0">
+        <HBox prefHeight="40.0" prefWidth="320.0">
             <children>
                 <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="56.0" text="Highest Bid" textFill="#dd2121">
                     <font>
-                        <Font name="System Bold" size="20.0" />
+                        <Font name="System Bold" size="24.0" />
                     </font>
                     <HBox.margin>
                         <Insets />
@@ -65,17 +65,17 @@
             </padding>
         </HBox>
 
-        <HBox prefHeight="50.0" prefWidth="298.0">
+        <HBox prefHeight="50.0" prefWidth="320.0">
             <children>
                 <Label minWidth="-Infinity" prefHeight="66.0" text="Top Bidder">
                     <font>
-                        <Font name="System Bold" size="20.0" />
+                        <Font name="System Bold" size="24.0" />
                     </font>
                 </Label>
                 <Region prefHeight="50.0" prefWidth="71.0" />
                 <Label fx:id="lblHighestBidderName" alignment="CENTER_RIGHT" minWidth="148.0" prefHeight="50.0" text="BidderName" textAlignment="CENTER">
                     <font>
-                        <Font size="20.0" />
+                        <Font size="24.0" />
                     </font>
                 </Label>
                 <Region minWidth="10.0" prefHeight="50.0" />
@@ -85,7 +85,7 @@
             </padding>
         </HBox>
 
-        <HBox alignment="CENTER" prefHeight="44.0" prefWidth="298.0">
+        <HBox alignment="CENTER" prefHeight="44.0">
             <children>
                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleView" prefHeight="40.0" prefWidth="108.0" styleClass="action-button" text="View">
                     <font>
