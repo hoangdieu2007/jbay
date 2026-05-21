@@ -222,7 +222,6 @@ public class ClientBidderItemController {
 
     @FXML
     private void handleBack() {
-
         try {
             ViewManager.getInstance().loadIntoMainScene("UserHomeScreenUI/ongoing-Auctions.fxml");
         } catch (IOException e) {
