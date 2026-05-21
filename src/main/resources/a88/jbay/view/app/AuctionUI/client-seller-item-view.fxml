@@ -15,9 +15,10 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="720.0" prefWidth="1280.0" styleClass="seller-item-root" stylesheets="@client-seller-item-style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.app.AuctionUI.ClientSellerItemController">
 
-   <top>
+<BorderPane prefHeight="720.0" prefWidth="1330.0" styleClass="seller-item-root" stylesheets="@client-seller-item-style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.app.AuctionUI.ClientSellerItemController">
+
+         <top>
       <HBox alignment="CENTER_LEFT" prefHeight="70.0" spacing="15.0" styleClass="seller-item-header" BorderPane.alignment="CENTER">
          <padding>
             <Insets left="20.0" right="30.0" />
@@ -33,14 +34,14 @@
       </HBox>
    </top>
 
-   <center>
+         <center>
       <HBox alignment="CENTER" spacing="30.0" BorderPane.alignment="CENTER">
          <padding>
             <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />
          </padding>
          <children>
 
-            <VBox alignment="CENTER" spacing="20.0" styleClass="card-panel" HBox.hgrow="NEVER">
+                        <VBox alignment="CENTER" spacing="20.0" styleClass="card-panel" HBox.hgrow="NEVER">
                <children>
                   <StackPane prefHeight="420.0" prefWidth="420.0" styleClass="image-dashed-container">
                      <children>
@@ -51,7 +52,7 @@
                </children>
             </VBox>
 
-            <VBox spacing="10.0" styleClass="card-panel" HBox.hgrow="ALWAYS">
+                        <VBox spacing="10.0" styleClass="card-panel" HBox.hgrow="ALWAYS">
                <children>
                   <Label styleClass="section-title-large" text="Item Information">
                      <VBox.margin>
@@ -59,7 +60,7 @@
                      </VBox.margin>
                   </Label>
 
-                  <GridPane hgap="25.0" vgap="5.0">
+                              <GridPane hgap="25.0" vgap="5.0">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" />
@@ -71,31 +72,31 @@
                      </rowConstraints>
                      <children>
 
-                        <VBox prefHeight="69.0" prefWidth="304.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                    <VBox prefHeight="69.0" prefWidth="304.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
                            <Label styleClass="input-label" text="Item Name" />
                            <TextField fx:id="nameField" prefHeight="42.0" promptText="Item Name..." styleClass="input-field" />
                            <Label fx:id="nameErrorLabel" prefHeight="17.0" prefWidth="282.0" styleClass="error-label" text="Invalid Name" visible="false" />
                         </VBox>
 
-                        <VBox GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                    <VBox GridPane.columnIndex="1" GridPane.rowIndex="0">
                            <Label styleClass="input-label" text="Starting Price (USD)" />
                            <TextField fx:id="priceField" prefHeight="42.0" promptText="0.00" styleClass="input-field" />
                            <Label fx:id="priceErrorLabel" prefHeight="17.0" prefWidth="302.0" styleClass="error-label" text="Invalid Price" visible="false" />
                         </VBox>
 
-                        <VBox prefHeight="79.0" prefWidth="304.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                                    <VBox prefHeight="79.0" prefWidth="304.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
                            <Label styleClass="input-label" text="Category Type" />
                            <ComboBox fx:id="typeComboBox" prefHeight="42.0" prefWidth="1000.0" promptText="Choose item type" styleClass="input-field" />
                            <Label fx:id="typeErrorLabel" prefHeight="17.0" prefWidth="301.0" styleClass="error-label" text="Invalid Type" visible="false" />
                         </VBox>
 
-                        <VBox GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <VBox GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <Label styleClass="input-label" text="Minimum Increment" />
                            <TextField fx:id="minIncrementField" prefHeight="42.0" promptText="0.0" styleClass="input-field" />
                            <Label fx:id="minIncrementErrorLabel" prefHeight="17.0" prefWidth="305.0" styleClass="error-label" text="Invalid Increment" visible="false" />
                         </VBox>
 
-                        <VBox GridPane.columnIndex="0" GridPane.rowIndex="2">
+                                    <VBox GridPane.columnIndex="0" GridPane.rowIndex="2">
                            <Label styleClass="input-label" text="Start Time" />
                            <HBox spacing="10.0">
                               <ComboBox fx:id="startChoiceCombo" prefHeight="42.0" prefWidth="60.0" styleClass="input-field" />
@@ -104,7 +105,7 @@
                            <Label fx:id="startErrorLabel" prefHeight="17.0" prefWidth="305.0" styleClass="error-label" text="Invalid Time" visible="false" />
                         </VBox>
 
-                        <VBox GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                    <VBox GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <Label styleClass="input-label" text="Run Duration (Days)" />
                            <HBox spacing="10.0">
                               <ComboBox fx:id="runChoiceCombo" prefHeight="42.0" prefWidth="60.0" styleClass="input-field" />
@@ -115,12 +116,12 @@
                      </children>
                   </GridPane>
 
-                  <VBox VBox.vgrow="ALWAYS">
+                              <VBox VBox.vgrow="ALWAYS">
                      <Label styleClass="input-label" text="Item Description" />
                      <TextArea fx:id="descriptionArea" promptText="Enter Item Description" styleClass="input-field" wrapText="true" VBox.vgrow="ALWAYS" />
                   </VBox>
 
-                  <HBox alignment="CENTER_RIGHT" prefHeight="60.0">
+                              <HBox alignment="CENTER_RIGHT" prefHeight="60.0">
                      <children>
                         <Button mnemonicParsing="false" onAction="#handleSubmit" prefHeight="45.0" prefWidth="250.0" styleClass="btn-general, btn-submit" text="🚀 Submit / Create Auction" />
                      </children>
@@ -129,7 +130,7 @@
                      </VBox.margin>
                   </HBox>
 
-               </children>
+                           </children>
             </VBox>
          </children>
       </HBox>

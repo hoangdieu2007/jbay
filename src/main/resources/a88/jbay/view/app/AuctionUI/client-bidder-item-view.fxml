@@ -18,9 +18,10 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="720.0" prefWidth="1280.0" styleClass="item-view-root" stylesheets="@client-bidder-item-style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.app.AuctionUI.ClientBidderItemController">
 
-    <top>
+<BorderPane prefHeight="720.0" prefWidth="1330.0" styleClass="item-view-root" stylesheets="@client-bidder-item-style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.app.AuctionUI.ClientBidderItemController">
+
+          <top>
         <HBox alignment="CENTER_LEFT" prefHeight="70.0" spacing="15.0" styleClass="item-view-header" BorderPane.alignment="CENTER">
             <padding>
                 <Insets left="20.0" right="30.0" />
@@ -36,14 +37,14 @@
         </HBox>
     </top>
 
-    <center>
+          <center>
         <HBox spacing="25.0" BorderPane.alignment="CENTER">
             <padding>
                 <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
             </padding>
             <children>
-
-                <VBox prefWidth="450.0" spacing="20.0" HBox.hgrow="NEVER">
+      
+                      <VBox prefWidth="450.0" spacing="20.0" HBox.hgrow="NEVER">
                     <children>
                         <VBox alignment="CENTER" styleClass="card-panel">
                             <children>
@@ -54,8 +55,8 @@
                                 </StackPane>
                             </children>
                         </VBox>
-
-                        <VBox spacing="10.0" styleClass="card-panel" VBox.vgrow="ALWAYS">
+      
+                              <VBox spacing="10.0" styleClass="card-panel" VBox.vgrow="ALWAYS">
                             <children>
                                 <Label styleClass="section-title" text="Item Description" />
                                 <TextArea fx:id="itemDescription" editable="false" promptText="Item description" styleClass="flat-text-area" wrapText="true" VBox.vgrow="ALWAYS" />
@@ -63,8 +64,8 @@
                         </VBox>
                     </children>
                 </VBox>
-
-                <VBox spacing="20.0" HBox.hgrow="ALWAYS">
+      
+                      <VBox spacing="20.0" HBox.hgrow="ALWAYS">
                     <children>
                         <VBox styleClass="card-panel" VBox.vgrow="NEVER">
                             <children>
@@ -83,11 +84,11 @@
                                 </LineChart>
                             </children>
                         </VBox>
-
-                        <HBox spacing="20.0" styleClass="card-panel" VBox.vgrow="ALWAYS">
+      
+                              <HBox spacing="20.0" styleClass="card-panel" VBox.vgrow="ALWAYS">
                             <children>
-
-                                <VBox spacing="15.0" HBox.hgrow="ALWAYS">
+      
+                                      <VBox spacing="15.0" HBox.hgrow="ALWAYS">
                                     <children>
                                         <GridPane hgap="10.0" prefHeight="229.0" prefWidth="436.0" vgap="8.0">
                                             <columnConstraints>
@@ -103,19 +104,19 @@
                                             <children>
                                                 <Label styleClass="detail-label" text="Name:" GridPane.rowIndex="0" />
                                                 <Label fx:id="itemNameLabel" prefWidth="253.0" styleClass="detail-value" text="Item name" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-
-                                                <Label styleClass="detail-label" text="Time:" GridPane.rowIndex="1" />
+      
+                                                      <Label styleClass="detail-label" text="Time:" GridPane.rowIndex="1" />
                                                 <Label fx:id="auctionTimeLabel" prefWidth="255.0" styleClass="detail-value" text="StartTime - EndTime" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-
-                                                <Label styleClass="detail-label" text="Seller:" GridPane.rowIndex="2" />
+      
+                                                      <Label styleClass="detail-label" text="Seller:" GridPane.rowIndex="2" />
                                                 <Label fx:id="sellerLabel" prefHeight="25.0" prefWidth="257.0" styleClass="detail-value-link" text="Seller Name/Id" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-
-                                                <Label styleClass="detail-label" text="Current:" GridPane.rowIndex="3" />
+      
+                                                      <Label styleClass="detail-label" text="Current:" GridPane.rowIndex="3" />
                                                 <Label fx:id="currentPriceLabel" prefWidth="253.0" styleClass="price-value" text="\$ 0.00" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                             </children>
                                         </GridPane>
-
-                                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+      
+                                              <HBox alignment="CENTER_LEFT" spacing="10.0">
                                             <children>
                                                 <Label styleClass="detail-label" text="Minimum Increment:" />
                                                 <Label fx:id="minIncrementLabel" styleClass="detail-value" text="0.00 USD" wrapText="true" />
@@ -123,8 +124,8 @@
                                         </HBox>
                                     </children>
                                 </VBox>
-
-                                <VBox prefWidth="367.2" spacing="15.0" styleClass="bid-control-box" HBox.hgrow="NEVER">
+      
+                                      <VBox prefWidth="367.2" spacing="15.0" styleClass="bid-control-box" HBox.hgrow="NEVER">
                                     <children>
                                         <Label styleClass="section-title" text="Manual Bid" />
                                         <HBox spacing="10.0">
@@ -134,10 +135,10 @@
                                             </children>
                                         </HBox>
                                         <Label fx:id="errorLabel" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #EF4444;" text="Invalid Bid" visible="false" />
-
-                                        <Region prefHeight="10.0" />
-
-                                        <Label styleClass="section-title" text="Auto Bid Settings" />
+      
+                                              <Region prefHeight="10.0" />
+      
+                                              <Label styleClass="section-title" text="Auto Bid Settings" />
                                         <Label fx:id="autoBidErrorLabel" managed="false" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #EF4444;" text="Invalid Auto Bid" visible="false" />
                                         <HBox spacing="10.0">
                                             <children>
@@ -153,11 +154,11 @@
                                         </HBox>
                                     </children>
                                 </VBox>
-
-                            </children>
+      
+                                  </children>
                         </HBox>
-
-                    </children>
+      
+                          </children>
                 </VBox>
             </children>
         </HBox>
