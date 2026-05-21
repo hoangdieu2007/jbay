@@ -376,15 +376,6 @@ public class BidSystem {
     }
 
     /**
-     * Clears the current auto-bid configuration for an auction.
-     *
-     * @param auctionId ID of the auction whose auto-bid configuration should be removed
-     */
-    public void clearAllAutoBidConfigs(int auctionId) {
-        clearAutoBidConfig(auctionId);
-    }
-
-    /**
      * Checks whether a user has enabled auto-bidding on an auction.
      *
      * <p>Processing: looks up the auction's configuration and tests whether it belongs to

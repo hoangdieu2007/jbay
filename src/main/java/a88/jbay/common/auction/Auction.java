@@ -89,27 +89,6 @@ public class Auction implements Subject, Serializable {
         return bidHistory;
     }
 
-    /**
-     * @deprecated Use {@link #getCurrAutoBidConfig()} instead.
-     */
-//    public Map<Integer, AutoBidConfig> getAutoBidConfigs() {
-//        Map<Integer, AutoBidConfig> autoBidConfigs = new HashMap<>();
-//        if (currAutoBidConfig != null) {
-//            autoBidConfigs.put(currAutoBidConfig.getUserId(), currAutoBidConfig);
-//        }
-//        return autoBidConfigs;
-//    }
-
-    /**
-     * @deprecated Use {@link #setCurrAutoBidConfig(AutoBidConfig)} instead.
-     */
-//    public void setAutoBidConfigs(Map<Integer, AutoBidConfig> autoBidConfigs) {
-//        this.currAutoBidConfig = null;
-//        if (autoBidConfigs != null && !autoBidConfigs.isEmpty()) {
-//            this.currAutoBidConfig = autoBidConfigs.values().iterator().next();
-//        }
-//    }
-
     public AutoBidConfig getCurrAutoBidConfig() {
         return currAutoBidConfig;
     }
