@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane style="-fx-background-color: white;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.OngoingAuctionsController">
+<AnchorPane prefHeight="720.0" prefWidth="1050.0" style="-fx-background-color: white;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.OngoingAuctionsController">
     <children>
         <Label layoutX="79.0" layoutY="34.0" text="Browse Auctions">
             <font>
@@ -26,7 +26,7 @@
             </font>
         </TextField>
 
-        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutY="100.0" minWidth="1275.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" layoutY="100.0" minWidth="1275.0" style="-fx-background-color: white;" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
             <content>
                 <VBox alignment="TOP_CENTER" style="-fx-background-color: white;">
                     <children>

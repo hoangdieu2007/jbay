@@ -19,7 +19,7 @@
 <BorderPane prefHeight="892.0" prefWidth="1350.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.UserHomeScreenController">
 
     <left>
-        <VBox minWidth="222.0" prefHeight="892.0" spacing="0.0" style="-fx-background-color: #80C4EA; -fx-background-radius: 10;" BorderPane.alignment="CENTER">
+        <VBox prefHeight="720.0" prefWidth="230.0" spacing="0.0" style="-fx-background-color: #80C4EA; -fx-background-radius: 10;" BorderPane.alignment="CENTER">
             <padding>
                 <Insets bottom="20.0" />
             </padding>
@@ -97,7 +97,7 @@
     </left>
 
     <center>
-        <StackPane fx:id="contentArea" prefHeight="892.0" style="-fx-background-color: #F4F6F9;" BorderPane.alignment="CENTER" />
+        <StackPane fx:id="contentArea" prefHeight="892.0" prefWidth="1050.0" style="-fx-background-color: #F4F6F9;" BorderPane.alignment="CENTER" />
     </center>
 
 </BorderPane>
