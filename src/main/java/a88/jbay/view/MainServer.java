@@ -19,7 +19,7 @@ public class MainServer extends Application {
     public void start(Stage stage) throws IOException {
         Stage loadingStage = new Stage();
         loadingStage.initStyle(StageStyle.UNDECORATED);
-        FXMLLoader fxmlLoadingScreen = new FXMLLoader(MainClient.class.getResource("loading-view.fxml"));
+        FXMLLoader fxmlLoadingScreen = new FXMLLoader(MainClient.class.getResource("app/loading-view.fxml"));
         Scene loadingScene = new Scene(fxmlLoadingScreen.load(), 289, 216);
         loadingStage.setTitle("Loading...");
         loadingStage.setScene(loadingScene);
@@ -41,7 +41,7 @@ public class MainServer extends Application {
             loadingStage.close();
 
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(MainClient.class.getResource("client/ServerUI/server-database-view.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(MainClient.class.getResource("app/ServerUI/server-database-view.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
                 stage.setResizable(false);
                 stage.getIcons().add(new Image(MainClient.class.getResourceAsStream("/a88/jbay/image/logo-no-bg.png")));
