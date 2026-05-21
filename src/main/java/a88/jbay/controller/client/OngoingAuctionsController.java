@@ -2,9 +2,7 @@ package a88.jbay.controller.client;
 
 import a88.jbay.client.ClientSession;
 import a88.jbay.common.auction.Auction;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
+import javafx.collections.*;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +10,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 
+
 import java.io.IOException;
+import java.util.Comparator;
 
 public class OngoingAuctionsController {
 
@@ -31,13 +31,50 @@ public class OngoingAuctionsController {
     private void initialize(){
         bidderList.setAll(bidderMap.values());
 
+        bidderMap.addListener((MapChangeListener<Integer, Auction>) change -> {
+
+            if(change.wasAdded() && change.wasRemoved()){
+                int idx = bidderList.indexOf(change.getValueRemoved());
+
+                if (idx >= 0){
+                    bidderList.set(idx, change.getValueAdded());
+                }
+            } else if (change.wasAdded()){
+                bidderList.add(change.getValueAdded());
+
+            } else if (change.wasRemoved()) {
+                bidderList.remove(change.getValueRemoved());
+
+            }
+
+            bidderList.sort(Comparator.comparingInt(Auction:: getId));
+        });
+
+        filteredList.addListener((ListChangeListener<Auction>) change -> {
+            refreshBidderList(filteredList);
+        });
+
+        bidderSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredList.setPredicate(auction -> {
+
+                if(newValue == null || newValue.isEmpty()){
+                    return true;
+                }
+
+                String lowerNewValue = newValue.toLowerCase();
+                return auction.getItem().getName().toLowerCase().contains(lowerNewValue);
+            });
+        });
+
+        refreshBidderList(filteredList);
+
 
     }
 
     @FXML
     private VBox createBidderCard(Auction auction){
         try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/a88/jbay/view/client/AuctionUI/bidder-item-card.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/a88/jbay/view/client/bidder-item-card.fxml"));
 
             VBox cardBox = loader.load();
 
