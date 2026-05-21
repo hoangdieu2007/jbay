@@ -100,7 +100,7 @@
                                     </rowConstraints>
                                     <children>
                                         <Label styleClass="detail-label" text="Name:" GridPane.rowIndex="0" />
-                                        <Label fx:id="itemNameLabel" prefHeight="27.0" prefWidth="253.0" styleClass="detail-value" text="Item name" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                        <Label fx:id="itemNameLabel" prefWidth="253.0" styleClass="detail-value" text="Item name" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
                                         <Label styleClass="detail-label" text="Time:" GridPane.rowIndex="1" />
                                         <Label fx:id="auctionTimeLabel" prefHeight="25.0" prefWidth="255.0" styleClass="detail-value" text="StartTime - EndTime" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
