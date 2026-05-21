@@ -223,11 +223,9 @@ public class ClientBidderItemController {
 
     @FXML
     private void handleBack() {
-        // Chỉ định tab cần mở khi quay về là Bidder
-        SellerBidderHomeScreenController.targetTabIndex = 1;
 
         try {
-            ViewManager.displayScene("client/Seller-Bidder-HomeScreens.fxml");
+            ViewManager.getInstance().loadIntoMainScene("UserHomeScreenUI/ongoing-Auctions.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
