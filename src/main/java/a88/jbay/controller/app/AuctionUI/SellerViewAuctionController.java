@@ -60,7 +60,16 @@ public class SellerViewAuctionController {
 
         // Cập nhật ảnh
         if (auction.getItem().getImage() != null) {
-            itemImageView.setImage(ImageProcessor.bytesToImage(auction.getItem().getImage()));
+            byte[] imgData = auction.getItem().getImage();
+            System.out.println("✅ Đã nhận được dữ liệu ảnh từ server! Kích thước: " + imgData.length + " bytes.");
+
+            if (imgData.length > 0) {
+                itemImageView.setImage(ImageProcessor.bytesToImage(imgData));
+            } else {
+                System.out.println("❌ LỖI: Server có gửi mảng byte nhưng mảng này rỗng (length = 0)!");
+            }
+        } else {
+            System.out.println("❌ CẢNH BÁO: Dữ liệu ảnh từ Server trả về là NULL!");
         }
 
     }
