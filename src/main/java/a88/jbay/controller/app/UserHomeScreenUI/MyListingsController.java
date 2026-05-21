@@ -106,7 +106,7 @@ public class MyListingsController {
     @FXML
     private void handleCreateListing(){
         try {
-            ViewManager.getInstance().loadIntoMainScene("client/client-seller-item-view.fxml");
+            ViewManager.getInstance().loadIntoMainScene("AuctionUI/client-seller-item-view.fxml");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

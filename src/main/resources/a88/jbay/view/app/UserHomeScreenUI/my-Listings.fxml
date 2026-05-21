@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minWidth="1050.0" prefHeight="720.0" style="-fx-background-color: white;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.app.UserHomeScreenUI.MyListingsController">
+<AnchorPane minWidth="1050.0" prefHeight="720.0" style="-fx-background-color: white;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.app.UserHomeScreenUI.MyListingsController">
     <children>
         <Label layoutX="81.0" layoutY="27.0" prefHeight="48.0" prefWidth="203.0" style="-fx-font-family: Poppins;" text="My Listings">
             <font>

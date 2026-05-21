@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minWidth="1050.0" prefHeight="720.0" style="-fx-background-color: white;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.app.UserHomeScreenUI.OngoingAuctionsController">
+<AnchorPane minWidth="1050.0" prefHeight="720.0" style="-fx-background-color: white;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.app.UserHomeScreenUI.OngoingAuctionsController">
     <children>
         <Label layoutX="79.0" layoutY="34.0" text="Browse Auctions">
             <font>
