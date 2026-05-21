@@ -83,12 +83,12 @@ public class ResponseHandler {
             ViewManager.newStage("Auction88's jBay");
             ViewManager.setResolution(1280, 720);
             if (curUser.getRole().equals("USER")) {
-                ViewManager.displayScene("client/user-HomeScreen.fxml");
+                ViewManager.displayScene("UserHomeScreenUI/user-HomeScreen.fxml");
                 ServerConnection.getInstance().send(new Request(RequestType.GET_AUCTIONS)
                         .put("userId", clientSession.getUser().getId()));
             }
             else if (curUser.getRole().equals("ADMIN")) {
-                ViewManager.displayScene("client/Admin-HomeScreens.fxml");
+                ViewManager.displayScene("AdminUI/Admin-HomeScreens.fxml");
                 ServerConnection.getInstance().send(new Request(RequestType.GET_AUCTIONS)
                         .put("userId", clientSession.getUser().getId()));
                 ServerConnection.getInstance().send(new Request(RequestType.GET_USERS)
@@ -120,7 +120,7 @@ public class ResponseHandler {
             ViewManager.setResolution(1280, 720);
             ClientSession.getInstance().resetSession();
             ControllerProvider.getInstance().clearControllers();
-            ViewManager.displayScene("client/client-login-view.fxml");
+            ViewManager.displayScene("EntranceUI/client-login-view.fxml");
         } catch (IOException e) {
             logger.error("Failed to display login view");
         }
@@ -179,7 +179,7 @@ public class ResponseHandler {
         try {
             ViewManager.newStage("Welcome to jBay");
             ViewManager.setResolution(600, 429);
-            ViewManager.displayScene("client/client-login-view.fxml");
+            ViewManager.displayScene("EntranceUI/client-login-view.fxml");
             new Alert(Alert.AlertType.WARNING, "You have been banned").show();
         } catch (IOException e) {
             logger.error("Failed to display login scene");

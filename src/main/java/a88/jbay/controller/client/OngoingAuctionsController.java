@@ -74,7 +74,7 @@ public class OngoingAuctionsController {
     @FXML
     private VBox createBidderCard(Auction auction){
         try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/a88/jbay/view/client/bidder-item-card.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/a88/jbay/view/client/AuctionUI/bidder-item-card.fxml"));
 
             VBox cardBox = loader.load();
 

@@ -41,7 +41,7 @@ public class UserHomeScreenController {
     @FXML
     private void showMyListings(){
         try {
-            ViewManager.getInstance().loadSubScene(contentArea, "client/my-Listings.fxml");
+            ViewManager.getInstance().loadSubScene(contentArea, "UserHomeScreenUI/my-Listings.fxml");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -51,7 +51,7 @@ public class UserHomeScreenController {
     @FXML
     private void showOngoingAuctions(){
         try{
-            ViewManager.getInstance().loadSubScene(contentArea, "client/ongoing-Auctions.fxml");
+            ViewManager.getInstance().loadSubScene(contentArea, "UserHomeScreenUI/ongoing-Auctions.fxml");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
