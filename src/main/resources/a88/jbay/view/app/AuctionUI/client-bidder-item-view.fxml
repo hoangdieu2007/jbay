@@ -118,13 +118,13 @@
                                     </children>
                                 </GridPane>
 
-                                <VBox prefWidth="320.0" spacing="15.0" styleClass="bid-control-box" HBox.hgrow="NEVER">
+                                <VBox prefWidth="367.2" spacing="15.0" styleClass="bid-control-box" HBox.hgrow="NEVER">
                                     <children>
                                         <Label styleClass="section-title" text="Manual Bid" />
                                         <HBox spacing="10.0">
                                             <children>
                                                 <TextField fx:id="bidInput" promptText="Enter Bid (USD)" styleClass="bid-input" HBox.hgrow="ALWAYS" />
-                                                <Button fx:id="placeBidButton" mnemonicParsing="false" onAction="#handlePlaceBid" prefHeight="31.0" prefWidth="88.0" styleClass="btn-general, btn-place-bid" text="Place Bid" />
+                                                <Button fx:id="placeBidButton" mnemonicParsing="false" onAction="#handlePlaceBid" prefHeight="31.0" prefWidth="88.0" styleClass="btn-general, btn-place-bid" text="Place" />
                                             </children>
                                         </HBox>
                                         <Label fx:id="errorLabel" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #EF4444;" text="Invalid Bid" visible="false" />
