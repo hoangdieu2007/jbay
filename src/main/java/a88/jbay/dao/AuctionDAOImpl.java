@@ -22,7 +22,8 @@ public class AuctionDAOImpl extends BaseDAO implements AuctionDAO {
         Integer winnerId = rs.getObject("winner") == null ? null : rs.getInt("winner");
         return new AuctionData(
                 rs.getInt("id"), rs.getInt("item"), rs.getInt("seller"),
-                rs.getDouble("start_price"), rs.getDouble("cur_price"), winnerId,
+                rs.getDouble("start_price"), rs.getDouble("cur_price"),
+                rs.getDouble("min_increment"), winnerId,
                 rs.getTimestamp("start_time").toLocalDateTime(),
                 rs.getTimestamp("end_time").toLocalDateTime(),
                 rs.getString("state"), ""
@@ -30,12 +31,12 @@ public class AuctionDAOImpl extends BaseDAO implements AuctionDAO {
     }
 
     public int insertAuction(int itemId, int sellerId, double startPrice, double curPrice,
-                             LocalDateTime startTime, LocalDateTime endTime) {
+                             double minIncrement, LocalDateTime startTime, LocalDateTime endTime) {
         return executeInsert("""
-                INSERT INTO auctions (item, seller, start_price, cur_price, winner, start_time, end_time, state)
-                VALUES (?, ?, ?, ?, NULL, ?, ?, 'OPENING')
+                INSERT INTO auctions (item, seller, start_price, cur_price, min_increment, winner, start_time, end_time, state)
+                VALUES (?, ?, ?, ?, ?, NULL, ?, ?, 'OPENING')
                 """,
-                itemId, sellerId, startPrice, curPrice, startTime, endTime
+                itemId, sellerId, startPrice, curPrice, minIncrement, startTime, endTime
         );
     }
 
@@ -46,13 +47,13 @@ public class AuctionDAOImpl extends BaseDAO implements AuctionDAO {
 
     @Override
     public int insertAuction(Connection connection, int itemId, int sellerId,
-                             double startPrice, double curPrice,
+                             double startPrice, double curPrice, double minIncrement,
                              LocalDateTime startTime, LocalDateTime endTime) throws SQLException {
         return executeInsert(connection, """
-            INSERT INTO auctions (item, seller, start_price, cur_price, winner, start_time, end_time, state)
-            VALUES (?, ?, ?, ?, NULL, ?, ?, 'OPENING')
+            INSERT INTO auctions (item, seller, start_price, cur_price, min_increment, winner, start_time, end_time, state)
+            VALUES (?, ?, ?, ?, ?, NULL, ?, ?, 'OPENING')
             """,
-                itemId, sellerId, startPrice, curPrice, startTime, endTime
+                itemId, sellerId, startPrice, curPrice, minIncrement, startTime, endTime
         );
     }
 
@@ -109,7 +110,7 @@ public class AuctionDAOImpl extends BaseDAO implements AuctionDAO {
 
     public List<AuctionData> getAllAuctionsForAdmin() {
         return executeQueryList("""
-                SELECT a.id, a.item, a.seller, a.start_price, a.cur_price,
+                SELECT a.id, a.item, a.seller, a.start_price, a.cur_price, a.min_increment,
                        a.winner, a.start_time, a.end_time, a.state, i.name AS item_name
                 FROM auctions a
                 JOIN items i ON a.item = i.id
@@ -119,7 +120,8 @@ public class AuctionDAOImpl extends BaseDAO implements AuctionDAO {
                     Integer winnerId = rs.getObject("winner") == null ? null : rs.getInt("winner");
                     return new AuctionData(
                             rs.getInt("id"), rs.getInt("item"), rs.getInt("seller"),
-                            rs.getDouble("start_price"), rs.getDouble("cur_price"), winnerId,
+                            rs.getDouble("start_price"), rs.getDouble("cur_price"),
+                            rs.getDouble("min_increment"), winnerId,
                             rs.getTimestamp("start_time").toLocalDateTime(),
                             rs.getTimestamp("end_time").toLocalDateTime(),
                             rs.getString("state"), rs.getString("item_name")

@@ -43,12 +43,19 @@ public class AuctionSystem {
         return ApplicationContext.getInstance().getDependency(AuctionSystem.class);
     }
 
-
+    /**
+     * @deprecated
+     */
     //create auction and store to database
-    public boolean createAuction(Item item, int sellerId, LocalDateTime start, LocalDateTime end) {
+//    public boolean createAuction(Item item, int sellerId, LocalDateTime start, LocalDateTime end) {
+//        return createAuction(item, sellerId, 0.0, start, end);
+//    }
+
+    public boolean createAuction(Item item, int sellerId, double minIncrement,
+                                 LocalDateTime start, LocalDateTime end) {
         logger.info("Creating auction for item: " + item.getName() + " by seller: " + sellerId);
 
-        int auctionId = auctionRepository.insertItemAndAuction(item, sellerId, start, end);
+        int auctionId = auctionRepository.insertItemAndAuction(item, sellerId, minIncrement, start, end);
         if (auctionId == -1) {
             logger.error("Failed to create auction for item: " + item.getName());
             return false;
@@ -56,6 +63,7 @@ public class AuctionSystem {
 
         String sellerName = auctionRepository.getUsernameByUserId(sellerId);
         Auction auction = new Auction(auctionId, item, sellerName, start, end);
+        auction.setMinIncrement(minIncrement);
         auctionRepository.storeActiveAuction(auction);
         auction.subscribe(sellerId);
         connectionSystem.broadcast(new Response(true, "AUCTION_UPDATE", auction));

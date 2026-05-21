@@ -50,6 +50,7 @@ public class AuctionFactory {
                 data.endTime()
         );
 
+        auction.setMinIncrement(data.minIncrement());
         auction.setAuctionState(AuctionState.valueOf(data.state()));
 
         restoreBidHistory(auction, data.id());
@@ -80,6 +81,7 @@ public class AuctionFactory {
                 data.endTime()
         );
 
+        auction.setMinIncrement(data.minIncrement());
         try {
             auction.setAuctionState(AuctionState.valueOf(data.state()));
         } catch (Exception e) {

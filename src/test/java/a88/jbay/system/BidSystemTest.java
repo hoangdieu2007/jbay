@@ -65,6 +65,7 @@ class BidSystemTest {
         double currentPrice = 100.0;
 
         when(auction.getCurrentPrice()).thenReturn(currentPrice);
+        when(auction.getMinIncrement()).thenReturn(5.0);
         when(auction.getAuctionState()).thenReturn(AuctionState.RUNNING);
         when(auctionDAO.updateCurrentPrice(anyInt(), anyDouble(), anyInt())).thenReturn(true);
         when(bidDAO.insertBid(anyInt(), anyInt(), anyDouble(), any())).thenReturn(true);
@@ -108,15 +109,16 @@ class BidSystemTest {
     }
 
     @Test
-    @DisplayName("Should reject bid when amount is less than or equal to current price")
-    void testPlaceBid_AmountLessThanOrEqualCurrentPrice() {
+    @DisplayName("Should reject bid when amount is less than current price plus minimum increment")
+    void testPlaceBid_AmountLessThanCurrentPricePlusMinIncrement() {
         // Arrange
         int userId = 1;
         int auctionId = 100;
         double currentPrice = 100.0;
-        double invalidBidAmount = 100.0;
+        double invalidBidAmount = 104.0;
 
         when(auction.getCurrentPrice()).thenReturn(currentPrice);
+        when(auction.getMinIncrement()).thenReturn(5.0);
         when(auction.getAuctionState()).thenReturn(AuctionState.RUNNING);
         when(auctionRepository.getActiveAuctionById(auctionId)).thenReturn(auction);
 

@@ -15,6 +15,7 @@ public interface AuctionDAO {
             int sellerId,
             double startPrice,
             double curPrice,
+            double minIncrement,
             LocalDateTime startTime,
             LocalDateTime endTime
     );
@@ -60,7 +61,7 @@ public interface AuctionDAO {
 
     // --- transactional overloads ---
     int insertAuction(Connection connection, int itemId, int sellerId,
-                      double startPrice, double curPrice,
+                      double startPrice, double curPrice, double minIncrement,
                       LocalDateTime startTime, LocalDateTime endTime) throws SQLException;
 
     boolean updateCurrentPrice(Connection connection, int auctionId,

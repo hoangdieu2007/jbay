@@ -150,7 +150,7 @@ public class RequestHandler {
         User user = userSystem.findBySessionId((String) request.get("sessionId"));
         if (user == null) return new Response(false, "INVALID_SESSION", null);
         if (user.can(ActionType.SELL)) {
-            boolean success = auctionSystem.createAuction((Item)request.get("item"), user.getId(), (java.time.LocalDateTime) request.get("start"), (java.time.LocalDateTime) request.get("end"));
+            boolean success = auctionSystem.createAuction((Item)request.get("item"), user.getId(), (double)request.get("minIncrement"), (java.time.LocalDateTime) request.get("start"), (java.time.LocalDateTime) request.get("end"));
             return new Response(success, success ? "SELL_SUCCESS" : "SELL_FAIL", null);
         }
         return new Response(false, "SELL_FAIL", null);

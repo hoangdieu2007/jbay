@@ -133,14 +133,23 @@ public class AuctionRepository {
 
     // --- Transactional operations ---
 
-    public int insertItemAndAuction(Item item, int sellerId,
+    /**
+    * @deprecated
+    *
+     **/
+//    public int insertItemAndAuction(Item item, int sellerId,
+//                                    LocalDateTime start, LocalDateTime end) {
+//        return insertItemAndAuction(item, sellerId, 0.0, start, end);
+//    }
+
+    public int insertItemAndAuction(Item item, int sellerId, double minIncrement,
                                     LocalDateTime start, LocalDateTime end) {
         try (Connection connection = dbController.getConnection()) {
             connection.setAutoCommit(false);
             try {
                 int itemId = itemDAO.insertItem(connection, item);
                 int auctionId = auctionDAO.insertAuction(connection,
-                        itemId, sellerId, item.getInitPrice(), item.getInitPrice(), start, end);
+                        itemId, sellerId, item.getInitPrice(), item.getInitPrice(), minIncrement, start, end);
 
                 connection.commit();
                 return auctionId;

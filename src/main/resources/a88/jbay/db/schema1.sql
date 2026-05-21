@@ -28,6 +28,7 @@ CREATE TABLE `auctions` (
   `seller` int NOT NULL,
   `start_price` double NOT NULL,
   `cur_price` double NOT NULL,
+  `min_increment` double NOT NULL DEFAULT '0.0',
   `winner` int DEFAULT NULL,
   `start_time` datetime NOT NULL,
   `end_time` datetime NOT NULL,

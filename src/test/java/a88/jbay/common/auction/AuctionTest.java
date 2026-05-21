@@ -177,6 +177,14 @@ class AuctionTest {
         assertSame(transaction, auction.getBidHistory().getFirst());
     }
 
+    @Test
+    @DisplayName("min increment should be readable and writable")
+    void minIncrementIsReadableAndWritable() {
+        auction.setMinIncrement(5.0);
+
+        assertEquals(5.0, auction.getMinIncrement());
+    }
+
     private Auction createAuction(LocalDateTime startTime, LocalDateTime endTime) {
         Item item = new Item(1, "Test Item", "Generic", "A test item", 100.0);
         return new Auction(10, item, "seller", startTime, endTime);

@@ -68,7 +68,7 @@ public class BidSystem {
      * Places a manual bid for a user on an active auction.
      *
      * <p>Processing: loads the active auction, validates that the bid is higher than the current
-     * price and that the auction is running, creates a bid transaction, applies it to the in-memory
+     * price plus the minimum increment and that the auction is running, creates a bid transaction, applies it to the in-memory
      * auction, and persists both the updated price and the bid transaction.</p>
      *
      * @param userId ID of the user placing the bid
@@ -127,7 +127,7 @@ public class BidSystem {
      *
      * <p>Processing: rejects missing auctions, rejects auctions that are not in the
      * {@link AuctionState#RUNNING} state, and finally checks that the submitted amount is greater
-     * than the auction's current price.</p>
+     * than or equal to the auction's current price plus its minimum increment.</p>
      *
      * @param auction active auction to validate against
      * @param amount submitted bid amount
@@ -147,7 +147,7 @@ public class BidSystem {
             return amount >= auction.getCurrentPrice();
         }
 
-        return amount > auction.getCurrentPrice();
+        return amount >= auction.getCurrentPrice() + auction.getMinIncrement();
     }
 
     /**
@@ -258,7 +258,7 @@ public class BidSystem {
     private void placeSingleAutoBid(Auction auction, AutoBidConfig config) {
         double newPrice = Math.min(
                 config.getMaxAmount(),
-                auction.getCurrentPrice() + config.getIncrement()
+                auction.getCurrentPrice() + Math.max(config.getIncrement(), auction.getMinIncrement())
         );
 
         if (newPrice <= auction.getCurrentPrice()) {
@@ -294,14 +294,20 @@ public class BidSystem {
                 " (max=" + maxAmountB + ", inc=" + incrementB + ")");
 
         if (maxAmountA >= maxAmountB) {
-            double newPrice = Math.min(maxAmountA, maxAmountB + incrementA);
+            double newPrice = Math.min(maxAmountA, Math.max(
+                    auction.getCurrentPrice() + auction.getMinIncrement(),
+                    maxAmountB + Math.max(incrementA, auction.getMinIncrement())
+            ));
             logger.info("User A keeps auto-bid config; new price=" + newPrice);
             updateCompetitiveAutoBidPrice(auction, userIdA, newPrice, maxAmountA);
             return;
         }
 
         auction.setCurrAutoBidConfig(requestedConfig);
-        double newPrice = Math.min(maxAmountB, maxAmountA + incrementB);
+        double newPrice = Math.min(maxAmountB, Math.max(
+                auction.getCurrentPrice() + auction.getMinIncrement(),
+                maxAmountA + Math.max(incrementB, auction.getMinIncrement())
+        ));
         logger.info("User B takes over auto-bid config; new price=" + newPrice);
         updateCompetitiveAutoBidPrice(auction, userIdB, newPrice, maxAmountB);
     }
@@ -466,7 +472,8 @@ public class BidSystem {
                 return;
             }
 
-            double autoBidAmount = Math.min(maxAmount, auction.getCurrentPrice() + increment);
+            double autoBidAmount = Math.min(maxAmount,
+                    auction.getCurrentPrice() + Math.max(increment, auction.getMinIncrement()));
 
             // Check if auto-bid amount is higher than current price
             if (autoBidAmount <= auction.getCurrentPrice()) {

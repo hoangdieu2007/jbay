@@ -33,6 +33,7 @@ public class Auction implements Subject, Serializable {
     private Integer winnerId;
     private double startPrice;
     private double currentPrice;
+    private double minIncrement;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
@@ -50,6 +51,7 @@ public class Auction implements Subject, Serializable {
         this.winnerId = null;
         this.startPrice = item.getInitPrice();
         this.currentPrice = item.getInitPrice();
+        this.minIncrement = 0.0;
         this.startTime = startTime;
         this.endTime = endTime;
 
@@ -156,6 +158,14 @@ public class Auction implements Subject, Serializable {
 
     public double getCurrentPrice() {
         return currentPrice;
+    }
+
+    public double getMinIncrement() {
+        return minIncrement;
+    }
+
+    public void setMinIncrement(double minIncrement) {
+        this.minIncrement = minIncrement;
     }
 
     public void addBid(double newPrice, BidTransaction tx) {
