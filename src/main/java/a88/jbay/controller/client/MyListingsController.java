@@ -78,7 +78,7 @@ public class MyListingsController {
     @FXML
     private VBox createCardSeller(Auction auction) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/a88/jbay/view/client/seller-item-card.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/a88/jbay/view/client/AuctionUI/seller-item-card.fxml"));
             // load root node
             VBox cardBox = loader.load();
 

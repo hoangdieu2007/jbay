@@ -111,7 +111,7 @@ public class SellerBidderHomeScreenController {
     private VBox createCardSeller(Auction auction) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/a88/jbay/view/client/seller-item-card.fxml"));
+            loader.setLocation(getClass().getResource("/a88/jbay/view/client/AuctionUI/seller-item-card.fxml"));
             // load root node
             VBox cardBox = loader.load();
 
@@ -188,7 +188,7 @@ public class SellerBidderHomeScreenController {
     private VBox createCardBidder(Auction auction){
         try{
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/a88/jbay/view/client/bidder-item-card.fxml"));
+            loader.setLocation(getClass().getResource("/a88/jbay/view/client/AuctionUI/bidder-item-card.fxml"));
             // load root node
             VBox cardBox = loader.load();
 

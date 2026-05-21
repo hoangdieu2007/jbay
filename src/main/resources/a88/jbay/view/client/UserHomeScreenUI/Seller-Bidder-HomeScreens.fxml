@@ -18,7 +18,7 @@
 
 <StackPane prefHeight="892.0" prefWidth="1350.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.SellerBidderHomeScreenController">
    <children>
-      <BorderPane prefHeight="892.0" prefWidth="1350.0" stylesheets="@style.css">
+      <BorderPane prefHeight="892.0" prefWidth="1350.0" stylesheets="@../style.css">
           <center>
               <TabPane fx:id="mainTabPane" prefHeight="861.0" prefWidth="1350.0" style="-fx-background-color: #C9F7F6;" tabClosingPolicy="UNAVAILABLE">
                   <tabs>

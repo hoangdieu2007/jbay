@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="892.0" prefWidth="1350.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.UserHomeScreenController">
+<BorderPane prefHeight="892.0" prefWidth="1350.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.UserHomeScreenController">
 
     <left>
         <VBox prefHeight="720.0" prefWidth="230.0" spacing="0.0" style="-fx-background-color: #80C4EA; -fx-background-radius: 10;" BorderPane.alignment="CENTER">
@@ -41,7 +41,7 @@
                     </Label>
                <ImageView fitHeight="82.0" fitWidth="109.0" layoutX="-12.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                   <image>
-                     <Image url="@../../image/logo-no-bg.png" />
+                     <Image url="@../../../image/logo-no-bg.png" />
                   </image></ImageView>
                 </children>
                 <VBox.margin>

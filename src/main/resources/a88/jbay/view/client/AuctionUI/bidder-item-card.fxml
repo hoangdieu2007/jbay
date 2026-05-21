@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="BOTTOM_CENTER" prefHeight="450.0" prefWidth="300.0" styleClass="bidder-item-card" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.BidderItemCardController">
+<VBox alignment="BOTTOM_CENTER" prefHeight="450.0" prefWidth="300.0" styleClass="bidder-item-card" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.client.BidderItemCardController">
     <children>
         <StackPane prefHeight="180.0" prefWidth="300.0" VBox.vgrow="NEVER">
             <clip>

@@ -20,7 +20,7 @@
                     <children>
                         <ImageView fitHeight="359.0" fitWidth="469.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../../image/logo-no-bg.png" />
+                                <Image url="@../../../image/logo-no-bg.png" />
                             </image>
                         </ImageView>
                         <Label opacity="0.8" text="Ebay knock off by Team 12" textFill="WHITE">
