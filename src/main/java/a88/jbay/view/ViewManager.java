@@ -125,7 +125,6 @@ public class ViewManager {
         loadSubScene(mainSceneArea, fxmlPath);
 
     }
-
     public void loadSubScene(StackPane contentArea, String fxmlPath) throws IOException {
         FXMLLoader loader = new FXMLLoader(ViewManager.class.getResource("/a88/jbay/view/app/" + fxmlPath));
         Region newContent = loader.load();
@@ -135,39 +134,31 @@ public class ViewManager {
             ControllerProvider.getInstance().registerController(controller);
         }
 
-        // 1. Prepare: SNAP dimensions immediately to prevent sidebar "pushing"
+        // 1. Prepare: New content is added but invisible
         newContent.setOpacity(0);
-        newContent.setTranslateY(10);
 
-        // Use fixed dimensions if possible, or bind immediately
-        newContent.setMinWidth(contentArea.getWidth());
-        newContent.setPrefWidth(contentArea.getWidth());
+        // 2. Bind dimensions (ensures no layout "jumping")
+        newContent.prefWidthProperty().bind(contentArea.widthProperty());
+        newContent.prefHeightProperty().bind(contentArea.heightProperty());
 
-        // 2. Add as top layer
+        // 3. Add to StackPane (This puts it ON TOP of the current scene)
         contentArea.getChildren().add(newContent);
 
-        // 3. Fast Transitions (150ms is the sweet spot for "fast but smooth")
-        FadeTransition fadeIn = new FadeTransition(Duration.millis(150), newContent);
+        // 4. Create the FadeTransition
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(250), newContent);
         fadeIn.setFromValue(0);
         fadeIn.setToValue(1);
 
-        TranslateTransition slideUp = new TranslateTransition(Duration.millis(150), newContent);
-        slideUp.setFromY(10);
-        slideUp.setToY(0);
-
-        ParallelTransition combined = new ParallelTransition(fadeIn, slideUp);
-
-        combined.setOnFinished(e -> {
-            // CLEANUP: Keep only the new content
+        // 5. Cleanup: Only remove the "old" background scene once the new one is visible
+        fadeIn.setOnFinished(e -> {
             if (contentArea.getChildren().size() > 1) {
-                Region topNode = (Region) contentArea.getChildren().get(contentArea.getChildren().size() - 1);
-                contentArea.getChildren().setAll(topNode);
-                // Re-bind after cleanup to ensure responsiveness
-                topNode.prefWidthProperty().bind(contentArea.widthProperty());
-                topNode.prefHeightProperty().bind(contentArea.heightProperty());
+                // Index 0 is the "old" scene, Index 1 is the "new" one.
+                // We remove the old one now that the new one covers it.
+                contentArea.getChildren().remove(0);
             }
         });
 
-        combined.play();
+        fadeIn.play();
     }
-}
+
+   }
