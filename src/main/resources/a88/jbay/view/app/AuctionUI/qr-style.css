@@ -1,0 +1,70 @@
+/* --- NỀN TOÀN MÀN HÌNH (Khớp kích thước 800x533) --- */
+.qr-root {
+    -fx-background-color: linear-gradient(to bottom right, #1E3A8A, #3B82F6);
+}
+
+/* --- BADGE HIỂN THỊ TÊN NGƯỜI BÁN Ở GÓC TRÊN --- */
+.seller-tag {
+    -fx-background-color: rgba(255, 255, 255, 0.15); /* Nền mờ xuyên thấu tinh tế */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 15;
+    -fx-padding: 6 15 6 15;
+    -fx-border-color: rgba(255, 255, 255, 0.3);
+    -fx-border-radius: 15;
+}
+
+/* --- THẺ CHỨA NỘI DUNG (CARD) --- */
+.qr-card {
+    -fx-background-color: white;
+    -fx-background-radius: 16;
+    -fx-padding: 25 35 25 35;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 20, 0, 0, 8);
+}
+
+/* --- VĂN BẢN --- */
+.qr-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1E293B;
+}
+
+.qr-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #64748B;
+}
+
+/* --- KHUNG CHỨA ẢNH QR --- */
+.qr-image-container {
+    -fx-background-color: #F8FAFC;
+    -fx-border-color: #CBD5E1;
+    -fx-border-width: 2;
+    -fx-border-style: dashed;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-padding: 15;
+}
+
+/* --- NÚT ĐÓNG (CLOSE BUTTON) --- */
+.btn-close {
+    -fx-background-color: #2563EB;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-background-radius: 20;
+    -fx-padding: 8 45;
+    -fx-cursor: hand;
+    -fx-transition: all 0.2s ease;
+}
+
+.btn-close:hover {
+    -fx-background-color: #1D4ED8;
+    -fx-translate-y: -2px;
+    -fx-effect: dropshadow(gaussian, rgba(37, 99, 235, 0.4), 8, 0, 0, 2);
+}
+
+.btn-close:pressed {
+    -fx-translate-y: 1px;
+    -fx-effect: none;
+}
