@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #F4F7F9;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.app.AuctionUI.ClientBidderItemController">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" prefHeight="70.0" spacing="15.0" style="-fx-background-color: linear-gradient(to right, #1E3A8A, #3B82F6); -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets left="20.0" right="30.0" />
+            </padding>
+            <children>
+                <Button mnemonicParsing="false" onAction="#handleBack" style="-fx-background-color: rgba(255, 255, 255, 0.2); -fx-text-fill: white; -fx-background-radius: 20; -fx-border-color: white; -fx-border-radius: 20; -fx-font-weight: bold; -fx-padding: 8 20; -fx-cursor: hand;" text="⬅ BACK" />
+                <Label style="-fx-text-fill: white;" text="Auction Item Details">
+                    <font>
+                        <Font name="System Bold" size="22.0" />
+                    </font>
+                    <HBox.margin>
+                        <Insets left="10.0" />
+                    </HBox.margin>
+                </Label>
+            </children>
+        </HBox>
+    </top>
+
+    <center>
+        <HBox spacing="25.0" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
+            </padding>
+            <children>
+
+                <VBox prefWidth="450.0" spacing="20.0" HBox.hgrow="NEVER">
+                    <children>
+                        <VBox alignment="CENTER" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 5); -fx-padding: 20;">
+                            <children>
+                                <StackPane prefHeight="350.0" prefWidth="350.0" style="-fx-border-color: #CBD5E1; -fx-border-style: dashed; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-color: #F8FAFC; -fx-background-radius: 10;">
+                                    <children>
+                                        <ImageView fx:id="itemImageView" fitHeight="350.0" fitWidth="404.0" pickOnBounds="true" preserveRatio="true" />
+                                    </children>
+                                </StackPane>
+                            </children>
+                        </VBox>
+
+                        <VBox spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 5); -fx-padding: 20;" VBox.vgrow="ALWAYS">
+                            <children>
+                                <Label text="Item Description" textFill="#1E293B">
+                                    <font>
+                                        <Font name="System Bold" size="18.0" />
+                                    </font>
+                                </Label>
+                                <TextArea fx:id="itemDescription" editable="false" promptText="Item description" style="-fx-background-color: transparent; -fx-border-color: #E2E8F0; -fx-border-radius: 8; -fx-font-size: 14;" wrapText="true" VBox.vgrow="ALWAYS" />
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+
+                <VBox spacing="20.0" HBox.hgrow="ALWAYS">
+                    <children>
+                        <VBox style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 5); -fx-padding: 15;" VBox.vgrow="NEVER">
+                            <children>
+                                <Label text="Price History" textFill="#1E293B">
+                                    <font>
+                                        <Font name="System Bold" size="16.0" />
+                                    </font>
+                                    <VBox.margin>
+                                        <Insets left="10.0" />
+                                    </VBox.margin>
+                                </Label>
+                                <LineChart fx:id="priceChart" prefHeight="220.0">
+                                    <xAxis>
+                                        <CategoryAxis side="BOTTOM" />
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis side="LEFT" />
+                                    </yAxis>
+                                </LineChart>
+                            </children>
+                        </VBox>
+
+                        <HBox spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 5); -fx-padding: 25;" VBox.vgrow="ALWAYS">
+                            <children>
+
+                                <GridPane hgap="10.0" vgap="15.0" HBox.hgrow="ALWAYS">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" prefWidth="92.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="253.0" minWidth="10.0" prefWidth="253.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label text="Name:" textFill="#64748B" GridPane.rowIndex="0"><font><Font name="System Bold" size="18.0" /></font></Label>
+                                        <Label fx:id="itemNameLabel" prefHeight="27.0" prefWidth="253.0" text="Item name" textFill="#1E293B" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="0"><font><Font name="System Bold" size="20.0" /></font></Label>
+
+                                        <Label text="Time:" textFill="#64748B" GridPane.rowIndex="1"><font><Font name="System Bold" size="18.0" /></font></Label>
+                                        <Label fx:id="auctionTimeLabel" prefHeight="25.0" prefWidth="255.0" text="StartTime - EndTime" textFill="#1E293B" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1"><font><Font size="18.0" /></font></Label>
+
+                                        <Label text="Seller:" textFill="#64748B" GridPane.rowIndex="2"><font><Font name="System Bold" size="18.0" /></font></Label>
+                                        <Label fx:id="sellerLabel" prefHeight="25.0" prefWidth="257.0" text="Seller Name/Id" textFill="#2563EB" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2"><font><Font name="System Bold" size="18.0" /></font></Label>
+
+                                        <Label text="Current:" textFill="#64748B" GridPane.rowIndex="3"><font><Font name="System Bold" size="20.0" /></font></Label>
+                                        <Label fx:id="currentPriceLabel" prefHeight="35.0" prefWidth="253.0" text="\$ 0.00" textFill="#059669" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3"><font><Font name="System Bold" size="25.0" /></font></Label>
+                                    </children>
+                                </GridPane>
+
+                                <VBox prefWidth="320.0" spacing="15.0" style="-fx-background-color: #F8FAFC; -fx-background-radius: 12; -fx-padding: 15; -fx-border-color: #E2E8F0; -fx-border-radius: 12;" HBox.hgrow="NEVER">
+                                    <children>
+                                        <Label prefHeight="25.0" prefWidth="97.0" text="Manual Bid" textFill="#1E293B"><font><Font name="System Bold" size="16.0" /></font></Label>
+                                        <HBox spacing="10.0">
+                                            <children>
+                                                <TextField fx:id="bidInput" promptText="Enter Bid (USD)" style="-fx-font-size: 14; -fx-background-radius: 6; -fx-border-color: #CBD5E1; -fx-border-radius: 6;" HBox.hgrow="ALWAYS" />
+                                                <Button fx:id="placeBidButton" mnemonicParsing="false" onAction="#handlePlaceBid" prefHeight="31.0" prefWidth="88.0" style="-fx-background-color: #2563EB; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6; -fx-cursor: hand;" text="Place Bid">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></Button>
+                                            </children>
+                                        </HBox>
+                                        <Label fx:id="errorLabel" text="Invalid Bid" textFill="#EF4444" visible="false"><font><Font name="System Bold" size="12.0" /></font></Label>
+
+                                        <Region prefHeight="10.0" />
+
+                                        <Label text="Auto Bid Settings" textFill="#1E293B"><font><Font name="System Bold" size="16.0" /></font></Label>
+                                        <HBox spacing="10.0">
+                                            <children>
+                                                <TextField fx:id="autoBidIncrement" promptText="Increment" style="-fx-font-size: 14; -fx-background-radius: 6; -fx-border-color: #CBD5E1; -fx-border-radius: 6;" HBox.hgrow="ALWAYS" />
+                                                <TextField fx:id="autoBidMaxAmount" promptText="Max Amount" style="-fx-font-size: 14; -fx-background-radius: 6; -fx-border-color: #CBD5E1; -fx-border-radius: 6;" HBox.hgrow="ALWAYS" />
+                                            </children>
+                                        </HBox>
+                                        <HBox spacing="10.0">
+                                            <children>
+                                                <Button fx:id="autoBidButton" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleAutoBid" prefHeight="35.0" style="-fx-background-color: #10B981; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6; -fx-cursor: hand;" text="Start Auto Bid" HBox.hgrow="ALWAYS">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></Button>
+                                                <Button fx:id="cancelAutoBidButton" mnemonicParsing="false" onAction="#handleCancelAutoBid" prefHeight="35.0" prefWidth="40.0" style="-fx-background-color: #EF4444; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6; -fx-cursor: hand;" text="X">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></Button>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </center>
+</BorderPane>

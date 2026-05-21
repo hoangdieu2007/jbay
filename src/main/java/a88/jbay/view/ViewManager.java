@@ -1,15 +1,12 @@
 package a88.jbay.view;
 
-import a88.jbay.client.ClientSession;
 import a88.jbay.controller.ControllerProvider;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.transform.Scale;
@@ -63,7 +60,7 @@ public class ViewManager {
 
     public static void displayScene(String fxmlPath) throws IOException {
         FXMLLoader loader = new FXMLLoader(
-                ViewManager.class.getResource("/a88/jbay/view/client/" + fxmlPath)
+                ViewManager.class.getResource("/a88/jbay/view/app/" + fxmlPath)
         );
 
         Region content = loader.load();
@@ -122,7 +119,7 @@ public class ViewManager {
     }
 
     public void loadSubScene(StackPane contentArea, String fxmlPath) throws IOException{
-        FXMLLoader loader = new FXMLLoader(ViewManager.class.getResource("/a88/jbay/view/client" + fxmlPath)); // find a file (URL)
+        FXMLLoader loader = new FXMLLoader(ViewManager.class.getResource("/a88/jbay/view/app/" + fxmlPath)); // find a file (URL)
 
         Region content = loader.load(); // Region is a parent class --> can use for any types of container
 

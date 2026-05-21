@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane minWidth="1050.0" prefHeight="720.0" style="-fx-background-color: white;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.app.UserHomeScreenUI.OngoingAuctionsController">
+    <children>
+        <Label layoutX="79.0" layoutY="34.0" text="Browse Auctions">
+            <font>
+                <Font name="Arial Bold" size="28.0" />
+            </font>
+        </Label>
+
+        <Label layoutX="79.0" layoutY="62.0" text="Place bids on items you are interested in" />
+
+        <TextField fx:id="bidderSearchField" layoutX="816.0" layoutY="41.0" prefHeight="36.0" prefWidth="364.0" promptText="Search" styleClass="search-field" AnchorPane.rightAnchor="95.0" AnchorPane.topAnchor="41.0">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </TextField>
+
+        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" layoutY="100.0" minWidth="1275.0" style="-fx-background-color: white;" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+            <content>
+                <VBox alignment="TOP_CENTER" style="-fx-background-color: white;">
+                    <children>
+                        <TilePane fx:id="bidderTilePane" alignment="TOP_LEFT" hgap="15.0" prefColumns="4" prefHeight="40.0" vgap="20.0">
+                            <padding>
+                                <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+                            </padding>
+                        </TilePane>
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+
+        <Region layoutX="27.0" layoutY="38.0" prefHeight="39.0" prefWidth="39.0" style="-fx-shape: &quot;m312-312 264-72 72-264-264 72-72 264Zm168-120q-20 1-34-13.5T432-480q0-20 14-34t34-14q20 0 34 14t14 34q0 20-14 34t-34 14Zm.28 336Q401-96 331-126t-122.5-82.5Q156-261 126-330.96t-30-149.5Q96-560 126-629.5q30-69.5 82.5-122T330.96-834q69.96-30 149.5-30t149.04 30q69.5 30 122 82.5T834-629.28q30 69.73 30 149Q864-401 834-331t-82.5 122.5Q699-156 629.28-126q-69.73 30-149 30Zm-.05-72Q610-168 701-259.23t91-221Q792-610 700.77-701t-221-91Q350-792 259-700.77t-91 221Q168-350 259.23-259t221 91ZM480-480Z&quot;; -fx-background-color: black;" />
+
+        <Region layoutX="1136.0" layoutY="45.0" prefHeight="25.0" prefWidth="26.0" style="-fx-shape: &quot;M765-144 526-383q-30 22-65.79 34.5-35.79 12.5-76.18 12.5Q284-336 214-406t-70-170q0-100 70-170t170-70q100 0 170 70t70 170.03q0 40.39-12.5 76.18Q599-464 577-434l239 239-51 51ZM384-408q70 0 119-49t49-119q0-70-49-119t-119-49q-70 0-119 49t-49 119q0 70 49 119t119 49Z&quot;; -fx-background-color: gray;" />
+    </children>
+</AnchorPane>

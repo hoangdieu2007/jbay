@@ -1,6 +1,6 @@
 package a88.jbay.client;
 
-import a88.jbay.controller.client.AuctionUI.SellerItemCardController;
+import a88.jbay.controller.app.AuctionUI.SellerItemCardController;
 import a88.jbay.common.user.User;
 import a88.jbay.common.auction.Auction;
 import a88.jbay.util.JBayLogger;
