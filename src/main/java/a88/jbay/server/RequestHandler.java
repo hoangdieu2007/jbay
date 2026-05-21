@@ -150,7 +150,23 @@ public class RequestHandler {
         User user = userSystem.findBySessionId((String) request.get("sessionId"));
         if (user == null) return new Response(false, "INVALID_SESSION", null);
         if (user.can(ActionType.SELL)) {
-            boolean success = auctionSystem.createAuction((Item)request.get("item"), user.getId(), (double)request.get("minIncrement"), (java.time.LocalDateTime) request.get("start"), (java.time.LocalDateTime) request.get("end"));
+            Item item = (Item) request.get("item");
+            java.time.LocalDateTime start = (java.time.LocalDateTime) request.get("start");
+            java.time.LocalDateTime end = (java.time.LocalDateTime) request.get("end");
+            if (item == null || start == null || end == null) {
+                return new Response(false, "SELL_FAIL", null);
+            }
+
+            Object minIncrementValue = request.get("minIncrement");
+            double minIncrement = minIncrementValue instanceof Number number ? number.doubleValue() : 0.0;
+
+            boolean success = auctionSystem.createAuction(
+                    item,
+                    user.getId(),
+                    minIncrement,
+                    start,
+                    end
+            );
             return new Response(success, success ? "SELL_SUCCESS" : "SELL_FAIL", null);
         }
         return new Response(false, "SELL_FAIL", null);

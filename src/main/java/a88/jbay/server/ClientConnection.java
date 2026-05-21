@@ -70,6 +70,9 @@ public class ClientConnection implements Runnable {
                     if (request == null) break;
 
                     Response response = requestHandler.handleRequest(request);
+                    if (response == null) {
+                        break;
+                    }
 
                     // update cache if login success
                     if (response.getMessage().equals("LOGIN_SUCCESS")) {
@@ -89,6 +92,9 @@ public class ClientConnection implements Runnable {
                 catch (ClassNotFoundException e) {
                     System.err.println("Invalid request object received: " + e.getMessage());
                     break;
+                } catch (RuntimeException e) {
+                    logger.error("Error handling request: " + e.getMessage(), e);
+                    send(new Response(false, "SERVER_ERROR", null));
                 }
             }
         } finally {

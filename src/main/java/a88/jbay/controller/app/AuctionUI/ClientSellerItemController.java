@@ -299,6 +299,7 @@ public class ClientSellerItemController {
 
             Request request = new Request(RequestType.SELL)
                     .put("item", newItem)
+                    .put("minIncrement", 0.0)
                     .put("start", calculateStartTime())
                     .put("end", calculateEndTime(calculateStartTime()));
 
