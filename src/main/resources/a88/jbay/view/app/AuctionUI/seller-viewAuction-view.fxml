@@ -63,7 +63,7 @@
 
                 <VBox spacing="25.0" HBox.hgrow="ALWAYS">
                     <children>
-                        <VBox spacing="10.0" styleClass="card-panel" VBox.vgrow="ALWAYS">
+                        <VBox prefHeight="367.0" prefWidth="755.0" spacing="10.0" styleClass="card-panel" VBox.vgrow="ALWAYS">
                             <children>
                                 <Label styleClass="section-title" text="Price History" />
                                 <LineChart fx:id="priceChart" prefHeight="280.0">
@@ -77,9 +77,9 @@
                             </children>
                         </VBox>
 
-                        <VBox spacing="20.0" styleClass="card-panel">
+                        <VBox prefHeight="394.0" prefWidth="755.0" spacing="20.0" styleClass="card-panel">
                             <children>
-                                <GridPane hgap="20.0" vgap="25.0">
+                                <GridPane hgap="20.0" prefHeight="266.0" prefWidth="724.0" vgap="25.0">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="150.0" prefWidth="180.0" />
                                         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="300.0" />
@@ -101,14 +101,14 @@
                                         <Label fx:id="lblBidderName" styleClass="detail-value" text="Bidder Name" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
                                         <Label styleClass="detail-label" text="Current:" GridPane.rowIndex="3" />
-                                        <Label fx:id="lblCurrentPrice" prefWidth="517.0" styleClass="price-value" text="0.00 USD" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                        <Label fx:id="lblCurrentPrice" prefHeight="73.0" prefWidth="511.0" styleClass="price-value" text="0.00 USD" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     </children>
                                 </GridPane>
 
                                 <HBox alignment="CENTER_RIGHT" prefHeight="50.0">
-                                    <children>
+                           <children>
                                         <Button mnemonicParsing="false" onAction="#handleCancel" styleClass="btn-cancel" text="End Auction" textFill="WHITE" />
-                                    </children>
+                           </children>
                                 </HBox>
                             </children>
                         </VBox>
