@@ -210,6 +210,8 @@ public class AuctionSystem {
     }
 
     private List<Integer> tickAuctions() {
+        logger.info("Checking auction transitions...");
+
         LocalDateTime now = LocalDateTime.now();
         List<Integer> ended = new ArrayList<>();
 

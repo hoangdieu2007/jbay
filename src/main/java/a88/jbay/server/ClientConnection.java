@@ -13,6 +13,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
     Handles individual client connections and socket management.
@@ -28,8 +33,11 @@ public class ClientConnection implements Runnable {
     private final RequestHandler requestHandler;
     private final ConnectionSystem connectionSystem;
     private final UserSystem userSystem;
+    private final ReentrantLock sendLock = new ReentrantLock();
+    private final ScheduledExecutorService sendWatchdog;
 
     private User userCache;
+    private volatile boolean closed = false;
 
     public ClientConnection(Socket socket, ConnectionSystem connectionSystem,
                             UserSystem userSystem, RequestHandler requestHandler) throws IOException {
@@ -46,6 +54,11 @@ public class ClientConnection implements Runnable {
         this.connectionSystem = connectionSystem;
         this.userSystem = userSystem;
         this.requestHandler = requestHandler;
+        this.sendWatchdog = Executors.newSingleThreadScheduledExecutor(r -> {
+            Thread thread = new Thread(r, "client-send-watchdog-" + connectionId);
+            thread.setDaemon(true);
+            return thread;
+        });
     }
 
     public int getConnectionId() {
@@ -53,7 +66,7 @@ public class ClientConnection implements Runnable {
     }
 
     public boolean isActive() {
-        return socket != null && !socket.isClosed() && !Thread.currentThread().isInterrupted();
+        return !closed && socket != null && !socket.isClosed() && !Thread.currentThread().isInterrupted();
     }
 
     public User getUserCache() {
@@ -84,7 +97,9 @@ public class ClientConnection implements Runnable {
                     }
 
                     //prevent crash when update and response sends at the same time
-                    send(response);
+                    if (!send(response)) {
+                        break;
+                    }
                 } catch (IOException e) {
                     System.err.println("Error reading request: " + e.getMessage());
                     break;
@@ -94,33 +109,60 @@ public class ClientConnection implements Runnable {
                     break;
                 } catch (RuntimeException e) {
                     logger.error("Error handling request: " + e.getMessage(), e);
-                    send(new Response(false, "SERVER_ERROR", null));
+                    if (!send(new Response(false, "SERVER_ERROR", null))) {
+                        break;
+                    }
                 }
             }
         } finally {
             // later add clean up codes here!
             connectionSystem.unregister(this);
             userSystem.logout(userCache.getSessionId());
-            closeResources(out, in, socket);
+            close();
             Thread.currentThread().interrupt();
         }
     }
 
-    public void send(Response response) {
+    public boolean send(Response response) {
         if (!isActive()) {
-            return;
+            return false;
         }
         logger.info("Sending response: " + response.getMessage());
 
+        boolean locked = false;
+        ScheduledFuture<?> timeoutTask = null;
         try {
-            // Use atomic write to prevent deadlocks
-            synchronized (out) {
-                out.writeObject(response);
-                out.flush();
-                out.reset();
+            locked = sendLock.tryLock(2, TimeUnit.SECONDS);
+            if (!locked) {
+                logger.warn("Timed out waiting for send lock. Closing connection: " + connectionId);
+                close();
+                return false;
             }
+
+            timeoutTask = sendWatchdog.schedule(() -> {
+                logger.warn("Timed out sending response. Closing connection: " + connectionId);
+                close();
+            }, 10, TimeUnit.SECONDS);
+
+            out.writeObject(response);
+            out.flush();
+            out.reset();
+            return true;
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            close();
+            return false;
         } catch (IOException e) {
             logger.error("Error sending response: " + e.getMessage(), e);
+            close();
+            return false;
+        } finally {
+            if (timeoutTask != null) {
+                timeoutTask.cancel(false);
+            }
+            if (locked) {
+                sendLock.unlock();
+            }
         }
     }
 
@@ -143,7 +185,12 @@ public class ClientConnection implements Runnable {
     }
 
     public void close() {
+        if (closed) {
+            return;
+        }
+        closed = true;
         closeResources(out, in, socket);
+        sendWatchdog.shutdownNow();
     }
 }
 
