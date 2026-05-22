@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1330.0" style="-fx-background-color: white;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.app.AuctionUI.SellerViewAuctionController">
+<AnchorPane prefHeight="720.0" prefWidth="1330.0" style="-fx-background-color: white;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.app.AuctionUI.ViewAuctionController">
     <children>
 
         <HBox alignment="CENTER_LEFT" layoutX="0.0" layoutY="0.0" prefHeight="70.0" prefWidth="1330.0" spacing="20.0" styleClass="header-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -83,22 +83,27 @@
                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" /> </rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
                                     <children>
                                         <Label styleClass="detail-label" text="Name:" />
                                         <Label fx:id="lblItemName" minHeight="-Infinity" styleClass="detail-value" text="Item name" wrapText="true" GridPane.columnIndex="1" />
 
-                                        <Label styleClass="detail-label" text="Time:" GridPane.rowIndex="1" />
-                                        <Label fx:id="lblAuctionTime" minHeight="-Infinity" styleClass="detail-value" text="StartTime - EndTime" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <Label styleClass="detail-label" text="Seller:" GridPane.rowIndex="1" />
+                                        <Label fx:id="lblSellerName" minHeight="-Infinity" styleClass="detail-value" text="Seller Name" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-                                        <Label styleClass="detail-label" text="Current Bidder:" GridPane.rowIndex="2" />
-                                        <Label fx:id="lblBidderName" minHeight="-Infinity" styleClass="detail-value" text="Bidder Name" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <Label styleClass="detail-label" text="Time:" GridPane.rowIndex="2" />
+                                        <Label fx:id="lblAuctionTime" minHeight="-Infinity" styleClass="detail-value" text="StartTime - EndTime" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-                                        <Label styleClass="detail-label" text="Current:" GridPane.rowIndex="3" />
-                                        <Label fx:id="lblCurrentPrice" minHeight="-Infinity" styleClass="price-value" text="0.00 USD" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                        <Label styleClass="detail-label" text="Current Bidder:" GridPane.rowIndex="3" />
+                                        <Label fx:id="lblBidderName" minHeight="-Infinity" styleClass="detail-value" text="Bidder Name" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-                                        <Label styleClass="detail-label" text="Min Increment:" GridPane.rowIndex="4" />
-                                        <Label fx:id="lblMinIncrement" minHeight="-Infinity" styleClass="detail-value" text="0.00 USD" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                        <Label styleClass="detail-label" text="Current:" GridPane.rowIndex="4" />
+                                        <Label fx:id="lblCurrentPrice" minHeight="-Infinity" styleClass="price-value" text="0.00 USD" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+                                        <Label styleClass="detail-label" text="Min Increment:" GridPane.rowIndex="5" />
+                                        <Label fx:id="lblMinIncrement" minHeight="-Infinity" styleClass="detail-value" text="0.00 USD" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                     </children>
                                 </GridPane>
 

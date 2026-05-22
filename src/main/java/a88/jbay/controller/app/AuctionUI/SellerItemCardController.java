@@ -1,5 +1,6 @@
 package a88.jbay.controller.app.AuctionUI;
 
+import a88.jbay.client.ClientSession;
 import a88.jbay.controller.ControllerProvider;
 import a88.jbay.util.ImageProcessor;
 import a88.jbay.common.auction.Auction;
@@ -45,16 +46,26 @@ public class SellerItemCardController {
 
 
     @FXML
-    private void handleView(){
+    private void handleView() {
         try {
-            ViewManager.getInstance().loadIntoMainScene("AuctionUI/seller-viewAuction-view.fxml");
-            ControllerProvider.getInstance().getController(SellerViewAuctionController.class).setSellerViewData(currentAuction);
+            // 1. Tải giao diện lên vùng chính
+            ViewManager.getInstance().loadIntoMainScene("AuctionUI/viewAuction-view.fxml");
+
+            // 2. Lấy Controller ra
+            ViewAuctionController controller = ControllerProvider.getInstance().getController(ViewAuctionController.class);
+
+            // 3. TRUYỀN THAM SỐ KIỂU MỚI: Chỉ định Map của Seller và đường lùi về danh sách của Seller
+            controller.setAuctionData(
+                    currentAuction,
+                    ClientSession.getInstance().getSellerAuctions(),
+                    () -> {
+                        try {
+                            ViewManager.getInstance().loadIntoMainScene("UserHomeScreenUI/my-Listings.fxml");
+                        } catch (IOException ex) { ex.printStackTrace(); }
+                    }
+            );
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
-
-
-
 }
