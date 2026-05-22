@@ -47,37 +47,42 @@ public class AdminHomeScreenController {
         }
 
         setupTableColumns();
-        setupActionButtons(); // Đã được vá lỗi chống kẹt nút
+        setupActionButtons();
         setupRealtimeListeners();
         setupSearchFilters();
         refreshData();
     }
 
     private void setupRealtimeListeners() {
-        syncMapToList(ClientSession.getInstance().getAdminUsers(), userMasterList);
-        syncMapToList(ClientSession.getInstance().getAdminAuctions(), auctionMasterList);
+        // Tách riêng 2 hàm sync để ép Refresh đúng bảng
+        syncUserMapToList(ClientSession.getInstance().getAdminUsers(), userMasterList);
+        syncAuctionMapToList(ClientSession.getInstance().getAdminAuctions(), auctionMasterList);
     }
 
-    private <T> void syncMapToList(ObservableMap<Integer, T> sourceMap, ObservableList<T> targetList) {
-        sourceMap.addListener((MapChangeListener<Integer, T>) change -> {
+    private void syncUserMapToList(ObservableMap<Integer, User> sourceMap, ObservableList<User> targetList) {
+        sourceMap.addListener((MapChangeListener<Integer, User>) change -> {
             Platform.runLater(() -> {
-                targetList.removeIf(item -> {
-                    if (item instanceof User) return ((User) item).getId() == change.getKey();
-                    if (item instanceof Auction) return ((Auction) item).getId() == change.getKey();
-                    return false;
-                });
+                targetList.removeIf(item -> item.getId() == change.getKey());
                 if (change.wasAdded()) {
                     targetList.add(change.getValueAdded());
                 }
-                targetList.sort((a, b) -> Integer.compare(getObjectId(b), getObjectId(a)));
+                targetList.sort((a, b) -> Integer.compare(b.getId(), a.getId()));
+                userTable.refresh(); // VŨ KHÍ BÍ MẬT: Ép vẽ lại toàn bộ bảng để UI không bị kẹt
             });
         });
     }
 
-    private int getObjectId(Object o) {
-        if (o instanceof User) return ((User) o).getId();
-        if (o instanceof Auction) return ((Auction) o).getId();
-        return 0;
+    private void syncAuctionMapToList(ObservableMap<Integer, Auction> sourceMap, ObservableList<Auction> targetList) {
+        sourceMap.addListener((MapChangeListener<Integer, Auction>) change -> {
+            Platform.runLater(() -> {
+                targetList.removeIf(item -> item.getId() == change.getKey());
+                if (change.wasAdded()) {
+                    targetList.add(change.getValueAdded());
+                }
+                targetList.sort((a, b) -> Integer.compare(b.getId(), a.getId()));
+                auctionTable.refresh(); // VŨ KHÍ BÍ MẬT: Giải quyết dứt điểm lỗi Current Winner không nhảy chữ
+            });
+        });
     }
 
     private void setupTableColumns() {
@@ -107,29 +112,39 @@ public class AdminHomeScreenController {
     }
 
     private void setupActionButtons() {
-        // Nút Ban/Unban
+        // --- Nút Ban/Unban Dành cho bảng User ---
         colUserAction.setCellFactory(p -> new TableCell<>() {
             private final Button btn = new Button();
             @Override protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
 
-                // 🌟 VÁ LỖI 1: Lấy User an toàn qua Row, chống kẹt nút
-                User u = (User) getTableRow().getItem();
-
-                if (empty || u == null) {
+                // KIỂM TRA AN TOÀN TUYỆT ĐỐI: Chống lỗi NullPointerException phá hủy UI của TableCell
+                if (empty || getIndex() < 0 || getIndex() >= getTableView().getItems().size()) {
                     setGraphic(null);
-                } else {
-                    boolean isBanned = "BAN".equals(u.getRole());
-                    btn.setText(isBanned ? "Unban" : "Ban");
-                    String baseStyle = "-fx-text-fill: white; -fx-background-radius: 8; -fx-font-weight: bold; -fx-padding: 6 16; -fx-cursor: hand;";
-                    btn.setStyle((isBanned ? "-fx-background-color: #3B82F6; " : "-fx-background-color: #EF4444; ") + baseStyle);
-                    btn.setOnAction(e -> sendBanRequest(u));
-                    setGraphic(btn);
+                    return;
                 }
+                User u = getTableView().getItems().get(getIndex());
+                if (u == null) {
+                    setGraphic(null);
+                    return;
+                }
+
+                boolean isBanned = "BAN".equals(u.getRole());
+                btn.setText(isBanned ? "Unban" : "Ban");
+                String baseStyle = "-fx-text-fill: white; -fx-background-radius: 8; -fx-font-weight: bold; -fx-padding: 6 16; -fx-cursor: hand;";
+                btn.setStyle((isBanned ? "-fx-background-color: #3B82F6; " : "-fx-background-color: #EF4444; ") + baseStyle);
+
+                // Lấy đối tượng mới nhất ngay tại khoảnh khắc nhấp chuột
+                btn.setOnAction(e -> {
+                    User currentUser = getTableView().getItems().get(getIndex());
+                    if (currentUser != null) sendBanRequest(currentUser);
+                });
+
+                setGraphic(btn);
             }
         });
 
-        // Nút Control Đấu giá (View / Cancel)
+        // --- Nút Control Đấu giá (View / Cancel) ---
         colAuctionAction.setCellFactory(p -> new TableCell<>() {
             private final Button btnView = new Button("View");
             private final Button btnCancel = new Button("Cancel");
@@ -140,49 +155,62 @@ public class AdminHomeScreenController {
             @Override protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
 
-                // 🌟 VÁ LỖI 1: Lấy Auction an toàn qua Row, chống kẹt nút
-                Auction a = (Auction) getTableRow().getItem();
-
-                if (empty || a == null) {
+                // KIỂM TRA AN TOÀN TUYỆT ĐỐI: Chống lỗi NullPointerException gây liệt nút
+                if (empty || getIndex() < 0 || getIndex() >= getTableView().getItems().size()) {
                     setGraphic(null);
-                } else {
-                    btnView.setStyle("-fx-background-color: #10B981; -fx-text-fill: white; -fx-background-radius: 8; -fx-font-weight: bold; -fx-padding: 6 16; -fx-cursor: hand;");
-                    btnView.setOnAction(e -> {
-                        try {
-                            // 🌟 VÁ LỖI 2: Dùng FXMLLoader load tay thay vì dùng ViewManager.loadIntoMainScene
-                            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/a88/jbay/view/AuctionUI/viewAuction-view.fxml"));
-                            javafx.scene.Parent root = loader.load();
-
-                            ViewAuctionController controller = loader.getController();
-                            controller.setAuctionData(
-                                    a,
-                                    ClientSession.getInstance().getAdminAuctions(),
-                                    () -> {
-                                        try {
-                                            ViewManager.displayScene("client/Admin-HomeScreens.fxml");
-                                        } catch (IOException ex) { ex.printStackTrace(); }
-                                    }
-                            );
-
-                            // Gắn thẳng giao diện mới đè lên Scene hiện tại
-                            btnView.getScene().setRoot(root);
-
-                        } catch (IOException ex) {
-                            ex.printStackTrace();
-                            System.out.println("Lỗi mở màn hình View: " + ex.getMessage());
-                        }
-                    });
-
-                    String activeStyle = "-fx-background-color: #F59E0B; -fx-text-fill: white; -fx-background-radius: 8; -fx-font-weight: bold; -fx-padding: 6 16; -fx-cursor: hand;";
-                    String disabledStyle = "-fx-background-color: #E2E8F0; -fx-text-fill: #94A3B8; -fx-background-radius: 8; -fx-font-weight: bold; -fx-padding: 6 16;";
-
-                    boolean canCancel = a.getAuctionState() != AuctionState.FINISHED && a.getAuctionState() != AuctionState.CANCELED;
-                    btnCancel.setDisable(!canCancel);
-                    btnCancel.setStyle(canCancel ? activeStyle : disabledStyle);
-                    btnCancel.setOnAction(e -> sendCancelRequest(a));
-
-                    setGraphic(actionContainer);
+                    return;
                 }
+                Auction a = getTableView().getItems().get(getIndex());
+                if (a == null) {
+                    setGraphic(null);
+                    return;
+                }
+
+                // CẤU HÌNH NÚT VIEW
+                btnView.setStyle("-fx-background-color: #10B981; -fx-text-fill: white; -fx-background-radius: 8; -fx-font-weight: bold; -fx-padding: 6 16; -fx-cursor: hand;");
+                btnView.setOnAction(e -> {
+                    // Lấy đối tượng mới nhất ngay tại khoảnh khắc nhấp chuột
+                    Auction currentA = getTableView().getItems().get(getIndex());
+                    if (currentA == null) return;
+
+                    try {
+                        javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/a88/jbay/view/AuctionUI/viewAuction-view.fxml"));
+                        javafx.scene.Parent root = loader.load();
+
+                        ViewAuctionController controller = loader.getController();
+                        controller.setAuctionData(
+                                currentA,
+                                ClientSession.getInstance().getAdminAuctions(),
+                                () -> {
+                                    try {
+                                        ViewManager.displayScene("client/Admin-HomeScreens.fxml");
+                                    } catch (IOException ex) { ex.printStackTrace(); }
+                                }
+                        );
+
+                        btnView.getScene().setRoot(root);
+
+                    } catch (IOException ex) {
+                        System.out.println("Lỗi mở màn hình View: " + ex.getMessage());
+                        ex.printStackTrace();
+                    }
+                });
+
+                // CẤU HÌNH NÚT CANCEL
+                String activeStyle = "-fx-background-color: #F59E0B; -fx-text-fill: white; -fx-background-radius: 8; -fx-font-weight: bold; -fx-padding: 6 16; -fx-cursor: hand;";
+                String disabledStyle = "-fx-background-color: #E2E8F0; -fx-text-fill: #94A3B8; -fx-background-radius: 8; -fx-font-weight: bold; -fx-padding: 6 16;";
+
+                boolean canCancel = a.getAuctionState() != AuctionState.FINISHED && a.getAuctionState() != AuctionState.CANCELED;
+                btnCancel.setDisable(!canCancel);
+                btnCancel.setStyle(canCancel ? activeStyle : disabledStyle);
+
+                // Lấy đối tượng mới nhất ngay tại khoảnh khắc nhấp chuột
+                btnCancel.setOnAction(e -> {
+                    Auction currentA = getTableView().getItems().get(getIndex());
+                    if (currentA != null) sendCancelRequest(currentA);
+                });
+
+                setGraphic(actionContainer);
             }
         });
     }
