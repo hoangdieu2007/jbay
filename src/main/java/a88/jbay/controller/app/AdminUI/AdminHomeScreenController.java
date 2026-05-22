@@ -14,6 +14,8 @@ import javafx.collections.*;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import java.io.IOException;
 
 public class AdminHomeScreenController {
@@ -28,7 +30,7 @@ public class AdminHomeScreenController {
 
     @FXML private TableView<Auction> auctionTable;
     @FXML private TableColumn<Auction, Integer> colAuctionId;
-    @FXML private TableColumn<Auction, String> colAuctionTitle, colAuctionStatus;
+    @FXML private TableColumn<Auction, String> colAuctionTitle,colAuctionWinner, colAuctionStatus;
     @FXML private TableColumn<Auction, Void> colAuctionAction;
     @FXML private TextField searchAuctionField;
 
@@ -98,7 +100,26 @@ public class AdminHomeScreenController {
 
         // Bảng quản lý Đấu giá (Auction)
         colAuctionId.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getId()));
+
+        // CỘT ITEM NAME: Custom lại để ép chữ dài tự động xuống dòng
         colAuctionTitle.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getItem().getName()));
+        colAuctionTitle.setCellFactory(tc -> {
+            TableCell<Auction, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            // Ép chiều rộng của chữ chạy theo chiều rộng của cột, trừ hao 10px padding
+            text.wrappingWidthProperty().bind(colAuctionTitle.widthProperty().subtract(10));
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+
+        // CỘT CURRENT WINNER: Đổ dữ liệu người chiến thắng hiện tại
+        colAuctionWinner.setCellValueFactory(cellData -> {
+            String winner = cellData.getValue().getWinner();
+            return new SimpleStringProperty((winner == null || winner.isEmpty()) ? "No bids yet" : winner);
+        });
+
         colAuctionStatus.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAuctionState().name()));
     }
 
@@ -128,25 +149,42 @@ public class AdminHomeScreenController {
             }
         });
 
-        // Nút Cancel Auction (Dành cho bảng Auction)
+        // Nút Control (Dành cho bảng Auction: Chứa 2 nút View và Cancel)
         colAuctionAction.setCellFactory(p -> new TableCell<>() {
-            private final Button btn = new Button("Cancel");
+            private final Button btnView = new Button("View");
+            private final Button btnCancel = new Button("Cancel");
+            // Nhốt 2 nút vào chung một HBox, cách nhau 10px
+            private final HBox actionContainer = new HBox(10, btnView, btnCancel);
+
+            {
+                actionContainer.setStyle("-fx-alignment: center;"); // Căn giữa 2 nút
+            }
+
             @Override protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty) setGraphic(null);
                 else {
                     Auction a = getTableView().getItems().get(getIndex());
 
-                    String activeStyle = "-fx-background-color: #F59E0B; -fx-text-fill: white; -fx-background-radius: 8; -fx-font-weight: bold; -fx-padding: 6 16; -fx-cursor: hand;";
-                    String disabledStyle = "-fx-background-color: #E2E8F0; -fx-text-fill: #94A3B8; -fx-background-radius: 8; -fx-font-weight: bold; -fx-padding: 6 16;";
+                    // NÚT 1: VIEW (Xem chi tiết)
+                    btnView.setStyle("-fx-background-color: #10B981; -fx-text-fill: white; -fx-background-radius: 8; -fx-font-weight: bold; -fx-padding: 6 16; -fx-cursor: hand;");
+                    btnView.setOnAction(e -> {
+                        // TODO: Gọi hàm mở màn hình View Details của ông ở đây
+                        System.out.println("Mở màn hình View cho Auction ID: " + a.getId());
+                    });
+
+                    // NÚT 2: CANCEL (Hủy đấu giá)
+                    String activeCancelStyle = "-fx-background-color: #F59E0B; -fx-text-fill: white; -fx-background-radius: 8; -fx-font-weight: bold; -fx-padding: 6 16; -fx-cursor: hand;";
+                    String disabledCancelStyle = "-fx-background-color: #E2E8F0; -fx-text-fill: #94A3B8; -fx-background-radius: 8; -fx-font-weight: bold; -fx-padding: 6 16;";
 
                     boolean canCancel = a.getAuctionState() != AuctionState.FINISHED && a.getAuctionState() != AuctionState.CANCELED;
 
-                    btn.setDisable(!canCancel);
-                    btn.setStyle(canCancel ? activeStyle : disabledStyle);
+                    btnCancel.setDisable(!canCancel);
+                    btnCancel.setStyle(canCancel ? activeCancelStyle : disabledCancelStyle);
+                    btnCancel.setOnAction(e -> sendCancelRequest(a));
 
-                    btn.setOnAction(e -> sendCancelRequest(a));
-                    setGraphic(btn);
+                    // Đổ cái hộp chứa 2 nút ra giao diện
+                    setGraphic(actionContainer);
                 }
             }
         });

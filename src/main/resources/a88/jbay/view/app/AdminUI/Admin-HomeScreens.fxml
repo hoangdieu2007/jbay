@@ -108,10 +108,15 @@
 
                                 <TableView fx:id="auctionTable" prefHeight="200.0" prefWidth="200.0" styleClass="admin-table" VBox.vgrow="ALWAYS">
                                     <columns>
-                                        <TableColumn fx:id="colAuctionId" prefWidth="112.0" text="ID" />
-                                        <TableColumn fx:id="colAuctionTitle" prefWidth="486.0" text="Item Name" />
-                                        <TableColumn fx:id="colAuctionStatus" prefWidth="250.0" text="Status" />
-                                        <TableColumn fx:id="colAuctionAction" prefWidth="350.0" text="Control" />
+                                        <TableColumn fx:id="colAuctionId" prefWidth="60.0" text="ID" />
+
+                                        <TableColumn fx:id="colAuctionTitle" prefWidth="427.0" text="Item Name" />
+
+                                        <TableColumn fx:id="colAuctionWinner" prefWidth="241.0" text="Current Winner" />
+
+                                        <TableColumn fx:id="colAuctionStatus" prefWidth="190.0" text="Status" />
+
+                                        <TableColumn fx:id="colAuctionAction" prefWidth="241.0" text="Control" />
                                     </columns>
                                     <columnResizePolicy>
                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
