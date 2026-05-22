@@ -21,7 +21,6 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 
 public class AdminHomeScreenController {
-    // Khai báo các thành phần FXML
     @FXML private Label adminNameLabel;
 
     @FXML private TableView<User> userTable;
@@ -32,19 +31,27 @@ public class AdminHomeScreenController {
 
     @FXML private TableView<Auction> auctionTable;
     @FXML private TableColumn<Auction, Integer> colAuctionId;
-    @FXML private TableColumn<Auction, String> colAuctionTitle, colAuctionWinner, colAuctionStatus;
+    @FXML private TabPane adminTabPane;
+
+    @FXML private TableColumn<Auction, String> colAuctionTitle, colAuctionPrice, colAuctionStatus;
     @FXML private TableColumn<Auction, Void> colAuctionAction;
     @FXML private TextField searchAuctionField;
 
-    // Danh sách hiển thị trên UI
     private final ObservableList<User> userMasterList = FXCollections.observableArrayList();
     private final ObservableList<Auction> auctionMasterList = FXCollections.observableArrayList();
+
+    public static int targetTabIndex = 0;
 
     @FXML
     public void initialize() {
         if (ClientSession.getInstance().getUser() != null) {
             adminNameLabel.setText("👤 " + ClientSession.getInstance().getUser().getUsername());
         }
+
+        if (adminTabPane != null && targetTabIndex >= 0 && targetTabIndex < adminTabPane.getTabs().size()) {
+            adminTabPane.getSelectionModel().select(targetTabIndex);
+        }
+        targetTabIndex = 0; // Sử dụng xong thì reset về mặc định (tab 0)
 
         setupTableColumns();
         setupActionButtons();
@@ -54,7 +61,6 @@ public class AdminHomeScreenController {
     }
 
     private void setupRealtimeListeners() {
-        // Tách riêng 2 hàm sync để ép Refresh đúng bảng
         syncUserMapToList(ClientSession.getInstance().getAdminUsers(), userMasterList);
         syncAuctionMapToList(ClientSession.getInstance().getAdminAuctions(), auctionMasterList);
     }
@@ -67,7 +73,7 @@ public class AdminHomeScreenController {
                     targetList.add(change.getValueAdded());
                 }
                 targetList.sort((a, b) -> Integer.compare(b.getId(), a.getId()));
-                userTable.refresh(); // VŨ KHÍ BÍ MẬT: Ép vẽ lại toàn bộ bảng để UI không bị kẹt
+                userTable.refresh();
             });
         });
     }
@@ -80,7 +86,7 @@ public class AdminHomeScreenController {
                     targetList.add(change.getValueAdded());
                 }
                 targetList.sort((a, b) -> Integer.compare(b.getId(), a.getId()));
-                auctionTable.refresh(); // VŨ KHÍ BÍ MẬT: Giải quyết dứt điểm lỗi Current Winner không nhảy chữ
+                auctionTable.refresh(); // Ép vẽ lại UI để Current Price nhảy số
             });
         });
     }
@@ -103,22 +109,20 @@ public class AdminHomeScreenController {
             return cell;
         });
 
-        colAuctionWinner.setCellValueFactory(cellData -> {
-            String winner = cellData.getValue().getWinner();
-            return new SimpleStringProperty((winner == null || winner.isEmpty()) ? "No bids yet" : winner);
+        // 🌟 HIỂN THỊ CURRENT PRICE CHUẨN XÁC
+        colAuctionPrice.setCellValueFactory(cellData -> {
+            return new SimpleStringProperty(String.format("%.2f USD", cellData.getValue().getCurrentPrice()));
         });
 
         colAuctionStatus.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAuctionState().name()));
     }
 
     private void setupActionButtons() {
-        // --- Nút Ban/Unban Dành cho bảng User ---
         colUserAction.setCellFactory(p -> new TableCell<>() {
             private final Button btn = new Button();
             @Override protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
 
-                // KIỂM TRA AN TOÀN TUYỆT ĐỐI: Chống lỗi NullPointerException phá hủy UI của TableCell
                 if (empty || getIndex() < 0 || getIndex() >= getTableView().getItems().size()) {
                     setGraphic(null);
                     return;
@@ -134,7 +138,6 @@ public class AdminHomeScreenController {
                 String baseStyle = "-fx-text-fill: white; -fx-background-radius: 8; -fx-font-weight: bold; -fx-padding: 6 16; -fx-cursor: hand;";
                 btn.setStyle((isBanned ? "-fx-background-color: #3B82F6; " : "-fx-background-color: #EF4444; ") + baseStyle);
 
-                // Lấy đối tượng mới nhất ngay tại khoảnh khắc nhấp chuột
                 btn.setOnAction(e -> {
                     User currentUser = getTableView().getItems().get(getIndex());
                     if (currentUser != null) sendBanRequest(currentUser);
@@ -144,7 +147,6 @@ public class AdminHomeScreenController {
             }
         });
 
-        // --- Nút Control Đấu giá (View / Cancel) ---
         colAuctionAction.setCellFactory(p -> new TableCell<>() {
             private final Button btnView = new Button("View");
             private final Button btnCancel = new Button("Cancel");
@@ -155,7 +157,6 @@ public class AdminHomeScreenController {
             @Override protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
 
-                // KIỂM TRA AN TOÀN TUYỆT ĐỐI: Chống lỗi NullPointerException gây liệt nút
                 if (empty || getIndex() < 0 || getIndex() >= getTableView().getItems().size()) {
                     setGraphic(null);
                     return;
@@ -166,15 +167,18 @@ public class AdminHomeScreenController {
                     return;
                 }
 
-                // CẤU HÌNH NÚT VIEW
                 btnView.setStyle("-fx-background-color: #10B981; -fx-text-fill: white; -fx-background-radius: 8; -fx-font-weight: bold; -fx-padding: 6 16; -fx-cursor: hand;");
                 btnView.setOnAction(e -> {
-                    // Lấy đối tượng mới nhất ngay tại khoảnh khắc nhấp chuột
                     Auction currentA = getTableView().getItems().get(getIndex());
                     if (currentA == null) return;
 
                     try {
-                        javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/a88/jbay/view/AuctionUI/viewAuction-view.fxml"));
+                        java.net.URL url = ViewManager.class.getResource("/a88/jbay/view/app/AuctionUI/viewAuction-view.fxml");
+                        if (url == null) {
+                            return;
+                        }
+
+                        javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(url);
                         javafx.scene.Parent root = loader.load();
 
                         ViewAuctionController controller = loader.getController();
@@ -183,20 +187,18 @@ public class AdminHomeScreenController {
                                 ClientSession.getInstance().getAdminAuctions(),
                                 () -> {
                                     try {
-                                        ViewManager.displayScene("client/Admin-HomeScreens.fxml");
+                                        AdminHomeScreenController.targetTabIndex = 1;
+                                        ViewManager.displayScene("AdminUI/Admin-HomeScreens.fxml");
                                     } catch (IOException ex) { ex.printStackTrace(); }
                                 }
                         );
 
                         btnView.getScene().setRoot(root);
-
-                    } catch (IOException ex) {
-                        System.out.println("Lỗi mở màn hình View: " + ex.getMessage());
+                    } catch (Exception ex) {
                         ex.printStackTrace();
                     }
                 });
 
-                // CẤU HÌNH NÚT CANCEL
                 String activeStyle = "-fx-background-color: #F59E0B; -fx-text-fill: white; -fx-background-radius: 8; -fx-font-weight: bold; -fx-padding: 6 16; -fx-cursor: hand;";
                 String disabledStyle = "-fx-background-color: #E2E8F0; -fx-text-fill: #94A3B8; -fx-background-radius: 8; -fx-font-weight: bold; -fx-padding: 6 16;";
 
@@ -204,7 +206,6 @@ public class AdminHomeScreenController {
                 btnCancel.setDisable(!canCancel);
                 btnCancel.setStyle(canCancel ? activeStyle : disabledStyle);
 
-                // Lấy đối tượng mới nhất ngay tại khoảnh khắc nhấp chuột
                 btnCancel.setOnAction(e -> {
                     Auction currentA = getTableView().getItems().get(getIndex());
                     if (currentA != null) sendCancelRequest(currentA);

@@ -36,7 +36,7 @@
     </top>
 
     <center>
-        <TabPane style="-fx-padding: 15; -fx-tab-min-width: 150;" tabClosingPolicy="UNAVAILABLE">
+        <TabPane fx:id="adminTabPane" style="-fx-padding: 15; -fx-tab-min-width: 150;" tabClosingPolicy="UNAVAILABLE">
             <tabs>
                 <Tab style="-fx-font-weight: bold; -fx-font-size: 14;" text="User Management">
                     <content>
@@ -112,7 +112,7 @@
 
                                         <TableColumn fx:id="colAuctionTitle" prefWidth="427.0" text="Item Name" />
 
-                                        <TableColumn fx:id="colAuctionWinner" prefWidth="241.0" text="Current Winner" />
+                                        <TableColumn fx:id="colAuctionPrice" prefWidth="241.0" text="Current Price" />
 
                                         <TableColumn fx:id="colAuctionStatus" prefWidth="190.0" text="Status" />
 

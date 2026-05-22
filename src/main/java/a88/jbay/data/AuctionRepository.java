@@ -113,7 +113,22 @@ public class AuctionRepository {
 
     public List<Auction> getAllAuctionsForAdmin() {
         return auctionDAO.getAllAuctionsForAdmin().stream()
-                .map(factory::reconstructForAdmin)
+                .map(data -> {
+                    // 1. Ưu tiên lấy hàng từ RAM (Cache) nếu phiên đấu giá đang RUNNING
+                    // -> Việc này đảm bảo Admin luôn nhận được cục dữ liệu có Bids History real-time mới nhất
+                    Auction cached = cache.get(data.id());
+                    if (cached != null) return cached;
+
+                    // 2. Nếu phiên đấu giá đã FINISHED hoặc CANCELED (không còn trong RAM),
+                    // -> Dùng lệnh reconstruct() gốc để ép Server vào Database móc lên ĐẦY ĐỦ cả mảng byte Ảnh và lịch sử Bids
+                    try {
+                        return factory.reconstruct(data);
+                    } catch (Exception e) {
+                        logger.error("Lỗi khi tải full thông tin cho Admin - Auction ID: " + data.id(), e);
+                        return null;
+                    }
+                })
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
 
