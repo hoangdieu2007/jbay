@@ -10,8 +10,6 @@ public interface UserDAO {
 
     UserData findByUserId(int userId);
 
-    UserData findBySessionId(String sessionId);
-
     boolean existsByUsername(String username);
 
     int insertUser(
@@ -19,13 +17,6 @@ public interface UserDAO {
             String hashedPassword,
             String role
     );
-
-    boolean insertSession(
-            String sessionId,
-            int userId
-    );
-
-    boolean deleteSession(String sessionId);
 
     boolean changeUserRole(
             int userId,

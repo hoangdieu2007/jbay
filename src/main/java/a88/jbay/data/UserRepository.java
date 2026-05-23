@@ -31,26 +31,16 @@ public class UserRepository {
     }
 
     public boolean createSession(String sessionId, User user) {
-        boolean success = userDAO.insertSession(sessionId, user.getId());
-        if (success) sessionCache.put(sessionId, user);
-        return success;
+        sessionCache.put(sessionId, user);
+        return true;
     }
 
     public void deleteSession(String sessionId) {
         sessionCache.remove(sessionId);
-        userDAO.deleteSession(sessionId);
     }
 
     public User findBySessionId(String sessionId) {
-        User cached = sessionCache.get(sessionId);
-        if (cached != null) return cached;
-
-        UserData data = userDAO.findBySessionId(sessionId);
-        if (data == null) return null;
-
-        User user = new User(data.id(), data.role(), data.username(), sessionId);
-        sessionCache.put(sessionId, user);
-        return user;
+        return sessionCache.get(sessionId);
     }
 
     public List<User> getAllNormalUsers() {

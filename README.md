@@ -178,7 +178,6 @@ Trên Windows, thay `./mvnw` bằng `.\mvnw.cmd`.
 Schema hiện tại gồm các bảng:
 
 - `users`
-- `sessionids`
 - `items`
 - `auctions`
 - `bids`

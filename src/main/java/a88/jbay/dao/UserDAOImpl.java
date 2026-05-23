@@ -41,15 +41,6 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
     }
 
     @Override
-    public UserData findBySessionId(String sessionId) {
-        return executeQuery(
-                "SELECT userid FROM sessionids WHERE id = ?",
-                rs -> rs.next() ? findByUserId(rs.getInt("userid")) : null,
-                sessionId
-        );
-    }
-
-    @Override
     public boolean existsByUsername(String username) {
         return executeQuery(
                 "SELECT 1 FROM users WHERE username = ?",
@@ -64,22 +55,6 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
                 "INSERT INTO users (username, password, role) VALUES (?, ?, ?)",
                 username, hashedPassword, role
         );
-    }
-
-    @Override
-    public boolean insertSession(String sessionId, int userId) {
-        return executeUpdate(
-                "INSERT INTO sessionids (id, userid) VALUES (?, ?)",
-                sessionId, userId
-        ) > 0;
-    }
-
-    @Override
-    public boolean deleteSession(String sessionId) {
-        return executeUpdate(
-                "DELETE FROM sessionids WHERE id = ?",
-                sessionId
-        ) > 0;
     }
 
     @Override
