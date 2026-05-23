@@ -5,7 +5,8 @@ import java.util.Map;
 public class VehicleFactory implements ItemFactory{
     @Override
     public Item createFromInput(Map<String, String> userInput) throws FactoryMismatchException {
-        if (!userInput.containsKey("Mileage")){
+        String type = userInput.get("Type");
+        if (type != null && !type.equalsIgnoreCase("Vehicle")){
             throw new FactoryMismatchException("Wrong factory - This is Vehicle");
         } //catch() xu ly sau
         String name = userInput.get("Name");
@@ -20,14 +21,19 @@ public class VehicleFactory implements ItemFactory{
             throw new IllegalArgumentException("Item's name cannot be blanked");
         }
         double startingPrice;
-        int madeYear;
         try{
             startingPrice = Double.parseDouble(initPrice);
-            madeYear = Integer.parseInt(year);
         }catch (NumberFormatException | NullPointerException e){
-            throw new IllegalArgumentException("Starting price/ year must be a number");
+            throw new IllegalArgumentException("Starting price must be a number");
         }
-        Vehicle.VehicleBuilder builder = new Vehicle.VehicleBuilder().setName(name).setInitPrice(startingPrice).setYear(madeYear);
+        Vehicle.VehicleBuilder builder = new Vehicle.VehicleBuilder().setName(name).setInitPrice(startingPrice);
+        if (year != null && !year.trim().isEmpty()) {
+            try {
+                builder.setYear(Integer.parseInt(year));
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("Year must be a number");
+            }
+        }
         if (desc != null && !desc.trim().isEmpty()){
             builder.setDescription(desc);
         }

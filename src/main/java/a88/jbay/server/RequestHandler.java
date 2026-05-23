@@ -298,7 +298,12 @@ public class RequestHandler {
 
     //misc commands
     private Response handleMisc(Request request) {
-        return switch ((String) request.get("command")) {
+        Object commandValue = request.get("command");
+        if (!(commandValue instanceof String command) || command.isBlank()) {
+            return new Response(false, "INVALID_MISC_COMMAND", null);
+        }
+
+        return switch (command) {
             case "ls-auction" -> new Response(true, "LIST_AUCTION_SUCCESS", auctionSystem.listActiveAuctions());
             case "disconnect" -> {
                 Thread.currentThread().interrupt();

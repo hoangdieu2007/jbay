@@ -6,7 +6,8 @@ public class ElectronicFactory implements ItemFactory{
 
     @Override
     public Item createFromInput(Map<String, String> userInput) throws FactoryMismatchException {
-        if(!userInput.containsKey("Brand")){
+        String type = userInput.get("Type");
+        if (type != null && !type.equalsIgnoreCase("Electronic") && !type.equalsIgnoreCase("Electronics")) {
             throw new FactoryMismatchException("Wrong factory - This is Electronic!");
         } // catch() xu ly sau
         String name = userInput.get("Name");

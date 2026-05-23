@@ -22,7 +22,7 @@ public class GenericItemFactory implements ItemFactory{
 
         GenericItem.GenericBuilder builder = new GenericItem.GenericBuilder().setName(name).setInitPrice(startingPrice);
 
-        if (desc != null && desc.trim().isEmpty()){
+        if (desc != null && !desc.trim().isEmpty()){
             builder.setDescription(desc);
         }
 

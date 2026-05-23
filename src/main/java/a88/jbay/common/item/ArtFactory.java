@@ -5,7 +5,8 @@ import java.util.Map;
 public class ArtFactory implements ItemFactory{
     @Override
     public Item createFromInput(Map<String, String> userInput) throws FactoryMismatchException {
-        if(!userInput.containsKey("Artist")){
+        String type = userInput.get("Type");
+        if (type != null && !type.equalsIgnoreCase("Art") && !type.equalsIgnoreCase("Collectibles")) {
             throw new FactoryMismatchException("Wrong factory - This is Art");
         } // catch() xu ly sau
         String name = userInput.get("Name");
@@ -28,25 +29,27 @@ public class ArtFactory implements ItemFactory{
         // create a basic builder to use after
         Art.ArtBuilder builder = new Art.ArtBuilder().setName(name).setInitPrice(startingPrice);
 
-        int year;
-        try {
-            year = Integer.parseInt(createYear);
-            builder.setCreationYear(year);
-        } catch (NumberFormatException | NullPointerException e){
-            throw  new IllegalArgumentException("Creation Year must be a number");
+        if (createYear != null && !createYear.trim().isEmpty()) {
+            int year;
+            try {
+                year = Integer.parseInt(createYear);
+                builder.setCreationYear(year);
+            } catch (NumberFormatException e){
+                throw  new IllegalArgumentException("Creation Year must be a number");
+            }
         }
 
         // Start building based on key value
         // if there is no key --> dont build
-        if(desc != null && desc.trim().isEmpty()){
+        if(desc != null && !desc.trim().isEmpty()){
             builder.setDescription(desc);
         }
 
-        if (artist != null && artist.trim().isEmpty()){
+        if (artist != null && !artist.trim().isEmpty()){
             builder.setArtist(artist);
         }
 
-        if (medium != null && medium.trim().isEmpty()){
+        if (medium != null && !medium.trim().isEmpty()){
             builder.setMedium(medium);
         }
 

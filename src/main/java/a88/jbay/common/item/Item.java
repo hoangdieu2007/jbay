@@ -53,6 +53,10 @@ public class Item implements Serializable {
         return image;
     }
 
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
     public String toString() {
         return name + " - " + type + " - " + description + " - " + initPrice;
     }
