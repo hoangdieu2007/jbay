@@ -1,6 +1,25 @@
 # jBay
 
+[![CI](https://github.com/hoangdieu2007/jbay/actions/workflows/maven.yml/badge.svg)](https://github.com/hoangdieu2007/jbay/actions/workflows/maven.yml)
+[![Pull Requests](https://img.shields.io/github/issues-pr/hoangdieu2007/jbay)](https://github.com/hoangdieu2007/jbay/pulls)
+[![Issues](https://img.shields.io/github/issues/hoangdieu2007/jbay)](https://github.com/hoangdieu2007/jbay/issues)
+
 jBay là ứng dụng đấu giá trực tuyến được xây dựng bằng JavaFX bởi Auction88, Team 12. Dự án gồm ứng dụng client, giao diện điều khiển server, giao tiếp client/server qua socket và hệ quản trị cơ sở dữ liệu tương thích MySQL.
+
+## Mục Lục
+
+- [Tính Năng](#tính-năng)
+- [Công Nghệ Sử Dụng](#công-nghệ-sử-dụng)
+- [Cấu Trúc Dự Án](#cấu-trúc-dự-án)
+- [Yêu Cầu Cài Đặt](#yêu-cầu-cài-đặt)
+- [Cài Đặt Database](#cài-đặt-database)
+- [Build](#build)
+- [Chạy Ứng Dụng](#chạy-ứng-dụng)
+- [Lệnh Phát Triển](#lệnh-phát-triển)
+- [Entry Point Chính](#entry-point-chính)
+- [Các Bảng Database](#các-bảng-database)
+- [CI, Pull Request Và Issue Status](#ci-pull-request-và-issue-status)
+- [Ghi Chú](#ghi-chú)
 
 ## Tính Năng
 
@@ -164,9 +183,13 @@ Schema hiện tại gồm các bảng:
 - `auctions`
 - `bids`
 
-## CI
+## CI, Pull Request Và Issue Status
 
 GitHub Actions build dự án trên Ubuntu, Windows và macOS bằng JDK 25. Khi push lên branch `main`, workflow sẽ tạo draft release kèm các file jar client và server đã build.
+
+- CI status: [Java CI with Maven](https://github.com/hoangdieu2007/jbay/actions/workflows/maven.yml)
+- Pull request status: [Danh sách pull request](https://github.com/hoangdieu2007/jbay/pulls)
+- Issue status: [Danh sách issue](https://github.com/hoangdieu2007/jbay/issues)
 
 ## Ghi Chú
 
