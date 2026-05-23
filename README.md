@@ -9,7 +9,7 @@ jBay là ứng dụng đấu giá trực tuyến được xây dựng bằng Jav
 - Tạo và hủy phiên đấu giá
 - Đấu giá trực tiếp và tự động đấu giá
 - Cập nhật trạng thái đấu giá theo thời gian thực cho các client đã kết nối
-- Hỗ trợ nhiều loại mặt hàng: hàng tổng quát, đồ điện tử, tác phẩm nghệ thuật và phương tiện
+- Hỗ trợ các loại mặt hàng theo UI: `Electronics`, `Fashion`, `Home`, `Collectibles`, `Others`
 - Giao diện JavaFX cho client và server
 - Lưu trữ dữ liệu bằng MySQL/MariaDB thông qua các lớp DAO và repository
 
