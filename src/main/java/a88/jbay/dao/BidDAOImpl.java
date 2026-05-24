@@ -4,11 +4,8 @@ import a88.jbay.common.auction.BidData;
 import a88.jbay.server.DatabaseController;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class BidDAOImpl extends BaseDAO implements BidDAO {
@@ -17,20 +14,20 @@ public class BidDAOImpl extends BaseDAO implements BidDAO {
         super(dbController);
     }
 
-    public boolean insertBid(int userId, int auctionId, double amount, LocalDateTime time) {
-        return executeUpdate(
+    public int insertBid(int userId, int auctionId, double amount, LocalDateTime time) {
+        return executeInsert(
                 "INSERT INTO bids (userid, auctionid, amt, time) VALUES (?, ?, ?, ?)",
                 userId, auctionId, amount, time
-        ) > 0;
+        );
     }
 
     @Override
-    public boolean insertBid(Connection connection, int userId, int auctionId,
-                             double amount, LocalDateTime time) throws SQLException {
-        return executeUpdate(connection,
+    public int insertBid(Connection connection, int userId, int auctionId,
+                         double amount, LocalDateTime time) throws SQLException {
+        return executeInsert(connection,
                 "INSERT INTO bids (userid, auctionid, amt, time) VALUES (?, ?, ?, ?)",
                 userId, auctionId, amount, time
-        ) > 0;
+        );
     }
 
     public List<BidData> findBidHistoryByAuctionId(int auctionId) {

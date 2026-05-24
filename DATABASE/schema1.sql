@@ -27,9 +27,8 @@ CREATE TABLE `auctions` (
   `item` int NOT NULL,
   `seller` int NOT NULL,
   `start_price` double NOT NULL,
-  `cur_price` double NOT NULL,
   `min_increment` double NOT NULL DEFAULT '0.0',
-  `winner` int DEFAULT NULL,
+  `cur_bid` int DEFAULT NULL,
   `start_time` datetime NOT NULL,
   `end_time` datetime NOT NULL,
   `state` varchar(45) DEFAULT NULL,
@@ -103,10 +102,7 @@ ALTER TABLE `auctions`
     ON UPDATE CASCADE ON DELETE RESTRICT,
   ADD CONSTRAINT `fk_auctions_seller`
     FOREIGN KEY (`seller`) REFERENCES `users` (`id`)
-    ON UPDATE CASCADE ON DELETE RESTRICT,
-  ADD CONSTRAINT `fk_auctions_winner`
-    FOREIGN KEY (`winner`) REFERENCES `users` (`id`)
-    ON UPDATE CASCADE ON DELETE SET NULL;
+    ON UPDATE CASCADE ON DELETE RESTRICT;
 
 ALTER TABLE `bids`
   ADD CONSTRAINT `fk_bids_user`
@@ -115,6 +111,11 @@ ALTER TABLE `bids`
   ADD CONSTRAINT `fk_bids_auction`
     FOREIGN KEY (`auctionid`) REFERENCES `auctions` (`id`)
     ON UPDATE CASCADE ON DELETE CASCADE;
+
+ALTER TABLE `auctions`
+  ADD CONSTRAINT `fk_auctions_cur_bid`
+    FOREIGN KEY (`cur_bid`) REFERENCES `bids` (`id`)
+    ON UPDATE CASCADE ON DELETE SET NULL;
 
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

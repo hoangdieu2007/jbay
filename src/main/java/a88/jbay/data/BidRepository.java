@@ -27,8 +27,8 @@ public class BidRepository {
         try (Connection connection = dbController.getConnection()) {
             connection.setAutoCommit(false);
             try {
-                auctionDAO.updateCurrentPrice(connection, auctionId, tx.getAmt(), tx.getUserID());
-                bidDAO.insertBid(connection, tx.getUserID(), auctionId, tx.getAmt(), tx.getTimestamp());
+                int bidId = bidDAO.insertBid(connection, tx.getUserID(), auctionId, tx.getAmt(), tx.getTimestamp());
+                auctionDAO.updateCurrentBid(connection, auctionId, bidId);
 
                 connection.commit();
                 return true;

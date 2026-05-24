@@ -164,7 +164,7 @@ public class AuctionRepository {
             try {
                 int itemId = itemDAO.insertItem(connection, item);
                 int auctionId = auctionDAO.insertAuction(connection,
-                        itemId, sellerId, item.getInitPrice(), item.getInitPrice(), minIncrement, start, end);
+                        itemId, sellerId, item.getInitPrice(), minIncrement, start, end);
 
                 connection.commit();
                 return auctionId;

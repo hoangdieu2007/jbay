@@ -71,8 +71,8 @@ class BidSystemTest {
         when(auction.getCurrentPrice()).thenReturn(currentPrice);
         when(auction.getMinIncrement()).thenReturn(5.0);
         when(auction.getAuctionState()).thenReturn(AuctionState.RUNNING);
-        when(auctionDAO.updateCurrentPrice(anyInt(), anyDouble(), anyInt())).thenReturn(true);
-        when(bidDAO.insertBid(anyInt(), anyInt(), anyDouble(), any())).thenReturn(true);
+        when(auctionDAO.updateCurrentBid(anyInt(), anyInt())).thenReturn(true);
+        when(bidDAO.insertBid(anyInt(), anyInt(), anyDouble(), any())).thenReturn(1);
         when(userDAO.findByUserId(userId)).thenReturn(new UserData(userId, "testuser", "password", "BIDDER"));
 
         // Mock auctionRepository.getActiveAuctionById()
@@ -216,8 +216,8 @@ class BidSystemTest {
 
         when(auction.getCurrentPrice()).thenReturn(currentPrice);
         when(auction.getAuctionState()).thenReturn(AuctionState.RUNNING);
-        when(auctionDAO.updateCurrentPrice(anyInt(), anyDouble(), anyInt())).thenReturn(true);
-        when(bidDAO.insertBid(anyInt(), anyInt(), anyDouble(), any())).thenReturn(false);
+        when(auctionDAO.updateCurrentBid(anyInt(), anyInt())).thenReturn(true);
+        when(bidDAO.insertBid(anyInt(), anyInt(), anyDouble(), any())).thenReturn(-1);
         when(userDAO.findByUserId(userId)).thenReturn(new UserData(userId, "testuser", "password", "BIDDER"));
         when(auctionRepository.getActiveAuctionById(auctionId)).thenReturn(auction);
 
@@ -239,8 +239,8 @@ class BidSystemTest {
 
         when(auction.getCurrentPrice()).thenReturn(currentPrice);
         when(auction.getAuctionState()).thenReturn(AuctionState.RUNNING);
-        when(auctionDAO.updateCurrentPrice(anyInt(), anyDouble(), anyInt())).thenReturn(false);
-        when(bidDAO.insertBid(anyInt(), anyInt(), anyDouble(), any())).thenReturn(true);
+        when(auctionDAO.updateCurrentBid(anyInt(), anyInt())).thenReturn(false);
+        when(bidDAO.insertBid(anyInt(), anyInt(), anyDouble(), any())).thenReturn(1);
         when(userDAO.findByUserId(userId)).thenReturn(new UserData(userId, "testuser", "password", "BIDDER"));
         when(auctionRepository.getActiveAuctionById(auctionId)).thenReturn(auction);
 
