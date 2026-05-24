@@ -2,7 +2,9 @@ package a88.jbay.controller.app.UserHomeScreenUI;
 
 import a88.jbay.client.ClientSession;
 import a88.jbay.common.auction.Auction;
+import a88.jbay.common.auction.BidData;
 import a88.jbay.controller.app.AuctionUI.BidderItemCardController;
+import a88.jbay.util.JBayLogger;
 import javafx.collections.*;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
@@ -14,6 +16,8 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 public class OngoingAuctionsController {
 
@@ -28,32 +32,52 @@ public class OngoingAuctionsController {
 
     FilteredList<Auction> filteredList = new FilteredList<>(bidderList, auction -> true);
 
+    Map<Integer, VBox> bidderCard = new HashMap<>();
+    Map<Integer, BidderItemCardController> controllerMap = new HashMap<>();
+
+    private static JBayLogger logger;
+
     @FXML
     private void initialize(){
-        bidderList.setAll(bidderMap.values());
+
+        filteredList.addListener((ListChangeListener<Auction>) change -> {
+            refreshBidderList(filteredList);
+        });
+
+        for(Auction auction :  bidderMap.values()){
+            if (!controllerMap.containsKey(auction.getId())) { // check if the auction's card is already created
+                bidderList.add(auction);
+                createBidderCard(auction);
+            }
+        }
 
         bidderMap.addListener((MapChangeListener<Integer, Auction>) change -> {
 
+            int idx = change.getKey();
+
             if(change.wasAdded() && change.wasRemoved()){
-                int idx = bidderList.indexOf(change.getValueRemoved());
+                BidderItemCardController controller = controllerMap.get(idx);
+                if(controller != null) {
+                    controllerMap.get(idx).setItemData(change.getValueAdded());
+                }
 
                 if (idx >= 0){
                     bidderList.set(idx, change.getValueAdded());
                 }
             } else if (change.wasAdded()){
                 bidderList.add(change.getValueAdded());
+                createBidderCard(change.getValueAdded());
 
             } else if (change.wasRemoved()) {
                 bidderList.remove(change.getValueRemoved());
+                controllerMap.remove(idx);
+                bidderCard.remove(idx);
 
             }
 
             bidderList.sort(Comparator.comparingInt(Auction:: getId));
         });
 
-        filteredList.addListener((ListChangeListener<Auction>) change -> {
-            refreshBidderList(filteredList);
-        });
 
         bidderSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredList.setPredicate(auction -> {
@@ -66,14 +90,10 @@ public class OngoingAuctionsController {
                 return auction.getItem().getName().toLowerCase().contains(lowerNewValue);
             });
         });
-
-        refreshBidderList(filteredList);
-
-
     }
 
     @FXML
-    private VBox createBidderCard(Auction auction){
+    private void createBidderCard(Auction auction){
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/a88/jbay/view/app/AuctionUI/bidder-item-card.fxml"));
 
@@ -82,9 +102,12 @@ public class OngoingAuctionsController {
             BidderItemCardController controller = loader.getController();
             controller.setItemData(auction);
 
-            return cardBox;
+            bidderCard.put(auction.getId(), cardBox);
+            controllerMap.put(auction.getId(), controller);
+
+
         } catch (IOException e){
-            return null;
+            logger.info("Cannot create Bidder card!");
         }
     }
 
@@ -93,7 +116,7 @@ public class OngoingAuctionsController {
         bidderTilePane.getChildren().clear();
 
         for (Auction auction : filteredList){
-            VBox cardBox = createBidderCard(auction);
+           VBox cardBox = bidderCard.get(auction.getId());
             if (cardBox != null){
                 bidderTilePane.getChildren().add(cardBox);
             }
