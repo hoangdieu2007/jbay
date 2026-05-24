@@ -97,7 +97,9 @@ public class RequestHandler {
         String role = "USER";
 
         if (userSystem.register(username, password, role)) {
-            updateSystem.broadcastToAll(new Response(true, "NEW_USER_REGISTERED", null));
+            User newUser = userSystem.getUserByName(username);
+            updateSystem.broadcastToAll(new Response(true, "NEW_USER_REGISTERED", newUser));
+
             return new Response(true, "REGISTER_SUCCESS", null);
         }
         return new Response(false, "REGISTER_FAIL", null);

@@ -192,14 +192,17 @@ public class ResponseHandler {
     }
 
     private void handleNewUserRegistered(Response response) {
-        // Chỉ những máy đang đăng nhập bằng tài khoản ADMIN mới cần xin lại danh sách
         User currentUser = clientSession.getUser();
         if (currentUser != null && "ADMIN".equals(currentUser.getRole())) {
-            try {
-                // Tự động gửi request xin Server cấp lại danh sách User mới nhất
-                ServerConnection.getInstance().send(new Request(RequestType.GET_USERS));
-            } catch (IOException e) {
-                logger.error("Failed to fetch updated users after new registration: " + e.getMessage());
+
+            // Lấy luôn user mới từ payload và nhét vào kho lưu trữ cục bộ
+            User newUser = (User) response.getPayload();
+
+            if (newUser != null) {
+                // Đẩy vào JavaFX Thread để tránh lỗi Not on FX Application Thread
+                javafx.application.Platform.runLater(() -> {
+                    clientSession.getAdminUsers().put(newUser.getId(), newUser);
+                });
             }
         }
     }

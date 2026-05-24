@@ -94,4 +94,12 @@ public class UserSystem {
     public java.util.List<User> getAllNormalUsersForAdmin() {
         return userRepository.getAllNormalUsers();
     }
+
+    public User getUserByName(String username) {
+        UserData userData = userRepository.findByUsername(username);
+        if (userData != null) {
+            return new User(userData.id(), userData.role(), userData.username());
+        }
+        return null;
+    }
 }

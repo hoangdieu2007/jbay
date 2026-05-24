@@ -57,7 +57,13 @@ public class AdminHomeScreenController {
         setupActionButtons();
         setupRealtimeListeners();
         setupSearchFilters();
-        refreshData();
+
+        // Chỉ gửi request xin dữ liệu toàn bộ NẾU kho chứa cục bộ thực sự rỗng
+        // (Tránh request lại mỗi khi bấm Cancel/View xong quay lại màn Home)
+        if (ClientSession.getInstance().getAdminUsers().isEmpty() ||
+                ClientSession.getInstance().getAdminAuctions().isEmpty()) {
+            refreshData();
+        }
     }
 
     private void setupRealtimeListeners() {
@@ -66,6 +72,11 @@ public class AdminHomeScreenController {
     }
 
     private void syncUserMapToList(ObservableMap<Integer, User> sourceMap, ObservableList<User> targetList) {
+        // Thêm trước toàn bộ dữ liệu ĐANG CÓ SẴN từ kho RAM vào danh sách hiển thị
+        targetList.setAll(sourceMap.values());
+        targetList.sort((a, b) -> Integer.compare(b.getId(), a.getId()));
+
+        // Cài đặt Listener để theo dõi các sự kiện thay đổi
         sourceMap.addListener((MapChangeListener<Integer, User>) change -> {
             Platform.runLater(() -> {
                 targetList.removeIf(item -> item.getId() == change.getKey());
@@ -79,6 +90,11 @@ public class AdminHomeScreenController {
     }
 
     private void syncAuctionMapToList(ObservableMap<Integer, Auction> sourceMap, ObservableList<Auction> targetList) {
+        // Thêm trước toàn bộ dữ liệu ĐANG CÓ SẴN từ kho RAM vào danh sách hiển thị
+        targetList.setAll(sourceMap.values());
+        targetList.sort((a, b) -> Integer.compare(b.getId(), a.getId()));
+
+        // Cài đặt Listener để theo dõi các sự kiện thay đổi
         sourceMap.addListener((MapChangeListener<Integer, Auction>) change -> {
             Platform.runLater(() -> {
                 targetList.removeIf(item -> item.getId() == change.getKey());
@@ -86,7 +102,7 @@ public class AdminHomeScreenController {
                     targetList.add(change.getValueAdded());
                 }
                 targetList.sort((a, b) -> Integer.compare(b.getId(), a.getId()));
-                auctionTable.refresh(); // Ép vẽ lại UI để Current Price nhảy số
+                auctionTable.refresh();
             });
         });
     }
