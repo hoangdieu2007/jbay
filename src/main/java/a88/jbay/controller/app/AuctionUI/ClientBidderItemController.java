@@ -195,7 +195,7 @@ public class ClientBidderItemController {
             double minimumBid = currentPrice + minIncrement;
 
             // SO SÁNH LOGIC
-            if (bidAmount < minimumBid) {
+            if (bidAmount < minimumBid && !"".equals(currentAuction.getWinner())) {
                 errorLabel.setText(String.format("Bid must be raised by at least %.2f USD", minIncrement));
                 errorLabel.setVisible(true);
                 return;
