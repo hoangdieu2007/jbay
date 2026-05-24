@@ -23,7 +23,10 @@
                 <Insets left="20.0" right="30.0" />
             </padding>
             <children>
-                <Button mnemonicParsing="false" onAction="#handleBack" styleClass="btn-back" text="⬅ BACK" />
+                <Button mnemonicParsing="false" onAction="#handleBack" styleClass="btn-back" text="⬅ BACK">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin></Button>
                 <Label styleClass="header-title" text="Create / Edit Auction Item">
                     <HBox.margin>
                         <Insets left="10.0" />
@@ -47,6 +50,9 @@
                         </StackPane>
                         <Button mnemonicParsing="false" onAction="#handleUploadImage" prefHeight="45.0" prefWidth="250.0" styleClass="btn-general, btn-upload" text="📸 Upload Item Image" />
                     </children>
+               <HBox.margin>
+                  <Insets left="1.0" />
+               </HBox.margin>
                 </VBox>
 
                 <VBox spacing="10.0" styleClass="card-panel" HBox.hgrow="ALWAYS">
@@ -76,7 +82,10 @@
 
                                 <VBox GridPane.columnIndex="1" GridPane.rowIndex="0">
                                     <Label styleClass="input-label" text="Starting Price (USD)" />
-                                    <TextField fx:id="priceField" prefHeight="42.0" promptText="0.00" styleClass="input-field" />
+                                    <TextField fx:id="priceField" prefHeight="42.0" promptText="0.00" styleClass="input-field">
+                              <VBox.margin>
+                                 <Insets />
+                              </VBox.margin></TextField>
                                     <Label fx:id="priceErrorLabel" prefHeight="17.0" prefWidth="302.0" styleClass="error-label" text="Invalid Price" visible="false" />
                                 </VBox>
 
@@ -110,11 +119,20 @@
                                     <Label fx:id="endErrorLabel" prefHeight="17.0" prefWidth="305.0" styleClass="error-label" text="Invalid Duration" visible="false" />
                                 </VBox>
                             </children>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
                         </GridPane>
 
                         <VBox VBox.vgrow="ALWAYS">
                             <Label styleClass="input-label" text="Item Description" />
-                            <TextArea fx:id="descriptionArea" promptText="Enter Item Description" styleClass="input-field" wrapText="true" VBox.vgrow="ALWAYS" />
+                            <TextArea fx:id="descriptionArea" promptText="Enter Item Description" styleClass="input-field" wrapText="true" VBox.vgrow="ALWAYS">
+                        <VBox.margin>
+                           <Insets />
+                        </VBox.margin></TextArea>
+                     <VBox.margin>
+                        <Insets right="10.0" />
+                     </VBox.margin>
                         </VBox>
 
                         <HBox alignment="CENTER_RIGHT" prefHeight="60.0">

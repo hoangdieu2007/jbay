@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="720.0" prefWidth="1360.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.app.UserHomeScreenUI.UserHomeScreenController">
+<BorderPane prefHeight="720.0" prefWidth="1560.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.app.UserHomeScreenUI.UserHomeScreenController">
 
     <left>
         <VBox maxWidth="230.0" minWidth="230.0" prefHeight="720.0" prefWidth="230.0" spacing="0.0" style="-fx-background-color: #80C4EA;" BorderPane.alignment="TOP_LEFT">
@@ -75,6 +75,28 @@
                     <Insets left="15.0" />
                 </padding>
             </ToggleButton>
+         <ToggleButton alignment="CENTER_LEFT" layoutX="10.0" layoutY="269.0" maxWidth="Infinity" mnemonicParsing="false" onAction="#showOngoingAuctions" prefHeight="45.0" selected="true" style="-fx-background-radius: 10;" text="Current Biddings" toggleGroup="$userBtn">
+            <graphic>
+               <Region prefHeight="19.0" prefWidth="19.0" style="-fx-shape: &quot;m702-288 114-266v-46H577l18-132-50 49q-7.29-7.02-25.5-25T494-733l130-131 29 29q12.32 12.29 17.16 27.64Q675-792 673-775l-13 103h156q29.7 0 50.85 21.15Q888-629.7 888-600v46q0 8-1 14.5t-3.72 13.71L799-331q-8 20-26.16 31.5-18.17 11.5-39.96 11.5H702ZM276-144H72v-384h204v72H144v240h132v72Zm241.23 0H204v-347l216-217 28.63 28.84q12.53 12.62 17.45 28.39Q471-635 469-618l-13 90h144q29.7 0 50.85 21.15Q672-485.7 672-456v46q0 8-1.5 14.52T666-382l-83 195q-8 20-26.05 31.5-18.06 11.5-39.72 11.5ZM516-216l84-195v-45H373l17-120-114 114v246h240Zm-240 0v-246 246Z&quot;;" styleClass="my-custom-icon" />
+            </graphic>
+            <font>
+               <Font name="System Bold Italic" size="18.0" />
+            </font>
+            <padding>
+               <Insets left="15.0" />
+            </padding>
+         </ToggleButton>
+         <ToggleButton alignment="CENTER_LEFT" layoutX="10.0" layoutY="314.0" maxWidth="Infinity" mnemonicParsing="false" onAction="#showOngoingAuctions" prefHeight="45.0" selected="true" style="-fx-background-radius: 10;" text="Won Auctions" toggleGroup="$userBtn">
+            <graphic>
+               <Region prefHeight="19.0" prefWidth="19.0" style="-fx-shape: &quot;M371.01-324 480-390.22 589-324l-29-124 97-84-127-11-50-117-50 117-127 11 96.89 83.95L371.01-324ZM480-72 360-192H192v-168L72-480l120-120v-168h168l120-120 120 120h168v168l120 120-120 120v168H600L480-72Zm0-102 90-90h126v-126l90-90-90-90v-126H570l-90-90-90 90H264v126l-90 90 90 90v126h126l90 90Zm0-306Z&quot;;" styleClass="my-custom-icon" />
+            </graphic>
+            <font>
+               <Font name="System Bold Italic" size="18.0" />
+            </font>
+            <padding>
+               <Insets left="15.0" />
+            </padding>
+         </ToggleButton>
 
             <Region VBox.vgrow="ALWAYS" />
              <Button fx:id="btnLogOut" maxWidth="Infinity" mnemonicParsing="false" onAction="#handleLogOut" prefHeight="45.0" text="LOG OUT" textFill="WHITE">
@@ -96,7 +118,7 @@
     </left>
 
     <center>
-        <StackPane fx:id="contentArea" minWidth="0.0" pickOnBounds="false" prefHeight="720.0" prefWidth="1360.0" style="-fx-background-color: #F4F6F9;" BorderPane.alignment="CENTER" />
+        <StackPane fx:id="contentArea" minWidth="0.0" pickOnBounds="false" prefHeight="720.0" prefWidth="1330.0" style="-fx-background-color: #F4F6F9;" BorderPane.alignment="CENTER" />
     </center>
 
 </BorderPane>
