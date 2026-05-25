@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="720.0" prefWidth="1560.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.app.UserHomeScreenUI.UserHomeScreenController">
+<BorderPane prefHeight="720.0" prefWidth="1280.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.app.UserHomeScreenUI.UserHomeScreenController">
 
     <left>
         <VBox maxWidth="230.0" minWidth="230.0" prefHeight="720.0" prefWidth="230.0" spacing="0.0" style="-fx-background-color: #80C4EA;" BorderPane.alignment="TOP_LEFT">
@@ -118,7 +118,7 @@
     </left>
 
     <center>
-        <StackPane fx:id="contentArea" minWidth="0.0" pickOnBounds="false" prefHeight="720.0" prefWidth="1330.0" style="-fx-background-color: #F4F6F9;" BorderPane.alignment="CENTER" />
+        <StackPane fx:id="contentArea" minWidth="0.0" pickOnBounds="false" prefHeight="720.0" prefWidth="1050.0" style="-fx-background-color: #F4F6F9;" BorderPane.alignment="CENTER" />
     </center>
 
 </BorderPane>

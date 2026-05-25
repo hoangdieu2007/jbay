@@ -85,7 +85,7 @@ public class MainServerTUI {
                             System.out.println("Password:");
                             String password = sc.nextLine();
 
-                            userSystem.register(username, password, "ADMIN");
+                            userSystem.register(username, password, "ADMIN", null);
 
                             break;
                         case "CANCEL":

@@ -79,7 +79,7 @@ public class ServerDatabaseController {
         String adminUsername = adminUsernameTextField.getText();
         String adminPassword = adminPasswordField.getText();
 
-        userSystem.register(adminUsername, StringHash.hash(adminPassword), "ADMIN");
+        userSystem.register(adminUsername, StringHash.hash(adminPassword), "ADMIN", null);
 
     }
 
