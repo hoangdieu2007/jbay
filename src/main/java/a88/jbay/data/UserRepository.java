@@ -30,8 +30,8 @@ public class UserRepository {
         return userDAO.existsByUsername(username);
     }
 
-    public boolean createUser(String username, String hashedPassword, String role) {
-        return userDAO.insertUser(username, hashedPassword, role) != -1;
+    public boolean createUser(String username, String hashedPassword, String role, byte[] qrCode) {
+        return userDAO.insertUser(username, hashedPassword, role, qrCode) != -1;
     }
 
     public boolean createSession(String sessionId, User user) {

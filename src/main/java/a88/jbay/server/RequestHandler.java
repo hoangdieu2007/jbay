@@ -115,9 +115,11 @@ public class RequestHandler {
     private Response handleRegister(Request request) {
         String username = (String) request.get("username");
         String password = (String) request.get("password");
+        byte[] qrCode = (byte[]) request.get("qrCode"); // Lấy dữ liệu ảnh
         String role = "USER";
 
-        if (userSystem.register(username, password, role)) {
+        // Truyền thêm biến qrCode vào UserSystem
+        if (userSystem.register(username, password, role, qrCode)) {
             User newUser = userSystem.getUserByName(username);
             updateSystem.broadcastToAll(new Response(true, "NEW_USER_REGISTERED", newUser));
 

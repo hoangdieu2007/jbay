@@ -68,7 +68,7 @@
                                 <Label prefHeight="25.0" prefWidth="215.0" styleClass="input-label" text="QR Code For Payment" />
                                 <HBox alignment="CENTER_LEFT" spacing="15.0">
                                     <children>
-                                        <Button fx:id="btnUploadQR" mnemonicParsing="false" prefHeight="40.0" styleClass="btn-upload-qr" text="Upload Image" />
+                                        <Button fx:id="btnUploadQR" mnemonicParsing="false" onAction="#handleUploadQR" prefHeight="40.0" styleClass="btn-upload-qr" text="Upload Image" />
                                         <Label fx:id="lblQRFileName" styleClass="file-name-label" text="No file selected" />
                                     </children>
                                 </HBox>

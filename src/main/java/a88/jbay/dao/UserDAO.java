@@ -15,7 +15,8 @@ public interface UserDAO {
     int insertUser(
             String username,
             String hashedPassword,
-            String role
+            String role,
+            byte[] qrCode
     );
 
     boolean changeUserRole(

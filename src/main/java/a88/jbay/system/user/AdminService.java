@@ -47,15 +47,7 @@ public class AdminService {
             return null;
         }
 
-        // Lấy danh sách các phiên đấu giá do user này sở hữu
-        java.util.List<a88.jbay.common.auction.Auction> sellerAuctions = auctionSystem.getAuctionsBySellerId(userId);
-
-        for (a88.jbay.common.auction.Auction auction : sellerAuctions) {
-            // Hàm cancelAuction sẽ tự động kiểm tra xem phiên đấu giá còn chạy (active) hay không.
-            // Nếu còn chạy, nó sẽ ép trạng thái về CANCELED, lưu DB, xóa khỏi RAM,
-            // và tự động Broadcast thông báo đến mọi client đang online.
-            auctionSystem.cancelAuction(auction.getId());
-        }
+        auctionSystem.cancelAuctionsBySellerId(userId);
 
         // Gửi gói tin Real-time báo tử live xuống máy NẠN NHÂN
         connectionSystem.sendToUser(userId, new Response(true, "BAN_USER", null));

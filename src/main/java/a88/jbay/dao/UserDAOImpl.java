@@ -50,10 +50,10 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
     }
 
     @Override
-    public int insertUser(String username, String hashedPassword, String role) {
+    public int insertUser(String username, String hashedPassword, String role, byte[] qrCode) {
         return executeInsert(
-                "INSERT INTO users (username, password, role) VALUES (?, ?, ?)",
-                username, hashedPassword, role
+                "INSERT INTO users (username, password, role, qr) VALUES (?, ?, ?, ?)",
+                username, hashedPassword, role, qrCode
         );
     }
 
