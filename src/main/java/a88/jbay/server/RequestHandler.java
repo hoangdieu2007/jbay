@@ -45,10 +45,23 @@ public class RequestHandler {
         System.out.println("Received request: " + request.getType().name());
 
         //check permission
-        User user = userSystem.findBySessionId((String) request.get("sessionId"));
-        if (user == null) return new Response(false, "INVALID_SESSION", null);
-        if (!user.can(request.getType())) {
-            return new Response(false, "PERMISSION_DENIED", null);
+        String sessionId = (String) request.get("sessionId");
+        if (sessionId != null) {
+            //authorized
+            User user = userSystem.findBySessionId(sessionId);
+            if (user == null) return new Response(false, "INVALID_SESSION", null);
+            if (!user.can(request.getType())) {
+                return new Response(false, "PERMISSION_DENIED", null);
+            }
+        } else {
+            //unauthorized
+            if (request.getType().equals(RequestType.LOGIN)) {
+                return handleLogin(request);
+            } else if (request.getType().equals(RequestType.REGISTER)) {
+                return handleRegister(request);
+            } else {
+                return new Response(false, "PERMISSION_DENIED", null);
+            }
         }
 
         return switch (request.getType()) {

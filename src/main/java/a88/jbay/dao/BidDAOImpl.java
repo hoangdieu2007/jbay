@@ -30,11 +30,23 @@ public class BidDAOImpl extends BaseDAO implements BidDAO {
         );
     }
 
+    /**
+     * Find the bid history of a specific auction
+     * Logic: For each price tag, only the earliest unbanned bid is returned.
+     * @param auctionId
+     * @return List of BidData objects
+     */
+
     public List<BidData> findBidHistoryByAuctionId(int auctionId) {
         return executeQueryList(
                 "SELECT b.userid, b.auctionid, b.amt, b.time " +
                         "FROM bids b JOIN users u ON u.id = b.userid " +
                         "WHERE b.auctionid = ? AND u.role != 'BAN' " +
+                        "AND b.id = (" +
+                        "    SELECT MIN(b2.id) FROM bids b2 " +
+                        "    JOIN users u2 ON u2.id = b2.userid " +
+                        "    WHERE b2.auctionid = b.auctionid AND b2.amt = b.amt AND u2.role != 'BAN'" +
+                        ") " +
                         "ORDER BY b.time ASC",
                 rs -> new BidData(
                         rs.getInt("userid"),

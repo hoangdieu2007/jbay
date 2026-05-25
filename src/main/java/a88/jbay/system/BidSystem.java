@@ -95,8 +95,17 @@ public class BidSystem {
         if (saved) {
             addBid(auction, tx); // subscribe user to auction and update auction price
             publishAuctionUpdate(auction);
+
             // anti-sniping check upon successful bid
             extendEndTime(tx.getTimestamp(), auction);
+
+            // delay 1s before trigger auto-bid
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                logger.error("Failed to delay auto-bid trigger", e);
+                Thread.currentThread().interrupt();
+            }
             triggerAutoBid(auction);
         }
 

@@ -41,11 +41,11 @@ public class User implements Observer, Serializable {
         this.id = id;
         this.role = role;
         this.username = username;
-        this.sessionId = "none";
+        this.sessionId = null;
     }
 
     public User() {
-        this(-1, "GUEST", "guest", "none");
+        this(-1, "GUEST", "guest", null);
     }
 
     public int getId() { return id; }

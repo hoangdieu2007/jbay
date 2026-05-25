@@ -31,13 +31,13 @@ public class Auction implements Serializable {
     private String winner;
     private Integer winnerId;
     private double startPrice;
-    private double currentPrice;
+    private volatile double currentPrice;
     private double minIncrement;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
     // realtime
-    private AuctionState auctionState;
+    private volatile AuctionState auctionState;
     private List<BidTransaction> bidHistory;
     private final Set<Integer> observers;
     private AutoBidConfig currAutoBidConfig;
