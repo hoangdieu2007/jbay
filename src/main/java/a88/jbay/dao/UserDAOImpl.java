@@ -72,4 +72,13 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
                 this::mapUser
         );
     }
+
+    @Override
+    public byte[] getQr(int userId) {
+        return executeQuery(
+                "SELECT qr FROM users WHERE id = ?",
+                rs -> rs.next() ? rs.getBytes("qr") : null,
+                userId
+        );
+    }
 }

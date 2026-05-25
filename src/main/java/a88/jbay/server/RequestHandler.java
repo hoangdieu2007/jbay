@@ -2,11 +2,10 @@ package a88.jbay.server;
 
 import a88.jbay.common.item.Item;
 import a88.jbay.common.user.User;
-import a88.jbay.common.user.role.ActionType;
+import a88.jbay.common.network.RequestType;
 import a88.jbay.common.auction.Auction;
 import a88.jbay.common.network.Request;
 import a88.jbay.common.network.Response;
-import a88.jbay.di.DependencyInjectionContainer;
 import a88.jbay.system.AuctionSystem;
 import a88.jbay.system.BidSystem;
 import a88.jbay.system.update.ConnectionSystem;
@@ -45,6 +44,13 @@ public class RequestHandler {
     public Response handleRequest(Request request) {
         System.out.println("Received request: " + request.getType().name());
 
+        //check permission
+        User user = userSystem.findBySessionId((String) request.get("sessionId"));
+        if (user == null) return new Response(false, "INVALID_SESSION", null);
+        if (!user.can(request.getType())) {
+            return new Response(false, "PERMISSION_DENIED", null);
+        }
+
         return switch (request.getType()) {
             case PING -> handlePing(request);
             case LOGIN -> handleLogin(request);
@@ -54,6 +60,8 @@ public class RequestHandler {
             case AUTO_BID -> handleAutoBid(request);
             case CANCEL_AUTO_BID -> handleCancelAutoBid(request);
             case SELL -> handleSell(request);
+            case PAY -> handlePay(request);
+            case CONFIRM_PAYMENT -> handleConfirmPayment(request);
             case CANCEL -> handleCancel(request);
             case SUBSCRIBE_AUCTION -> handleSubscribeAuction(request);
             case UNSUBSCRIBE_AUCTION -> handleUnsubscribeAuction(request);
@@ -118,7 +126,7 @@ public class RequestHandler {
     private Response handleBid(Request request) {
         User user = userSystem.findBySessionId((String) request.get("sessionId"));
         if (user == null) return new Response(false, "INVALID_SESSION", null);
-        if (user.can(ActionType.BID)) {
+        if (user.can(RequestType.BID)) {
             boolean success = bidSystem.placeBid(user.getId(), (Integer) request.get("auctionId"), (Double) request.get("amount"));
             return new Response(success, success ? "BID_SUCCESS" : "BID_FAIL", null);
         }
@@ -129,7 +137,7 @@ public class RequestHandler {
     private Response handleAutoBid(Request request) {
         User user = userSystem.findBySessionId((String) request.get("sessionId"));
         if (user == null) return new Response(false, "INVALID_SESSION", null);
-        if (user.can(ActionType.BID)) {
+        if (user.can(RequestType.BID)) {
             bidSystem.placeBidAutomated(user.getId(), (Integer) request.get("auctionId"), (Double) request.get("max_amount"), (Double) request.get("increment"));
             return new Response(true, "AUTO_BID_SUCCESS", null);
         }
@@ -140,7 +148,7 @@ public class RequestHandler {
     private Response handleCancelAutoBid(Request request) {
         User user = userSystem.findBySessionId((String) request.get("sessionId"));
         if (user == null) return new Response(false, "INVALID_SESSION", null);
-        if (user.can(ActionType.BID)) {
+        if (user.can(RequestType.BID)) {
             bidSystem.cancelAutoBid(user.getId(), (Integer) request.get("auctionId"));
             return new Response(true, "CANCEL_AUTO_BID_SUCCESS", null);
         }
@@ -151,7 +159,7 @@ public class RequestHandler {
     private Response handleSell(Request request) {
         User user = userSystem.findBySessionId((String) request.get("sessionId"));
         if (user == null) return new Response(false, "INVALID_SESSION", null);
-        if (user.can(ActionType.SELL)) {
+        if (user.can(RequestType.SELL)) {
             Item item = (Item) request.get("item");
             java.time.LocalDateTime start = (java.time.LocalDateTime) request.get("start");
             java.time.LocalDateTime end = (java.time.LocalDateTime) request.get("end");
@@ -174,6 +182,34 @@ public class RequestHandler {
         return new Response(false, "SELL_FAIL", null);
     }
 
+    //pay request - returns seller QR
+    private Response handlePay(Request request) {
+        User user = userSystem.findBySessionId((String) request.get("sessionId"));
+        if (user == null) return new Response(false, "INVALID_SESSION", null);
+        return new Response(true, "PAY_QR", userSystem.getQr(user.getId()));
+    }
+
+    //handle confirm payment
+    private Response handleConfirmPayment(Request request) {
+        User user = userSystem.findBySessionId((String) request.get("sessionId"));
+        if (user == null) return new Response(false, "INVALID_SESSION", null);
+
+        Auction auction = auctionSystem.getAuctionById((Integer) request.get("auctionId"));
+        if (auction == null) return new Response(false, "INVALID_AUCTION", null);
+
+        if (!user.getUsername().equals(auction.getSellerName())) {
+            return new Response(false, "CONFIRM_PAYMENT_FAIL", null);
+        }
+
+        boolean success = auctionSystem.confirmPayment(auction.getId());
+
+        if (success) {
+            return new Response(true, "CONFIRM_PAYMENT_SUCCESS", null);
+        }
+
+        return new Response(false, "CONFIRM_PAYMENT_FAIL", null);
+    }
+
     //canceling auctions
     //ADMIN ONLY, REPORT IF CALLS FROM NORMAL USERS ALSO RETURN CANCEL_SUCCESS
     private Response handleCancel(Request request) {
@@ -186,7 +222,7 @@ public class RequestHandler {
             return new Response(false, "CANCEL_FAIL", null);
         }
 
-        if (user.can(ActionType.CANCEL)) {
+        if (user.can(RequestType.CANCEL)) {
             boolean success = auctionSystem.cancelAuction(auction.getId());
 
             return new Response(success, success ? "CANCEL_SUCCESS" : "CANCEL_FAIL", null);

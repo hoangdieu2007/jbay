@@ -22,6 +22,10 @@ public class UserRepository {
         return userDAO.findByUsername(username);
     }
 
+    public UserData findByUserId(int userId) {
+        return userDAO.findByUserId(userId);
+    }
+
     public boolean usernameExists(String username) {
         return userDAO.existsByUsername(username);
     }
@@ -47,5 +51,9 @@ public class UserRepository {
         return userDAO.getAllNormalUsers().stream()
                 .map(data -> new User(data.id(), data.role(), data.username()))
                 .collect(Collectors.toList());
+    }
+
+    public byte[] getQr(int userId) {
+        return userDAO.getQr(userId);
     }
 }

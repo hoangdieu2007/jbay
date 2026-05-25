@@ -48,6 +48,8 @@ public class ResponseHandler {
                 case "BIDDER_AUCTION_LIST" -> handleBidderAuctionList(response);
                 case "AUCTION_UPDATE" -> handleAuctionUpdate(response);
                 case "AUCTION_UPDATE_NOTIFY" -> handleAuctionUpdateNotify(response);
+                case "PAY_QR" -> handlePayQr(response);
+                case "CONFIRM_PAYMENT_SUCCESS" -> handleConfirmPaymentSuccess(response);
                 case "ADMIN_AUCTION_LIST" -> handleAdminAuctionList(response);
                 case "ADMIN_USER_LIST" -> handleAdminUserList(response);
                 case "BAN_USER" -> handleBanUser(response);
@@ -172,6 +174,17 @@ public class ResponseHandler {
         if ("ADMIN".equals(role)) {
             clientSession.getAdminAuctions().put(auction.getId(), auction);
         }
+    }
+
+    public void handlePayQr(Response response) {
+        byte[] qr = (byte[]) response.getPayload();
+
+        //switch to the qr payment scene here
+    }
+
+    public void handleConfirmPaymentSuccess(Response response) {
+        //switch to the home scene here, display alert payment confirmed
+        new Alert(Alert.AlertType.INFORMATION, "Payment confirmed").show();
     }
 
     private void handleBanUser(Response response) {

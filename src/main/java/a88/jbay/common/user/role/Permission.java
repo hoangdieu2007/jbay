@@ -1,32 +1,42 @@
 package a88.jbay.common.user.role;
 
+import a88.jbay.common.network.RequestType;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 public class Permission {
-    private static final Map<Role, Set<ActionType>> rolePermissions = new HashMap<>();
+    private static final Map<Role, Set<RequestType>> rolePermissions = new HashMap<>();
 
     static {
-        //guest role has no permissions
-        rolePermissions.put(Role.GUEST, EnumSet.of(
-                ActionType.VIEW_AUCTIONS
+        //ban role has no permissions
+        rolePermissions.put(Role.BAN, EnumSet.of(
+                RequestType.MISC
         ));
 
         //normal auction user
         rolePermissions.put(Role.USER, EnumSet.of(
-                ActionType.VIEW_AUCTIONS,
-                ActionType.BID,
-                ActionType.SELL,
-                ActionType.CANCEL
+                RequestType.PING,
+                RequestType.LOGIN,
+                RequestType.LOGOUT,
+                RequestType.BID,
+                RequestType.AUTO_BID,
+                RequestType.CANCEL_AUTO_BID,
+                RequestType.SELL,
+                RequestType.PAY,
+                RequestType.CANCEL,
+                RequestType.SUBSCRIBE_AUCTION,
+                RequestType.UNSUBSCRIBE_AUCTION,
+                RequestType.GET_AUCTIONS,
+                RequestType.MISC
         ));
 
         //admin
-        rolePermissions.put(Role.ADMIN, EnumSet.allOf(ActionType.class));
+        rolePermissions.put(Role.ADMIN, EnumSet.allOf(RequestType.class));
     }
 
-    public static boolean isAllowed(Role role, ActionType action) {
-        return rolePermissions.getOrDefault(role, EnumSet.noneOf(ActionType.class)).contains(action);
+    public static boolean isAllowed(Role role, RequestType action) {
+        return rolePermissions.getOrDefault(role, EnumSet.noneOf(RequestType.class)).contains(action);
     }
 }

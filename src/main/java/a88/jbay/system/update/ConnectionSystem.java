@@ -67,7 +67,7 @@ public class ConnectionSystem {
     public void sendToUser(int userId, Response response) {
         Set<ClientConnection> userConnections = connections.get(userId);
 
-        if (userConnections == null) {
+        if (userConnections == null || response == null) {
             return;
         }
 

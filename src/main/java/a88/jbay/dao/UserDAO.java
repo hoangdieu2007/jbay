@@ -24,4 +24,6 @@ public interface UserDAO {
     );
 
     List<UserData> getAllNormalUsers();
+
+    byte[] getQr(int userId);
 }

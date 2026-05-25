@@ -7,7 +7,7 @@
 package a88.jbay.common.user;
 
 import a88.jbay.common.Observer;
-import a88.jbay.common.user.role.ActionType;
+import a88.jbay.common.network.RequestType;
 import a88.jbay.common.user.role.Permission;
 import a88.jbay.common.user.role.Role;
 import a88.jbay.common.auction.Auction;
@@ -56,7 +56,7 @@ public class User implements Observer, Serializable {
     /**
      * Checks if the user has permission to perform a specific action.
      */
-    public boolean can(ActionType action) {
+    public boolean can(RequestType action) {
         Role role = Role.fromString(this.role);
         return Permission.isAllowed(role, action);
     }

@@ -102,4 +102,8 @@ public class UserSystem {
         }
         return null;
     }
+
+    public byte[] getQr(int userId) {
+        return userRepository.getQr(userId);
+    }
 }

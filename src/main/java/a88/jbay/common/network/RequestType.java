@@ -9,6 +9,8 @@ public enum RequestType {
     AUTO_BID,
     CANCEL_AUTO_BID,
     SELL,
+    PAY,
+    CONFIRM_PAYMENT,
     CANCEL,
     SUBSCRIBE_AUCTION,
     UNSUBSCRIBE_AUCTION,

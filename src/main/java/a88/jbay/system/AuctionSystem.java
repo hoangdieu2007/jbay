@@ -1,5 +1,7 @@
 package a88.jbay.system;
 
+import a88.jbay.common.user.UserData;
+import a88.jbay.data.UserRepository;
 import a88.jbay.system.update.ConnectionSystem;
 import a88.jbay.system.update.UpdateSystem;
 import a88.jbay.util.JBayLogger;
@@ -13,6 +15,7 @@ import a88.jbay.data.AuctionRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.*;
 
 /*
@@ -25,6 +28,7 @@ public class AuctionSystem {
     private final ConnectionSystem connectionSystem;
     private final UpdateSystem updateSystem;
     private final AuctionRepository auctionRepository;
+    private final UserRepository userRepository;
     private final JBayLogger logger;
 
     private final ScheduledExecutorService scheduler;
@@ -33,11 +37,13 @@ public class AuctionSystem {
     public AuctionSystem(
             ConnectionSystem connectionSystem,
             UpdateSystem updateSystem,
-            AuctionRepository auctionRepository
+            AuctionRepository auctionRepository,
+            UserRepository userRepository
     ) {
         this.connectionSystem = connectionSystem;
         this.updateSystem = updateSystem;
         this.auctionRepository = auctionRepository;
+        this.userRepository = userRepository;
         this.logger = JBayLogger.getLogger(AuctionSystem.class);
         this.scheduler = Executors.newSingleThreadScheduledExecutor();
 
@@ -68,8 +74,8 @@ public class AuctionSystem {
             return false;
         }
 
-        String sellerName = auctionRepository.getUsernameByUserId(sellerId);
-        Auction auction = new Auction(auctionId, item, sellerName, start, end);
+        UserData seller = userRepository.findByUserId(sellerId);
+        Auction auction = new Auction(auctionId, item, seller, start, end);
         auction.setMinIncrement(minIncrement);
         auctionRepository.storeActiveAuction(auction);
         auction.subscribe(sellerId);
@@ -93,6 +99,35 @@ public class AuctionSystem {
         return bidPlaced;
     }
 
+    public boolean confirmPayment(int auctionId) {
+        Auction auction = auctionRepository.getActiveAuctionById(auctionId);
+        if (auction == null) {
+            logger.warn("Cancel requested for unknown auction: " + auctionId);
+            return false;
+        }
+
+        boolean confirmed = auctionRepository.setAuctionState(auctionId, AuctionState.PAID);
+        if (confirmed) {
+            auction = auctionRepository.getAuctionById(auctionId);
+            publishAuctionUpdate(auction);
+            auctionRepository.removeActiveAuction(auctionId);
+
+            updateSystem.sendToUsers(
+                    Set.of(
+                            auction.getWinnerId(),
+                            auction.getSellerId()
+                    ),
+                    new Response(true, "CONFIRM_PAYMENT_SUCCESS", auction)
+            );
+
+            logger.info("Auction payment confirmed: " + auctionId);
+        } else {
+            logger.error("Failed to confirm payment for auction in DB: " + auctionId);
+        }
+
+        return confirmed;
+    }
+
     //cancel auction
     //ONLY ADMIN CAN CALL THIS
     public boolean cancelAuction(int auctionId) {
@@ -104,7 +139,7 @@ public class AuctionSystem {
 
         boolean canceled = auctionRepository.setAuctionState(auctionId, AuctionState.CANCELED);
         if (canceled) {
-            auction.cancel();
+            auction = auctionRepository.getAuctionById(auctionId);
             publishAuctionUpdate(auction);
             auctionRepository.removeActiveAuction(auctionId);
             logger.info("Auction canceled: " + auctionId);

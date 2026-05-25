@@ -1,6 +1,8 @@
 package a88.jbay.common.auction;
 
 import a88.jbay.common.item.Item;
+import a88.jbay.common.user.User;
+import a88.jbay.common.user.UserData;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -25,6 +27,7 @@ public class Auction implements Serializable {
     private int id;
     private Item item;
     private String seller;
+    private Integer sellerId;
     private String winner;
     private Integer winnerId;
     private double startPrice;
@@ -39,12 +42,12 @@ public class Auction implements Serializable {
     private final Set<Integer> observers;
     private AutoBidConfig currAutoBidConfig;
 
-    public Auction(int id, Item item, String seller, LocalDateTime startTime, LocalDateTime endTime) {
+    public Auction(int id, Item item, UserData seller, LocalDateTime startTime, LocalDateTime endTime) {
         if (id <= 0) {
             throw new IllegalArgumentException("Auction id must be positive");
         }
         Objects.requireNonNull(item, "item");
-        requireNonBlank(seller, "seller");
+        requireNonBlank(seller.username(), "seller");
         Objects.requireNonNull(startTime, "startTime");
         Objects.requireNonNull(endTime, "endTime");
         if (endTime.isBefore(startTime)) {
@@ -56,7 +59,8 @@ public class Auction implements Serializable {
 
         this.id = id;
         this.item = item;
-        this.seller = seller;
+        this.seller = seller.username();
+        this.sellerId = seller.id();
         this.winner = "";
         this.winnerId = null;
         this.startPrice = item.getInitPrice();
@@ -78,6 +82,8 @@ public class Auction implements Serializable {
         return item;
     }
     public String getSellerName(){return seller;}
+
+    public Integer getSellerId() {return sellerId;}
 
     public String getWinner() {
         return winner;
@@ -135,6 +141,14 @@ public class Auction implements Serializable {
             throw new IllegalStateException("Only running auctions can be ended");
         }
         this.auctionState = AuctionState.FINISHED;
+        this.notifyObservers();
+    }
+
+    public void confirmPayment() {
+        if (auctionState != AuctionState.FINISHED) {
+            throw new IllegalStateException("Only finished auctions can be confirmed");
+        }
+        this.auctionState = AuctionState.PAID;
         this.notifyObservers();
     }
 

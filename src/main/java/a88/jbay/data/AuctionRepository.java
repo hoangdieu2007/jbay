@@ -139,11 +139,21 @@ public class AuctionRepository {
     // --- Persistence ---
 
     public boolean setAuctionState(int auctionId, AuctionState newState) {
-        return auctionDAO.setAuctionState(auctionId, newState);
+        boolean updated = auctionDAO.setAuctionState(auctionId, newState);
+        if (updated) {
+            Auction cached = cache.get(auctionId);
+            if (cached != null) cached.setAuctionState(newState);
+        }
+        return updated;
     }
 
     public boolean updateEndTime(int auctionId, LocalDateTime newEndTime) {
-        return auctionDAO.updateEndTime(auctionId, newEndTime);
+        boolean updated = auctionDAO.updateEndTime(auctionId, newEndTime);
+        if (updated) {
+            Auction cached = cache.get(auctionId);
+            if (cached != null) cached.setEndTime(newEndTime);
+        }
+        return updated;
     }
 
     // --- Transactional operations ---

@@ -80,6 +80,8 @@ public class ServerConnection {
             throw new IOException("Not connected to server. Please connect first.");
         }
 
+        if (request == null) return;
+
         logger.info("Sending request: " + request.getType().name());
 
         //automatically add sessionId

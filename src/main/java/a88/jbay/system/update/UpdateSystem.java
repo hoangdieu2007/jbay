@@ -52,6 +52,10 @@ public class UpdateSystem {
         connectionSystem.sendToUser(userId, response);
     }
 
+    public void sendToUsers(Set<Integer> userIds, Response response) {
+        connectionSystem.sendToUsers(userIds, response);
+    }
+
     public void broadcastToAll(Response response) {
         connectionSystem.broadcast(response);
     }
