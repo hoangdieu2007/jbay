@@ -10,7 +10,7 @@
 <StackPane prefHeight="533.0" prefWidth="800.0" styleClass="qr-root" stylesheets="@qr-style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.app.AuctionUI.QRPaymentController">
     <children>
 
-        <Label fx:id="lblSellerName" styleClass="seller-tag" text="👤 Seller: Duckie" StackPane.alignment="TOP_RIGHT">
+        <Label fx:id="lblSellerName" styleClass="seller-tag" text="👤 Seller Name" StackPane.alignment="TOP_RIGHT">
             <StackPane.margin>
                 <Insets right="20.0" top="20.0" />
             </StackPane.margin>

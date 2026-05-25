@@ -191,7 +191,7 @@ public class ResponseHandler {
         clientSession.resetSession();
         try {
             ViewManager.newStage("Welcome to jBay");
-            ViewManager.setResolution(600, 429);
+            ViewManager.setResolution(1280, 720);
             ViewManager.displayScene("EntranceUI/client-login-view.fxml");
             new Alert(Alert.AlertType.WARNING, "You have been banned").show();
         } catch (IOException e) {
