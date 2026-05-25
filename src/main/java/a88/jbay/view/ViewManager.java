@@ -2,15 +2,16 @@ package a88.jbay.view;
 
 import a88.jbay.controller.ControllerProvider;
 import javafx.animation.FadeTransition;
-import javafx.animation.ParallelTransition;
-import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
+import javafx.geometry.Pos;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.transform.Scale;
@@ -134,30 +135,36 @@ public class ViewManager {
             ControllerProvider.getInstance().registerController(controller);
         }
 
-        // 1. Prepare: New content is added but invisible
-        newContent.setOpacity(0);
+        contentArea.setAlignment(Pos.TOP_LEFT);
 
-        // 2. Bind dimensions (ensures no layout "jumping")
-        newContent.prefWidthProperty().bind(contentArea.widthProperty());
-        newContent.prefHeightProperty().bind(contentArea.heightProperty());
+        AnchorPane viewport = new AnchorPane(newContent);
+        viewport.setMinSize(0, 0);
+        viewport.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        viewport.prefWidthProperty().bind(contentArea.widthProperty());
+        viewport.prefHeightProperty().bind(contentArea.heightProperty());
+        StackPane.setAlignment(viewport, Pos.TOP_LEFT);
 
-        // 3. Add to StackPane (This puts it ON TOP of the current scene)
-        contentArea.getChildren().add(newContent);
+        Rectangle clip = new Rectangle();
+        clip.widthProperty().bind(viewport.widthProperty());
+        clip.heightProperty().bind(viewport.heightProperty());
+        viewport.setClip(clip);
 
-        // 4. Create the FadeTransition
-        FadeTransition fadeIn = new FadeTransition(Duration.millis(250), newContent);
+        newContent.setMinSize(0, 0);
+        newContent.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        newContent.setTranslateX(0);
+        newContent.setTranslateY(0);
+        AnchorPane.setTopAnchor(newContent, 0.0);
+        AnchorPane.setRightAnchor(newContent, 0.0);
+        AnchorPane.setBottomAnchor(newContent, 0.0);
+        AnchorPane.setLeftAnchor(newContent, 0.0);
+
+        viewport.setOpacity(0);
+        contentArea.getChildren().add(viewport);
+
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(180), viewport);
         fadeIn.setFromValue(0);
         fadeIn.setToValue(1);
-
-        // 5. Cleanup: Only remove the "old" background scene once the new one is visible
-        fadeIn.setOnFinished(e -> {
-            if (contentArea.getChildren().size() > 1) {
-                // Index 0 is the "old" scene, Index 1 is the "new" one.
-                // We remove the old one now that the new one covers it.
-                contentArea.getChildren().remove(0);
-            }
-        });
-
+        fadeIn.setOnFinished(e -> contentArea.getChildren().setAll(viewport));
         fadeIn.play();
     }
 
