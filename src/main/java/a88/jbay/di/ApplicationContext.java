@@ -98,6 +98,7 @@ public class ApplicationContext {
         ));
         container.registerSingleton(AdminService.class, new AdminService(
                 container.getInstance(UserDAO.class),
+                container.getInstance(UserRepository.class),
                 container.getInstance(ConnectionSystem.class),
                 container.getInstance(AuctionSystem.class),
                 container.getInstance(UserSystem.class)

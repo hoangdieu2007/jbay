@@ -85,7 +85,8 @@ CREATE TABLE `users` (
   `id` int NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `role` varchar(45) NOT NULL DEFAULT 'user',
+  `role` varchar(45) NOT NULL DEFAULT 'USER',
+  `qr` mediumblob,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `username_UNIQUE` (`username`)

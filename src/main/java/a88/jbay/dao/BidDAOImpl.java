@@ -32,7 +32,10 @@ public class BidDAOImpl extends BaseDAO implements BidDAO {
 
     public List<BidData> findBidHistoryByAuctionId(int auctionId) {
         return executeQueryList(
-                "SELECT userid, auctionid, amt, time FROM bids WHERE auctionid = ? ORDER BY time ASC",
+                "SELECT b.userid, b.auctionid, b.amt, b.time " +
+                        "FROM bids b JOIN users u ON u.id = b.userid " +
+                        "WHERE b.auctionid = ? AND u.role != 'BAN' " +
+                        "ORDER BY b.time ASC",
                 rs -> new BidData(
                         rs.getInt("userid"),
                         rs.getInt("auctionid"),

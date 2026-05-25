@@ -137,6 +137,9 @@ public class AuctionSystem {
             return false;
         }
 
+        if (!(auction.getAuctionState() == AuctionState.OPENING || auction.getAuctionState() == AuctionState.RUNNING))
+            return false;
+
         boolean canceled = auctionRepository.setAuctionState(auctionId, AuctionState.CANCELED);
         if (canceled) {
             auction = auctionRepository.getAuctionById(auctionId);
@@ -147,6 +150,13 @@ public class AuctionSystem {
             logger.error("Failed to cancel auction in DB: " + auctionId);
         }
         return canceled;
+    }
+
+    public boolean cancelAuctionsBySellerId(int sellerId) {
+        for (Auction auction : auctionRepository.getAuctionsBySellerId(sellerId)) {
+            cancelAuction(auction.getId());
+        }
+        return true;
     }
 
     public boolean isAuctionActive(int auctionId) {
@@ -197,6 +207,14 @@ public class AuctionSystem {
                 adminId,
                 new Response(true, "ADMIN_AUCTION_LIST", getAllAuctionsForAdmin())
         );
+    }
+
+    public void reloadSystem() {
+        auctionRepository.loadActiveAuctions();
+        //broadcast every auction to everyone
+        for (Auction auction : auctionRepository.getAllActiveAuctions()) {
+            updateSystem.broadcastAuctionUpdate(auction);
+        }
     }
 
     public void unsubscribeUserFromAllAuctions(int userId) {

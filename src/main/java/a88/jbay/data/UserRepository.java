@@ -56,4 +56,23 @@ public class UserRepository {
     public byte[] getQr(int userId) {
         return userDAO.getQr(userId);
     }
+
+    public boolean updateRole(int userId, String newRole) {
+        boolean updated = userDAO.changeUserRole(userId, newRole);
+        if (updated) {
+            if (newRole.equals("BAN")) {
+                sessionCache.values().removeIf(user -> user.getId() == userId);
+            } else {
+                sessionCache.entrySet().stream()
+                        .filter(e -> e.getValue().getId() == userId)
+                        .forEach(e -> {
+                            UserData fresh = userDAO.findByUserId(userId);
+                            if (fresh != null) {
+                                sessionCache.put(e.getKey(), new User(fresh.id(), fresh.role(), fresh.username()));
+                            }
+                        });
+            }
+        }
+        return updated;
+    }
 }
