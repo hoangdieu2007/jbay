@@ -1,6 +1,7 @@
 package a88.jbay.common.auction;
 
 import a88.jbay.common.item.Item;
+import a88.jbay.common.user.UserData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -188,6 +189,6 @@ class AuctionTest {
 
     private Auction createAuction(LocalDateTime startTime, LocalDateTime endTime) {
         Item item = new Item(1, "Test Item", "Generic", "A test item", 100.0);
-        return new Auction(10, item, "seller", startTime, endTime);
+        return new Auction(10, item, new UserData(1, "seller", "USER", "idk"), startTime, endTime);
     }
 }
