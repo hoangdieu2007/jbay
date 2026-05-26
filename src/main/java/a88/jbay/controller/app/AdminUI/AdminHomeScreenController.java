@@ -220,7 +220,7 @@ public class AdminHomeScreenController {
                 String activeStyle = "-fx-background-color: #F59E0B; -fx-text-fill: white; -fx-background-radius: 8; -fx-font-weight: bold; -fx-padding: 6 16; -fx-cursor: hand;";
                 String disabledStyle = "-fx-background-color: #E2E8F0; -fx-text-fill: #94A3B8; -fx-background-radius: 8; -fx-font-weight: bold; -fx-padding: 6 16;";
 
-                boolean canCancel = a.getAuctionState() != AuctionState.FINISHED && a.getAuctionState() != AuctionState.CANCELED;
+                boolean canCancel = a.getAuctionState() == AuctionState.OPENING || a.getAuctionState() == AuctionState.RUNNING;
                 btnCancel.setDisable(!canCancel);
                 btnCancel.setStyle(canCancel ? activeStyle : disabledStyle);
 

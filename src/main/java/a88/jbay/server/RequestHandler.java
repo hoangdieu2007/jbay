@@ -201,7 +201,13 @@ public class RequestHandler {
     private Response handlePay(Request request) {
         User user = userSystem.findBySessionId((String) request.get("sessionId"));
         if (user == null) return new Response(false, "INVALID_SESSION", null);
-        return new Response(true, "PAY_QR", userSystem.getQr(user.getId()));
+
+        // Lấy thông tin phiên đấu giá
+        Integer auctionId = (Integer) request.get("auctionId");
+        Auction auction = auctionSystem.getAuctionById(auctionId);
+        if (auction == null) return new Response(false, "PAY_FAIL", null);
+
+        return new Response(true, "PAY_QR", userSystem.getQr(auction.getSellerId()));
     }
 
     //handle confirm payment

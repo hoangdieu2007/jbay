@@ -25,6 +25,7 @@ public class Permission {
                 RequestType.CANCEL_AUTO_BID,
                 RequestType.SELL,
                 RequestType.PAY,
+                RequestType.CONFIRM_PAYMENT,
                 RequestType.CANCEL,
                 RequestType.SUBSCRIBE_AUCTION,
                 RequestType.UNSUBSCRIBE_AUCTION,

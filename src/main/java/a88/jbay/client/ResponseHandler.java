@@ -22,6 +22,7 @@ public class ResponseHandler {
     private ControllerProvider controllerProvider;
     private ViewManager viewManager;
     private final JBayLogger logger;
+    private Auction pendingPaymentAuction;
 
     private ResponseHandler() {
         this.logger = JBayLogger.getLogger(ResponseHandler.class);
@@ -35,6 +36,10 @@ public class ResponseHandler {
             instance = new ResponseHandler();
         }
         return instance;
+    }
+
+    public void setPendingPaymentAuction(Auction auction) {
+        this.pendingPaymentAuction = auction;
     }
 
     public void handle(Response response) {
@@ -177,27 +182,24 @@ public class ResponseHandler {
     }
 
     public void handlePayQr(Response response) {
-        // Lấy dữ liệu ảnh QR từ gói tin Server gửi về
         byte[] qrData = (byte[]) response.getPayload();
 
-        // Ép luồng xử lý giao diện JavaFX thực thi lệnh chuyển cảnh
         javafx.application.Platform.runLater(() -> {
             try {
-                // Load file giao diện QR mà bạn đã tải lên
                 viewManager.loadIntoMainScene("AuctionUI/QR-payment.fxml");
 
-                // Trích xuất Controller của màn hình QR để truyền dữ liệu vào
                 a88.jbay.controller.app.AuctionUI.QRPaymentController qrController =
                         controllerProvider.getController(a88.jbay.controller.app.AuctionUI.QRPaymentController.class);
 
                 if (qrController != null) {
-                    // Hiển thị ảnh QR.
-                    // Tạm thời truyền "Seller" và null do chúng ta đang kích hoạt thẳng từ thẻ Card (không giữ object Auction gốc)
-                    qrController.setData(qrData, "Seller", null);
+                    // Lấy tên Seller từ bộ nhớ tạm, nếu không có thì để "Unknown Seller"
+                    String sellerName = (pendingPaymentAuction != null) ? pendingPaymentAuction.getSellerName() : "Unknown Seller";
+
+                    // Truyền dữ liệu vào QR Controller
+                    qrController.setData(qrData, sellerName, pendingPaymentAuction);
                 }
             } catch (IOException e) {
                 logger.error("Failed to load QR Payment view: " + e.getMessage());
-                e.printStackTrace();
             }
         });
     }
