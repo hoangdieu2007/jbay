@@ -14,6 +14,7 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,6 +61,19 @@ public class WonAuctionsController {
                 winningList.remove(change.getValueRemoved());
                 cardBox.remove(change.getKey());
             }
+
+            winningList.sort(Comparator.comparingInt(Auction::getId));
+        });
+
+        winningSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredList.setPredicate(auction -> {
+                if(newValue == null || newValue.isEmpty() ){
+                    return true; // display all the cards
+                }
+                String lowerNewValue = newValue.toLowerCase();
+
+                return auction.getItem().getName().contains(lowerNewValue); // display the cards that their item's name matched the search
+            });
         });
 
 
