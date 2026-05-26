@@ -57,4 +57,13 @@ public class UserHomeScreenController {
         }
 
     }
+
+    @FXML
+    private void showWonAuctions(){
+        try {
+            ViewManager.getInstance().loadSubScene(contentArea, "UserHomeScreenUI/won-Auctions.fxml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
