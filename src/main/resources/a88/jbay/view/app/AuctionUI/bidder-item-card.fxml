@@ -35,7 +35,7 @@
                     <children>
                         <Label fx:id="titleLabel" prefHeight="28.0" text="ItemName">
                             <font>
-                                <Font name="System Bold" size="24.0" />
+                                <Font name="Arial Bold" size="24.0" />
                             </font>
                         </Label>
                         <Region prefHeight="40.0" HBox.hgrow="ALWAYS">

@@ -25,9 +25,9 @@
         <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="320.0" spacing="10.0" VBox.vgrow="NEVER">
             <children>
                 <Label fx:id="lblName" prefHeight="30.0" text="ItemName" HBox.hgrow="ALWAYS">
-                    <font>
-                        <Font name="System Bold" size="24.0" />
-                    </font>
+               <font>
+                  <Font name="Arial Bold" size="24.0" />
+               </font>
                 </Label>
                 <Region minWidth="50.0" prefHeight="26.0" HBox.hgrow="ALWAYS" />
                 <Label fx:id="lblStatus" alignment="CENTER" contentDisplay="CENTER" minWidth="59.0" prefHeight="23.0" style="-fx-background-color: #D1FAE5; -fx-text-fill: #065F46; -fx-padding: 3 8; -fx-background-radius: 5;" text="Status">
@@ -67,7 +67,7 @@
 
         <HBox prefHeight="50.0" prefWidth="320.0">
             <children>
-                <Label minWidth="-Infinity" prefHeight="66.0" text="Top Bidder">
+                <Label minWidth="-Infinity" prefHeight="66.0" style="-fx-font-family: inter;" text="Top Bidder">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
@@ -89,7 +89,7 @@
             <children>
                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleView" prefHeight="40.0" prefWidth="108.0" styleClass="action-button" text="View">
                     <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font name="Arial Bold" size="18.0" />
                     </font>
                 </Button>
             </children>
