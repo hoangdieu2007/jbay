@@ -58,6 +58,8 @@ public class SellerItemCardController {
             controller.setAuctionData(
                     currentAuction,
                     ClientSession.getInstance().getSellerAuctions(),
+                    true,  // canCancel = true
+                    true,  // canConfirm = true
                     () -> {
                         try {
                             ViewManager.getInstance().loadIntoMainScene("UserHomeScreenUI/my-Listings.fxml");

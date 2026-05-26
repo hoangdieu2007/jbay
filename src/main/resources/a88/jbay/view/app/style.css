@@ -374,3 +374,37 @@
 .toggle-button:selected .my-custom-icon {
     -fx-background-color: white;
 }
+
+/* --- NÚT CONFIRM PAYMENT (XANH LÁ) --- */
+.btn-confirm {
+    -fx-background-color: #10B981;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-padding: 12 35 12 35;
+    -fx-transition: all 0.2s ease;
+}
+
+/* Nút confirm payment */
+.btn-confirm:hover {
+    -fx-background-color: #059669;
+    -fx-translate-y: -2px;
+    -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.4), 8, 0, 0, 2);
+}
+
+.btn-confirm:pressed {
+    -fx-translate-y: 1px;
+    -fx-effect: none;
+}
+
+/* --- NÚT BỊ KHÓA / ĐANG CHỜ / ĐÃ XONG (XÁM) --- */
+.btn-disabled {
+    -fx-background-color: #E2E8F0;
+    -fx-text-fill: #94A3B8;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-background-radius: 8;
+    -fx-padding: 12 35 12 35;
+}

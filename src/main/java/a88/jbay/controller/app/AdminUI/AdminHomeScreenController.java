@@ -201,6 +201,8 @@ public class AdminHomeScreenController {
                         controller.setAuctionData(
                                 currentA,
                                 ClientSession.getInstance().getAdminAuctions(),
+                                true,  // canCancel = true
+                                false, // canConfirm = false
                                 () -> {
                                     try {
                                         AdminHomeScreenController.targetTabIndex = 1;

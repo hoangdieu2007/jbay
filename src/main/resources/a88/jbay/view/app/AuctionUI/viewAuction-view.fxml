@@ -111,7 +111,7 @@
 
                                 <HBox alignment="CENTER_RIGHT" prefHeight="50.0">
                                     <children>
-                                        <Button mnemonicParsing="false" onAction="#handleCancel" styleClass="btn-cancel" text="End Auction" textFill="WHITE" />
+                                        <Button fx:id="actionButton" mnemonicParsing="false" onAction="#handleActionButton" styleClass="btn-cancel" text="End Auction" textFill="WHITE" />
                                     </children>
                                 </HBox>
                             </children>

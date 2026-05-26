@@ -47,8 +47,6 @@ public class AdminService {
             return null;
         }
 
-        auctionSystem.cancelAuctionsBySellerId(userId);
-
         // Gửi gói tin Real-time báo tử live xuống máy NẠN NHÂN
         connectionSystem.sendToUser(userId, new Response(true, "BAN_USER", null));
 
