@@ -25,7 +25,7 @@ public class UserHomeScreenController {
         ViewManager.getInstance().setMainScene(contentArea);
         lblUserName.setText(ClientSession.getInstance().getUser().getUsername());
         ControllerProvider.getInstance().registerController(this);
-        Platform.runLater(() -> showMyListings());
+        showMyListings();
     }
 
     @FXML
@@ -65,5 +65,10 @@ public class UserHomeScreenController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @FXML
+    private void showCurrentBidding(){
+
     }
 }

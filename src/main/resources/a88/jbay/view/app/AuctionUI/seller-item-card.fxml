@@ -67,7 +67,7 @@
 
         <HBox prefHeight="50.0" prefWidth="320.0">
             <children>
-                <Label minWidth="-Infinity" prefHeight="66.0" style="-fx-font-family: inter;" text="Top Bidder">
+                <Label minWidth="-Infinity" prefHeight="66.0" text="Top Bidder">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>

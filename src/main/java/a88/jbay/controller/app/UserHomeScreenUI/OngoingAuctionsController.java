@@ -26,11 +26,7 @@ public class OngoingAuctionsController {
     @FXML
     private TilePane bidderTilePane;
 
-    ObservableMap<Integer, Auction> bidderMap = ClientSession.getInstance().getBidderAuctions();
 
-    ObservableList<Auction> bidderList = FXCollections.observableArrayList();
-
-    FilteredList<Auction> filteredList = new FilteredList<>(bidderList, auction -> true);
 
     Map<Integer, VBox> bidderCard = new HashMap<>();
     Map<Integer, BidderItemCardController> controllerMap = new HashMap<>();
@@ -39,6 +35,12 @@ public class OngoingAuctionsController {
 
     @FXML
     private void initialize(){
+
+        ObservableMap<Integer, Auction> bidderMap = ClientSession.getInstance().getBidderAuctions();
+
+        ObservableList<Auction> bidderList = FXCollections.observableArrayList();
+
+        FilteredList<Auction> filteredList = new FilteredList<>(bidderList, auction -> true);
 
         filteredList.addListener((ListChangeListener<Auction>) change -> {
             refreshBidderList(filteredList);

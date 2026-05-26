@@ -113,6 +113,8 @@ public class ViewManager {
      * redesign homeScreen
      **/
     private StackPane mainSceneArea;
+    private FadeTransition currentSubSceneTransition;
+    private long subSceneLoadVersion;
 
     public void setMainScene(StackPane contentArea) {
         mainSceneArea = contentArea;
@@ -127,6 +129,11 @@ public class ViewManager {
 
     }
     public void loadSubScene(StackPane contentArea, String fxmlPath) throws IOException {
+        long loadVersion = ++subSceneLoadVersion;
+        if (currentSubSceneTransition != null) {
+            currentSubSceneTransition.stop();
+        }
+
         FXMLLoader loader = new FXMLLoader(ViewManager.class.getResource("/a88/jbay/view/app/" + fxmlPath));
         Region newContent = loader.load();
 
@@ -164,7 +171,13 @@ public class ViewManager {
         FadeTransition fadeIn = new FadeTransition(Duration.millis(180), viewport);
         fadeIn.setFromValue(0);
         fadeIn.setToValue(1);
-        fadeIn.setOnFinished(e -> contentArea.getChildren().setAll(viewport));
+        fadeIn.setOnFinished(e -> {
+            if (loadVersion == subSceneLoadVersion) {
+                contentArea.getChildren().setAll(viewport);
+                currentSubSceneTransition = null;
+            }
+        });
+        currentSubSceneTransition = fadeIn;
         fadeIn.play();
     }
 

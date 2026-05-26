@@ -100,7 +100,7 @@ public class AuctionDAOImpl extends BaseDAO implements AuctionDAO {
 
     public List<AuctionData> findAuctionsByWinnerId(int winnerId) {
         return executeQueryList(
-                AUCTION_SELECT + "WHERE b.userid = ? AND a.state = 'FINISHED'",
+                AUCTION_SELECT + "WHERE b.userid = ? AND a.state IN ('FINISHED', 'PAID')",
                 this::mapAuction, winnerId
         );
     }
