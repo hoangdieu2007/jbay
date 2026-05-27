@@ -8,13 +8,12 @@ import a88.jbay.di.ApplicationContext;
 import a88.jbay.data.AuctionRepository;
 import a88.jbay.system.update.UpdateSystem;
 import a88.jbay.util.JBayLogger;
-import com.mysql.cj.x.protobuf.MysqlxCrud;
 
 import java.time.LocalDateTime;
-//import java.util.HashMap;
 import java.util.List;
-//import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Coordinates bid placement, bid persistence, and auto-bidding behavior for active auctions.
@@ -23,6 +22,7 @@ public class BidSystem {
     private final AuctionRepository auctionRepository;
     private final BidRepository bidRepository;
     private final AtomicBoolean isAutoBidding = new AtomicBoolean(false);
+    private final ConcurrentHashMap<Integer, ReentrantLock> auctionLocks = new ConcurrentHashMap<>();
     private final JBayLogger logger;
 
     private final BidDAO bidDAO;
@@ -69,6 +69,10 @@ public class BidSystem {
                 .getDependency(BidSystem.class);
     }
 
+    private ReentrantLock getLock(int auctionId) {
+        return auctionLocks.computeIfAbsent(auctionId, k -> new ReentrantLock());
+    }
+
     /**
      * Places a manual bid for a user on an active auction.
      *
@@ -81,35 +85,40 @@ public class BidSystem {
      * @param amount bid amount offered by the user
      * @return {@code true} if the bid is valid and saved successfully; {@code false} otherwise
      */
-    public synchronized boolean placeBid(int userId, int auctionId, double amount) {
+    public boolean placeBid(int userId, int auctionId, double amount) {
+        ReentrantLock lock = getLock(auctionId);
+        lock.lock();
+        try {
+            Auction auction = auctionRepository.getActiveAuctionById(auctionId);
 
-        Auction auction = auctionRepository.getActiveAuctionById(auctionId);
-
-        if (!isValidBid(auction, amount)) {
-            return false;
-        }
-
-        BidTransaction tx = createBidTransaction(userId, amount);
-        boolean saved = bidRepository.saveBid(auctionId, tx); // save bid to DB
-
-        if (saved) {
-            addBid(auction, tx); // subscribe user to auction and update auction price
-            publishAuctionUpdate(auction);
-
-            // anti-sniping check upon successful bid
-            extendEndTime(tx.getTimestamp(), auction);
-
-            // delay 1s before trigger auto-bid
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                logger.error("Failed to delay auto-bid trigger", e);
-                Thread.currentThread().interrupt();
+            if (!isValidBid(auction, amount)) {
+                return false;
             }
-            triggerAutoBid(auction);
-        }
 
-        return saved;
+            BidTransaction tx = createBidTransaction(userId, amount);
+            boolean saved = bidRepository.saveBid(auctionId, tx); // save bid to DB
+
+            if (saved) {
+                addBid(auction, tx); // subscribe user to auction and update auction price
+                publishAuctionUpdate(auction);
+
+                // anti-sniping check upon successful bid
+                extendEndTime(tx.getTimestamp(), auction);
+
+                // delay 1s before trigger auto-bid
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    logger.error("Failed to delay auto-bid trigger", e);
+                    Thread.currentThread().interrupt();
+                }
+                triggerAutoBid(auction);
+            }
+
+            return saved;
+        } finally {
+            lock.unlock();
+        }
     }
 
     /**
@@ -232,49 +241,55 @@ public class BidSystem {
      * @param maxAmount highest amount the system may bid for the user
      * @param increment amount to add above the current auction price for automated bids
      */
-    public synchronized void placeBidAutomated(int userId, int auctionId, double maxAmount, double increment) {
-        Auction auction = auctionRepository.getActiveAuctionById(auctionId);
-        if (auction == null) {
-            logger.warn("Auto-bid failed - auction not found or not active: " + auctionId);
-            return;
-        }
-
-        // Subscribe user to auction to receive price change notifications.
-        auction.subscribe(userId);
-
-        logger.info("Auto-bid request from user " + userId + " on auction " + auctionId +
-                " with maxAmount=" + maxAmount + ", increment=" + increment);
-
-        AutoBidConfig existingConfig = auction.getCurrAutoBidConfig();
-        AutoBidConfig requestedConfig = new AutoBidConfig(userId, maxAmount, increment);
-
-        if (existingConfig == null) {
-            auction.setCurrAutoBidConfig(requestedConfig);
-
-            if (isCurrentWinner(auction, userId)) {
-                logger.info("Skipping initial auto-bid for user " + userId + " on auction " + auctionId +
-                        ": user is already the current winner");
-                publishAuctionUpdate(auction);
+    public void placeBidAutomated(int userId, int auctionId, double maxAmount, double increment) {
+        ReentrantLock lock = getLock(auctionId);
+        lock.lock();
+        try {
+            Auction auction = auctionRepository.getActiveAuctionById(auctionId);
+            if (auction == null) {
+                logger.warn("Auto-bid failed - auction not found or not active: " + auctionId);
                 return;
             }
 
-            placeSingleAutoBid(auction, requestedConfig);
-        } else if (existingConfig.getUserId() == userId) {
-            auction.setCurrAutoBidConfig(requestedConfig);
+            // Subscribe user to auction to receive price change notifications.
+            auction.subscribe(userId);
 
-            if (isCurrentWinner(auction, userId)) {
-                logger.info("Updated auto-bid config for current winner " + userId +
-                        " on auction " + auctionId);
-                publishAuctionUpdate(auction);
-                return;
+            logger.info("Auto-bid request from user " + userId + " on auction " + auctionId +
+                    " with maxAmount=" + maxAmount + ", increment=" + increment);
+
+            AutoBidConfig existingConfig = auction.getCurrAutoBidConfig();
+            AutoBidConfig requestedConfig = new AutoBidConfig(userId, maxAmount, increment);
+
+            if (existingConfig == null) {
+                auction.setCurrAutoBidConfig(requestedConfig);
+
+                if (isCurrentWinner(auction, userId)) {
+                    logger.info("Skipping initial auto-bid for user " + userId + " on auction " + auctionId +
+                            ": user is already the current winner");
+                    publishAuctionUpdate(auction);
+                    return;
+                }
+
+                placeSingleAutoBid(auction, requestedConfig);
+            } else if (existingConfig.getUserId() == userId) {
+                auction.setCurrAutoBidConfig(requestedConfig);
+
+                if (isCurrentWinner(auction, userId)) {
+                    logger.info("Updated auto-bid config for current winner " + userId +
+                            " on auction " + auctionId);
+                    publishAuctionUpdate(auction);
+                    return;
+                }
+
+                placeSingleAutoBid(auction, requestedConfig);
+            } else {
+                handleCompetitiveAutoBid(auction, existingConfig, requestedConfig);
             }
 
-            placeSingleAutoBid(auction, requestedConfig);
-        } else {
-            handleCompetitiveAutoBid(auction, existingConfig, requestedConfig);
+            publishAuctionUpdate(auction);
+        } finally {
+            lock.unlock();
         }
-
-        publishAuctionUpdate(auction);
     }
 
     private void placeSingleAutoBid(Auction auction, AutoBidConfig config) {
@@ -422,20 +437,26 @@ public class BidSystem {
      * @param userId ID of the user canceling auto-bidding
      * @param auctionId ID of the auction where auto-bidding should be canceled
      */
-    public synchronized void cancelAutoBid(int userId, int auctionId) {
-        Auction auction = auctionRepository.getActiveAuctionById(auctionId);
-        if (auction == null) {
-            logger.warn("Cancel auto-bid failed - auction not found or not active: " + auctionId);
-            return;
-        }
+    public void cancelAutoBid(int userId, int auctionId) {
+        ReentrantLock lock = getLock(auctionId);
+        lock.lock();
+        try {
+            Auction auction = auctionRepository.getActiveAuctionById(auctionId);
+            if (auction == null) {
+                logger.warn("Cancel auto-bid failed - auction not found or not active: " + auctionId);
+                return;
+            }
 
-        AutoBidConfig config = auction.getCurrAutoBidConfig();
-        if (config != null && config.getUserId() == userId) {
-            clearAutoBidConfig(auctionId);
-            logger.info("Auto-bid canceled for user " + userId + " on auction " + auctionId);
-            publishAuctionUpdate(auction);
-        } else {
-            logger.warn("Cancel auto-bid failed - user " + userId + " does not have auto-bid config on auction " + auctionId);
+            AutoBidConfig config = auction.getCurrAutoBidConfig();
+            if (config != null && config.getUserId() == userId) {
+                clearAutoBidConfig(auctionId);
+                logger.info("Auto-bid canceled for user " + userId + " on auction " + auctionId);
+                publishAuctionUpdate(auction);
+            } else {
+                logger.warn("Cancel auto-bid failed - user " + userId + " does not have auto-bid config on auction " + auctionId);
+            }
+        } finally {
+            lock.unlock();
         }
     }
 
