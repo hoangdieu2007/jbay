@@ -72,7 +72,7 @@ public class AdminService {
         UserData userData = userDAO.findByUserId(userId);
         if (userData == null) return null;
 
-        if (!userDAO.changeUserRole(userId, "USER")) {
+        if (!userRepository.updateRole(userId, "USER")) {
             return null;
         }
 
