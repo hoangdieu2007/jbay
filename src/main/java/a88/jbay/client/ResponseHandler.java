@@ -1,5 +1,6 @@
 package a88.jbay.client;
 
+import a88.jbay.common.auction.AuctionState;
 import a88.jbay.controller.ControllerProvider;
 import a88.jbay.controller.app.EntranceUI.ClientLoginController;
 import a88.jbay.common.user.User;
@@ -173,6 +174,10 @@ public class ResponseHandler {
 
         if (clientSession.getUser().getUsername().equals(auction.getSellerName())) {
             clientSession.getSellerAuctions().put(auction.getId(), auction);
+        } else if (clientSession.getUser().getUsername().equals(auction.getWinner())) {
+            if (auction.getAuctionState().equals(AuctionState.FINISHED) || auction.getAuctionState().equals(AuctionState.PAID)) {
+                clientSession.getWonAuctions().put(auction.getId(), auction);
+            }
         } else {
             clientSession.getBidderAuctions().put(auction.getId(), auction);
         }
