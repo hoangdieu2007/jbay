@@ -70,8 +70,9 @@ public class CurrentBiddingController {
                         bidderList.set(idx, change.getValueAdded());
                     }
                 } else if (change.wasAdded()) {
-                    bidderList.add(change.getValueAdded());
                     createBidderCard(change.getValueAdded());
+                    bidderList.add(change.getValueAdded());
+
 
                 } else if (change.wasRemoved()) {
                     bidderList.remove(change.getValueRemoved());
