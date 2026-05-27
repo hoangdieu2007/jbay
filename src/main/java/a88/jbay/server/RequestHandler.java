@@ -59,6 +59,8 @@ public class RequestHandler {
                 return handleLogin(request);
             } else if (request.getType().equals(RequestType.REGISTER)) {
                 return handleRegister(request);
+            } else if (request.getType().equals(RequestType.PING)) {
+                return handlePing(request);
             } else {
                 return new Response(false, "PERMISSION_DENIED", null);
             }
