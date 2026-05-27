@@ -72,6 +72,7 @@ public class ClientSession {
         // Create new map instances to remove all listeners
         this.sellerAuctions = FXCollections.observableMap(new TreeMap<>(Collections.reverseOrder()));
         this.bidderAuctions = FXCollections.observableMap(new TreeMap<>(Collections.reverseOrder()));
+        this.wonAuctions  = FXCollections.observableMap(new TreeMap<>(Collections.reverseOrder()));
 
         logger.info("Session has been cleared");
     }

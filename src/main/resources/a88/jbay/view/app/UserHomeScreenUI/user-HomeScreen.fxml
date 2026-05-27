@@ -54,7 +54,7 @@
                     <Region prefHeight="19.0" prefWidth="19.0" style="-fx-shape: &quot;M444-144v-80q-51-11-87.5-46T305-357l74-30q8 36 40.5 64.5T487-294q39 0 64-20t25-52q0-30-22.5-50T474-456q-78-28-114-61.5T324-604q0-50 32.5-86t87.5-47v-79h72v79q72 12 96.5 55t25.5 45l-70 29q-8-26-32-43t-53-17q-35 0-58 18t-23 44q0 26 25 44.5t93 41.5q70 23 102 60t32 94q0 57-37 96t-101 49v77h-72Z&quot;;" styleClass="my-custom-icon" />
                 </graphic>
                 <font>
-                    <Font name="Arial Hebrew Bold" size="18.0" />
+                    <Font name="System Bold" size="18.0" />
                 </font>
                 <toggleGroup>
                     <ToggleGroup fx:id="userBtn" />
@@ -72,7 +72,7 @@
                     <Insets left="15.0" />
                 </padding>
             <font>
-               <Font name="Arial Hebrew Bold" size="18.0" />
+               <Font name="System Bold" size="18.0" />
             </font>
             </ToggleButton>
          <ToggleButton alignment="CENTER_LEFT" layoutX="10.0" layoutY="269.0" maxWidth="Infinity" mnemonicParsing="false" onAction="#showCurrentBidding" prefHeight="45.0" selected="false" style="-fx-background-radius: 10;" text="Current Biddings" toggleGroup="$userBtn">
@@ -83,7 +83,7 @@
                <Insets left="15.0" />
             </padding>
             <font>
-               <Font name="Arial Hebrew Bold" size="18.0" />
+               <Font name="System Bold" size="18.0" />
             </font>
          </ToggleButton>
          <ToggleButton alignment="CENTER_LEFT" layoutX="10.0" layoutY="314.0" maxWidth="Infinity" mnemonicParsing="false" onAction="#showWonAuctions" prefHeight="45.0" selected="false" style="-fx-background-radius: 10;" text="Won Auctions" toggleGroup="$userBtn">
@@ -91,7 +91,7 @@
                <Region prefHeight="19.0" prefWidth="19.0" style="-fx-shape: &quot;M371.01-324 480-390.22 589-324l-29-124 97-84-127-11-50-117-50 117-127 11 96.89 83.95L371.01-324ZM480-72 360-192H192v-168L72-480l120-120v-168h168l120-120 120 120h168v168l120 120-120 120v168H600L480-72Zm0-102 90-90h126v-126l90-90-90-90v-126H570l-90-90-90 90H264v126l-90 90 90 90v126h126l90 90Zm0-306Z&quot;;" styleClass="my-custom-icon" />
             </graphic>
             <font>
-               <Font name="Arial Hebrew Bold" size="18.0" />
+               <Font name="System Bold" size="18.0" />
             </font>
             <padding>
                <Insets left="15.0" />
