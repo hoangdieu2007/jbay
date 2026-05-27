@@ -93,7 +93,10 @@ public class AuctionRepository {
         if (data == null) return null;
 
         Auction auction = factory.reconstruct(data);
-        if (auction != null) cache.store(auction);
+        if (auction != null && (auction.getAuctionState() == AuctionState.OPENING
+                || auction.getAuctionState() == AuctionState.RUNNING)) {
+            cache.store(auction);
+        }
         return auction;
     }
 
