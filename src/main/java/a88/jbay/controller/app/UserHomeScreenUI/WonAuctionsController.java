@@ -18,7 +18,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WonAuctionsController {
+public class WonAuctionsController  {
 
     @FXML private TilePane winningTilePane;
     @FXML private TextField winningSearchField;

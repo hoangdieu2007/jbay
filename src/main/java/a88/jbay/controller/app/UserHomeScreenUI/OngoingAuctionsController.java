@@ -48,8 +48,11 @@ public class OngoingAuctionsController {
 
         for(Auction auction :  bidderMap.values()){
             if (!controllerMap.containsKey(auction.getId())) { // check if the auction's card is already created
-                bidderList.add(auction);
                 createBidderCard(auction);
+                if(bidderCard.containsKey(auction.getId())) {
+                    bidderList.add(auction);
+                }
+
             }
         }
 
@@ -67,8 +70,10 @@ public class OngoingAuctionsController {
                     bidderList.set(idx, change.getValueAdded());
                 }
             } else if (change.wasAdded()){
-                bidderList.add(change.getValueAdded());
                 createBidderCard(change.getValueAdded());
+                if(bidderCard.containsKey(change.getValueAdded())) {
+                    bidderList.add(change.getValueAdded());
+                }
 
             } else if (change.wasRemoved()) {
                 bidderList.remove(change.getValueRemoved());

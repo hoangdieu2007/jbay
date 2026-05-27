@@ -35,7 +35,7 @@ public class MyListingsController {
     Map<Integer, VBox> sellerCard = new HashMap<>();
     Map<Integer, SellerItemCardController> controllerMap = new HashMap<>();
 
-    private static JBayLogger logger;
+    private static final JBayLogger logger = JBayLogger.getLogger(MyListingsController.class);
 
     @FXML
     private void initialize(){
@@ -71,8 +71,10 @@ public class MyListingsController {
                 }
             }
             else if (change.wasAdded()){
-                sellerList.add(change.getValueAdded());
                 createCardSeller(change.getValueAdded());
+                if (sellerCard.containsKey(change.getKey())) {
+                    sellerList.add(change.getValueAdded());
+                }
             }
             else if(change.wasRemoved()){
                 sellerList.remove(change.getValueRemoved());
@@ -81,6 +83,7 @@ public class MyListingsController {
             }
 
             sellerList.sort(Comparator.comparingInt(Auction :: getId).reversed());
+            refreshSellerList(filteredList);
 
         } );
 
