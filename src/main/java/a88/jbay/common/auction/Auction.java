@@ -184,13 +184,16 @@ public class Auction implements Serializable {
     }
 
     public void addBid(double newPrice, BidTransaction tx) {
-        validateBidTransaction(tx);
+        if (!validateBidTransaction(tx)) return;
+
         if (!Double.isFinite(newPrice) || newPrice < 0) {
             throw new IllegalArgumentException("New price must be a non-negative finite number");
         }
         if (Double.compare(newPrice, tx.getAmt()) != 0) {
             throw new IllegalArgumentException("New price must match bid transaction amount");
         }
+
+        if (!validateLiveBid(newPrice, tx)) return;
 
         this.currentPrice = newPrice;
         this.winner = tx.getUsername();
@@ -258,27 +261,29 @@ public class Auction implements Serializable {
         return false;
     }
 
-    private void validateLiveBid(double newPrice, BidTransaction tx) {
+    private boolean validateLiveBid(double newPrice, BidTransaction tx) {
         validateBidTransaction(tx);
         if (auctionState != AuctionState.RUNNING) {
-            throw new IllegalStateException("Cannot update price unless auction is running");
+            return false;
         }
         double requiredPrice = winnerId == null ? currentPrice : currentPrice + minIncrement;
         if (newPrice < requiredPrice) {
-            throw new IllegalArgumentException("Bid is lower than the required price");
+            return false;
         }
+        return true;
     }
 
-    private void validateBidTransaction(BidTransaction tx) {
+    private boolean validateBidTransaction(BidTransaction tx) {
         Objects.requireNonNull(tx, "bid transaction");
         if (tx.getUserID() <= 0) {
-            throw new IllegalArgumentException("Bidder id must be positive");
+            return false;
         }
         requireNonBlank(tx.getUsername(), "bidder username");
         if (!Double.isFinite(tx.getAmt()) || tx.getAmt() < 0) {
-            throw new IllegalArgumentException("Bid amount must be a non-negative finite number");
+            return false;
         }
         Objects.requireNonNull(tx.getTimestamp(), "bid timestamp");
+        return true;
     }
 
     private static String requireNonBlank(String value, String fieldName) {
