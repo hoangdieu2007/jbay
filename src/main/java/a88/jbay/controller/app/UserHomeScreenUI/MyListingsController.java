@@ -51,8 +51,9 @@ public class MyListingsController {
 
         for (Auction auction : sellerMap.values()){
             if(!sellerCard.containsKey(auction.getId())){
-                sellerList.add(auction);
                 createCardSeller(auction);
+                sellerList.add(auction);
+
             }
         }
 
