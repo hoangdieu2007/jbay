@@ -156,7 +156,7 @@ public class ResponseHandler {
         List<Auction> bidderAuctions = (List<Auction>) response.getPayload();
         logger.info("Received bidder auctions: " + bidderAuctions.size());
         for (Auction auction : bidderAuctions) {
-            clientSession.getBidderAuctions().put(auction.getId(), auction);
+            clientSession.getWonAuctions().put(auction.getId(), auction);
             System.out.println(auction);
         }
     }

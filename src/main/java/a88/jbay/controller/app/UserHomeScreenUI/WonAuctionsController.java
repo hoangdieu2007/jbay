@@ -26,9 +26,6 @@ public class WonAuctionsController {
     private JBayLogger logger;
     Map<Integer, VBox> cardBox = new HashMap<>();
 
-
-    String userName = ClientSession.getInstance().getUser().getUsername();
-
     ObservableList<Auction> winningList = FXCollections.observableArrayList();
     FilteredList<Auction> filteredList = new FilteredList<>(winningList, auction -> true);
 
@@ -40,12 +37,12 @@ public class WonAuctionsController {
             refreshCard(filteredList);
         });
 
-        ObservableMap<Integer, Auction> auctionMap = ClientSession.getInstance().getBidderAuctions();
+        ObservableMap<Integer, Auction> auctionMap = ClientSession.getInstance().getWonAuctions();
 
         for (Auction auction : auctionMap.values()){
-            if (checkWinner(auction)){
+            if(!cardBox.containsKey(auction.getId())){
+                createWinningCard(auction);
                 winningList.add(auction);
-                createWinningCard(auction); //create cards
             }
         }
 
@@ -53,10 +50,9 @@ public class WonAuctionsController {
 
             if(change.wasAdded()){
                 Auction addedAuction = change.getValueAdded();
-                if (checkWinner(addedAuction)){
-                    createWinningCard(addedAuction);
-                    winningList.add(addedAuction);
-                }
+                createWinningCard(addedAuction);
+                winningList.add(addedAuction);
+
             }else if(change.wasRemoved()){
                 winningList.remove(change.getValueRemoved());
                 cardBox.remove(change.getKey());
@@ -77,14 +73,6 @@ public class WonAuctionsController {
         });
 
 
-    }
-
-    // check if there is an auction winner
-    private boolean checkWinner(Auction auction){
-        if(auction.getAuctionState() != AuctionState.RUNNING && auction.getAuctionState() != AuctionState.OPENING) {
-            return auction.getWinner().equals(userName);
-        }
-        return false;
     }
 
     @FXML

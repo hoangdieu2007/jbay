@@ -60,7 +60,7 @@
                     </font>
                 </Label>
 
-                <GridPane vgap="10.0">
+                <GridPane vgap="10.0" VBox.vgrow="NEVER">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

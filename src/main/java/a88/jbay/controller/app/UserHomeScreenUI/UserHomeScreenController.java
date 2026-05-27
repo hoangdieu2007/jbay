@@ -69,6 +69,11 @@ public class UserHomeScreenController {
 
     @FXML
     private void showCurrentBidding(){
+        try {
+            ViewManager.getInstance().loadSubScene(contentArea, "UserHomeScreenUI/current-bidding.fxml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 }

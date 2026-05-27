@@ -18,6 +18,7 @@ public class ClientSession {
     private User user;
     private ObservableMap<Integer, Auction> sellerAuctions;
     private ObservableMap<Integer, Auction> bidderAuctions;
+    private ObservableMap<Integer, Auction> wonAuctions;
     private ObservableMap<Integer, User> adminUsers = FXCollections.observableHashMap();
     private ObservableMap<Integer, Auction> adminAuctions = FXCollections.observableHashMap();
 
@@ -26,6 +27,7 @@ public class ClientSession {
         user = new User();
         sellerAuctions = FXCollections.observableMap(new TreeMap<>(Collections.reverseOrder()));
         bidderAuctions = FXCollections.observableMap(new TreeMap<>(Collections.reverseOrder()));
+        wonAuctions = FXCollections.observableMap(new TreeMap<>(Collections.reverseOrder()));
 
     }
 
@@ -52,6 +54,10 @@ public class ClientSession {
 
     public ObservableMap<Integer, Auction> getBidderAuctions() {
         return bidderAuctions;
+    }
+
+    public ObservableMap<Integer, Auction> getWonAuctions(){
+        return wonAuctions;
     }
 
     public ObservableMap<Integer, User> getAdminUsers() { return adminUsers; }
