@@ -91,7 +91,6 @@ public class ApplicationContext {
                 container.getInstance(UpdateSystem.class)
         ));
         container.registerSingleton(AuctionSystem.class, new AuctionSystem(
-                container.getInstance(ConnectionSystem.class),
                 container.getInstance(UpdateSystem.class),
                 container.getInstance(AuctionRepository.class),
                 container.getInstance(UserRepository.class)

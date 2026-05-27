@@ -25,7 +25,6 @@ features: real-time bidding, auction lifecycle management
  */
 
 public class AuctionSystem {
-    private final ConnectionSystem connectionSystem;
     private final UpdateSystem updateSystem;
     private final AuctionRepository auctionRepository;
     private final UserRepository userRepository;
@@ -35,12 +34,10 @@ public class AuctionSystem {
 
     // Constructor for dependency injection
     public AuctionSystem(
-            ConnectionSystem connectionSystem,
             UpdateSystem updateSystem,
             AuctionRepository auctionRepository,
             UserRepository userRepository
     ) {
-        this.connectionSystem = connectionSystem;
         this.updateSystem = updateSystem;
         this.auctionRepository = auctionRepository;
         this.userRepository = userRepository;
@@ -79,7 +76,7 @@ public class AuctionSystem {
         auction.setMinIncrement(minIncrement);
         auctionRepository.storeActiveAuction(auction);
         auction.subscribe(sellerId);
-        connectionSystem.broadcast(new Response(true, "AUCTION_UPDATE", auction));
+        updateSystem.broadcastToAll(new Response(true, "AUCTION_UPDATE", auction));
 
         logger.info("Auction created successfully: ID=" + auctionId + ", Item=" + item.getName());
         return true;
