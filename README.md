@@ -30,14 +30,14 @@ jBay là ứng dụng đấu giá trực tuyến được xây dựng bằng Jav
 - Cập nhật trạng thái đấu giá theo thời gian thực cho các client đã kết nối
 - Hỗ trợ các loại mặt hàng theo UI: `Electronics`, `Fashion`, `Home`, `Collectibles`, `Others`
 - Giao diện JavaFX cho client và server
-- Lưu trữ dữ liệu bằng MySQL/MariaDB thông qua các lớp DAO và repository
+- Lưu trữ dữ liệu bằng MySQL thông qua các lớp DAO và repository
 
 ## Công Nghệ Sử Dụng
 
 - Java 25
 - JavaFX 25
 - Maven
-- MySQL hoặc MariaDB
+- MySQL
 - HikariCP cho connection pooling
 - SLF4J và Logback cho logging
 - JUnit 5 và Mockito cho test
@@ -68,7 +68,7 @@ jbay/
 
 - JDK 25
 - Maven, hoặc Maven wrapper có sẵn trong dự án
-- MySQL hoặc MariaDB server
+- MySQL server
 - Tài khoản database có quyền tạo và cập nhật schema của jBAY
 
 Maven sẽ tự động chọn JavaFX platform classifier phù hợp cho Windows, macOS Intel, macOS Apple Silicon và Linux.
@@ -128,8 +128,8 @@ Trong cửa sổ server:
 
 1. Nhập JDBC URL, username và password của database.
 2. Kết nối đến database.
-3. Nếu cần, đăng ký tài khoản admin.
-4. Nhập port và khởi động service.
+3. Nhập port và khởi động service.
+4. Nếu cần, đăng ký tài khoản admin.
 
 Sau đó chạy client:
 
