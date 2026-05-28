@@ -12,6 +12,7 @@ import a88.jbay.common.network.Response;
 import a88.jbay.controller.app.EntranceUI.ClientRegisterController;
 import a88.jbay.util.JBayLogger;
 import a88.jbay.view.ViewManager;
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 
 import java.io.IOException;
@@ -213,7 +214,7 @@ public class ResponseHandler {
 
     public void handleConfirmPaymentSuccess(Response response) {
         //switch to the home scene here, display alert payment confirmed
-        new Alert(Alert.AlertType.INFORMATION, "Payment confirmed").show();
+        showAlert(Alert.AlertType.INFORMATION, "Payment confirmed");
     }
 
     private void handleBanUser(Response response) {
@@ -222,7 +223,7 @@ public class ResponseHandler {
             ViewManager.newStage("Welcome to jBay");
             ViewManager.setResolution(1280, 720);
             ViewManager.displayScene("EntranceUI/client-login-view.fxml");
-            new Alert(Alert.AlertType.WARNING, "You have been banned").show();
+            showAlert(Alert.AlertType.WARNING, "You have been banned");
         } catch (IOException e) {
             logger.error("Failed to display login scene");
         }
@@ -252,7 +253,7 @@ public class ResponseHandler {
     private void handleAuctionUpdateNotify(Response response) {
         Auction auction = (Auction) response.getPayload();
         logger.info("handleAuctionUpdateNotify called for auction " + auction.getId());
-        new Alert(Alert.AlertType.INFORMATION, "Auction " + auction.getId() + " - " + auction.getItem().getName() + " update: " + auction.getWinner() + " is the current winner, current price is " + auction.getCurrentPrice() + " USD").show();
+        showAlert(Alert.AlertType.INFORMATION, "Auction " + auction.getId() + " - " + auction.getItem().getName() + " update: " + auction.getWinner() + " is the current winner, current price is " + auction.getCurrentPrice() + " USD");
     }
 
     private void handleAdminAuctionList(Response response) {
@@ -268,6 +269,10 @@ public class ResponseHandler {
         for (User u : users) {
             clientSession.getAdminUsers().put(u.getId(), u);
         }
+    }
+
+    private void showAlert(Alert.AlertType type, String message) {
+        Platform.runLater(() -> new Alert(type, message).show());
     }
 
 

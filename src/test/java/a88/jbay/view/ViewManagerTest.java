@@ -1,5 +1,7 @@
 package a88.jbay.view;
 
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -23,14 +25,29 @@ class ViewManagerTest {
     private ViewManager viewManager;
 
     @BeforeAll
-    static void startJavaFx() {
-        try {
-            javafx.application.Platform.startup(() -> {
-            });
-        } catch (IllegalStateException ignored) {
-            // JavaFX toolkit was already started by another test.
+    static void startJavaFx() throws Exception {
+        CountDownLatch latch = new CountDownLatch(1);
+        AtomicReference<Throwable> throwable = new AtomicReference<>();
+        Thread starter = new Thread(() -> {
+            try {
+                new JFXPanel();
+            } catch (Throwable error) {
+                throwable.set(error);
+            } finally {
+                latch.countDown();
+            }
+        }, "javafx-test-starter");
+        starter.setDaemon(true);
+        starter.start();
+
+        assertTrue(latch.await(10, TimeUnit.SECONDS), "Timed out starting JavaFX toolkit");
+        if (throwable.get() instanceof Exception exception) {
+            throw exception;
         }
-        javafx.application.Platform.setImplicitExit(false);
+        if (throwable.get() instanceof Error error) {
+            throw error;
+        }
+        Platform.setImplicitExit(false);
     }
 
     @BeforeEach
@@ -134,10 +151,15 @@ class ViewManagerTest {
     }
 
     private static void runOnFxThread(ThrowingRunnable action) throws Exception {
+        if (Platform.isFxApplicationThread()) {
+            action.run();
+            return;
+        }
+
         CountDownLatch latch = new CountDownLatch(1);
         AtomicReference<Throwable> throwable = new AtomicReference<>();
 
-        javafx.application.Platform.runLater(() -> {
+        Platform.runLater(() -> {
             try {
                 action.run();
             } catch (Throwable error) {
