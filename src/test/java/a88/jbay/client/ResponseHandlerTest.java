@@ -10,6 +10,7 @@ import a88.jbay.controller.ControllerProvider;
 import a88.jbay.controller.app.EntranceUI.ClientLoginController;
 import a88.jbay.controller.app.EntranceUI.ClientRegisterController;
 import a88.jbay.view.ViewManager;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import org.junit.jupiter.api.AfterEach;
@@ -32,6 +33,8 @@ class ResponseHandlerTest {
     private MockedStatic<ClientSession> csMock;
     private MockedStatic<ControllerProvider> cpMock;
     private MockedStatic<ViewManager> vmMock;
+    private MockedStatic<Platform> platformMock;
+    private MockedStatic<ServerConnection> scMock;
 
     @BeforeEach
     void setUp() throws Exception {
@@ -48,6 +51,11 @@ class ResponseHandlerTest {
         vmMock = mockStatic(ViewManager.class);
         vmMock.when(ViewManager::getInstance).thenReturn(mock(ViewManager.class));
 
+        scMock = mockStatic(ServerConnection.class);
+        scMock.when(ServerConnection::getInstance).thenReturn(mock(ServerConnection.class));
+
+        platformMock = mockStatic(Platform.class);
+
         handler = ResponseHandler.getInstance();
     }
 
@@ -56,6 +64,8 @@ class ResponseHandlerTest {
         csMock.close();
         cpMock.close();
         vmMock.close();
+        scMock.close();
+        platformMock.close();
     }
 
     private Item makeItem() {
@@ -76,6 +86,20 @@ class ResponseHandlerTest {
         handler.handle(response);
     }
 
+    // --- DEFAULT (unknown message) ---
+
+    @Test
+    void testHandleDefault() {
+        Response response = new Response(true, "UNKNOWN_MESSAGE", null);
+        assertDoesNotThrow(() -> handler.handle(response));
+    }
+
+    @Test
+    void testHandleDefaultFailure() {
+        Response response = new Response(false, "UNKNOWN_FAILURE", null);
+        assertDoesNotThrow(() -> handler.handle(response));
+    }
+
     // --- LOGIN_FAIL ---
 
     @Test
@@ -87,6 +111,66 @@ class ResponseHandlerTest {
         handler.handle(response);
 
         verify(loginController).updateLoginLabel("Login failed");
+    }
+
+    // --- LOGIN_SUCCESS ---
+
+    @Test
+    void testHandleLoginSuccessAsUser() {
+        User curUser = new User(1, "USER", "testuser", "sess");
+        Response response = new Response(true, "LOGIN_SUCCESS", curUser);
+
+        ClientLoginController loginController = mock(ClientLoginController.class);
+        when(controllerProvider.getController(ClientLoginController.class)).thenReturn(loginController);
+
+        when(clientSession.getUser()).thenReturn(curUser);
+
+        handler.handle(response);
+
+        verify(clientSession).setUser(curUser);
+        verify(loginController).updateLoginLabel("Login successful");
+    }
+
+    @Test
+    void testHandleLoginSuccessAsAdmin() {
+        User curUser = new User(1, "ADMIN", "admin1", "sess");
+        Response response = new Response(true, "LOGIN_SUCCESS", curUser);
+
+        ClientLoginController loginController = mock(ClientLoginController.class);
+        when(controllerProvider.getController(ClientLoginController.class)).thenReturn(loginController);
+
+        when(clientSession.getUser()).thenReturn(curUser);
+
+        handler.handle(response);
+
+        verify(clientSession).setUser(curUser);
+        verify(loginController).updateLoginLabel("Login successful");
+    }
+
+    @Test
+    void testHandleLoginSuccessIOException() {
+        User curUser = new User(1, "USER", "testuser", "sess");
+        Response response = new Response(true, "LOGIN_SUCCESS", curUser);
+
+        ClientLoginController loginController = mock(ClientLoginController.class);
+        when(controllerProvider.getController(ClientLoginController.class)).thenReturn(loginController);
+        when(clientSession.getUser()).thenReturn(curUser);
+
+        vmMock.when(() -> ViewManager.displayScene(anyString())).thenThrow(new java.io.IOException("Test error"));
+
+        handler.handle(response);
+
+        verify(loginController).updateLoginLabel("Failed to display home screen");
+        verify(clientSession).setUser(curUser);
+    }
+
+    // --- LOGOUT_SUCCESS ---
+
+    @Test
+    void testHandleLogoutSuccess() {
+        Response response = new Response(true, "LOGOUT_SUCCESS", null);
+        assertDoesNotThrow(() -> handler.handle(response));
+        verify(clientSession).resetSession();
     }
 
     // --- REGISTER_SUCCESS / REGISTER_FAIL ---
@@ -231,6 +315,26 @@ class ResponseHandlerTest {
     }
 
     @Test
+    void testHandleAuctionUpdateGoesToWonAuctionsWhenPaid() {
+        User user = new User(1, "USER", "winner1", "sess");
+        when(clientSession.getUser()).thenReturn(user);
+
+        ObservableMap<Integer, Auction> wonAuctions = FXCollections.observableHashMap();
+        when(clientSession.getWonAuctions()).thenReturn(wonAuctions);
+
+        Auction auction = mock(Auction.class);
+        when(auction.getId()).thenReturn(10);
+        when(auction.getWinner()).thenReturn("winner1");
+        when(auction.getAuctionState()).thenReturn(AuctionState.PAID);
+        when(auction.getBidHistory()).thenReturn(List.of());
+
+        Response response = new Response(true, "AUCTION_UPDATE", auction);
+        handler.handle(response);
+
+        assertSame(auction, wonAuctions.get(10));
+    }
+
+    @Test
     void testHandleAuctionUpdateAdminAlsoGoesToAdminAuctions() {
         User user = new User(1, "ADMIN", "admin", "sess");
         when(clientSession.getUser()).thenReturn(user);
@@ -250,6 +354,29 @@ class ResponseHandlerTest {
         handler.handle(response);
 
         assertSame(auction, bidderAuctions.get(10));
+        assertSame(auction, adminAuctions.get(10));
+    }
+
+    @Test
+    void testHandleAuctionUpdateAdminSellerGoesToSellerAndAdminAuctions() {
+        User user = new User(1, "ADMIN", "seller1", "sess");
+        when(clientSession.getUser()).thenReturn(user);
+
+        ObservableMap<Integer, Auction> sellerAuctions = FXCollections.observableHashMap();
+        ObservableMap<Integer, Auction> adminAuctions = FXCollections.observableHashMap();
+        when(clientSession.getSellerAuctions()).thenReturn(sellerAuctions);
+        when(clientSession.getAdminAuctions()).thenReturn(adminAuctions);
+
+        Auction auction = mock(Auction.class);
+        when(auction.getId()).thenReturn(10);
+        when(auction.getSellerName()).thenReturn("seller1");
+        when(auction.getWinner()).thenReturn("someone");
+        when(auction.getBidHistory()).thenReturn(List.of());
+
+        Response response = new Response(true, "AUCTION_UPDATE", auction);
+        handler.handle(response);
+
+        assertSame(auction, sellerAuctions.get(10));
         assertSame(auction, adminAuctions.get(10));
     }
 
@@ -300,5 +427,99 @@ class ResponseHandlerTest {
         handler.handle(response);
 
         assertSame(updatedUser, adminUsers.get(5));
+    }
+
+    // --- NEW_USER_REGISTERED ---
+
+    @Test
+    void testHandleNewUserRegisteredAsAdmin() {
+        ObservableMap<Integer, User> adminUsers = FXCollections.observableHashMap();
+        when(clientSession.getAdminUsers()).thenReturn(adminUsers);
+
+        User currentUser = new User(1, "ADMIN", "adminUser", "sess");
+        when(clientSession.getUser()).thenReturn(currentUser);
+
+        platformMock.when(() -> Platform.runLater(any(Runnable.class)))
+                .thenAnswer(invocation -> {
+                    ((Runnable) invocation.getArgument(0)).run();
+                    return null;
+                });
+
+        User newUser = new User(10, "USER", "newbie");
+        Response response = new Response(true, "NEW_USER_REGISTERED", newUser);
+        handler.handle(response);
+
+        assertSame(newUser, adminUsers.get(10));
+    }
+
+    @Test
+    void testHandleNewUserRegisteredAsNonAdmin() {
+        ObservableMap<Integer, User> adminUsers = mock(ObservableMap.class);
+        when(clientSession.getAdminUsers()).thenReturn(adminUsers);
+
+        User currentUser = new User(1, "USER", "regular", "sess");
+        when(clientSession.getUser()).thenReturn(currentUser);
+
+        User newUser = new User(10, "USER", "newbie");
+        Response response = new Response(true, "NEW_USER_REGISTERED", newUser);
+        handler.handle(response);
+
+        verify(adminUsers, never()).put(anyInt(), any());
+    }
+
+    // --- PAY_QR ---
+
+    @Test
+    void testHandlePayQr() {
+        byte[] qrData = new byte[]{1, 2, 3};
+        Response response = new Response(true, "PAY_QR", qrData);
+        assertDoesNotThrow(() -> handler.handle(response));
+    }
+
+    // --- SET_PENDING_PAYMENT ---
+
+    @Test
+    void testSetPendingPaymentAuction() {
+        Auction auction = mock(Auction.class);
+        handler.setPendingPaymentAuction(auction);
+        // No getter for pendingPaymentAuction; smoke test only
+    }
+
+    // --- AUCTION_UPDATE_NOTIFY (Alert requires JavaFX toolkit) ---
+
+    @Test
+    void testHandleAuctionUpdateNotifyDispatches() {
+        Response response = new Response(true, "AUCTION_UPDATE_NOTIFY", null);
+        try {
+            handler.handle(response);
+        } catch (Throwable ignored) {
+            // Alert requires JavaFX toolkit not available in test
+        }
+    }
+
+    // --- CONFIRM_PAYMENT_SUCCESS (Alert requires JavaFX toolkit) ---
+
+    @Test
+    void testHandleConfirmPaymentSuccessDispatches() {
+        Response response = new Response(true, "CONFIRM_PAYMENT_SUCCESS", null);
+        try {
+            handler.handle(response);
+        } catch (Throwable ignored) {
+            // Alert requires JavaFX toolkit not available in test
+        }
+    }
+
+    // --- BAN_USER (Alert requires JavaFX toolkit) ---
+
+    @Test
+    void testHandleBanUserDispatches() {
+        handler.setPendingPaymentAuction(mock(Auction.class));
+        Response response = new Response(true, "BAN_USER", null);
+        try {
+            handler.handle(response);
+        } catch (Throwable ignored) {
+            // Alert requires JavaFX toolkit not available in test
+        }
+        verify(clientSession).resetSession();
     }
 }

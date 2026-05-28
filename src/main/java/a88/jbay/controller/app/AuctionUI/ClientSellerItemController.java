@@ -1,7 +1,6 @@
 package a88.jbay.controller.app.AuctionUI;
 
 import a88.jbay.client.ServerConnection;
-import a88.jbay.controller.app.UserHomeScreenUI.SellerBidderHomeScreenController;
 import a88.jbay.util.ImageProcessor;
 import a88.jbay.common.item.Item;
 import a88.jbay.common.network.Request;
@@ -346,9 +345,6 @@ public class ClientSellerItemController {
 
     @FXML
     private void handleBack() {
-        // Chỉ định tab cần mở khi quay về là Seller
-        SellerBidderHomeScreenController.targetTabIndex = 0;
-
         try {
             ViewManager.getInstance().loadIntoMainScene("UserHomeScreenUI/my-Listings.fxml");
         } catch (IOException e) {

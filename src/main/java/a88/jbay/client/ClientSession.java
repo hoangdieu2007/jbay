@@ -74,6 +74,10 @@ public class ClientSession {
         this.bidderAuctions = FXCollections.observableMap(new TreeMap<>(Collections.reverseOrder()));
         this.wonAuctions  = FXCollections.observableMap(new TreeMap<>(Collections.reverseOrder()));
 
+        // Clear admin maps
+        this.adminUsers.clear();
+        this.adminAuctions.clear();
+
         logger.info("Session has been cleared");
     }
 }
