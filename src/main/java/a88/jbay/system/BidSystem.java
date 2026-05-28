@@ -21,8 +21,8 @@ import java.util.concurrent.locks.ReentrantLock;
 public class BidSystem {
     private final AuctionRepository auctionRepository;
     private final BidRepository bidRepository;
-    private final AtomicBoolean isAutoBidding = new AtomicBoolean(false);
     private final ConcurrentHashMap<Integer, ReentrantLock> auctionLocks = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Integer, AtomicBoolean> autoBiddingFlags = new ConcurrentHashMap<>();
     private final JBayLogger logger;
 
     private final BidDAO bidDAO;
@@ -483,9 +483,10 @@ public class BidSystem {
             return;
         }
 
-        // Prevent recursive auto-bid calls
-        if (!isAutoBidding.compareAndSet(false, true)) {
-            return; // another thread is already processing auto-bid
+        // Prevent recursive auto-bid calls per auction
+        AtomicBoolean flag = autoBiddingFlags.computeIfAbsent(auctionId, k -> new AtomicBoolean(false));
+        if (!flag.compareAndSet(false, true)) {
+            return; // another thread is already processing auto-bid for this auction
         }
 
         try {
@@ -525,7 +526,7 @@ public class BidSystem {
             }
         } finally {
             // Reset flag after bid is placed
-            isAutoBidding.set(false);
+            flag.set(false);
         }
     }
 
