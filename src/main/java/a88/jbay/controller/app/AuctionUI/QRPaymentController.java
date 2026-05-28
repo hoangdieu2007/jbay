@@ -42,7 +42,7 @@ public class QRPaymentController {
     private void handleClose() {
         try {
             // Load thẳng lại màn hình danh sách Ongoing Auctions của trang chủ
-            ViewManager.getInstance().loadIntoMainScene("UserHomeScreenUI/won-Auction.fxml");
+            ViewManager.getInstance().loadIntoMainScene("UserHomeScreenUI/won-Auctions.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
