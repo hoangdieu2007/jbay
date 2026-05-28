@@ -107,7 +107,7 @@ public class BidSystem {
 
                 // delay 1s before trigger auto-bid
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     logger.error("Failed to delay auto-bid trigger", e);
                     Thread.currentThread().interrupt();
