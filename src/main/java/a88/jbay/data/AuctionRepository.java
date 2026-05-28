@@ -93,7 +93,10 @@ public class AuctionRepository {
         if (data == null) return null;
 
         Auction auction = factory.reconstruct(data);
-        if (auction != null) cache.store(auction);
+        if (auction != null && (auction.getAuctionState() == AuctionState.OPENING
+                || auction.getAuctionState() == AuctionState.RUNNING)) {
+            cache.store(auction);
+        }
         return auction;
     }
 
@@ -113,7 +116,22 @@ public class AuctionRepository {
 
     public List<Auction> getAllAuctionsForAdmin() {
         return auctionDAO.getAllAuctionsForAdmin().stream()
-                .map(factory::reconstructForAdmin)
+                .map(data -> {
+                    // 1. Ưu tiên lấy hàng từ RAM (Cache) nếu phiên đấu giá đang RUNNING
+                    // -> Việc này đảm bảo Admin luôn nhận được cục dữ liệu có Bids History real-time mới nhất
+                    Auction cached = cache.get(data.id());
+                    if (cached != null) return cached;
+
+                    // 2. Nếu phiên đấu giá đã FINISHED hoặc CANCELED (không còn trong RAM),
+                    // -> Dùng lệnh reconstruct() gốc để ép Server vào Database móc lên ĐẦY ĐỦ cả mảng byte Ảnh và lịch sử Bids
+                    try {
+                        return factory.reconstruct(data);
+                    } catch (Exception e) {
+                        logger.error("Lỗi khi tải full thông tin cho Admin - Auction ID: " + data.id(), e);
+                        return null;
+                    }
+                })
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
 
@@ -124,23 +142,42 @@ public class AuctionRepository {
     // --- Persistence ---
 
     public boolean setAuctionState(int auctionId, AuctionState newState) {
-        return auctionDAO.setAuctionState(auctionId, newState);
+        boolean updated = auctionDAO.setAuctionState(auctionId, newState);
+        if (updated) {
+            Auction cached = cache.get(auctionId);
+            if (cached != null) cached.setAuctionState(newState);
+        }
+        return updated;
     }
 
     public boolean updateEndTime(int auctionId, LocalDateTime newEndTime) {
-        return auctionDAO.updateEndTime(auctionId, newEndTime);
+        boolean updated = auctionDAO.updateEndTime(auctionId, newEndTime);
+        if (updated) {
+            Auction cached = cache.get(auctionId);
+            if (cached != null) cached.setEndTime(newEndTime);
+        }
+        return updated;
     }
 
     // --- Transactional operations ---
 
-    public int insertItemAndAuction(Item item, int sellerId,
+    /**
+    * @deprecated
+    *
+     **/
+//    public int insertItemAndAuction(Item item, int sellerId,
+//                                    LocalDateTime start, LocalDateTime end) {
+//        return insertItemAndAuction(item, sellerId, 0.0, start, end);
+//    }
+
+    public int insertItemAndAuction(Item item, int sellerId, double minIncrement,
                                     LocalDateTime start, LocalDateTime end) {
         try (Connection connection = dbController.getConnection()) {
             connection.setAutoCommit(false);
             try {
                 int itemId = itemDAO.insertItem(connection, item);
                 int auctionId = auctionDAO.insertAuction(connection,
-                        itemId, sellerId, item.getInitPrice(), item.getInitPrice(), start, end);
+                        itemId, sellerId, item.getInitPrice(), minIncrement, start, end);
 
                 connection.commit();
                 return auctionId;

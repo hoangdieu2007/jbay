@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox prefHeight="720.0" prefWidth="1280.0" stylesheets="@client-register-style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.app.EntranceUI.ClientRegisterController">
+    <children>
+
+        <StackPane prefWidth="640.0" styleClass="left-pane-register">
+            <children>
+                <VBox alignment="CENTER" spacing="20.0">
+                    <children>
+                        <ImageView fitHeight="359.0" fitWidth="469.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../image/logo-no-bg.png" />
+                            </image>
+                        </ImageView>
+                        <Label styleClass="slogan-text" text="Start your bidding journey today" />
+                    </children>
+                </VBox>
+            </children>
+        </StackPane>
+
+        <VBox alignment="CENTER_LEFT" prefWidth="640.0" styleClass="right-pane">
+            <padding>
+                <Insets bottom="60.0" left="100.0" right="100.0" top="60.0" />
+            </padding>
+            <children>
+                <Label styleClass="title-text" text="Create an account" />
+
+                <HBox alignment="CENTER_LEFT" spacing="5.0">
+                    <VBox.margin>
+                        <Insets bottom="30.0" top="5.0" />
+                    </VBox.margin>
+                    <children>
+                        <Label styleClass="subtitle-text" text="Already have an account? " />
+                        <Button fx:id="btnToLogin" mnemonicParsing="false" onAction="#goToLoginScene" styleClass="link-button-green" text="Sign in" />
+                    </children>
+                </HBox>
+
+                <VBox spacing="20.0">
+                    <children>
+
+                        <VBox spacing="8.0">
+                            <children>
+                                <Label styleClass="input-label" text="Username" />
+                                <TextField fx:id="usernameTextFieldRegister" prefHeight="50.0" promptText="Choose a unique username" styleClass="input-field" />
+                            </children>
+                        </VBox>
+
+                        <VBox spacing="8.0">
+                            <children>
+                                <Label styleClass="input-label" text="Password" />
+                                <PasswordField fx:id="passwordPasswordFieldRegister" prefHeight="50.0" promptText="Create a strong password" styleClass="input-field" />
+                            </children>
+                        </VBox>
+
+                        <VBox spacing="8.0">
+                            <children>
+                                <Label prefHeight="25.0" prefWidth="215.0" styleClass="input-label" text="QR Code For Payment" />
+                                <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                    <children>
+                                        <Button fx:id="btnUploadQR" mnemonicParsing="false" onAction="#handleUploadQR" prefHeight="40.0" styleClass="btn-upload-qr" text="Upload Image" />
+                                        <Label fx:id="lblQRFileName" styleClass="file-name-label" text="No file selected" />
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+
+                        <Label fx:id="registerLabel" styleClass="error-text" wrapText="true" />
+
+                    </children>
+                </VBox>
+
+                <Button fx:id="registerButton" maxWidth="Infinity" mnemonicParsing="false" onAction="#onClickRegisterButton" prefHeight="55.0" styleClass="btn-register" text="Register">
+                    <VBox.margin>
+                        <Insets top="30.0" />
+                    </VBox.margin>
+                </Button>
+
+                <Label prefHeight="25.0" prefWidth="440.0" styleClass="error-text-bold" text="Invalid Register" visible="false">
+                    <VBox.margin>
+                        <Insets top="15.0" />
+                    </VBox.margin>
+                </Label>
+
+            </children>
+        </VBox>
+    </children>
+</HBox>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="669.0" prefWidth="1051.0" style="-fx-background-color: #5287C5; -fx-background-color: linear-gradient(to bottom, #5287C1, #2A4565);" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.app.ServerUI.ServerDatabaseController">
+   <children>
+      <BorderPane layoutX="347.0" prefHeight="47.0" prefWidth="894.0" style="-fx-background-color: #BBD8EA;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <right>
+            <Region prefHeight="40.0" prefWidth="13.0" BorderPane.alignment="CENTER" />
+         </right>
+      </BorderPane>
+
+      <VBox alignment="CENTER_LEFT" layoutX="30.0" layoutY="173.0" prefHeight="373.0" prefWidth="330.0" styleClass="glass-card">
+         <children>
+            <AnchorPane prefHeight="371.0" prefWidth="335.0">
+               <children>
+                  <Label alignment="CENTER" layoutX="128.0" layoutY="19.0" text="Database" textFill="#fffbfb">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Region layoutX="94.0" layoutY="23.0" prefHeight="22.0" prefWidth="24.0" style="-fx-shape: &quot;M479.5-144q-140.5 0-238-41.85T144-288v-384q0-60 98-102t237.5-42q139.5 0 238 42T816-672v384q0 60.3-98 102.15Q620-144 479.5-144Zm.47-456Q566-600 646-621.5t98-50.5q-18-28-98.5-50t-165.53-22Q394-744 313.5-722T216-672q17 29 96.5 50.5T479.97-600Zm.03 192q42 0 80-4.5t71.5-12.5q33.5-8 62-20.5T744-474v-109q-24.25 13.22-53.62 23.61Q661-549 627.17-542.15q-33.83 6.85-71 10.5Q519-528 479.5-528t-77.11-3.65q-37.62-3.65-71-10.5Q298-549 268.5-559.5 239-570 216-583v109q22.41 15.94 50.21 28.47Q294-433 327.5-425q33.5 8 72 12.5T480-408Zm.32 192q43.32 0 88.05-6.4 44.73-6.39 82.4-16.9 37.67-10.5 63.09-23.75Q739.29-276.3 744-290v-101q-24.25 13.22-53.62 23.61Q661-357 627.17-350.15q-33.83 6.85-71 10.5Q519-336 479.5-336t-77.11-3.65q-37.62-3.65-71-10.5Q298-357 268.5-367.5 239-378 216-391v103q5 13 30.5 26t63 23q37.5 10 82.5 16.5t88.32 6.5Z&quot;; -fx-background-color: white;" />
+                  <Label alignment="CENTER" layoutX="12.0" layoutY="49.0" minWidth="100.0" prefHeight="34.0" text="Server URL" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold Italic" size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="serverURLTextField" layoutX="5.0" layoutY="83.0" prefHeight="40.0" prefWidth="314.0" promptText="https://example.com" styleClass="input-field">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <Label alignment="CENTER" layoutX="7.0" layoutY="123.0" prefHeight="42.0" prefWidth="111.0" text="User Name" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="databaseUsernameTextField" layoutX="5.0" layoutY="164.0" prefHeight="34.0" prefWidth="314.0" promptText="Enter username" styleClass="input-field">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <Label alignment="CENTER" layoutX="12.0" layoutY="199.0" minWidth="100.0" prefHeight="42.0" text="Password" textFill="#fffdfd">
+                     <font>
+                        <Font name="System Bold Italic" size="18.0" />
+                     </font>
+                  </Label>
+                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="69.0" layoutY="306.0" minWidth="97.0" mnemonicParsing="false" onAction="#handleConnectToDatabase" prefHeight="47.0" styleClass="btn-connect" text="Connect to Database">
+                     <font>
+                        <Font name="System Bold Italic" size="18.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="lblConnectionState" alignment="CENTER" layoutX="22.0" layoutY="282.0" minWidth="207.0" prefHeight="24.0" prefWidth="278.0" textFill="WHITE">
+                     <font>
+                        <Font name="System Italic" size="14.0" />
+                     </font>
+                  </Label>
+                  <PasswordField fx:id="databasePassword" layoutX="4.0" layoutY="241.0" prefHeight="34.0" prefWidth="314.0" promptText="Enter password" style="-fx-background-radius: 30;">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </PasswordField>
+               </children>
+            </AnchorPane>
+            <Region prefHeight="22.0" prefWidth="302.0" />
+         </children>
+      </VBox>
+
+      <VBox alignment="CENTER_LEFT" layoutX="384.0" layoutY="177.0" prefHeight="369.0" prefWidth="302.0" styleClass="glass-card">
+         <children>
+            <AnchorPane prefHeight="361.0" prefWidth="298.0">
+               <children>
+                  <Label alignment="CENTER" layoutX="74.0" layoutY="14.0" text="🌐 Socket Port" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="5.0" layoutY="43.0" prefHeight="34.0" prefWidth="116.0" text="Port Number" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold Italic" size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="portNumberTextField" layoutX="10.0" layoutY="77.0" prefHeight="40.0" prefWidth="314.0" promptText="Enter number" styleClass="input-field" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="btnStartService" alignment="CENTER" contentDisplay="CENTER" layoutX="89.0" layoutY="157.0" minWidth="97.0" mnemonicParsing="false" onAction="#handleStartService" prefHeight="47.0" styleClass="btn-start" text="Start Service">
+                     <font>
+                        <Font name="System Bold Italic" size="18.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="lblStartServiceState" alignment="CENTER" layoutX="21.0" layoutY="127.0" minWidth="256.0" prefHeight="17.0" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </AnchorPane>
+            <AnchorPane />
+         </children>
+      </VBox>
+
+      <VBox alignment="CENTER_LEFT" layoutX="716.0" layoutY="173.0" prefHeight="369.0" prefWidth="302.0" styleClass="glass-card">
+         <children>
+            <AnchorPane prefHeight="333.0" prefWidth="300.0">
+               <children>
+                  <Label alignment="CENTER" layoutX="141.0" layoutY="2.0" text="Admin" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="10.0" layoutY="37.0" minWidth="137.0" prefHeight="34.0" text="Admin Username" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold Italic" size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="adminUsernameTextField" layoutX="10.0" layoutY="65.0" prefHeight="40.0" prefWidth="314.0" promptText="Enter Username" styleClass="input-field" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <Label alignment="CENTER" layoutY="105.0" prefHeight="42.0" prefWidth="157.0" text="Admin Password" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="btnRegisterAdmin" alignment="CENTER" contentDisplay="CENTER" layoutX="82.0" layoutY="200.0" minWidth="97.0" mnemonicParsing="false" onAction="#handleRegisterAdmin" prefHeight="47.0" styleClass="btn-register" text="Register admin">
+                     <font>
+                        <Font name="System Bold Italic" size="18.0" />
+                     </font>
+                  </Button>
+                  <Region layoutX="101.0" layoutY="2.0" prefHeight="29.0" prefWidth="29.0" style="-fx-shape: &quot;M378-450q-42-42-42-102t42-102q42-42 102-42t102 42q42 42 42 102t-42 102q-42 42-102 42t-102-42Zm153-51q21-21 21-51t-21-51q-21-21-51-21t-51 21q-21 21-21 51t21 51q21 21 51 21t51-21ZM480-96q-135-33-223.5-153T168-515v-229l312-120 312 120v229q0 146-88.5 266T480-96Zm0-383Zm0-308-240 92v180q0 53 15 103t41 93q43-20 89.5-30.5T480-360q48 0 94.5 10.5T664-319q26-43 41-93t15-103v-180l-240-92Zm-71 506q-35 7-68 21 29 31 64 54t75 35q40-12 75-35t64-54q-33-14-68-21t-71-7q-36 0-71 7Z&quot;; -fx-background-color: white;" />
+                  <PasswordField fx:id="adminPasswordField" layoutX="-8.0" layoutY="147.0" prefHeight="40.0" prefWidth="314.0" promptText="Enter Password" style="-fx-background-radius: 40;" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </PasswordField>
+               </children>
+            </AnchorPane>
+            <AnchorPane />
+         </children>
+      </VBox>
+
+      <Label alignment="CENTER" layoutX="384.0" layoutY="80.0" prefHeight="60.0" prefWidth="329.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0, 255, 255, 0.3), 8, 0, 0, 0);" text="jBay Server" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="48.0" />
+         </font>
+      </Label>
+      <Region layoutX="370.0" layoutY="90.0" prefHeight="50.0" prefWidth="50.0" style="-fx-shape: &quot;M360-336h252q45 0 76.5-31.5T720-444q0-42-28-72.5T622-551q-8-52-48-86.5T480-672q-48 0-84.5 27T344-575q-45 6-74.5 39.5T240-456q0 49.71 35.14 84.86Q310.29-336 360-336Zm0-72q-20 0-34-14t-14-34q0-20 14-34t34-14h48v-24q0-29.7 21.21-50.85 21.21-21.15 51-21.15T531-578.85q21 21.15 21 50.85v48h60q14.88 0 24.94 10.29t10.06 25.5q0 15.21-10.06 25.71T612-408H360ZM480.28-96Q401-96 331-126t-122.5-82.5Q156-261 126-330.96t-30-149.5Q96-560 126-629.5q30-69.5 82.5-122T330.96-834q69.96-30 149.5-30t149.04 30q69.5 30 122 82.5T834-629.28q30 69.73 30 149Q864-401 834-331t-82.5 122.5Q699-156 629.28-126q-69.73 30-149 30Zm-.28-72q130 0 221-91t91-221q0-130-91-221t-221-91q-130 0-221 91t-91 221q0 130 91 221t221 91Zm0-312Z&quot;; -fx-background-color: white;" />
+   </children>
+</AnchorPane>

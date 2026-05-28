@@ -2,6 +2,8 @@ package a88.jbay.data;
 
 import a88.jbay.common.auction.*;
 import a88.jbay.common.item.Item;
+import a88.jbay.common.user.User;
+import a88.jbay.common.user.UserData;
 import a88.jbay.dao.BidDAO;
 import a88.jbay.dao.ItemDAO;
 import a88.jbay.dao.UserDAO;
@@ -36,7 +38,7 @@ public class AuctionFactory {
             return null;
         }
 
-        String sellerName = userDAO.findByUserId(data.sellerId()).username();
+        UserData seller = userDAO.findByUserId(data.sellerId());
 
         logger.debug("Loading auction: " + data.id() +
                 " - " + item.getName() +
@@ -45,11 +47,12 @@ public class AuctionFactory {
         Auction auction = new Auction(
                 data.id(),
                 item,
-                sellerName,
+                seller,
                 data.startTime(),
                 data.endTime()
         );
 
+        auction.setMinIncrement(data.minIncrement());
         auction.setAuctionState(AuctionState.valueOf(data.state()));
 
         restoreBidHistory(auction, data.id());
@@ -72,14 +75,17 @@ public class AuctionFactory {
                 data.startPrice()
         );
 
+        UserData seller = userDAO.findByUserId(data.sellerId());
+
         Auction auction = new Auction(
                 data.id(),
                 item,
-                String.valueOf(data.sellerId()),
+                seller,
                 data.startTime(),
                 data.endTime()
         );
 
+        auction.setMinIncrement(data.minIncrement());
         try {
             auction.setAuctionState(AuctionState.valueOf(data.state()));
         } catch (Exception e) {

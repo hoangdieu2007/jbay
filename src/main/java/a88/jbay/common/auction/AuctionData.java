@@ -8,6 +8,7 @@ public record AuctionData(
         int sellerId,
         double startPrice,
         double curPrice,
+        double minIncrement,
         Integer winnerId,
         LocalDateTime startTime,
         LocalDateTime endTime,

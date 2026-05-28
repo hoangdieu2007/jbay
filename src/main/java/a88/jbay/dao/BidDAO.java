@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface BidDAO {
 
-    boolean insertBid(
+    int insertBid(
             int userId,
             int auctionId,
             double amount,
@@ -21,6 +21,6 @@ public interface BidDAO {
     );
 
     // --- transactional overload ---
-    boolean insertBid(Connection connection, int userId, int auctionId,
-                      double amount, LocalDateTime time) throws SQLException;
+    int insertBid(Connection connection, int userId, int auctionId,
+                  double amount, LocalDateTime time) throws SQLException;
 }

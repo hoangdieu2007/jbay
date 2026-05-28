@@ -4,9 +4,10 @@ import a88.jbay.common.network.Response;
 import a88.jbay.common.user.User;
 import a88.jbay.common.user.UserData;
 import a88.jbay.dao.UserDAO;
+import a88.jbay.data.UserRepository;
 import a88.jbay.server.ClientConnection;
+import a88.jbay.system.AuctionSystem;
 import a88.jbay.system.update.ConnectionSystem;
-import a88.jbay.system.update.UpdateSystem;
 import a88.jbay.util.JBayLogger;
 
 import java.util.Set;
@@ -15,20 +16,23 @@ public class AdminService {
 
     private final UserDAO userDAO;
     private final ConnectionSystem connectionSystem;
-    private final UpdateSystem updateSystem;
+    private final UserRepository userRepository;
+    private final AuctionSystem auctionSystem;
     private final UserSystem userSystem;
     private final JBayLogger logger;
 
     public AdminService(
             UserDAO userDAO,
+            UserRepository userRepository,
             ConnectionSystem connectionSystem,
-            UpdateSystem updateSystem,
+            AuctionSystem auctionSystem,
             UserSystem userSystem
     ) {
         this.userDAO = userDAO;
         this.connectionSystem = connectionSystem;
+        this.userRepository = userRepository;
         this.userSystem = userSystem;
-        this.updateSystem = updateSystem;
+        this.auctionSystem = auctionSystem;
         this.logger = JBayLogger.getLogger(AdminService.class);
     }
 
@@ -39,7 +43,7 @@ public class AdminService {
         UserData userData = userDAO.findByUserId(userId);
         if (userData == null) return null;
 
-        if (!userDAO.changeUserRole(userId, "BAN")) {
+        if (!userRepository.updateRole(userId, "BAN")) {
             return null;
         }
 
@@ -54,8 +58,9 @@ public class AdminService {
             }
         }
 
-        updateSystem.unsubscribeUserFromAllAuctions(userId);
-        connectionSystem.unregister(userId);
+        connectionSystem.unregister(userId); // unregister all connections currently logged in to this account
+        auctionSystem.cancelAuctionsBySellerId(userId); // cancel all auctions sold by this user
+        auctionSystem.reloadSystem(); // reload every auctions and update auction current bid
 
         // Đúc và trả về đối tượng mang Role mới
         return new User(userId, "BAN", userData.username());
@@ -67,9 +72,11 @@ public class AdminService {
         UserData userData = userDAO.findByUserId(userId);
         if (userData == null) return null;
 
-        if (!userDAO.changeUserRole(userId, "USER")) {
+        if (!userRepository.updateRole(userId, "USER")) {
             return null;
         }
+
+        auctionSystem.reloadSystem(); // reload every auctions
 
         // Đúc và trả về đối tượng mang Role mới
         return new User(userId, "USER", userData.username());

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1330.0" style="-fx-background-color: white;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.app.UserHomeScreenUI.WonAuctionsController">
+    <children>
+        <Label layoutX="79.0" layoutY="34.0" style="-fx-text-fill: black;" text="My Wins">
+            <font>
+                <Font name="Arial Hebrew Bold" size="28.0" />
+            </font>
+        </Label>
+
+        <Label layoutX="79.0" layoutY="69.0" text="Your winning items" />
+
+        <TextField fx:id="winningSearchField" layoutX="816.0" layoutY="41.0" prefHeight="36.0" prefWidth="364.0" promptText="Search" styleClass="search-field" AnchorPane.rightAnchor="95.0" AnchorPane.topAnchor="41.0">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </TextField>
+
+        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" layoutY="100.0" prefWidth="1330.0" style="-fx-background-color: white;" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+            <content>
+                <VBox alignment="TOP_CENTER" style="-fx-background-color: white;">
+                    <children>
+                        <TilePane fx:id="winningTilePane" alignment="TOP_LEFT" hgap="15.0" prefColumns="4" prefHeight="40.0" prefWidth="1340.0" vgap="20.0">
+                            <padding>
+                                <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+                            </padding>
+                        </TilePane>
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+
+        <Region layoutX="27.0" layoutY="38.0" prefHeight="48.0" prefWidth="48.0" style="-fx-shape: &quot;M371.01-324 480-390.22 589-324l-29-124 97-84-127-11-50-117-50 117-127 11 96.89 83.95L371.01-324ZM480-72 360-192H192v-168L72-480l120-120v-168h168l120-120 120 120h168v168l120 120-120 120v168H600L480-72Zm0-102 90-90h126v-126l90-90-90-90v-126H570l-90-90-90 90H264v126l-90 90 90 90v126h126l90 90Zm0-306Z&quot;; -fx-background-color: black;" />
+
+        <Region layoutX="913.0" layoutY="47.0" prefHeight="25.0" prefWidth="26.0" style="-fx-shape: &quot;M765-144 526-383q-30 22-65.79 34.5-35.79 12.5-76.18 12.5Q284-336 214-406t-70-170q0-100 70-170t170-70q100 0 170 70t70 170.03q0 40.39-12.5 76.18Q599-464 577-434l239 239-51 51ZM384-408q70 0 119-49t49-119q0-70-49-119t-119-49q-70 0-119 49t-49 119q0 70 49 119t119 49Z&quot;; -fx-background-color: gray;" AnchorPane.rightAnchor="111.0" AnchorPane.topAnchor="47.0" />
+    </children>
+</AnchorPane>

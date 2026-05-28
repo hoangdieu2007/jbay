@@ -16,11 +16,10 @@ module a88.jbay {
     requires com.zaxxer.hikari;
     requires java.desktop;
     requires org.slf4j;
+    requires mysql.connector.j;
 
     opens a88.jbay.view to javafx.fxml, javafx.graphics;
     exports a88.jbay.view;
-    exports a88.jbay.controller.client;
-    opens a88.jbay.controller.client to javafx.fxml, javafx.graphics;
     exports a88.jbay.server;
     opens a88.jbay.server to javafx.fxml, javafx.graphics;
     exports a88.jbay.system;
@@ -37,4 +36,15 @@ module a88.jbay {
     opens a88.jbay.system.user to javafx.fxml, javafx.graphics;
     exports a88.jbay.common.auction;
     opens a88.jbay.common.auction to javafx.fxml, javafx.graphics;
+
+    exports a88.jbay.controller.app.AdminUI;
+    opens a88.jbay.controller.app.AdminUI to javafx.fxml, javafx.graphics;
+    exports a88.jbay.controller.app.AuctionUI;
+    opens a88.jbay.controller.app.AuctionUI to javafx.fxml, javafx.graphics;
+    exports a88.jbay.controller.app.EntranceUI;
+    opens a88.jbay.controller.app.EntranceUI to javafx.fxml, javafx.graphics;
+    exports a88.jbay.controller.app.ServerUI;
+    opens a88.jbay.controller.app.ServerUI to javafx.fxml, javafx.graphics;
+    exports a88.jbay.controller.app.UserHomeScreenUI;
+    opens a88.jbay.controller.app.UserHomeScreenUI to javafx.fxml, javafx.graphics;
 }

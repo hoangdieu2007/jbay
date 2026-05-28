@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="BOTTOM_CENTER" fillWidth="false" prefHeight="440.0" prefWidth="320.0" spacing="10.0" styleClass="item-card" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.app.AuctionUI.SellerItemCardController">
+    <children>
+        <StackPane prefHeight="200.0" prefWidth="302.0" VBox.vgrow="NEVER">
+            <clip>
+                <Rectangle arcHeight="20.0" arcWidth="20.0" height="200.0" width="302.0" />
+            </clip>
+            <children>
+                <ImageView fx:id="sellerImage" fitHeight="200.0" fitWidth="302.0" pickOnBounds="true" preserveRatio="true" />
+            </children>
+        </StackPane>
+
+        <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="320.0" spacing="10.0" VBox.vgrow="NEVER">
+            <children>
+                <Label fx:id="lblName" prefHeight="30.0" text="ItemName" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font name="Arial Bold" size="24.0" />
+               </font>
+                </Label>
+                <Region minWidth="50.0" prefHeight="26.0" HBox.hgrow="ALWAYS" />
+                <Label fx:id="lblStatus" alignment="CENTER" contentDisplay="CENTER" minWidth="59.0" prefHeight="23.0" style="-fx-background-color: #D1FAE5; -fx-text-fill: #065F46; -fx-padding: 3 8; -fx-background-radius: 5;" text="Status">
+                    <HBox.margin>
+                        <Insets right="1.0" />
+                    </HBox.margin>
+                </Label>
+                <Region prefHeight="26.0" />
+            </children>
+            <padding>
+                <Insets left="15.0" />
+            </padding>
+        </HBox>
+
+        <HBox prefHeight="40.0" prefWidth="320.0">
+            <children>
+                <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="56.0" text="Highest Bid" textFill="#dd2121">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                </Label>
+                <Region prefHeight="56.0" prefWidth="91.0" />
+                <Label fx:id="lblPrice" alignment="CENTER_RIGHT" minWidth="143.0" prefHeight="56.0" text="Price" textAlignment="CENTER" textFill="#cd2424">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+                <Region minWidth="10.0" prefHeight="56.0" />
+            </children>
+            <padding>
+                <Insets left="15.0" />
+            </padding>
+        </HBox>
+
+        <HBox prefHeight="50.0" prefWidth="320.0">
+            <children>
+                <Label minWidth="-Infinity" prefHeight="66.0" text="Top Bidder">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Label>
+                <Region prefHeight="50.0" prefWidth="71.0" />
+                <Label fx:id="lblHighestBidderName" alignment="CENTER_RIGHT" minWidth="148.0" prefHeight="50.0" text="BidderName" textAlignment="CENTER">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Label>
+                <Region minWidth="10.0" prefHeight="50.0" />
+            </children>
+            <padding>
+                <Insets left="15.0" />
+            </padding>
+        </HBox>
+
+        <HBox alignment="CENTER" prefHeight="44.0">
+            <children>
+                <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleView" prefHeight="40.0" prefWidth="108.0" styleClass="action-button" text="View">
+                    <font>
+                        <Font name="Arial Bold" size="18.0" />
+                    </font>
+                </Button>
+            </children>
+            <VBox.margin>
+                <Insets bottom="10.0" />
+            </VBox.margin>
+        </HBox>
+    </children>
+</VBox>

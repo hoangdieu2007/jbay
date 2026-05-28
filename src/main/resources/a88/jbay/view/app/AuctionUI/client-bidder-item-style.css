@@ -1,0 +1,171 @@
+/* --- NỀN TẢNG & BỐ CỤC CHUNG --- */
+.item-view-root {
+    -fx-background-color: #F4F7F9;
+}
+
+/* Thanh Header dải màu Gradient */
+.item-view-header {
+    -fx-background-color: linear-gradient(to right, #1E3A8A, #3B82F6);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+}
+
+.header-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+/* --- CÁC THẺ NỘI DUNG (CARDS) --- */
+.card-panel {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 5);
+    -fx-padding: 20;
+}
+
+.section-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1E293B;
+}
+
+/* Khung chứa ảnh nét đứt */
+.image-dashed-container {
+    -fx-border-color: #CBD5E1;
+    -fx-border-style: dashed;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+    -fx-background-color: #F8FAFC;
+    -fx-background-radius: 10;
+}
+
+/* TextArea phẳng, không viền mặc định */
+.flat-text-area {
+    -fx-background-color: transparent;
+    -fx-control-inner-background: white;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 8;
+    -fx-font-size: 14;
+}
+.flat-text-area .content {
+    -fx-background-color: transparent;
+}
+
+/* --- THÔNG TIN CHI TIẾT (GRID PANE) --- */
+.detail-label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #64748B;
+}
+
+.detail-value {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1E293B;
+}
+
+.detail-value-link {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2563EB;
+}
+
+.price-value {
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #059669; /* Màu xanh lục bảo */
+}
+
+/* --- KHU VỰC ĐẶT GIÁ (BID PANEL) --- */
+.bid-control-box {
+    -fx-background-color: #F8FAFC;
+    -fx-background-radius: 12;
+    -fx-padding: 15;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 12;
+}
+
+.bid-input {
+    -fx-font-size: 14px;
+    -fx-background-radius: 6;
+    -fx-border-color: #CBD5E1;
+    -fx-border-radius: 6;
+}
+.bid-input:focused {
+    -fx-border-color: #2563EB;
+    -fx-effect: dropshadow(gaussian, rgba(37, 99, 235, 0.2), 5, 0, 0, 0);
+}
+
+/* --- QUY CHUẨN HIỆU ỨNG NÚT BẤM (BUTTONS) --- */
+.btn-general {
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+    -fx-transition: all 0.2s ease;
+}
+
+/* 1. Nút Back (Trong suốt viền trắng) */
+.btn-back {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-text-fill: white;
+    -fx-background-radius: 20;
+    -fx-border-color: white;
+    -fx-border-radius: 20;
+    -fx-padding: 8 20;
+    -fx-cursor: hand;
+}
+.btn-back:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.35);
+    -fx-translate-y: -2px;
+}
+.btn-back:pressed {
+    -fx-translate-y: 1px;
+}
+
+/* 2. Nút Place Bid (Xanh dương) */
+.btn-place-bid {
+    -fx-background-color: #2563EB;
+    -fx-text-fill: white;
+}
+.btn-place-bid:hover {
+    -fx-background-color: #1D4ED8;
+    -fx-translate-y: -2px;
+    -fx-effect: dropshadow(gaussian, rgba(37, 99, 235, 0.4), 8, 0, 0, 2);
+}
+.btn-place-bid:pressed {
+    -fx-translate-y: 1px;
+    -fx-effect: none;
+}
+
+/* 3. Nút Start Auto Bid (Xanh lá) */
+.btn-start-auto {
+    -fx-background-color: #10B981;
+    -fx-text-fill: white;
+}
+.btn-start-auto:hover {
+    -fx-background-color: #059669;
+    -fx-translate-y: -2px;
+    -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.4), 8, 0, 0, 2);
+}
+.btn-start-auto:pressed {
+    -fx-translate-y: 1px;
+    -fx-effect: none;
+}
+
+/* 4. Nút Hủy Auto Bid "X" (Đỏ) */
+.btn-cancel-auto {
+    -fx-background-color: #EF4444;
+    -fx-text-fill: white;
+}
+.btn-cancel-auto:hover {
+    -fx-background-color: #DC2626;
+    -fx-translate-y: -2px;
+    -fx-effect: dropshadow(gaussian, rgba(239, 68, 68, 0.4), 8, 0, 0, 2);
+}
+.btn-cancel-auto:pressed {
+    -fx-translate-y: 1px;
+    -fx-effect: none;
+}

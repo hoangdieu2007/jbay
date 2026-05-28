@@ -1,42 +1,28 @@
 package a88.jbay.view;
 
+import a88.jbay.common.auction.Auction;
+import a88.jbay.common.auction.BidTransaction;
+import a88.jbay.common.item.Item;
+import a88.jbay.common.user.UserData;
 import a88.jbay.di.ApplicationContext;
 import a88.jbay.server.DatabaseController;
 import a88.jbay.util.JBayLogger;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class HelloApplication {
     private static JBayLogger logger;
 
     public static void main(String[] args) {
-        logger = JBayLogger.getLogger(HelloApplication.class);
-        logger.info("JBAY Server TUI starting");
-        logger.info("------------------JBAY_SERVER_TUI-----------------");
-        logger.info("--------------software infrastructure-------------");
+        LocalDateTime BASE_TIME = LocalDateTime.of(2026, 5, 15, 10, 0);
+        Item item = new Item(1, "Test Item", "Generic", "A test item", 100.0);
+        Auction auction = new Auction(1, item, new UserData(1, "seller", "USER", "idk"), BASE_TIME, BASE_TIME.plusDays(30));
 
-        // Initialize dependency injection container
-        ApplicationContext.getInstance().configureDatabase();
+        auction.start();
 
-        Scanner sc = new Scanner(System.in);
-
-        logger.info("Connect to database:");
-        while (true) {
-            try {
-                logger.info("Enter URL:");
-                String url = sc.nextLine();
-                logger.info("Enter username:");
-                String username = sc.nextLine();
-                logger.info("Enter password:");
-                String password = sc.nextLine();
-                DatabaseController dbController = ApplicationContext.getInstance().getDependency(DatabaseController.class);
-                dbController.initializePool(url, username, password);
-                dbController.getConnection();
-                break;
-            } catch (SQLException e) {
-                logger.error("Database connection failed, please try again.");
-            }
-        }
+        BidTransaction transaction = new BidTransaction(5, "bidder", 150.0, BASE_TIME);
+        auction.addBid(150.0, transaction);
     }
 }

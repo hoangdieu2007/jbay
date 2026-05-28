@@ -1,0 +1,79 @@
+/* --- NỀN BỐ CỤC --- */
+/* Nền bên trái (Gradient xanh dương sáng) */
+.left-pane-connect {
+    -fx-background-color: linear-gradient(to bottom, #BAE6FD, #0284C7);
+}
+
+/* Nền bên phải (Trắng) */
+.right-pane {
+    -fx-background-color: white;
+}
+
+/* --- VĂN BẢN (TEXT) --- */
+/* Chữ slogan dưới logo */
+.slogan-text {
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-opacity: 0.9;
+}
+
+/* Tiêu đề "Connect to Server" */
+.title-text {
+    -fx-text-fill: #1E293B;
+    -fx-font-size: 44px;
+    -fx-font-weight: bold;
+}
+
+/* Chữ phụ đề "Please enter server details..." */
+.subtitle-text {
+    -fx-text-fill: #64748B;
+    -fx-font-size: 16px;
+}
+
+/* --- NHẬP LIỆU (INPUT) --- */
+.input-label {
+    -fx-text-fill: #1E293B;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+
+.input-field {
+    -fx-background-radius: 8;
+    -fx-border-color: #CBD5E1;
+    -fx-border-radius: 8;
+    -fx-padding: 10;
+    -fx-font-size: 14px;
+    -fx-background-color: white;
+}
+
+/* Viền sáng xanh dương khi focus vào ô nhập liệu */
+.input-field:focused {
+    -fx-border-color: #0284C7;
+    -fx-effect: dropshadow(gaussian, rgba(2, 132, 199, 0.2), 5, 0, 0, 0);
+}
+
+/* --- NÚT BẤM (BUTTONS) --- */
+.btn-connect {
+    -fx-background-color: #0284C7;
+    -fx-text-fill: white;
+    -fx-background-radius: 25;
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+    -fx-cursor: hand;
+    -fx-transition: all 0.2s ease;
+}
+.btn-connect:hover {
+    -fx-background-color: #0369A1; /* Xanh đậm hơn khi hover */
+    -fx-translate-y: -2px;
+    -fx-effect: dropshadow(gaussian, rgba(2, 132, 199, 0.4), 8, 0, 0, 2);
+}
+.btn-connect:pressed {
+    -fx-translate-y: 1px;
+    -fx-effect: none;
+}
+
+/* --- TRẠNG THÁI (STATUS/ERROR) --- */
+.status-text {
+    -fx-text-fill: #0284C7;
+    -fx-font-size: 14px;
+}

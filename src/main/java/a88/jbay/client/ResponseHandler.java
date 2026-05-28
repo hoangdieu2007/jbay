@@ -1,16 +1,18 @@
 package a88.jbay.client;
 
+import a88.jbay.common.auction.AuctionState;
 import a88.jbay.controller.ControllerProvider;
-import a88.jbay.controller.client.ClientLoginController;
+import a88.jbay.controller.app.EntranceUI.ClientLoginController;
 import a88.jbay.common.user.User;
 import a88.jbay.common.auction.Auction;
 import a88.jbay.common.auction.BidTransaction;
 import a88.jbay.common.network.Request;
 import a88.jbay.common.network.RequestType;
 import a88.jbay.common.network.Response;
-import a88.jbay.controller.client.ClientRegisterController;
+import a88.jbay.controller.app.EntranceUI.ClientRegisterController;
 import a88.jbay.util.JBayLogger;
 import a88.jbay.view.ViewManager;
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 
 import java.io.IOException;
@@ -22,6 +24,7 @@ public class ResponseHandler {
     private ControllerProvider controllerProvider;
     private ViewManager viewManager;
     private final JBayLogger logger;
+    private Auction pendingPaymentAuction;
 
     private ResponseHandler() {
         this.logger = JBayLogger.getLogger(ResponseHandler.class);
@@ -37,6 +40,10 @@ public class ResponseHandler {
         return instance;
     }
 
+    public void setPendingPaymentAuction(Auction auction) {
+        this.pendingPaymentAuction = auction;
+    }
+
     public void handle(Response response) {
         if (response.isSuccess()) {
             switch (response.getMessage()) {
@@ -48,10 +55,13 @@ public class ResponseHandler {
                 case "BIDDER_AUCTION_LIST" -> handleBidderAuctionList(response);
                 case "AUCTION_UPDATE" -> handleAuctionUpdate(response);
                 case "AUCTION_UPDATE_NOTIFY" -> handleAuctionUpdateNotify(response);
+                case "PAY_QR" -> handlePayQr(response);
+                case "CONFIRM_PAYMENT_SUCCESS" -> handleConfirmPaymentSuccess(response);
                 case "ADMIN_AUCTION_LIST" -> handleAdminAuctionList(response);
                 case "ADMIN_USER_LIST" -> handleAdminUserList(response);
                 case "BAN_USER" -> handleBanUser(response);
                 case "USER_STATE_CHANGED" -> handleUserStateChanged(response);
+                case "NEW_USER_REGISTERED" -> handleNewUserRegistered(response);
                 case "PONG" -> handlePong(response);
                 default -> handleDefault(response);
             };
@@ -82,12 +92,12 @@ public class ResponseHandler {
             ViewManager.newStage("Auction88's jBay");
             ViewManager.setResolution(1280, 720);
             if (curUser.getRole().equals("USER")) {
-                ViewManager.displayScene("client/Seller-Bidder-HomeScreens.fxml");
+                ViewManager.displayScene("UserHomeScreenUI/user-HomeScreen.fxml");
                 ServerConnection.getInstance().send(new Request(RequestType.GET_AUCTIONS)
                         .put("userId", clientSession.getUser().getId()));
             }
             else if (curUser.getRole().equals("ADMIN")) {
-                ViewManager.displayScene("client/Admin-HomeScreens.fxml");
+                ViewManager.displayScene("AdminUI/Admin-HomeScreens.fxml");
                 ServerConnection.getInstance().send(new Request(RequestType.GET_AUCTIONS)
                         .put("userId", clientSession.getUser().getId()));
                 ServerConnection.getInstance().send(new Request(RequestType.GET_USERS)
@@ -119,7 +129,7 @@ public class ResponseHandler {
             ViewManager.setResolution(1280, 720);
             ClientSession.getInstance().resetSession();
             ControllerProvider.getInstance().clearControllers();
-            ViewManager.displayScene("client/client-login-view.fxml");
+            ViewManager.displayScene("EntranceUI/client-login-view.fxml");
         } catch (IOException e) {
             logger.error("Failed to display login view");
         }
@@ -146,8 +156,9 @@ public class ResponseHandler {
     private void handleBidderAuctionList(Response response) {
         System.out.println("handleBidderAuctionList");
         List<Auction> bidderAuctions = (List<Auction>) response.getPayload();
+        logger.info("Received bidder auctions: " + bidderAuctions.size());
         for (Auction auction : bidderAuctions) {
-            clientSession.getBidderAuctions().put(auction.getId(), auction);
+            clientSession.getWonAuctions().put(auction.getId(), auction);
             System.out.println(auction);
         }
     }
@@ -164,22 +175,55 @@ public class ResponseHandler {
 
         if (clientSession.getUser().getUsername().equals(auction.getSellerName())) {
             clientSession.getSellerAuctions().put(auction.getId(), auction);
+        } else if (clientSession.getUser().getUsername().equals(auction.getWinner())) {
+            if (auction.getAuctionState().equals(AuctionState.FINISHED) || auction.getAuctionState().equals(AuctionState.PAID)) {
+                clientSession.getWonAuctions().put(auction.getId(), auction);
+            } else {
+                clientSession.getBidderAuctions().put(auction.getId(), auction);
+            }
         } else {
             clientSession.getBidderAuctions().put(auction.getId(), auction);
         }
-
         if ("ADMIN".equals(role)) {
             clientSession.getAdminAuctions().put(auction.getId(), auction);
         }
+    }
+
+    public void handlePayQr(Response response) {
+        byte[] qrData = (byte[]) response.getPayload();
+
+        javafx.application.Platform.runLater(() -> {
+            try {
+                viewManager.loadIntoMainScene("AuctionUI/QR-payment.fxml");
+
+                a88.jbay.controller.app.AuctionUI.QRPaymentController qrController =
+                        controllerProvider.getController(a88.jbay.controller.app.AuctionUI.QRPaymentController.class);
+
+                if (qrController != null) {
+                    // Lấy tên Seller từ bộ nhớ tạm, nếu không có thì để "Unknown Seller"
+                    String sellerName = (pendingPaymentAuction != null) ? pendingPaymentAuction.getSellerName() : "Unknown Seller";
+
+                    // Truyền dữ liệu vào QR Controller
+                    qrController.setData(qrData, sellerName, pendingPaymentAuction);
+                }
+            } catch (IOException e) {
+                logger.error("Failed to load QR Payment view: " + e.getMessage());
+            }
+        });
+    }
+
+    public void handleConfirmPaymentSuccess(Response response) {
+        //switch to the home scene here, display alert payment confirmed
+        showAlert(Alert.AlertType.INFORMATION, "Payment confirmed");
     }
 
     private void handleBanUser(Response response) {
         clientSession.resetSession();
         try {
             ViewManager.newStage("Welcome to jBay");
-            ViewManager.setResolution(600, 429);
-            ViewManager.displayScene("client/client-login-view.fxml");
-            new Alert(Alert.AlertType.WARNING, "You have been banned").show();
+            ViewManager.setResolution(1280, 720);
+            ViewManager.displayScene("EntranceUI/client-login-view.fxml");
+            showAlert(Alert.AlertType.WARNING, "You have been banned");
         } catch (IOException e) {
             logger.error("Failed to display login scene");
         }
@@ -190,10 +234,26 @@ public class ResponseHandler {
         clientSession.getAdminUsers().put(updatedUser.getId(), updatedUser);
     }
 
+    private void handleNewUserRegistered(Response response) {
+        User currentUser = clientSession.getUser();
+        if (currentUser != null && "ADMIN".equals(currentUser.getRole())) {
+
+            // Lấy luôn user mới từ payload và nhét vào kho lưu trữ cục bộ
+            User newUser = (User) response.getPayload();
+
+            if (newUser != null) {
+                // Đẩy vào JavaFX Thread để tránh lỗi Not on FX Application Thread
+                javafx.application.Platform.runLater(() -> {
+                    clientSession.getAdminUsers().put(newUser.getId(), newUser);
+                });
+            }
+        }
+    }
+
     private void handleAuctionUpdateNotify(Response response) {
         Auction auction = (Auction) response.getPayload();
         logger.info("handleAuctionUpdateNotify called for auction " + auction.getId());
-        new Alert(Alert.AlertType.INFORMATION, "Auction " + auction.getId() + " - " + auction.getItem().getName() + " update: " + auction.getWinner() + " is the current winner, current price is " + auction.getCurrentPrice() + " USD").show();
+        showAlert(Alert.AlertType.INFORMATION, "Auction " + auction.getId() + " - " + auction.getItem().getName() + " update: " + auction.getWinner() + " is the current winner, current price is " + auction.getCurrentPrice() + " USD");
     }
 
     private void handleAdminAuctionList(Response response) {
@@ -209,6 +269,10 @@ public class ResponseHandler {
         for (User u : users) {
             clientSession.getAdminUsers().put(u.getId(), u);
         }
+    }
+
+    private void showAlert(Alert.AlertType type, String message) {
+        Platform.runLater(() -> new Alert(type, message).show());
     }
 
 

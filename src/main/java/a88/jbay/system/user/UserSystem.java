@@ -61,25 +61,15 @@ public class UserSystem {
         return user;
     }
 
-    public boolean register(
-            String username,
-            String password,
-            String role
-    ) {
-
+    public boolean register(String username, String password, String role, byte[] qrCode) {
         logger.debug("Register: " + username);
 
         if (userRepository.usernameExists(username)) {
-
             logger.warn("Username exists: " + username);
             return false;
         }
 
-        return userRepository.createUser(
-                username,
-                StringHash.hash(password),
-                role
-        );
+        return userRepository.createUser(username, StringHash.hash(password), role, qrCode);
     }
 
     public void logout(String sessionId) {
@@ -93,5 +83,17 @@ public class UserSystem {
 
     public java.util.List<User> getAllNormalUsersForAdmin() {
         return userRepository.getAllNormalUsers();
+    }
+
+    public User getUserByName(String username) {
+        UserData userData = userRepository.findByUsername(username);
+        if (userData != null) {
+            return new User(userData.id(), userData.role(), userData.username());
+        }
+        return null;
+    }
+
+    public byte[] getQr(int userId) {
+        return userRepository.getQr(userId);
     }
 }

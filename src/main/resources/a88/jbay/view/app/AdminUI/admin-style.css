@@ -1,0 +1,68 @@
+/* Nền chung của Admin */
+.admin-root {
+    -fx-background-color: #F4F7F9;
+}
+
+/* Thanh Header */
+.admin-header {
+    -fx-background-color: linear-gradient(to right, #1E3A8A, #3B82F6);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+}
+
+/* --- Nút Log Out --- */
+.admin-logout-btn {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-text-fill: white;
+    -fx-background-radius: 20;
+    -fx-border-color: white;
+    -fx-border-radius: 20;
+    -fx-font-weight: bold;
+    -fx-padding: 8 25 8 25;
+    -fx-cursor: hand;
+    -fx-transition: all 0.3s ease; /* Làm mượt hiệu ứng */
+}
+
+/* Hiệu ứng khi trỏ chuột: Nổi lên và sáng nhẹ */
+.admin-logout-btn:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.35);
+    -fx-translate-y: -2px;
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.4), 8, 0, 0, 2);
+}
+
+/* Hiệu ứng khi bấm: Lún xuống nhẹ nhàng thay vì teo nhỏ */
+.admin-logout-btn:pressed {
+    -fx-translate-y: 1px;
+    -fx-effect: none;
+    -fx-background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* --- Thẻ chứa nội dung chính (Card Panel) --- */
+.admin-card-panel {
+    -fx-padding: 25;
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 5);
+}
+
+/* --- Ô tìm kiếm --- */
+.admin-search-field {
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-padding: 10 15;
+    -fx-border-color: #3B82F6;
+    -fx-font-size: 14;
+}
+
+/* Hiệu ứng phát sáng khi click vào ô tìm kiếm */
+.admin-search-field:focused {
+    -fx-border-color: #1E3A8A;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.3), 8, 0, 0, 0);
+}
+
+/* --- Bảng dữ liệu (TableView) --- */
+.admin-table {
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-font-size: 16;
+}

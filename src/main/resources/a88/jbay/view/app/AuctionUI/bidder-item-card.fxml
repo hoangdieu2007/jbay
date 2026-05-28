@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="BOTTOM_CENTER" fillWidth="false" prefHeight="450.0" prefWidth="320.0" spacing="10.0" styleClass="bidder-item-card" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.app.AuctionUI.BidderItemCardController">
+    <children>
+        <StackPane prefHeight="180.0" prefWidth="300.0" VBox.vgrow="NEVER">
+            <clip>
+                <Rectangle arcHeight="20.0" arcWidth="20.0" height="180.0" width="300.0" />
+            </clip>
+            <children>
+                <ImageView fx:id="itemImage" fitHeight="180.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" />
+            </children>
+        </StackPane>
+
+        <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="320.0" VBox.vgrow="NEVER">
+            <children>
+                <Label fx:id="titleLabel" prefHeight="30.0" text="ItemName" HBox.hgrow="ALWAYS">
+                    <font>
+                        <Font name="System Bold" size="22.0" />
+                    </font>
+                </Label>
+                <Region prefHeight="35.0" HBox.hgrow="ALWAYS" />
+                <Label fx:id="statusLabel" alignment="CENTER" minWidth="60.0" styleClass="status-badge" text="State">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </Label>
+            </children>
+            <padding>
+                <Insets left="15.0" right="15.0" />
+            </padding>
+        </HBox>
+
+        <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="320.0" VBox.vgrow="NEVER">
+            <children>
+                <Label fx:id="descriptionLabel" text="description" textFill="#555555">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+            </children>
+            <padding>
+                <Insets left="15.0" right="15.0" />
+            </padding>
+        </HBox>
+
+        <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="320.0" VBox.vgrow="NEVER">
+            <children>
+                <Label prefHeight="52.0" text="Current Bid">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Label>
+                <Region HBox.hgrow="ALWAYS" />
+                <Label fx:id="currentBidLabel" text="Price" textFill="#2e8b57">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+            </children>
+            <padding>
+                <Insets left="15.0" right="15.0" />
+            </padding>
+        </HBox>
+
+        <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="320.0" VBox.vgrow="NEVER">
+            <children>
+                <Label prefHeight="32.0" text="Top Bidder">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Label>
+                <Region HBox.hgrow="ALWAYS" />
+                <Label fx:id="lblTopBidder" text="topBidderName">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Label>
+            </children>
+            <padding>
+                <Insets left="15.0" right="15.0" />
+            </padding>
+        </HBox>
+
+        <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="320.0" VBox.vgrow="NEVER">
+            <children>
+                <Label text="Seller's Name">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Label>
+                <Region HBox.hgrow="ALWAYS" />
+                <Label fx:id="sellerIDLabel" text="SellerID">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Label>
+            </children>
+            <padding>
+                <Insets left="15.0" right="15.0" />
+            </padding>
+        </HBox>
+
+        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="320.0" VBox.vgrow="NEVER">
+            <children>
+                <Button fx:id="bidButton" mnemonicParsing="false" onAction="#handlePlaceBid" prefHeight="40.0" prefWidth="290.0" styleClass="bid-button" text="Place Bid">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Button>
+            </children>
+            <VBox.margin>
+                <Insets bottom="10.0" />
+            </VBox.margin>
+        </HBox>
+    </children>
+</VBox>

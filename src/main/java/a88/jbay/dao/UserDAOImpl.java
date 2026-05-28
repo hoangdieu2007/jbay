@@ -41,15 +41,6 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
     }
 
     @Override
-    public UserData findBySessionId(String sessionId) {
-        return executeQuery(
-                "SELECT userid FROM sessionids WHERE id = ?",
-                rs -> rs.next() ? findByUserId(rs.getInt("userid")) : null,
-                sessionId
-        );
-    }
-
-    @Override
     public boolean existsByUsername(String username) {
         return executeQuery(
                 "SELECT 1 FROM users WHERE username = ?",
@@ -59,27 +50,11 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
     }
 
     @Override
-    public int insertUser(String username, String hashedPassword, String role) {
+    public int insertUser(String username, String hashedPassword, String role, byte[] qrCode) {
         return executeInsert(
-                "INSERT INTO users (username, password, role) VALUES (?, ?, ?)",
-                username, hashedPassword, role
+                "INSERT INTO users (username, password, role, qr) VALUES (?, ?, ?, ?)",
+                username, hashedPassword, role, qrCode
         );
-    }
-
-    @Override
-    public boolean insertSession(String sessionId, int userId) {
-        return executeUpdate(
-                "INSERT INTO sessionids (id, userid) VALUES (?, ?)",
-                sessionId, userId
-        ) > 0;
-    }
-
-    @Override
-    public boolean deleteSession(String sessionId) {
-        return executeUpdate(
-                "DELETE FROM sessionids WHERE id = ?",
-                sessionId
-        ) > 0;
     }
 
     @Override
@@ -95,6 +70,15 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
         return executeQueryList(
                 "SELECT id, username, role, password FROM users WHERE role != 'ADMIN' ORDER BY id DESC",
                 this::mapUser
+        );
+    }
+
+    @Override
+    public byte[] getQr(int userId) {
+        return executeQuery(
+                "SELECT qr FROM users WHERE id = ?",
+                rs -> rs.next() ? rs.getBytes("qr") : null,
+                userId
         );
     }
 }

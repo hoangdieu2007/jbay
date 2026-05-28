@@ -1,0 +1,125 @@
+/* --- NỀN TẢNG & BỐ CỤC CHUNG --- */
+.seller-item-root {
+    -fx-background-color: #F4F7F9;
+}
+
+.seller-item-header {
+    -fx-background-color: linear-gradient(to right, #1E3A8A, #3B82F6);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+}
+
+.header-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+/* --- CÁC THẺ NỘI DUNG (CARDS) --- */
+.card-panel {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 5);
+    -fx-padding: 30;
+}
+
+.section-title-large {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1E293B;
+}
+
+/* Khung chứa ảnh nét đứt */
+.image-dashed-container {
+    -fx-border-color: #CBD5E1;
+    -fx-border-style: dashed;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+    -fx-background-color: #F8FAFC;
+    -fx-background-radius: 10;
+}
+
+/* --- FORM NHẬP LIỆU --- */
+.input-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #64748B;
+}
+
+.input-field {
+    -fx-font-size: 14px;
+    -fx-background-radius: 8;
+    -fx-border-color: #CBD5E1;
+    -fx-border-radius: 8;
+    -fx-background-color: white; /* Đảm bảo ComboBox hiển thị nền trắng chuẩn */
+}
+
+/* Hiệu ứng nổi bật khi click vào ô nhập liệu */
+.input-field:focused {
+    -fx-border-color: #3B82F6;
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.2), 5, 0, 0, 0);
+}
+
+/* Thông báo lỗi */
+.error-label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #EF4444;
+}
+
+/* --- QUY CHUẨN HIỆU ỨNG NÚT BẤM --- */
+.btn-general {
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+    -fx-transition: all 0.2s ease;
+}
+
+/* 1. Nút Back */
+.btn-back {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-text-fill: white;
+    -fx-background-radius: 20;
+    -fx-border-color: white;
+    -fx-border-radius: 20;
+    -fx-padding: 8 20;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+.btn-back:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.35);
+    -fx-translate-y: -2px;
+}
+.btn-back:pressed {
+    -fx-translate-y: 1px;
+}
+
+/* 2. Nút Upload Image (Xanh dương nhạt hơn một chút) */
+.btn-upload {
+    -fx-background-color: #3B82F6;
+    -fx-text-fill: white;
+}
+.btn-upload:hover {
+    -fx-background-color: #2563EB;
+    -fx-translate-y: -2px;
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.4), 8, 0, 0, 2);
+}
+.btn-upload:pressed {
+    -fx-translate-y: 1px;
+    -fx-effect: none;
+}
+
+/* 3. Nút Submit (Xanh dương đậm, nổi bật nhất) */
+.btn-submit {
+    -fx-background-color: #2563EB;
+    -fx-text-fill: white;
+}
+.btn-submit:hover {
+    -fx-background-color: #1D4ED8;
+    -fx-translate-y: -2px;
+    -fx-effect: dropshadow(gaussian, rgba(37, 99, 235, 0.4), 8, 0, 0, 2);
+}
+.btn-submit:pressed {
+    -fx-translate-y: 1px;
+    -fx-effect: none;
+}

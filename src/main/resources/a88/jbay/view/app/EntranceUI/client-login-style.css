@@ -1,0 +1,96 @@
+/* --- NỀN BỐ CỤC --- */
+/* Nền bên trái (Gradient xanh) */
+.left-pane {
+    -fx-background-color: linear-gradient(to bottom, #60A5FA, #1E3A8A);
+}
+
+/* Nền bên phải (Trắng) */
+.right-pane {
+    -fx-background-color: white;
+}
+
+/* --- VĂN BẢN (TEXT) --- */
+/* Chữ slogan dưới logo */
+.slogan-text {
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-opacity: 0.8;
+}
+
+/* Tiêu đề "Hello again!" */
+.title-text {
+    -fx-text-fill: #1E293B;
+    -fx-font-size: 44px;
+    -fx-font-weight: bold;
+}
+
+/* Chữ "New to jBay?" */
+.subtitle-text {
+    -fx-text-fill: #64748B;
+    -fx-font-size: 16px;
+}
+
+/* Nút dạng đường link "Create an account" */
+.link-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #3B82F6;
+    -fx-padding: 0;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-underline: true;
+}
+.link-button:hover {
+    -fx-text-fill: #1D4ED8;
+}
+
+/* --- NHẬP LIỆU (INPUT) --- */
+.input-label {
+    -fx-text-fill: #1E293B;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+
+.input-field {
+    -fx-background-radius: 8;
+    -fx-border-color: #CBD5E1;
+    -fx-border-radius: 8;
+    -fx-padding: 10;
+    -fx-font-size: 14px;
+    -fx-background-color: white;
+}
+.input-field:focused {
+    -fx-border-color: #3B82F6;
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.2), 5, 0, 0, 0);
+}
+
+/* --- NÚT BẤM (BUTTONS) --- */
+.btn-signin {
+    -fx-background-color: #2563EB;
+    -fx-text-fill: white;
+    -fx-background-radius: 25;
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+    -fx-cursor: hand;
+    -fx-transition: all 0.2s ease;
+}
+.btn-signin:hover {
+    -fx-background-color: #1D4ED8;
+    -fx-translate-y: -2px;
+    -fx-effect: dropshadow(gaussian, rgba(37, 99, 235, 0.4), 8, 0, 0, 2);
+}
+.btn-signin:pressed {
+    -fx-translate-y: 1px;
+    -fx-effect: none;
+}
+
+/* --- THÔNG BÁO LỖI --- */
+.error-text {
+    -fx-text-fill: #EF4444;
+    -fx-font-size: 14px;
+}
+.error-text-bold {
+    -fx-text-fill: #EF4444;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}

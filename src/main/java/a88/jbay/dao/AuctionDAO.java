@@ -14,15 +14,14 @@ public interface AuctionDAO {
             int itemId,
             int sellerId,
             double startPrice,
-            double curPrice,
+            double minIncrement,
             LocalDateTime startTime,
             LocalDateTime endTime
     );
 
-    boolean updateCurrentPrice(
+    boolean updateCurrentBid(
             int auctionId,
-            double newPrice,
-            int winnerId
+            int bidId
     );
 
     boolean updateEndTime(
@@ -30,17 +29,10 @@ public interface AuctionDAO {
             LocalDateTime newEndTime
     );
 
-    boolean finalizeAuction(
-            int auctionId,
-            Integer winnerId
-    );
-
     boolean setAuctionState(
             int auctionId,
             AuctionState newState
     );
-
-    Integer findSellerId(int auctionId);
 
     AuctionData findAuctionById(int auctionId);
 
@@ -60,9 +52,9 @@ public interface AuctionDAO {
 
     // --- transactional overloads ---
     int insertAuction(Connection connection, int itemId, int sellerId,
-                      double startPrice, double curPrice,
+                      double startPrice, double minIncrement,
                       LocalDateTime startTime, LocalDateTime endTime) throws SQLException;
 
-    boolean updateCurrentPrice(Connection connection, int auctionId,
-                               double newPrice, int winnerId) throws SQLException;
+    boolean updateCurrentBid(Connection connection, int auctionId,
+                             int bidId) throws SQLException;
 }

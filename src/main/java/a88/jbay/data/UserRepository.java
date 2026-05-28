@@ -22,40 +22,57 @@ public class UserRepository {
         return userDAO.findByUsername(username);
     }
 
+    public UserData findByUserId(int userId) {
+        return userDAO.findByUserId(userId);
+    }
+
     public boolean usernameExists(String username) {
         return userDAO.existsByUsername(username);
     }
 
-    public boolean createUser(String username, String hashedPassword, String role) {
-        return userDAO.insertUser(username, hashedPassword, role) != -1;
+    public boolean createUser(String username, String hashedPassword, String role, byte[] qrCode) {
+        return userDAO.insertUser(username, hashedPassword, role, qrCode) != -1;
     }
 
     public boolean createSession(String sessionId, User user) {
-        boolean success = userDAO.insertSession(sessionId, user.getId());
-        if (success) sessionCache.put(sessionId, user);
-        return success;
+        sessionCache.put(sessionId, user);
+        return true;
     }
 
     public void deleteSession(String sessionId) {
         sessionCache.remove(sessionId);
-        userDAO.deleteSession(sessionId);
     }
 
     public User findBySessionId(String sessionId) {
-        User cached = sessionCache.get(sessionId);
-        if (cached != null) return cached;
-
-        UserData data = userDAO.findBySessionId(sessionId);
-        if (data == null) return null;
-
-        User user = new User(data.id(), data.role(), data.username(), sessionId);
-        sessionCache.put(sessionId, user);
-        return user;
+        return sessionCache.get(sessionId);
     }
 
     public List<User> getAllNormalUsers() {
         return userDAO.getAllNormalUsers().stream()
                 .map(data -> new User(data.id(), data.role(), data.username()))
                 .collect(Collectors.toList());
+    }
+
+    public byte[] getQr(int userId) {
+        return userDAO.getQr(userId);
+    }
+
+    public boolean updateRole(int userId, String newRole) {
+        boolean updated = userDAO.changeUserRole(userId, newRole);
+        if (updated) {
+            if (newRole.equals("BAN")) {
+                sessionCache.values().removeIf(user -> user.getId() == userId);
+            } else {
+                sessionCache.entrySet().stream()
+                        .filter(e -> e.getValue().getId() == userId)
+                        .forEach(e -> {
+                            UserData fresh = userDAO.findByUserId(userId);
+                            if (fresh != null) {
+                                sessionCache.put(e.getKey(), new User(fresh.id(), fresh.role(), fresh.username()));
+                            }
+                        });
+            }
+        }
+        return updated;
     }
 }

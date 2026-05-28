@@ -54,7 +54,7 @@ public class MainClient extends Application {
             try {
                 viewManager.newStage("Welcome to jBay");
                 viewManager.setResolution(1280, 720);
-                viewManager.displayScene("client/client-server-connect-view.fxml");
+                viewManager.displayScene("EntranceUI/client-server-connect-view.fxml");
             } catch (IOException exception) {
                 exception.printStackTrace();
             }

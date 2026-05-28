@@ -4,11 +4,8 @@ import a88.jbay.common.auction.BidData;
 import a88.jbay.server.DatabaseController;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class BidDAOImpl extends BaseDAO implements BidDAO {
@@ -17,25 +14,40 @@ public class BidDAOImpl extends BaseDAO implements BidDAO {
         super(dbController);
     }
 
-    public boolean insertBid(int userId, int auctionId, double amount, LocalDateTime time) {
-        return executeUpdate(
+    public int insertBid(int userId, int auctionId, double amount, LocalDateTime time) {
+        return executeInsert(
                 "INSERT INTO bids (userid, auctionid, amt, time) VALUES (?, ?, ?, ?)",
                 userId, auctionId, amount, time
-        ) > 0;
+        );
     }
 
     @Override
-    public boolean insertBid(Connection connection, int userId, int auctionId,
-                             double amount, LocalDateTime time) throws SQLException {
-        return executeUpdate(connection,
+    public int insertBid(Connection connection, int userId, int auctionId,
+                         double amount, LocalDateTime time) throws SQLException {
+        return executeInsert(connection,
                 "INSERT INTO bids (userid, auctionid, amt, time) VALUES (?, ?, ?, ?)",
                 userId, auctionId, amount, time
-        ) > 0;
+        );
     }
+
+    /**
+     * Find the bid history of a specific auction
+     * Logic: For each price tag, only the earliest unbanned bid is returned.
+     * @param auctionId
+     * @return List of BidData objects
+     */
 
     public List<BidData> findBidHistoryByAuctionId(int auctionId) {
         return executeQueryList(
-                "SELECT userid, auctionid, amt, time FROM bids WHERE auctionid = ? ORDER BY time ASC",
+                "SELECT b.userid, b.auctionid, b.amt, b.time " +
+                        "FROM bids b JOIN users u ON u.id = b.userid " +
+                        "WHERE b.auctionid = ? AND u.role != 'BAN' " +
+                        "AND b.id = (" +
+                        "    SELECT MIN(b2.id) FROM bids b2 " +
+                        "    JOIN users u2 ON u2.id = b2.userid " +
+                        "    WHERE b2.auctionid = b.auctionid AND b2.amt = b.amt AND u2.role != 'BAN'" +
+                        ") " +
+                        "ORDER BY b.time ASC",
                 rs -> new BidData(
                         rs.getInt("userid"),
                         rs.getInt("auctionid"),

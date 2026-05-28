@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
     the notification system for the server
@@ -30,6 +32,7 @@ public class ConnectionSystem {
 
     private final Map<Integer, Set<ClientConnection>> connections =
             new ConcurrentHashMap<>();
+    private final ExecutorService senderExecutor = Executors.newVirtualThreadPerTaskExecutor();
 
     public Map<Integer, Set<ClientConnection>> getConnections() {
         return connections;
@@ -64,12 +67,17 @@ public class ConnectionSystem {
     public void sendToUser(int userId, Response response) {
         Set<ClientConnection> userConnections = connections.get(userId);
 
-        if (userConnections == null) {
+        if (userConnections == null || response == null) {
             return;
         }
 
         for (ClientConnection connection : userConnections) {
-            connection.send(response);
+            senderExecutor.submit(() -> {
+                if (!connection.send(response)) {
+                    unregister(connection);
+                    connection.close();
+                }
+            });
         }
     }
 

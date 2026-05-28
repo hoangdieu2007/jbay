@@ -10,22 +10,14 @@ public interface UserDAO {
 
     UserData findByUserId(int userId);
 
-    UserData findBySessionId(String sessionId);
-
     boolean existsByUsername(String username);
 
     int insertUser(
             String username,
             String hashedPassword,
-            String role
+            String role,
+            byte[] qrCode
     );
-
-    boolean insertSession(
-            String sessionId,
-            int userId
-    );
-
-    boolean deleteSession(String sessionId);
 
     boolean changeUserRole(
             int userId,
@@ -33,4 +25,6 @@ public interface UserDAO {
     );
 
     List<UserData> getAllNormalUsers();
+
+    byte[] getQr(int userId);
 }
