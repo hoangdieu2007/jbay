@@ -177,10 +177,11 @@ public class ResponseHandler {
         } else if (clientSession.getUser().getUsername().equals(auction.getWinner())) {
             if (auction.getAuctionState().equals(AuctionState.FINISHED) || auction.getAuctionState().equals(AuctionState.PAID)) {
                 clientSession.getWonAuctions().put(auction.getId(), auction);
-            }
-            if (auction.getAuctionState().equals(AuctionState.OPENING) || auction.getAuctionState().equals(AuctionState.RUNNING)) {
+            } else {
                 clientSession.getBidderAuctions().put(auction.getId(), auction);
             }
+        } else {
+            clientSession.getBidderAuctions().put(auction.getId(), auction);
         }
         if ("ADMIN".equals(role)) {
             clientSession.getAdminAuctions().put(auction.getId(), auction);
