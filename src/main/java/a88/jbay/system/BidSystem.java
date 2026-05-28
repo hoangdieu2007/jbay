@@ -202,7 +202,7 @@ public class BidSystem {
      * Applies a bid transaction to the in-memory auction state.
      *
      * <p>Processing: subscribes the bidder to auction updates and then updates the auction price,
-     * winner, and transaction history through {@link Auction#updatePrice}.</p>
+     * winner, and transaction history through {@link Auction#addBid}.</p>
      *
      * @param auction auction that should receive the bid
      * @param tx accepted bid transaction
@@ -210,7 +210,7 @@ public class BidSystem {
     private void addBid(Auction auction, BidTransaction tx) {
         // bidder automatically becomes observer
         auction.subscribe(tx.getUserID()); // subscribe first so that client can get a notification
-        auction.updatePrice(tx.getAmt(), tx);
+        auction.addBid(tx.getAmt(), tx);
     }
 
     private void publishAuctionUpdate(Auction auction) {

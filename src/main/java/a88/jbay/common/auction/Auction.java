@@ -1,163 +1,107 @@
 package a88.jbay.common.auction;
 
 import a88.jbay.common.item.Item;
-import a88.jbay.common.user.User;
 import a88.jbay.common.user.UserData;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-//manage auction data, state and subscribers, all business logic belong to auction system
-
 /**
- * the auction class, hold all auction data and state
- * manages its own subscribers and notifies them through NotificationSystem
- * it will be sent to clients via network
- * when the notifyObservers method is called, it will send the auction data to all clients subscribed to this auction
+ * Holds all auction data and manages state transitions.
+ * Business logic (who can bid, when auto-bid fires) belongs in AuctionSystem.
+ *
+ * State machine: OPENING → RUNNING → FINISHED → PAID
+ *                         ↘              ↙
+ *                           CANCELED
  */
 public class Auction implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private int id;
-    private Item item;
-    private String seller;
-    private Integer sellerId;
-    private String winner;
-    private Integer winnerId;
-    private double startPrice;
+    // Thrown when a bid is structurally valid but violates a business rule
+    // (auction not running, price too low). Callers can catch and surface to user.
+    public static final class BidRejected extends Exception {
+        public BidRejected(String reason) { super(reason); }
+    }
+
+    private final int id;
+    private final Item item;
+    private final String seller;
+    private final int sellerId;
+    private final LocalDateTime startTime;
+
+    private volatile AuctionState auctionState;
     private volatile double currentPrice;
     private double minIncrement;
-    private LocalDateTime startTime;
     private LocalDateTime endTime;
 
-    // realtime
-    private volatile AuctionState auctionState;
-    private List<BidTransaction> bidHistory;
+    private String winner;
+    private Integer winnerId;
+
+    private final List<BidTransaction> bidHistory;
     private final Set<Integer> observers;
     private AutoBidConfig currAutoBidConfig;
 
     public Auction(int id, Item item, UserData seller, LocalDateTime startTime, LocalDateTime endTime) {
-        if (id <= 0) {
-            throw new IllegalArgumentException("Auction id must be positive");
-        }
-        Objects.requireNonNull(item, "item");
-        requireNonBlank(seller.username(), "seller");
-        Objects.requireNonNull(startTime, "startTime");
-        Objects.requireNonNull(endTime, "endTime");
-        if (endTime.isBefore(startTime)) {
-            throw new IllegalArgumentException("Auction end time cannot be before start time");
-        }
-        if (!Double.isFinite(item.getInitPrice()) || item.getInitPrice() < 0) {
-            throw new IllegalArgumentException("Start price must be a non-negative finite number");
-        }
+        if (id <= 0)                           throw new IllegalArgumentException("id must be positive");
+        Objects.requireNonNull(item,           "item");
+        Objects.requireNonNull(seller,         "seller");
+        requireNonBlank(seller.username(),     "seller.username");
+        if (seller.id() <= 0)                  throw new IllegalArgumentException("seller.id must be positive");
+        Objects.requireNonNull(startTime,      "startTime");
+        Objects.requireNonNull(endTime,        "endTime");
+        if (endTime.isBefore(startTime))       throw new IllegalArgumentException("endTime cannot be before startTime");
+        requireFiniteNonNegative(item.getInitPrice(), "item.initPrice");
 
-        this.id = id;
-        this.item = item;
-        this.seller = seller.username();
-        this.sellerId = seller.id();
-        this.winner = "";
-        this.winnerId = null;
-        this.startPrice = item.getInitPrice();
+        this.id           = id;
+        this.item         = item;
+        this.seller       = seller.username();
+        this.sellerId     = seller.id();
+        this.startTime    = startTime;
+        this.endTime      = endTime;
         this.currentPrice = item.getInitPrice();
         this.minIncrement = 0.0;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.winner       = "";
+        this.winnerId     = null;
 
-        this.auctionState = AuctionState.OPENING;
-        this.bidHistory = new CopyOnWriteArrayList<>();
-        this.observers = new CopyOnWriteArraySet<>();
-        this.currAutoBidConfig = null;
+        this.auctionState  = AuctionState.OPENING;
+        this.bidHistory    = new CopyOnWriteArrayList<>();
+        this.observers     = new CopyOnWriteArraySet<>();
     }
 
-    public int getId() {
-        return id;
-    }
-    public Item getItem() {
-        return item;
-    }
-    public String getSellerName(){return seller;}
-
-    public Integer getSellerId() {return sellerId;}
-
-    public String getWinner() {
-        return winner;
-    }
-
-    public Integer getWinnerId() {
-        return winnerId;
-    }
-
-    public LocalDateTime getStartTime() {
-        return startTime;
-    }
-
-    public LocalDateTime getEndTime() {
-        return endTime;
-    }
-
-    public List<BidTransaction> getBidHistory() {
-        return Collections.unmodifiableList(bidHistory);
-    }
-
-    public AutoBidConfig getCurrAutoBidConfig() {
-        return currAutoBidConfig;
-    }
-
-    public void setCurrAutoBidConfig(AutoBidConfig currAutoBidConfig) {
-        this.currAutoBidConfig = currAutoBidConfig;
-    }
-
-    public boolean hasAutoBidConfig(int userId) {
-        return currAutoBidConfig != null && currAutoBidConfig.getUserId() == userId;
-    }
-
-    public AutoBidConfig getAutoBidConfig(int userId) {
-        if (!hasAutoBidConfig(userId)) {
-            return null;
-        }
-        return currAutoBidConfig;
-    }
-
-    public String toString() {
-        return Integer.toString(id) + " - " + item.toString() + " - " + seller + " - " + startPrice + " - " + currentPrice + " - " + winner + " - " + startTime.toString() + " - " + endTime.toString() + " - " + auctionState.name();
-    }
+    // -------------------------------------------------------------------------
+    // State transitions — the only way state changes (except setAuctionState)
+    // -------------------------------------------------------------------------
 
     public void start() {
-        if (auctionState != AuctionState.OPENING) {
-            throw new IllegalStateException("Only opening auctions can be started");
-        }
+        requireState(AuctionState.OPENING, "start");
         this.auctionState = AuctionState.RUNNING;
-        this.notifyObservers();
+        notifyObservers();
     }
 
     public void end() {
-        if (auctionState != AuctionState.RUNNING) {
-            throw new IllegalStateException("Only running auctions can be ended");
-        }
+        requireState(AuctionState.RUNNING, "end");
         this.auctionState = AuctionState.FINISHED;
-        this.notifyObservers();
+        notifyObservers();
     }
 
     public void confirmPayment() {
-        if (auctionState != AuctionState.FINISHED) {
-            throw new IllegalStateException("Only finished auctions can be confirmed");
-        }
+        requireState(AuctionState.FINISHED, "confirmPayment");
         this.auctionState = AuctionState.PAID;
-        this.notifyObservers();
+        notifyObservers();
     }
 
     public void cancel() {
         if (auctionState == AuctionState.FINISHED || auctionState == AuctionState.PAID) {
-            throw new IllegalStateException("Closed auctions cannot be canceled");
+            throw new IllegalStateException("Cannot cancel a closed auction (state=" + auctionState + ")");
+        }
+        if (auctionState == AuctionState.CANCELED) {
+            throw new IllegalStateException("Auction is already canceled");
         }
         this.auctionState = AuctionState.CANCELED;
-        this.notifyObservers();
+        notifyObservers();
     }
 
     public AuctionState getAuctionState() {
@@ -168,70 +112,83 @@ public class Auction implements Serializable {
         this.auctionState = Objects.requireNonNull(auctionState, "auctionState");
     }
 
-    public double getCurrentPrice() {
-        return currentPrice;
-    }
-
-    public double getMinIncrement() {
-        return minIncrement;
-    }
-
-    public void setMinIncrement(double minIncrement) {
-        if (!Double.isFinite(minIncrement) || minIncrement < 0) {
-            throw new IllegalArgumentException("Minimum increment must be a non-negative finite number");
+    /**
+     * Advances state based on wall-clock time. Returns true if a transition occurred.
+     * Call periodically from a scheduler.
+     */
+    public boolean tick(LocalDateTime now) {
+        Objects.requireNonNull(now, "now");
+        if (auctionState == AuctionState.OPENING && !now.isBefore(startTime)) {
+            start();
+            return true;
         }
-        this.minIncrement = minIncrement;
+        if (auctionState == AuctionState.RUNNING && !now.isBefore(endTime)) {
+            end();
+            return true;
+        }
+        return false;
     }
 
-    public void addBid(double newPrice, BidTransaction tx) {
-        if (!validateBidTransaction(tx)) return;
+    // -------------------------------------------------------------------------
+    // Bidding — single entry point, explicit success/failure
+    // -------------------------------------------------------------------------
 
-        if (!Double.isFinite(newPrice) || newPrice < 0) {
-            throw new IllegalArgumentException("New price must be a non-negative finite number");
+    /**
+     * Records a bid. Throws BidRejected (business rule violation the caller should
+     * surface to the user) or IllegalArgumentException (malformed data).
+     */
+    public void placeBid(double amount, BidTransaction tx) throws BidRejected {
+        validateTxOrThrow(tx);
+        if (Double.compare(amount, tx.getAmt()) != 0) {
+            throw new IllegalArgumentException(
+                    "amount (" + amount + ") does not match tx.amt (" + tx.getAmt() + ")");
         }
-        if (Double.compare(newPrice, tx.getAmt()) != 0) {
-            throw new IllegalArgumentException("New price must match bid transaction amount");
-        }
-
-        if (!validateLiveBid(newPrice, tx)) return;
-
-        this.currentPrice = newPrice;
-        this.winner = tx.getUsername();
-        this.winnerId = tx.getUserID();
-
-        this.bidHistory.add(tx);
-    }
-
-    public void updatePrice(double newPrice, BidTransaction tx) {
-        validateLiveBid(newPrice, tx);
-        addBid(newPrice, tx);
+        validateBidAmount(amount);
+        currentPrice = amount;
+        winner       = tx.getUsername();
+        winnerId     = tx.getUserID();
+        bidHistory.add(tx);
         notifyObservers();
     }
 
-    public void setEndTime(LocalDateTime newEndTime) {
-        Objects.requireNonNull(newEndTime, "newEndTime");
-        if (newEndTime.isBefore(startTime)) {
-            throw new IllegalArgumentException("Auction end time cannot be before start time");
+    public void addBid(double amount, BidTransaction tx) {
+        try {
+            placeBid(amount, tx);
+        } catch (BidRejected e) {
+            System.out.println("Ignoring invalid bid for auction " + id + ": " + e.getMessage());
         }
-        if (auctionState == AuctionState.FINISHED || auctionState == AuctionState.PAID || auctionState == AuctionState.CANCELED) {
-            throw new IllegalStateException("Cannot change end time after auction is closed");
-        }
-        this.endTime = newEndTime;
     }
 
-    //subscriber management
-    public void subscribe(int userId) {
-        if (userId <= 0) {
-            throw new IllegalArgumentException("Subscriber id must be positive");
+    private void validateBidAmount(double amount) throws BidRejected {
+        if (auctionState != AuctionState.RUNNING) {
+            throw new BidRejected("Auction is not running (state=" + auctionState + ")");
         }
+        if (winnerId == null) {
+            if (amount < currentPrice) {
+                throw new BidRejected("Opening bid " + amount + " is below start price " + currentPrice);
+            }
+        } else if (minIncrement == 0.0) {
+            if (amount <= currentPrice) {
+                throw new BidRejected("Bid " + amount + " must exceed current price " + currentPrice);
+            }
+        } else {
+            if (amount < currentPrice + minIncrement) {
+                throw new BidRejected("Bid " + amount + " is below required " + (currentPrice + minIncrement));
+            }
+        }
+    }
+
+    // -------------------------------------------------------------------------
+    // Subscribers
+    // -------------------------------------------------------------------------
+
+    public void subscribe(int userId) {
+        if (userId <= 0) throw new IllegalArgumentException("userId must be positive");
         observers.add(userId);
     }
 
     public void unsubscribe(int userId) {
-        if (userId <= 0) {
-            return;
-        }
-        observers.remove(userId);
+        if (userId > 0) observers.remove(userId);
     }
 
     public Set<Integer> getSubscribers() {
@@ -247,50 +204,99 @@ public class Auction implements Serializable {
         // already handled by UpdateSystem
     }
 
-    //check and change state
-    public boolean tick(LocalDateTime now) {
-        Objects.requireNonNull(now, "now");
-        if (auctionState == AuctionState.OPENING && !now.isBefore(startTime)) {
-            start();
-            return true;
+    // -------------------------------------------------------------------------
+    // End-time extension (allowed while not closed)
+    // -------------------------------------------------------------------------
+
+    public void setEndTime(LocalDateTime newEndTime) {
+        Objects.requireNonNull(newEndTime, "newEndTime");
+        if (newEndTime.isBefore(startTime)) {
+            throw new IllegalArgumentException("newEndTime cannot be before startTime");
         }
-        if (auctionState == AuctionState.RUNNING && !now.isBefore(endTime)) {
-            end();
-            return true;
+        if (auctionState == AuctionState.FINISHED
+                || auctionState == AuctionState.PAID
+                || auctionState == AuctionState.CANCELED) {
+            throw new IllegalStateException("Cannot change endTime once auction is closed");
         }
-        return false;
+        this.endTime = newEndTime;
     }
 
-    private boolean validateLiveBid(double newPrice, BidTransaction tx) {
-        validateBidTransaction(tx);
-        if (auctionState != AuctionState.RUNNING) {
-            return false;
-        }
-        double requiredPrice = winnerId == null ? currentPrice : currentPrice + minIncrement;
-        if (newPrice < requiredPrice) {
-            return false;
-        }
-        return true;
+    // -------------------------------------------------------------------------
+    // Auto-bid config
+    // -------------------------------------------------------------------------
+
+    public void setCurrAutoBidConfig(AutoBidConfig config)  { this.currAutoBidConfig = config; }
+    public AutoBidConfig getCurrAutoBidConfig()             { return currAutoBidConfig; }
+
+    public boolean hasAutoBidConfig(int userId) {
+        return currAutoBidConfig != null && currAutoBidConfig.getUserId() == userId;
     }
 
-    private boolean validateBidTransaction(BidTransaction tx) {
-        Objects.requireNonNull(tx, "bid transaction");
-        if (tx.getUserID() <= 0) {
-            return false;
-        }
-        requireNonBlank(tx.getUsername(), "bidder username");
-        if (!Double.isFinite(tx.getAmt()) || tx.getAmt() < 0) {
-            return false;
-        }
-        Objects.requireNonNull(tx.getTimestamp(), "bid timestamp");
-        return true;
+    /** Returns the config only if it belongs to userId, else null. */
+    public AutoBidConfig getAutoBidConfig(int userId) {
+        return hasAutoBidConfig(userId) ? currAutoBidConfig : null;
     }
 
-    private static String requireNonBlank(String value, String fieldName) {
+    // -------------------------------------------------------------------------
+    // Accessors
+    // -------------------------------------------------------------------------
+
+    public int            getId()           { return id; }
+    public Item           getItem()         { return item; }
+    public String         getSellerName()   { return seller; }
+    public int            getSellerId()     { return sellerId; }
+    public String         getWinner()       { return winner; }
+    public Integer        getWinnerId()     { return winnerId; }
+    public LocalDateTime  getStartTime()    { return startTime; }
+    public LocalDateTime  getEndTime()      { return endTime; }
+    public double         getCurrentPrice() { return currentPrice; }
+    public double         getMinIncrement() { return minIncrement; }
+
+    public void setMinIncrement(double v) {
+        requireFiniteNonNegative(v, "minIncrement");
+        this.minIncrement = v;
+    }
+
+    public List<BidTransaction> getBidHistory() {
+        return Collections.unmodifiableList(bidHistory);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Auction{id=%d, item=%s, seller=%s, price=%.2f, state=%s, end=%s}",
+                id, item, seller, currentPrice, auctionState, endTime);
+    }
+
+    // -------------------------------------------------------------------------
+    // Internal helpers
+    // -------------------------------------------------------------------------
+
+    private void requireState(AuctionState required, String operation) {
+        if (auctionState != required) {
+            throw new IllegalStateException(
+                    operation + " requires state=" + required + " but current state=" + auctionState);
+        }
+    }
+
+    private static void validateTxOrThrow(BidTransaction tx) {
+        Objects.requireNonNull(tx, "tx");
+        if (tx.getUserID() <= 0)                  throw new IllegalArgumentException("tx.userId must be positive");
+        requireNonBlank(tx.getUsername(),          "tx.username");
+        requireFiniteNonNegative(tx.getAmt(),      "tx.amt");
+        Objects.requireNonNull(tx.getTimestamp(),  "tx.timestamp");
+    }
+
+    private static void requireFiniteNonNegative(double v, String field) {
+        if (!Double.isFinite(v) || v < 0) {
+            throw new IllegalArgumentException(
+                    field + " must be a finite non-negative number, got " + v);
+        }
+    }
+
+    private static String requireNonBlank(String value, String field) {
         if (value == null || value.isBlank()) {
-            throw new IllegalArgumentException(fieldName + " must not be blank");
+            throw new IllegalArgumentException(field + " must not be blank");
         }
         return value;
     }
-
 }

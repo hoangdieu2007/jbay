@@ -125,6 +125,8 @@ class AuctionTest {
     @Test
     @DisplayName("addBid should update current price, winner, winner id, and bid history")
     void addBidUpdatesPriceWinnerAndBidHistory() {
+        auction.start();
+
         BidTransaction transaction = new BidTransaction(5, "bidder", 150.0, BASE_TIME);
 
         auction.addBid(150.0, transaction);
@@ -150,7 +152,7 @@ class AuctionTest {
     void updatePriceRejectsBidWhenAuctionIsNotRunning() {
         BidTransaction transaction = new BidTransaction(5, "bidder", 150.0, BASE_TIME);
 
-        assertThrows(IllegalStateException.class, () -> auction.updatePrice(150.0, transaction));
+        assertThrows(Auction.BidRejected.class, () -> auction.placeBid(150.0, transaction));
     }
 
     @Test
@@ -158,11 +160,11 @@ class AuctionTest {
     void updatePriceRejectsBidBelowMinimumIncrement() {
         auction.setAuctionState(AuctionState.RUNNING);
         auction.setMinIncrement(10.0);
-        auction.updatePrice(100.0, new BidTransaction(5, "bidder", 100.0, BASE_TIME));
+        auction.addBid(100.0, new BidTransaction(5, "bidder", 100.0, BASE_TIME));
 
         BidTransaction lowBid = new BidTransaction(6, "other", 105.0, BASE_TIME.plusMinutes(1));
 
-        assertThrows(IllegalArgumentException.class, () -> auction.updatePrice(105.0, lowBid));
+        assertThrows(Auction.BidRejected.class, () -> auction.placeBid(105.0, lowBid));
     }
 
     @Test

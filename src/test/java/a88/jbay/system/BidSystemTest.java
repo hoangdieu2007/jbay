@@ -88,7 +88,7 @@ class BidSystemTest {
         // Assert
         assertTrue(result);
         verify(auction).subscribe(userId);
-        verify(auction).updatePrice(eq(bidAmount), any());
+        verify(auction).addBid(eq(bidAmount), any());
         verify(bidRepository).saveBid(eq(auctionId), any());
     }
 
@@ -108,7 +108,7 @@ class BidSystemTest {
         // Assert
         assertFalse(result);
         verify(auction, never()).subscribe(anyInt());
-        verify(auction, never()).updatePrice(anyDouble(), any());
+        verify(auction, never()).addBid(anyDouble(), any());
         verify(bidDAO, never()).insertBid(anyInt(), anyInt(), anyDouble(), any());
     }
 
@@ -132,7 +132,7 @@ class BidSystemTest {
         // Assert
         assertFalse(result);
         verify(auction, never()).subscribe(anyInt());
-        verify(auction, never()).updatePrice(anyDouble(), any());
+        verify(auction, never()).addBid(anyDouble(), any());
         verify(bidDAO, never()).insertBid(anyInt(), anyInt(), anyDouble(), any());
     }
 
@@ -155,7 +155,7 @@ class BidSystemTest {
         // Assert
         assertFalse(result);
         verify(auction, never()).subscribe(anyInt());
-        verify(auction, never()).updatePrice(anyDouble(), any());
+        verify(auction, never()).addBid(anyDouble(), any());
         verify(bidDAO, never()).insertBid(anyInt(), anyInt(), anyDouble(), any());
     }
 
@@ -178,7 +178,7 @@ class BidSystemTest {
         // Assert
         assertFalse(result);
         verify(auction, never()).subscribe(anyInt());
-        verify(auction, never()).updatePrice(anyDouble(), any());
+        verify(auction, never()).addBid(anyDouble(), any());
         verify(bidDAO, never()).insertBid(anyInt(), anyInt(), anyDouble(), any());
     }
 
@@ -201,7 +201,7 @@ class BidSystemTest {
         // Assert
         assertFalse(result);
         verify(auction, never()).subscribe(anyInt());
-        verify(auction, never()).updatePrice(anyDouble(), any());
+        verify(auction, never()).addBid(anyDouble(), any());
         verify(bidDAO, never()).insertBid(anyInt(), anyInt(), anyDouble(), any());
     }
 
