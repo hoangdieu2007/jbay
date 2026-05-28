@@ -17,8 +17,8 @@ public class HelloApplication {
 
     public static void main(String[] args) {
         LocalDateTime BASE_TIME = LocalDateTime.of(2026, 5, 15, 10, 0);
-        Item item = new Item(0, "Test Item", "Generic", "A test item", 100.0);
-        Auction auction = new Auction(0, item, new UserData(0, "seller", "USER", "idk"), BASE_TIME, BASE_TIME.plusDays(30));
+        Item item = new Item(1, "Test Item", "Generic", "A test item", 100.0);
+        Auction auction = new Auction(1, item, new UserData(1, "seller", "USER", "idk"), BASE_TIME, BASE_TIME.plusDays(30));
 
         auction.start();
 

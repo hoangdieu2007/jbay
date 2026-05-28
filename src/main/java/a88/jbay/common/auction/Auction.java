@@ -143,6 +143,9 @@ public class Auction implements Serializable {
             throw new IllegalArgumentException(
                     "amount (" + amount + ") does not match tx.amt (" + tx.getAmt() + ")");
         }
+        if (auctionState != AuctionState.RUNNING) {
+            throw new BidRejected("Auction is not running (state=" + auctionState + ")");
+        }
         validateBidAmount(amount);
         currentPrice = amount;
         winner       = tx.getUsername();
