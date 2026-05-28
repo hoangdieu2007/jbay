@@ -21,7 +21,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.withSettings;
 
 class AuctionSystemTest {
 
@@ -36,16 +35,19 @@ class AuctionSystemTest {
     private UserData seller;
 
     @BeforeEach
-    @SuppressWarnings("unchecked")
     void setUp() {
         updateSystem = mock(UpdateSystem.class);
-        auctionRepository = mock(AuctionRepository.class, withSettings().lenient());
-        userRepository = mock(UserRepository.class, withSettings().lenient());
+        auctionRepository = mock(AuctionRepository.class);
+        userRepository = mock(UserRepository.class);
 
         lenient().when(auctionRepository.getAllActiveAuctions()).thenReturn(List.of());
         lenient().when(auctionRepository.setAuctionState(anyInt(), any())).thenReturn(true);
 
         auctionSystem = new AuctionSystem(updateSystem, auctionRepository, userRepository);
+
+        verify(auctionRepository).loadActiveAuctions();
+
+        auctionSystem.stopSystem();
 
         item = new Item(1, "Test Item", "ELECTRONICS", "A test item", 100.0);
         seller = new UserData(1, "seller1", "SELLER", "pass");
@@ -362,6 +364,6 @@ class AuctionSystemTest {
     @Test
     @DisplayName("Should load active auctions on construction")
     void testConstructorLoadsActiveAuctions() {
-        verify(auctionRepository).loadActiveAuctions();
+        verify(auctionRepository, times(1)).loadActiveAuctions();
     }
 }
