@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1330.0" style="-fx-background-color: white;" styleClass="item-view-root" stylesheets="@client-bidder-item-style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.app.AuctionUI.ClientBidderItemController">
+<AnchorPane prefHeight="720.0" prefWidth="1330.0" style="-fx-background-color: white;" styleClass="item-view-root" stylesheets="@client-bidder-item-style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a88.jbay.controller.app.AuctionUI.ClientBidderItemController">
     <children>
 
         <HBox alignment="CENTER_LEFT" layoutX="0.0" layoutY="0.0" prefHeight="70.0" spacing="15.0" styleClass="item-view-header" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -105,7 +105,7 @@
                                                 <Label styleClass="detail-label" text="Seller:" GridPane.rowIndex="2" />
                                                 <Label fx:id="sellerLabel" styleClass="detail-value-link" text="Seller Name/Id" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-                                                <Label styleClass="detail-label" text="Current:" GridPane.rowIndex="3" />
+                                                <Label styleClass="detail-label" text="Price:" GridPane.rowIndex="3" />
                                                 <Label fx:id="currentPriceLabel" styleClass="price-value" text="\$ 0.00" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                             </children>
                                         </GridPane>
