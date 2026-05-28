@@ -58,16 +58,20 @@ public class OngoingAuctionsController {
 
         bidderMap.addListener((MapChangeListener<Integer, Auction>) change -> {
 
-            int idx = change.getKey();
+            int auctionId = change.getKey();
 
             if(change.wasAdded() && change.wasRemoved()){
-                BidderItemCardController controller = controllerMap.get(idx);
+                Auction updated = change.getValueAdded();
+                BidderItemCardController controller = controllerMap.get(auctionId);
                 if(controller != null) {
-                    controllerMap.get(idx).setItemData(change.getValueAdded());
+                    controller.setItemData(updated);
                 }
 
-                if (idx >= 0){
-                    bidderList.set(idx, change.getValueAdded());
+                for (int i = 0; i < bidderList.size(); i++) {
+                    if (bidderList.get(i).getId() == auctionId) {
+                        bidderList.set(i, updated);
+                        break;
+                    }
                 }
             } else if (change.wasAdded()){
                 createBidderCard(change.getValueAdded());
@@ -77,8 +81,8 @@ public class OngoingAuctionsController {
 
             } else if (change.wasRemoved()) {
                 bidderList.remove(change.getValueRemoved());
-                controllerMap.remove(idx);
-                bidderCard.remove(idx);
+                controllerMap.remove(auctionId);
+                bidderCard.remove(auctionId);
 
             }
 
