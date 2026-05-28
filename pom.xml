@@ -14,7 +14,8 @@
         <junit.version>5.12.1</junit.version>
         <javafx.version>25.0.1</javafx.version>
         <mockito.version>5.14.2</mockito.version>
-
+        <!-- Fallback so @{argLine} is never undefined when JaCoCo is skipped -->
+        <argLine></argLine>
     </properties>
 
     <dependencies>
@@ -242,7 +243,11 @@
                     <includes>
                         <include>**/*Test.java</include>
                     </includes>
-                    <argLine>@{argLine} -javaagent:${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar</argLine>
+                    <!-- @{argLine} is populated by JaCoCo's prepare-agent at runtime.     -->
+                    <!-- The <argLine> property fallback above ensures it is never          -->
+                    <!-- undefined (which would corrupt the JVM args and crash JavaFX).     -->
+                    <!-- -Dprism.order=sw forces software rendering for headless/CI builds. -->
+                    <argLine>@{argLine} -Dprism.order=sw -javaagent:${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar</argLine>
                 </configuration>
             </plugin>
             <plugin>
