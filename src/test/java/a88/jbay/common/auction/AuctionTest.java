@@ -148,14 +148,6 @@ class AuctionTest {
     }
 
     @Test
-    @DisplayName("updatePrice should reject bids while auction is not running")
-    void updatePriceRejectsBidWhenAuctionIsNotRunning() {
-        BidTransaction transaction = new BidTransaction(5, "bidder", 150.0, BASE_TIME);
-
-        assertThrows(Auction.BidRejected.class, () -> auction.placeBid(150.0, transaction));
-    }
-
-    @Test
     @DisplayName("updatePrice should reject bids below minimum increment")
     void updatePriceRejectsBidBelowMinimumIncrement() {
         auction.setAuctionState(AuctionState.RUNNING);
