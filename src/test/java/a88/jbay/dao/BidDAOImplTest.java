@@ -80,6 +80,31 @@ class BidDAOImplTest extends DaoTestBase {
     }
 
     @Test
+    @DisplayName("Should handle 10+ bids in history")
+    void testFindBidHistory_MultipleBids() throws Exception {
+        int sellerId = insertUser("seller", "pass", "SELLER", null);
+        int bidderId = insertUser("bidder", "pass", "BIDDER", null);
+        int itemId = insertItem("Item", "TYPE", "Desc", 100.0, new byte[]{});
+        int auctionId = insertAuction(itemId, sellerId, 100.0, 1.0,
+                LocalDateTime.now(), LocalDateTime.now().plusDays(1), "RUNNING");
+
+        int bidCount = 15;
+        for (int i = 0; i < bidCount; i++) {
+            double amount = 110.0 + i;
+            LocalDateTime t = LocalDateTime.of(2026, 5, 28, 10, 0).plusMinutes(i);
+            bidDAO.insertBid(bidderId, auctionId, amount, t);
+        }
+
+        List<BidData> history = bidDAO.findBidHistoryByAuctionId(auctionId);
+
+        assertEquals(bidCount, history.size());
+        for (int i = 0; i < bidCount; i++) {
+            assertEquals(110.0 + i, history.get(i).amount(), 0.001,
+                    "Bid " + i + " amount mismatch");
+        }
+    }
+
+    @Test
     @DisplayName("Should insert bid via transactional overload")
     void testInsertBid_Transactional() throws Exception {
         int userId = insertUser("user", "pass", "BIDDER", null);
