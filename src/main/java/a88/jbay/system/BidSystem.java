@@ -29,6 +29,8 @@ public class BidSystem {
     private final AuctionDAO auctionDAO;
     private final UpdateSystem updateSystem;
 
+    private volatile long autoBidDelayMs = 100L;
+
     /**
      * Creates a bid system with the repositories and DAOs needed to manage bids.
      *
@@ -105,9 +107,9 @@ public class BidSystem {
                 // anti-sniping check upon successful bid
                 extendEndTime(tx.getTimestamp(), auction);
 
-                // delay 1s before trigger auto-bid
+                // delay before trigger auto-bid (configurable for testing)
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(autoBidDelayMs);
                 } catch (InterruptedException e) {
                     logger.error("Failed to delay auto-bid trigger", e);
                     Thread.currentThread().interrupt();
@@ -532,6 +534,10 @@ public class BidSystem {
 
     private boolean isCurrentWinner(Auction auction, int userId) {
         return auction.getWinnerId() != null && auction.getWinnerId().equals(userId);
+    }
+
+    void setAutoBidDelayMs(long ms) {
+        this.autoBidDelayMs = ms;
     }
 
     private void extendEndTime(LocalDateTime bidTime, Auction auction) {
