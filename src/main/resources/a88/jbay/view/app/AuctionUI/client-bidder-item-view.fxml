@@ -38,13 +38,13 @@
         <HBox layoutX="25.0" layoutY="90.0" spacing="25.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="90.0">
             <children>
 
-                <VBox maxWidth="450.0" prefWidth="450.0" spacing="20.0" HBox.hgrow="NEVER">
+                <VBox minWidth="450.0" maxWidth="450.0" prefWidth="450.0" spacing="20.0" HBox.hgrow="NEVER">
                     <children>
                         <VBox alignment="CENTER" styleClass="card-panel">
                             <children>
-                                <StackPane prefHeight="350.0" prefWidth="350.0" styleClass="image-dashed-container">
+                                <StackPane minHeight="350.0" minWidth="350.0" maxHeight="350.0" maxWidth="350.0" prefHeight="350.0" prefWidth="350.0" styleClass="image-dashed-container">
                                     <children>
-                                        <ImageView fx:id="itemImageView" fitHeight="350.0" fitWidth="404.0" pickOnBounds="true" preserveRatio="true" />
+                                        <ImageView fx:id="itemImageView" fitHeight="340.0" fitWidth="340.0" pickOnBounds="true" preserveRatio="true" />
                                     </children>
                                 </StackPane>
                             </children>
@@ -86,7 +86,7 @@
                                     <children>
                                         <GridPane hgap="10.0" vgap="8.0">
                                             <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" prefWidth="92.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="92.0" prefWidth="92.0" />
                                                 <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
                                             </columnConstraints>
                                             <rowConstraints>
