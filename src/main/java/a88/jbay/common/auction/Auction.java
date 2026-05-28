@@ -160,9 +160,6 @@ public class Auction implements Serializable {
     }
 
     private void validateBidAmount(double amount) throws BidRejected {
-        if (auctionState != AuctionState.RUNNING) {
-            throw new BidRejected("Auction is not running (state=" + auctionState + ")");
-        }
         if (winnerId == null) {
             if (amount < currentPrice) {
                 throw new BidRejected("Opening bid " + amount + " is below start price " + currentPrice);
