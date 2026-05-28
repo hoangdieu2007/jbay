@@ -187,4 +187,98 @@ class AuctionDAOImplTest extends DaoTestBase {
         assertEquals(1, all.size());
         assertEquals("AdminItem", all.get(0).itemName());
     }
+
+    @Test
+    @DisplayName("Should return empty list for admin when no auctions exist")
+    void testGetAllAuctionsForAdmin_Empty() {
+        List<AuctionData> all = auctionDAO.getAllAuctionsForAdmin();
+
+        assertNotNull(all);
+        assertTrue(all.isEmpty());
+    }
+
+    @Test
+    @DisplayName("Should find auctions by winner id")
+    void testFindAuctionsByWinnerId() throws Exception {
+        int sellerId = insertUser("seller", "pass", "SELLER", null);
+        int winnerId = insertUser("winner", "pass", "BIDDER", null);
+        int itemId = insertItem("WonItem", "TYPE", "Desc", 100.0, new byte[]{});
+        int auctionId = insertAuction(itemId, sellerId, 100.0, 5.0,
+                LocalDateTime.now(), LocalDateTime.now().plusDays(1), "FINISHED");
+        int bidId = insertBid(winnerId, auctionId, 150.0, LocalDateTime.now());
+        auctionDAO.updateCurrentBid(auctionId, bidId);
+
+        List<AuctionData> won = auctionDAO.findAuctionsByWinnerId(winnerId);
+
+        assertEquals(1, won.size());
+    }
+
+    @Test
+    @DisplayName("Should return empty list when winner has no won auctions")
+    void testFindAuctionsByWinnerId_Empty() {
+        List<AuctionData> won = auctionDAO.findAuctionsByWinnerId(999);
+
+        assertNotNull(won);
+        assertTrue(won.isEmpty());
+    }
+
+    @Test
+    @DisplayName("Should return no rows when getting current price for non-existent auction")
+    void testFindCurrentPrice_NoAuction() {
+        Double price = auctionDAO.findCurrentPrice(99999);
+        assertNull(price);
+    }
+
+    @Test
+    @DisplayName("Should set auction state to CANCELED")
+    void testSetAuctionState_Canceled() throws Exception {
+        int userId = insertUser("seller", "pass", "SELLER", null);
+        int itemId = insertItem("Item", "TYPE", "Desc", 100.0, new byte[]{});
+        int auctionId = insertAuction(itemId, userId, 100.0, 5.0,
+                LocalDateTime.now(), LocalDateTime.now().plusDays(1), "RUNNING");
+
+        boolean updated = auctionDAO.setAuctionState(auctionId, AuctionState.CANCELED);
+
+        assertTrue(updated);
+        AuctionData data = auctionDAO.findAuctionById(auctionId);
+        assertEquals("CANCELED", data.state());
+    }
+
+    @Test
+    @DisplayName("Should find current price with bid winner")
+    void testFindCurrentPrice_WithWinner() throws Exception {
+        int sellerId = insertUser("seller", "pass", "SELLER", null);
+        int bidderId = insertUser("bidder", "pass", "BIDDER", null);
+        int itemId = insertItem("Item", "TYPE", "Desc", 100.0, new byte[]{});
+        int auctionId = insertAuction(itemId, sellerId, 100.0, 5.0,
+                LocalDateTime.now(), LocalDateTime.now().plusDays(1), "RUNNING");
+        int bidId = insertBid(bidderId, auctionId, 200.0, LocalDateTime.now());
+        auctionDAO.updateCurrentBid(auctionId, bidId);
+
+        Double price = auctionDAO.findCurrentPrice(auctionId);
+
+        assertNotNull(price);
+        assertEquals(200.0, price, 0.001);
+    }
+
+    @Test
+    @DisplayName("Should return null when updating current bid for non-existent auction")
+    void testUpdateCurrentBid_NonExistentAuction() {
+        boolean updated = auctionDAO.updateCurrentBid(99999, 1);
+        assertFalse(updated);
+    }
+
+    @Test
+    @DisplayName("Should update end time for non-existent auction returns false")
+    void testUpdateEndTime_NonExistentAuction() {
+        boolean updated = auctionDAO.updateEndTime(99999, LocalDateTime.now());
+        assertFalse(updated);
+    }
+
+    @Test
+    @DisplayName("Should return false when setting state for non-existent auction")
+    void testSetAuctionState_NonExistentAuction() {
+        boolean updated = auctionDAO.setAuctionState(99999, AuctionState.CANCELED);
+        assertFalse(updated);
+    }
 }

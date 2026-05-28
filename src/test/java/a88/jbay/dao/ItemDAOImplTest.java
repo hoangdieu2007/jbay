@@ -47,11 +47,30 @@ class ItemDAOImplTest extends DaoTestBase {
     @DisplayName("Should insert item via transactional overload")
     void testInsertItem_Transactional() throws Exception {
         Item item = new Item("Tx Item", "FOOD", "Transactional insert", 15.0, new byte[]{});
-        int id = itemDAO.insertItem(item);
-
-        assertTrue(id > 0);
-        Item saved = itemDAO.findItemById(id);
-        assertNotNull(saved);
-        assertEquals("Tx Item", saved.getName());
+        try (var conn = dbController.getConnection()) {
+            int id = itemDAO.insertItem(conn, item);
+            assertTrue(id > 0);
+        }
     }
+
+    @Test
+    @DisplayName("Should return null when item not found for non-existent id")
+    void testFindItemById_NonExistent() {
+        Item result = itemDAO.findItemById(-1);
+        assertNull(result);
+    }
+
+    @Test
+    @DisplayName("Should insert multiple items")
+    void testInsertMultipleItems() {
+        Item item1 = new Item("First", "A", "Desc1", 10.0, new byte[]{});
+        Item item2 = new Item("Second", "B", "Desc2", 20.0, new byte[]{});
+        int id1 = itemDAO.insertItem(item1);
+        int id2 = itemDAO.insertItem(item2);
+
+        assertTrue(id2 > id1);
+        assertEquals("First", itemDAO.findItemById(id1).getName());
+        assertEquals("Second", itemDAO.findItemById(id2).getName());
+    }
+
 }
