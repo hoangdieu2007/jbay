@@ -118,7 +118,8 @@ public class RequestHandler {
         String username = (String) request.get("username");
         String password = (String) request.get("password");
         byte[] qrCode = (byte[]) request.get("qrCode"); // Lấy dữ liệu ảnh
-        String role = "USER";
+        String role = (String) request.get("role");
+        if (role == null || role.isBlank()) role = "USER";
 
         // Truyền thêm biến qrCode vào UserSystem
         if (userSystem.register(username, password, role, qrCode)) {
@@ -143,60 +144,48 @@ public class RequestHandler {
     private Response handleBid(Request request) {
         User user = userSystem.findBySessionId((String) request.get("sessionId"));
         if (user == null) return new Response(false, "INVALID_SESSION", null);
-        if (user.can(RequestType.BID)) {
-            boolean success = bidSystem.placeBid(user.getId(), (Integer) request.get("auctionId"), (Double) request.get("amount"));
-            return new Response(success, success ? "BID_SUCCESS" : "BID_FAIL", null);
-        }
-        return new Response(false, "BID_FAIL", null);
+        boolean success = bidSystem.placeBid(user.getId(), (Integer) request.get("auctionId"), (Double) request.get("amount"));
+        return new Response(success, success ? "BID_SUCCESS" : "BID_FAIL", null);
     }
 
     //handling auto-bidding
     private Response handleAutoBid(Request request) {
         User user = userSystem.findBySessionId((String) request.get("sessionId"));
         if (user == null) return new Response(false, "INVALID_SESSION", null);
-        if (user.can(RequestType.BID)) {
-            bidSystem.placeBidAutomated(user.getId(), (Integer) request.get("auctionId"), (Double) request.get("max_amount"), (Double) request.get("increment"));
-            return new Response(true, "AUTO_BID_SUCCESS", null);
-        }
-        return new Response(false, "AUTO_BID_FAIL", null);
+        bidSystem.placeBidAutomated(user.getId(), (Integer) request.get("auctionId"), (Double) request.get("max_amount"), (Double) request.get("increment"));
+        return new Response(true, "AUTO_BID_SUCCESS", null);
     }
 
     //handling cancel auto-bid
     private Response handleCancelAutoBid(Request request) {
         User user = userSystem.findBySessionId((String) request.get("sessionId"));
         if (user == null) return new Response(false, "INVALID_SESSION", null);
-        if (user.can(RequestType.BID)) {
-            bidSystem.cancelAutoBid(user.getId(), (Integer) request.get("auctionId"));
-            return new Response(true, "CANCEL_AUTO_BID_SUCCESS", null);
-        }
-        return new Response(false, "CANCEL_AUTO_BID_FAIL", null);
+        bidSystem.cancelAutoBid(user.getId(), (Integer) request.get("auctionId"));
+        return new Response(true, "CANCEL_AUTO_BID_SUCCESS", null);
     }
 
     //handling selling and creating auction
     private Response handleSell(Request request) {
         User user = userSystem.findBySessionId((String) request.get("sessionId"));
         if (user == null) return new Response(false, "INVALID_SESSION", null);
-        if (user.can(RequestType.SELL)) {
-            Item item = (Item) request.get("item");
-            java.time.LocalDateTime start = (java.time.LocalDateTime) request.get("start");
-            java.time.LocalDateTime end = (java.time.LocalDateTime) request.get("end");
-            if (item == null || start == null || end == null) {
-                return new Response(false, "SELL_FAIL", null);
-            }
-
-            Object minIncrementValue = request.get("minIncrement");
-            double minIncrement = minIncrementValue instanceof Number number ? number.doubleValue() : 0.0;
-
-            boolean success = auctionSystem.createAuction(
-                    item,
-                    user.getId(),
-                    minIncrement,
-                    start,
-                    end
-            );
-            return new Response(success, success ? "SELL_SUCCESS" : "SELL_FAIL", null);
+        Item item = (Item) request.get("item");
+        java.time.LocalDateTime start = (java.time.LocalDateTime) request.get("start");
+        java.time.LocalDateTime end = (java.time.LocalDateTime) request.get("end");
+        if (item == null || start == null || end == null) {
+            return new Response(false, "SELL_FAIL", null);
         }
-        return new Response(false, "SELL_FAIL", null);
+
+        Object minIncrementValue = request.get("minIncrement");
+        double minIncrement = minIncrementValue instanceof Number number ? number.doubleValue() : 0.0;
+
+        boolean success = auctionSystem.createAuction(
+                item,
+                user.getId(),
+                minIncrement,
+                start,
+                end
+        );
+        return new Response(success, success ? "SELL_SUCCESS" : "SELL_FAIL", null);
     }
 
     //pay request - returns seller QR
@@ -245,12 +234,8 @@ public class RequestHandler {
             return new Response(false, "CANCEL_FAIL", null);
         }
 
-        if (user.can(RequestType.CANCEL)) {
-            boolean success = auctionSystem.cancelAuction(auction.getId());
-
-            return new Response(success, success ? "CANCEL_SUCCESS" : "CANCEL_FAIL", null);
-        }
-        return new Response(false, "CANCEL_FAIL", null);
+        boolean success = auctionSystem.cancelAuction(auction.getId());
+        return new Response(success, success ? "CANCEL_SUCCESS" : "CANCEL_FAIL", null);
     }
 
     //subscribing to auctions

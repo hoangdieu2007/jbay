@@ -107,13 +107,6 @@ public class BidSystem {
                 // anti-sniping check upon successful bid
                 extendEndTime(tx.getTimestamp(), auction);
 
-                // delay before trigger auto-bid (configurable for testing)
-                try {
-                    Thread.sleep(autoBidDelayMs);
-                } catch (InterruptedException e) {
-                    logger.error("Failed to delay auto-bid trigger", e);
-                    Thread.currentThread().interrupt();
-                }
                 triggerAutoBid(auction);
             }
 

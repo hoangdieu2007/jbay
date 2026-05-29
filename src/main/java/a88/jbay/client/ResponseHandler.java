@@ -11,6 +11,7 @@ import a88.jbay.common.network.RequestType;
 import a88.jbay.common.network.Response;
 import a88.jbay.controller.app.EntranceUI.ClientRegisterController;
 import a88.jbay.util.JBayLogger;
+import a88.jbay.di.ClientApplicationContext;
 import a88.jbay.view.ViewManager;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
@@ -19,25 +20,21 @@ import java.io.IOException;
 import java.util.List;
 
 public class ResponseHandler {
-    private static ResponseHandler instance;
     private ClientSession clientSession;
     private ControllerProvider controllerProvider;
     private ViewManager viewManager;
     private final JBayLogger logger;
     private Auction pendingPaymentAuction;
 
-    private ResponseHandler() {
+    public ResponseHandler(ClientSession clientSession, ControllerProvider controllerProvider, ViewManager viewManager) {
         this.logger = JBayLogger.getLogger(ResponseHandler.class);
-        clientSession = ClientSession.getInstance();
-        controllerProvider = ControllerProvider.getInstance();
-        viewManager = ViewManager.getInstance();
+        this.clientSession = clientSession;
+        this.controllerProvider = controllerProvider;
+        this.viewManager = viewManager;
     }
 
-    public synchronized static ResponseHandler getInstance() {
-        if (instance == null) {
-            instance = new ResponseHandler();
-        }
-        return instance;
+    public static ResponseHandler getInstance() {
+        return ClientApplicationContext.getInstance().getDependency(ResponseHandler.class);
     }
 
     public void setPendingPaymentAuction(Auction auction) {
@@ -89,15 +86,15 @@ public class ResponseHandler {
 
         try {
             logger.info("Displaying home screen");
-            ViewManager.newStage("Auction88's jBay");
-            ViewManager.setResolution(1280, 720);
+            viewManager.openStage("Auction88's jBay");
+            viewManager.resizeStage(1280, 720);
             if (curUser.getRole().equals("USER")) {
-                ViewManager.displayScene("UserHomeScreenUI/user-HomeScreen.fxml");
+                viewManager.showScene("UserHomeScreenUI/user-HomeScreen.fxml");
                 ServerConnection.getInstance().send(new Request(RequestType.GET_AUCTIONS)
                         .put("userId", clientSession.getUser().getId()));
             }
             else if (curUser.getRole().equals("ADMIN")) {
-                ViewManager.displayScene("AdminUI/Admin-HomeScreens.fxml");
+                viewManager.showScene("AdminUI/Admin-HomeScreens.fxml");
                 ServerConnection.getInstance().send(new Request(RequestType.GET_AUCTIONS)
                         .put("userId", clientSession.getUser().getId()));
                 ServerConnection.getInstance().send(new Request(RequestType.GET_USERS)
@@ -125,11 +122,11 @@ public class ResponseHandler {
 
     public void handleLogoutSuccess(Response response) {
         try {
-            ViewManager.newStage("Welcome to jBay");
-            ViewManager.setResolution(1280, 720);
-            ClientSession.getInstance().resetSession();
-            ControllerProvider.getInstance().clearControllers();
-            ViewManager.displayScene("EntranceUI/client-login-view.fxml");
+            viewManager.openStage("Welcome to jBay");
+            viewManager.resizeStage(1280, 720);
+            clientSession.resetSession();
+            controllerProvider.clearControllers();
+            viewManager.showScene("EntranceUI/client-login-view.fxml");
         } catch (IOException e) {
             logger.error("Failed to display login view");
         }
@@ -220,9 +217,9 @@ public class ResponseHandler {
     private void handleBanUser(Response response) {
         clientSession.resetSession();
         try {
-            ViewManager.newStage("Welcome to jBay");
-            ViewManager.setResolution(1280, 720);
-            ViewManager.displayScene("EntranceUI/client-login-view.fxml");
+            viewManager.openStage("Welcome to jBay");
+            viewManager.resizeStage(1280, 720);
+            viewManager.showScene("EntranceUI/client-login-view.fxml");
             showAlert(Alert.AlertType.WARNING, "You have been banned");
         } catch (IOException e) {
             logger.error("Failed to display login scene");
@@ -272,7 +269,11 @@ public class ResponseHandler {
     }
 
     private void showAlert(Alert.AlertType type, String message) {
-        Platform.runLater(() -> new Alert(type, message).show());
+        try {
+            Platform.runLater(() -> new Alert(type, message).show());
+        } catch (Exception e) {
+            logger.warn("showAlert skipped (JavaFX not available): " + e.getMessage());
+        }
     }
 
 

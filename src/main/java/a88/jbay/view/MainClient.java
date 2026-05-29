@@ -2,6 +2,7 @@ package a88.jbay.view;
 
 import a88.jbay.client.ClientSession;
 import a88.jbay.client.ServerConnection;
+import a88.jbay.di.ClientApplicationContext;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -22,6 +23,7 @@ public class MainClient extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        ClientApplicationContext.getInstance().configure();
 
         ViewManager viewManager = ViewManager.getInstance();
 

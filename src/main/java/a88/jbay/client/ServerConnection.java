@@ -4,6 +4,7 @@ import a88.jbay.common.network.Request;
 import a88.jbay.common.network.RequestType;
 import a88.jbay.common.network.Response;
 import a88.jbay.util.JBayLogger;
+import a88.jbay.di.ClientApplicationContext;
 import a88.jbay.view.ViewManager;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
@@ -20,8 +21,9 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class ServerConnection {
-    private static ServerConnection instance;
     private ResponseHandler responseHandler;
+    private ClientSession clientSession;
+    private ViewManager viewManager;
     private final JBayLogger logger;
     private Thread listenerThread;
     private ScheduledExecutorService scheduler;
@@ -30,16 +32,15 @@ public class ServerConnection {
     private volatile boolean listenerRunning = false;
     private volatile boolean disconnecting = false;
 
-    private ServerConnection() {
+    public ServerConnection(ResponseHandler responseHandler, ClientSession clientSession, ViewManager viewManager) {
         this.logger = JBayLogger.getLogger(ServerConnection.class);
-        responseHandler = ResponseHandler.getInstance();
+        this.responseHandler = responseHandler;
+        this.clientSession = clientSession;
+        this.viewManager = viewManager;
     }
 
-    public synchronized static ServerConnection getInstance() {
-        if (instance == null) {
-            instance = new ServerConnection();
-        }
-        return instance;
+    public static ServerConnection getInstance() {
+        return ClientApplicationContext.getInstance().getDependency(ServerConnection.class);
     }
 
     private Socket socket;
@@ -85,7 +86,7 @@ public class ServerConnection {
         logger.info("Sending request: " + request.getType().name());
 
         //automatically add sessionId
-        String sessionId = ClientSession.getInstance().getUser().getSessionId();
+        String sessionId = clientSession.getUser().getSessionId();
         if (sessionId != null && !sessionId.isBlank() && !"none".equals(sessionId)) {
             request.put("sessionId", sessionId);
         }
@@ -212,9 +213,9 @@ public class ServerConnection {
             Alert alert = new Alert(Alert.AlertType.WARNING, message);
             alert.showAndWait();
             try {
-                ViewManager.newStage("Welcome to jBay");
-                ViewManager.setResolution(600, 429);
-                ViewManager.displayScene("EntranceUI/client-server-connect-view.fxml");
+                viewManager.openStage("Welcome to jBay");
+                viewManager.resizeStage(600, 429);
+                viewManager.showScene("EntranceUI/client-server-connect-view.fxml");
             } catch (IOException ex) {
                 logger.error("Failed to switch to connection view: " + ex.getMessage(), ex);
             }

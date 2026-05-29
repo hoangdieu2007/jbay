@@ -109,6 +109,28 @@ public class ViewManager {
     }
 
 
+    // ---- instance wrappers (for DI / testability) ----
+
+    public void openStage(String title) {
+        ViewManager.newStage(title);
+    }
+
+    public void resizeStage(double width, double height) {
+        ViewManager.setResolution(width, height);
+    }
+
+    public void showScene(String fxmlPath) throws IOException {
+        ViewManager.displayScene(fxmlPath);
+    }
+
+    public void closeStage() {
+        ViewManager.closePrimaryStage();
+    }
+
+    public void assignStage(Stage stage) {
+        ViewManager.setPrimaryStage(stage);
+    }
+
     /**
      * redesign homeScreen
      **/

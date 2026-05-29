@@ -3,6 +3,7 @@ package a88.jbay.client;
 import a88.jbay.common.network.Request;
 import a88.jbay.common.network.RequestType;
 import a88.jbay.common.user.User;
+import a88.jbay.view.ViewManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -10,35 +11,30 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.lang.reflect.Field;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class ServerConnectionTest {
 
     private ServerConnection connection;
+    private ResponseHandler responseHandler;
+    private ClientSession clientSession;
 
     @BeforeEach
-    void setUp() throws Exception {
-        resetSingleton(ClientSession.class);
-        resetSingleton(ResponseHandler.class);
-        resetSingleton(ServerConnection.class);
-        connection = ServerConnection.getInstance();
+    void setUp() {
+        responseHandler = mock(ResponseHandler.class);
+        clientSession = new ClientSession();
+        connection = new ServerConnection(responseHandler, clientSession, mock(ViewManager.class));
     }
 
     @AfterEach
     void tearDown() {
         connection.disconnect();
-    }
-
-    @Test
-    @DisplayName("Should return the same singleton instance")
-    void testGetInstance() {
-        assertSame(connection, ServerConnection.getInstance());
     }
 
     @Test
@@ -63,7 +59,7 @@ class ServerConnectionTest {
     @Test
     @DisplayName("Should send request with session id over a socket connection")
     void testSend_AddsSessionIdAndSerializesRequest() throws Exception {
-        ClientSession.getInstance().setUser(new User(5, "USER", "alice", "session-123"));
+        clientSession.setUser(new User(5, "USER", "alice", "session-123"));
         ArrayBlockingQueue<Request> receivedRequests = new ArrayBlockingQueue<>(1);
 
         try (ServerSocket serverSocket = new ServerSocket(0)) {
@@ -87,7 +83,7 @@ class ServerConnectionTest {
     @Test
     @DisplayName("Should not add blank or none session id to outgoing request")
     void testSend_SkipsInvalidSessionId() throws Exception {
-        ClientSession.getInstance().setUser(new User(5, "USER", "alice", "none"));
+        clientSession.setUser(new User(5, "USER", "alice", "none"));
         ArrayBlockingQueue<Request> receivedRequests = new ArrayBlockingQueue<>(1);
 
         try (ServerSocket serverSocket = new ServerSocket(0)) {
@@ -118,16 +114,6 @@ class ServerConnectionTest {
         } catch (Exception ignored) {
             // Test thread observes failure by timing out waiting for the request.
         }
-    }
-
-    private static void resetSingleton(Class<?> clazz) throws Exception {
-        Field field = clazz.getDeclaredField("instance");
-        field.setAccessible(true);
-        Object value = field.get(null);
-        if (value instanceof ServerConnection serverConnection) {
-            serverConnection.disconnect();
-        }
-        field.set(null, null);
     }
 
     private static class IOExceptionAssert {

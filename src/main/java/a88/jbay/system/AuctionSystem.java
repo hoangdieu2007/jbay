@@ -285,6 +285,17 @@ public class AuctionSystem {
         updateSystem.broadcastAuctionUpdate(auction);
     }
 
+    // Immediately apply all pending state transitions (OPENING→RUNNING, RUNNING→FINISHED)
+    // without triggering publish/notify (caller will trigger its own updates).
+    public void forceTick() {
+        LocalDateTime now = LocalDateTime.now();
+        for (Auction auction : auctionRepository.getAllActiveAuctions()) {
+            if (auction.tick(now)) {
+                auctionRepository.setAuctionState(auction.getId(), auction.getAuctionState());
+            }
+        }
+    }
+
     //stopping the heartbeat, WARNING: no automatic auction lifecycle management after stopping
     //do NOT call this method unless for testing purpose
     public void stopSystem() {

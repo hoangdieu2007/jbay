@@ -13,12 +13,10 @@ import a88.jbay.view.ViewManager;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
-import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -29,53 +27,19 @@ class ResponseHandlerTest {
 
     private ClientSession clientSession;
     private ControllerProvider controllerProvider;
+    private ViewManager viewManager;
     private ResponseHandler handler;
-    private MockedStatic<ClientSession> csMock;
-    private MockedStatic<ControllerProvider> cpMock;
-    private MockedStatic<ViewManager> vmMock;
-    private MockedStatic<Platform> platformMock;
-    private MockedStatic<ServerConnection> scMock;
 
     @BeforeEach
-    void setUp() throws Exception {
-        resetResponseHandlerSingleton();
+    void setUp() {
         clientSession = mock(ClientSession.class);
         controllerProvider = mock(ControllerProvider.class);
-
-        csMock = mockStatic(ClientSession.class);
-        csMock.when(ClientSession::getInstance).thenReturn(clientSession);
-
-        cpMock = mockStatic(ControllerProvider.class);
-        cpMock.when(ControllerProvider::getInstance).thenReturn(controllerProvider);
-
-        vmMock = mockStatic(ViewManager.class);
-        vmMock.when(ViewManager::getInstance).thenReturn(mock(ViewManager.class));
-
-        scMock = mockStatic(ServerConnection.class);
-        scMock.when(ServerConnection::getInstance).thenReturn(mock(ServerConnection.class));
-
-        platformMock = mockStatic(Platform.class);
-
-        handler = ResponseHandler.getInstance();
-    }
-
-    @AfterEach
-    void tearDown() {
-        csMock.close();
-        cpMock.close();
-        vmMock.close();
-        scMock.close();
-        platformMock.close();
+        viewManager = mock(ViewManager.class);
+        handler = new ResponseHandler(clientSession, controllerProvider, viewManager);
     }
 
     private Item makeItem() {
         return new Item(1, "Test", "TYPE", "desc", 100.0);
-    }
-
-    private void resetResponseHandlerSingleton() throws Exception {
-        Field instance = ResponseHandler.class.getDeclaredField("instance");
-        instance.setAccessible(true);
-        instance.set(null, null);
     }
 
     // --- PONG ---
@@ -125,7 +89,10 @@ class ResponseHandlerTest {
 
         when(clientSession.getUser()).thenReturn(curUser);
 
-        handler.handle(response);
+        try (MockedStatic<ServerConnection> scMock = mockStatic(ServerConnection.class)) {
+            scMock.when(ServerConnection::getInstance).thenReturn(mock(ServerConnection.class));
+            handler.handle(response);
+        }
 
         verify(clientSession).setUser(curUser);
         verify(loginController).updateLoginLabel("Login successful");
@@ -141,7 +108,10 @@ class ResponseHandlerTest {
 
         when(clientSession.getUser()).thenReturn(curUser);
 
-        handler.handle(response);
+        try (MockedStatic<ServerConnection> scMock = mockStatic(ServerConnection.class)) {
+            scMock.when(ServerConnection::getInstance).thenReturn(mock(ServerConnection.class));
+            handler.handle(response);
+        }
 
         verify(clientSession).setUser(curUser);
         verify(loginController).updateLoginLabel("Login successful");
@@ -156,12 +126,16 @@ class ResponseHandlerTest {
         when(controllerProvider.getController(ClientLoginController.class)).thenReturn(loginController);
         when(clientSession.getUser()).thenReturn(curUser);
 
-        vmMock.when(() -> ViewManager.displayScene(anyString())).thenThrow(new java.io.IOException("Test error"));
+        try {
+            doThrow(new java.io.IOException("Test error")).when(viewManager).showScene(anyString());
+        } catch (java.io.IOException e) {
+            throw new RuntimeException(e);
+        }
 
         handler.handle(response);
 
-        verify(loginController).updateLoginLabel("Failed to display home screen");
         verify(clientSession).setUser(curUser);
+        verify(loginController).updateLoginLabel("Failed to display home screen");
     }
 
     // --- LOGOUT_SUCCESS ---
@@ -169,8 +143,10 @@ class ResponseHandlerTest {
     @Test
     void testHandleLogoutSuccess() {
         Response response = new Response(true, "LOGOUT_SUCCESS", null);
-        assertDoesNotThrow(() -> handler.handle(response));
+        handler.handle(response);
+
         verify(clientSession).resetSession();
+        verify(controllerProvider).clearControllers();
     }
 
     // --- REGISTER_SUCCESS / REGISTER_FAIL ---
@@ -439,17 +415,19 @@ class ResponseHandlerTest {
         User currentUser = new User(1, "ADMIN", "adminUser", "sess");
         when(clientSession.getUser()).thenReturn(currentUser);
 
-        platformMock.when(() -> Platform.runLater(any(Runnable.class)))
-                .thenAnswer(invocation -> {
-                    ((Runnable) invocation.getArgument(0)).run();
-                    return null;
-                });
+        try (MockedStatic<Platform> platformMock = mockStatic(Platform.class)) {
+            platformMock.when(() -> Platform.runLater(any(Runnable.class)))
+                    .thenAnswer(invocation -> {
+                        ((Runnable) invocation.getArgument(0)).run();
+                        return null;
+                    });
 
-        User newUser = new User(10, "USER", "newbie");
-        Response response = new Response(true, "NEW_USER_REGISTERED", newUser);
-        handler.handle(response);
+            User newUser = new User(10, "USER", "newbie");
+            Response response = new Response(true, "NEW_USER_REGISTERED", newUser);
+            handler.handle(response);
 
-        assertSame(newUser, adminUsers.get(10));
+            assertSame(newUser, adminUsers.get(10));
+        }
     }
 
     @Test
@@ -473,7 +451,9 @@ class ResponseHandlerTest {
     void testHandlePayQr() {
         byte[] qrData = new byte[]{1, 2, 3};
         Response response = new Response(true, "PAY_QR", qrData);
-        assertDoesNotThrow(() -> handler.handle(response));
+        try (MockedStatic<Platform> platformMock = mockStatic(Platform.class)) {
+            assertDoesNotThrow(() -> handler.handle(response));
+        }
     }
 
     // --- SET_PENDING_PAYMENT ---
@@ -489,11 +469,14 @@ class ResponseHandlerTest {
 
     @Test
     void testHandleAuctionUpdateNotifyDispatches() {
-        Response response = new Response(true, "AUCTION_UPDATE_NOTIFY", null);
-        try {
+        Auction auction = mock(Auction.class);
+        when(auction.getId()).thenReturn(1);
+        when(auction.getItem()).thenReturn(makeItem());
+        when(auction.getCurrentPrice()).thenReturn(100.0);
+        when(auction.getWinner()).thenReturn("someone");
+        Response response = new Response(true, "AUCTION_UPDATE_NOTIFY", auction);
+        try (MockedStatic<Platform> platformMock = mockStatic(Platform.class)) {
             handler.handle(response);
-        } catch (Throwable ignored) {
-            // Alert requires JavaFX toolkit not available in test
         }
     }
 
@@ -501,11 +484,9 @@ class ResponseHandlerTest {
 
     @Test
     void testHandleConfirmPaymentSuccessDispatches() {
-        Response response = new Response(true, "CONFIRM_PAYMENT_SUCCESS", null);
-        try {
+        try (MockedStatic<Platform> platformMock = mockStatic(Platform.class)) {
+            Response response = new Response(true, "CONFIRM_PAYMENT_SUCCESS", null);
             handler.handle(response);
-        } catch (Throwable ignored) {
-            // Alert requires JavaFX toolkit not available in test
         }
     }
 
@@ -514,11 +495,9 @@ class ResponseHandlerTest {
     @Test
     void testHandleBanUserDispatches() {
         handler.setPendingPaymentAuction(mock(Auction.class));
-        Response response = new Response(true, "BAN_USER", null);
-        try {
+        try (MockedStatic<Platform> platformMock = mockStatic(Platform.class)) {
+            Response response = new Response(true, "BAN_USER", null);
             handler.handle(response);
-        } catch (Throwable ignored) {
-            // Alert requires JavaFX toolkit not available in test
         }
         verify(clientSession).resetSession();
     }

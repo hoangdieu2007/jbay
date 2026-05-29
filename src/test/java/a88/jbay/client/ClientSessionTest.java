@@ -15,15 +15,7 @@ class ClientSessionTest {
 
     @BeforeEach
     void setUp() {
-        session = ClientSession.getInstance();
-        session.resetSession();
-        session.getAdminUsers().clear();
-        session.getAdminAuctions().clear();
-    }
-
-    @Test
-    void testSingleton() {
-        assertSame(ClientSession.getInstance(), ClientSession.getInstance());
+        session = new ClientSession();
     }
 
     @Test
@@ -132,23 +124,9 @@ class ClientSessionTest {
     }
 
     @Test
-    void testMultipleGetInstanceReturnsSame() {
-        assertSame(session, ClientSession.getInstance());
-    }
-
-    @Test
     void testUserDefaults() {
         assertEquals(-1, session.getUser().getId());
         assertEquals("guest", session.getUser().getUsername());
         assertEquals("GUEST", session.getUser().getRole());
-    }
-
-    @Test
-    void testSingletonConsistency() {
-        ClientSession anotherRef = ClientSession.getInstance();
-        anotherRef.setUser(new User(5, "ADMIN", "admin2"));
-        assertSame(anotherRef.getUser(), session.getUser());
-        session.setUser(new User(3, "USER", "user3"));
-        assertSame(anotherRef.getUser(), session.getUser());
     }
 }
