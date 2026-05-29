@@ -168,6 +168,10 @@ public class BidSystem {
             return amount >= auction.getCurrentPrice();
         }
 
+        if (auction.getMinIncrement() == 0.0) {
+            return amount > auction.getCurrentPrice();
+        }
+
         return amount >= auction.getCurrentPrice() + auction.getMinIncrement();
     }
 
