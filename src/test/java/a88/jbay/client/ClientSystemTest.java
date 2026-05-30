@@ -19,7 +19,9 @@ import org.mockito.MockedStatic;
 
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -368,12 +370,14 @@ class ClientSystemTest {
     }
 
     @Test
-    @DisplayName("PAY_QR with pending auction does not crash")
-    void payQr_withPendingAuction() {
-        handler.setPendingPaymentAuction(auction(1, "seller"));
+    @DisplayName("PAY_QR does not crash")
+    void payQr_doesNotCrash() {
+        Map<String, Object> payload = new HashMap<>();
+        payload.put("auctionId", 1);
+        payload.put("qrCode", new byte[]{1, 2, 3});
         try (MockedStatic<Platform> p = mockStatic(Platform.class)) {
             assertDoesNotThrow(() ->
-                    handler.handle(new Response(true, "PAY_QR", new byte[]{1, 2, 3})));
+                    handler.handle(new Response(true, "PAY_QR", payload)));
         }
     }
 

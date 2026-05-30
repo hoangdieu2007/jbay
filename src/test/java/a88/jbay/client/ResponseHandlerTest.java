@@ -19,7 +19,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -450,20 +452,13 @@ class ResponseHandlerTest {
 
     @Test
     void testHandlePayQr() {
-        byte[] qrData = new byte[]{1, 2, 3};
-        Response response = new Response(true, "PAY_QR", qrData);
+        Map<String, Object> payload = new HashMap<>();
+        payload.put("auctionId", 1);
+        payload.put("qrCode", new byte[]{1, 2, 3});
+        Response response = new Response(true, "PAY_QR", payload);
         try (MockedStatic<Platform> platformMock = mockStatic(Platform.class)) {
             assertDoesNotThrow(() -> handler.handle(response));
         }
-    }
-
-    // --- SET_PENDING_PAYMENT ---
-
-    @Test
-    void testSetPendingPaymentAuction() {
-        Auction auction = mock(Auction.class);
-        handler.setPendingPaymentAuction(auction);
-        // No getter for pendingPaymentAuction; smoke test only
     }
 
     // --- AUCTION_UPDATE_NOTIFY (Alert requires JavaFX toolkit) ---
@@ -495,7 +490,6 @@ class ResponseHandlerTest {
 
     @Test
     void testHandleBanUserDispatches() {
-        handler.setPendingPaymentAuction(mock(Auction.class));
         try (MockedStatic<Platform> platformMock = mockStatic(Platform.class)) {
             Response response = new Response(true, "BAN_USER", null);
             handler.handle(response);
