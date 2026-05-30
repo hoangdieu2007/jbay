@@ -389,7 +389,7 @@ class RequestHandlerExtendedTest {
     class CancelEdgeCases {
 
         @Test
-        @DisplayName("CANCEL for non-existent auction throws NPE (handler dereference)")
+        @DisplayName("CANCEL for non-existent auction returns INVALID_AUCTION")
         void cancelNonExistentAuction() {
             when(userSystem.findBySessionId("sess1")).thenReturn(testUser);
             when(auctionSystem.getAuctionById(999)).thenReturn(null);
@@ -397,7 +397,9 @@ class RequestHandlerExtendedTest {
             Request req = new Request(RequestType.CANCEL)
                     .put("sessionId", "sess1")
                     .put("auctionId", 999);
-            assertThrows(NullPointerException.class, () -> handler.handleRequest(req));
+            Response res = handler.handleRequest(req);
+            assertFalse(res.isSuccess());
+            assertEquals("INVALID_AUCTION", res.getMessage());
         }
 
         @Test

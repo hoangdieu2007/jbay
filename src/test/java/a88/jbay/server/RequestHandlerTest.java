@@ -239,6 +239,7 @@ class RequestHandlerTest {
     void testPay() {
         Auction auction = mock(Auction.class);
         when(auction.getSellerId()).thenReturn(2);
+        when(auction.getWinnerId()).thenReturn(1);
         when(userSystem.findBySessionId("sess1")).thenReturn(testUser);
         when(auctionSystem.getAuctionById(100)).thenReturn(auction);
         when(userSystem.getQr(2)).thenReturn(new byte[]{1, 2, 3});

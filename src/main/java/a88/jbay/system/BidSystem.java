@@ -97,6 +97,10 @@ public class BidSystem {
                 return false;
             }
 
+            if (auction.getAuctionState() != AuctionState.RUNNING) {
+                return false;
+            }
+
             BidTransaction tx = createBidTransaction(userId, amount);
             boolean saved = bidRepository.saveBid(auctionId, tx); // save bid to DB
 
@@ -232,6 +236,10 @@ public class BidSystem {
             Auction auction = auctionRepository.getActiveAuctionById(auctionId);
 
             if (!isValidAutoBid(auction, amount)) {
+                return false;
+            }
+
+            if (auction.getAuctionState() != AuctionState.RUNNING) {
                 return false;
             }
 

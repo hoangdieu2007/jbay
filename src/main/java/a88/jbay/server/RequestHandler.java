@@ -205,6 +205,10 @@ public class RequestHandler {
         Auction auction = auctionSystem.getAuctionById(auctionId);
         if (auction == null) return new Response(false, "PAY_FAIL", null);
 
+        if (!Integer.valueOf(user.getId()).equals(auction.getWinnerId())) {
+            return new Response(false, "PAY_FAIL", null);
+        }
+
         // Đóng gói thành Map
         java.util.Map<String, Object> payload = new java.util.HashMap<>();
         payload.put("auctionId", auctionId);
@@ -242,6 +246,7 @@ public class RequestHandler {
         if (!user.can(RequestType.CANCEL)) return new Response(false, "CANCEL_FAIL", null);
 
         Auction auction = auctionSystem.getAuctionById((Integer) request.get("auctionId"));
+        if (auction == null) return new Response(false, "INVALID_AUCTION", null);
 
         if (!user.getUsername().equals(auction.getSellerName()) && user.getRole() != Role.ADMIN) {
             return new Response(false, "CANCEL_FAIL", null);
@@ -280,6 +285,7 @@ public class RequestHandler {
         }
 
         Auction auction = auctionSystem.getAuctionById(auctionId);
+        if (auction == null) return new Response(false, "INVALID_AUCTION", null);
         auction.unsubscribe(user.getId());
         return new Response(true, "UNSUBSCRIBE_AUCTION_SUCCESS", null);
     }

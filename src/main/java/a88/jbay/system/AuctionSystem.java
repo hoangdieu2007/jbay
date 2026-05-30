@@ -97,23 +97,33 @@ public class AuctionSystem {
     }
 
     public boolean confirmPayment(int auctionId) {
-        Auction auction = auctionRepository.getActiveAuctionById(auctionId);
+        Auction auction = auctionRepository.getAuctionById(auctionId);
         if (auction == null) {
-            logger.warn("Cancel requested for unknown auction: " + auctionId);
+            logger.warn("Payment requested for unknown auction: " + auctionId);
             return false;
         }
 
+        if (auction.getAuctionState() != AuctionState.FINISHED) {
+            logger.warn("Payment requested for auction " + auctionId
+                    + " in state " + auction.getAuctionState() + " (expected FINISHED)");
+            return false;
+        }
+
+        if (auction.getWinnerId() == null) {
+            logger.warn("Payment requested for auction " + auctionId + " with no winner");
+            return false;
+        }
+
+        auction.confirmPayment();
         boolean confirmed = auctionRepository.setAuctionState(auctionId, AuctionState.PAID);
         if (confirmed) {
-            auction = auctionRepository.getAuctionById(auctionId);
             publishAuctionUpdate(auction);
             auctionRepository.removeActiveAuction(auctionId);
 
             updateSystem.sendToUsers(
-                    Set.of(
-                            auction.getWinnerId(),
-                            auction.getSellerId()
-                    ),
+                    auction.getWinnerId() != null
+                            ? Set.of(auction.getWinnerId(), auction.getSellerId())
+                            : Set.of(auction.getSellerId()),
                     new Response(true, "CONFIRM_PAYMENT_SUCCESS", auction)
             );
 
@@ -128,14 +138,17 @@ public class AuctionSystem {
     //cancel auction
     //ONLY ADMIN CAN CALL THIS
     public boolean cancelAuction(int auctionId) {
-        Auction auction = auctionRepository.getActiveAuctionById(auctionId);
+        Auction auction = auctionRepository.getAuctionById(auctionId);
         if (auction == null) {
             logger.warn("Cancel requested for unknown auction: " + auctionId);
             return false;
         }
 
-        if (!(auction.getAuctionState() == AuctionState.OPENING || auction.getAuctionState() == AuctionState.RUNNING))
+        if (!(auction.getAuctionState() == AuctionState.OPENING || auction.getAuctionState() == AuctionState.RUNNING)) {
+            logger.warn("Cancel requested for auction " + auctionId
+                    + " in state " + auction.getAuctionState() + " (expected OPENING or RUNNING)");
             return false;
+        }
 
         boolean canceled = auctionRepository.setAuctionState(auctionId, AuctionState.CANCELED);
         if (canceled) {
