@@ -205,7 +205,12 @@ public class RequestHandler {
         Auction auction = auctionSystem.getAuctionById(auctionId);
         if (auction == null) return new Response(false, "PAY_FAIL", null);
 
-        return new Response(true, "PAY_QR", userSystem.getQr(auction.getSellerId()));
+        // Đóng gói thành Map
+        java.util.Map<String, Object> payload = new java.util.HashMap<>();
+        payload.put("auctionId", auctionId);
+        payload.put("qrCode", userSystem.getQr(auction.getSellerId()));
+
+        return new Response(true, "PAY_QR", payload);
     }
 
     //handle confirm payment

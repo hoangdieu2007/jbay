@@ -38,10 +38,6 @@ public class ResponseHandler {
         return ClientApplicationContext.getInstance().getDependency(ResponseHandler.class);
     }
 
-    public void setPendingPaymentAuction(Auction auction) {
-        this.pendingPaymentAuction = auction;
-    }
-
     public void handle(Response response) {
         if (response.isSuccess()) {
             switch (response.getMessage()) {
@@ -188,7 +184,10 @@ public class ResponseHandler {
     }
 
     public void handlePayQr(Response response) {
-        byte[] qrData = (byte[]) response.getPayload();
+        // Bóc tách Map dữ liệu chuẩn API
+        java.util.Map<String, Object> payload = (java.util.Map<String, Object>) response.getPayload();
+        int auctionId = (int) payload.get("auctionId");
+        byte[] qrData = (byte[]) payload.get("qrCode");
 
         javafx.application.Platform.runLater(() -> {
             try {
@@ -198,11 +197,12 @@ public class ResponseHandler {
                         controllerProvider.getController(a88.jbay.controller.app.AuctionUI.QRPaymentController.class);
 
                 if (qrController != null) {
-                    // Lấy tên Seller từ bộ nhớ tạm, nếu không có thì để "Unknown Seller"
-                    String sellerName = (pendingPaymentAuction != null) ? pendingPaymentAuction.getSellerName() : "Unknown Seller";
+                    // TRUY VẤN KHO RAM: Lấy đúng Auction cần thanh toán từ Session
+                    Auction wonAuction = clientSession.getWonAuctions().get(auctionId);
+                    String sellerName = (wonAuction != null) ? wonAuction.getSellerName() : "Unknown Seller";
 
-                    // Truyền dữ liệu vào QR Controller
-                    qrController.setData(qrData, sellerName, pendingPaymentAuction);
+                    // Ném dữ liệu sạch sẽ vào UI
+                    qrController.setData(qrData, sellerName, wonAuction);
                 }
             } catch (IOException e) {
                 logger.error("Failed to load QR Payment view: " + e.getMessage());
