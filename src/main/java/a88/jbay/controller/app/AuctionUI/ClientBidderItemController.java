@@ -5,7 +5,6 @@ import a88.jbay.client.ServerConnection;
 import a88.jbay.common.auction.AutoBidConfig;
 import a88.jbay.util.ImageProcessor;
 import a88.jbay.common.auction.Auction;
-import a88.jbay.common.auction.BidTransaction;
 import a88.jbay.common.network.Request;
 import a88.jbay.common.network.RequestType;
 import a88.jbay.view.ViewManager;
@@ -26,33 +25,33 @@ import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
 public class ClientBidderItemController {
-    @FXML
-    private Label sellerLabel, auctionTimeLabel, itemNameLabel, currentPriceLabel, minIncrementLabel, errorLabel, autoBidErrorLabel;
-    @FXML
-    private TextField bidInput;
-    @FXML
-    private TextField autoBidIncrement;
-    @FXML
-    private TextField autoBidMaxAmount;
-    @FXML
-    private Button placeBidButton;
-    @FXML
-    private Button autoBidButton;
-    @FXML
-    private LineChart<String, Number> priceChart;
-    @FXML
-    private ImageView itemImageView;
-    @FXML
-    private TextArea itemDescription;
+
+    private static final String AUTO_BID_ENABLED_STYLE = "-fx-background-color: #4CAF50; -fx-text-fill: white;";
+    private static final String AUTO_BID_DISABLED_STYLE = "-fx-background-color: #9E9E9E; -fx-text-fill: white;";
+    private static final String PROMPT_AUTO_BIDDING = "Currently in auto-bidding mode";
+    private static final String PROMPT_NORMAL_BID = "Enter Your Bid(USD)";
+    private final DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
+
+
+    @FXML private Label sellerLabel, auctionTimeLabel, itemNameLabel, currentPriceLabel, minIncrementLabel, errorLabel, autoBidErrorLabel;
+    @FXML private TextField bidInput, autoBidIncrement, autoBidMaxAmount;
+    @FXML private Button placeBidButton, autoBidButton;
+    @FXML private LineChart<String, Number> priceChart;
+    @FXML private ImageView itemImageView;
+    @FXML private TextArea itemDescription;
 
     private int currentAuctionId;
     private XYChart.Series<String, Number> priceSeries;
-    private final DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
     private boolean autoBidActive = false;
-    private static final String AUTO_BID_ENABLED_STYLE = "-fx-background-color: #4CAF50; -fx-text-fill: white;";
-    private static final String AUTO_BID_DISABLED_STYLE = "-fx-background-color: #9E9E9E; -fx-text-fill: white;";
 
-    //Xử lí mục ID cho auction đang hoạt động
+    // INITIALIZATION & LISTENERS (Khởi tạo)
+    @FXML
+    public void initialize() {
+        // Sử dụng Helper cực gọn nhẹ
+        priceSeries = a88.jbay.util.ChartHelper.setupPriceChart(priceChart, "Bid Price Development");
+        setupAuctionListener();
+    }
+
     public void setCurrentAuction(Auction auction) {
         currentAuctionId = auction.getId();
         if (auction != null) {
@@ -60,35 +59,29 @@ public class ClientBidderItemController {
         }
     }
 
-    private void setupLineChart() {
-        priceSeries = new XYChart.Series<>();
-        priceSeries.setName("Bid Price Development");
-
-        //Gắn series vào biểu đồ đã khai báo trong FXML
-        priceChart.getData().add(priceSeries);
-
-        //Tắt animation để biểu đồ cập nhật mượt mà hơn
-        priceChart.setAnimated(false);
+    private void setupAuctionListener() {
+        ObservableMap<Integer, Auction> auctions = ClientSession.getInstance().getBidderAuctions();
+        auctions.addListener((MapChangeListener<Integer, Auction>) change -> {
+            if (change.wasAdded() && change.getKey() == this.currentAuctionId) {
+                updateBidderUI(change.getValueAdded());
+            }
+        });
     }
 
+    // UI UPDATES (Cập nhật giao diện)
     private void updateBidderUI(Auction auction) {
         Platform.runLater(() -> {
-            // Cập nhật thông tin theo realtime
             itemNameLabel.setText(auction.getItem().getName());
             sellerLabel.setText(auction.getSellerName());
-            String startTime = auction.getStartTime().format(displayFormatter);
-            String endTime = auction.getEndTime().format(displayFormatter);
-            auctionTimeLabel.setText(startTime + " - " + endTime);
+            auctionTimeLabel.setText(auction.getStartTime().format(displayFormatter) + " - " + auction.getEndTime().format(displayFormatter));
             itemDescription.setText(auction.getItem().getDescription());
 
-            // Cập nhật giá
             currentPriceLabel.setText(String.format("%.2f USD", auction.getCurrentPrice()));
             minIncrementLabel.setText(String.format("%.2f USD", auction.getMinIncrement()));
 
-            //Vẽ biểu đồ
+            // Vẽ biểu đồ bằng Helper
             a88.jbay.util.ChartHelper.updatePriceChart(priceSeries, auction.getBidHistory());
 
-            // Cập nhật ảnh
             if (auction.getItem().getImage() != null) {
                 itemImageView.setImage(ImageProcessor.bytesToImage(auction.getItem().getImage()));
             }
@@ -99,6 +92,7 @@ public class ClientBidderItemController {
 
     private void applyAutoBidState(Auction auction) {
         hideAutoBidError();
+        errorLabel.setVisible(false);
 
         int userId = ClientSession.getInstance().getUser().getId();
         AutoBidConfig autoBidConfig = auction.getAutoBidConfig(userId);
@@ -108,107 +102,159 @@ public class ClientBidderItemController {
         autoBidMaxAmount.setDisable(enabled);
         autoBidButton.setDisable(enabled);
         autoBidButton.setStyle(enabled ? AUTO_BID_DISABLED_STYLE : AUTO_BID_ENABLED_STYLE);
+
         bidInput.setDisable(enabled);
         placeBidButton.setDisable(enabled);
 
         if (enabled) {
             autoBidIncrement.setText(String.valueOf(autoBidConfig.getIncrement()));
             autoBidMaxAmount.setText(String.valueOf(autoBidConfig.getMaxAmount()));
-            bidInput.setPromptText("Currently in auto-bidding mode");
+            bidInput.setPromptText(PROMPT_AUTO_BIDDING);
         } else {
             if (autoBidActive) {
                 autoBidIncrement.clear();
                 autoBidMaxAmount.clear();
             }
-            bidInput.setPromptText("Enter Your Bid(USD)");
+            bidInput.setPromptText(PROMPT_NORMAL_BID);
         }
-
         autoBidActive = enabled;
     }
 
-    private void setupAuctionListener() {
-        // Lấy Map từ ClientSession
-        ObservableMap<Integer, Auction> auctions = ClientSession.getInstance().getBidderAuctions();
-
-        // Đăng ký listener
-        auctions.addListener((MapChangeListener<Integer, Auction>) change -> {
-            //Chỉ xử lí nếu có dữ liệu mới thêm vào hoặc cập nhật
-            if (change.wasAdded()) {
-                int auctionId = change.getKey();
-                Auction updatedAuction = change.getValueAdded();
-
-                //Chỉ cập nhật nếu ID trùng với món hàng đang xem
-                if (auctionId == this.currentAuctionId) {
-                    updateBidderUI(updatedAuction);
-                }
-            }
-        });
-    }
-
-    @FXML
-    public void initialize() {
-        //Chuẩn bị biểu đồ
-        priceSeries = a88.jbay.util.ChartHelper.setupPriceChart(priceChart, "Bid Price Development");
-        //Chuẩn bị listener để nhận thông tin
-        setupAuctionListener();
-    }
-
-    //Xử lí việc nhận bid và gửi bid về cho server
+    // ACTION HANDLERS
     @FXML
     private void handlePlaceBid() {
         errorLabel.setVisible(false);
-
         String rawInput = bidInput.getText();
+
         if (rawInput == null || rawInput.trim().isEmpty()) {
-            errorLabel.setText("Please enter a bid!");
-            errorLabel.setVisible(true);
+            showInlineError("Please enter a bid!");
             return;
         }
 
         try {
             double bidAmount = Double.parseDouble(rawInput.trim());
-
-            // LẤY GIÁ TỪ MODEL (Không lấy từ Label để tránh lỗi chữ "USD")
             Auction currentAuction = ClientSession.getInstance().getBidderAuctions().get(currentAuctionId);
 
             if (currentAuction == null) {
-                errorLabel.setText("Auction no longer exists!");
-                errorLabel.setVisible(true);
+                showInlineError("Auction no longer exists!");
                 return;
             }
 
-            double currentPrice = currentAuction.getCurrentPrice();
             double minIncrement = currentAuction.getMinIncrement();
-            double minimumBid = currentPrice + minIncrement;
+            double minimumBid = currentAuction.getCurrentPrice() + minIncrement;
 
-            // SO SÁNH LOGIC
             if (bidAmount < minimumBid && !"".equals(currentAuction.getWinner())) {
-                errorLabel.setText(String.format("Bid must be raised by at least %.2f USD", minIncrement));
-                errorLabel.setVisible(true);
+                showInlineError(String.format("Bid must be raised by at least %.2f USD", minIncrement));
                 return;
             }
 
-            // GỬI REQUEST
-            Request req = new Request(RequestType.BID);
-            req.put("userId", ClientSession.getInstance().getUser().getId());
-            req.put("auctionId", currentAuctionId);
-            req.put("amount", bidAmount);
+            ServerConnection.getInstance().send(new Request(RequestType.BID)
+                    .put("userId", ClientSession.getInstance().getUser().getId())
+                    .put("auctionId", currentAuctionId)
+                    .put("amount", bidAmount));
 
-            ServerConnection.getInstance().send(req);
-
-            // Xóa nội dung sau khi gửi
             bidInput.clear();
 
         } catch (NumberFormatException e) {
-            errorLabel.setText("Please enter a valid number!");
-            errorLabel.setVisible(true);
+            showInlineError("Please enter a valid number!");
         } catch (IOException e) {
-            // Hiển thị thông báo lỗi kết nối
-            Platform.runLater(() -> {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Connection Error");
-                alert.setHeaderText("Could not send bid to server");
-            });
+            showNetworkError("Could not send bid to server");
+        }
+    }
+
+    @FXML
+    private void handleAutoBid() {
+        hideAutoBidError();
+        errorLabel.setVisible(false);
+
+        String rawIncrement = autoBidIncrement.getText();
+        String rawMaxAmount = autoBidMaxAmount.getText();
+
+        if (rawIncrement == null || rawIncrement.trim().isEmpty()) {
+            showInlineError("Please enter increment!");
+            return;
+        }
+
+        if (rawMaxAmount == null || rawMaxAmount.trim().isEmpty()) {
+            showInlineError("Please enter max amount!");
+            return;
+        }
+
+        try {
+            double increment = Double.parseDouble(rawIncrement);
+            double maxAmount = Double.parseDouble(rawMaxAmount);
+
+            if (increment <= 0) { showInlineError("Increment must be positive!"); return; }
+            if (maxAmount <= 0) { showInlineError("Max amount must be positive!"); return; }
+
+            Auction currentAuction = ClientSession.getInstance().getBidderAuctions().get(currentAuctionId);
+            if (currentAuction == null) { showInlineError("Auction no longer exists!"); return; }
+
+            double minIncrement = currentAuction.getMinIncrement();
+            if (increment < minIncrement) {
+                autoBidErrorLabel.setText(String.format("Bid must be raised by at least %.2f USD", minIncrement));
+                autoBidErrorLabel.setManaged(true);
+                autoBidErrorLabel.setVisible(true);
+                return;
+            }
+
+            if (maxAmount <= currentAuction.getCurrentPrice()) {
+                showInlineError("Max amount must be higher than current price!");
+                return;
+            }
+
+            ServerConnection.getInstance().send(new Request(RequestType.AUTO_BID)
+                    .put("userId", ClientSession.getInstance().getUser().getId())
+                    .put("auctionId", currentAuctionId)
+                    .put("max_amount", maxAmount)
+                    .put("increment", increment));
+
+            // Khóa UI ngay lập tức để tạo cảm giác phản hồi nhanh
+            autoBidIncrement.setDisable(true);
+            autoBidMaxAmount.setDisable(true);
+            autoBidButton.setDisable(true);
+            autoBidButton.setStyle(AUTO_BID_DISABLED_STYLE);
+            bidInput.setDisable(true);
+            placeBidButton.setDisable(true);
+            bidInput.setPromptText(PROMPT_AUTO_BIDDING);
+            autoBidActive = true;
+
+        } catch (NumberFormatException e) {
+            showInlineError("Please enter valid numbers!");
+        } catch (IOException e) {
+            showNetworkError("Could not send auto-bid request to server");
+        }
+    }
+
+    @FXML
+    private void handleCancelAutoBid() {
+        hideAutoBidError();
+        errorLabel.setVisible(false);
+
+        if (ClientSession.getInstance().getBidderAuctions().get(currentAuctionId) == null) {
+            showInlineError("Auction no longer exists!");
+            return;
+        }
+
+        try {
+            ServerConnection.getInstance().send(new Request(RequestType.CANCEL_AUTO_BID)
+                    .put("userId", ClientSession.getInstance().getUser().getId())
+                    .put("auctionId", currentAuctionId));
+
+            // Mở khóa UI
+            autoBidIncrement.setDisable(false);
+            autoBidMaxAmount.setDisable(false);
+            autoBidButton.setDisable(false);
+            autoBidButton.setStyle(AUTO_BID_ENABLED_STYLE);
+            autoBidIncrement.clear();
+            autoBidMaxAmount.clear();
+            bidInput.setDisable(false);
+            placeBidButton.setDisable(false);
+            bidInput.setPromptText(PROMPT_NORMAL_BID);
+            autoBidActive = false;
+
+        } catch (IOException e) {
+            showNetworkError("Could not send cancel auto-bid request to server");
         }
     }
 
@@ -221,141 +267,23 @@ public class ClientBidderItemController {
         }
     }
 
-    @FXML
-    private void handleAutoBid() {
-        errorLabel.setVisible(false);
-        hideAutoBidError();
-
-        String rawIncrement = autoBidIncrement.getText();
-        String rawMaxAmount = autoBidMaxAmount.getText();
-
-        if (rawIncrement == null || rawIncrement.trim().isEmpty()) {
-            errorLabel.setText("Please enter increment!");
-            errorLabel.setVisible(true);
-            return;
-        }
-
-        if (rawMaxAmount == null || rawMaxAmount.trim().isEmpty()) {
-            errorLabel.setText("Please enter max amount!");
-            errorLabel.setVisible(true);
-            return;
-        }
-
-        try {
-            double increment = Double.parseDouble(rawIncrement);
-            double maxAmount = Double.parseDouble(rawMaxAmount);
-
-            if (increment <= 0) {
-                errorLabel.setText("Increment must be positive!");
-                errorLabel.setVisible(true);
-                return;
-            }
-
-            if (maxAmount <= 0) {
-                errorLabel.setText("Max amount must be positive!");
-                errorLabel.setVisible(true);
-                return;
-            }
-
-            Auction currentAuction = ClientSession.getInstance().getBidderAuctions().get(currentAuctionId);
-
-            if (currentAuction == null) {
-                errorLabel.setText("Auction no longer exists!");
-                errorLabel.setVisible(true);
-                return;
-            }
-
-            double minIncrement = currentAuction.getMinIncrement();
-            if (increment < minIncrement) {
-                autoBidErrorLabel.setText(String.format("Bid must be raised by at least %.2f USD", minIncrement));
-                autoBidErrorLabel.setManaged(true);
-                autoBidErrorLabel.setVisible(true);
-                return;
-            }
-
-            double currentPrice = currentAuction.getCurrentPrice();
-
-            if (maxAmount <= currentPrice) {
-                errorLabel.setText("Max amount must be higher than current price!");
-                errorLabel.setVisible(true);
-                return;
-            }
-
-            Request req = new Request(RequestType.AUTO_BID);
-            req.put("userId", ClientSession.getInstance().getUser().getId());
-            req.put("auctionId", currentAuctionId);
-            req.put("max_amount", maxAmount);
-            req.put("increment", increment);
-
-            ServerConnection.getInstance().send(req);
-
-            // Keep values in text boxes and disable them
-            autoBidIncrement.setDisable(true);
-            autoBidMaxAmount.setDisable(true);
-            autoBidButton.setDisable(true);
-            autoBidButton.setStyle(AUTO_BID_DISABLED_STYLE);
-            // Also disable bid input and place bid button
-            bidInput.setDisable(true);
-            placeBidButton.setDisable(true);
-            bidInput.setPromptText("Currently in auto-bidding mode");
-            autoBidActive = true;
-
-        } catch (NumberFormatException e) {
-            errorLabel.setText("Please enter valid numbers!");
-            errorLabel.setVisible(true);
-        } catch (IOException e) {
-            Platform.runLater(() -> {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Connection Error");
-                alert.setHeaderText("Could not send auto-bid request to server");
-            });
-        }
-    }
-
-    @FXML
-    private void handleCancelAutoBid() {
-        errorLabel.setVisible(false);
-        hideAutoBidError();
-
-        Auction currentAuction = ClientSession.getInstance().getBidderAuctions().get(currentAuctionId);
-
-        if (currentAuction == null) {
-            errorLabel.setText("Auction no longer exists!");
-            errorLabel.setVisible(true);
-            return;
-        }
-
-        try {
-            Request req = new Request(RequestType.CANCEL_AUTO_BID);
-            req.put("userId", ClientSession.getInstance().getUser().getId());
-            req.put("auctionId", currentAuctionId);
-
-            ServerConnection.getInstance().send(req);
-
-            // Re-enable text fields and clear values
-            autoBidIncrement.setDisable(false);
-            autoBidMaxAmount.setDisable(false);
-            autoBidButton.setDisable(false);
-            autoBidButton.setStyle(AUTO_BID_ENABLED_STYLE);
-            autoBidIncrement.clear();
-            autoBidMaxAmount.clear();
-            // Also re-enable bid input and place bid button
-            bidInput.setDisable(false);
-            placeBidButton.setDisable(false);
-            bidInput.setPromptText("Enter Your Bid(USD)");
-            autoBidActive = false;
-
-        } catch (IOException e) {
-            Platform.runLater(() -> {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Connection Error");
-                alert.setHeaderText("Could not send cancel auto-bid request to server");
-            });
-        }
+    // HELPER METHODS
+    private void showInlineError(String message) {
+        errorLabel.setText(message);
+        errorLabel.setVisible(true);
     }
 
     private void hideAutoBidError() {
         autoBidErrorLabel.setVisible(false);
         autoBidErrorLabel.setManaged(false);
+    }
+
+    private void showNetworkError(String headerMessage) {
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Connection Error");
+            alert.setHeaderText(headerMessage);
+            alert.show();
+        });
     }
 }
