@@ -65,8 +65,16 @@ public class MainServer extends Application {
     // automatically call when users close the UI
     @Override
     public void stop(){
-        ApplicationContext.getInstance().getDependency(ClientService.class).stopService();
-        System.exit(0);
+        getClientService().stopService();
+        exitApplication(0);
 
+    }
+
+    ClientService getClientService() {
+        return ApplicationContext.getInstance().getDependency(ClientService.class);
+    }
+
+    void exitApplication(int status) {
+        System.exit(status);
     }
 }

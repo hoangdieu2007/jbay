@@ -520,4 +520,534 @@ class RequestHandlerTest {
         assertTrue(res.isSuccess());
         assertEquals("CONFIRM_PAYMENT_SUCCESS", res.getMessage());
     }
+
+    @Test
+    @DisplayName("PAY with null auction returns PAY_FAIL")
+    void testPayNullAuction() {
+        when(userSystem.findBySessionId("sess1")).thenReturn(testUser);
+        when(auctionSystem.getAuctionById(999)).thenReturn(null);
+
+        Request req = new Request(RequestType.PAY)
+                .put("sessionId", "sess1")
+                .put("auctionId", 999);
+        Response res = handler.handleRequest(req);
+
+        assertFalse(res.isSuccess());
+        assertEquals("PAY_FAIL", res.getMessage());
+    }
+
+    @Test
+    @DisplayName("CONFIRM_PAYMENT failure returns CONFIRM_PAYMENT_FAIL")
+    void testConfirmPaymentFail() {
+        Auction auction = mock(Auction.class);
+        when(auction.getSellerName()).thenReturn("testuser");
+        when(auction.getId()).thenReturn(100);
+        when(userSystem.findBySessionId("sess1")).thenReturn(testUser);
+        when(auctionSystem.getAuctionById(100)).thenReturn(auction);
+        when(auctionSystem.confirmPayment(100)).thenReturn(false);
+
+        Request req = new Request(RequestType.CONFIRM_PAYMENT)
+                .put("sessionId", "sess1")
+                .put("auctionId", 100);
+        Response res = handler.handleRequest(req);
+
+        assertFalse(res.isSuccess());
+        assertEquals("CONFIRM_PAYMENT_FAIL", res.getMessage());
+    }
+
+    @Test
+    @DisplayName("CONFIRM_PAYMENT with null auction returns INVALID_AUCTION")
+    void testConfirmPaymentNullAuction() {
+        when(userSystem.findBySessionId("sess1")).thenReturn(testUser);
+        when(auctionSystem.getAuctionById(999)).thenReturn(null);
+
+        Request req = new Request(RequestType.CONFIRM_PAYMENT)
+                .put("sessionId", "sess1")
+                .put("auctionId", 999);
+        Response res = handler.handleRequest(req);
+
+        assertFalse(res.isSuccess());
+        assertEquals("INVALID_AUCTION", res.getMessage());
+    }
+
+    @Test
+    @DisplayName("CANCEL by admin succeeds")
+    void testCancelByAdmin() {
+        Auction auction = mock(Auction.class);
+        when(auction.getSellerName()).thenReturn("otheruser");
+        when(auction.getId()).thenReturn(100);
+        when(userSystem.findBySessionId("sess2")).thenReturn(adminUser);
+        when(auctionSystem.getAuctionById(100)).thenReturn(auction);
+        when(auctionSystem.cancelAuction(100)).thenReturn(true);
+
+        Request req = new Request(RequestType.CANCEL)
+                .put("sessionId", "sess2")
+                .put("auctionId", 100);
+        Response res = handler.handleRequest(req);
+
+        assertTrue(res.isSuccess());
+        assertEquals("CANCEL_SUCCESS", res.getMessage());
+    }
+
+    @Test
+    @DisplayName("SUBSCRIBE_AUCTION with inactive auction returns AUCTION_NOT_FOUND")
+    void testSubscribeAuctionInactive() {
+        when(userSystem.findBySessionId("sess1")).thenReturn(testUser);
+        when(auctionSystem.isAuctionActive(100)).thenReturn(false);
+
+        Request req = new Request(RequestType.SUBSCRIBE_AUCTION)
+                .put("sessionId", "sess1")
+                .put("auctionId", 100);
+        Response res = handler.handleRequest(req);
+
+        assertFalse(res.isSuccess());
+        assertEquals("AUCTION_NOT_FOUND", res.getMessage());
+    }
+
+    @Test
+    @DisplayName("UNSUBSCRIBE_AUCTION with null auctionId returns INVALID_AUCTION")
+    void testUnsubscribeAuctionNullId() {
+        when(userSystem.findBySessionId("sess1")).thenReturn(testUser);
+
+        Request req = new Request(RequestType.UNSUBSCRIBE_AUCTION)
+                .put("sessionId", "sess1");
+        Response res = handler.handleRequest(req);
+
+        assertFalse(res.isSuccess());
+        assertEquals("INVALID_AUCTION", res.getMessage());
+    }
+
+    @Test
+    @DisplayName("GET_AUCTIONS with null user returns INVALID_SESSION")
+    void testGetAuctionsNullUser() {
+        when(userSystem.findBySessionId("bad")).thenReturn(null);
+
+        Request req = new Request(RequestType.GET_AUCTIONS)
+                .put("sessionId", "bad");
+        Response res = handler.handleRequest(req);
+
+        assertFalse(res.isSuccess());
+        assertEquals("INVALID_SESSION", res.getMessage());
+    }
+
+    @Test
+    @DisplayName("BAN with null service result returns BAN_FAIL")
+    void testBanNullResult() {
+        when(userSystem.findBySessionId("sess2")).thenReturn(adminUser);
+        when(adminService.banUser(5)).thenReturn(null);
+
+        Request req = new Request(RequestType.BAN)
+                .put("sessionId", "sess2")
+                .put("userId", 5);
+        Response res = handler.handleRequest(req);
+
+        assertFalse(res.isSuccess());
+        assertEquals("BAN_FAIL", res.getMessage());
+    }
+
+    @Test
+    @DisplayName("MISC disconnect returns null")
+    void testMiscDisconnect() {
+        when(userSystem.findBySessionId("sess1")).thenReturn(testUser);
+
+        Request req = new Request(RequestType.MISC)
+                .put("sessionId", "sess1")
+                .put("command", "disconnect");
+        Response res;
+        try {
+            res = handler.handleRequest(req);
+        } finally {
+            Thread.interrupted();
+        }
+
+        assertNull(res);
+    }
+
+    @Test
+    @DisplayName("PAY without session returns INVALID_SESSION")
+    void testPayNullSession() {
+        when(userSystem.findBySessionId("bad")).thenReturn(null);
+
+        Request req = new Request(RequestType.PAY)
+                .put("sessionId", "bad")
+                .put("auctionId", 100);
+        Response res = handler.handleRequest(req);
+
+        assertFalse(res.isSuccess());
+        assertEquals("INVALID_SESSION", res.getMessage());
+    }
+
+    @Test
+    @DisplayName("SELL with null item returns SELL_FAIL")
+    void testSellNullItem() {
+        when(userSystem.findBySessionId("sess1")).thenReturn(testUser);
+
+        Request req = new Request(RequestType.SELL)
+                .put("sessionId", "sess1")
+                .put("item", null)
+                .put("start", LocalDateTime.now())
+                .put("end", LocalDateTime.now().plusDays(1));
+        Response res = handler.handleRequest(req);
+
+        assertFalse(res.isSuccess());
+        assertEquals("SELL_FAIL", res.getMessage());
+    }
+
+    @Test
+    @DisplayName("AUTO_BID without session returns INVALID_SESSION")
+    void testAutoBidNullSession() {
+        when(userSystem.findBySessionId("bad")).thenReturn(null);
+
+        Request req = new Request(RequestType.AUTO_BID)
+                .put("sessionId", "bad")
+                .put("auctionId", 100)
+                .put("max_amount", 500.0)
+                .put("increment", 10.0);
+        Response res = handler.handleRequest(req);
+
+        assertFalse(res.isSuccess());
+        assertEquals("INVALID_SESSION", res.getMessage());
+    }
+
+    @Test
+    @DisplayName("CANCEL_AUTO_BID without session returns INVALID_SESSION")
+    void testCancelAutoBidNullSession() {
+        when(userSystem.findBySessionId("bad")).thenReturn(null);
+
+        Request req = new Request(RequestType.CANCEL_AUTO_BID)
+                .put("sessionId", "bad")
+                .put("auctionId", 100);
+        Response res = handler.handleRequest(req);
+
+        assertFalse(res.isSuccess());
+        assertEquals("INVALID_SESSION", res.getMessage());
+    }
+
+    @Test
+    @DisplayName("PING with session goes through authorized switch path")
+    void testAuthorizedPing() {
+        when(userSystem.findBySessionId("sess1")).thenReturn(testUser);
+
+        Request req = new Request(RequestType.PING)
+                .put("sessionId", "sess1");
+        Response res = handler.handleRequest(req);
+
+        assertTrue(res.isSuccess());
+        assertEquals("PONG", res.getMessage());
+    }
+
+    @Test
+    @DisplayName("LOGIN with session goes through authorized switch path")
+    void testAuthorizedLogin() {
+        when(userSystem.findBySessionId("sess1")).thenReturn(testUser);
+        when(userSystem.login("alice", "pass")).thenReturn(testUser);
+
+        Request req = new Request(RequestType.LOGIN)
+                .put("sessionId", "sess1")
+                .put("username", "alice")
+                .put("password", "pass");
+        Response res = handler.handleRequest(req);
+
+        assertTrue(res.isSuccess());
+        assertEquals("LOGIN_SUCCESS", res.getMessage());
+    }
+
+    @Test
+    @DisplayName("REGISTER with admin session goes through authorized switch path")
+    void testAuthorizedRegister() {
+        when(userSystem.findBySessionId("sess2")).thenReturn(adminUser);
+        when(userSystem.register("newuser", "pass", "USER", null)).thenReturn(true);
+        when(userSystem.getUserByName("newuser")).thenReturn(testUser);
+
+        Request req = new Request(RequestType.REGISTER)
+                .put("sessionId", "sess2")
+                .put("username", "newuser")
+                .put("password", "pass");
+        Response res = handler.handleRequest(req);
+
+        assertTrue(res.isSuccess());
+        assertEquals("REGISTER_SUCCESS", res.getMessage());
+    }
+
+    @Test
+    @DisplayName("BID returns BID_FAIL when second permission check fails")
+    void testBidInnerPermissionDenied() {
+        User bannedUser = new User(3, "BAN", "banned", "sess1");
+        when(userSystem.findBySessionId("sess1")).thenReturn(testUser, bannedUser);
+
+        Request req = new Request(RequestType.BID)
+                .put("sessionId", "sess1")
+                .put("auctionId", 100)
+                .put("amount", 150.0);
+        Response res = handler.handleRequest(req);
+
+        assertFalse(res.isSuccess());
+        assertEquals("BID_FAIL", res.getMessage());
+        verify(bidSystem, never()).placeBid(anyInt(), anyInt(), anyDouble());
+    }
+
+    @Test
+    @DisplayName("AUTO_BID returns AUTO_BID_FAIL when second permission check fails")
+    void testAutoBidInnerPermissionDenied() {
+        User bannedUser = new User(3, "BAN", "banned", "sess1");
+        when(userSystem.findBySessionId("sess1")).thenReturn(testUser, bannedUser);
+
+        Request req = new Request(RequestType.AUTO_BID)
+                .put("sessionId", "sess1")
+                .put("auctionId", 100)
+                .put("max_amount", 500.0)
+                .put("increment", 10.0);
+        Response res = handler.handleRequest(req);
+
+        assertFalse(res.isSuccess());
+        assertEquals("AUTO_BID_FAIL", res.getMessage());
+        verify(bidSystem, never()).placeBidAutomated(anyInt(), anyInt(), anyDouble(), anyDouble());
+    }
+
+    @Test
+    @DisplayName("CANCEL_AUTO_BID returns CANCEL_AUTO_BID_FAIL when second permission check fails")
+    void testCancelAutoBidInnerPermissionDenied() {
+        User bannedUser = new User(3, "BAN", "banned", "sess1");
+        when(userSystem.findBySessionId("sess1")).thenReturn(testUser, bannedUser);
+
+        Request req = new Request(RequestType.CANCEL_AUTO_BID)
+                .put("sessionId", "sess1")
+                .put("auctionId", 100);
+        Response res = handler.handleRequest(req);
+
+        assertFalse(res.isSuccess());
+        assertEquals("CANCEL_AUTO_BID_FAIL", res.getMessage());
+        verify(bidSystem, never()).cancelAutoBid(anyInt(), anyInt());
+    }
+
+    @Test
+    @DisplayName("SELL passes numeric min increment to auction system")
+    void testSellWithMinIncrement() {
+        Item item = new Item(1, "Test", "ELECTRONICS", "desc", 100.0);
+        LocalDateTime start = LocalDateTime.now();
+        LocalDateTime end = start.plusDays(1);
+        when(userSystem.findBySessionId("sess1")).thenReturn(testUser);
+        when(auctionSystem.createAuction(eq(item), eq(1), eq(5.5), eq(start), eq(end))).thenReturn(true);
+
+        Request req = new Request(RequestType.SELL)
+                .put("sessionId", "sess1")
+                .put("item", item)
+                .put("start", start)
+                .put("end", end)
+                .put("minIncrement", 5.5);
+        Response res = handler.handleRequest(req);
+
+        assertTrue(res.isSuccess());
+        assertEquals("SELL_SUCCESS", res.getMessage());
+    }
+
+    @Test
+    @DisplayName("SELL returns SELL_FAIL when auction creation fails")
+    void testSellCreateAuctionFailure() {
+        Item item = new Item(1, "Test", "ELECTRONICS", "desc", 100.0);
+        when(userSystem.findBySessionId("sess1")).thenReturn(testUser);
+        when(auctionSystem.createAuction(any(), anyInt(), anyDouble(), any(), any())).thenReturn(false);
+
+        Request req = new Request(RequestType.SELL)
+                .put("sessionId", "sess1")
+                .put("item", item)
+                .put("start", LocalDateTime.now())
+                .put("end", LocalDateTime.now().plusDays(1));
+        Response res = handler.handleRequest(req);
+
+        assertFalse(res.isSuccess());
+        assertEquals("SELL_FAIL", res.getMessage());
+    }
+
+    @Test
+    @DisplayName("CONFIRM_PAYMENT by non-seller fails")
+    void testConfirmPaymentByNonSeller() {
+        Auction auction = mock(Auction.class);
+        when(auction.getSellerName()).thenReturn("otheruser");
+        when(userSystem.findBySessionId("sess1")).thenReturn(testUser);
+        when(auctionSystem.getAuctionById(100)).thenReturn(auction);
+
+        Request req = new Request(RequestType.CONFIRM_PAYMENT)
+                .put("sessionId", "sess1")
+                .put("auctionId", 100);
+        Response res = handler.handleRequest(req);
+
+        assertFalse(res.isSuccess());
+        assertEquals("CONFIRM_PAYMENT_FAIL", res.getMessage());
+        verify(auctionSystem, never()).confirmPayment(anyInt());
+    }
+
+    @Test
+    @DisplayName("CANCEL returns CANCEL_FAIL when auction system fails")
+    void testCancelAuctionSystemFailure() {
+        Auction auction = mock(Auction.class);
+        when(auction.getSellerName()).thenReturn("testuser");
+        when(auction.getId()).thenReturn(100);
+        when(userSystem.findBySessionId("sess1")).thenReturn(testUser);
+        when(auctionSystem.getAuctionById(100)).thenReturn(auction);
+        when(auctionSystem.cancelAuction(100)).thenReturn(false);
+
+        Request req = new Request(RequestType.CANCEL)
+                .put("sessionId", "sess1")
+                .put("auctionId", 100);
+        Response res = handler.handleRequest(req);
+
+        assertFalse(res.isSuccess());
+        assertEquals("CANCEL_FAIL", res.getMessage());
+    }
+
+    @Test
+    @DisplayName("SUBSCRIBE_AUCTION with null auctionId returns AUCTION_NOT_FOUND")
+    void testSubscribeAuctionNullId() {
+        when(userSystem.findBySessionId("sess1")).thenReturn(testUser);
+
+        Request req = new Request(RequestType.SUBSCRIBE_AUCTION)
+                .put("sessionId", "sess1");
+        Response res = handler.handleRequest(req);
+
+        assertFalse(res.isSuccess());
+        assertEquals("AUCTION_NOT_FOUND", res.getMessage());
+        verify(auctionSystem, never()).isAuctionActive(anyInt());
+    }
+
+    @Test
+    @DisplayName("GET_USERS returns UNAUTHORIZED when inner admin check fails")
+    void testGetUsersInnerUnauthorized() {
+        when(userSystem.findBySessionId("sess2")).thenReturn(adminUser, testUser);
+
+        Request req = new Request(RequestType.GET_USERS)
+                .put("sessionId", "sess2");
+        Response res = handler.handleRequest(req);
+
+        assertFalse(res.isSuccess());
+        assertEquals("UNAUTHORIZED", res.getMessage());
+    }
+
+    @Test
+    @DisplayName("BAN returns UNAUTHORIZED when inner admin check fails")
+    void testBanInnerUnauthorized() {
+        when(userSystem.findBySessionId("sess2")).thenReturn(adminUser, testUser);
+
+        Request req = new Request(RequestType.BAN)
+                .put("sessionId", "sess2")
+                .put("userId", 5);
+        Response res = handler.handleRequest(req);
+
+        assertFalse(res.isSuccess());
+        assertEquals("UNAUTHORIZED", res.getMessage());
+    }
+
+    @Test
+    @DisplayName("MISC with non-string command returns INVALID_MISC_COMMAND")
+    void testMiscNonStringCommand() {
+        when(userSystem.findBySessionId("sess1")).thenReturn(testUser);
+
+        Request req = new Request(RequestType.MISC)
+                .put("sessionId", "sess1")
+                .put("command", 12);
+        Response res = handler.handleRequest(req);
+
+        assertFalse(res.isSuccess());
+        assertEquals("INVALID_MISC_COMMAND", res.getMessage());
+    }
+
+    @Test
+    @DisplayName("MISC with unknown command returns INVALID_MISC_COMMAND")
+    void testMiscUnknownCommand() {
+        when(userSystem.findBySessionId("sess1")).thenReturn(testUser);
+
+        Request req = new Request(RequestType.MISC)
+                .put("sessionId", "sess1")
+                .put("command", "unknown");
+        Response res = handler.handleRequest(req);
+
+        assertFalse(res.isSuccess());
+        assertEquals("INVALID_MISC_COMMAND", res.getMessage());
+    }
+
+    @Test
+    @DisplayName("Handlers reject when inner session lookup becomes invalid")
+    void testInnerInvalidSessionBranches() {
+        List<Request> requests = List.of(
+                new Request(RequestType.BID)
+                        .put("sessionId", "sess1")
+                        .put("auctionId", 100)
+                        .put("amount", 150.0),
+                new Request(RequestType.AUTO_BID)
+                        .put("sessionId", "sess1")
+                        .put("auctionId", 100)
+                        .put("max_amount", 500.0)
+                        .put("increment", 10.0),
+                new Request(RequestType.CANCEL_AUTO_BID)
+                        .put("sessionId", "sess1")
+                        .put("auctionId", 100),
+                new Request(RequestType.SELL)
+                        .put("sessionId", "sess1"),
+                new Request(RequestType.PAY)
+                        .put("sessionId", "sess1")
+                        .put("auctionId", 100),
+                new Request(RequestType.CONFIRM_PAYMENT)
+                        .put("sessionId", "sess1")
+                        .put("auctionId", 100),
+                new Request(RequestType.CANCEL)
+                        .put("sessionId", "sess1")
+                        .put("auctionId", 100),
+                new Request(RequestType.SUBSCRIBE_AUCTION)
+                        .put("sessionId", "sess1")
+                        .put("auctionId", 100),
+                new Request(RequestType.UNSUBSCRIBE_AUCTION)
+                        .put("sessionId", "sess1")
+                        .put("auctionId", 100),
+                new Request(RequestType.GET_AUCTIONS)
+                        .put("sessionId", "sess1")
+        );
+
+        for (Request request : requests) {
+            reset(userSystem, adminService, auctionSystem, connectionSystem, updateSystem, bidSystem);
+            when(userSystem.findBySessionId("sess1")).thenReturn(testUser, null);
+
+            Response res = handler.handleRequest(request);
+
+            assertFalse(res.isSuccess(), request.getType().name());
+            assertEquals("INVALID_SESSION", res.getMessage(), request.getType().name());
+        }
+    }
+
+    @Test
+    @DisplayName("SELL returns SELL_FAIL when inner permission check fails")
+    void testSellInnerPermissionDenied() {
+        User bannedUser = new User(3, "BAN", "banned", "sess1");
+        Item item = new Item(1, "Test", "ELECTRONICS", "desc", 100.0);
+        when(userSystem.findBySessionId("sess1")).thenReturn(testUser, bannedUser);
+
+        Request req = new Request(RequestType.SELL)
+                .put("sessionId", "sess1")
+                .put("item", item)
+                .put("start", LocalDateTime.now())
+                .put("end", LocalDateTime.now().plusDays(1));
+        Response res = handler.handleRequest(req);
+
+        assertFalse(res.isSuccess());
+        assertEquals("SELL_FAIL", res.getMessage());
+        verify(auctionSystem, never()).createAuction(any(), anyInt(), anyDouble(), any(), any());
+    }
+
+    @Test
+    @DisplayName("CANCEL returns CANCEL_FAIL when inner permission check fails")
+    void testCancelInnerPermissionDenied() {
+        User bannedSeller = new User(3, "BAN", "seller", "sess1");
+        Auction auction = mock(Auction.class);
+        when(auction.getSellerName()).thenReturn("seller");
+        when(userSystem.findBySessionId("sess1")).thenReturn(testUser, bannedSeller);
+        when(auctionSystem.getAuctionById(100)).thenReturn(auction);
+
+        Request req = new Request(RequestType.CANCEL)
+                .put("sessionId", "sess1")
+                .put("auctionId", 100);
+        Response res = handler.handleRequest(req);
+
+        assertFalse(res.isSuccess());
+        assertEquals("CANCEL_FAIL", res.getMessage());
+        verify(auctionSystem, never()).cancelAuction(anyInt());
+    }
 }

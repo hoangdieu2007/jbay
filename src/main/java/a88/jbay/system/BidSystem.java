@@ -175,6 +175,19 @@ public class BidSystem {
         return amount >= auction.getCurrentPrice() + auction.getMinIncrement();
     }
 
+    private boolean isValidAutoBid(Auction auction, double amount) {
+
+        if (auction == null) {
+            return false;
+        }
+
+        if (auction.getAuctionState() != AuctionState.RUNNING) {
+            return false;
+        }
+
+        return amount > auction.getCurrentPrice();
+    }
+
     /**
      * Builds a bid transaction object for a newly accepted bid.
      *
@@ -210,6 +223,31 @@ public class BidSystem {
         // bidder automatically becomes observer
         auction.subscribe(tx.getUserID()); // subscribe first so that client can get a notification
         auction.addBid(tx.getAmt(), tx);
+    }
+
+    private boolean placeAutoBid(int userId, int auctionId, double amount) {
+        ReentrantLock lock = getLock(auctionId);
+        lock.lock();
+        try {
+            Auction auction = auctionRepository.getActiveAuctionById(auctionId);
+
+            if (!isValidAutoBid(auction, amount)) {
+                return false;
+            }
+
+            BidTransaction tx = createBidTransaction(userId, amount);
+            boolean saved = bidRepository.saveBid(auctionId, tx);
+
+            if (saved) {
+                addBid(auction, tx);
+                publishAuctionUpdate(auction);
+                extendEndTime(tx.getTimestamp(), auction);
+            }
+
+            return saved;
+        } finally {
+            lock.unlock();
+        }
     }
 
     private void publishAuctionUpdate(Auction auction) {
@@ -304,7 +342,7 @@ public class BidSystem {
             return;
         }
 
-        placeBid(config.getUserId(), auction.getId(), newPrice);
+        placeAutoBid(config.getUserId(), auction.getId(), newPrice);
 
         if (Double.compare(newPrice, config.getMaxAmount()) == 0) {
             logger.info("Auto-bid reached max amount, clearing auto-bid config");
@@ -355,7 +393,7 @@ public class BidSystem {
             double winnerMaxAmount
     ) {
         if (newPrice > auction.getCurrentPrice()) {
-            placeBid(winnerId, auction.getId(), newPrice);
+            placeAutoBid(winnerId, auction.getId(), newPrice);
         }
 
         if (Double.compare(newPrice, winnerMaxAmount) == 0 ||
@@ -515,7 +553,7 @@ public class BidSystem {
             }
 
             // Place the auto-bid
-            placeBid(configUserId, auction.getId(), autoBidAmount);
+            placeAutoBid(configUserId, auction.getId(), autoBidAmount);
 
             if (Double.compare(autoBidAmount, maxAmount) == 0) {
                 logger.info("Auto-bid stopped for user " + configUserId + " on auction " + auction.getId() +
