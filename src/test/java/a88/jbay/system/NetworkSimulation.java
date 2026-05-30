@@ -6,6 +6,7 @@ import a88.jbay.common.network.Request;
 import a88.jbay.common.network.RequestType;
 import a88.jbay.common.network.Response;
 import a88.jbay.common.user.User;
+import a88.jbay.common.user.role.Role;
 import a88.jbay.server.RequestHandler;
 
 import java.time.LocalDateTime;
@@ -177,7 +178,7 @@ public class NetworkSimulation {
         String sessionId;
         int userId;
         String username;
-        String role;
+        Role role;
 
         SimulatedClient() {
         }
@@ -189,7 +190,7 @@ public class NetworkSimulation {
         public String getSessionId() { return sessionId; }
         public int getUserId() { return userId; }
         public String getUsername() { return username; }
-        public String getRole() { return role; }
+        public Role getRole() { return role; }
         public boolean isLoggedIn() { return sessionId != null; }
     }
 }

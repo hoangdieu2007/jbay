@@ -5,6 +5,7 @@ import a88.jbay.common.network.RequestType;
 import a88.jbay.common.network.Response;
 import a88.jbay.common.auction.Auction;
 import a88.jbay.common.user.User;
+import a88.jbay.common.user.role.Role;
 import a88.jbay.system.AuctionSystem;
 import a88.jbay.system.BidSystem;
 import a88.jbay.system.update.ConnectionSystem;
@@ -48,7 +49,7 @@ class RequestHandlerStressTest {
         MockitoAnnotations.openMocks(this);
         handler = new RequestHandler(userSystem, adminService, auctionSystem,
                 connectionSystem, updateSystem, bidSystem);
-        testUser = new User(1, "USER", "testuser", "sess1");
+        testUser = new User(1, Role.USER, "testuser", "sess1");
 
         when(userSystem.findBySessionId("sess1")).thenReturn(testUser);
         when(bidSystem.placeBid(anyInt(), anyInt(), anyDouble())).thenReturn(true);
@@ -122,7 +123,7 @@ class RequestHandlerStressTest {
         int requestsPerSession = 20;
         User[] users = new User[numSessions];
         for (int i = 0; i < numSessions; i++) {
-            users[i] = new User(100 + i, "USER", "user" + i, "sess" + i);
+            users[i] = new User(100 + i, Role.USER, "user" + i, "sess" + i);
             when(userSystem.findBySessionId("sess" + i)).thenReturn(users[i]);
         }
 
@@ -164,7 +165,7 @@ class RequestHandlerStressTest {
         int requestsPerClient = 30;
         User[] users = new User[numClients];
         for (int i = 0; i < numClients; i++) {
-            String role = i % 3 == 0 ? "ADMIN" : "USER";
+            Role role = i % 3 == 0 ? Role.ADMIN : Role.USER;
             users[i] = new User(200 + i, role, "user" + i, "sessMix" + i);
             when(userSystem.findBySessionId("sessMix" + i)).thenReturn(users[i]);
         }
@@ -229,7 +230,7 @@ class RequestHandlerStressTest {
         int bidsPerBidder = 10;
         User[] bidders = new User[numBidders];
         for (int i = 0; i < numBidders; i++) {
-            bidders[i] = new User(300 + i, "USER", "bidder" + i, "sessFast" + i);
+            bidders[i] = new User(300 + i, Role.USER, "bidder" + i, "sessFast" + i);
             when(userSystem.findBySessionId("sessFast" + i)).thenReturn(bidders[i]);
         }
 

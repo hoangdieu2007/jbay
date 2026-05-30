@@ -3,6 +3,7 @@ package a88.jbay.client;
 import a88.jbay.common.network.Request;
 import a88.jbay.common.network.RequestType;
 import a88.jbay.common.user.User;
+import a88.jbay.common.user.role.Role;
 import a88.jbay.view.ViewManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -59,7 +60,7 @@ class ServerConnectionTest {
     @Test
     @DisplayName("Should send request with session id over a socket connection")
     void testSend_AddsSessionIdAndSerializesRequest() throws Exception {
-        clientSession.setUser(new User(5, "USER", "alice", "session-123"));
+        clientSession.setUser(new User(5, Role.USER, "alice", "session-123"));
         ArrayBlockingQueue<Request> receivedRequests = new ArrayBlockingQueue<>(1);
 
         try (ServerSocket serverSocket = new ServerSocket(0)) {
@@ -83,7 +84,7 @@ class ServerConnectionTest {
     @Test
     @DisplayName("Should not add blank or none session id to outgoing request")
     void testSend_SkipsInvalidSessionId() throws Exception {
-        clientSession.setUser(new User(5, "USER", "alice", "none"));
+        clientSession.setUser(new User(5, Role.USER, "alice", "none"));
         ArrayBlockingQueue<Request> receivedRequests = new ArrayBlockingQueue<>(1);
 
         try (ServerSocket serverSocket = new ServerSocket(0)) {

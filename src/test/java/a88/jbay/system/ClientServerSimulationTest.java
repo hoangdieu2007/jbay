@@ -11,6 +11,7 @@ import a88.jbay.common.network.Request;
 import a88.jbay.common.network.RequestType;
 import a88.jbay.common.network.Response;
 import a88.jbay.common.user.User;
+import a88.jbay.common.user.role.Role;
 import a88.jbay.controller.ControllerProvider;
 import a88.jbay.controller.app.EntranceUI.ClientLoginController;
 import a88.jbay.controller.app.EntranceUI.ClientRegisterController;
@@ -208,7 +209,7 @@ class ClientServerSimulationTest {
         }
 
         assertEquals("bob", clientSession.getUser().getUsername());
-        assertEquals("USER", clientSession.getUser().getRole());
+        assertEquals(Role.USER, clientSession.getUser().getRole());
         assertTrue(clientSession.getUser().getId() > 0);
         verify(controllerProvider.getController(ClientLoginController.class))
                 .updateLoginLabel("Login successful");

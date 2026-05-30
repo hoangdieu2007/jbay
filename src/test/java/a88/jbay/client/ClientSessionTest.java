@@ -2,6 +2,7 @@ package a88.jbay.client;
 
 import a88.jbay.common.auction.Auction;
 import a88.jbay.common.user.User;
+import a88.jbay.common.user.role.Role;
 import javafx.collections.ObservableMap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,13 +23,13 @@ class ClientSessionTest {
     void testDefaultUser() {
         User user = session.getUser();
         assertEquals(-1, user.getId());
-        assertEquals("GUEST", user.getRole());
+        assertEquals(Role.GUEST, user.getRole());
         assertEquals("guest", user.getUsername());
     }
 
     @Test
     void testSetUser() {
-        User user = new User(5, "ADMIN", "admin1", "sess1");
+        User user = new User(5, Role.ADMIN, "admin1", "sess1");
         session.setUser(user);
         assertSame(user, session.getUser());
     }
@@ -70,7 +71,7 @@ class ClientSessionTest {
 
     @Test
     void testResetSession() {
-        session.setUser(new User(1, "USER", "test", "sess"));
+        session.setUser(new User(1, Role.USER, "test", "sess"));
         session.getSellerAuctions().put(1, null);
         session.getBidderAuctions().put(2, null);
 
@@ -94,7 +95,7 @@ class ClientSessionTest {
 
     @Test
     void testAdminUsersCanBeModified() {
-        User adminUser = new User(99, "USER", "admin_test");
+        User adminUser = new User(99, Role.USER, "admin_test");
         session.getAdminUsers().put(99, adminUser);
         assertSame(adminUser, session.getAdminUsers().get(99));
     }
@@ -109,7 +110,7 @@ class ClientSessionTest {
 
     @Test
     void testResetSessionClearsAdminMaps() {
-        session.getAdminUsers().put(1, new User(1, "USER", "u1"));
+        session.getAdminUsers().put(1, new User(1, Role.USER, "u1"));
         session.getAdminAuctions().put(1, mock(Auction.class));
 
         session.resetSession();
@@ -127,6 +128,6 @@ class ClientSessionTest {
     void testUserDefaults() {
         assertEquals(-1, session.getUser().getId());
         assertEquals("guest", session.getUser().getUsername());
-        assertEquals("GUEST", session.getUser().getRole());
+        assertEquals(Role.GUEST, session.getUser().getRole());
     }
 }

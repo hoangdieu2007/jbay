@@ -114,8 +114,8 @@ class SystemTest {
     @DisplayName("Full auction lifecycle: create → multi-bid → restart → verify persistence")
     void auctionLifecycleCreateBidRestartVerify() throws Exception {
         int aliceId = insertUser("alice", "pass", "SELLER");
-        int bobId = insertUser("bob", "pass", "BIDDER");
-        int carolId = insertUser("carol", "pass", "BIDDER");
+        int bobId = insertUser("bob", "pass", "USER");
+        int carolId = insertUser("carol", "pass", "USER");
 
         // Alice creates an item and auction
         Item item = new Item("Laptop", "ELECTRONICS", "Gaming laptop", 500.0, new byte[]{});
@@ -198,8 +198,8 @@ class SystemTest {
         // Create users
         int seller1 = insertUser("seller1", "pass", "SELLER");
         int seller2 = insertUser("seller2", "pass", "SELLER");
-        int bidder1 = insertUser("bidder1", "pass", "BIDDER");
-        int bidder2 = insertUser("bidder2", "pass", "BIDDER");
+        int bidder1 = insertUser("bidder1", "pass", "USER");
+        int bidder2 = insertUser("bidder2", "pass", "USER");
 
         // Create two auctions
         Item item1 = new Item("Camera", "ELECTRONICS", "DSLR", 300.0, new byte[]{});

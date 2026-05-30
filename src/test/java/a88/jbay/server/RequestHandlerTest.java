@@ -6,6 +6,7 @@ import a88.jbay.common.network.Request;
 import a88.jbay.common.network.RequestType;
 import a88.jbay.common.network.Response;
 import a88.jbay.common.user.User;
+import a88.jbay.common.user.role.Role;
 import a88.jbay.system.AuctionSystem;
 import a88.jbay.system.BidSystem;
 import a88.jbay.system.update.ConnectionSystem;
@@ -44,8 +45,8 @@ class RequestHandlerTest {
         MockitoAnnotations.openMocks(this);
         handler = new RequestHandler(userSystem, adminService, auctionSystem,
                 connectionSystem, updateSystem, bidSystem);
-        testUser = new User(1, "USER", "testuser", "sess1");
-        adminUser = new User(2, "ADMIN", "admin", "sess2");
+        testUser = new User(1, Role.USER, "testuser", "sess1");
+        adminUser = new User(2, Role.ADMIN, "admin", "sess2");
     }
 
     @Test
@@ -84,7 +85,7 @@ class RequestHandlerTest {
     @Test
     @DisplayName("LOGIN with banned user returns BAN_USER")
     void testLoginBanned() {
-        User banned = new User(3, "BAN", "banned", null);
+        User banned = new User(3, Role.BAN, "banned", null);
         when(userSystem.login("banned", "pass")).thenReturn(banned);
 
         Request req = new Request(RequestType.LOGIN)
@@ -189,7 +190,7 @@ class RequestHandlerTest {
     @Test
     @DisplayName("BID by banned user returns PERMISSION_DENIED")
     void testBidByBannedUser() {
-        User banned = new User(3, "BAN", "banned", "sessBan");
+        User banned = new User(3, Role.BAN, "banned", "sessBan");
         when(userSystem.findBySessionId("sessBan")).thenReturn(banned);
 
         Request req = new Request(RequestType.BID)
@@ -348,7 +349,7 @@ class RequestHandlerTest {
     @DisplayName("BAN user by admin")
     void testBanUser() {
         when(userSystem.findBySessionId("sess2")).thenReturn(adminUser);
-        when(adminService.banUser(5)).thenReturn(new User(5, "BAN", "target", null));
+        when(adminService.banUser(5)).thenReturn(new User(5, Role.BAN, "target", null));
 
         Request req = new Request(RequestType.BAN)
                 .put("sessionId", "sess2")
@@ -364,7 +365,7 @@ class RequestHandlerTest {
     @DisplayName("UNBAN user by admin")
     void testUnbanUser() {
         when(userSystem.findBySessionId("sess2")).thenReturn(adminUser);
-        when(adminService.unbanUser(5)).thenReturn(new User(5, "USER", "target", null));
+        when(adminService.unbanUser(5)).thenReturn(new User(5, Role.USER, "target", null));
 
         Request req = new Request(RequestType.BAN)
                 .put("sessionId", "sess2")
@@ -772,7 +773,7 @@ class RequestHandlerTest {
     @Test
     @DisplayName("BID returns PERMISSION_DENIED for banned user")
     void testBidInnerPermissionDenied() {
-        User bannedUser = new User(3, "BAN", "banned", "sess1");
+        User bannedUser = new User(3, Role.BAN, "banned", "sess1");
         when(userSystem.findBySessionId("sess1")).thenReturn(bannedUser);
 
         Request req = new Request(RequestType.BID)
@@ -789,7 +790,7 @@ class RequestHandlerTest {
     @Test
     @DisplayName("AUTO_BID returns PERMISSION_DENIED for banned user")
     void testAutoBidInnerPermissionDenied() {
-        User bannedUser = new User(3, "BAN", "banned", "sess1");
+        User bannedUser = new User(3, Role.BAN, "banned", "sess1");
         when(userSystem.findBySessionId("sess1")).thenReturn(bannedUser);
 
         Request req = new Request(RequestType.AUTO_BID)
@@ -807,7 +808,7 @@ class RequestHandlerTest {
     @Test
     @DisplayName("CANCEL_AUTO_BID returns PERMISSION_DENIED for banned user")
     void testCancelAutoBidInnerPermissionDenied() {
-        User bannedUser = new User(3, "BAN", "banned", "sess1");
+        User bannedUser = new User(3, Role.BAN, "banned", "sess1");
         when(userSystem.findBySessionId("sess1")).thenReturn(bannedUser);
 
         Request req = new Request(RequestType.CANCEL_AUTO_BID)
@@ -1016,7 +1017,7 @@ class RequestHandlerTest {
     @Test
     @DisplayName("SELL returns PERMISSION_DENIED for banned user")
     void testSellInnerPermissionDenied() {
-        User bannedUser = new User(3, "BAN", "banned", "sess1");
+        User bannedUser = new User(3, Role.BAN, "banned", "sess1");
         Item item = new Item(1, "Test", "ELECTRONICS", "desc", 100.0);
         when(userSystem.findBySessionId("sess1")).thenReturn(bannedUser);
 
@@ -1035,7 +1036,7 @@ class RequestHandlerTest {
     @Test
     @DisplayName("CANCEL returns PERMISSION_DENIED for banned user")
     void testCancelInnerPermissionDenied() {
-        User bannedUser = new User(3, "BAN", "seller", "sess1");
+        User bannedUser = new User(3, Role.BAN, "seller", "sess1");
         Auction auction = mock(Auction.class);
         when(auction.getSellerName()).thenReturn("seller");
         when(userSystem.findBySessionId("sess1")).thenReturn(bannedUser);

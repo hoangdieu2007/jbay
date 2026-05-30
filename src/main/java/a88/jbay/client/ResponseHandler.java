@@ -4,6 +4,7 @@ import a88.jbay.common.auction.AuctionState;
 import a88.jbay.controller.ControllerProvider;
 import a88.jbay.controller.app.EntranceUI.ClientLoginController;
 import a88.jbay.common.user.User;
+import a88.jbay.common.user.role.Role;
 import a88.jbay.common.auction.Auction;
 import a88.jbay.common.auction.BidTransaction;
 import a88.jbay.common.network.Request;
@@ -88,12 +89,12 @@ public class ResponseHandler {
             logger.info("Displaying home screen");
             viewManager.openStage("Auction88's jBay");
             viewManager.resizeStage(1280, 720);
-            if (curUser.getRole().equals("USER")) {
+            if (curUser.getRole() == Role.USER) {
                 viewManager.showScene("UserHomeScreenUI/user-HomeScreen.fxml");
                 ServerConnection.getInstance().send(new Request(RequestType.GET_AUCTIONS)
                         .put("userId", clientSession.getUser().getId()));
             }
-            else if (curUser.getRole().equals("ADMIN")) {
+            else if (curUser.getRole() == Role.ADMIN) {
                 viewManager.showScene("AdminUI/Admin-HomeScreens.fxml");
                 ServerConnection.getInstance().send(new Request(RequestType.GET_AUCTIONS)
                         .put("userId", clientSession.getUser().getId()));
@@ -162,7 +163,7 @@ public class ResponseHandler {
 
     private void handleAuctionUpdate(Response response) {
         Auction auction = (Auction) response.getPayload();
-        String role = clientSession.getUser().getRole();
+        Role role = clientSession.getUser().getRole();
 
         System.out.println(auction);
         System.out.println("Bid List:");
@@ -181,7 +182,7 @@ public class ResponseHandler {
         } else {
             clientSession.getBidderAuctions().put(auction.getId(), auction);
         }
-        if ("ADMIN".equals(role)) {
+        if (role == Role.ADMIN) {
             clientSession.getAdminAuctions().put(auction.getId(), auction);
         }
     }
@@ -233,7 +234,7 @@ public class ResponseHandler {
 
     private void handleNewUserRegistered(Response response) {
         User currentUser = clientSession.getUser();
-        if (currentUser != null && "ADMIN".equals(currentUser.getRole())) {
+        if (currentUser != null && currentUser.getRole() == Role.ADMIN) {
 
             // Lấy luôn user mới từ payload và nhét vào kho lưu trữ cục bộ
             User newUser = (User) response.getPayload();

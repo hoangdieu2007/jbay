@@ -2,6 +2,7 @@ package a88.jbay.data;
 
 import a88.jbay.common.user.User;
 import a88.jbay.common.user.UserData;
+import a88.jbay.common.user.role.Role;
 import a88.jbay.dao.UserDAO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -30,7 +31,7 @@ class UserRepositoryTest {
     @Test
     @DisplayName("Should find user by username via DAO")
     void testFindByUsername() {
-        UserData expected = new UserData(1, "testuser", "BIDDER", "password");
+        UserData expected = new UserData(1, "testuser", "USER", "password");
         when(userDAO.findByUsername("testuser")).thenReturn(expected);
 
         UserData result = userRepository.findByUsername("testuser");
@@ -52,7 +53,7 @@ class UserRepositoryTest {
     @Test
     @DisplayName("Should find user by user id via DAO")
     void testFindByUserId() {
-        UserData expected = new UserData(1, "testuser", "BIDDER", "password");
+        UserData expected = new UserData(1, "testuser", "USER", "password");
         when(userDAO.findByUserId(1)).thenReturn(expected);
 
         UserData result = userRepository.findByUserId(1);
@@ -85,12 +86,12 @@ class UserRepositoryTest {
     @Test
     @DisplayName("Should create user and return true on success")
     void testCreateUser_Success() {
-        when(userDAO.insertUser("newuser", "hash", "BIDDER", new byte[]{1, 2, 3})).thenReturn(1);
+        when(userDAO.insertUser("newuser", "hash", "USER", new byte[]{1, 2, 3})).thenReturn(1);
 
-        boolean result = userRepository.createUser("newuser", "hash", "BIDDER", new byte[]{1, 2, 3});
+        boolean result = userRepository.createUser("newuser", "hash", "USER", new byte[]{1, 2, 3});
 
         assertTrue(result);
-        verify(userDAO).insertUser("newuser", "hash", "BIDDER", new byte[]{1, 2, 3});
+        verify(userDAO).insertUser("newuser", "hash", "USER", new byte[]{1, 2, 3});
     }
 
     @Test
@@ -98,7 +99,7 @@ class UserRepositoryTest {
     void testCreateUser_Failure() {
         when(userDAO.insertUser(anyString(), anyString(), anyString(), any())).thenReturn(-1);
 
-        boolean result = userRepository.createUser("newuser", "hash", "BIDDER", null);
+        boolean result = userRepository.createUser("newuser", "hash", "USER", null);
 
         assertFalse(result);
     }
@@ -106,7 +107,7 @@ class UserRepositoryTest {
     @Test
     @DisplayName("Should create session and return true")
     void testCreateSession() {
-        User user = new User(1, "BIDDER", "testuser", "session123");
+        User user = new User(1, Role.USER, "testuser", "session123");
 
         boolean result = userRepository.createSession("session123", user);
 
@@ -117,7 +118,7 @@ class UserRepositoryTest {
     @Test
     @DisplayName("Should delete session from cache")
     void testDeleteSession() {
-        User user = new User(1, "BIDDER", "testuser", "session123");
+        User user = new User(1, Role.USER, "testuser", "session123");
         userRepository.createSession("session123", user);
 
         userRepository.deleteSession("session123");
@@ -128,7 +129,7 @@ class UserRepositoryTest {
     @Test
     @DisplayName("Should find session by session id")
     void testFindBySessionId() {
-        User user = new User(1, "BIDDER", "testuser", "session123");
+        User user = new User(1, Role.USER, "testuser", "session123");
         userRepository.createSession("session123", user);
 
         User result = userRepository.findBySessionId("session123");
@@ -148,7 +149,7 @@ class UserRepositoryTest {
     @DisplayName("Should get all normal users and convert to User objects")
     void testGetAllNormalUsers() {
         List<UserData> dataList = List.of(
-                new UserData(1, "user1", "BIDDER", "pass1"),
+                new UserData(1, "user1", "USER", "pass1"),
                 new UserData(2, "user2", "SELLER", "pass2")
         );
         when(userDAO.getAllNormalUsers()).thenReturn(dataList);
@@ -158,7 +159,7 @@ class UserRepositoryTest {
         assertEquals(2, result.size());
         assertEquals(1, result.get(0).getId());
         assertEquals("user1", result.get(0).getUsername());
-        assertEquals("BIDDER", result.get(0).getRole());
+        assertEquals(Role.USER, result.get(0).getRole());
         assertEquals(2, result.get(1).getId());
         verify(userDAO).getAllNormalUsers();
     }
@@ -178,7 +179,7 @@ class UserRepositoryTest {
     @Test
     @DisplayName("Should update role and evict banned user session")
     void testUpdateRole_BanEvictsSession() {
-        User user = new User(1, "BIDDER", "testuser", "session123");
+        User user = new User(1, Role.USER, "testuser", "session123");
         userRepository.createSession("session123", user);
         when(userDAO.changeUserRole(1, "BAN")).thenReturn(true);
 
@@ -192,19 +193,19 @@ class UserRepositoryTest {
     @Test
     @DisplayName("Should update role and refresh non-ban session cache")
     void testUpdateRole_NonBanRefreshesSession() {
-        User user = new User(1, "BIDDER", "testuser", "session123");
+        User user = new User(1, Role.USER, "testuser", "session123");
         userRepository.createSession("session123", user);
-        when(userDAO.changeUserRole(1, "SELLER")).thenReturn(true);
-        UserData freshData = new UserData(1, "testuser", "SELLER", "password");
+        when(userDAO.changeUserRole(1, "ADMIN")).thenReturn(true);
+        UserData freshData = new UserData(1, "testuser", "ADMIN", "password");
         when(userDAO.findByUserId(1)).thenReturn(freshData);
 
-        boolean result = userRepository.updateRole(1, "SELLER");
+        boolean result = userRepository.updateRole(1, "ADMIN");
 
         assertTrue(result);
         User refreshed = userRepository.findBySessionId("session123");
         assertNotNull(refreshed);
-        assertEquals("SELLER", refreshed.getRole());
-        verify(userDAO).changeUserRole(1, "SELLER");
+        assertEquals(Role.ADMIN, refreshed.getRole());
+        verify(userDAO).changeUserRole(1, "ADMIN");
     }
 
     @Test

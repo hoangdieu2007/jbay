@@ -3,6 +3,7 @@ package a88.jbay.system.user;
 import a88.jbay.common.network.Response;
 import a88.jbay.common.user.User;
 import a88.jbay.common.user.UserData;
+import a88.jbay.common.user.role.Role;
 import a88.jbay.dao.UserDAO;
 import a88.jbay.data.UserRepository;
 import a88.jbay.server.ClientConnection;
@@ -63,7 +64,7 @@ public class AdminService {
         auctionSystem.reloadSystem(); // reload every auctions and update auction current bid
 
         // Đúc và trả về đối tượng mang Role mới
-        return new User(userId, "BAN", userData.username());
+        return new User(userId, Role.BAN, userData.username());
     }
 
     public User unbanUser(int userId) {
@@ -79,6 +80,6 @@ public class AdminService {
         auctionSystem.reloadSystem(); // reload every auctions
 
         // Đúc và trả về đối tượng mang Role mới
-        return new User(userId, "USER", userData.username());
+        return new User(userId, Role.USER, userData.username());
     }
 }

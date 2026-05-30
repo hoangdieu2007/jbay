@@ -3,6 +3,7 @@ package a88.jbay.system;
 import a88.jbay.common.item.Item;
 import a88.jbay.common.network.Response;
 import a88.jbay.common.user.User;
+import a88.jbay.common.user.role.Role;
 import a88.jbay.dao.*;
 import a88.jbay.data.*;
 import a88.jbay.server.DatabaseController;
@@ -146,7 +147,7 @@ class RequestHandlerIntegrationTest {
         var seller = sim.createClient();
         assertTrue(sim.register(seller, "seller", "pass").isSuccess());
         assertTrue(sim.login(seller, "seller", "pass").isSuccess());
-        assertEquals("USER", seller.getRole());
+        assertEquals(Role.USER, seller.getRole());
 
         Item laptop = makeItem("Gaming Laptop", 1000.0);
         LocalDateTime start = LocalDateTime.now().minusHours(1);

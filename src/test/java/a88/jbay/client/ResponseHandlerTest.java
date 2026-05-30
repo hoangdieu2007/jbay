@@ -6,6 +6,7 @@ import a88.jbay.common.auction.BidTransaction;
 import a88.jbay.common.item.Item;
 import a88.jbay.common.network.Response;
 import a88.jbay.common.user.User;
+import a88.jbay.common.user.role.Role;
 import a88.jbay.controller.ControllerProvider;
 import a88.jbay.controller.app.EntranceUI.ClientLoginController;
 import a88.jbay.controller.app.EntranceUI.ClientRegisterController;
@@ -81,7 +82,7 @@ class ResponseHandlerTest {
 
     @Test
     void testHandleLoginSuccessAsUser() {
-        User curUser = new User(1, "USER", "testuser", "sess");
+        User curUser = new User(1, Role.USER, "testuser", "sess");
         Response response = new Response(true, "LOGIN_SUCCESS", curUser);
 
         ClientLoginController loginController = mock(ClientLoginController.class);
@@ -100,7 +101,7 @@ class ResponseHandlerTest {
 
     @Test
     void testHandleLoginSuccessAsAdmin() {
-        User curUser = new User(1, "ADMIN", "admin1", "sess");
+        User curUser = new User(1, Role.ADMIN, "admin1", "sess");
         Response response = new Response(true, "LOGIN_SUCCESS", curUser);
 
         ClientLoginController loginController = mock(ClientLoginController.class);
@@ -119,7 +120,7 @@ class ResponseHandlerTest {
 
     @Test
     void testHandleLoginSuccessIOException() {
-        User curUser = new User(1, "USER", "testuser", "sess");
+        User curUser = new User(1, Role.USER, "testuser", "sess");
         Response response = new Response(true, "LOGIN_SUCCESS", curUser);
 
         ClientLoginController loginController = mock(ClientLoginController.class);
@@ -179,7 +180,7 @@ class ResponseHandlerTest {
     void testHandleActiveAuctionList() {
         ObservableMap<Integer, Auction> bidderAuctions = FXCollections.observableHashMap();
         when(clientSession.getBidderAuctions()).thenReturn(bidderAuctions);
-        when(clientSession.getUser()).thenReturn(new User(1, "USER", "test"));
+        when(clientSession.getUser()).thenReturn(new User(1, Role.USER, "test"));
 
         Auction auction = new Auction(1, makeItem(),
                 new a88.jbay.common.user.UserData(2, "seller", "USER", "pass"),
@@ -233,7 +234,7 @@ class ResponseHandlerTest {
 
     @Test
     void testHandleAuctionUpdateGoesToBidderAuctions() {
-        User user = new User(1, "USER", "testuser", "sess");
+        User user = new User(1, Role.USER, "testuser", "sess");
         when(clientSession.getUser()).thenReturn(user);
 
         ObservableMap<Integer, Auction> bidderAuctions = FXCollections.observableHashMap();
@@ -253,7 +254,7 @@ class ResponseHandlerTest {
 
     @Test
     void testHandleAuctionUpdateGoesToSellerAuctions() {
-        User user = new User(1, "USER", "seller1", "sess");
+        User user = new User(1, Role.USER, "seller1", "sess");
         when(clientSession.getUser()).thenReturn(user);
 
         ObservableMap<Integer, Auction> sellerAuctions = FXCollections.observableHashMap();
@@ -272,7 +273,7 @@ class ResponseHandlerTest {
 
     @Test
     void testHandleAuctionUpdateGoesToWonAuctionsWhenFinished() {
-        User user = new User(1, "USER", "winner1", "sess");
+        User user = new User(1, Role.USER, "winner1", "sess");
         when(clientSession.getUser()).thenReturn(user);
 
         ObservableMap<Integer, Auction> wonAuctions = FXCollections.observableHashMap();
@@ -292,7 +293,7 @@ class ResponseHandlerTest {
 
     @Test
     void testHandleAuctionUpdateGoesToWonAuctionsWhenPaid() {
-        User user = new User(1, "USER", "winner1", "sess");
+        User user = new User(1, Role.USER, "winner1", "sess");
         when(clientSession.getUser()).thenReturn(user);
 
         ObservableMap<Integer, Auction> wonAuctions = FXCollections.observableHashMap();
@@ -312,7 +313,7 @@ class ResponseHandlerTest {
 
     @Test
     void testHandleAuctionUpdateAdminAlsoGoesToAdminAuctions() {
-        User user = new User(1, "ADMIN", "admin", "sess");
+        User user = new User(1, Role.ADMIN, "admin", "sess");
         when(clientSession.getUser()).thenReturn(user);
 
         ObservableMap<Integer, Auction> adminAuctions = FXCollections.observableHashMap();
@@ -335,7 +336,7 @@ class ResponseHandlerTest {
 
     @Test
     void testHandleAuctionUpdateAdminSellerGoesToSellerAndAdminAuctions() {
-        User user = new User(1, "ADMIN", "seller1", "sess");
+        User user = new User(1, Role.ADMIN, "seller1", "sess");
         when(clientSession.getUser()).thenReturn(user);
 
         ObservableMap<Integer, Auction> sellerAuctions = FXCollections.observableHashMap();
@@ -381,7 +382,7 @@ class ResponseHandlerTest {
         ObservableMap<Integer, User> adminUsers = FXCollections.observableHashMap();
         when(clientSession.getAdminUsers()).thenReturn(adminUsers);
 
-        User user = new User(1, "USER", "test");
+        User user = new User(1, Role.USER, "test");
         List<User> users = List.of(user);
 
         Response response = new Response(true, "ADMIN_USER_LIST", users);
@@ -398,7 +399,7 @@ class ResponseHandlerTest {
         ObservableMap<Integer, User> adminUsers = FXCollections.observableHashMap();
         when(clientSession.getAdminUsers()).thenReturn(adminUsers);
 
-        User updatedUser = new User(5, "BAN", "target");
+        User updatedUser = new User(5, Role.BAN, "target");
         Response response = new Response(true, "USER_STATE_CHANGED", updatedUser);
         handler.handle(response);
 
@@ -412,7 +413,7 @@ class ResponseHandlerTest {
         ObservableMap<Integer, User> adminUsers = FXCollections.observableHashMap();
         when(clientSession.getAdminUsers()).thenReturn(adminUsers);
 
-        User currentUser = new User(1, "ADMIN", "adminUser", "sess");
+        User currentUser = new User(1, Role.ADMIN, "adminUser", "sess");
         when(clientSession.getUser()).thenReturn(currentUser);
 
         try (MockedStatic<Platform> platformMock = mockStatic(Platform.class)) {
@@ -422,7 +423,7 @@ class ResponseHandlerTest {
                         return null;
                     });
 
-            User newUser = new User(10, "USER", "newbie");
+            User newUser = new User(10, Role.USER, "newbie");
             Response response = new Response(true, "NEW_USER_REGISTERED", newUser);
             handler.handle(response);
 
@@ -435,10 +436,10 @@ class ResponseHandlerTest {
         ObservableMap<Integer, User> adminUsers = mock(ObservableMap.class);
         when(clientSession.getAdminUsers()).thenReturn(adminUsers);
 
-        User currentUser = new User(1, "USER", "regular", "sess");
+        User currentUser = new User(1, Role.USER, "regular", "sess");
         when(clientSession.getUser()).thenReturn(currentUser);
 
-        User newUser = new User(10, "USER", "newbie");
+        User newUser = new User(10, Role.USER, "newbie");
         Response response = new Response(true, "NEW_USER_REGISTERED", newUser);
         handler.handle(response);
 

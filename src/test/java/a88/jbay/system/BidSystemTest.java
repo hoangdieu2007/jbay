@@ -75,7 +75,7 @@ class BidSystemTest {
         when(auction.getAuctionState()).thenReturn(AuctionState.RUNNING);
         when(auctionDAO.updateCurrentBid(anyInt(), anyInt())).thenReturn(true);
         when(bidDAO.insertBid(anyInt(), anyInt(), anyDouble(), any())).thenReturn(1);
-        when(userDAO.findByUserId(userId)).thenReturn(new UserData(userId, "testuser", "password", "BIDDER"));
+        when(userDAO.findByUserId(userId)).thenReturn(new UserData(userId, "testuser", "password", "USER"));
 
         // Mock auctionRepository.getActiveAuctionById()
         when(auctionRepository.getActiveAuctionById(auctionId)).thenReturn(auction);
@@ -220,7 +220,7 @@ class BidSystemTest {
         when(auction.getAuctionState()).thenReturn(AuctionState.RUNNING);
         when(auctionDAO.updateCurrentBid(anyInt(), anyInt())).thenReturn(true);
         when(bidDAO.insertBid(anyInt(), anyInt(), anyDouble(), any())).thenReturn(-1);
-        when(userDAO.findByUserId(userId)).thenReturn(new UserData(userId, "testuser", "password", "BIDDER"));
+        when(userDAO.findByUserId(userId)).thenReturn(new UserData(userId, "testuser", "password", "USER"));
         when(auctionRepository.getActiveAuctionById(auctionId)).thenReturn(auction);
 
         // Act
@@ -243,7 +243,7 @@ class BidSystemTest {
         when(auction.getAuctionState()).thenReturn(AuctionState.RUNNING);
         when(auctionDAO.updateCurrentBid(anyInt(), anyInt())).thenReturn(false);
         when(bidDAO.insertBid(anyInt(), anyInt(), anyDouble(), any())).thenReturn(1);
-        when(userDAO.findByUserId(userId)).thenReturn(new UserData(userId, "testuser", "password", "BIDDER"));
+        when(userDAO.findByUserId(userId)).thenReturn(new UserData(userId, "testuser", "password", "USER"));
         when(auctionRepository.getActiveAuctionById(auctionId)).thenReturn(auction);
 
         // Act

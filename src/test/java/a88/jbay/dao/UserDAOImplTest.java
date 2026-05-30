@@ -15,14 +15,14 @@ class UserDAOImplTest extends DaoTestBase {
     @Test
     @DisplayName("Should insert and find user by username")
     void testFindByUsername() throws Exception {
-        insertUser("testuser", "hash123", "BIDDER", null);
+        insertUser("testuser", "hash123", "USER", null);
 
         UserData result = userDAO.findByUsername("testuser");
 
         assertNotNull(result);
         assertEquals("testuser", result.username());
         assertEquals("hash123", result.password());
-        assertEquals("BIDDER", result.role());
+        assertEquals("USER", result.role());
     }
 
     @Test
@@ -56,7 +56,7 @@ class UserDAOImplTest extends DaoTestBase {
     @Test
     @DisplayName("Should check username existence")
     void testExistsByUsername_Exists() throws Exception {
-        insertUser("existing", "pass", "BIDDER", null);
+        insertUser("existing", "pass", "USER", null);
 
         assertTrue(userDAO.existsByUsername("existing"));
     }
@@ -70,7 +70,7 @@ class UserDAOImplTest extends DaoTestBase {
     @Test
     @DisplayName("Should insert user and return generated id")
     void testInsertUser() {
-        int id = userDAO.insertUser("newuser", "hash", "BIDDER", null);
+        int id = userDAO.insertUser("newuser", "hash", "USER", null);
 
         assertTrue(id > 0);
         UserData saved = userDAO.findByUserId(id);
@@ -81,7 +81,7 @@ class UserDAOImplTest extends DaoTestBase {
     @Test
     @DisplayName("Should change user role")
     void testChangeUserRole() throws Exception {
-        int id = insertUser("user1", "pass", "BIDDER", null);
+        int id = insertUser("user1", "pass", "USER", null);
 
         boolean updated = userDAO.changeUserRole(id, "SELLER");
 
@@ -102,7 +102,7 @@ class UserDAOImplTest extends DaoTestBase {
     @DisplayName("Should get all normal users excluding admins")
     void testGetAllNormalUsers() throws Exception {
         insertUser("admin", "pass", "ADMIN", null);
-        insertUser("bidder1", "pass", "BIDDER", null);
+        insertUser("bidder1", "pass", "USER", null);
         insertUser("seller1", "pass", "SELLER", null);
 
         List<UserData> normalUsers = userDAO.getAllNormalUsers();
@@ -115,7 +115,7 @@ class UserDAOImplTest extends DaoTestBase {
     @DisplayName("Should get QR code by user id")
     void testGetQr() throws Exception {
         byte[] qrData = new byte[]{1, 2, 3, 4, 5};
-        int id = insertUser("qruser", "pass", "BIDDER", qrData);
+        int id = insertUser("qruser", "pass", "USER", qrData);
 
         byte[] result = userDAO.getQr(id);
 
@@ -125,7 +125,7 @@ class UserDAOImplTest extends DaoTestBase {
     @Test
     @DisplayName("Should return null when QR is null")
     void testGetQr_Null() throws Exception {
-        int id = insertUser("nqruser", "pass", "BIDDER", null);
+        int id = insertUser("nqruser", "pass", "USER", null);
 
         byte[] result = userDAO.getQr(id);
 

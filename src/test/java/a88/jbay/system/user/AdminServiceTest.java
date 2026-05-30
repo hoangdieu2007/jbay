@@ -2,6 +2,7 @@ package a88.jbay.system.user;
 
 import a88.jbay.common.user.User;
 import a88.jbay.common.user.UserData;
+import a88.jbay.common.user.role.Role;
 import a88.jbay.dao.UserDAO;
 import a88.jbay.data.UserRepository;
 import a88.jbay.server.ClientConnection;
@@ -101,7 +102,7 @@ class AdminServiceTest {
 
         assertNotNull(result);
         assertEquals(1, result.getId());
-        assertEquals("BAN", result.getRole());
+        assertEquals(Role.BAN, result.getRole());
         assertEquals("target_user", result.getUsername());
 
         verify(connectionSystem).sendToUser(eq(1), any());
@@ -124,7 +125,7 @@ class AdminServiceTest {
         User result = adminService.banUser(2);
 
         assertNotNull(result);
-        assertEquals("BAN", result.getRole());
+        assertEquals(Role.BAN, result.getRole());
         verify(connectionSystem).sendToUser(eq(2), any());
         verify(connectionSystem).unregister(2);
         verify(userSystem, never()).logout(anyString());
@@ -168,7 +169,7 @@ class AdminServiceTest {
 
         assertNotNull(result);
         assertEquals(4, result.getId());
-        assertEquals("USER", result.getRole());
+        assertEquals(Role.USER, result.getRole());
         assertEquals("banned_user", result.getUsername());
         verify(auctionSystem).reloadSystem();
     }

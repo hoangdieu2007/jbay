@@ -7,6 +7,7 @@ import a88.jbay.common.auction.AuctionState;
 import a88.jbay.common.network.Request;
 import a88.jbay.common.network.RequestType;
 import a88.jbay.common.user.User;
+import a88.jbay.common.user.role.Role;
 import a88.jbay.controller.app.AuctionUI.ViewAuctionController;
 import a88.jbay.view.ViewManager;
 import javafx.application.Platform;
@@ -110,7 +111,7 @@ public class AdminHomeScreenController {
     private void setupTableColumns() {
         colUserId.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getId()));
         colUserName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUsername()));
-        colUserStatus.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRole()));
+                colUserStatus.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRole().name()));
 
         colAuctionId.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getId()));
 
@@ -149,7 +150,7 @@ public class AdminHomeScreenController {
                     return;
                 }
 
-                boolean isBanned = "BAN".equals(u.getRole());
+                boolean isBanned = u.getRole() == Role.BAN;
                 btn.setText(isBanned ? "Unban" : "Ban");
                 String baseStyle = "-fx-text-fill: white; -fx-background-radius: 8; -fx-font-weight: bold; -fx-padding: 6 16; -fx-cursor: hand;";
                 btn.setStyle((isBanned ? "-fx-background-color: #3B82F6; " : "-fx-background-color: #EF4444; ") + baseStyle);
@@ -257,7 +258,7 @@ public class AdminHomeScreenController {
 
     private void sendBanRequest(User u) {
         try {
-            String action = "BAN".equals(u.getRole()) ? "UNBAN" : "BAN";
+            String action = u.getRole() == Role.BAN ? "UNBAN" : "BAN";
             Request req = new Request(RequestType.BAN);
             req.put("userId", u.getId());
             req.put("action", action);

@@ -6,6 +6,7 @@ import a88.jbay.common.network.Request;
 import a88.jbay.common.network.RequestType;
 import a88.jbay.common.network.Response;
 import a88.jbay.common.user.User;
+import a88.jbay.common.user.role.Role;
 import a88.jbay.system.AuctionSystem;
 import a88.jbay.system.BidSystem;
 import a88.jbay.system.update.ConnectionSystem;
@@ -50,9 +51,9 @@ class RequestHandlerExtendedTest {
         MockitoAnnotations.openMocks(this);
         handler = new RequestHandler(userSystem, adminService, auctionSystem,
                 connectionSystem, updateSystem, bidSystem);
-        testUser = new User(1, "USER", "testuser", "sess1");
-        adminUser = new User(2, "ADMIN", "admin", "sess2");
-        bannedUser = new User(3, "BAN", "banned", "sessBan");
+        testUser = new User(1, Role.USER, "testuser", "sess1");
+        adminUser = new User(2, Role.ADMIN, "admin", "sess2");
+        bannedUser = new User(3, Role.BAN, "banned", "sessBan");
     }
 
     @Nested
@@ -199,7 +200,7 @@ class RequestHandlerExtendedTest {
         @Test
         @DisplayName("SELL with BAN role returns PERMISSION_DENIED")
         void sellByBannedRole() {
-            User banned = new User(4, "BAN", "banned", "sessBan");
+            User banned = new User(4, Role.BAN, "banned", "sessBan");
             when(userSystem.findBySessionId("sessBan")).thenReturn(banned);
 
             Item item = new Item("Laptop", "ELECTRONICS", "desc", 500.0, new byte[]{});
@@ -461,7 +462,7 @@ class RequestHandlerExtendedTest {
         @DisplayName("BAN without action defaults to BAN")
         void banDefaultAction() {
             when(userSystem.findBySessionId("sess2")).thenReturn(adminUser);
-            when(adminService.banUser(5)).thenReturn(new User(5, "BAN", "target", null));
+            when(adminService.banUser(5)).thenReturn(new User(5, Role.BAN, "target", null));
 
             Request req = new Request(RequestType.BAN)
                     .put("sessionId", "sess2")
@@ -475,7 +476,7 @@ class RequestHandlerExtendedTest {
         @Test
         @DisplayName("BAN self returns BAN_FAIL")
         void banSelf() {
-            User selfAdmin = new User(2, "ADMIN", "admin", "sess2");
+            User selfAdmin = new User(2, Role.ADMIN, "admin", "sess2");
             when(userSystem.findBySessionId("sess2")).thenReturn(selfAdmin);
             when(adminService.banUser(2)).thenReturn(null);
 

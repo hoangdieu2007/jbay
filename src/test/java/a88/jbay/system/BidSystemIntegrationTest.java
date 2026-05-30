@@ -137,7 +137,7 @@ class BidSystemIntegrationTest {
     @DisplayName("Single bid through BidSystem persists to H2 and updates auction state")
     void singleBidPersistsToDatabase() throws Exception {
         int sellerId = insertUser("seller", "pass", "SELLER");
-        int bidderId = insertUser("bidder", "pass", "BIDDER");
+        int bidderId = insertUser("bidder", "pass", "USER");
         int itemId = insertItem("Guitar", "MUSIC", "Acoustic guitar", 100.0);
         int auctionId = insertAuction(itemId, sellerId, 100.0, 5.0,
                 LocalDateTime.now().minusHours(1), LocalDateTime.now().plusDays(1), "RUNNING");
@@ -168,8 +168,8 @@ class BidSystemIntegrationTest {
     @DisplayName("Sequential bids update price and winner correctly with real DB")
     void sequentialBidsUpdatePriceCorrectly() throws Exception {
         int sellerId = insertUser("seller", "pass", "SELLER");
-        int alice = insertUser("alice", "pass", "BIDDER");
-        int bob = insertUser("bob", "pass", "BIDDER");
+        int alice = insertUser("alice", "pass", "USER");
+        int bob = insertUser("bob", "pass", "USER");
         int itemId = insertItem("Painting", "ART", "Oil painting", 50.0);
         int auctionId = insertAuction(itemId, sellerId, 50.0, 0.0,
                 LocalDateTime.now().minusHours(1), LocalDateTime.now().plusDays(1), "RUNNING");
@@ -200,8 +200,8 @@ class BidSystemIntegrationTest {
     @DisplayName("Bid below current price is rejected by BidSystem and not persisted")
     void lowBidRejectedAndNotPersisted() throws Exception {
         int sellerId = insertUser("seller", "pass", "SELLER");
-        int alice = insertUser("alice", "pass", "BIDDER");
-        int bob = insertUser("bob", "pass", "BIDDER");
+        int alice = insertUser("alice", "pass", "USER");
+        int bob = insertUser("bob", "pass", "USER");
         int itemId = insertItem("Vase", "HOME", "Ceramic vase", 100.0);
         int auctionId = insertAuction(itemId, sellerId, 100.0, 0.0,
                 LocalDateTime.now().minusHours(1), LocalDateTime.now().plusDays(1), "RUNNING");
@@ -229,9 +229,9 @@ class BidSystemIntegrationTest {
     @DisplayName("Auction reconstruction from DB matches pre-restart state")
     void reconstructedAuctionMatchesOriginal() throws Exception {
         int sellerId = insertUser("seller", "pass", "SELLER");
-        int alice = insertUser("alice", "pass", "BIDDER");
-        int bob = insertUser("bob", "pass", "BIDDER");
-        int carol = insertUser("carol", "pass", "BIDDER");
+        int alice = insertUser("alice", "pass", "USER");
+        int bob = insertUser("bob", "pass", "USER");
+        int carol = insertUser("carol", "pass", "USER");
         int itemId = insertItem("Phone", "ELECTRONICS", "Smartphone", 200.0);
         int auctionId = insertAuction(itemId, sellerId, 200.0, 10.0,
                 LocalDateTime.now().minusHours(1), LocalDateTime.now().plusDays(1), "RUNNING");

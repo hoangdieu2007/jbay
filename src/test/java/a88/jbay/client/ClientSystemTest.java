@@ -6,6 +6,7 @@ import a88.jbay.common.item.Item;
 import a88.jbay.common.network.Response;
 import a88.jbay.common.user.User;
 import a88.jbay.common.user.UserData;
+import a88.jbay.common.user.role.Role;
 import a88.jbay.controller.ControllerProvider;
 import a88.jbay.controller.app.EntranceUI.ClientLoginController;
 import a88.jbay.controller.app.EntranceUI.ClientRegisterController;
@@ -65,7 +66,7 @@ class ClientSystemTest {
     @Test
     @DisplayName("Login success sets user in session")
     void loginSuccess_setsUser() {
-        User curUser = new User(1, "USER", "testuser", "sess1");
+        User curUser = new User(1, Role.USER, "testuser", "sess1");
         when(controllerProvider.getController(ClientLoginController.class))
                 .thenReturn(mock(ClientLoginController.class));
 
@@ -91,7 +92,7 @@ class ClientSystemTest {
     @Test
     @DisplayName("Logout success resets session and clears controllers")
     void logoutSuccess_resetsSession() {
-        session.setUser(new User(1, "USER", "testuser", "sess1"));
+        session.setUser(new User(1, Role.USER, "testuser", "sess1"));
         session.getBidderAuctions().put(1, auction(1, "seller"));
         session.getSellerAuctions().put(2, auction(2, "testuser"));
 
@@ -172,7 +173,7 @@ class ClientSystemTest {
     @Test
     @DisplayName("AUCTION_UPDATE goes to bidder auctions for unrelated user")
     void auctionUpdate_goesToBidderAuctions() {
-        session.setUser(new User(2, "USER", "alice", "s"));
+        session.setUser(new User(2, Role.USER, "alice", "s"));
 
         handler.handle(new Response(true, "AUCTION_UPDATE", auction(70, "bob")));
 
@@ -184,7 +185,7 @@ class ClientSystemTest {
     @Test
     @DisplayName("AUCTION_UPDATE goes to seller auctions when user is seller")
     void auctionUpdate_goesToSellerAuctions() {
-        session.setUser(new User(3, "USER", "seller1", "s"));
+        session.setUser(new User(3, Role.USER, "seller1", "s"));
 
         handler.handle(new Response(true, "AUCTION_UPDATE", auction(80, "seller1")));
 
@@ -196,7 +197,7 @@ class ClientSystemTest {
     @Test
     @DisplayName("AUCTION_UPDATE goes to won auctions when user won finished auction")
     void auctionUpdate_goesToWonAuctions_whenFinished() {
-        session.setUser(new User(4, "USER", "winner1", "s"));
+        session.setUser(new User(4, Role.USER, "winner1", "s"));
 
         Auction a = auction(90, "sellerX", 190, "winner1");
 
@@ -210,7 +211,7 @@ class ClientSystemTest {
     @Test
     @DisplayName("AUCTION_UPDATE goes to bidder (not won) for running auction user won")
     void auctionUpdate_goesToBidderAuctions_whenRunningWinner() {
-        session.setUser(new User(5, "USER", "winner1", "s"));
+        session.setUser(new User(5, Role.USER, "winner1", "s"));
 
         Auction a = auction(95, "sellerX");
         // winner is empty string (default), so user is neither seller nor winner → bidder
@@ -230,7 +231,7 @@ class ClientSystemTest {
     @Test
     @DisplayName("AUCTION_UPDATE also goes to admin auctions for admin user")
     void auctionUpdate_alsoGoesToAdminAuctions() {
-        session.setUser(new User(6, "ADMIN", "admin1", "s"));
+        session.setUser(new User(6, Role.ADMIN, "admin1", "s"));
 
         handler.handle(new Response(true, "AUCTION_UPDATE", auction(100, "other")));
 
@@ -255,7 +256,7 @@ class ClientSystemTest {
     @DisplayName("ADMIN_USER_LIST populates admin users")
     void adminUserList_populatesAdminUsers() {
         handler.handle(new Response(true, "ADMIN_USER_LIST",
-                List.of(new User(10, "USER", "alice"), new User(20, "ADMIN", "bob"))));
+                List.of(new User(10, Role.USER, "alice"), new User(20, Role.ADMIN, "bob"))));
 
         assertEquals(2, session.getAdminUsers().size());
         assertEquals("alice", session.getAdminUsers().get(10).getUsername());
@@ -265,21 +266,21 @@ class ClientSystemTest {
     @Test
     @DisplayName("USER_STATE_CHANGED updates admin users map")
     void userStateChanged_updatesAdminUsers() {
-        session.getAdminUsers().put(30, new User(30, "USER", "target"));
-        handler.handle(new Response(true, "USER_STATE_CHANGED", new User(30, "BAN", "target")));
+        session.getAdminUsers().put(30, new User(30, Role.USER, "target"));
+        handler.handle(new Response(true, "USER_STATE_CHANGED", new User(30, Role.BAN, "target")));
 
-        assertEquals("BAN", session.getAdminUsers().get(30).getRole());
+        assertEquals(Role.BAN, session.getAdminUsers().get(30).getRole());
     }
 
     @Test
     @DisplayName("NEW_USER_REGISTERED adds to admin users when current user is admin")
     void newUserRegistered_asAdmin_addsToAdminUsers() {
-        session.setUser(new User(99, "ADMIN", "admin1", "s"));
+        session.setUser(new User(99, Role.ADMIN, "admin1", "s"));
 
         try (MockedStatic<Platform> p = mockStatic(Platform.class)) {
             p.when(() -> Platform.runLater(any(Runnable.class)))
                     .thenAnswer(inv -> { ((Runnable) inv.getArgument(0)).run(); return null; });
-            handler.handle(new Response(true, "NEW_USER_REGISTERED", new User(40, "USER", "newbie")));
+            handler.handle(new Response(true, "NEW_USER_REGISTERED", new User(40, Role.USER, "newbie")));
         }
 
         assertNotNull(session.getAdminUsers().get(40));
@@ -288,10 +289,10 @@ class ClientSystemTest {
     @Test
     @DisplayName("NEW_USER_REGISTERED ignored when current user is not admin")
     void newUserRegistered_asNonAdmin_ignored() {
-        session.setUser(new User(98, "USER", "regular", "s"));
+        session.setUser(new User(98, Role.USER, "regular", "s"));
 
         try (MockedStatic<Platform> p = mockStatic(Platform.class)) {
-            handler.handle(new Response(true, "NEW_USER_REGISTERED", new User(41, "USER", "newbie")));
+            handler.handle(new Response(true, "NEW_USER_REGISTERED", new User(41, Role.USER, "newbie")));
         }
 
         assertTrue(session.getAdminUsers().isEmpty());
@@ -302,7 +303,7 @@ class ClientSystemTest {
     @Test
     @DisplayName("Full lifecycle: login → lists → updates → logout")
     void fullLifecycle() {
-        User user = new User(7, "USER", "lifecycleUser", "s");
+        User user = new User(7, Role.USER, "lifecycleUser", "s");
         when(controllerProvider.getController(ClientLoginController.class))
                 .thenReturn(mock(ClientLoginController.class));
 
@@ -352,7 +353,7 @@ class ClientSystemTest {
     @Test
     @DisplayName("PONG does not modify session")
     void pong_doesNotModifySession() {
-        session.setUser(new User(1, "USER", "u", "s"));
+        session.setUser(new User(1, Role.USER, "u", "s"));
 
         handler.handle(new Response(true, "PONG", null));
 
@@ -403,7 +404,7 @@ class ClientSystemTest {
     @Test
     @DisplayName("BAN_USER resets session")
     void banUser_resetsSession() {
-        session.setUser(new User(99, "USER", "banned", "s"));
+        session.setUser(new User(99, Role.USER, "banned", "s"));
         session.getBidderAuctions().put(1, auction(1, "s"));
 
         try (MockedStatic<Platform> p = mockStatic(Platform.class)) {

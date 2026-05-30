@@ -2,6 +2,7 @@ package a88.jbay.server;
 
 import a88.jbay.common.item.Item;
 import a88.jbay.common.user.User;
+import a88.jbay.common.user.role.Role;
 import a88.jbay.common.network.RequestType;
 import a88.jbay.common.auction.Auction;
 import a88.jbay.common.network.Request;
@@ -99,7 +100,7 @@ public class RequestHandler {
         User user = userSystem.login(username, password);
         if (user != null) {
             //check if user is banned
-            if (user.getRole().equals("BAN")) {
+            if (user.getRole() == Role.BAN) {
                 return new Response(true, "BAN_USER", null);
             }
 
@@ -237,7 +238,7 @@ public class RequestHandler {
 
         Auction auction = auctionSystem.getAuctionById((Integer) request.get("auctionId"));
 
-        if (!user.getUsername().equals(auction.getSellerName()) && !user.getRole().equals("ADMIN")) {
+        if (!user.getUsername().equals(auction.getSellerName()) && user.getRole() != Role.ADMIN) {
             return new Response(false, "CANCEL_FAIL", null);
         }
 
@@ -284,7 +285,7 @@ public class RequestHandler {
         User user = userSystem.findBySessionId(sessionId);
 
         // Kiểm tra xem có phải ADMIN không
-        if (user != null && user.getRole().equals("ADMIN")) {
+        if (user != null && user.getRole() == Role.ADMIN) {
             // Chuyển hướng luồng chạy cho ADMIN
             auctionSystem.updateAdminAuctions(user.getId());
         } else {
@@ -304,7 +305,7 @@ public class RequestHandler {
         User user = userSystem.findBySessionId(sessionId);
 
         // Chặn cửa: Chỉ xử lý nếu là ADMIN
-        if (user != null && user.getRole().equals("ADMIN")) {
+        if (user != null && user.getRole() == Role.ADMIN) {
             // Nhờ UpdateSystem đóng gói và đẩy qua mạng
             updateSystem.sendToUser(
                     user.getId(),
@@ -321,7 +322,7 @@ public class RequestHandler {
         User admin = userSystem.findBySessionId(sessionId);
 
         // Kiểm tra bảo mật nghiêm ngặt: Chỉ ADMIN mới được xử lý luồng này
-        if (admin == null || !admin.getRole().equals("ADMIN")) {
+        if (admin == null || admin.getRole() != Role.ADMIN) {
             return new Response(false, "UNAUTHORIZED", null);
         }
 
