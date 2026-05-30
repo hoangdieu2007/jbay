@@ -25,7 +25,6 @@ public class ResponseHandler {
     private ControllerProvider controllerProvider;
     private ViewManager viewManager;
     private final JBayLogger logger;
-    private Auction pendingPaymentAuction;
 
     public ResponseHandler(ClientSession clientSession, ControllerProvider controllerProvider, ViewManager viewManager) {
         this.logger = JBayLogger.getLogger(ResponseHandler.class);

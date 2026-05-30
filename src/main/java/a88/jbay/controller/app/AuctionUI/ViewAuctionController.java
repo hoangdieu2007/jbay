@@ -38,7 +38,7 @@ public class ViewAuctionController {
 
     @FXML
     public void initialize() {
-        setupLineChart();
+        priceSeries = a88.jbay.util.ChartHelper.setupPriceChart(priceChart, "Bid Price Development");
     }
 
     public void setAuctionData(Auction auction, ObservableMap<Integer, Auction> map,
@@ -71,15 +71,7 @@ public class ViewAuctionController {
         lblMinIncrement.setText(String.format("%.2f USD", auction.getMinIncrement()));
         lblSellerName.setText(auction.getSellerName());
 
-        priceSeries.getData().clear();
-        for (BidTransaction bid : auction.getBidHistory()) {
-            String time = bid.getTimestamp().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-            priceSeries.getData().add(new XYChart.Data<>(time, bid.getAmt()));
-        }
-
-        if (priceSeries.getData().size() > 15) {
-            priceSeries.getData().remove(0, priceSeries.getData().size() - 15);
-        }
+        a88.jbay.util.ChartHelper.updatePriceChart(priceSeries, auction.getBidHistory());
 
         if (auction.getItem().getImage() != null && auction.getItem().getImage().length > 0) {
             itemImageView.setImage(ImageProcessor.bytesToImage(auction.getItem().getImage()));

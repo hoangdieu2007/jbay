@@ -86,20 +86,7 @@ public class ClientBidderItemController {
             minIncrementLabel.setText(String.format("%.2f USD", auction.getMinIncrement()));
 
             //Vẽ biểu đồ
-
-            // Xóa sạch dữ liệu cũ trên biểu đồ để tránh vẽ đè/giật lùi
-            priceSeries.getData().clear();
-
-            // Vẽ lại toàn bộ lịch sử từ Server (đã được sắp xếp)
-            for (BidTransaction bid : auction.getBidHistory()) {
-                String time = bid.getTimestamp().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-                priceSeries.getData().add(new XYChart.Data<>(time, bid.getAmt()));
-            }
-
-            // Giới hạn 15 điểm để biểu đồ không bị quá dày
-            if (priceSeries.getData().size() > 15) {
-                priceSeries.getData().remove(0, priceSeries.getData().size() - 15);
-            }
+            a88.jbay.util.ChartHelper.updatePriceChart(priceSeries, auction.getBidHistory());
 
             // Cập nhật ảnh
             if (auction.getItem().getImage() != null) {
@@ -161,7 +148,7 @@ public class ClientBidderItemController {
     @FXML
     public void initialize() {
         //Chuẩn bị biểu đồ
-        setupLineChart();
+        priceSeries = a88.jbay.util.ChartHelper.setupPriceChart(priceChart, "Bid Price Development");
         //Chuẩn bị listener để nhận thông tin
         setupAuctionListener();
     }
