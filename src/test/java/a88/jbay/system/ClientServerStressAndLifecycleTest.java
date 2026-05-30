@@ -49,7 +49,7 @@ class ClientServerStressAndLifecycleTest {
         dbController = new DatabaseController();
         dbController.initializePool(
                 "jdbc:h2:mem:stresslifecycle;MODE=MySQL;DB_CLOSE_DELAY=-1",
-                "sa", ""
+                "sa", "", 50
         );
         try (var in = ClientServerStressAndLifecycleTest.class
                 .getResourceAsStream("/a88/jbay/db/schema-h2.sql")) {

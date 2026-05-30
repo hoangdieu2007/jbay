@@ -770,10 +770,10 @@ class RequestHandlerTest {
     }
 
     @Test
-    @DisplayName("BID returns BID_FAIL when second permission check fails")
+    @DisplayName("BID returns PERMISSION_DENIED for banned user")
     void testBidInnerPermissionDenied() {
         User bannedUser = new User(3, "BAN", "banned", "sess1");
-        when(userSystem.findBySessionId("sess1")).thenReturn(testUser, bannedUser);
+        when(userSystem.findBySessionId("sess1")).thenReturn(bannedUser);
 
         Request req = new Request(RequestType.BID)
                 .put("sessionId", "sess1")
@@ -782,15 +782,15 @@ class RequestHandlerTest {
         Response res = handler.handleRequest(req);
 
         assertFalse(res.isSuccess());
-        assertEquals("BID_FAIL", res.getMessage());
+        assertEquals("PERMISSION_DENIED", res.getMessage());
         verify(bidSystem, never()).placeBid(anyInt(), anyInt(), anyDouble());
     }
 
     @Test
-    @DisplayName("AUTO_BID returns AUTO_BID_FAIL when second permission check fails")
+    @DisplayName("AUTO_BID returns PERMISSION_DENIED for banned user")
     void testAutoBidInnerPermissionDenied() {
         User bannedUser = new User(3, "BAN", "banned", "sess1");
-        when(userSystem.findBySessionId("sess1")).thenReturn(testUser, bannedUser);
+        when(userSystem.findBySessionId("sess1")).thenReturn(bannedUser);
 
         Request req = new Request(RequestType.AUTO_BID)
                 .put("sessionId", "sess1")
@@ -800,15 +800,15 @@ class RequestHandlerTest {
         Response res = handler.handleRequest(req);
 
         assertFalse(res.isSuccess());
-        assertEquals("AUTO_BID_FAIL", res.getMessage());
+        assertEquals("PERMISSION_DENIED", res.getMessage());
         verify(bidSystem, never()).placeBidAutomated(anyInt(), anyInt(), anyDouble(), anyDouble());
     }
 
     @Test
-    @DisplayName("CANCEL_AUTO_BID returns CANCEL_AUTO_BID_FAIL when second permission check fails")
+    @DisplayName("CANCEL_AUTO_BID returns PERMISSION_DENIED for banned user")
     void testCancelAutoBidInnerPermissionDenied() {
         User bannedUser = new User(3, "BAN", "banned", "sess1");
-        when(userSystem.findBySessionId("sess1")).thenReturn(testUser, bannedUser);
+        when(userSystem.findBySessionId("sess1")).thenReturn(bannedUser);
 
         Request req = new Request(RequestType.CANCEL_AUTO_BID)
                 .put("sessionId", "sess1")
@@ -816,7 +816,7 @@ class RequestHandlerTest {
         Response res = handler.handleRequest(req);
 
         assertFalse(res.isSuccess());
-        assertEquals("CANCEL_AUTO_BID_FAIL", res.getMessage());
+        assertEquals("PERMISSION_DENIED", res.getMessage());
         verify(bidSystem, never()).cancelAutoBid(anyInt(), anyInt());
     }
 
@@ -1014,11 +1014,11 @@ class RequestHandlerTest {
     }
 
     @Test
-    @DisplayName("SELL returns SELL_FAIL when inner permission check fails")
+    @DisplayName("SELL returns PERMISSION_DENIED for banned user")
     void testSellInnerPermissionDenied() {
         User bannedUser = new User(3, "BAN", "banned", "sess1");
         Item item = new Item(1, "Test", "ELECTRONICS", "desc", 100.0);
-        when(userSystem.findBySessionId("sess1")).thenReturn(testUser, bannedUser);
+        when(userSystem.findBySessionId("sess1")).thenReturn(bannedUser);
 
         Request req = new Request(RequestType.SELL)
                 .put("sessionId", "sess1")
@@ -1028,17 +1028,17 @@ class RequestHandlerTest {
         Response res = handler.handleRequest(req);
 
         assertFalse(res.isSuccess());
-        assertEquals("SELL_FAIL", res.getMessage());
+        assertEquals("PERMISSION_DENIED", res.getMessage());
         verify(auctionSystem, never()).createAuction(any(), anyInt(), anyDouble(), any(), any());
     }
 
     @Test
-    @DisplayName("CANCEL returns CANCEL_FAIL when inner permission check fails")
+    @DisplayName("CANCEL returns PERMISSION_DENIED for banned user")
     void testCancelInnerPermissionDenied() {
-        User bannedSeller = new User(3, "BAN", "seller", "sess1");
+        User bannedUser = new User(3, "BAN", "seller", "sess1");
         Auction auction = mock(Auction.class);
         when(auction.getSellerName()).thenReturn("seller");
-        when(userSystem.findBySessionId("sess1")).thenReturn(testUser, bannedSeller);
+        when(userSystem.findBySessionId("sess1")).thenReturn(bannedUser);
         when(auctionSystem.getAuctionById(100)).thenReturn(auction);
 
         Request req = new Request(RequestType.CANCEL)
@@ -1047,7 +1047,7 @@ class RequestHandlerTest {
         Response res = handler.handleRequest(req);
 
         assertFalse(res.isSuccess());
-        assertEquals("CANCEL_FAIL", res.getMessage());
+        assertEquals("PERMISSION_DENIED", res.getMessage());
         verify(auctionSystem, never()).cancelAuction(anyInt());
     }
 }
