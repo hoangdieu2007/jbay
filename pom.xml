@@ -247,7 +247,7 @@
                     <!-- The <argLine> property fallback above ensures it is never          -->
                     <!-- undefined (which would corrupt the JVM args and crash JavaFX).     -->
                     <!-- -Dprism.order=sw forces software rendering for headless/CI builds. -->
-                    <argLine>@{argLine} -Dprism.order=sw -javaagent:${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar</argLine>
+                    <argLine>@{argLine} -Dprism.order=sw "-javaagent:${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar"</argLine>
                 </configuration>
             </plugin>
             <plugin>

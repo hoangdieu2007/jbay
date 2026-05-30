@@ -144,6 +144,7 @@ public class RequestHandler {
     private Response handleBid(Request request) {
         User user = userSystem.findBySessionId((String) request.get("sessionId"));
         if (user == null) return new Response(false, "INVALID_SESSION", null);
+        if (!user.can(RequestType.BID)) return new Response(false, "BID_FAIL", null);
         boolean success = bidSystem.placeBid(user.getId(), (Integer) request.get("auctionId"), (Double) request.get("amount"));
         return new Response(success, success ? "BID_SUCCESS" : "BID_FAIL", null);
     }
@@ -152,6 +153,7 @@ public class RequestHandler {
     private Response handleAutoBid(Request request) {
         User user = userSystem.findBySessionId((String) request.get("sessionId"));
         if (user == null) return new Response(false, "INVALID_SESSION", null);
+        if (!user.can(RequestType.AUTO_BID)) return new Response(false, "AUTO_BID_FAIL", null);
         bidSystem.placeBidAutomated(user.getId(), (Integer) request.get("auctionId"), (Double) request.get("max_amount"), (Double) request.get("increment"));
         return new Response(true, "AUTO_BID_SUCCESS", null);
     }
@@ -160,6 +162,9 @@ public class RequestHandler {
     private Response handleCancelAutoBid(Request request) {
         User user = userSystem.findBySessionId((String) request.get("sessionId"));
         if (user == null) return new Response(false, "INVALID_SESSION", null);
+        if (!user.can(RequestType.CANCEL_AUTO_BID)) {
+            return new Response(false, "CANCEL_AUTO_BID_FAIL", null);
+        }
         bidSystem.cancelAutoBid(user.getId(), (Integer) request.get("auctionId"));
         return new Response(true, "CANCEL_AUTO_BID_SUCCESS", null);
     }
@@ -168,6 +173,7 @@ public class RequestHandler {
     private Response handleSell(Request request) {
         User user = userSystem.findBySessionId((String) request.get("sessionId"));
         if (user == null) return new Response(false, "INVALID_SESSION", null);
+        if (!user.can(RequestType.SELL)) return new Response(false, "SELL_FAIL", null);
         Item item = (Item) request.get("item");
         java.time.LocalDateTime start = (java.time.LocalDateTime) request.get("start");
         java.time.LocalDateTime end = (java.time.LocalDateTime) request.get("end");
@@ -227,6 +233,7 @@ public class RequestHandler {
     private Response handleCancel(Request request) {
         User user = userSystem.findBySessionId((String) request.get("sessionId"));
         if (user == null) return new Response(false, "INVALID_SESSION", null);
+        if (!user.can(RequestType.CANCEL)) return new Response(false, "CANCEL_FAIL", null);
 
         Auction auction = auctionSystem.getAuctionById((Integer) request.get("auctionId"));
 
