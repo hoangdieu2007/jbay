@@ -38,6 +38,7 @@ public class ViewAuctionController {
     private Auction currAuction;
     private ObservableMap<Integer, Auction> dataSourceMap;
     private Runnable onGoBackAction;
+    private MapChangeListener<Integer, Auction> auctionListener;
 
     private boolean canCancel;
     private boolean canConfirm;
@@ -59,11 +60,15 @@ public class ViewAuctionController {
         updateUI(auction);
 
         if (this.dataSourceMap != null) {
-            this.dataSourceMap.addListener((MapChangeListener<Integer, Auction>) change -> {
+            if (auctionListener != null) {
+                this.dataSourceMap.removeListener(auctionListener);
+            }
+            auctionListener = change -> {
                 if (change.wasAdded() && change.getKey() == currAuction.getId()) {
                     javafx.application.Platform.runLater(() -> updateUI(change.getValueAdded()));
                 }
-            });
+            };
+            this.dataSourceMap.addListener(auctionListener);
         }
     }
 

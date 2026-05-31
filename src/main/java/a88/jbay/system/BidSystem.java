@@ -423,9 +423,15 @@ public class BidSystem {
      * @param increment amount to add above the current price for each automated bid
      */
     public void setAutoBidConfig(int auctionId, int userId, double maxAmount, double increment) {
-        Auction auction = auctionRepository.getActiveAuctionById(auctionId);
-        if (auction != null) {
-            auction.setCurrAutoBidConfig(new AutoBidConfig(userId, maxAmount, increment));
+        ReentrantLock lock = getLock(auctionId);
+        lock.lock();
+        try {
+            Auction auction = auctionRepository.getActiveAuctionById(auctionId);
+            if (auction != null) {
+                auction.setCurrAutoBidConfig(new AutoBidConfig(userId, maxAmount, increment));
+            }
+        } finally {
+            lock.unlock();
         }
     }
 
@@ -438,9 +444,15 @@ public class BidSystem {
      * @param auctionId ID of the auction where auto-bidding should be cleared
      */
     public void clearAutoBidConfig(int auctionId) {
-        Auction auction = auctionRepository.getActiveAuctionById(auctionId);
-        if (auction != null) {
-            auction.setCurrAutoBidConfig(null);
+        ReentrantLock lock = getLock(auctionId);
+        lock.lock();
+        try {
+            Auction auction = auctionRepository.getActiveAuctionById(auctionId);
+            if (auction != null) {
+                auction.setCurrAutoBidConfig(null);
+            }
+        } finally {
+            lock.unlock();
         }
     }
 
@@ -577,6 +589,14 @@ public class BidSystem {
 
     private boolean isCurrentWinner(Auction auction, int userId) {
         return auction.getWinnerId() != null && auction.getWinnerId().equals(userId);
+    }
+
+    /**
+     * Cleans up per-auction resources when an auction ends.
+     */
+    public void cleanupAuction(int auctionId) {
+        auctionLocks.remove(auctionId);
+        autoBiddingFlags.remove(auctionId);
     }
 
     void setAutoBidDelayMs(long ms) {

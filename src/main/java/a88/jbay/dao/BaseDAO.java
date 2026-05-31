@@ -1,6 +1,7 @@
 package a88.jbay.dao;
 
 import a88.jbay.server.DatabaseController;
+import a88.jbay.util.JBayLogger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,10 +10,12 @@ import java.util.function.Function;
 
 public abstract class BaseDAO {
 
+    protected final JBayLogger logger;
     protected final DatabaseController dbController;
 
     protected BaseDAO(DatabaseController dbController) {
         this.dbController = dbController;
+        this.logger = JBayLogger.getLogger(this.getClass());
     }
 
     @FunctionalInterface
@@ -43,14 +46,18 @@ public abstract class BaseDAO {
                 connection.commit();
                 return result;
             } catch (Exception e) {
-                connection.rollback();
-                e.printStackTrace();
+                logger.error("Transaction failed: " + e.getMessage(), e);
+                try {
+                    connection.rollback();
+                } catch (SQLException re) {
+                    logger.error("Rollback also failed: " + re.getMessage(), re);
+                }
                 return null;
             } finally {
                 connection.setAutoCommit(true);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Transaction error: " + e.getMessage(), e);
             return null;
         }
     }
@@ -94,7 +101,7 @@ public abstract class BaseDAO {
             bindStatement(stmt, params);
             return stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("executeUpdate failed: " + e.getMessage(), e);
             return -1;
         }
     }
@@ -110,7 +117,7 @@ public abstract class BaseDAO {
             }
             return -1;
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("executeInsert failed: " + e.getMessage(), e);
             return -1;
         }
     }
@@ -123,7 +130,7 @@ public abstract class BaseDAO {
                 return mapper.map(rs);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("executeQuery failed: " + e.getMessage(), e);
             return null;
         }
     }

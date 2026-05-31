@@ -6,7 +6,7 @@
 
     <groupId>a88</groupId>
     <artifactId>jbay</artifactId>
-    <version>0.2-ALPHA</version>
+    <version>0.3-BETA</version>
     <name>jbay</name>
 
     <properties>
@@ -265,6 +265,21 @@
                             <noManPages>true</noManPages>
                             <stripDebug>true</stripDebug>
                             <noHeaderFiles>true</noHeaderFiles>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>server</id>
+                        <configuration>
+                            <mainClass>a88.jbay/a88.jbay.ServerLauncher</mainClass>
+                            <launcher>server</launcher>
+                            <jlinkZipName>server</jlinkZipName>
+                            <jlinkImageName>server</jlinkImageName>
+                            <noManPages>true</noManPages>
+                            <stripDebug>true</stripDebug>
+                            <noHeaderFiles>true</noHeaderFiles>
+                            <options>
+                                <option>--enable-native-access=javafx.graphics</option>
+                            </options>
                         </configuration>
                     </execution>
                 </executions>

@@ -166,6 +166,8 @@ public class ServerConnection {
             } catch (IOException e) {
                 logger.error("Failed to send ping: " + e.getMessage(), e);
                 handleConnectionLost("Connection to server lost");
+            } catch (RuntimeException e) {
+                logger.error("Unexpected error in ping task: " + e.getMessage(), e);
             }
         }, 0, 10, TimeUnit.SECONDS);
     }

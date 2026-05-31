@@ -48,7 +48,7 @@ public class AdminService {
             return null;
         }
 
-        // Gửi gói tin Real-time báo tử live xuống máy NẠN NHÂN
+        // Gửi gói tin Real-time báo tử xuống máy NẠN NHÂN (trước khi unregister)
         connectionSystem.sendToUser(userId, new Response(true, "BAN_USER", null));
 
         // Ép hủy các phiên làm việc live của nạn nhân

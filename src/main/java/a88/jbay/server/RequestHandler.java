@@ -48,12 +48,13 @@ public class RequestHandler {
         //check permission
         String sessionId = (String) request.get("sessionId");
         if (sessionId != null) {
-            //authorized
+            //authorized - cache user to prevent TOCTOU
             User user = userSystem.findBySessionId(sessionId);
             if (user == null) return new Response(false, "INVALID_SESSION", null);
             if (!user.can(request.getType())) {
                 return new Response(false, "PERMISSION_DENIED", null);
             }
+            request.put("__auth_user__", user);
         } else {
             //unauthorized
             if (request.getType().equals(RequestType.LOGIN)) {
@@ -88,6 +89,10 @@ public class RequestHandler {
         };
     }
 
+    private User getAuthUser(Request request) {
+        return (User) request.get("__auth_user__");
+    }
+
     private Response handlePing(Request request) {
         return new Response(true, "PONG", null);
     }
@@ -101,6 +106,7 @@ public class RequestHandler {
         if (user != null) {
             //check if user is banned
             if (user.getRole() == Role.BAN) {
+                userSystem.logout(user.getSessionId());
                 return new Response(true, "BAN_USER", null);
             }
 
@@ -143,38 +149,32 @@ public class RequestHandler {
 
     //handling bidding
     private Response handleBid(Request request) {
-        User user = userSystem.findBySessionId((String) request.get("sessionId"));
+        User user = getAuthUser(request);
         if (user == null) return new Response(false, "INVALID_SESSION", null);
-        if (!user.can(RequestType.BID)) return new Response(false, "BID_FAIL", null);
         boolean success = bidSystem.placeBid(user.getId(), (Integer) request.get("auctionId"), (Double) request.get("amount"));
         return new Response(success, success ? "BID_SUCCESS" : "BID_FAIL", null);
     }
 
     //handling auto-bidding
     private Response handleAutoBid(Request request) {
-        User user = userSystem.findBySessionId((String) request.get("sessionId"));
+        User user = getAuthUser(request);
         if (user == null) return new Response(false, "INVALID_SESSION", null);
-        if (!user.can(RequestType.AUTO_BID)) return new Response(false, "AUTO_BID_FAIL", null);
         bidSystem.placeBidAutomated(user.getId(), (Integer) request.get("auctionId"), (Double) request.get("max_amount"), (Double) request.get("increment"));
         return new Response(true, "AUTO_BID_SUCCESS", null);
     }
 
     //handling cancel auto-bid
     private Response handleCancelAutoBid(Request request) {
-        User user = userSystem.findBySessionId((String) request.get("sessionId"));
+        User user = getAuthUser(request);
         if (user == null) return new Response(false, "INVALID_SESSION", null);
-        if (!user.can(RequestType.CANCEL_AUTO_BID)) {
-            return new Response(false, "CANCEL_AUTO_BID_FAIL", null);
-        }
         bidSystem.cancelAutoBid(user.getId(), (Integer) request.get("auctionId"));
         return new Response(true, "CANCEL_AUTO_BID_SUCCESS", null);
     }
 
     //handling selling and creating auction
     private Response handleSell(Request request) {
-        User user = userSystem.findBySessionId((String) request.get("sessionId"));
+        User user = getAuthUser(request);
         if (user == null) return new Response(false, "INVALID_SESSION", null);
-        if (!user.can(RequestType.SELL)) return new Response(false, "SELL_FAIL", null);
         Item item = (Item) request.get("item");
         java.time.LocalDateTime start = (java.time.LocalDateTime) request.get("start");
         java.time.LocalDateTime end = (java.time.LocalDateTime) request.get("end");
@@ -197,7 +197,7 @@ public class RequestHandler {
 
     //pay request - returns seller QR
     private Response handlePay(Request request) {
-        User user = userSystem.findBySessionId((String) request.get("sessionId"));
+        User user = getAuthUser(request);
         if (user == null) return new Response(false, "INVALID_SESSION", null);
 
         // Lấy thông tin phiên đấu giá
@@ -219,7 +219,7 @@ public class RequestHandler {
 
     //handle confirm payment
     private Response handleConfirmPayment(Request request) {
-        User user = userSystem.findBySessionId((String) request.get("sessionId"));
+        User user = getAuthUser(request);
         if (user == null) return new Response(false, "INVALID_SESSION", null);
 
         Auction auction = auctionSystem.getAuctionById((Integer) request.get("auctionId"));
@@ -241,9 +241,8 @@ public class RequestHandler {
     //canceling auctions
     //ADMIN ONLY, REPORT IF CALLS FROM NORMAL USERS ALSO RETURN CANCEL_SUCCESS
     private Response handleCancel(Request request) {
-        User user = userSystem.findBySessionId((String) request.get("sessionId"));
+        User user = getAuthUser(request);
         if (user == null) return new Response(false, "INVALID_SESSION", null);
-        if (!user.can(RequestType.CANCEL)) return new Response(false, "CANCEL_FAIL", null);
 
         Auction auction = auctionSystem.getAuctionById((Integer) request.get("auctionId"));
         if (auction == null) return new Response(false, "INVALID_AUCTION", null);
@@ -260,7 +259,7 @@ public class RequestHandler {
     //this is often automatically handled by the auction system upon bidding/selling a product
     //but separating this makes everything clear
     private Response handleSubscribeAuction(Request request) {
-        User user = userSystem.findBySessionId((String) request.get("sessionId"));
+        User user = getAuthUser(request);
         if (user == null) return new Response(false, "INVALID_SESSION", null);
 
         Integer auctionId = (Integer) request.get("auctionId");
@@ -276,7 +275,7 @@ public class RequestHandler {
     //unsubscribing from auctions
     //also automatically handled by the auction system when an auction finishes
     private Response handleUnsubscribeAuction(Request request) {
-        User user = userSystem.findBySessionId((String) request.get("sessionId"));
+        User user = getAuthUser(request);
         if (user == null) return new Response(false, "INVALID_SESSION", null);
 
         Integer auctionId = (Integer) request.get("auctionId");
@@ -291,19 +290,12 @@ public class RequestHandler {
     }
 
     private Response handleGetAuctions(Request request) {
-        // Lấy thông tin user từ sessionId để kiểm tra Role
-        String sessionId = (String) request.get("sessionId");
-        User user = userSystem.findBySessionId(sessionId);
+        User user = getAuthUser(request);
+        if (user == null) return new Response(false, "INVALID_SESSION", null);
 
-        // Kiểm tra xem có phải ADMIN không
-        if (user != null && user.getRole() == Role.ADMIN) {
-            // Chuyển hướng luồng chạy cho ADMIN
+        if (user.getRole() == Role.ADMIN) {
             auctionSystem.updateAdminAuctions(user.getId());
         } else {
-            // GIỮ NGUYÊN LUỒNG CŨ CHO USER (Bidder/Seller)
-            if (user == null) {
-                return new Response(false, "INVALID_SESSION", null);
-            }
             auctionSystem.updateAllAuctions(user.getId());
         }
 
@@ -312,12 +304,10 @@ public class RequestHandler {
 
     // Xử lý luồng lấy danh sách User (Chỉ Admin mới có quyền)
     private Response handleGetUsers(Request request) {
-        String sessionId = (String) request.get("sessionId");
-        User user = userSystem.findBySessionId(sessionId);
+        User user = getAuthUser(request);
+        if (user == null) return new Response(false, "INVALID_SESSION", null);
 
-        // Chặn cửa: Chỉ xử lý nếu là ADMIN
-        if (user != null && user.getRole() == Role.ADMIN) {
-            // Nhờ UpdateSystem đóng gói và đẩy qua mạng
+        if (user.getRole() == Role.ADMIN) {
             updateSystem.sendToUser(
                     user.getId(),
                     new Response(true, "ADMIN_USER_LIST", userSystem.getAllNormalUsersForAdmin())
@@ -329,10 +319,7 @@ public class RequestHandler {
     }
 
     private Response handleBan(Request request) {
-        String sessionId = (String) request.get("sessionId");
-        User admin = userSystem.findBySessionId(sessionId);
-
-        // Kiểm tra bảo mật nghiêm ngặt: Chỉ ADMIN mới được xử lý luồng này
+        User admin = getAuthUser(request);
         if (admin == null || admin.getRole() != Role.ADMIN) {
             return new Response(false, "UNAUTHORIZED", null);
         }
@@ -355,10 +342,9 @@ public class RequestHandler {
         }
 
         // Đóng gói Object mang trạng thái mới và phát loa
-        Response broadcastResponse = new Response(true, "USER_STATE_CHANGED", updatedUser);
-        updateSystem.broadcastToAll(broadcastResponse);
+        updateSystem.broadcastToAll(new Response(true, "USER_STATE_CHANGED", updatedUser));
 
-        return broadcastResponse;
+        return new Response(true, "BAN_SUCCESS", null);
     }
 
     //misc commands
@@ -370,10 +356,7 @@ public class RequestHandler {
 
         return switch (command) {
             case "ls-auction" -> new Response(true, "LIST_AUCTION_SUCCESS", auctionSystem.listActiveAuctions());
-            case "disconnect" -> {
-                Thread.currentThread().interrupt();
-                yield null;
-            }
+            case "disconnect" -> null;
             default -> new Response(false, "INVALID_MISC_COMMAND", null);
         };
     }

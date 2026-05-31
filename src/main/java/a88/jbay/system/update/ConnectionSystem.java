@@ -7,6 +7,7 @@ import a88.jbay.system.AuctionSystem;
 import a88.jbay.util.JBayLogger;
 import a88.jbay.di.ApplicationContext;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -35,27 +36,31 @@ public class ConnectionSystem {
     private final ExecutorService senderExecutor = Executors.newVirtualThreadPerTaskExecutor();
 
     public Map<Integer, Set<ClientConnection>> getConnections() {
-        return connections;
+        return Collections.unmodifiableMap(connections);
     }
 
     public void register(ClientConnection connection) {
+        int userId = connection.getUserCache().getId();
+        if (userId <= 0) {
+            return;
+        }
         connections
-                .computeIfAbsent(
-                        connection.getUserCache().getId(),
-                        k -> new CopyOnWriteArraySet<>()
-                )
+                .computeIfAbsent(userId, k -> new CopyOnWriteArraySet<>())
                 .add(connection);
     }
 
     public void unregister(ClientConnection connection) {
-        Set<ClientConnection> userConnections =
-                connections.get(connection.getUserCache().getId());
+        int userId = connection.getUserCache().getId();
+        if (userId <= 0) {
+            return;
+        }
+        Set<ClientConnection> userConnections = connections.get(userId);
 
         if (userConnections != null) {
             userConnections.remove(connection);
 
             if (userConnections.isEmpty()) {
-                connections.remove(connection.getUserCache().getId());
+                connections.remove(userId);
             }
         }
     }

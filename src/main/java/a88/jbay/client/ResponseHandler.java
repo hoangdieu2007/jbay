@@ -249,8 +249,9 @@ public class ResponseHandler {
 
     private void handleAuctionUpdateNotify(Response response) {
         Auction auction = (Auction) response.getPayload();
-        logger.info("handleAuctionUpdateNotify called for auction " + auction.getId());
-        showAlert(Alert.AlertType.INFORMATION, "Auction " + auction.getId() + " - " + auction.getItem().getName() + " update: " + auction.getWinner() + " is the current winner, current price is " + auction.getCurrentPrice() + " USD");
+        logger.info("Auction update: " + auction.getId() + " - " + auction.getItem().getName()
+                + " | Winner: " + auction.getWinner()
+                + " | Price: " + auction.getCurrentPrice() + " USD");
     }
 
     private void handleAdminAuctionList(Response response) {

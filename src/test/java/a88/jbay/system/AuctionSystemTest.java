@@ -111,11 +111,15 @@ class AuctionSystemTest {
         when(auctionRepository.getAuctionById(1)).thenReturn(auction);
         auction.subscribe(1);
 
-        boolean result = auctionSystem.confirmPayment(1);
+        try (MockedStatic<BidSystem> bidSystemMock = mockStatic(BidSystem.class)) {
+            bidSystemMock.when(BidSystem::getInstance).thenReturn(mock(BidSystem.class));
 
-        assertTrue(result);
-        verify(auctionRepository).setAuctionState(1, AuctionState.PAID);
-        verify(auctionRepository).removeActiveAuction(1);
+            boolean result = auctionSystem.confirmPayment(1);
+
+            assertTrue(result);
+            verify(auctionRepository).setAuctionState(1, AuctionState.PAID);
+            verify(auctionRepository).removeActiveAuction(1);
+        }
     }
 
     @Test
@@ -133,10 +137,14 @@ class AuctionSystemTest {
     void testCancelAuction_Opening() {
         when(auctionRepository.getAuctionById(1)).thenReturn(auction);
 
-        boolean result = auctionSystem.cancelAuction(1);
+        try (MockedStatic<BidSystem> bidSystemMock = mockStatic(BidSystem.class)) {
+            bidSystemMock.when(BidSystem::getInstance).thenReturn(mock(BidSystem.class));
 
-        assertTrue(result);
-        verify(auctionRepository).removeActiveAuction(1);
+            boolean result = auctionSystem.cancelAuction(1);
+
+            assertTrue(result);
+            verify(auctionRepository).removeActiveAuction(1);
+        }
     }
 
     @Test
@@ -145,10 +153,14 @@ class AuctionSystemTest {
         auction.setAuctionState(AuctionState.RUNNING);
         when(auctionRepository.getAuctionById(1)).thenReturn(auction);
 
-        boolean result = auctionSystem.cancelAuction(1);
+        try (MockedStatic<BidSystem> bidSystemMock = mockStatic(BidSystem.class)) {
+            bidSystemMock.when(BidSystem::getInstance).thenReturn(mock(BidSystem.class));
 
-        assertTrue(result);
-        verify(auctionRepository).removeActiveAuction(1);
+            boolean result = auctionSystem.cancelAuction(1);
+
+            assertTrue(result);
+            verify(auctionRepository).removeActiveAuction(1);
+        }
     }
 
     @Test
@@ -190,9 +202,13 @@ class AuctionSystemTest {
         when(auctionRepository.getAuctionsBySellerId(1)).thenReturn(List.of(auction));
         when(auctionRepository.getAuctionById(1)).thenReturn(auction);
 
-        boolean result = auctionSystem.cancelAuctionsBySellerId(1);
+        try (MockedStatic<BidSystem> bidSystemMock = mockStatic(BidSystem.class)) {
+            bidSystemMock.when(BidSystem::getInstance).thenReturn(mock(BidSystem.class));
 
-        assertTrue(result);
+            boolean result = auctionSystem.cancelAuctionsBySellerId(1);
+
+            assertTrue(result);
+        }
     }
 
     @Test

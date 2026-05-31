@@ -33,6 +33,7 @@ public abstract class AuctionListControllerBase<CardController> {
     protected Map<Integer, VBox> cardBox = new HashMap<>();
     protected Map<Integer, CardController> controllerMap = new HashMap<>();
 
+    private MapChangeListener<Integer, Auction> auctionMapListener;
     private final JBayLogger logger = JBayLogger.getLogger(getClass());
 
     protected void initializeAuctionList() {
@@ -48,7 +49,10 @@ public abstract class AuctionListControllerBase<CardController> {
             addOrUpdateAuction(auction);
         }
 
-        auctionMap.addListener((MapChangeListener<Integer, Auction>) change -> {
+        if (auctionMapListener != null) {
+            auctionMap.removeListener(auctionMapListener);
+        }
+        auctionMapListener = change -> {
             if (change.wasAdded()) {
                 addOrUpdateAuction(change.getValueAdded());
             } else if (change.wasRemoved()) {
@@ -57,7 +61,8 @@ public abstract class AuctionListControllerBase<CardController> {
 
             auctionList.sort(getAuctionComparator());
             refreshAuctionList();
-        });
+        };
+        auctionMap.addListener(auctionMapListener);
 
         auctionSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredList.setPredicate(auction -> matchesSearch(auction, newValue));

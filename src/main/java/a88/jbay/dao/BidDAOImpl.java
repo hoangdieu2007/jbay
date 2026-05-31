@@ -56,7 +56,7 @@ public class BidDAOImpl extends BaseDAO implements BidDAO {
 
     private List<BidData> stalinFilter(List<BidData> bids) {
         List<BidData> result = new ArrayList<>();
-        double runningMax = Double.MIN_VALUE;
+        double runningMax = Double.NEGATIVE_INFINITY;
         for (BidData bid : bids) {
             if (bid.amount() > runningMax) {
                 runningMax = bid.amount();

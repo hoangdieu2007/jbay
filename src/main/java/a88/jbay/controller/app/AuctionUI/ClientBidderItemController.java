@@ -43,6 +43,7 @@ public class ClientBidderItemController {
     private int currentAuctionId;
     private XYChart.Series<String, Number> priceSeries;
     private boolean autoBidActive = false;
+    private MapChangeListener<Integer, Auction> auctionListener;
 
     // INITIALIZATION & LISTENERS (Khởi tạo)
     @FXML
@@ -61,11 +62,15 @@ public class ClientBidderItemController {
 
     private void setupAuctionListener() {
         ObservableMap<Integer, Auction> auctions = ClientSession.getInstance().getBidderAuctions();
-        auctions.addListener((MapChangeListener<Integer, Auction>) change -> {
+        if (auctionListener != null) {
+            auctions.removeListener(auctionListener);
+        }
+        auctionListener = change -> {
             if (change.wasAdded() && change.getKey() == this.currentAuctionId) {
                 updateBidderUI(change.getValueAdded());
             }
-        });
+        };
+        auctions.addListener(auctionListener);
     }
 
     // UI UPDATES (Cập nhật giao diện)

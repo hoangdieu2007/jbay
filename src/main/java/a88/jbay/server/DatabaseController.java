@@ -24,6 +24,11 @@ public class DatabaseController {
             throw new IllegalStateException("Database credentials have not been set!");
         }
 
+        // Close old pool before reinitializing
+        if (dataSource != null) {
+            dataSource.close();
+        }
+
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(url);
         config.setUsername(username);
