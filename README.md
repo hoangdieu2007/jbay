@@ -1,197 +1,138 @@
-# jBay
+# jBay — Hệ Thống Đấu Giá Trực Tuyến
 
 [![CI](https://github.com/hoangdieu2007/jbay/actions/workflows/maven.yml/badge.svg)](https://github.com/hoangdieu2007/jbay/actions/workflows/maven.yml)
-[![Pull Requests](https://img.shields.io/github/issues-pr/hoangdieu2007/jbay)](https://github.com/hoangdieu2007/jbay/pulls)
-[![Issues](https://img.shields.io/github/issues/hoangdieu2007/jbay)](https://github.com/hoangdieu2007/jbay/issues)
 
-jBay là ứng dụng đấu giá trực tuyến được xây dựng bằng JavaFX bởi Auction88, Team 12. Dự án gồm ứng dụng client, giao diện điều khiển server, giao tiếp client/server qua socket và hệ quản trị cơ sở dữ liệu tương thích MySQL.
+jBay là hệ thống đấu giá trực tuyến (online auction) cho phép nhiều người dùng tham gia cạnh tranh giá để mua sản phẩm trong khoảng thời gian xác định. Hệ thống áp dụng kiến trúc Client–Server qua TCP Socket, giao diện JavaFX, và cơ sở dữ liệu MySQL.
 
-## Mục Lục
-
-- [Tính Năng](#tính-năng)
-- [Công Nghệ Sử Dụng](#công-nghệ-sử-dụng)
-- [Cấu Trúc Dự Án](#cấu-trúc-dự-án)
-- [Yêu Cầu Cài Đặt](#yêu-cầu-cài-đặt)
-- [Cài Đặt Database](#cài-đặt-database)
-- [Build](#build)
-- [Chạy Ứng Dụng](#chạy-ứng-dụng)
-- [Lệnh Phát Triển](#lệnh-phát-triển)
-- [Entry Point Chính](#entry-point-chính)
-- [Các Bảng Database](#các-bảng-database)
-- [CI, Pull Request Và Issue Status](#ci-pull-request-và-issue-status)
-- [Ghi Chú](#ghi-chú)
-
-## Tính Năng
-
-- Đăng ký, đăng nhập, đăng xuất và quản lý phiên người dùng
-- Đăng ký tài khoản quản trị viên và quản lý người dùng
-- Tạo và hủy phiên đấu giá
-- Đấu giá trực tiếp và tự động đấu giá
-- Cập nhật trạng thái đấu giá theo thời gian thực cho các client đã kết nối
-- Hỗ trợ các loại mặt hàng theo UI: `Electronics`, `Fashion`, `Home`, `Collectibles`, `Others`
-- Giao diện JavaFX cho client và server
-- Lưu trữ dữ liệu bằng MySQL thông qua các lớp DAO và repository
+**Phạm vi hệ thống:** Người dùng (User/Admin), sản phẩm đấu giá, phiên đấu giá (vòng đời OPENING → RUNNING → FINISHED → PAID/CANCELED), đấu giá thủ công và tự động, cập nhật real-time, quản trị hệ thống.
 
 ## Công Nghệ Sử Dụng
 
-- Java 25
-- JavaFX 25
-- Maven
-- MySQL
-- HikariCP cho connection pooling
-- SLF4J và Logback cho logging
-- JUnit 5 và Mockito cho test
+| Công nghệ | Phiên bản |
+|---|---|
+| Java (JDK) | 25.0.2 |
+| JavaFX | 25.0.1 |
+| Maven | 3.x |
+| MySQL | 8.0 |
+| HikariCP | 6.2.1 (connection pooling) |
+| SLF4J + Logback | 2.0.9 / 1.4.14 (logging) |
+| JUnit 5 + Mockito | 5.12.1 / 5.14.2 (testing) |
 
-## Cấu Trúc Dự Án
+**Hỗ trợ hệ điều hành:** Windows, macOS (Intel & Apple Silicon), Linux.
 
-```text
+## Cấu Trúc Thư Mục
+
+```
 jbay/
-├── DATABASE/                  # File SQL schema và dump mẫu
-├── STRUCTURE/                 # Tài liệu PDF mô tả cấu trúc package
+├── DATABASE/                  # SQL schema và dump mẫu
 ├── src/main/java/a88/jbay/
-│   ├── client/                # Kết nối socket phía client và xử lý response
-│   ├── common/                # Model dùng chung cho auction, item, user, network
-│   ├── controller/            # Controller JavaFX
-│   ├── dao/                   # Lớp truy cập cơ sở dữ liệu
-│   ├── data/                  # Repository, cache và factory
-│   ├── di/                    # Cấu hình dependency cho ứng dụng
-│   ├── server/                # Socket server, database và xử lý request
-│   ├── system/                # Hệ thống auction, bid, update và user
-│   ├── util/                  # Lớp tiện ích
-│   └── view/                  # Entry point JavaFX và ViewManager
-├── src/main/resources/        # FXML, CSS, hình ảnh, database resource, logging config
-├── src/test/java/             # Unit test
+│   ├── client/                # ServerConnection, ClientSession, ResponseHandler
+│   ├── common/                # Model: Auction, Item, User, Request/Response
+│   ├── controller/            # JavaFX Controllers
+│   ├── dao/                   # Data Access Objects (UserDAO, ItemDAO, ...)
+│   ├── data/                  # Repository, cache, factory
+│   ├── di/                    # Dependency Injection container
+│   ├── server/                # Socket server, ClientConnection, RequestHandler
+│   ├── system/                # Business logic: AuctionSystem, BidSystem, ...
+│   ├── util/                  # Tiện ích: ChartHelper, StringHash, ...
+│   └── view/                  # JavaFX Application, ViewManager
+├── src/main/resources/        # FXML, CSS, ảnh, schema SQL, logging config
+├── src/test/java/             # Unit test, integration test, stress test
 └── pom.xml                    # Cấu hình Maven
 ```
 
 ## Yêu Cầu Cài Đặt
 
-- JDK 25
-- Maven, hoặc Maven wrapper có sẵn trong dự án
-- MySQL server
-- Tài khoản database có quyền tạo và cập nhật schema của jBAY
-
-Maven sẽ tự động chọn JavaFX platform classifier phù hợp cho Windows, macOS Intel, macOS Apple Silicon và Linux.
+- JDK 25.0.2 (Temurin khuyến nghị)
+- Maven hoặc Maven wrapper có sẵn trong dự án
+- MySQL 8.0 server
+- Tài khoản database có quyền tạo và cập nhật schema
 
 ## Cài Đặt Database
 
-Tạo database tên `jbay_db`, sau đó import schema:
-
 ```sql
 CREATE DATABASE jbay_db;
-```
-
-Từ thư mục gốc của dự án, import một trong các file SQL có sẵn:
-
-```bash
 mysql -u <username> -p jbay_db < DATABASE/schema1.sql
 ```
 
-Dự án cũng có bản sao schema trong `src/main/resources/a88/jbay/db/`.
+Khi chạy server, nhập JDBC URL dạng: `jdbc:mysql://localhost:3306/jbay_db`
 
-Khi chạy ứng dụng server, nhập JDBC URL theo dạng:
+## Vị Trí File .jar
 
-```text
-jdbc:mysql://localhost:3306/jbay_db
-```
+Sau khi build, file .jar nằm trong thư mục `target/`:
 
-Sau đó nhập username và password của database trong giao diện server.
+- `target/jbay-0.3-BETA-client.jar` — Ứng dụng client
+- `target/jbay-0.3-BETA-server.jar` — Ứng dụng server
 
-## Build
+## Hướng Dẫn Chạy
 
-Trên Windows:
-
-```powershell
-.\mvnw.cmd clean package
-```
-
-Trên macOS hoặc Linux:
+### 1. Build
 
 ```bash
+# Windows
+.\mvnw.cmd clean package
+
+# macOS / Linux
 ./mvnw clean package
 ```
 
-File build sẽ được tạo trong thư mục `target/`:
-
-- `jbay-0.1-ALPHA-client.jar`
-- `jbay-0.1-ALPHA-server.jar`
-
-## Chạy Ứng Dụng
-
-Chạy server trước:
+### 2. Chạy Server (trước)
 
 ```bash
-java -jar target/jbay-0.1-ALPHA-server.jar
+java -jar target/jbay-0.3-BETA-server.jar
 ```
 
 Trong cửa sổ server:
+1. Nhập JDBC URL, username, password → Kết nối database
+2. Nhập port → Khởi động service
+3. (Tùy chọn) Đăng ký tài khoản admin
 
-1. Nhập JDBC URL, username và password của database.
-2. Kết nối đến database.
-3. Nhập port và khởi động service.
-4. Nếu cần, đăng ký tài khoản admin.
-
-Sau đó chạy client:
+### 3. Chạy Client (sau)
 
 ```bash
-java -jar target/jbay-0.1-ALPHA-client.jar
+java -jar target/jbay-0.3-BETA-client.jar
 ```
 
-Trong cửa sổ client, kết nối đến server bằng host và port của server. Nếu server chạy trên máy local:
+Trong cửa sổ client:
+1. Nhập host (vd: `localhost`) và port của server → Kết nối
+2. Đăng nhập hoặc đăng ký tài khoản
+3. Bắt đầu tham gia đấu giá
 
-```text
-Host: localhost
-Port: <server port>
-```
+## Danh Sách Chức Năng Đã Hoàn Thành
 
-## Lệnh Phát Triển
+### Chức năng bắt buộc
 
-Chạy test:
+| Chức năng | Mô tả |
+|---|---|
+| **Quản lý người dùng** | Đăng ký, đăng nhập, đăng xuất; Role-based (GUEST, USER, ADMIN); phân quyền theo Permission |
+| **Quản lý sản phẩm** | Thêm, sửa, xóa sản phẩm (tên, mô tả, giá, ảnh, danh mục) |
+| **Đấu giá** | Đặt giá thủ công, kiểm tra tính hợp lệ (>= currentPrice + minIncrement), cập nhật người dẫn đầu |
+| **Kết thúc phiên** | Tự động đóng khi hết thời gian (heartbeat 1s); vòng đời OPENING→RUNNING→FINISHED→PAID/CANCELED |
+| **Admin** | Xem danh sách user/auction, ban/unban user (hủy session, đóng auction, xóa auto-bid) |
+| **Xử lý lỗi** | Giá không hợp lệ, phiên đã đóng, mất kết nối, lỗi DB (rollback + retry) |
+| **Giao diện** | JavaFX + FXML; danh sách auction, chi tiết sản phẩm, đấu giá real-time, quản lý sản phẩm |
+
+### Chức năng nâng cao
+
+| Chức năng | Mô tả |
+|---|---|
+| **Auto-Bidding** | Đặt maxBid + increment, hệ thống tự động trả giá, so sánh nhiều auto-bid, hủy bất kỳ lúc nào |
+| **Anti-sniping** | Nếu có bid trong 5 phút cuối, tự động gia hạn thêm 1 giờ |
+| **Concurrent Bidding** | Per-auction ReentrantLock, virtual threads, tránh lost update và race condition |
+| **Realtime Update** | Push qua TCP socket, không polling; ObservableMap binding UI tự cập nhật |
+| **Bid History Chart** | LineChart (thời gian × giá), cập nhật realtime, bộ lọc tăng dần |
+
+## Entry Points
+
+- Client: `a88.jbay.ClientLauncher`
+- Server: `a88.jbay.ServerLauncher`
+- JavaFX Client: `a88.jbay.view.MainClient`
+- JavaFX Server: `a88.jbay.view.MainServer`
+
+## Phát Triển
 
 ```bash
-./mvnw test
+./mvnw test          # Chạy test
+./mvnw validate      # Checkstyle
+./mvnw clean package # Build
 ```
-
-Chạy Checkstyle:
-
-```bash
-./mvnw validate
-```
-
-Build tất cả file jar:
-
-```bash
-./mvnw clean package
-```
-
-Trên Windows, thay `./mvnw` bằng `.\mvnw.cmd`.
-
-## Entry Point Chính
-
-- Client launcher: `a88.jbay.ClientLauncher`
-- Server launcher: `a88.jbay.ServerLauncher`
-- Ứng dụng JavaFX phía client: `a88.jbay.view.MainClient`
-- Ứng dụng JavaFX phía server: `a88.jbay.view.MainServer`
-
-## Các Bảng Database
-
-Schema hiện tại gồm các bảng:
-
-- `users`
-- `items`
-- `auctions`
-- `bids`
-
-## CI, Pull Request Và Issue Status
-
-GitHub Actions build dự án trên Ubuntu, Windows và macOS bằng JDK 25. Khi push lên branch `main`, workflow sẽ tạo draft release kèm các file jar client và server đã build.
-
-- CI status: [Java CI with Maven](https://github.com/hoangdieu2007/jbay/actions/workflows/maven.yml)
-- Pull request status: [Danh sách pull request](https://github.com/hoangdieu2007/jbay/pulls)
-- Issue status: [Danh sách issue](https://github.com/hoangdieu2007/jbay/issues)
-
-## Ghi Chú
-
-- Log khi chạy ứng dụng được ghi vào các file như `jbay.log`.
-- Server phải được khởi động trước khi client có thể đăng nhập hoặc thao tác với các phiên đấu giá.
-- Port của server service được chọn trong giao diện server khi khởi động.
