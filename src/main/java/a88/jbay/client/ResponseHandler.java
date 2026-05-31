@@ -250,9 +250,9 @@ public class ResponseHandler {
 
     private void handleAuctionUpdateNotify(Response response) {
         Auction auction = (Auction) response.getPayload();
-        logger.info("Auction update: " + auction.getId() + " - " + auction.getItem().getName()
-                + " | Winner: " + auction.getWinner()
-                + " | Price: " + auction.getCurrentPrice() + " USD");
+        String msg = auction.getItem().getName() + " updated — Winner: " + auction.getWinner() + " | Price: " + auction.getCurrentPrice() + " USD";
+        logger.info("Auction update: " + auction.getId() + " - " + msg);
+        showAlert(Alert.AlertType.INFORMATION, msg);
     }
 
     private void handleAdminAuctionList(Response response) {
