@@ -39,27 +39,43 @@ public abstract class BaseDAO {
     // --- Transaction ---
 
     protected <T> T executeTransaction(TransactionWork<T> work) {
-        try (Connection connection = dbController.getConnection()) {
-            connection.setAutoCommit(false);
-            try {
-                T result = work.execute(connection);
-                connection.commit();
-                return result;
-            } catch (Exception e) {
-                logger.error("Transaction failed: " + e.getMessage(), e);
+        int maxRetries = 3;
+        for (int attempt = 0; attempt < maxRetries; attempt++) {
+            try (Connection connection = dbController.getConnection()) {
+                connection.setAutoCommit(false);
                 try {
-                    connection.rollback();
-                } catch (SQLException re) {
-                    logger.error("Rollback also failed: " + re.getMessage(), re);
+                    T result = work.execute(connection);
+                    connection.commit();
+                    return result;
+                } catch (Exception e) {
+                    logger.error("Transaction failed (attempt " + (attempt + 1) + "/" + maxRetries + "): " + e.getMessage(), e);
+                    try {
+                        connection.rollback();
+                    } catch (SQLException re) {
+                        logger.error("Rollback also failed: " + re.getMessage(), re);
+                    }
+                    if (attempt == maxRetries - 1) {
+                        return null;
+                    }
+                    try { Thread.sleep(50L * (attempt + 1)); } catch (InterruptedException ie) {
+                        Thread.currentThread().interrupt();
+                        return null;
+                    }
+                } finally {
+                    try { connection.setAutoCommit(true); } catch (SQLException ignored) {}
                 }
-                return null;
-            } finally {
-                connection.setAutoCommit(true);
+            } catch (SQLException e) {
+                logger.error("Connection error (attempt " + (attempt + 1) + "/" + maxRetries + "): " + e.getMessage());
+                if (attempt == maxRetries - 1) {
+                    return null;
+                }
+                try { Thread.sleep(50L * (attempt + 1)); } catch (InterruptedException ie) {
+                    Thread.currentThread().interrupt();
+                    return null;
+                }
             }
-        } catch (SQLException e) {
-            logger.error("Transaction error: " + e.getMessage(), e);
-            return null;
         }
+        return null;
     }
 
     // --- single-connection overloads (for use inside transactions) ---
