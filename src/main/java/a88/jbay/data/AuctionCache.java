@@ -39,7 +39,8 @@ public class AuctionCache {
     public List<Auction> getAllExceptSeller(String sellerName) {
         List<Auction> result = new ArrayList<>();
         for (Auction auction : auctions.values()) {
-            if (!auction.getSellerName().equals(sellerName)) {
+            String name = auction.getSellerName();
+            if (name == null || !name.equals(sellerName)) {
                 result.add(auction);
             }
         }

@@ -106,24 +106,26 @@ class AuctionSystemTest {
     @Test
     @DisplayName("Should confirm payment and remove auction from cache")
     void testConfirmPayment() {
-        auction.setAuctionState(AuctionState.RUNNING);
+        auction.setAuctionState(AuctionState.FINISHED);
         auction.addBid(150.0, new BidTransaction(2, "bidder1", 150.0, LocalDateTime.now()));
-        when(auctionRepository.getActiveAuctionById(1)).thenReturn(auction);
         when(auctionRepository.getAuctionById(1)).thenReturn(auction);
-        auction.setAuctionState(AuctionState.PAID);
         auction.subscribe(1);
 
-        boolean result = auctionSystem.confirmPayment(1);
+        try (MockedStatic<BidSystem> bidSystemMock = mockStatic(BidSystem.class)) {
+            bidSystemMock.when(BidSystem::getInstance).thenReturn(mock(BidSystem.class));
 
-        assertTrue(result);
-        verify(auctionRepository).setAuctionState(1, AuctionState.PAID);
-        verify(auctionRepository).removeActiveAuction(1);
+            boolean result = auctionSystem.confirmPayment(1);
+
+            assertTrue(result);
+            verify(auctionRepository).setAuctionState(1, AuctionState.PAID);
+            verify(auctionRepository).removeActiveAuction(1);
+        }
     }
 
     @Test
     @DisplayName("Should return false when confirming payment for unknown auction")
     void testConfirmPayment_UnknownAuction() {
-        when(auctionRepository.getActiveAuctionById(999)).thenReturn(null);
+        when(auctionRepository.getAuctionById(999)).thenReturn(null);
 
         boolean result = auctionSystem.confirmPayment(999);
 
@@ -133,33 +135,39 @@ class AuctionSystemTest {
     @Test
     @DisplayName("Should cancel auction in OPENING state")
     void testCancelAuction_Opening() {
-        when(auctionRepository.getActiveAuctionById(1)).thenReturn(auction);
         when(auctionRepository.getAuctionById(1)).thenReturn(auction);
 
-        boolean result = auctionSystem.cancelAuction(1);
+        try (MockedStatic<BidSystem> bidSystemMock = mockStatic(BidSystem.class)) {
+            bidSystemMock.when(BidSystem::getInstance).thenReturn(mock(BidSystem.class));
 
-        assertTrue(result);
-        verify(auctionRepository).removeActiveAuction(1);
+            boolean result = auctionSystem.cancelAuction(1);
+
+            assertTrue(result);
+            verify(auctionRepository).removeActiveAuction(1);
+        }
     }
 
     @Test
     @DisplayName("Should cancel auction in RUNNING state")
     void testCancelAuction_Running() {
         auction.setAuctionState(AuctionState.RUNNING);
-        when(auctionRepository.getActiveAuctionById(1)).thenReturn(auction);
         when(auctionRepository.getAuctionById(1)).thenReturn(auction);
 
-        boolean result = auctionSystem.cancelAuction(1);
+        try (MockedStatic<BidSystem> bidSystemMock = mockStatic(BidSystem.class)) {
+            bidSystemMock.when(BidSystem::getInstance).thenReturn(mock(BidSystem.class));
 
-        assertTrue(result);
-        verify(auctionRepository).removeActiveAuction(1);
+            boolean result = auctionSystem.cancelAuction(1);
+
+            assertTrue(result);
+            verify(auctionRepository).removeActiveAuction(1);
+        }
     }
 
     @Test
     @DisplayName("Should not cancel a FINISHED auction")
     void testCancelAuction_Finished() {
         auction.setAuctionState(AuctionState.FINISHED);
-        when(auctionRepository.getActiveAuctionById(1)).thenReturn(auction);
+        when(auctionRepository.getAuctionById(1)).thenReturn(auction);
 
         boolean result = auctionSystem.cancelAuction(1);
 
@@ -171,7 +179,7 @@ class AuctionSystemTest {
     @DisplayName("Should not cancel a PAID auction")
     void testCancelAuction_Paid() {
         auction.setAuctionState(AuctionState.PAID);
-        when(auctionRepository.getActiveAuctionById(1)).thenReturn(auction);
+        when(auctionRepository.getAuctionById(1)).thenReturn(auction);
 
         boolean result = auctionSystem.cancelAuction(1);
 
@@ -181,7 +189,7 @@ class AuctionSystemTest {
     @Test
     @DisplayName("Should return false when canceling unknown auction")
     void testCancelAuction_Unknown() {
-        when(auctionRepository.getActiveAuctionById(999)).thenReturn(null);
+        when(auctionRepository.getAuctionById(999)).thenReturn(null);
 
         boolean result = auctionSystem.cancelAuction(999);
 
@@ -192,12 +200,15 @@ class AuctionSystemTest {
     @DisplayName("Should cancel all auctions for a seller")
     void testCancelAuctionsBySellerId() {
         when(auctionRepository.getAuctionsBySellerId(1)).thenReturn(List.of(auction));
-        when(auctionRepository.getActiveAuctionById(1)).thenReturn(auction);
         when(auctionRepository.getAuctionById(1)).thenReturn(auction);
 
-        boolean result = auctionSystem.cancelAuctionsBySellerId(1);
+        try (MockedStatic<BidSystem> bidSystemMock = mockStatic(BidSystem.class)) {
+            bidSystemMock.when(BidSystem::getInstance).thenReturn(mock(BidSystem.class));
 
-        assertTrue(result);
+            boolean result = auctionSystem.cancelAuctionsBySellerId(1);
+
+            assertTrue(result);
+        }
     }
 
     @Test

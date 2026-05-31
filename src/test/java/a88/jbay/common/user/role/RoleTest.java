@@ -8,7 +8,8 @@ class RoleTest {
 
     @Test
     void testEnumValues() {
-        assertEquals(3, Role.values().length);
+        assertEquals(4, Role.values().length);
+        assertEquals(Role.GUEST, Role.valueOf("GUEST"));
         assertEquals(Role.BAN, Role.valueOf("BAN"));
         assertEquals(Role.USER, Role.valueOf("USER"));
         assertEquals(Role.ADMIN, Role.valueOf("ADMIN"));
@@ -29,13 +30,13 @@ class RoleTest {
     }
 
     @Test
-    void testFromStringInvalidReturnsBan() {
-        assertEquals(Role.BAN, Role.fromString("INVALID"));
-        assertEquals(Role.BAN, Role.fromString(""));
+    void testFromStringInvalidReturnsGuest() {
+        assertEquals(Role.GUEST, Role.fromString("INVALID"));
+        assertEquals(Role.GUEST, Role.fromString(""));
     }
 
     @Test
-    void testFromStringNullReturnsBan() {
-        assertEquals(Role.BAN, Role.fromString(null));
+    void testFromStringNullReturnsGuest() {
+        assertEquals(Role.GUEST, Role.fromString(null));
     }
 }

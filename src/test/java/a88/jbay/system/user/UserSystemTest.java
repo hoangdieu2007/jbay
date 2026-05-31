@@ -2,6 +2,7 @@ package a88.jbay.system.user;
 
 import a88.jbay.common.user.User;
 import a88.jbay.common.user.UserData;
+import a88.jbay.common.user.role.Role;
 import a88.jbay.data.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -37,7 +38,7 @@ class UserSystemTest {
         String hashedPassword = a88.jbay.util.StringHash.hash(password);
 
         when(userRepository.findByUsername(username)).thenReturn(
-                new UserData(1, username, "BIDDER", hashedPassword)
+                new UserData(1, username, "USER", hashedPassword)
         );
         when(userRepository.createSession(anyString(), any())).thenReturn(true);
 
@@ -46,7 +47,7 @@ class UserSystemTest {
         assertNotNull(result);
         assertEquals(1, result.getId());
         assertEquals(username, result.getUsername());
-        assertEquals("BIDDER", result.getRole());
+        assertEquals(Role.USER, result.getRole());
         assertNotNull(result.getSessionId());
         verify(userRepository).findByUsername(username);
         verify(userRepository).createSession(anyString(), any());
@@ -67,7 +68,7 @@ class UserSystemTest {
     @DisplayName("Should return null when password is incorrect")
     void testLogin_WrongPassword() {
         when(userRepository.findByUsername("testuser")).thenReturn(
-                new UserData(1, "testuser", "BIDDER", "correct_hash")
+                new UserData(1, "testuser", "USER", "correct_hash")
         );
 
         User result = userSystem.login("testuser", "wrong_password");
@@ -84,7 +85,7 @@ class UserSystemTest {
         String hashedPassword = a88.jbay.util.StringHash.hash(password);
 
         when(userRepository.findByUsername(username)).thenReturn(
-                new UserData(1, username, "BIDDER", hashedPassword)
+                new UserData(1, username, "USER", hashedPassword)
         );
         when(userRepository.createSession(anyString(), any())).thenReturn(false);
 
@@ -96,26 +97,25 @@ class UserSystemTest {
     @Test
     @DisplayName("Should register new user successfully")
     void testRegister_Success() {
-        when(userRepository.usernameExists("newuser")).thenReturn(false);
-        when(userRepository.createUser(eq("newuser"), anyString(), eq("BIDDER"), eq(new byte[]{1, 2, 3})))
+        when(userRepository.createUser(eq("newuser"), anyString(), eq("USER"), eq(new byte[]{1, 2, 3})))
                 .thenReturn(true);
 
-        boolean result = userSystem.register("newuser", "password", "BIDDER", new byte[]{1, 2, 3});
+        boolean result = userSystem.register("newuser", "password", "USER", new byte[]{1, 2, 3});
 
         assertTrue(result);
-        verify(userRepository).usernameExists("newuser");
-        verify(userRepository).createUser(eq("newuser"), anyString(), eq("BIDDER"), any());
+        verify(userRepository).createUser(eq("newuser"), anyString(), eq("USER"), any());
     }
 
     @Test
     @DisplayName("Should reject registration when username already exists")
     void testRegister_UsernameExists() {
-        when(userRepository.usernameExists("existing")).thenReturn(true);
+        when(userRepository.createUser(eq("existing"), anyString(), anyString(), any()))
+                .thenReturn(false);
 
-        boolean result = userSystem.register("existing", "password", "BIDDER", null);
+        boolean result = userSystem.register("existing", "password", "USER", null);
 
         assertFalse(result);
-        verify(userRepository, never()).createUser(anyString(), anyString(), anyString(), any());
+        verify(userRepository).createUser(eq("existing"), anyString(), anyString(), any());
     }
 
     @Test
@@ -129,7 +129,7 @@ class UserSystemTest {
     @Test
     @DisplayName("Should find user by session id")
     void testFindBySessionId() {
-        User expected = new User(1, "BIDDER", "testuser", "session123");
+        User expected = new User(1, Role.USER, "testuser", "session123");
         when(userRepository.findBySessionId("session123")).thenReturn(expected);
 
         User result = userSystem.findBySessionId("session123");
@@ -150,7 +150,7 @@ class UserSystemTest {
     @Test
     @DisplayName("Should get all normal users for admin")
     void testGetAllNormalUsersForAdmin() {
-        List<User> expected = List.of(new User(1, "BIDDER", "user1"));
+        List<User> expected = List.of(new User(1, Role.USER, "user1"));
         when(userRepository.getAllNormalUsers()).thenReturn(expected);
 
         List<User> result = userSystem.getAllNormalUsersForAdmin();
@@ -163,7 +163,7 @@ class UserSystemTest {
     @DisplayName("Should get user by name")
     void testGetUserByName() {
         when(userRepository.findByUsername("testuser")).thenReturn(
-                new UserData(1, "testuser", "BIDDER", "password")
+                new UserData(1, "testuser", "USER", "password")
         );
 
         User result = userSystem.getUserByName("testuser");
@@ -171,7 +171,7 @@ class UserSystemTest {
         assertNotNull(result);
         assertEquals(1, result.getId());
         assertEquals("testuser", result.getUsername());
-        assertEquals("BIDDER", result.getRole());
+        assertEquals(Role.USER, result.getRole());
     }
 
     @Test

@@ -24,11 +24,11 @@ public class User implements Observer, Serializable {
 
     //credentials
     private final int id;
-    private final String role;
+    private final Role role;
     private final String username;
     private final String sessionId;
 
-    public User(int id, String role, String username, String sessionId) {
+    public User(int id, Role role, String username, String sessionId) {
         super();
         this.id = id;
         this.role = role;
@@ -36,7 +36,7 @@ public class User implements Observer, Serializable {
         this.sessionId = sessionId;
     }
 
-    public User(int id, String role, String username) {
+    public User(int id, Role role, String username) {
         super();
         this.id = id;
         this.role = role;
@@ -45,20 +45,19 @@ public class User implements Observer, Serializable {
     }
 
     public User() {
-        this(-1, "GUEST", "guest", null);
+        this(-1, Role.GUEST, "guest", null);
     }
 
     public int getId() { return id; }
     public String getUsername() { return username; }
-    public String getRole() { return role; }
+    public Role getRole() { return role; }
     public String getSessionId() { return sessionId; }
 
     /**
      * Checks if the user has permission to perform a specific action.
      */
     public boolean can(RequestType action) {
-        Role role = Role.fromString(this.role);
-        return Permission.isAllowed(role, action);
+        return Permission.isAllowed(this.role, action);
     }
 
     public String toString() {

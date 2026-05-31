@@ -59,7 +59,7 @@ class AuctionDAOImplTest extends DaoTestBase {
     @DisplayName("Should update current bid on auction")
     void testUpdateCurrentBid() throws Exception {
         int sellerId = insertUser("seller", "pass", "SELLER", null);
-        int bidderId = insertUser("bidder", "pass", "BIDDER", null);
+        int bidderId = insertUser("bidder", "pass", "USER", null);
         int itemId = insertItem("Item", "TYPE", "Desc", 100.0, new byte[]{});
         int auctionId = insertAuction(itemId, sellerId, 100.0, 5.0,
                 LocalDateTime.now(), LocalDateTime.now().plusDays(1), "RUNNING");
@@ -105,7 +105,7 @@ class AuctionDAOImplTest extends DaoTestBase {
     @DisplayName("Should find current price of auction")
     void testFindCurrentPrice() throws Exception {
         int sellerId = insertUser("seller", "pass", "SELLER", null);
-        int bidderId = insertUser("bidder", "pass", "BIDDER", null);
+        int bidderId = insertUser("bidder", "pass", "USER", null);
         int itemId = insertItem("Item", "TYPE", "Desc", 100.0, new byte[]{});
         int auctionId = insertAuction(itemId, sellerId, 100.0, 5.0,
                 LocalDateTime.now(), LocalDateTime.now().plusDays(1), "RUNNING");
@@ -201,7 +201,7 @@ class AuctionDAOImplTest extends DaoTestBase {
     @DisplayName("Should find auctions by winner id")
     void testFindAuctionsByWinnerId() throws Exception {
         int sellerId = insertUser("seller", "pass", "SELLER", null);
-        int winnerId = insertUser("winner", "pass", "BIDDER", null);
+        int winnerId = insertUser("winner", "pass", "USER", null);
         int itemId = insertItem("WonItem", "TYPE", "Desc", 100.0, new byte[]{});
         int auctionId = insertAuction(itemId, sellerId, 100.0, 5.0,
                 LocalDateTime.now(), LocalDateTime.now().plusDays(1), "FINISHED");
@@ -248,7 +248,7 @@ class AuctionDAOImplTest extends DaoTestBase {
     @DisplayName("Should find current price with bid winner")
     void testFindCurrentPrice_WithWinner() throws Exception {
         int sellerId = insertUser("seller", "pass", "SELLER", null);
-        int bidderId = insertUser("bidder", "pass", "BIDDER", null);
+        int bidderId = insertUser("bidder", "pass", "USER", null);
         int itemId = insertItem("Item", "TYPE", "Desc", 100.0, new byte[]{});
         int auctionId = insertAuction(itemId, sellerId, 100.0, 5.0,
                 LocalDateTime.now(), LocalDateTime.now().plusDays(1), "RUNNING");

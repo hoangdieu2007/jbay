@@ -17,6 +17,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -25,6 +27,8 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 
 public class ClientConnection implements Runnable {
+    private static final AtomicInteger ID_GEN = new AtomicInteger(0);
+
     private final Socket socket;
     private final ObjectInputStream in;
     private final ObjectOutputStream out;
@@ -36,14 +40,18 @@ public class ClientConnection implements Runnable {
     private final ReentrantLock sendLock = new ReentrantLock();
     private final ScheduledExecutorService sendWatchdog;
 
-    private User userCache;
-    private volatile boolean closed = false;
+    private volatile User userCache;
+    private final AtomicBoolean closed = new AtomicBoolean(false);
+
+    public static final String MSG_LOGIN_SUCCESS = "LOGIN_SUCCESS";
+    public static final String MSG_LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 
     public ClientConnection(Socket socket, ConnectionSystem connectionSystem,
                             UserSystem userSystem, RequestHandler requestHandler) throws IOException {
-        this.connectionId = socket.hashCode();
+        this.connectionId = ID_GEN.incrementAndGet();
         this.socket = socket;
         socket.setKeepAlive(true);
+        socket.setSoTimeout(30_000);
 
         this.out = new ObjectOutputStream(socket.getOutputStream());
         out.flush();
@@ -66,7 +74,7 @@ public class ClientConnection implements Runnable {
     }
 
     public boolean isActive() {
-        return !closed && socket != null && !socket.isClosed() && !Thread.currentThread().isInterrupted();
+        return !closed.get() && socket != null && !socket.isClosed() && !Thread.currentThread().isInterrupted();
     }
 
     public User getUserCache() {
@@ -88,10 +96,10 @@ public class ClientConnection implements Runnable {
                     }
 
                     // update cache if login success
-                    if (response.getMessage().equals("LOGIN_SUCCESS")) {
+                    if (MSG_LOGIN_SUCCESS.equals(response.getMessage())) {
                         this.userCache = (User) response.getPayload();
                         connectionSystem.register(this);
-                    } else if (response.getMessage().equals("LOGOUT_SUCCESS")) {
+                    } else if (MSG_LOGOUT_SUCCESS.equals(response.getMessage())) {
                         connectionSystem.unregister(this); // this has to be called before setting userCache to new User()
                         this.userCache = new User();
                     }
@@ -117,7 +125,10 @@ public class ClientConnection implements Runnable {
         } finally {
             // later add clean up codes here!
             connectionSystem.unregister(this);
-            userSystem.logout(userCache.getSessionId());
+            String sessionId = userCache.getSessionId();
+            if (sessionId != null) {
+                userSystem.logout(sessionId);
+            }
             close();
             Thread.currentThread().interrupt();
         }
@@ -185,10 +196,9 @@ public class ClientConnection implements Runnable {
     }
 
     public void close() {
-        if (closed) {
+        if (!closed.compareAndSet(false, true)) {
             return;
         }
-        closed = true;
         closeResources(out, in, socket);
         sendWatchdog.shutdownNow();
     }

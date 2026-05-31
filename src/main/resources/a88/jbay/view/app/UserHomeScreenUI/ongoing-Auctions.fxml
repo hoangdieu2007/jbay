@@ -20,7 +20,7 @@
 
         <Label layoutX="79.0" layoutY="64.0" text="Place bids on items you are interested in" />
 
-        <TextField fx:id="bidderSearchField" layoutX="816.0" layoutY="41.0" prefHeight="36.0" prefWidth="364.0" promptText="Search" styleClass="search-field" AnchorPane.rightAnchor="95.0" AnchorPane.topAnchor="41.0">
+        <TextField fx:id="auctionSearchField" layoutX="816.0" layoutY="41.0" prefHeight="36.0" prefWidth="364.0" promptText="Search" styleClass="search-field" AnchorPane.rightAnchor="95.0" AnchorPane.topAnchor="41.0">
             <font>
                 <Font size="16.0" />
             </font>
@@ -30,7 +30,7 @@
             <content>
                 <VBox alignment="TOP_CENTER" style="-fx-background-color: white;">
                     <children>
-                        <TilePane fx:id="bidderTilePane" alignment="TOP_LEFT" hgap="15.0" prefColumns="4" prefHeight="40.0" prefWidth="1340.0" vgap="20.0">
+                        <TilePane fx:id="auctionTilePane" alignment="TOP_LEFT" hgap="15.0" prefColumns="4" prefHeight="40.0" prefWidth="1340.0" vgap="20.0">
                             <padding>
                                 <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
                             </padding>

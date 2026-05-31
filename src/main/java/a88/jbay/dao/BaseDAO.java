@@ -1,6 +1,7 @@
 package a88.jbay.dao;
 
 import a88.jbay.server.DatabaseController;
+import a88.jbay.util.JBayLogger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,10 +10,12 @@ import java.util.function.Function;
 
 public abstract class BaseDAO {
 
+    protected final JBayLogger logger;
     protected final DatabaseController dbController;
 
     protected BaseDAO(DatabaseController dbController) {
         this.dbController = dbController;
+        this.logger = JBayLogger.getLogger(this.getClass());
     }
 
     @FunctionalInterface
@@ -36,23 +39,43 @@ public abstract class BaseDAO {
     // --- Transaction ---
 
     protected <T> T executeTransaction(TransactionWork<T> work) {
-        try (Connection connection = dbController.getConnection()) {
-            connection.setAutoCommit(false);
-            try {
-                T result = work.execute(connection);
-                connection.commit();
-                return result;
-            } catch (Exception e) {
-                connection.rollback();
-                e.printStackTrace();
-                return null;
-            } finally {
-                connection.setAutoCommit(true);
+        int maxRetries = 3;
+        for (int attempt = 0; attempt < maxRetries; attempt++) {
+            try (Connection connection = dbController.getConnection()) {
+                connection.setAutoCommit(false);
+                try {
+                    T result = work.execute(connection);
+                    connection.commit();
+                    return result;
+                } catch (Exception e) {
+                    logger.error("Transaction failed (attempt " + (attempt + 1) + "/" + maxRetries + "): " + e.getMessage(), e);
+                    try {
+                        connection.rollback();
+                    } catch (SQLException re) {
+                        logger.error("Rollback also failed: " + re.getMessage(), re);
+                    }
+                    if (attempt == maxRetries - 1) {
+                        return null;
+                    }
+                    try { Thread.sleep(50L * (attempt + 1)); } catch (InterruptedException ie) {
+                        Thread.currentThread().interrupt();
+                        return null;
+                    }
+                } finally {
+                    try { connection.setAutoCommit(true); } catch (SQLException ignored) {}
+                }
+            } catch (SQLException e) {
+                logger.error("Connection error (attempt " + (attempt + 1) + "/" + maxRetries + "): " + e.getMessage());
+                if (attempt == maxRetries - 1) {
+                    return null;
+                }
+                try { Thread.sleep(50L * (attempt + 1)); } catch (InterruptedException ie) {
+                    Thread.currentThread().interrupt();
+                    return null;
+                }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
         }
+        return null;
     }
 
     // --- single-connection overloads (for use inside transactions) ---
@@ -94,7 +117,7 @@ public abstract class BaseDAO {
             bindStatement(stmt, params);
             return stmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("executeUpdate failed: " + e.getMessage(), e);
             return -1;
         }
     }
@@ -110,7 +133,7 @@ public abstract class BaseDAO {
             }
             return -1;
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("executeInsert failed: " + e.getMessage(), e);
             return -1;
         }
     }
@@ -123,7 +146,7 @@ public abstract class BaseDAO {
                 return mapper.map(rs);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("executeQuery failed: " + e.getMessage(), e);
             return null;
         }
     }

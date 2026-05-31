@@ -29,6 +29,8 @@ public class BidSystem {
     private final AuctionDAO auctionDAO;
     private final UpdateSystem updateSystem;
 
+    private volatile long autoBidDelayMs = 100L;
+
     /**
      * Creates a bid system with the repositories and DAOs needed to manage bids.
      *
@@ -95,6 +97,10 @@ public class BidSystem {
                 return false;
             }
 
+            if (auction.getAuctionState() != AuctionState.RUNNING) {
+                return false;
+            }
+
             BidTransaction tx = createBidTransaction(userId, amount);
             boolean saved = bidRepository.saveBid(auctionId, tx); // save bid to DB
 
@@ -105,13 +111,6 @@ public class BidSystem {
                 // anti-sniping check upon successful bid
                 extendEndTime(tx.getTimestamp(), auction);
 
-                // delay 1s before trigger auto-bid
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    logger.error("Failed to delay auto-bid trigger", e);
-                    Thread.currentThread().interrupt();
-                }
                 triggerAutoBid(auction);
             }
 
@@ -173,7 +172,24 @@ public class BidSystem {
             return amount >= auction.getCurrentPrice();
         }
 
+        if (auction.getMinIncrement() == 0.0) {
+            return amount > auction.getCurrentPrice();
+        }
+
         return amount >= auction.getCurrentPrice() + auction.getMinIncrement();
+    }
+
+    private boolean isValidAutoBid(Auction auction, double amount) {
+
+        if (auction == null) {
+            return false;
+        }
+
+        if (auction.getAuctionState() != AuctionState.RUNNING) {
+            return false;
+        }
+
+        return amount > auction.getCurrentPrice();
     }
 
     /**
@@ -211,6 +227,35 @@ public class BidSystem {
         // bidder automatically becomes observer
         auction.subscribe(tx.getUserID()); // subscribe first so that client can get a notification
         auction.addBid(tx.getAmt(), tx);
+    }
+
+    private boolean placeAutoBid(int userId, int auctionId, double amount) {
+        ReentrantLock lock = getLock(auctionId);
+        lock.lock();
+        try {
+            Auction auction = auctionRepository.getActiveAuctionById(auctionId);
+
+            if (!isValidAutoBid(auction, amount)) {
+                return false;
+            }
+
+            if (auction.getAuctionState() != AuctionState.RUNNING) {
+                return false;
+            }
+
+            BidTransaction tx = createBidTransaction(userId, amount);
+            boolean saved = bidRepository.saveBid(auctionId, tx);
+
+            if (saved) {
+                addBid(auction, tx);
+                publishAuctionUpdate(auction);
+                extendEndTime(tx.getTimestamp(), auction);
+            }
+
+            return saved;
+        } finally {
+            lock.unlock();
+        }
     }
 
     private void publishAuctionUpdate(Auction auction) {
@@ -305,7 +350,7 @@ public class BidSystem {
             return;
         }
 
-        placeBid(config.getUserId(), auction.getId(), newPrice);
+        placeAutoBid(config.getUserId(), auction.getId(), newPrice);
 
         if (Double.compare(newPrice, config.getMaxAmount()) == 0) {
             logger.info("Auto-bid reached max amount, clearing auto-bid config");
@@ -356,7 +401,7 @@ public class BidSystem {
             double winnerMaxAmount
     ) {
         if (newPrice > auction.getCurrentPrice()) {
-            placeBid(winnerId, auction.getId(), newPrice);
+            placeAutoBid(winnerId, auction.getId(), newPrice);
         }
 
         if (Double.compare(newPrice, winnerMaxAmount) == 0 ||
@@ -378,9 +423,15 @@ public class BidSystem {
      * @param increment amount to add above the current price for each automated bid
      */
     public void setAutoBidConfig(int auctionId, int userId, double maxAmount, double increment) {
-        Auction auction = auctionRepository.getActiveAuctionById(auctionId);
-        if (auction != null) {
-            auction.setCurrAutoBidConfig(new AutoBidConfig(userId, maxAmount, increment));
+        ReentrantLock lock = getLock(auctionId);
+        lock.lock();
+        try {
+            Auction auction = auctionRepository.getActiveAuctionById(auctionId);
+            if (auction != null) {
+                auction.setCurrAutoBidConfig(new AutoBidConfig(userId, maxAmount, increment));
+            }
+        } finally {
+            lock.unlock();
         }
     }
 
@@ -393,9 +444,15 @@ public class BidSystem {
      * @param auctionId ID of the auction where auto-bidding should be cleared
      */
     public void clearAutoBidConfig(int auctionId) {
-        Auction auction = auctionRepository.getActiveAuctionById(auctionId);
-        if (auction != null) {
-            auction.setCurrAutoBidConfig(null);
+        ReentrantLock lock = getLock(auctionId);
+        lock.lock();
+        try {
+            Auction auction = auctionRepository.getActiveAuctionById(auctionId);
+            if (auction != null) {
+                auction.setCurrAutoBidConfig(null);
+            }
+        } finally {
+            lock.unlock();
         }
     }
 
@@ -516,7 +573,7 @@ public class BidSystem {
             }
 
             // Place the auto-bid
-            placeBid(configUserId, auction.getId(), autoBidAmount);
+            placeAutoBid(configUserId, auction.getId(), autoBidAmount);
 
             if (Double.compare(autoBidAmount, maxAmount) == 0) {
                 logger.info("Auto-bid stopped for user " + configUserId + " on auction " + auction.getId() +
@@ -532,6 +589,18 @@ public class BidSystem {
 
     private boolean isCurrentWinner(Auction auction, int userId) {
         return auction.getWinnerId() != null && auction.getWinnerId().equals(userId);
+    }
+
+    /**
+     * Cleans up per-auction resources when an auction ends.
+     */
+    public void cleanupAuction(int auctionId) {
+        auctionLocks.remove(auctionId);
+        autoBiddingFlags.remove(auctionId);
+    }
+
+    void setAutoBidDelayMs(long ms) {
+        this.autoBidDelayMs = ms;
     }
 
     private void extendEndTime(LocalDateTime bidTime, Auction auction) {

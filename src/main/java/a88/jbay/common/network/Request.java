@@ -1,6 +1,7 @@
 package a88.jbay.common.network;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +19,7 @@ public class Request implements Serializable {
     }
 
     public Map<String, Object> getData() {
-        return data;
+        return Collections.unmodifiableMap(data);
     }
 
     public Request put(String key, Object value) {

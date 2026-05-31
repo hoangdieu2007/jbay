@@ -93,7 +93,7 @@ class AuctionFactoryTest {
         );
         when(itemDAO.findItemById(1)).thenReturn(item);
         when(userDAO.findByUserId(1)).thenReturn(seller);
-        when(userDAO.findByUserId(2)).thenReturn(new UserData(2, "bidder1", "BIDDER", "pass"));
+        when(userDAO.findByUserId(2)).thenReturn(new UserData(2, "bidder1", "USER", "pass"));
 
         BidData bid1 = new BidData(2, 1, 150.0, LocalDateTime.now());
         BidData bid2 = new BidData(2, 1, 200.0, LocalDateTime.now().plusMinutes(1));

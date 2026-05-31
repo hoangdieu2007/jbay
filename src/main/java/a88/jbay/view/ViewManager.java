@@ -26,6 +26,8 @@ public class ViewManager {
     private static final double DEFAULT_WIDTH = 1280;
     private static final double DEFAULT_HEIGHT = 720;
 
+    private Stage primaryStage;
+
     private ViewManager() {
     }
 
@@ -36,10 +38,8 @@ public class ViewManager {
         return instance;
     }
 
-    private static Stage primaryStage;
-
     public static void setPrimaryStage(Stage stage) {
-        primaryStage = stage;
+        getInstance().primaryStage = stage;
     }
 
     public static void newStage(String title) {
@@ -55,17 +55,24 @@ public class ViewManager {
     }
 
     public static void closePrimaryStage() {
-        if (primaryStage != null) {
-            primaryStage.close();
+        Stage stage = getInstance().primaryStage;
+        if (stage != null) {
+            stage.close();
         }
     }
 
     public static void setResolution(double width, double height) {
-        primaryStage.setWidth(width);
-        primaryStage.setHeight(height);
+        Stage stage = getInstance().primaryStage;
+        if (stage != null) {
+            stage.setWidth(width);
+            stage.setHeight(height);
+        }
     }
 
     public static void displayScene(String fxmlPath) throws IOException {
+        Stage stage = getInstance().primaryStage;
+        if (stage == null) throw new IllegalStateException("primaryStage not set");
+
         FXMLLoader loader = new FXMLLoader(
                 ViewManager.class.getResource("/a88/jbay/view/app/" + fxmlPath)
         );
@@ -79,8 +86,8 @@ public class ViewManager {
         }
 
         // get stage size
-        double stageWidth = primaryStage.getWidth();
-        double stageHeight = primaryStage.getHeight();
+        double stageWidth = stage.getWidth();
+        double stageHeight = stage.getHeight();
 
         // get fxml size
         double designWidth = content.getPrefWidth();
@@ -104,10 +111,32 @@ public class ViewManager {
         ));
         scale.yProperty().bind(scale.xProperty());
 
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        stage.setScene(scene);
+        stage.show();
     }
 
+
+    // ---- instance wrappers (for DI / testability) ----
+
+    public void openStage(String title) {
+        newStage(title);
+    }
+
+    public void resizeStage(double width, double height) {
+        setResolution(width, height);
+    }
+
+    public void showScene(String fxmlPath) throws IOException {
+        displayScene(fxmlPath);
+    }
+
+    public void closeStage() {
+        closePrimaryStage();
+    }
+
+    public void assignStage(Stage stage) {
+        setPrimaryStage(stage);
+    }
 
     /**
      * redesign homeScreen

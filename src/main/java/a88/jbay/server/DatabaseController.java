@@ -16,8 +16,17 @@ public class DatabaseController {
     }
 
     public synchronized void initializePool(String url, String username, String password) {
+        initializePool(url, username, password, 10);
+    }
+
+    public synchronized void initializePool(String url, String username, String password, int maxPoolSize) {
         if (url == null || username == null) {
             throw new IllegalStateException("Database credentials have not been set!");
+        }
+
+        // Close old pool before reinitializing
+        if (dataSource != null) {
+            dataSource.close();
         }
 
         HikariConfig config = new HikariConfig();
@@ -25,7 +34,7 @@ public class DatabaseController {
         config.setUsername(username);
         config.setPassword(password);
 
-        config.setMaximumPoolSize(10);
+        config.setMaximumPoolSize(maxPoolSize);
         config.setMinimumIdle(2);
         config.setIdleTimeout(30000);
         config.setConnectionTimeout(20000);

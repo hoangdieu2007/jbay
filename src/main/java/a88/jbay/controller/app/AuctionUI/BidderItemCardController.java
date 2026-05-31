@@ -46,10 +46,6 @@ public class BidderItemCardController {
                 ControllerProvider.getInstance().getController(ClientBidderItemController.class).setCurrentAuction(currentAuction);
 
             } else if (currentAuction.getAuctionState() == AuctionState.FINISHED) {
-
-                // Lưu lại phiên đấu giá này vào ResponseHandler trước khi xin mạng
-                a88.jbay.client.ResponseHandler.getInstance().setPendingPaymentAuction(currentAuction);
-
                 // LUỒNG 2: Hết giờ & Nút đang mở (Tức là Winner bấm) -> Xin mã QR thẳng luôn
                 ServerConnection.getInstance().send(
                         new Request(RequestType.PAY).put("auctionId", currentAuction.getId())

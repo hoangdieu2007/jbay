@@ -16,7 +16,7 @@ class BidDAOImplTest extends DaoTestBase {
     @Test
     @DisplayName("Should insert bid and return generated id")
     void testInsertBid() throws Exception {
-        int userId = insertUser("bidder", "pass", "BIDDER", null);
+        int userId = insertUser("bidder", "pass", "USER", null);
         int itemId = insertItem("Item", "TYPE", "Desc", 100.0, new byte[]{});
         int auctionId = insertAuction(itemId, userId, 100.0, 5.0,
                 LocalDateTime.now(), LocalDateTime.now().plusDays(1), "RUNNING");
@@ -30,7 +30,7 @@ class BidDAOImplTest extends DaoTestBase {
     @DisplayName("Should find bid history by auction id")
     void testFindBidHistoryByAuctionId() throws Exception {
         int sellerId = insertUser("seller", "pass", "SELLER", null);
-        int bidderId = insertUser("bidder", "pass", "BIDDER", null);
+        int bidderId = insertUser("bidder", "pass", "USER", null);
         int itemId = insertItem("Item", "TYPE", "Desc", 100.0, new byte[]{});
         int auctionId = insertAuction(itemId, sellerId, 100.0, 5.0,
                 LocalDateTime.now(), LocalDateTime.now().plusDays(1), "RUNNING");
@@ -50,7 +50,7 @@ class BidDAOImplTest extends DaoTestBase {
     @Test
     @DisplayName("Should return empty list when no bids for auction")
     void testFindBidHistoryByAuctionId_Empty() throws Exception {
-        int userId = insertUser("user", "pass", "BIDDER", null);
+        int userId = insertUser("user", "pass", "USER", null);
         int itemId = insertItem("Item", "TYPE", "Desc", 100.0, new byte[]{});
         int auctionId = insertAuction(itemId, userId, 100.0, 5.0,
                 LocalDateTime.now(), LocalDateTime.now().plusDays(1), "OPENING");
@@ -64,7 +64,7 @@ class BidDAOImplTest extends DaoTestBase {
     @DisplayName("Should exclude bids from banned users")
     void testFindBidHistoryByAuctionId_ExcludesBanned() throws Exception {
         int sellerId = insertUser("seller", "pass", "SELLER", null);
-        int bidderId = insertUser("bidder", "pass", "BIDDER", null);
+        int bidderId = insertUser("bidder", "pass", "USER", null);
         int bannedId = insertUser("banned", "pass", "BAN", null);
         int itemId = insertItem("Item", "TYPE", "Desc", 100.0, new byte[]{});
         int auctionId = insertAuction(itemId, sellerId, 100.0, 5.0,
@@ -83,7 +83,7 @@ class BidDAOImplTest extends DaoTestBase {
     @DisplayName("Should handle 10+ bids in history")
     void testFindBidHistory_MultipleBids() throws Exception {
         int sellerId = insertUser("seller", "pass", "SELLER", null);
-        int bidderId = insertUser("bidder", "pass", "BIDDER", null);
+        int bidderId = insertUser("bidder", "pass", "USER", null);
         int itemId = insertItem("Item", "TYPE", "Desc", 100.0, new byte[]{});
         int auctionId = insertAuction(itemId, sellerId, 100.0, 1.0,
                 LocalDateTime.now(), LocalDateTime.now().plusDays(1), "RUNNING");
@@ -107,7 +107,7 @@ class BidDAOImplTest extends DaoTestBase {
     @Test
     @DisplayName("Should insert bid via transactional overload")
     void testInsertBid_Transactional() throws Exception {
-        int userId = insertUser("user", "pass", "BIDDER", null);
+        int userId = insertUser("user", "pass", "USER", null);
         int itemId = insertItem("Item", "TYPE", "Desc", 100.0, new byte[]{});
         int auctionId = insertAuction(itemId, userId, 100.0, 5.0,
                 LocalDateTime.now(), LocalDateTime.now().plusDays(1), "RUNNING");

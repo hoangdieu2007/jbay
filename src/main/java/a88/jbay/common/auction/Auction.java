@@ -20,12 +20,6 @@ import java.util.concurrent.CopyOnWriteArraySet;
 public class Auction implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    // Thrown when a bid is structurally valid but violates a business rule
-    // (auction not running, price too low). Callers can catch and surface to user.
-    public static final class BidRejected extends Exception {
-        public BidRejected(String reason) { super(reason); }
-    }
-
     private final int id;
     private final Item item;
     private final String seller;
@@ -133,20 +127,12 @@ public class Auction implements Serializable {
     // Bidding — single entry point, explicit success/failure
     // -------------------------------------------------------------------------
 
-    /**
-     * Records a bid. Throws BidRejected (business rule violation the caller should
-     * surface to the user) or IllegalArgumentException (malformed data).
-     */
-    public void placeBid(double amount, BidTransaction tx) throws BidRejected {
+    public void placeBid(double amount, BidTransaction tx) {
         validateTxOrThrow(tx);
         if (Double.compare(amount, tx.getAmt()) != 0) {
             throw new IllegalArgumentException(
                     "amount (" + amount + ") does not match tx.amt (" + tx.getAmt() + ")");
         }
-        if (auctionState != AuctionState.RUNNING) {
-            throw new BidRejected("Auction is not running (state=" + auctionState + ")");
-        }
-        validateBidAmount(amount);
         currentPrice = amount;
         winner       = tx.getUsername();
         winnerId     = tx.getUserID();
@@ -155,27 +141,7 @@ public class Auction implements Serializable {
     }
 
     public void addBid(double amount, BidTransaction tx) {
-        try {
-            placeBid(amount, tx);
-        } catch (BidRejected e) {
-            System.out.println("Ignoring invalid bid for auction " + id + ": " + e.getMessage());
-        }
-    }
-
-    private void validateBidAmount(double amount) throws BidRejected {
-        if (winnerId == null) {
-            if (amount < currentPrice) {
-                throw new BidRejected("Opening bid " + amount + " is below start price " + currentPrice);
-            }
-        } else if (minIncrement == 0.0) {
-            if (amount <= currentPrice) {
-                throw new BidRejected("Bid " + amount + " must exceed current price " + currentPrice);
-            }
-        } else {
-            if (amount < currentPrice + minIncrement) {
-                throw new BidRejected("Bid " + amount + " is below required " + (currentPrice + minIncrement));
-            }
-        }
+        placeBid(amount, tx);
     }
 
     // -------------------------------------------------------------------------

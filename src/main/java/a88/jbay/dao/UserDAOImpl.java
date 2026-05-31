@@ -51,10 +51,18 @@ public class UserDAOImpl extends BaseDAO implements UserDAO {
 
     @Override
     public int insertUser(String username, String hashedPassword, String role, byte[] qrCode) {
-        return executeInsert(
-                "INSERT INTO users (username, password, role, qr) VALUES (?, ?, ?, ?)",
-                username, hashedPassword, role, qrCode
-        );
+        Integer result = executeTransaction(conn -> {
+            Boolean exists = executeQuery(conn,
+                    "SELECT 1 FROM users WHERE username = ?",
+                    rs -> rs.next(), username);
+            if (Boolean.TRUE.equals(exists)) {
+                return -1;
+            }
+            return executeInsert(conn,
+                    "INSERT INTO users (username, password, role, qr) VALUES (?, ?, ?, ?)",
+                    username, hashedPassword, role, qrCode);
+        });
+        return result != null ? result : -1;
     }
 
     @Override

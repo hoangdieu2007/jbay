@@ -2,6 +2,7 @@ package a88.jbay.data;
 
 import a88.jbay.common.user.User;
 import a88.jbay.common.user.UserData;
+import a88.jbay.common.user.role.Role;
 import a88.jbay.dao.UserDAO;
 
 import java.util.List;
@@ -49,7 +50,7 @@ public class UserRepository {
 
     public List<User> getAllNormalUsers() {
         return userDAO.getAllNormalUsers().stream()
-                .map(data -> new User(data.id(), data.role(), data.username()))
+                .map(data -> new User(data.id(), Role.fromString(data.role()), data.username()))
                 .collect(Collectors.toList());
     }
 
@@ -68,7 +69,7 @@ public class UserRepository {
                         .forEach(e -> {
                             UserData fresh = userDAO.findByUserId(userId);
                             if (fresh != null) {
-                                sessionCache.put(e.getKey(), new User(fresh.id(), fresh.role(), fresh.username()));
+                                sessionCache.put(e.getKey(), new User(fresh.id(), Role.fromString(fresh.role()), fresh.username()));
                             }
                         });
             }

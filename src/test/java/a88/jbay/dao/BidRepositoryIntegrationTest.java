@@ -26,7 +26,7 @@ class BidRepositoryIntegrationTest extends DaoTestBase {
                 new BidDAOImpl(dbController));
 
         sellerId = insertUser("seller", "pass", "SELLER", null);
-        bidderId = insertUser("bidder", "pass", "BIDDER", null);
+        bidderId = insertUser("bidder", "pass", "USER", null);
         itemId = insertItem("Item", "TYPE", "Desc", 100.0, new byte[]{});
         auctionId = insertAuction(itemId, sellerId, 100.0, 5.0,
                 LocalDateTime.now(), LocalDateTime.now().plusDays(1), "RUNNING");

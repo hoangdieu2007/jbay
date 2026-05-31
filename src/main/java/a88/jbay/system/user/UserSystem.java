@@ -2,6 +2,7 @@ package a88.jbay.system.user;
 
 import a88.jbay.common.user.User;
 import a88.jbay.common.user.UserData;
+import a88.jbay.common.user.role.Role;
 import a88.jbay.di.ApplicationContext;
 import a88.jbay.data.UserRepository;
 import a88.jbay.util.JBayLogger;
@@ -47,7 +48,7 @@ public class UserSystem {
 
         User user = new User(
                 userData.id(),
-                userData.role(),
+                Role.fromString(userData.role()),
                 username,
                 sessionId
         );
@@ -63,12 +64,6 @@ public class UserSystem {
 
     public boolean register(String username, String password, String role, byte[] qrCode) {
         logger.debug("Register: " + username);
-
-        if (userRepository.usernameExists(username)) {
-            logger.warn("Username exists: " + username);
-            return false;
-        }
-
         return userRepository.createUser(username, StringHash.hash(password), role, qrCode);
     }
 
@@ -88,7 +83,7 @@ public class UserSystem {
     public User getUserByName(String username) {
         UserData userData = userRepository.findByUsername(username);
         if (userData != null) {
-            return new User(userData.id(), userData.role(), userData.username());
+            return new User(userData.id(), Role.fromString(userData.role()), userData.username());
         }
         return null;
     }

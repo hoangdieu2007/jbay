@@ -86,8 +86,6 @@ public class ServerDatabaseController {
 
     @FXML
     private void handleStartService(){
-        ApplicationContext.getInstance().configureServices();
-
         String port = portNumberTextField.getText();
         int portNum = Integer.parseInt(port);
 

@@ -2,6 +2,7 @@ package a88.jbay.data;
 
 import a88.jbay.common.auction.*;
 import a88.jbay.common.item.Item;
+import a88.jbay.common.user.UserData;
 import a88.jbay.dao.AuctionDAO;
 import a88.jbay.dao.BidDAO;
 import a88.jbay.dao.ItemDAO;
@@ -75,7 +76,8 @@ public class AuctionRepository {
     }
 
     public List<Auction> getActiveAuctionListExceptForSeller(int userId) {
-        String sellerName = userDAO.findByUserId(userId).username();
+        UserData userData = userDAO.findByUserId(userId);
+        String sellerName = userData == null ? null : userData.username();
         return cache.getAllExceptSeller(sellerName);
     }
 
@@ -136,7 +138,8 @@ public class AuctionRepository {
     }
 
     public String getUsernameByUserId(int userId) {
-        return userDAO.findByUserId(userId).username();
+        UserData userData = userDAO.findByUserId(userId);
+        return userData == null ? "Unknown" : userData.username();
     }
 
     // --- Persistence ---

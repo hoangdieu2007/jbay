@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.*;
+import java.util.concurrent.locks.ReentrantLock;
 
 /*
 the code for operations on the auction data
@@ -31,6 +32,7 @@ public class AuctionSystem {
     private final JBayLogger logger;
 
     private final ScheduledExecutorService scheduler;
+    private final ReentrantLock stateLock = new ReentrantLock();
 
     // Constructor for dependency injection
     public AuctionSystem(
@@ -83,7 +85,7 @@ public class AuctionSystem {
     }
 
     //place bid and validate bid - delegate to BidSystem
-    public synchronized boolean placeBid(int userId, int auctionId, double amount) {
+    public boolean placeBid(int userId, int auctionId, double amount) {
         logger.debug("Bid attempt: User=" + userId + ", Auction=" + auctionId + ", Amount=" + amount);
         boolean bidPlaced = BidSystem.getInstance().placeBid(userId, auctionId, amount);
 
@@ -97,23 +99,33 @@ public class AuctionSystem {
     }
 
     public boolean confirmPayment(int auctionId) {
-        Auction auction = auctionRepository.getActiveAuctionById(auctionId);
+        Auction auction = auctionRepository.getAuctionById(auctionId);
         if (auction == null) {
-            logger.warn("Cancel requested for unknown auction: " + auctionId);
+            logger.warn("Payment requested for unknown auction: " + auctionId);
             return false;
         }
 
+        if (auction.getAuctionState() != AuctionState.FINISHED) {
+            logger.warn("Payment requested for auction " + auctionId
+                    + " in state " + auction.getAuctionState() + " (expected FINISHED)");
+            return false;
+        }
+
+        if (auction.getWinnerId() == null) {
+            logger.warn("Payment requested for auction " + auctionId + " with no winner");
+            return false;
+        }
+
+        auction.confirmPayment();
         boolean confirmed = auctionRepository.setAuctionState(auctionId, AuctionState.PAID);
         if (confirmed) {
-            auction = auctionRepository.getAuctionById(auctionId);
             publishAuctionUpdate(auction);
-            auctionRepository.removeActiveAuction(auctionId);
+            cleanupEndedAuction(auctionId);
 
             updateSystem.sendToUsers(
-                    Set.of(
-                            auction.getWinnerId(),
-                            auction.getSellerId()
-                    ),
+                    auction.getWinnerId() != null
+                            ? Set.of(auction.getWinnerId(), auction.getSellerId())
+                            : Set.of(auction.getSellerId()),
                     new Response(true, "CONFIRM_PAYMENT_SUCCESS", auction)
             );
 
@@ -128,25 +140,33 @@ public class AuctionSystem {
     //cancel auction
     //ONLY ADMIN CAN CALL THIS
     public boolean cancelAuction(int auctionId) {
-        Auction auction = auctionRepository.getActiveAuctionById(auctionId);
-        if (auction == null) {
-            logger.warn("Cancel requested for unknown auction: " + auctionId);
-            return false;
-        }
+        stateLock.lock();
+        try {
+            Auction auction = auctionRepository.getAuctionById(auctionId);
+            if (auction == null) {
+                logger.warn("Cancel requested for unknown auction: " + auctionId);
+                return false;
+            }
 
-        if (!(auction.getAuctionState() == AuctionState.OPENING || auction.getAuctionState() == AuctionState.RUNNING))
-            return false;
+            if (!(auction.getAuctionState() == AuctionState.OPENING || auction.getAuctionState() == AuctionState.RUNNING)) {
+                logger.warn("Cancel requested for auction " + auctionId
+                        + " in state " + auction.getAuctionState() + " (expected OPENING or RUNNING)");
+                return false;
+            }
 
-        boolean canceled = auctionRepository.setAuctionState(auctionId, AuctionState.CANCELED);
-        if (canceled) {
-            auction = auctionRepository.getAuctionById(auctionId);
-            publishAuctionUpdate(auction);
-            auctionRepository.removeActiveAuction(auctionId);
-            logger.info("Auction canceled: " + auctionId);
-        } else {
-            logger.error("Failed to cancel auction in DB: " + auctionId);
+            boolean canceled = auctionRepository.setAuctionState(auctionId, AuctionState.CANCELED);
+            if (canceled) {
+                auction = auctionRepository.getAuctionById(auctionId);
+                publishAuctionUpdate(auction);
+                cleanupEndedAuction(auctionId);
+                logger.info("Auction canceled: " + auctionId);
+            } else {
+                logger.error("Failed to cancel auction in DB: " + auctionId);
+            }
+            return canceled;
+        } finally {
+            stateLock.unlock();
         }
-        return canceled;
     }
 
     public boolean cancelAuctionsBySellerId(int sellerId) {
@@ -255,8 +275,15 @@ public class AuctionSystem {
     }
 
     private void checkAuctionTransitions() {
-        List<Integer> ended = tickAuctions();
-        ended.forEach(auctionRepository::removeActiveAuction);
+        if (!stateLock.tryLock()) {
+            return;
+        }
+        try {
+            List<Integer> ended = tickAuctions();
+            ended.forEach(this::cleanupEndedAuction);
+        } finally {
+            stateLock.unlock();
+        }
     }
 
     private List<Integer> tickAuctions() {
@@ -280,9 +307,25 @@ public class AuctionSystem {
         return ended;
     }
 
+    private void cleanupEndedAuction(int auctionId) {
+        auctionRepository.removeActiveAuction(auctionId);
+        BidSystem.getInstance().cleanupAuction(auctionId);
+    }
+
     private void publishAuctionUpdate(Auction auction) {
         updateSystem.notifyAuctionSubscribers(auction);
         updateSystem.broadcastAuctionUpdate(auction);
+    }
+
+    // Immediately apply all pending state transitions (OPENING→RUNNING, RUNNING→FINISHED)
+    // without triggering publish/notify (caller will trigger its own updates).
+    public void forceTick() {
+        LocalDateTime now = LocalDateTime.now();
+        for (Auction auction : auctionRepository.getAllActiveAuctions()) {
+            if (auction.tick(now)) {
+                auctionRepository.setAuctionState(auction.getId(), auction.getAuctionState());
+            }
+        }
     }
 
     //stopping the heartbeat, WARNING: no automatic auction lifecycle management after stopping

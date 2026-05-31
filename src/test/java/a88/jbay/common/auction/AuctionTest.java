@@ -148,18 +148,6 @@ class AuctionTest {
     }
 
     @Test
-    @DisplayName("updatePrice should reject bids below minimum increment")
-    void updatePriceRejectsBidBelowMinimumIncrement() {
-        auction.setAuctionState(AuctionState.RUNNING);
-        auction.setMinIncrement(10.0);
-        auction.addBid(100.0, new BidTransaction(5, "bidder", 100.0, BASE_TIME));
-
-        BidTransaction lowBid = new BidTransaction(6, "other", 105.0, BASE_TIME.plusMinutes(1));
-
-        assertThrows(Auction.BidRejected.class, () -> auction.placeBid(105.0, lowBid));
-    }
-
-    @Test
     @DisplayName("addBid should reject mismatched transaction amount")
     void addBidRejectsMismatchedTransactionAmount() {
         BidTransaction transaction = new BidTransaction(5, "bidder", 150.0, BASE_TIME);

@@ -6,6 +6,7 @@ import a88.jbay.server.DatabaseController;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BidDAOImpl extends BaseDAO implements BidDAO {
@@ -37,17 +38,12 @@ public class BidDAOImpl extends BaseDAO implements BidDAO {
      * @return List of BidData objects
      */
 
-    public List<BidData> findBidHistoryByAuctionId(int auctionId) {
+    private List<BidData> findAllValidBidsByAuctionId(int auctionId) {
         return executeQueryList(
                 "SELECT b.userid, b.auctionid, b.amt, b.time " +
                         "FROM bids b JOIN users u ON u.id = b.userid " +
                         "WHERE b.auctionid = ? AND u.role != 'BAN' " +
-                        "AND b.id = (" +
-                        "    SELECT MIN(b2.id) FROM bids b2 " +
-                        "    JOIN users u2 ON u2.id = b2.userid " +
-                        "    WHERE b2.auctionid = b.auctionid AND b2.amt = b.amt AND u2.role != 'BAN'" +
-                        ") " +
-                        "ORDER BY b.time ASC",
+                        "ORDER BY b.id ASC",
                 rs -> new BidData(
                         rs.getInt("userid"),
                         rs.getInt("auctionid"),
@@ -56,5 +52,21 @@ public class BidDAOImpl extends BaseDAO implements BidDAO {
                 ),
                 auctionId
         );
+    }
+
+    private List<BidData> stalinFilter(List<BidData> bids) {
+        List<BidData> result = new ArrayList<>();
+        double runningMax = Double.NEGATIVE_INFINITY;
+        for (BidData bid : bids) {
+            if (bid.amount() > runningMax) {
+                runningMax = bid.amount();
+                result.add(bid);
+            }
+        }
+        return result;
+    }
+
+    public List<BidData> findBidHistoryByAuctionId(int auctionId) {
+        return stalinFilter(findAllValidBidsByAuctionId(auctionId));
     }
 }

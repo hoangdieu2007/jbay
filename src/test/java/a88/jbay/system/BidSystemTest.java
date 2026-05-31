@@ -4,6 +4,7 @@ import a88.jbay.common.auction.Auction;
 import a88.jbay.common.auction.AuctionState;
 import a88.jbay.common.auction.AutoBidConfig;
 import a88.jbay.common.auction.BidData;
+import a88.jbay.common.item.Item;
 import a88.jbay.common.user.UserData;
 import a88.jbay.dao.AuctionDAO;
 import a88.jbay.dao.BidDAO;
@@ -74,7 +75,7 @@ class BidSystemTest {
         when(auction.getAuctionState()).thenReturn(AuctionState.RUNNING);
         when(auctionDAO.updateCurrentBid(anyInt(), anyInt())).thenReturn(true);
         when(bidDAO.insertBid(anyInt(), anyInt(), anyDouble(), any())).thenReturn(1);
-        when(userDAO.findByUserId(userId)).thenReturn(new UserData(userId, "testuser", "password", "BIDDER"));
+        when(userDAO.findByUserId(userId)).thenReturn(new UserData(userId, "testuser", "password", "USER"));
 
         // Mock auctionRepository.getActiveAuctionById()
         when(auctionRepository.getActiveAuctionById(auctionId)).thenReturn(auction);
@@ -219,7 +220,7 @@ class BidSystemTest {
         when(auction.getAuctionState()).thenReturn(AuctionState.RUNNING);
         when(auctionDAO.updateCurrentBid(anyInt(), anyInt())).thenReturn(true);
         when(bidDAO.insertBid(anyInt(), anyInt(), anyDouble(), any())).thenReturn(-1);
-        when(userDAO.findByUserId(userId)).thenReturn(new UserData(userId, "testuser", "password", "BIDDER"));
+        when(userDAO.findByUserId(userId)).thenReturn(new UserData(userId, "testuser", "password", "USER"));
         when(auctionRepository.getActiveAuctionById(auctionId)).thenReturn(auction);
 
         // Act
@@ -242,7 +243,7 @@ class BidSystemTest {
         when(auction.getAuctionState()).thenReturn(AuctionState.RUNNING);
         when(auctionDAO.updateCurrentBid(anyInt(), anyInt())).thenReturn(false);
         when(bidDAO.insertBid(anyInt(), anyInt(), anyDouble(), any())).thenReturn(1);
-        when(userDAO.findByUserId(userId)).thenReturn(new UserData(userId, "testuser", "password", "BIDDER"));
+        when(userDAO.findByUserId(userId)).thenReturn(new UserData(userId, "testuser", "password", "USER"));
         when(auctionRepository.getActiveAuctionById(auctionId)).thenReturn(auction);
 
         // Act
@@ -486,6 +487,35 @@ class BidSystemTest {
         when(auctionRepository.getUsernameByUserId(userId)).thenReturn("user");
 
         bidSystem.triggerAutoBid(auction);
+    }
+
+    @Test
+    @DisplayName("Should auto-bid to max when manual bid is below max but less than next increment")
+    void testTriggerAutoBid_AllowsMaxAmountBelowNextIncrement() {
+        int autoBidUserId = 1;
+        int manualBidUserId = 2;
+        int auctionId = 100;
+        Auction realAuction = new Auction(
+                auctionId,
+                new Item(1, "item", "type", "description", 200.0),
+                new UserData(3, "seller", "password", "SELLER"),
+                java.time.LocalDateTime.now().minusMinutes(1),
+                java.time.LocalDateTime.now().plusHours(1)
+        );
+        realAuction.setAuctionState(AuctionState.RUNNING);
+        realAuction.setMinIncrement(5.0);
+        realAuction.setCurrAutoBidConfig(new AutoBidConfig(autoBidUserId, 400.0, 5.0));
+
+        when(auctionRepository.getActiveAuctionById(auctionId)).thenReturn(realAuction);
+        when(auctionRepository.getUsernameByUserId(autoBidUserId)).thenReturn("auto-bidder");
+        when(auctionRepository.getUsernameByUserId(manualBidUserId)).thenReturn("manual-bidder");
+        when(bidRepository.saveBid(anyInt(), any())).thenReturn(true);
+
+        boolean result = bidSystem.placeBid(manualBidUserId, auctionId, 399.0);
+
+        assertTrue(result);
+        assertEquals(400.0, realAuction.getCurrentPrice());
+        assertEquals(autoBidUserId, realAuction.getWinnerId());
     }
 
     @Test

@@ -3,6 +3,7 @@ package a88.jbay.client;
 import a88.jbay.controller.app.AuctionUI.SellerItemCardController;
 import a88.jbay.common.user.User;
 import a88.jbay.common.auction.Auction;
+import a88.jbay.di.ClientApplicationContext;
 import a88.jbay.util.JBayLogger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
@@ -11,7 +12,6 @@ import java.util.Collections;
 import java.util.TreeMap;
 
 public class ClientSession {
-    private static ClientSession instance;
     private SellerItemCardController controller;
     private final JBayLogger logger;
 
@@ -22,7 +22,7 @@ public class ClientSession {
     private ObservableMap<Integer, User> adminUsers = FXCollections.observableHashMap();
     private ObservableMap<Integer, Auction> adminAuctions = FXCollections.observableHashMap();
 
-    private ClientSession() {
+    public ClientSession() {
         this.logger = JBayLogger.getLogger(ClientSession.class);
         user = new User();
         sellerAuctions = FXCollections.observableMap(new TreeMap<>(Collections.reverseOrder()));
@@ -32,10 +32,7 @@ public class ClientSession {
     }
 
     public static ClientSession getInstance() {
-        if (instance == null) {
-            instance = new ClientSession();
-        }
-        return instance;
+        return ClientApplicationContext.getInstance().getDependency(ClientSession.class);
     }
 
 

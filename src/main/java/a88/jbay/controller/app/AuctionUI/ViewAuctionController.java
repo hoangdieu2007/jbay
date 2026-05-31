@@ -5,7 +5,7 @@ import a88.jbay.common.network.Request;
 import a88.jbay.common.network.RequestType;
 import a88.jbay.util.ImageProcessor;
 import a88.jbay.common.auction.Auction;
-import a88.jbay.common.auction.BidTransaction;
+import a88.jbay.common.auction.AuctionState;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
@@ -20,6 +20,14 @@ import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
 public class ViewAuctionController {
+
+    private static final String STYLE_BTN_CANCEL = "btn-cancel";
+    private static final String STYLE_BTN_CONFIRM = "btn-confirm";
+    private static final String STYLE_BTN_DISABLED = "btn-disabled";
+    private static final String STYLE_BASE_CLASS = "button";
+
+    private final DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
+
     @FXML private ImageView itemImageView;
     @FXML private TextArea itemDescription;
     @FXML private Label lblItemName, lblAuctionTime, lblBidderName, lblSellerName, lblCurrentPrice, lblMinIncrement;
@@ -28,17 +36,17 @@ public class ViewAuctionController {
 
     private XYChart.Series<String, Number> priceSeries;
     private Auction currAuction;
-    private final DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
-
     private ObservableMap<Integer, Auction> dataSourceMap;
     private Runnable onGoBackAction;
+    private MapChangeListener<Integer, Auction> auctionListener;
 
     private boolean canCancel;
     private boolean canConfirm;
 
+    // INITIALIZATION (Khởi tạo)
     @FXML
     public void initialize() {
-        setupLineChart();
+        priceSeries = a88.jbay.util.ChartHelper.setupPriceChart(priceChart, "Bid Price Development");
     }
 
     public void setAuctionData(Auction auction, ObservableMap<Integer, Auction> map,
@@ -52,34 +60,34 @@ public class ViewAuctionController {
         updateUI(auction);
 
         if (this.dataSourceMap != null) {
-            this.dataSourceMap.addListener((MapChangeListener<Integer, Auction>) change -> {
+            if (auctionListener != null) {
+                this.dataSourceMap.removeListener(auctionListener);
+            }
+            auctionListener = change -> {
                 if (change.wasAdded() && change.getKey() == currAuction.getId()) {
                     javafx.application.Platform.runLater(() -> updateUI(change.getValueAdded()));
                 }
-            });
+            };
+            this.dataSourceMap.addListener(auctionListener);
         }
     }
 
+    // UI UPDATES (Cập nhật giao diện)
     private void updateUI(Auction auction) {
         this.currAuction = auction;
 
         itemDescription.setText(auction.getItem().getDescription());
         lblItemName.setText(auction.getItem().getName());
         lblAuctionTime.setText(auction.getStartTime().format(displayFormatter) + " - " + auction.getEndTime().format(displayFormatter));
-        lblBidderName.setText(auction.getWinner());
+
+        String winner = auction.getWinner();
+        lblBidderName.setText((winner == null || winner.trim().isEmpty()) ? "No bids yet" : winner);
+
         lblCurrentPrice.setText(String.format("%.2f USD", auction.getCurrentPrice()));
         lblMinIncrement.setText(String.format("%.2f USD", auction.getMinIncrement()));
         lblSellerName.setText(auction.getSellerName());
 
-        priceSeries.getData().clear();
-        for (BidTransaction bid : auction.getBidHistory()) {
-            String time = bid.getTimestamp().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-            priceSeries.getData().add(new XYChart.Data<>(time, bid.getAmt()));
-        }
-
-        if (priceSeries.getData().size() > 15) {
-            priceSeries.getData().remove(0, priceSeries.getData().size() - 15);
-        }
+        a88.jbay.util.ChartHelper.updatePriceChart(priceSeries, auction.getBidHistory());
 
         if (auction.getItem().getImage() != null && auction.getItem().getImage().length > 0) {
             itemImageView.setImage(ImageProcessor.bytesToImage(auction.getItem().getImage()));
@@ -96,9 +104,9 @@ public class ViewAuctionController {
                     if (this.canCancel) {
                         actionButton.setText("End Auction");
                         actionButton.setDisable(false);
-                        actionButton.getStyleClass().setAll("button", "btn-cancel");
+                        actionButton.getStyleClass().setAll(STYLE_BASE_CLASS, STYLE_BTN_CANCEL);
                     } else {
-                        actionButton.setVisible(false); // Ẩn luôn nếu không có quyền hủy
+                        actionButton.setVisible(false);
                     }
                     break;
 
@@ -106,50 +114,47 @@ public class ViewAuctionController {
                     if (this.canConfirm) {
                         actionButton.setText("Confirm Payment");
                         actionButton.setDisable(false);
-                        actionButton.getStyleClass().setAll("button", "btn-confirm");
+                        actionButton.getStyleClass().setAll(STYLE_BASE_CLASS, STYLE_BTN_CONFIRM);
                     } else {
                         actionButton.setText("WAITING PAYMENT");
                         actionButton.setDisable(true);
-                        actionButton.getStyleClass().setAll("button", "btn-disabled");
+                        actionButton.getStyleClass().setAll(STYLE_BASE_CLASS, STYLE_BTN_DISABLED);
                     }
                     break;
 
                 case PAID:
                     actionButton.setText("PAID");
                     actionButton.setDisable(true);
-                    actionButton.getStyleClass().setAll("button", "btn-disabled");
+                    actionButton.getStyleClass().setAll(STYLE_BASE_CLASS, STYLE_BTN_DISABLED);
                     break;
 
                 case CANCELED:
                     actionButton.setText("CANCELED");
                     actionButton.setDisable(true);
-                    actionButton.getStyleClass().setAll("button", "btn-disabled");
+                    actionButton.getStyleClass().setAll(STYLE_BASE_CLASS, STYLE_BTN_DISABLED);
                     break;
             }
         }
     }
 
+    // ACTION HANDLERS (Xử lý sự kiện nút)
     @FXML
-    private void handleActionButton() throws IOException {
+    private void handleActionButton() {
         if (currAuction == null) return;
 
-        if ((currAuction.getAuctionState() == a88.jbay.common.auction.AuctionState.RUNNING ||
-                currAuction.getAuctionState() == a88.jbay.common.auction.AuctionState.OPENING) && this.canCancel) {
+        try {
+            AuctionState state = currAuction.getAuctionState();
 
-            ServerConnection.getInstance().send(new Request(RequestType.CANCEL).put("auctionId", currAuction.getId()));
-            if (onGoBackAction != null) onGoBackAction.run();
+            if ((state == AuctionState.RUNNING || state == AuctionState.OPENING) && this.canCancel) {
+                ServerConnection.getInstance().send(new Request(RequestType.CANCEL).put("auctionId", currAuction.getId()));
+                if (onGoBackAction != null) onGoBackAction.run();
 
-        } else if (currAuction.getAuctionState() == a88.jbay.common.auction.AuctionState.FINISHED && this.canConfirm) {
-
-            ServerConnection.getInstance().send(new Request(RequestType.CONFIRM_PAYMENT).put("auctionId", currAuction.getId()));
+            } else if (state == AuctionState.FINISHED && this.canConfirm) {
+                ServerConnection.getInstance().send(new Request(RequestType.CONFIRM_PAYMENT).put("auctionId", currAuction.getId()));
+            }
+        } catch (IOException e) {
+            System.err.println("Network error: Could not send request to server.");
         }
-    }
-
-    private void setupLineChart() {
-        priceSeries = new XYChart.Series<>();
-        priceSeries.setName("Bid Price Development");
-        priceChart.getData().add(priceSeries);
-        priceChart.setAnimated(false);
     }
 
     @FXML

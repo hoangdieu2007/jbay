@@ -10,27 +10,21 @@ import java.io.IOException;
 
 public class QRPaymentController {
 
-    @FXML
-    private Label lblSellerName;
+    private static final String FXML_WON_AUCTIONS = "UserHomeScreenUI/won-Auctions.fxml";
 
-    @FXML
-    private ImageView qrImageView;
+    @FXML private Label lblSellerName;
+    @FXML private ImageView qrImageView;
 
     private Auction auctionContext;
 
     /**
      * Hàm nạp dữ liệu từ ResponseHandler hoặc Controller khác
-     * @param qrCode Mảng byte của ảnh QR nhận từ Server
-     * @param sellerName Tên người bán
-     * @param auction Đối tượng Auction hiện tại
      */
     public void setData(byte[] qrCode, String sellerName, Auction auction) {
         this.auctionContext = auction;
 
-        // Hiển thị tên người bán lên Badge góc trên
-        lblSellerName.setText("👤 " + sellerName);
+        lblSellerName.setText("👤 Seller Name: " + sellerName);
 
-        // Chuyển byte[] thành Image để hiển thị lên ImageView
         if (qrCode != null && qrCode.length > 0) {
             qrImageView.setImage(ImageProcessor.bytesToImage(qrCode));
         } else {
@@ -41,10 +35,9 @@ public class QRPaymentController {
     @FXML
     private void handleClose() {
         try {
-            // Load thẳng lại màn hình danh sách Ongoing Auctions của trang chủ
-            ViewManager.getInstance().loadIntoMainScene("UserHomeScreenUI/won-Auction.fxml");
+            ViewManager.getInstance().loadIntoMainScene(FXML_WON_AUCTIONS);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Error loading won auctions view: " + e.getMessage());
         }
     }
 }

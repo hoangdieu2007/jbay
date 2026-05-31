@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 // Save data of a bid to DB
-public class BidTransaction implements Serializable {
+public class BidTransaction implements Comparable<BidTransaction>, Serializable {
     private int userID;
     private String username;
     private double amt;
@@ -42,16 +42,32 @@ public class BidTransaction implements Serializable {
                 userID, amt, formattedTime);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof BidTransaction that)) return false;
+        return userID == that.userID &&
+                Double.compare(that.amt, amt) == 0 &&
+                timestamp.equals(that.timestamp);
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = userID;
+        result = 31 * result + Double.hashCode(amt);
+        result = 31 * result + timestamp.hashCode();
+        return result;
+    }
+
+    @Override
     public int compareTo(BidTransaction other) {
-        if  (this.amt < other.amt) {
-            return -1;
-        }
-        else if (this.amt > other.amt) {
-            return 1;
-        }
-        else if (this.timestamp.isBefore(other.timestamp)) {
-            return 1;
-        }
-        return -1;
+        if (this == other) return 0;
+        int cmp = Double.compare(this.amt, other.amt);
+        if (cmp != 0) return cmp;
+        cmp = other.timestamp.compareTo(this.timestamp);
+        if (cmp != 0) return cmp;
+        return Integer.compare(this.userID, other.userID);
     }
 }
