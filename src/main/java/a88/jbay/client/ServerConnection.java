@@ -217,7 +217,7 @@ public class ServerConnection {
             alert.showAndWait();
             try {
                 viewManager.openStage("Welcome to jBay");
-                viewManager.resizeStage(600, 429);
+                viewManager.resizeStage(1280, 720);
                 viewManager.showScene("EntranceUI/client-server-connect-view.fxml");
             } catch (IOException ex) {
                 logger.error("Failed to switch to connection view: " + ex.getMessage(), ex);
