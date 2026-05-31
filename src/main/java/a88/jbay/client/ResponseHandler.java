@@ -171,6 +171,7 @@ public class ResponseHandler {
         } else if (clientSession.getUser().getUsername().equals(auction.getWinner())) {
             if (auction.getAuctionState().equals(AuctionState.FINISHED) || auction.getAuctionState().equals(AuctionState.PAID)) {
                 clientSession.getWonAuctions().put(auction.getId(), auction);
+                clientSession.getBidderAuctions().remove(auction.getId());
             } else {
                 clientSession.getBidderAuctions().put(auction.getId(), auction);
             }
