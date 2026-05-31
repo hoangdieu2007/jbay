@@ -136,3 +136,7 @@ Trong cửa sổ client:
 ./mvnw validate      # Checkstyle
 ./mvnw clean package # Build
 ```
+
+## Báo cáo và video demo
+
+https://drive.google.com/drive/folders/1-A_r2xROzuSdYn6rEEqt290oYY7qk18I?usp=sharing
