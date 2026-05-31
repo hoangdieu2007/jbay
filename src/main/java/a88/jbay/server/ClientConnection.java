@@ -51,6 +51,7 @@ public class ClientConnection implements Runnable {
         this.connectionId = ID_GEN.incrementAndGet();
         this.socket = socket;
         socket.setKeepAlive(true);
+        socket.setSoTimeout(30_000);
 
         this.out = new ObjectOutputStream(socket.getOutputStream());
         out.flush();

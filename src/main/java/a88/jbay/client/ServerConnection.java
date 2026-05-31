@@ -57,6 +57,7 @@ public class ServerConnection {
 
         socket = new Socket(host, port);
         socket.setKeepAlive(true);  // Enable TCP keep-alive
+        socket.setSoTimeout(30_000);
 
         out = new ObjectOutputStream(socket.getOutputStream());
         out.flush();
