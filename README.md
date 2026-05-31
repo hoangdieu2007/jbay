@@ -105,7 +105,7 @@ Trong cửa sổ client:
 | Chức năng | Mô tả |
 |---|---|
 | **Quản lý người dùng** | Đăng ký, đăng nhập, đăng xuất; Role-based (GUEST, USER, ADMIN); phân quyền theo Permission |
-| **Quản lý sản phẩm** | Thêm, sửa, xóa sản phẩm (tên, mô tả, giá, ảnh, danh mục) |
+| **Quản lý sản phẩm** | Thêm, sửa sản phẩm (tên, mô tả, giá, ảnh, danh mục) |
 | **Đấu giá** | Đặt giá thủ công, kiểm tra tính hợp lệ (>= currentPrice + minIncrement), cập nhật người dẫn đầu |
 | **Kết thúc phiên** | Tự động đóng khi hết thời gian (heartbeat 1s); vòng đời OPENING→RUNNING→FINISHED→PAID/CANCELED |
 | **Admin** | Xem danh sách user/auction, ban/unban user (hủy session, đóng auction, xóa auto-bid) |
