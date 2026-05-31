@@ -72,10 +72,13 @@ public abstract class AuctionListControllerBase<CardController> {
         refreshAuctionList();
     }
 
+    //subclasses get their own auctionMap
     protected abstract ObservableMap<Integer, Auction> getAuctionMap();
 
+    // for creating cards
     protected abstract String getCardFxmlPath();
 
+    // subclasses set their card data themselves
     protected abstract void setCardData(CardController controller, Auction auction);
 
     protected boolean shouldShowAuction(Auction auction) {
@@ -90,6 +93,7 @@ public abstract class AuctionListControllerBase<CardController> {
         return "Cannot create auction card!";
     }
 
+    // find auction cards matching the search
     protected boolean matchesSearch(Auction auction, String searchText) {
         if (searchText == null || searchText.isEmpty()) {
             return true;
@@ -106,16 +110,16 @@ public abstract class AuctionListControllerBase<CardController> {
 
         int auctionId = auction.getId();
 
-        if (!shouldShowAuction(auction)) {
+        if (!shouldShowAuction(auction)) { // if the controller doesn't override this method --> always true
             removeAuction(auctionId);
             return;
         }
 
         CardController controller = controllerMap.get(auctionId);
-        if (controller == null) {
+        if (controller == null) { // if it is a new auction
             createAuctionCard(auction);
         } else {
-            setCardData(controller, auction);
+            setCardData(controller, auction); // set new data for auction cards if they are already created
         }
 
         if (!cardBox.containsKey(auctionId)) {

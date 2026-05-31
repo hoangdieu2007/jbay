@@ -31,7 +31,7 @@ public class CurrentBiddingController extends AuctionListControllerBase<BidderIt
     }
 
     @Override
-    protected boolean shouldShowAuction(Auction auction) {
+    protected boolean shouldShowAuction(Auction auction) { //check if a user is a subscriber
         return checkBidder(auction);
     }
 
