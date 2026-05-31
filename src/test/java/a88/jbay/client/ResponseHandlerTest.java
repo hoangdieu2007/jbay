@@ -280,6 +280,7 @@ class ResponseHandlerTest {
 
         ObservableMap<Integer, Auction> wonAuctions = FXCollections.observableHashMap();
         when(clientSession.getWonAuctions()).thenReturn(wonAuctions);
+        when(clientSession.getBidderAuctions()).thenReturn(FXCollections.observableHashMap());
 
         Auction auction = mock(Auction.class);
         when(auction.getId()).thenReturn(10);
@@ -300,6 +301,7 @@ class ResponseHandlerTest {
 
         ObservableMap<Integer, Auction> wonAuctions = FXCollections.observableHashMap();
         when(clientSession.getWonAuctions()).thenReturn(wonAuctions);
+        when(clientSession.getBidderAuctions()).thenReturn(FXCollections.observableHashMap());
 
         Auction auction = mock(Auction.class);
         when(auction.getId()).thenReturn(10);
