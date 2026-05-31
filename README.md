@@ -139,4 +139,4 @@ Trong cửa sổ client:
 
 ## Báo cáo và video demo
 
-https://drive.google.com/drive/folders/1-A_r2xROzuSdYn6rEEqt290oYY7qk18I?usp=sharing
+https://drive.google.com/drive/folders/1TO_9-S66xGye3F34enxZv1d8D_bKJjxQ
