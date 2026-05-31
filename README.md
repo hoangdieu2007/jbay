@@ -6,6 +6,9 @@ jBay là hệ thống đấu giá trực tuyến (online auction) cho phép nhi�
 
 **Phạm vi hệ thống:** Người dùng (User/Admin), sản phẩm đấu giá, phiên đấu giá (vòng đời OPENING → RUNNING → FINISHED → PAID/CANCELED), đấu giá thủ công và tự động, cập nhật real-time, quản trị hệ thống.
 
+## Báo cáo và video demo
+- Link google drive: https://drive.google.com/drive/u/0/folders/1TO_9-S66xGye3F34enxZv1d8D_bKJjxQ
+
 ## Công Nghệ Sử Dụng
 
 | Công nghệ | Phiên bản |
