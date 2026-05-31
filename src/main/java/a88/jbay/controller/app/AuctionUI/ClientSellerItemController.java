@@ -73,9 +73,6 @@ public class ClientSellerItemController {
                 runStr.requestFocus();
             }
         });
-
-        startChoiceCombo.getSelectionModel().selectFirst();
-        runChoiceCombo.getSelectionModel().select(1);
     }
 
     // ACTION HANDLERS (Xử lý sự kiện)
