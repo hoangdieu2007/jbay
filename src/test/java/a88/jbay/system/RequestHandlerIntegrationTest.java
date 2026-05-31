@@ -261,8 +261,10 @@ class RequestHandlerIntegrationTest {
         assertTrue(sim.register(bidder, "buyer1", "pass").isSuccess());
         assertTrue(sim.login(bidder, "buyer1", "pass").isSuccess());
 
+        // Ensure auction state transitions from OPENING to RUNNING
+        auctionSystem.forceTick();
         Response bidRes = sim.bid(bidder, 1, 550.0);
-        assertFalse(bidRes.isSuccess(), "BID on unsynced auction should fail since no running auction is cached");
+        assertTrue(bidRes.isSuccess(), "BID should succeed on a running auction");
 
         Response getAuc = sim.getAuctions(bidder);
         assertTrue(getAuc.isSuccess());
