@@ -86,7 +86,7 @@ public abstract class AuctionListControllerBase<CardController> {
     }
 
     protected Comparator<Auction> getAuctionComparator() {
-        return Comparator.comparingInt(Auction::getId);
+        return Comparator.comparingInt(Auction::getId).reversed();
     }
 
     protected String getCreateCardErrorMessage() {
