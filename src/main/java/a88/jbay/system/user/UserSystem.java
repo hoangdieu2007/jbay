@@ -64,12 +64,6 @@ public class UserSystem {
 
     public boolean register(String username, String password, String role, byte[] qrCode) {
         logger.debug("Register: " + username);
-
-        if (userRepository.usernameExists(username)) {
-            logger.warn("Username exists: " + username);
-            return false;
-        }
-
         return userRepository.createUser(username, StringHash.hash(password), role, qrCode);
     }
 

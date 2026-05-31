@@ -97,26 +97,25 @@ class UserSystemTest {
     @Test
     @DisplayName("Should register new user successfully")
     void testRegister_Success() {
-        when(userRepository.usernameExists("newuser")).thenReturn(false);
         when(userRepository.createUser(eq("newuser"), anyString(), eq("USER"), eq(new byte[]{1, 2, 3})))
                 .thenReturn(true);
 
         boolean result = userSystem.register("newuser", "password", "USER", new byte[]{1, 2, 3});
 
         assertTrue(result);
-        verify(userRepository).usernameExists("newuser");
         verify(userRepository).createUser(eq("newuser"), anyString(), eq("USER"), any());
     }
 
     @Test
     @DisplayName("Should reject registration when username already exists")
     void testRegister_UsernameExists() {
-        when(userRepository.usernameExists("existing")).thenReturn(true);
+        when(userRepository.createUser(eq("existing"), anyString(), anyString(), any()))
+                .thenReturn(false);
 
         boolean result = userSystem.register("existing", "password", "USER", null);
 
         assertFalse(result);
-        verify(userRepository, never()).createUser(anyString(), anyString(), anyString(), any());
+        verify(userRepository).createUser(eq("existing"), anyString(), anyString(), any());
     }
 
     @Test
